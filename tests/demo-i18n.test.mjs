@@ -50,3 +50,13 @@ test('resilience specification distinguishes plans from implemented functionalit
  assert.match(doc,/provider/i);
  assert.match(doc,/failure-injection/i);
 });
+
+test('reference hero role and description remain translated in every language',()=>{
+ const role='Creative Developer & Interface Engineer';
+ const tagline='Designing expressive, high-performance and user-friendly experiences that just work — from idea to real world.';
+ for(const lang of languages.filter(lang=>lang!=='en')){
+  assert.ok(profile.translations[lang][role],lang+' role missing');
+  assert.ok(profile.translations[lang][tagline],lang+' tagline missing');
+  assert.notEqual(profile.translations[lang][role],role,lang+' role untranslated');
+ }
+});
