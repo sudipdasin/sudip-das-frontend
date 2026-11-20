@@ -64,7 +64,21 @@
    const notice=document.createElement('span');notice.className='demo-identity-note';notice.textContent='Fictional profile demo';banner.append(notice);
   const old=document.createElement('span');old.className='sr-only';old.textContent='Fictional demo, no working contact service';banner.append(old);
  }
- const hero=document.querySelector('main>.hero');
+ // Match the supplied portrait only in Neon Studio, retaining the original
+ // vector-only profile image in other demo layouts and their regression tests.
+ const portraitAvatar=$('avatar');
+ const portraitForTheme=()=>{
+   const img=portraitAvatar?.querySelector('img.demo-portrait');
+   if(!img)return;
+   const desired=document.body.dataset.theme==='neon-studio'?'./neon-reference-portrait.svg':'./dev-das-portrait.svg';
+   if(img.getAttribute('src')!==desired)img.setAttribute('src',desired);
+ };
+ if(portraitAvatar){
+   new MutationObserver(portraitForTheme).observe(portraitAvatar,{childList:true});
+   $('studio-theme')?.addEventListener('change',portraitForTheme);
+   portraitForTheme();
+ }
+  const hero=document.querySelector('main>.hero');
  if(!hero)return;
  const name=$('name');
  let updating=false;
@@ -79,15 +93,7 @@
    updating=false;
  };
  const observer=new MutationObserver(repaintName);observer.observe(name,{childList:true,subtree:false});repaintName();
- const intro=$('location');if(intro){
-   intro.classList.add('neon-position');
-   // Preserve the actual translated location for non-Neon themes, and render real
-   // text in a separate pill rather than the previous broken ::before pseudo-element.
-   const pill=document.createElement('p');
-   pill.className='neon-eyebrow-pill';
-   pill.textContent='Creative Developer  •  Interface Engineer  •  Product Builder';
-   intro.insertAdjacentElement('beforebegin',pill);
- }
+ // The reference eyebrow is authored in HTML, not generated with CSS or JS.
  const rolePills=document.createElement('div');rolePills.className='neon-role-pills';rolePills.setAttribute('aria-label','Demo creative roles');
  for(const [icon,label] of [['⌘','Developer'],['▱','UI/UX Engineer'],['↗','Product Builder'],['⚙','Open Source'],['∞','Tech Innovator']]){
   const s=document.createElement('span');const b=document.createElement('b');b.textContent=icon;s.append(b,document.createTextNode(label));rolePills.append(s);

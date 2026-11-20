@@ -526,10 +526,23 @@ try {
    if(stored.appearance)assert.equal(stored.appearance.portrait,'');
    await page.locator('#reset-profile').click();
  })();
+ await check('Neon Studio uses the reference portrait and a readable native hero label',async()=>{
+   await page.locator('#studio-theme').selectOption('neon-studio');
+   const pill=page.locator('main>.hero .neon-eyebrow-pill');
+   assert.equal(await pill.isVisible(),true);
+   assert.match(await pill.innerText(),/Creative Developer.*Interface Engineer.*Product Builder/);
+   const p=await pill.evaluate(el=>({width:el.getBoundingClientRect().width,text:el.textContent.trim(),color:getComputedStyle(el).color}));
+   assert.ok(p.width>150 && p.width<700,JSON.stringify(p));
+   await page.waitForFunction(()=>document.querySelector('#avatar img')?.getAttribute('src')==='./neon-reference-portrait.svg');
+   const pic=await page.locator('#avatar img').evaluate(el=>({complete:el.complete,width:el.naturalWidth}));
+   assert.ok(pic.complete&&pic.width>0,'Neon reference portrait must decode in Chromium');
+   await page.locator('#studio-theme').selectOption('orbit');
+   await page.waitForFunction(()=>document.querySelector('#avatar img')?.getAttribute('src')==='./dev-das-portrait.svg');
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,43);
+assert.equal(passed,44);
 console.log('Browser checks passed: '+passed);
