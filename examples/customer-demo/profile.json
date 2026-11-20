@@ -3,8 +3,8 @@
   "demo": true,
   "identity": {
     "displayName": "Dev Das",
-    "role": "Creative Developer, Designer & Product Builder",
-    "tagline": "Building expressive, useful and resilient experiences for the web.",
+    "role": "Creative Developer & Interface Engineer",
+    "tagline": "Designing expressive, high-performance and user-friendly experiences that just work — from idea to real world.",
     "location": "Harbor City (fictional)",
     "initials": "DD"
   },
@@ -61,7 +61,7 @@
     "portrait": ""
   },
   "seo": {
-    "title": "Dev Das | Creative Developer & Product Builder",
+    "title": "Dev Das | Creative Developer & Interface Engineer",
     "description": "A fully fictional developer portfolio for testing modular Personal Profile Web Studio."
   }
 }
