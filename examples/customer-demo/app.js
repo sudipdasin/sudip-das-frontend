@@ -61,6 +61,7 @@
     const identity=profile.identity;
     text('name',identity.displayName);
     text('demo-brand',identity.displayName);
+    byId('demo-brand-wrapper').dataset.initials=identity.displayName.trim().split(/\s+/).slice(0,2).map(word=>word[0]||'').join('').toUpperCase().slice(0,2)||'NV';
     text('portrait-caption',localized('Fictional creative developer')+' • '+identity.displayName);
     text('role',localized(identity.role));
     text('location',localized(identity.location));
