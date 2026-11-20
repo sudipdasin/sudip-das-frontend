@@ -32,7 +32,7 @@ try {
   await page.locator('#name').waitFor({state:'visible'});
   assert.equal(await page.locator('#name').innerText(),'Avery Example');
   assert.equal(await page.locator('#projects article').count(),3);
-  assert.equal(await page.locator('.nav-links a').count(),4);
+  assert.equal(await page.locator('.nav-links a').count(),5);
   assert.equal(await page.locator('.orbit').count(),2);
  })();
  await check('editing and saving fields works',async()=>{
