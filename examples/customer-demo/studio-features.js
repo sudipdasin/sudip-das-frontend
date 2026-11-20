@@ -9,7 +9,11 @@
     bn:{about:'পরিচিতি',expertise:'দক্ষতা',projects:'প্রকল্প',journey:'অভিজ্ঞতা',contact:'যোগাযোগ',search:'প্রকল্প খুঁজুন',filter:'বিভাগ',journeyTitle:'আমার কাজের ধারা',empty:'কোনো প্রকল্প পাওয়া যায়নি।',count:'প্রকল্প দেখা যাচ্ছে',all:'সব বিভাগ'},
     es:{about:'Acerca de',expertise:'Habilidades',projects:'Proyectos',journey:'Trayectoria',contact:'Contacto',search:'Buscar proyectos',filter:'Categoría',journeyTitle:'Cómo trabajo',empty:'No hay proyectos que coincidan.',count:'proyectos visibles',all:'Todas las categorías'},
     fr:{about:'À propos',expertise:'Compétences',projects:'Projets',journey:'Parcours',contact:'Contact',search:'Rechercher un projet',filter:'Catégorie',journeyTitle:'Ma façon de travailler',empty:'Aucun projet correspondant.',count:'projets visibles',all:'Toutes les catégories'},
-    de:{about:'Über mich',expertise:'Kompetenzen',projects:'Projekte',journey:'Werdegang',contact:'Kontakt',search:'Projekte suchen',filter:'Kategorie',journeyTitle:'Meine Arbeitsweise',empty:'Keine passenden Projekte.',count:'sichtbare Projekte',all:'Alle Kategorien'}
+    de:{about:'Über mich',expertise:'Kompetenzen',projects:'Projekte',journey:'Werdegang',contact:'Kontakt',search:'Projekte suchen',filter:'Kategorie',journeyTitle:'Meine Arbeitsweise',empty:'Keine passenden Projekte.',count:'sichtbare Projekte',all:'Alle Kategorien'},
+    pt:{about:'Sobre',expertise:'Competências',projects:'Projetos',journey:'Trajetória',contact:'Contato',search:'Buscar projetos',filter:'Categoria',journeyTitle:'Como eu trabalho',empty:'Nenhum projeto encontrado.',count:'projetos visíveis',all:'Todas as categorias'},
+    ar:{about:'نبذة',expertise:'المهارات',projects:'المشاريع',journey:'المسيرة',contact:'تواصل',search:'ابحث عن مشاريع',filter:'الفئة',journeyTitle:'كيف أعمل',empty:'لا توجد مشاريع مطابقة.',count:'مشاريع ظاهرة',all:'كل الفئات'},
+    'zh-CN':{about:'关于',expertise:'技能',projects:'项目',journey:'经历',contact:'联系',search:'搜索项目',filter:'分类',journeyTitle:'我的工作方式',empty:'没有匹配的项目。',count:'个可见项目',all:'所有分类'},
+    ja:{about:'自己紹介',expertise:'スキル',projects:'プロジェクト',journey:'経歴',contact:'連絡先',search:'プロジェクト検索',filter:'カテゴリ',journeyTitle:'仕事の進め方',empty:'一致するプロジェクトがありません。',count:'件のプロジェクトを表示',all:'すべてのカテゴリ'},
   };
   const themes=['orbit','editorial','terminal'];
   const sections=['about-section','skills-section','projects-section','journey-section','contact-section','proposal-section'];
