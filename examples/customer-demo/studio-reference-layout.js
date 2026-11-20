@@ -60,6 +60,8 @@
   const tagline=document.createElement('span');tagline.className='demo-glow-banner';
   tagline.innerHTML='<b aria-hidden="true">∞</b> Web Studio — Create an Everlasting Web Presence  |  Modular • Customizable • Local to Global • Provider Freedom';
   banner.replaceChildren(tagline);
+   // Add a small honest demo label outside the hero design area.
+   const notice=document.createElement('span');notice.className='demo-identity-note';notice.textContent='Fictional profile demo';banner.append(notice);
   const old=document.createElement('span');old.className='sr-only';old.textContent='Fictional demo, no working contact service';banner.append(old);
  }
  const hero=document.querySelector('main>.hero');
@@ -77,7 +79,15 @@
    updating=false;
  };
  const observer=new MutationObserver(repaintName);observer.observe(name,{childList:true,subtree:false});repaintName();
- const intro=$('location');if(intro)intro.classList.add('neon-position');
+ const intro=$('location');if(intro){
+   intro.classList.add('neon-position');
+   // Preserve the actual translated location for non-Neon themes, and render real
+   // text in a separate pill rather than the previous broken ::before pseudo-element.
+   const pill=document.createElement('p');
+   pill.className='neon-eyebrow-pill';
+   pill.textContent='Creative Developer  •  Interface Engineer  •  Product Builder';
+   intro.insertAdjacentElement('beforebegin',pill);
+ }
  const rolePills=document.createElement('div');rolePills.className='neon-role-pills';rolePills.setAttribute('aria-label','Demo creative roles');
  for(const [icon,label] of [['⌘','Developer'],['▱','UI/UX Engineer'],['↗','Product Builder'],['⚙','Open Source'],['∞','Tech Innovator']]){
   const s=document.createElement('span');const b=document.createElement('b');b.textContent=icon;s.append(b,document.createTextNode(label));rolePills.append(s);
