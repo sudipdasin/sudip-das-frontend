@@ -371,7 +371,8 @@ try {
    await page.setViewportSize({width:1440,height:900});
    const m=await page.locator('.studio-product-actions button').evaluateAll(buttons=>{
      const r=buttons.map(b=>b.getBoundingClientRect());
-     return {spread:Math.max(...r.map(x=>x.top))-Math.min(...r.map(x=>x.top)),overlap:r.some((a,i)=>r.some((b,j)=>i!==j&&Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top))>2)};
+      const overlaps=r.some((a,i)=>r.some((b,j)=>i<j && Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top))>2));
+      return {spread:Math.max(...r.map(x=>x.top))-Math.min(...r.map(x=>x.top)),overlap:overlaps};
    });
    assert.ok(m.spread<=2,'desktop CTA buttons not aligned: '+JSON.stringify(m));
    assert.equal(m.overlap,false);
