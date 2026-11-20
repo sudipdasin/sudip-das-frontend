@@ -1,22 +1,20 @@
-# V2 Frontend Release Candidate — 0.2.0-rc.1
+# V2 Frontend Release Candidate — 0.2.0-rc.2
 
-## Scope
-- Public source repository: `sudipdasin/sudip-das-frontend`.
-- Private backend: `sudipdasin/sudip-das-backend` (separate release gate).
-- Retains the existing public portfolio HTML, translations, and portrait.
-- Includes a fail-closed site/domain readiness checker and regression tests.
-- Adds provider-compatible baseline HTTP security headers and a branded 404 document.
+## Focus: restore essential public project data
+- The public `index.html` fetches `data/site.json` to render projects, labels, section configuration and GitHub sync. The previous repository had neither this file nor the advertised `data/site.xml` alternative.
+- Add publicly reviewed project summaries, drawn from the five named public repositories and their READMEs.
+- Include both structured data endpoints as deployable public assets, with no private profile material.
+- Add six manifest regression tests, asset-presence checks and parity between GitHub Actions and CircleCI.
+- Preserve v0.2.0-rc.1 HTTPS readiness checks, security headers and custom 404.
 
-## Verification
+## Verification before publication
 - `node --check languages.js`
-- `node --check scripts/site-readiness.mjs`
 - `node --test tests/*.test.mjs`
-- Confirm expected static assets exist and that cloud deployment includes `_headers` and `404.html`.
-- Test mobile presentation, translations, API and contact flows manually at the deployed preview URL.
-- Check `sudipdas.is-a.dev` domain ownership, DNS, TLS and Cloudflare Pages attachment before cutover.
+- Ensure `data/site.json` contains public-only fields and `data/site.xml` resolves in the preview deployment.
+- Inspect project cards and GitHub sync on desktop and mobile.
+- Confirm runtime forms, custom domain TLS and API independently before any domain cutover.
 
-## Publication rules
-Passing source checks permits promotion of **repository source**; it does not constitute a verified live website or API release.
-Do not redirect `sudipdas.is-a.dev` away from its current URL record until the Pages host and custom domain association are verified.
-Do not include secrets, private-profile vault content, backend source, or database exports in public artifacts.
-Preserve the previous published site and the original is-a.dev registration record for rollback.
+## Scope and limitations
+- This is a **public frontend source** candidate, not a private backend or standalone Web Studio release.
+- No changes to `sudipdas.is-a.dev` DNS or the existing live site are included.
+- Passing source tests alone does not establish a verified public deployment or complete end-to-end form functionality.

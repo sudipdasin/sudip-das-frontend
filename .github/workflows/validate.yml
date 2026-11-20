@@ -24,6 +24,8 @@ jobs:
           test -s index.html
           test -s languages.js
           test -s sudip-das-portrait.jpg
+          test -s data/site.json
+          test -s data/site.xml
           test -s _headers
           test -s 404.html
           grep -qi '<html' index.html

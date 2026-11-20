@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "modules": [],
+  "uiLabels": {
+    "en": {
+      "lensTitle": "Explore projects by audience",
+      "lensHint": "Browse selected public repositories and their current development status.",
+      "all": "All projects",
+      "community": "Community",
+      "professional": "Professional",
+      "experimental": "Experimental",
+      "caseHeading": "Case studies",
+      "caseIntro": "Selected technical development work with links to the original repositories.",
+      "release": "Releases",
+      "build": "CI activity",
+      "stars": "Stars",
+      "language": "Language",
+      "recent": "Updated",
+      "statusSummary": "Release and CI details",
+      "noRelease": "No published GitHub release found",
+      "noBuild": "No GitHub Actions run found",
+      "statusUnavailable": "Live GitHub status is unavailable",
+      "caseLink": "Read case study",
+      "challenge": "Problem space",
+      "approach": "Approach",
+      "evidence": "Current evidence",
+      "caseRepo": "Open public repository",
+      "evidenceNote": "Additional private experience details are owner-reviewed.",
+      "evidenceLink": "Request career details",
+      "accessFlow": "Request only the private details you need; the owner reviews your verified request."
+    }
+  },
+  "projects": [
+    {
+      "repo": "LinWin",
+      "name": "LinWin",
+      "type": "Linux desktop shell",
+      "stage": "Public beta",
+      "summary": "A C++20 and Qt 6 desktop-shell project designed to make Linux easier for people moving from Windows.",
+      "analysis": "The repository documents its beta releases, feature goals, and Linux compatibility work.",
+      "audiences": [
+        "community",
+        "professional"
+      ],
+      "url": "https://github.com/sudipdasin/LinWin"
+    },
+    {
+      "repo": "tux-steward",
+      "name": "Tux Steward",
+      "type": "Linux utilities",
+      "stage": "Public beta",
+      "summary": "Native C++ and Qt system diagnostics, maintenance tools, and a lightweight process manager for Linux desktops.",
+      "analysis": "The repository documents beta installation packages and system utilities.",
+      "audiences": [
+        "community",
+        "professional"
+      ],
+      "url": "https://github.com/sudipdasin/tux-steward"
+    },
+    {
+      "repo": "ivivid",
+      "name": "iVivid",
+      "type": "Media playback tools",
+      "stage": "Experimental",
+      "summary": "Linux video playback enhancements using mpv-related settings, shaders, and audio controls, targeting integrated graphics.",
+      "analysis": "The current README describes a Python/Tk-based launcher and playback configuration.",
+      "audiences": [
+        "community",
+        "experimental"
+      ],
+      "url": "https://github.com/sudipdasin/ivivid"
+    },
+    {
+      "repo": "lumqenix-ai",
+      "name": "Lumqenix AI",
+      "type": "Image and video enhancement",
+      "stage": "Experimental preview",
+      "summary": "A locally runnable image and video enhancement prototype using conventional filters, scaling, and FFmpeg.",
+      "analysis": "The current public README explicitly distinguishes its prototype filters from learned AI upscaling.",
+      "audiences": [
+        "community",
+        "experimental"
+      ],
+      "url": "https://github.com/sudipdasin/lumqenix-ai"
+    },
+    {
+      "repo": "animation-studio",
+      "name": "Animation Studio",
+      "type": "3D graphics and animation",
+      "stage": "Public beta",
+      "summary": "An experimental open-source browser application for 3D modeling, sculpting, painting, and animation.",
+      "analysis": "The public README describes standalone web previews and Linux package builds.",
+      "audiences": [
+        "community",
+        "experimental"
+      ],
+      "url": "https://github.com/sudipdasin/animation-studio"
+    }
+  ]
+}
