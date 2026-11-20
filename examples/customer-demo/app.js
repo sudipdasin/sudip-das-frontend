@@ -30,7 +30,7 @@
     if (!safeText(identity.displayName,70) || !safeText(identity.role,110)) throw Error('Name and role are required.');
     if (!validColor(appearance.accent) || !validColor(appearance.background)) throw Error('Invalid profile colors.');
     const backgroundStyle=['original','studio','solid'].includes(appearance.backgroundStyle)?appearance.backgroundStyle:'original';
-    const portrait=typeof appearance.portrait==='string'&&/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(appearance.portrait)&&appearance.portrait.length<115000?appearance.portrait:'';
+    const portrait=''; // Public demo policy: illustration-only; ignore old imported/uploaded raster images.
     if (!Array.isArray(raw.skills) || raw.skills.length > 24 || !Array.isArray(raw.projects) || raw.projects.length > 24 || !Array.isArray(raw.social) || raw.social.length > 16) throw Error('Too many skills, projects, or social links.');
     const skills = raw.skills.map(s => safeText(s,70)).filter(Boolean);
     const projects = raw.projects.map((p,i) => {
@@ -72,7 +72,7 @@
     const avatar=byId('avatar');
     avatar.replaceChildren();
     const portrait=document.createElement('img');
-    portrait.src=profile.appearance.portrait||'./dev-das-portrait.svg';
+    portrait.src='./dev-das-portrait.svg';
     portrait.alt='';
     portrait.width=600;
     portrait.height=600;
@@ -248,25 +248,6 @@
   });
   // Expose only validated, local recipient configuration to the email composer.
   window.StudioDemo=Object.freeze({getRecipient:()=>profile?.contact?.email||'',getProfile:()=>profile?structuredClone(profile):null});
-  const upload=byId('portrait-upload');
-  upload.addEventListener('change',async()=>{
-    const file=upload.files?.[0];upload.value='';
-    if(!file||!profile)return;
-    if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>3*1024*1024){status('Use a JPG, PNG or WebP image smaller than 3 MB.');return;}
-    try{
-      const bmp=await createImageBitmap(file);
-      if(bmp.width<100||bmp.height<100||bmp.width>6000||bmp.height>6000)throw Error('Image dimensions must be between 100 and 6000 pixels.');
-      const canvas=document.createElement('canvas');canvas.width=240;canvas.height=240;
-      const ctx=canvas.getContext('2d');
-      const edge=Math.min(bmp.width,bmp.height),x=(bmp.width-edge)/2,y=(bmp.height-edge)/2;
-      ctx.drawImage(bmp,x,y,edge,edge,0,0,240,240);bmp.close?.();
-      const data=canvas.toDataURL('image/jpeg',0.65);
-      if(data.length>=115000)throw Error('Image cannot fit the portable profile limit.');
-      profile.appearance.portrait=data;
-      if(!save())return;
-      draw();status('Photo updated locally. Export your JSON profile to keep it.');
-    }catch(error){status('Photo not updated: '+error.message);}
-  });
   document.addEventListener('studio:language',()=>{if(profile)draw();});
   fetch('./profile.json',{cache:'no-store'}).then(response=>{
     if(!response.ok)throw Error('Profile sample unavailable');
