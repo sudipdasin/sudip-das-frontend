@@ -31,3 +31,11 @@ This static demo should be deployed to a separate preview path/host. Do not use 
 ## Source validation
 
 Run `node --check examples/customer-demo/app.js` and `node --test tests/customer-demo.test.mjs`. These cover fixture structure, public-only data, link safety, and basic HTML/JS contract checks. They do not replace browser tests or a production security review.
+
+## Online web preview (GitHub Pages)
+
+After GitHub Pages is enabled for this repository and the `Publish fictional customer demo preview` workflow succeeds, the standalone demo is served at the Pages project URL (typically `https://sudipdasin.github.io/sudip-das-frontend/`).
+
+The Pages build uses `scripts/build-customer-demo.mjs`, an explicit allowlist that exports **only** this fictional demo and disallows publishing the author's actual portfolio or API.
+
+If a deployment reports that GitHub Pages has not been enabled, visit **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source, then rerun the workflow. Until deployment succeeds, the address should not be presented as a live preview.
