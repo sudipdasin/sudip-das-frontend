@@ -84,3 +84,9 @@ The fictional sample now includes customer-safe adaptations of the source portfo
 - Replace proposal TXT downloads with explicit `mailto:` email composition. Demo requests **are not auto-sent or verified as delivered**. Require a real, customer-configured recipient, never reuse the site owner's personal email.
 - Expand localization for editor media settings and email enquiry. Keep all management actions local and future infrastructure capabilities marked as planned.
 - Verify full source, packaging and Chromium regression suite on the exact release commit before merge.
+
+## v0.2.0-rc.15 — Aurora Peak, Neon Studio and vector-only demo
+- Add two selectable premium themes (five total) with cinematic aurora and violet/cyan studio treatments.
+- Replace the prior SVG's embedded raster image with an entirely vector illustration of the fictional Dev Das.
+- Remove demo raster portrait uploads; sanitize legacy imported raster photo data while retaining local profile controls, backups, email draft and translation systems.
+- Expand Chromium verification to five themes and three breakpoints, ensure distinct backgrounds and verify vector-only imports.
