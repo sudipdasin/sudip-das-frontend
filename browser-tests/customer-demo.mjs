@@ -30,7 +30,7 @@ try {
  await check('fictional customer profile loads',async()=>{
   await page.goto(url);
   await page.locator('#name').waitFor({state:'visible'});
-  assert.equal(await page.locator('#name').innerText(),'Avery Example');
+  assert.equal(await page.locator('#name').innerText(),'Nico Vale');
   assert.equal(await page.locator('#projects article').count(),3);
   assert.equal(await page.locator('.nav-links a').count(),5);
   assert.equal(await page.locator('.orbit').count(),2);
@@ -88,7 +88,7 @@ try {
   await page.waitForFunction(() => document.querySelector('#name')?.textContent === 'Imported Example');
   assert.equal(await page.locator('#name').innerText(),'Imported Example');
   await page.getByRole('button',{name:'Reset demo'}).click();
-  assert.equal(await page.locator('#name').innerText(),'Avery Example');
+  assert.equal(await page.locator('#name').innerText(),'Nico Vale');
  })();
 
  await check('original-inspired fictional portrait loads',async()=>{
