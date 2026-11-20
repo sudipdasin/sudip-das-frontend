@@ -25,6 +25,7 @@ jobs:
           node --check examples/customer-demo/studio-tour.js
           node --check examples/customer-demo/studio-i18n.js
           node --check examples/customer-demo/studio-ownership.js
+          node --check examples/customer-demo/studio-system-menu.js
           node --check examples/customer-demo/commerce.js
           node --check scripts/build-customer-demo.mjs
           node --test tests/*.test.mjs
@@ -59,5 +60,7 @@ jobs:
           test -s examples/customer-demo/i18n-dynamic.json
           test -s examples/customer-demo/studio-product.css
           test -s examples/customer-demo/studio-layout-fixes.css
+          test -s examples/customer-demo/studio-system-menu.css
+          test -s examples/customer-demo/studio-system-menu.js
           test -s examples/customer-demo/studio-visual-final.css
           grep -qi '<html' index.html
