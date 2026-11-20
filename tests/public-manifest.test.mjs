@@ -38,8 +38,8 @@ test('HTML-referenced public data assets exist',async()=>{
 });
 test('XML public project feed is syntactically present and complete',async()=>{
  const xml=await read('data/site.xml');
- assert.match(xml,/^<\\?xml version="1.0"/);
- assert.match(xml,/<profile\b/);
+ assert.ok(xml.startsWith('<?xml version="1.0"'));
+ assert.ok(xml.includes('<profile '));
  const {projects}=JSON.parse(await read('data/site.json'));
  for(const p of projects)assert.ok(xml.includes(p.url),p.repo);
 });
