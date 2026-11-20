@@ -36,7 +36,10 @@
       "Explore projects": "परियोजनाएँ देखें",
       "See the product roadmap.": "उत्पाद रोडमैप देखें।",
       "Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.": "आज निःशुल्क डेमो देखें। ग्राहक होस्टिंग और सशुल्क प्लान अभी उपलब्ध नहीं हैं; चेकआउट बंद है।",
-      "View plans": "प्लान देखें"
+      "View plans": "प्लान देखें",
+      "Meet your enduring web presence.": "अपनी टिकाऊ वेब पहचान से मिलें।",
+      "The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.": "नियोजित Auto-Regenerative Presence Engine स्वतंत्र बैकअप, प्रदाता बदलने की क्षमता, रुकावट की पहचान और परीक्षण वाली आपातकालीन बहाली को जोड़ता है। अभी उपलब्ध डेमो आज़माएँ।",
+      "Explore resilience": "विश्वसनीयता देखें"
     },
     "bn": {
       "Project name": "প্রকল্পের নাম",
@@ -73,7 +76,10 @@
       "Explore projects": "প্রকল্প দেখুন",
       "See the product roadmap.": "পণ্য রোডম্যাপ দেখুন।",
       "Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.": "আজ বিনামূল্যের ডেমো দেখুন। গ্রাহক হোস্টিং ও পেইড প্ল্যান এখনও চালু নয়; চেকআউট বন্ধ।",
-      "View plans": "প্ল্যান দেখুন"
+      "View plans": "প্ল্যান দেখুন",
+      "Meet your enduring web presence.": "আপনার দীর্ঘস্থায়ী ওয়েব পরিচয় দেখুন।",
+      "The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.": "পরিকল্পিত Auto-Regenerative Presence Engine স্বাধীন ব্যাকআপ, প্রদানকারী পরিবর্তন, বিভ্রাট শনাক্তকরণ এবং পরীক্ষিত জরুরি পুনরুদ্ধার একত্র করবে। এখন চালু ডেমো ব্যবহার করুন।",
+      "Explore resilience": "স্থিতিস্থাপকতা দেখুন"
     },
     "es": {
       "Project name": "Nombre del proyecto",
@@ -110,7 +116,10 @@
       "Explore projects": "Explorar proyectos",
       "See the product roadmap.": "Consulta la hoja de ruta.",
       "Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.": "Explora hoy la demo gratuita. El hosting y los planes de pago aún no están activos; el pago está deshabilitado.",
-      "View plans": "Ver planes"
+      "View plans": "Ver planes",
+      "Meet your enduring web presence.": "Conoce tu presencia web duradera.",
+      "The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.": "El Auto-Regenerative Presence Engine previsto reunirá copias independientes, portabilidad, detección de caídas y restauración de emergencia comprobada. Prueba ahora las funciones reales de la demo.",
+      "Explore resilience": "Explorar resiliencia"
     },
     "fr": {
       "Project name": "Nom du projet",
@@ -147,7 +156,10 @@
       "Explore projects": "Explorer les projets",
       "See the product roadmap.": "Découvrez la feuille de route.",
       "Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.": "Découvrez la démo gratuite. L'hébergement client et les offres payantes ne sont pas actifs ; le paiement est désactivé.",
-      "View plans": "Voir les offres"
+      "View plans": "Voir les offres",
+      "Meet your enduring web presence.": "Découvrez votre présence web durable.",
+      "The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.": "Le futur Auto-Regenerative Presence Engine associera sauvegardes indépendantes, portabilité, détection des pannes et restauration d'urgence éprouvée. Essayez les fonctions disponibles.",
+      "Explore resilience": "Découvrir la résilience"
     },
     "de": {
       "Project name": "Projektname",
@@ -184,7 +196,10 @@
       "Explore projects": "Projekte entdecken",
       "See the product roadmap.": "Produkt-Roadmap ansehen.",
       "Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.": "Testen Sie die kostenlose Demo. Kundenhosting und Kaufpläne sind noch nicht aktiv; Checkout ist deaktiviert.",
-      "View plans": "Pläne ansehen"
+      "View plans": "Pläne ansehen",
+      "Meet your enduring web presence.": "Entdecken Sie Ihre dauerhafte Webpräsenz.",
+      "The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.": "Die geplante Auto-Regenerative Presence Engine verbindet unabhängige Backups, Anbieterwechsel, Ausfallerkennung und getestete Notfallwiederherstellung. Testen Sie jetzt die echten Demofunktionen.",
+      "Explore resilience": "Resilienz entdecken"
     },
     "pt": {
       "Project name": "Nome do projeto",
@@ -221,7 +236,10 @@
       "Explore projects": "Explorar projetos",
       "See the product roadmap.": "Veja o planejamento do produto.",
       "Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.": "Explore a demo grátis. Hospedagem e planos pagos ainda não estão disponíveis; checkout desativado.",
-      "View plans": "Ver planos"
+      "View plans": "Ver planos",
+      "Meet your enduring web presence.": "Conheça sua presença web duradoura.",
+      "The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.": "O Auto-Regenerative Presence Engine planejado reúne backups independentes, portabilidade, detecção de falhas e recuperação de emergência testada. Experimente os recursos já disponíveis.",
+      "Explore resilience": "Explorar resiliência"
     },
     "ar": {
       "Project name": "اسم المشروع",
@@ -258,7 +276,10 @@
       "Explore projects": "استكشف المشاريع",
       "See the product roadmap.": "اطلع على خارطة الطريق.",
       "Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.": "استكشف العرض المجاني. استضافة العملاء والخطط المدفوعة غير متاحة بعد؛ الدفع معطل.",
-      "View plans": "عرض الخطط"
+      "View plans": "عرض الخطط",
+      "Meet your enduring web presence.": "تعرّف على حضورك الرقمي المستدام.",
+      "The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.": "سيجمع محرك Auto-Regenerative Presence Engine المخطط نسخًا احتياطية مستقلة وسهولة نقل المزود واكتشاف الأعطال واستعادة الطوارئ المختبرة. جرّب الميزات المتاحة الآن.",
+      "Explore resilience": "استكشف المرونة"
     },
     "zh-CN": {
       "Project name": "项目名称",
@@ -295,7 +316,10 @@
       "Explore projects": "探索项目",
       "See the product roadmap.": "查看产品路线图。",
       "Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.": "现在体验免费演示。客户托管和付费方案尚未上线；支付已禁用。",
-      "View plans": "查看方案"
+      "View plans": "查看方案",
+      "Meet your enduring web presence.": "认识您的持久网络形象。",
+      "The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.": "规划中的 Auto-Regenerative Presence Engine 将结合独立备份、服务商可迁移性、故障检测和经过验证的紧急恢复。现在即可体验已实现的演示功能。",
+      "Explore resilience": "探索恢复能力"
     },
     "ja": {
       "Project name": "プロジェクト名",
@@ -332,7 +356,10 @@
       "Explore projects": "プロジェクトを探す",
       "See the product roadmap.": "製品ロードマップを見る。",
       "Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.": "無料デモを体験してください。顧客向けホスティングと有料プランは未提供で、決済は無効です。",
-      "View plans": "プランを見る"
+      "View plans": "プランを見る",
+      "Meet your enduring web presence.": "長く続くウェブプレゼンスを体験。",
+      "The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.": "計画中の Auto-Regenerative Presence Engine は独立バックアップ、事業者の移行性、障害検知、検証済みの緊急復元を組み合わせます。まずは動作するデモ機能をお試しください。",
+      "Explore resilience": "耐障害性を見る"
     }
   }
 }
