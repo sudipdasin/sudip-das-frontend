@@ -58,7 +58,7 @@
   prev.type=next.type='button';prev.dataset.terminalMove='-1';next.dataset.terminalMove='1';
   terminalNav.append(prev,page,next);
   const main=$('top');
-  main.append(terminalNav);
+  main.insertBefore(terminalNav, $('about-section'));
   function setTerminalSection(id,opts={}) {
     const found=sections.includes(id)?id:'about-section';activeSection=found;
     document.querySelectorAll('main > .section').forEach(section=>section.classList.toggle('terminal-active',section.id===found));
