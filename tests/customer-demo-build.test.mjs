@@ -13,7 +13,7 @@ test('preview build contains only fictional sample assets',async()=>{
   assert.deepEqual((await readdir(output)).sort(),['.nojekyll','app.js','illustrated-developer.svg','index.html','premium.css','premium.js','profile.json','robots.txt','studio-features.css','studio-features.js']);
   const data=JSON.parse(await readFile(join(output,'profile.json'),'utf8'));
   assert.equal(data.demo,true);
-  assert.equal(data.identity.displayName,'Avery Example');
+  assert.equal(data.identity.displayName,'Nico Vale');
   assert.match(await readFile(join(output,'index.html'),'utf8'),/CUSTOMER DEMO|Customer Demo/i);
   assert.equal(await readFile(join(output,'robots.txt'),'utf8'),'User-agent: *\nDisallow: /\n');
  }finally{await rm(output,{recursive:true,force:true});}
