@@ -190,7 +190,8 @@ try {
    await page.locator('#studio-theme').selectOption('terminal');
    const dark=await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor);
    const terminalFont=await page.locator('#name').evaluate(el=>getComputedStyle(el).fontFamily);
-   assert.notEqual(light,dark);assert.notEqual(editorialFont,terminalFont);
+   const state=await page.evaluate(()=>({theme:document.body.dataset.theme,custom:document.body.dataset.customBackground,background:document.body.dataset.background,base:getComputedStyle(document.body).getPropertyValue('--base'),actual:getComputedStyle(document.body).backgroundColor}));
+   assert.notEqual(light,dark,'Default theme backgrounds must differ: '+JSON.stringify({light,dark,state}));assert.notEqual(editorialFont,terminalFont);
    await page.locator('#studio-theme').selectOption('orbit');
  })();
  await check('interactive tour opens and can drive editor',async()=>{
