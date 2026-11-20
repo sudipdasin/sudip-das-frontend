@@ -5,6 +5,7 @@
   const locales = ['en','hi','bn','es','fr','de','pt','ar','zh-CN','ja'];
   const language = document.getElementById('studio-language');
   const originals = new WeakMap();
+  const lastRendered = new WeakMap();
   const originalAttributes = new WeakMap();
   let product = null;
   let labels = null;
@@ -33,7 +34,7 @@
       const existing = originals.get(node);
       const current = normalize(node.nodeValue);
       let original = existing || current;
-      if(existing && current !== original && current !== translate(original,active)) {
+      if(existing && current !== original && current !== lastRendered.get(node)) {
         // The editor or tour replaced this node with new source text: retain the latest source.
         original = current;originals.set(node,original);
       }
@@ -41,6 +42,7 @@
       if(!existing)originals.set(node,original);
       const desired = translate(original,active);
       if(current !== desired)node.nodeValue = node.nodeValue.replace(current,desired);
+      lastRendered.set(node,desired);
     }
     const attrs=['aria-label','placeholder','title'];
     document.querySelectorAll('[aria-label],[placeholder],[title]').forEach(element=>{
