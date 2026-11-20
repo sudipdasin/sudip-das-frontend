@@ -1,18 +1,16 @@
-# V2 Frontend Release Candidate — 0.2.0-rc.4
+# V2 Frontend Release Candidate — 0.2.0-rc.5
 
-## Separately packaged fictional customer demo
+## Fictional customer web preview
 
-A separate `examples/customer-demo/` application introduces a fictional buyer profile independent of the developer's personal website. This is a product prototype, not an authenticated CMS or complete commercial release.
+This release adds an independently packaged, automated GitHub Pages preview for the previously created `examples/customer-demo/` sample. The publication artifact contains exactly the demo HTML, JS, fictional JSON profile, `.nojekyll`, and `robots.txt`. It omits the real personal portfolio, portrait, private backend, credentials and source-only files.
 
-- JSON-based fictional customer data: profile identity, about, skills, projects, example links, contact labels, appearance, SEO placeholders.
-- Responsive sample website and local-only customization wizard (preview, export JSON, reset).
-- No active contact endpoint, private backend, Cloudflare credentials or personal portrait.
-- Accessibility-minded semantic markup and default `noindex,nofollow` for the demo.
-- Nine regression checks for fixture isolation, sample data, restricted example links and safe rendering.
-- Existing public site, domain and Worker unaffected.
+## Tests and deployment
+- `node --test tests/*.test.mjs`
+- `node scripts/build-customer-demo.mjs` (output: `dist/customer-demo-preview/`)
+- GitHub Actions workflow `.github/workflows/customer-demo-pages.yml` runs the demo tests and publishes its isolated artifact when `main` changes or on manual dispatch.
+- Preview URL is the GitHub Pages project URL, normally `https://sudipdasin.github.io/sudip-das-frontend/`, **only after a successful Pages deployment**.
+- If Pages is not enabled, set repository **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+- The preview is marked as fictional and noindex by default. This is a demo, not a commercial CMS release.
 
-## Verification gates
-GitHub and CircleCI should run `node --test tests/*.test.mjs` and `node --check examples/customer-demo/app.js`. Browser interactions and independent hosting preview must still be tested before making an end-user commercial release.
-
-## Deployment
-`python3 -m http.server 8000` at repository root, then open `http://localhost:8000/examples/customer-demo/`.
+## Production safety
+The portfolio website and `sudipdas.is-a.dev` DNS are not modified. No live private API or customer records are deployed. GitHub Pages deployment success must be independently observed before advertising the preview as live.
