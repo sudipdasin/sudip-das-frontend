@@ -19,4 +19,4 @@ test('pagination fetches new repositories on following pages',async()=>{const re
 test('stops after partial page',async()=>{let calls=0;await discoverRepositories(async()=>{calls++;return {ok:true,json:async()=>[repo('one')]}});assert.equal(calls,1)});
 test('listing errors do not claim success',async()=>{await assert.rejects(discoverRepositories(async()=>({ok:false,status:403})),/403/)});
 test('malformed GitHub payload fails closed',async()=>{await assert.rejects(discoverRepositories(async()=>({ok:true,json:async()=>({message:'bad'})})),/Invalid repository listing/)});
-test('public site references repo discovery script',async()=>{const html=await readFile(new URL('../index.html',import.meta.url),'utf8');assert.match(html,/scripts\/repo-discovery\.js/);assert.match(html,/PublicRepoDiscovery\.mergeProjects/)});
+test('public site references repo discovery script',async()=>{const html=await readFile(new URL('../index.html',import.meta.url),'utf8');assert.match(html,/scripts\/repo-discovery\.js/);assert.ok(html.includes('PublicRepoDiscovery?.mergeProjects('))});
