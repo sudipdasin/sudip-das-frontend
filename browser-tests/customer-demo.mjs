@@ -295,6 +295,7 @@ try {
    assert.equal(download.suggestedFilename(),'customer-demo-profile.json');
  })();
  await check('direct restore opens the editor and selects local JSON',async()=>{
+   await page.locator('#system-menu-trigger').click();
    await page.locator('#backup-import').click();
    assert.equal(await page.locator('#editor').isVisible(),true);
    const file=JSON.parse(await readFile(join(output,'profile.json'),'utf8'));
@@ -393,6 +394,9 @@ try {
    assert.equal(await trigger.getAttribute('aria-expanded'),'true');
    assert.equal(await panel.isVisible(),true);
    assert.equal(await panel.locator('button').count(),4);
+   assert.equal(await panel.locator('.system-menu-data>button').count(),2);
+   assert.equal(await panel.locator('.system-menu-intro h2').innerText(),'Your studio, your control.');
+   assert.equal(await panel.locator('.system-menu-footer').isVisible(),true);
    assert.equal(await page.locator('#backup-download').count(),1);
    assert.equal(await page.locator('#backup-import').count(),1);
    assert.match(await page.locator('.system-menu-coming').innerText(),/not connected/i);
