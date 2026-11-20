@@ -81,6 +81,8 @@
     document.documentElement.style.setProperty('--accent',profile.appearance.accent);
     document.documentElement.style.setProperty('--base',profile.appearance.background);
     document.body.dataset.background=profile.appearance.backgroundStyle||'original';
+    document.body.style.setProperty('--customer-background',profile.appearance.background);
+    document.body.dataset.customBackground=initialProfile&&profile.appearance.background!==initialProfile.appearance.background?'true':'false';
     document.dispatchEvent(new CustomEvent('studio:profile',{detail:{displayName:identity.displayName}}));
     document.title=(profile.seo.title || identity.displayName + ' | Demo Portfolio') + ' — Demo';
     const meta=document.querySelector('meta[name="description"]');
@@ -274,7 +276,18 @@
     profile=structuredClone(initialProfile);
     try{
       const stored=localStorage.getItem(STORAGE_KEY);
-      if(stored) profile=validateProfile(JSON.parse(stored));
+      if(stored){
+        const saved=JSON.parse(stored);
+        // Upgrade untouched legacy demo identity without overwriting genuinely customized profiles.
+        if(saved?.identity?.displayName==='Nico Vale'&&saved?.identity?.role==='Creative Developer & Interface Engineer'){
+          saved.identity=structuredClone(initialProfile.identity);
+          if(saved.about?.startsWith('Nico Vale is an entirely fictional'))saved.about=initialProfile.about;
+          if(saved.seo?.title?.startsWith('Nico Vale'))saved.seo=structuredClone(initialProfile.seo);
+          if(!saved.appearance?.portrait)saved.appearance.portrait='';
+          if(!saved.appearance?.backgroundStyle)saved.appearance.backgroundStyle='original';
+        }
+        profile=validateProfile(saved);
+      }
     }catch{status('Saved changes were invalid; the original demo was loaded.');}
     populateForm();draw();
   }).catch(()=>{
