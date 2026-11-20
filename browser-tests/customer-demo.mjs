@@ -218,10 +218,57 @@ try {
    }
    await page.setViewportSize({width:1280,height:900});
  })();
+ await check('all ten languages available with local translation catalogs',async()=>{
+   await page.waitForFunction(()=>window.StudioI18n?.coverage?.hi>30);
+   assert.equal(await page.locator('#studio-language option').count(),10);
+   assert.equal(await page.locator('#usp-heading').innerText(),'Your web presence should outlive any provider.');
+ })();
+ await check('Spanish translates full resilience description and editable portfolio',async()=>{
+   await page.locator('#studio-language').selectOption('es');
+   await page.waitForFunction(()=>document.querySelector('#usp-heading')?.textContent==='Tu presencia web debería sobrevivir a cualquier proveedor.');
+   assert.match(await page.locator('#resilience-title').innerText(),/recuperarse/);
+   assert.match(await page.locator('#role').innerText(),/Desarrollador/);
+   assert.match(await page.locator('#about').innerText(),/ficticio/);
+   assert.match(await page.locator('#projects .card .muted').first().innerText(),/panel ficticio/);
+ })();
+ await check('Hindi Bengali Portuguese Chinese and Japanese switch reversibly',async()=>{
+   const cases=[['hi','आपकी वेब'],['bn','আপনার ওয়েব'],['pt','Sua presença'],['zh-CN','您的网络'],['ja','ウェブプレゼンス']];
+   for(const [locale,phrase] of cases){
+     await page.locator('#studio-language').selectOption(locale);
+     await page.waitForFunction(({phrase})=>document.querySelector('#usp-heading')?.textContent.includes(phrase),{phrase});
+     assert.equal(await page.locator('html').getAttribute('lang'),locale);
+   }
+ })();
+ await check('Arabic right-to-left layout preserves readable hero and backup statement',async()=>{
+   await page.locator('#studio-language').selectOption('ar');
+   await page.waitForFunction(()=>document.documentElement.dir==='rtl');
+   assert.match(await page.locator('#resilience-title').innerText(),/للاسترداد/);
+   assert.equal(await page.locator('#avatar img').isVisible(),true);
+   await page.setViewportSize({width:390,height:844});
+   const geometry=await page.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth}));
+   assert.ok(geometry.width<=geometry.viewport+2,JSON.stringify(geometry));
+   await page.setViewportSize({width:1280,height:900});
+ })();
+ await check('tour content translates after opening and while stepping through it',async()=>{
+   await page.locator('#tour-start').click();
+   await page.waitForFunction(()=>document.querySelector('#tour-title')?.textContent==='تعرّف على حضورك الرقمي المستدام.');
+   await page.locator('#tour-next').click();
+   await page.waitForFunction(()=>document.querySelector('#tour-title')?.textContent==='ثلاثة تخطيطات لملف واحد.');
+   await page.keyboard.press('Escape');
+ })();
+ await check('English restore preserves editable profile data and core safety claims',async()=>{
+   await page.locator('#studio-language').selectOption('en');
+   await page.waitForFunction(()=>document.querySelector('#usp-heading')?.textContent==='Your web presence should outlive any provider.');
+   assert.equal(await page.locator('#role').innerText(),'Creative Developer & Interface Engineer');
+   assert.match(await page.locator('#resilience').innerText(),/not an uptime guarantee/);
+   await page.reload();
+   await page.waitForFunction(()=>window.StudioI18n?.language==='en');
+   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,23);
+assert.equal(passed,29);
 console.log('Browser checks passed: '+passed);
