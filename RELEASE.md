@@ -60,3 +60,11 @@ The fictional sample now includes customer-safe adaptations of the source portfo
 - Make action groups wrap/grid responsively with touch-friendly targets, control width limits, readable translated labels and visible keyboard focus.
 - Add real Chromium overlap and horizontal-scroll checks for 320/390/600/768/1024/1440px in all three themes, plus translated labels in English, Hindi, German and Arabic.
 - Preserve customer editing, backups, languages, avatar/orbit geometry and disabled payment safeguards.
+
+## v0.2.0-rc.12 — Screenshot-verified hero polish
+- Correct the obsolete `AE` logo initials to the fictional developer's `NV` and automatically derive new initials after customer profile edits.
+- Prevent the portrait caption from overlapping the demo status badge or artwork by placing both labels in separate positions.
+- Reduce oversized vertical whitespace between the introductory CTA and hero; keep the subject and animated orbits centered across all themes.
+- Align all three primary onboarding buttons on one desktop row with responsive grids at smaller widths.
+- Feather the scrolling ticker's left/right edges for less abrupt clipping.
+- Add explicit Chromium geometry assertions for portrait-caption and demo-pill intersections, hero vertical spacing, brand monogram update and desktop CTA row.
