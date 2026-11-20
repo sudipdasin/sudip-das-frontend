@@ -18,10 +18,12 @@ jobs:
       - name: Verify domain cutover checker
         run: |
           node --check scripts/site-readiness.mjs
-          node --test tests/site-readiness.test.mjs
+          node --test tests/*.test.mjs
       - name: Ensure expected public assets exist
         run: |
           test -s index.html
           test -s languages.js
           test -s sudip-das-portrait.jpg
+          test -s _headers
+          test -s 404.html
           grep -qi '<html' index.html
