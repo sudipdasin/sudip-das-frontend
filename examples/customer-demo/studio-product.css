@@ -22,3 +22,75 @@ html[dir=rtl] .nav-bar,html[dir=rtl] .studio-product-strip{direction:rtl}html[di
 .engine-pill span{font-size:.79rem;color:var(--muted)}
 @media(max-width:850px){.resilience-flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.resilience-flow{grid-template-columns:1fr}.engine-pill{display:block}.engine-pill span{display:block;margin-top:9px}}
+
+/* Identity artwork alignment system: rings and portrait share the same center. */
+.hero-art{
+ --portrait-diameter: clamp(182px, 22vw, 258px);
+ --orbit-outer-diameter: calc(var(--portrait-diameter) * 1.55);
+ --orbit-inner-diameter: calc(var(--portrait-diameter) * 1.29);
+ width:100%;max-width:480px;min-height:clamp(300px,35vw,440px);
+ display:grid!important;place-items:center;isolation:isolate;
+ position:relative;margin-inline:auto;
+}
+.hero-art .orbit,.hero-art .orbit.second{
+ position:absolute;inset:auto;top:50%;left:50%;
+ margin:0!important;max-width:none!important;
+ width:var(--orbit-outer-diameter)!important;height:var(--orbit-outer-diameter)!important;
+ aspect-ratio:1!important;border-radius:50%!important;
+ translate:-50% -50%;transform-origin:center;
+ box-sizing:border-box;pointer-events:none;
+}
+.hero-art .orbit.second{
+ width:var(--orbit-inner-diameter)!important;height:var(--orbit-inner-diameter)!important;
+}
+.hero-art .avatar,
+body[data-theme=editorial] .hero-art .avatar,
+body[data-theme=terminal] .hero-art .avatar{
+ position:relative;inset:auto;z-index:2;
+ width:var(--portrait-diameter)!important;height:var(--portrait-diameter)!important;
+ min-width:0;min-height:0;aspect-ratio:1!important;margin:0!important;
+ border-radius:50%!important;transform:none!important;
+ overflow:hidden;display:block;background:var(--panel);
+ box-shadow:0 18px 44px #0004,0 0 0 5px color-mix(in srgb,var(--accent),transparent 88%);
+}
+.hero-art .avatar .demo-portrait,
+body[data-theme=terminal] .hero-art .avatar .demo-portrait{
+ width:100%!important;height:100%!important;max-width:100%;
+ display:block;aspect-ratio:1;object-fit:cover;object-position:50% 50%;
+ transform:none!important;border-radius:50%!important;
+}
+.hero-art .portrait-caption{
+ left:50%!important;right:auto!important;bottom:3%!important;
+ transform:translateX(-50%);white-space:normal;text-align:center;
+ max-width:min(320px,92%);z-index:5;
+}
+.hero-art .signal-dot{top:14%;right:15%;pointer-events:none}
+body[data-theme=editorial] .hero-art .avatar{border-radius:50%!important}
+body[data-theme=editorial] .hero-art .avatar .demo-portrait{border-radius:inherit!important}
+body[data-theme=editorial] .hero-art .orbit{border-color:#b57551;border-style:dotted}
+body[data-theme=editorial] .hero-art .orbit.second{border-style:solid;border-color:#c9a58c}
+body[data-theme=terminal] .hero-art .avatar{border-radius:50%!important;border-style:dashed}
+body[data-theme=terminal] .hero-art .avatar .demo-portrait{border-radius:inherit!important}
+body[data-theme=terminal] .hero-art .orbit{border-style:dashed}
+body[data-theme=terminal] .hero-art .orbit.second{border-style:solid}
+.ownership-kicker{font:600 .73rem var(--mono);letter-spacing:.13em;color:var(--accent);margin:17px 0 10px}
+.ownership-promise{font:600 clamp(1.3rem,2.6vw,2rem)/1.25 var(--display);letter-spacing:-.04em;color:var(--ink);margin:8px 0}
+.ownership-detail{font-size:1rem;max-width:850px;color:var(--muted);line-height:1.7}
+@media(max-width:860px){
+ .hero-art{--portrait-diameter:205px;min-height:350px!important;max-width:370px}
+}
+@media(max-width:600px){
+ .hero-art{--portrait-diameter:165px;min-height:295px!important;max-width:330px}
+ .hero-art .portrait-caption{bottom:0!important;font-size:.61rem}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-art .orbit,.hero-art .orbit.second{animation:none!important}
+ .hero-art .avatar .demo-portrait{transition:none!important}
+}
+
+.ownership-actions{display:flex;flex-wrap:wrap;align-items:center;gap:11px;margin:23px 0 8px}
+.ownership-actions button{border:1px solid var(--accent);background:var(--accent);color:#14271e;border-radius:8px;padding:12px 17px;font:700 .85rem var(--sans);cursor:pointer}
+.ownership-actions button.secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+.ownership-actions button:hover{filter:brightness(1.07)}
+.ownership-actions p{width:100%;margin:5px 0 0;color:var(--muted);font-size:.79rem}
+@media(max-width:620px){.ownership-actions button{width:100%}}
