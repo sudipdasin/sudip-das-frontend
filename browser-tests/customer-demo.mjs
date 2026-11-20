@@ -346,10 +346,46 @@ try {
    await page.locator('#studio-language').selectOption('en');
    await page.setViewportSize({width:1280,height:900});
  })();
+ await check('artwork labels do not collide and the hero has balanced vertical spacing',async()=>{
+   for(const width of [320,390,768,1110,1440]){
+     await page.setViewportSize({width,height:900});
+     for(const theme of ['orbit','editorial','terminal']){
+       await page.locator('#studio-theme').selectOption(theme);
+       const m=await page.evaluate(()=>{
+         const rect=s=>document.querySelector(s).getBoundingClientRect();
+         const avatar=rect('#avatar'),caption=rect('#portrait-caption'),tag=rect('.float-tag'),art=rect('.hero-art'),hero=rect('.hero'),strip=rect('.studio-product-strip');
+         const overlap=(a,b)=>Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+         return {labels:overlap(caption,tag),captionPhoto:overlap(caption,avatar),tagPhoto:overlap(tag,avatar),gap:hero.top-strip.bottom,avatarWidth:avatar.width,crop:getComputedStyle(document.querySelector('#avatar img')).objectFit};
+       });
+       assert.ok(m.labels<2,theme+'/'+width+' labels overlap: '+JSON.stringify(m));
+       assert.ok(m.captionPhoto<2,theme+'/'+width+' caption overlaps portrait: '+JSON.stringify(m));
+       assert.ok(m.tagPhoto<2,theme+'/'+width+' tag overlaps portrait: '+JSON.stringify(m));
+       assert.ok(m.gap<70,theme+'/'+width+' excessive hero gap: '+JSON.stringify(m));
+       assert.equal(m.crop,'cover');
+     }
+   }
+   await page.locator('#studio-theme').selectOption('orbit');
+   await page.setViewportSize({width:1280,height:900});
+ })();
+ await check('desktop tour buttons fit one row and branding initials follow edits',async()=>{
+   await page.setViewportSize({width:1440,height:900});
+   const m=await page.locator('.studio-product-actions button').evaluateAll(buttons=>{
+     const r=buttons.map(b=>b.getBoundingClientRect());
+     return {spread:Math.max(...r.map(x=>x.top))-Math.min(...r.map(x=>x.top)),overlap:r.some((a,i)=>r.some((b,j)=>i!==j&&Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top))>2)};
+   });
+   assert.ok(m.spread<=2,'desktop CTA buttons not aligned: '+JSON.stringify(m));
+   assert.equal(m.overlap,false);
+   assert.equal(await page.locator('#demo-brand-wrapper').getAttribute('data-initials'),'NV');
+   if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
+   await page.locator('input[name="displayName"]').fill('Nova Studio');
+   await page.getByRole('button',{name:'Save & preview'}).click();
+   assert.equal(await page.locator('#demo-brand-wrapper').getAttribute('data-initials'),'NS');
+   await page.locator('#reset-profile').click();
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,34);
+assert.equal(passed,36);
 console.log('Browser checks passed: '+passed);
