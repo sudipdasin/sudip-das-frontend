@@ -37,11 +37,14 @@
     @media(max-width:720px){.hero{grid-template-columns:1fr}.avatar{width:130px;height:130px;font-size:3rem;grid-row:1}.cards,.fields{grid-template-columns:1fr}header{flex-wrap:wrap}main{padding-top:38px}}
   </style>
   <link rel="stylesheet" href="premium.css">
+  <link rel="stylesheet" href="studio-features.css">
 </head>
-<body>
+<body data-theme="orbit">
+  <a class="skip-link" href="#top">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
   <div class="banner" role="status">FICTIONAL DEMO PROFILE — No real person, business, or working contact endpoint</div>
   <div class="wrap">
-    <header><div class="nav-bar"><div class="brand">Avery Example <span class="muted">/ Studio demo</span></div><nav class="nav-links" aria-label="Site navigation"><a href="#about-section">About</a><a href="#skills-section">Expertise</a><a href="#projects-section">Projects</a><a href="#contact-section">Contact</a></nav><button class="ghost" id="edit-toggle" type="button" aria-expanded="false" aria-controls="editor">Customize demo</button></div></header>
+    <header><div class="nav-bar"><div class="brand">Avery Example <span class="muted">/ Studio demo</span></div><button class="ghost mobile-menu" id="mobile-menu" aria-expanded="false" aria-controls="studio-nav" type="button">Menu</button><nav class="nav-links" id="studio-nav" aria-label="Site navigation"><a data-copy="about" href="#about-section">About</a><a data-copy="expertise" href="#skills-section">Expertise</a><a data-copy="projects" href="#projects-section">Projects</a><a data-copy="journey" href="#journey-section">Journey</a><a data-copy="contact" href="#contact-section">Contact</a></nav><div class="studio-controls"><label class="control-caption">Language <select id="studio-language" aria-label="Choose site language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="bn">বাংলা</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option></select></label><label class="control-caption">Layout <select id="studio-theme" aria-label="Choose site layout"><option value="orbit">Orbit</option><option value="editorial">Editorial</option><option value="terminal">Terminal</option></select></label></div><button class="ghost" id="edit-toggle" type="button" aria-expanded="false" aria-controls="editor">Customize demo</button></div></header>
     <section class="panel editor" id="editor" aria-labelledby="editor-heading">
       <h2 id="editor-heading">Customization wizard — local preview</h2>
       <p class="muted">Changes stay in this browser. Export JSON to save the example; no account, payment, cloud provider, or email service is connected.</p>
@@ -78,9 +81,9 @@
           <div class="hero-actions"><a class="button" href="#projects-section">Explore work <span aria-hidden="true">↗</span></a><a class="button secondary" href="#contact-section">Connect <span aria-hidden="true">→</span></a></div>
         </div>
         <div class="hero-art reveal" aria-label="Decorative portrait illustration">
-          <div class="orbit" aria-hidden="true"></div><div class="orbit second" aria-hidden="true"></div>
+          <div class="orbit" aria-hidden="true"></div><div class="orbit second" aria-hidden="true"></div><div class="signal-dot" aria-hidden="true"></div>
           <div class="avatar" id="avatar" aria-hidden="true"></div>
-          <div class="float-tag">● AVAILABLE FOR IDEAS</div>
+          <div class="float-tag">● DEMO / OPEN TO IDEAS</div>
         </div>
       </section>
       <div class="studio-ticker" aria-label="Skills and interests"><div class="ticker-track" aria-hidden="true"><span>CREATIVE ENGINEERING <b>✦</b></span><span>WEB EXPERIENCES <b>✦</b></span><span>ACCESSIBLE DESIGN <b>✦</b></span><span>IDEAS INTO PRODUCTS <b>✦</b></span><span>CREATIVE ENGINEERING <b>✦</b></span><span>WEB EXPERIENCES <b>✦</b></span><span>ACCESSIBLE DESIGN <b>✦</b></span><span>IDEAS INTO PRODUCTS <b>✦</b></span></div></div>
@@ -95,15 +98,26 @@
       </section>
       <section class="section" id="projects-section" aria-labelledby="projects-title">
         <div class="section-head reveal"><div><span class="kicker">03 / Selected work</span><h2 id="projects-title">Made with intention.</h2></div><p>Selected sample projects. Everything you see here can be edited in the studio.</p></div>
-        <div id="projects" class="cards reveal"></div>
+        <div class="project-tools reveal"><label class="project-search-label"><span data-copy="search">Search projects</span><input type="search" id="project-search" autocomplete="off" placeholder="Search by name or description"></label><label><span data-copy="filter">Category</span><select id="project-filter" aria-label="Filter projects"><option value="all">All categories</option></select></label></div><p id="project-count" class="muted" role="status"></p><div id="projects" class="cards reveal"></div><p id="project-empty" class="muted" hidden>No projects match those filters.</p>
+      </section>
+      <section class="section" id="journey-section" aria-labelledby="journey-title">
+        <div class="section-head reveal"><div><span class="kicker">04 / Process & experience</span><h2 id="journey-title" data-copy="journeyTitle">How I build.</h2></div><p>Fictional milestones showcasing how this template can present a real career.</p></div>
+        <div class="journey-grid reveal"><aside class="journey-aside"><h3>From idea to impact.</h3><p class="muted">These are example milestones, not claims about a real person. Replace them with your history.</p></aside><div class="journey-timeline"><article><span class="eyebrow">2026 / Prototype</span><h3>Designing useful experiences</h3><p>Exploring approachable interfaces and practical accessibility for example products.</p></article><article><span class="eyebrow">2025 / Collaboration</span><h3>Turning ideas into systems</h3><p>Planning repeatable workflows and documenting concepts for a fictional team.</p></article><article><span class="eyebrow">2024 / Foundations</span><h3>Learning by building</h3><p>Creating sample software experiments, prototypes and clear documentation.</p></article></div></div>
+        <div class="capability-grid reveal"><article><span>01 / DESIGN</span><h3>Clarity first</h3><p>Thoughtful visual hierarchies and accessibility.</p></article><article><span>02 / BUILD</span><h3>Practical tooling</h3><p>Resilient, modular web experiences.</p></article><article><span>03 / IMPROVE</span><h3>Iterate with evidence</h3><p>Measure outcomes and refine the experience.</p></article></div>
       </section>
       <section class="section" id="contact-section" aria-labelledby="contact-title">
         <div class="contact-grid reveal"><div><span class="eyebrow">04 / Say hello</span><h2 id="contact-title">Let's create something <span style="color:var(--accent)">meaningful.</span></h2><p class="muted">These are demonstration links only. Real email sending and customer services are not connected.</p><p id="email"></p></div><div id="social" class="links"></div></div>
+      </section>
+      <section class="section proposal-section" id="proposal-section" aria-labelledby="proposal-title">
+        <details class="proposal-panel reveal"><summary><span><span class="eyebrow">05 / Sample client inquiry</span><strong id="proposal-title">Have a project in mind?</strong><small>Try the demonstration brief builder. No message will be sent.</small></span><span class="proposal-chevron" aria-hidden="true">⌄</span></summary>
+          <form id="proposal-form" class="proposal-form"><div class="fields"><label>Your name<input name="name" maxlength="100" required></label><label>Contact email<input name="email" type="email" maxlength="180" required></label><label>Project type<select name="service" required><option value="">Choose a service</option><option>Website redesign</option><option>Software development</option><option>Accessibility review</option><option>Consultation</option></select></label><label>Ideal timeline<select name="timeline" required><option value="">Select timeline</option><option>Within one month</option><option>In 1–3 months</option><option>Exploring options</option></select></label><label class="wide">Project brief<textarea name="brief" maxlength="3000" minlength="12" required placeholder="What would you like to build?"></textarea></label></div><div class="proposal-actions"><button type="submit" class="button">Download sample brief</button><p id="proposal-status" role="status">Your details remain in your browser until you download the sample.</p></div></form>
+        </details>
       </section>
     </main>
     <footer>This sample is intentionally fictional. Replace its profile data, destinations, and email integration before publishing a customer website.</footer>
   </div>
   <script src="app.js" defer></script>
   <script src="premium.js" defer></script>
+  <script src="studio-features.js" defer></script>
 </body>
 </html>
