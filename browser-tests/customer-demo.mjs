@@ -203,7 +203,7 @@ try {
    assert.equal(await page.locator('#name').innerText(),'Nico Vale');
    assert.equal(await page.locator('#demo-brand').textContent(),'Nico Vale');
    assert.match(await page.locator('#portrait-caption').textContent(),/Nico Vale/);
-   await page.locator('#edit-toggle').click();
+   if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
    await page.locator('input[name="displayName"]').fill('Sage Demo');
    await page.getByRole('button',{name:'Save & preview'}).click();
    assert.equal(await page.locator('#demo-brand').textContent(),'Sage Demo');
