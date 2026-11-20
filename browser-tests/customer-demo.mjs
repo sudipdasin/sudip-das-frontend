@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -474,28 +474,60 @@ try {
    await page.locator('#studio-theme').selectOption('orbit');
    await page.setViewportSize({width:1280,height:900});
  })();
- await check('background treatments and uploaded portrait preserve a portable local profile',async()=>{
+ await check('five themes retain a square vector illustration at mobile tablet and desktop',async()=>{
+   const themes=['orbit','editorial','terminal','aurora-peak','neon-studio'];
+   assert.equal(await page.locator('#studio-theme option').count(),5);
+   for(const theme of themes){
+     await page.locator('#studio-theme').selectOption(theme);
+     for(const width of [390,768,1280]){
+       await page.setViewportSize({width,height:900});
+       const visual=await page.evaluate(()=>{
+         const img=document.querySelector('#avatar img'),avatar=document.querySelector('#avatar').getBoundingClientRect();
+         return {src:img.getAttribute('src'),loaded:img.complete&&img.naturalWidth>0,
+           square:Math.abs(avatar.width-avatar.height),overflow:document.documentElement.scrollWidth-innerWidth,
+           theme:document.body.dataset.theme};
+       });
+       assert.equal(visual.theme,theme);
+       assert.equal(visual.src,'./dev-das-portrait.svg');
+       assert.equal(visual.loaded,true,theme+'/'+width+' illustration');
+       assert.ok(visual.square<=3,theme+'/'+width+' not square');
+       assert.ok(visual.overflow<=2,theme+'/'+width+' horizontal overflow');
+     }
+   }
+   await page.locator('#studio-theme').selectOption('orbit');
+   await page.setViewportSize({width:1280,height:900});
+ })();
+ await check('new themes have distinct visual backgrounds',async()=>{
+   const backgrounds=[];
+   for(const theme of ['aurora-peak','neon-studio']){
+     await page.locator('#studio-theme').selectOption(theme);
+     backgrounds.push(await page.evaluate(()=>getComputedStyle(document.body,'::before').backgroundImage));
+   }
+   assert.ok(backgrounds.every(x=>x!=='none'));
+   assert.notEqual(backgrounds[0],backgrounds[1]);
+   await page.locator('#studio-theme').selectOption('orbit');
+ })();
+ await check('demo rejects legacy raster photos and keeps customizable backgrounds',async()=>{
    if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
+   assert.equal(await page.locator('#portrait-upload').count(),0);
    await page.locator('#profile-form select[name="backgroundStyle"]').selectOption('solid');
    await page.locator('#profile-form button[type="submit"]').click();
    assert.equal(await page.locator('body').getAttribute('data-background'),'solid');
    await page.locator('#profile-form select[name="backgroundStyle"]').selectOption('original');
    await page.locator('#profile-form button[type="submit"]').click();
    assert.equal(await page.locator('body').getAttribute('data-background'),'original');
-   const buffer=await page.evaluate(()=>{
-     const canvas=document.createElement('canvas');canvas.width=120;canvas.height=120;
-     canvas.getContext('2d').fillStyle='#127a6a';canvas.getContext('2d').fillRect(0,0,120,120);
-     return canvas.toDataURL('image/png').split(',')[1];
-   });
-   await page.locator('#portrait-upload').setInputFiles({name:'custom.png',mimeType:'image/png',buffer:Buffer.from(buffer,'base64')});
-   await page.waitForFunction(()=>document.querySelector('#avatar img')?.src.startsWith('data:image/jpeg;base64,'));
+   const sample=JSON.parse(await readFile(join(output,'profile.json'),'utf8'));
+   sample.appearance.portrait='data:image/jpeg;base64,'+'a'.repeat(1000);
+   await page.locator('#import-profile').setInputFiles({name:'legacy.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(sample))});
+   await page.waitForFunction(()=>document.querySelector('#avatar img')?.getAttribute('src')==='./dev-das-portrait.svg');
+   const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('personal-profile-web-studio:fictional-demo:v1')||'{}'));
+   if(stored.appearance)assert.equal(stored.appearance.portrait,'');
    await page.locator('#reset-profile').click();
-   assert.match(await page.locator('#avatar img').getAttribute('src'),/dev-das-portrait\.svg/);
  })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,41);
+assert.equal(passed,43);
 console.log('Browser checks passed: '+passed);

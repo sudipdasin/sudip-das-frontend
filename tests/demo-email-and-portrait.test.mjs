@@ -37,6 +37,8 @@ test('fictional Dev Das source never loads the real profile photo',async()=>{
  const portrait=await readFile(new URL('../examples/customer-demo/dev-das-portrait.svg',import.meta.url),'utf8');
  assert.match(html,/Dev Das/);
  assert.match(app,/dev-das-portrait\.svg/);
- assert.match(portrait,/fictional developer Dev Das portrait/);
+ assert.match(portrait,/fictional developer Dev Das/);
+ assert.equal(portrait.includes('<image'),false);
+ assert.equal(portrait.includes('data:image/'),false);
  assert.doesNotMatch(html+app,/sudip-das-portrait\.jpg/);
 });

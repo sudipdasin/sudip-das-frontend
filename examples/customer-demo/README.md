@@ -76,3 +76,8 @@ The responsive portrait/orbit artwork shares one geometry system across three la
 The default profile is the entirely fictional **Dev Das**. Its bundled AI-generated portrait is a distinct local asset, not the real owner's public photo. Users can choose a JPG, PNG or WebP portrait (processed locally), and select an original-inspired aurora, studio gradient or solid background in **Customize demo**. The three themes retain separate visual styling, common portrait/orbit geometry and responsive layouts.
 
 **Client enquiry:** submits an email **draft** through the browser's configured mail application, **not** a downloaded text brief. Set a valid recipient in the profile editor's Contact email field first. The demo rejects `example.com` addresses and makes no claim that an email was delivered; the visitor must review and send it. Verified server-side email delivery is a separate real-product backend integration requiring private credentials, anti-spam protections and deployment.
+
+## v0.2.0-rc.15 — Five themes and vector-only demo
+**Aurora Peak** (cinematic blue-green aurora) and **Neon Studio** (violet/cyan modern studio) are now selectable alongside Orbit, Editorial and Terminal. Their typography, backgrounds, surfaces and portrait/orbit treatment are responsive.
+
+The default fictional **Dev Das** portrait is now a genuine hand-authored SVG: no embedded JPEG, PNG, WebP or stock photo. The customer demo intentionally does not permit raster portrait uploads. Existing imported JSON containing a raster portrait is sanitized to an empty value and the SVG illustration is displayed instead. The full commercial product can retain separate customer image management subject to licensing, privacy and validation.
