@@ -19,8 +19,17 @@ Open `http://localhost:8000/preview/neon-studio/`. The portrait image loads from
 - Hero gradient headline, cyan-border portrait rings, animated orbit dots
 - Glasslike middle feature band and six responsive feature cards
 - Keyboard dismiss and Escape menu handling
+- Disabled, visually muted Studio/System menu items and Watch Intro/language selection until implemented, with Coming soon labels
+- Reference-matched initial open Studio/System menus, tighter announcement/header/hero spacing
+- Planned-only labeling for backup, auto-restore, multi-provider, and availability promises
 - Light/dark appearance toggle and local-only accent picker
 - Existing public portfolio links for Projects, Journey, Contact and Enquiry
+
+## Implemented vs unavailable behavior
+
+Available: original portfolio links, Studio/System dropdown toggling, mobile navigation, announcement dismiss, local-only dark/light theme toggle and accent picker.
+
+Unavailable (disabled): all eleven Studio/System feature actions, language switching inside the preview, and intro playback. They cannot be activated by keyboard or pointer. Backend-only promises are marked as planned rather than active.
 
 ## Not implemented or verified
 
