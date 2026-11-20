@@ -2,7 +2,7 @@
 
 **This demo is entirely separate from the real personal website.** It illustrates how an eventual buyer can create a unique portfolio using Personal Profile Web Studio.
 
-- Demo identity: **Avery Example** (fictional)
+- Demo identity: **Dev Das** (fictional)
 - Demo location: **Example City (fictional)**
 - Email: `demo@example.com` (reserved example address; not monitored)
 - Portfolio project URLs: `example.com` (reserved illustrative addresses)
@@ -53,7 +53,7 @@ This edition adapts the personal portfolio's visual patterns without duplicating
 Everything still runs in a standalone static preview. The new SVG is an original illustration of a **fictional** developer, not a portrait of the software author. The language selector localizes navigation and section labels only; customer-written content remains as entered. Live GitHub status and secure private-profile/email workflows are deliberately not imported because those need independently configured customer accounts and backend permissions.
 
 ## Interactive product tour and commercial preview (v0.2.0-rc.8)
-The fictional starter is **Nico Vale**, not a real person. A five-step opt-in guided tour introduces the portfolio, layout selector, editor, projects and plans. Layout styles are materially different and the fictional portrait remains visible in all three modes. Use **Try the editor**, **Take the tour** or **Explore plans**; the tour can be skipped and has a keyboard Escape exit.
+The fictional starter is **Dev Das**, not a real person. A five-step opt-in guided tour introduces the portfolio, layout selector, editor, projects and plans. Layout styles are materially different and the fictional portrait remains visible in all three modes. Use **Try the editor**, **Take the tour** or **Explore plans**; the tour can be skipped and has a keyboard Escape exit.
 
 **No active payment gateway:** The plan panel explains that checkout is unavailable. `commerce.json` is a disabled merchant-hosted payment-link configuration. `commerce.js` validates trusted external URL formats and refuses to activate on GitHub Pages, which is not a permitted primary host for an e-commerce/SaaS business. A private backend, verified account, signed webhooks, and real fulfillment must be connected before accepting payment. This public demo will never process card data.
 
@@ -71,3 +71,8 @@ Growth and engineering strategies: [Enduring Web Presence](../../docs/ENDURING-W
 **You are in control of your web presence and your data.** The live preview includes local profile editing, explicit manual JSON backup and restore, provider-neutral profile content and multilingual messaging. The *Auto-Regenerative Presence Engine*—encrypted independent local/cloud backups, verified restores, provider migration, monitoring and emergency response—is a **planned engineering system**. It does not yet protect this static demo. Failure of a domain registrar, DNS, upstream network or DDoS mitigation can never be guaranteed away.
 
 The responsive portrait/orbit artwork shares one geometry system across three layouts and is guarded by Chromium checks at mobile, tablet and desktop widths. Multilingual copy is shipped as local JSON dictionaries; customer-written content remains customer controlled.
+
+## v0.2.0-rc.14 — Dev Das, personal portrait and email enquiry
+The default profile is the entirely fictional **Dev Das**. Its bundled AI-generated portrait is a distinct local asset, not the real owner's public photo. Users can choose a JPG, PNG or WebP portrait (processed locally), and select an original-inspired aurora, studio gradient or solid background in **Customize demo**. The three themes retain separate visual styling, common portrait/orbit geometry and responsive layouts.
+
+**Client enquiry:** submits an email **draft** through the browser's configured mail application, **not** a downloaded text brief. Set a valid recipient in the profile editor's Contact email field first. The demo rejects `example.com` addresses and makes no claim that an email was delivered; the visitor must review and send it. Verified server-side email delivery is a separate real-product backend integration requiring private credentials, anti-spam protections and deployment.
