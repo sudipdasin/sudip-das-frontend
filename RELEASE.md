@@ -1,20 +1,15 @@
-# V2 Frontend Release Candidate — 0.2.0-rc.2
+# V2 Frontend Release Candidate — 0.2.0-rc.3
 
-## Focus: restore essential public project data
-- The public `index.html` fetches `data/site.json` to render projects, labels, section configuration and GitHub sync. The previous repository had neither this file nor the advertised `data/site.xml` alternative.
-- Add publicly reviewed project summaries, drawn from the five named public repositories and their READMEs.
-- Include both structured data endpoints as deployable public assets, with no private profile material.
-- Add six manifest regression tests, asset-presence checks and parity between GitHub Actions and CircleCI.
-- Preserve v0.2.0-rc.1 HTTPS readiness checks, security headers and custom 404.
+## Improvement: automatic discovery of new public GitHub repositories
+- Keeps the editorially reviewed public project cards from `data/site.json`.
+- Discovers new public repositories belonging to `sudipdasin` automatically, without changing the manifest.
+- Fetches multiple GitHub API pages (up to four), filters private, archived, forked and disabled repositories, and deduplicates names case-insensitively.
+- Limits dynamic project summaries to publicly exposed GitHub metadata and renders descriptions as text, not HTML.
+- Retains a six-hour local cache and existing curated cards when the public GitHub API is unavailable.
+- Adds automated tests for privacy filtering, pagination, safe card metadata and graceful failures.
 
-## Verification before publication
-- `node --check languages.js`
-- `node --test tests/*.test.mjs`
-- Ensure `data/site.json` contains public-only fields and `data/site.xml` resolves in the preview deployment.
-- Inspect project cards and GitHub sync on desktop and mobile.
-- Confirm runtime forms, custom domain TLS and API independently before any domain cutover.
+## Release checks
+`node --check languages.js`; `node --check scripts/repo-discovery.js`; `node --test tests/*.test.mjs`.
 
-## Scope and limitations
-- This is a **public frontend source** candidate, not a private backend or standalone Web Studio release.
-- No changes to `sudipdas.is-a.dev` DNS or the existing live site are included.
-- Passing source tests alone does not establish a verified public deployment or complete end-to-end form functionality.
+## Release scope
+Source publication is not the same as a verified live website deployment. Do not change `sudipdas.is-a.dev` DNS, backend deployments, private data, or the previous fallback website as part of this release. 
