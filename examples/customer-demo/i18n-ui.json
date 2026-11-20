@@ -59,7 +59,16 @@
       "Next": "आगे",
       "Try this": "इसे आज़माएँ",
       "Explore free demo": "निःशुल्क डेमो देखें",
-      "Free to explore. No registration or payment.": "निःशुल्क देखें। पंजीकरण या भुगतान नहीं।"
+      "Free to explore. No registration or payment.": "निःशुल्क देखें। पंजीकरण या भुगतान नहीं।",
+      "Send enquiry by email": "ईमेल से पूछताछ भेजें",
+      "Background atmosphere": "पृष्ठभूमि की शैली",
+      "Original-inspired aurora": "मूल साइट जैसी आभा",
+      "Soft studio gradient": "हल्का स्टूडियो ग्रेडिएंट",
+      "Minimal solid color": "न्यूनतम एकरंगी",
+      "Profile photo (optional)": "प्रोफ़ाइल फोटो (वैकल्पिक)",
+      "Compose an enquiry in your email app; nothing will be sent without your approval.": "अपनी ईमेल ऐप में पूछताछ बनाएँ; आपकी अनुमति के बिना कुछ नहीं भेजा जाएगा।",
+      "Complete the form to open an email draft. No files are downloaded and no email is sent automatically.": "ईमेल ड्राफ़्ट खोलने के लिए फ़ॉर्म भरें। फ़ाइल डाउनलोड या स्वचालित ईमेल नहीं होगा।",
+      "Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.": "अपनी फोटो चुनें। यह केवल ब्राउज़र में संसाधित होगी और JSON प्रोफ़ाइल में निर्यात होगी। बिना फोटो के काल्पनिक चित्र दिखेगा।"
     },
     "bn": {
       "Skip to content": "বিষয়বস্তুতে যান",
@@ -119,7 +128,16 @@
       "Next": "পরবর্তী",
       "Try this": "এটি চেষ্টা করুন",
       "Explore free demo": "বিনামূল্যের ডেমো দেখুন",
-      "Free to explore. No registration or payment.": "বিনামূল্যে দেখুন। নিবন্ধন বা পেমেন্ট নয়।"
+      "Free to explore. No registration or payment.": "বিনামূল্যে দেখুন। নিবন্ধন বা পেমেন্ট নয়।",
+      "Send enquiry by email": "ইমেলে অনুসন্ধান পাঠান",
+      "Background atmosphere": "পটভূমির ধরন",
+      "Original-inspired aurora": "মূল সাইটের অনুপ্রেরণায় আলো",
+      "Soft studio gradient": "নরম স্টুডিও গ্রেডিয়েন্ট",
+      "Minimal solid color": "সহজ একরঙা",
+      "Profile photo (optional)": "প্রোফাইল ছবি (ঐচ্ছিক)",
+      "Compose an enquiry in your email app; nothing will be sent without your approval.": "ইমেল অ্যাপে অনুসন্ধান লিখুন; অনুমতি ছাড়া কিছু পাঠানো হবে না।",
+      "Complete the form to open an email draft. No files are downloaded and no email is sent automatically.": "ইমেল খসড়া খুলতে ফর্ম পূরণ করুন। ফাইল ডাউনলোড বা স্বয়ংক্রিয় ইমেল হবে না।",
+      "Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.": "নিজের ছবি ব্যবহার করুন। শুধু ব্রাউজারে প্রক্রিয়াকরণ হবে এবং JSON-এ থাকবে। ছবি না দিলে কাল্পনিক ছবি দেখাবে।"
     },
     "es": {
       "Skip to content": "Ir al contenido",
@@ -179,7 +197,16 @@
       "Next": "Siguiente",
       "Try this": "Probar esto",
       "Explore free demo": "Explorar demo gratis",
-      "Free to explore. No registration or payment.": "Explora gratis. Sin registro ni pago."
+      "Free to explore. No registration or payment.": "Explora gratis. Sin registro ni pago.",
+      "Send enquiry by email": "Enviar consulta por correo",
+      "Background atmosphere": "Ambiente de fondo",
+      "Original-inspired aurora": "Aurora inspirada en el original",
+      "Soft studio gradient": "Degradado suave de estudio",
+      "Minimal solid color": "Color sólido minimalista",
+      "Profile photo (optional)": "Foto de perfil (opcional)",
+      "Compose an enquiry in your email app; nothing will be sent without your approval.": "Redacta la consulta en tu aplicación de correo; nada se enviará sin tu aprobación.",
+      "Complete the form to open an email draft. No files are downloaded and no email is sent automatically.": "Completa el formulario para abrir un borrador. No se descargan archivos ni se envían correos automáticamente.",
+      "Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.": "Elige tu propia imagen. Se procesa en este navegador y se exporta en el perfil JSON. Sin imagen se mantiene el retrato ficticio."
     },
     "fr": {
       "Skip to content": "Aller au contenu",
@@ -239,7 +266,16 @@
       "Next": "Suivant",
       "Try this": "Essayer",
       "Explore free demo": "Explorer gratuitement",
-      "Free to explore. No registration or payment.": "À découvrir gratuitement. Sans inscription ni paiement."
+      "Free to explore. No registration or payment.": "À découvrir gratuitement. Sans inscription ni paiement.",
+      "Send enquiry by email": "Envoyer une demande par e-mail",
+      "Background atmosphere": "Ambiance de fond",
+      "Original-inspired aurora": "Aurore inspirée du site d'origine",
+      "Soft studio gradient": "Dégradé doux du studio",
+      "Minimal solid color": "Couleur unie minimaliste",
+      "Profile photo (optional)": "Photo de profil (facultatif)",
+      "Compose an enquiry in your email app; nothing will be sent without your approval.": "Rédigez une demande dans votre application e-mail ; rien ne part sans votre accord.",
+      "Complete the form to open an email draft. No files are downloaded and no email is sent automatically.": "Remplissez le formulaire pour ouvrir un brouillon. Aucun téléchargement ni envoi automatique.",
+      "Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.": "Choisissez une image. Elle est traitée uniquement dans ce navigateur et exportée dans le profil JSON. Sinon, le portrait fictif reste affiché."
     },
     "de": {
       "Skip to content": "Zum Inhalt springen",
@@ -299,7 +335,16 @@
       "Next": "Weiter",
       "Try this": "Ausprobieren",
       "Explore free demo": "Kostenlose Demo ansehen",
-      "Free to explore. No registration or payment.": "Kostenlos testen. Ohne Registrierung oder Zahlung."
+      "Free to explore. No registration or payment.": "Kostenlos testen. Ohne Registrierung oder Zahlung.",
+      "Send enquiry by email": "Anfrage per E-Mail senden",
+      "Background atmosphere": "Hintergrundstimmung",
+      "Original-inspired aurora": "Aurora im Stil des Originals",
+      "Soft studio gradient": "Weicher Studioverlauf",
+      "Minimal solid color": "Schlichte Vollfarbe",
+      "Profile photo (optional)": "Profilfoto (optional)",
+      "Compose an enquiry in your email app; nothing will be sent without your approval.": "Verfassen Sie Ihre Anfrage in Ihrer E-Mail-App. Ohne Zustimmung wird nichts gesendet.",
+      "Complete the form to open an email draft. No files are downloaded and no email is sent automatically.": "Füllen Sie das Formular für einen E-Mail-Entwurf aus. Kein Download und kein automatischer Versand.",
+      "Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.": "Wählen Sie ein eigenes Bild. Es wird nur im Browser verarbeitet und im JSON exportiert. Ohne Bild bleibt das fiktive Porträt."
     },
     "pt": {
       "Skip to content": "Ir para o conteúdo",
@@ -359,7 +404,16 @@
       "Next": "Próximo",
       "Try this": "Experimentar",
       "Explore free demo": "Explorar demo grátis",
-      "Free to explore. No registration or payment.": "Explore de graça. Sem cadastro ou pagamento."
+      "Free to explore. No registration or payment.": "Explore de graça. Sem cadastro ou pagamento.",
+      "Send enquiry by email": "Enviar consulta por e-mail",
+      "Background atmosphere": "Estilo do fundo",
+      "Original-inspired aurora": "Aurora inspirada no original",
+      "Soft studio gradient": "Gradiente suave de estúdio",
+      "Minimal solid color": "Cor sólida minimalista",
+      "Profile photo (optional)": "Foto de perfil (opcional)",
+      "Compose an enquiry in your email app; nothing will be sent without your approval.": "Redija a consulta no aplicativo de e-mail; nada será enviado sem sua autorização.",
+      "Complete the form to open an email draft. No files are downloaded and no email is sent automatically.": "Preencha o formulário para abrir um rascunho. Nenhum arquivo é baixado nem e-mail enviado automaticamente.",
+      "Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.": "Escolha uma imagem. Ela é processada apenas no navegador e exportada no JSON. Sem imagem, permanece o retrato fictício."
     },
     "ar": {
       "Skip to content": "الانتقال إلى المحتوى",
@@ -419,7 +473,16 @@
       "Next": "التالي",
       "Try this": "جرب هذا",
       "Explore free demo": "استكشف العرض المجاني",
-      "Free to explore. No registration or payment.": "استكشف مجانًا. دون تسجيل أو دفع."
+      "Free to explore. No registration or payment.": "استكشف مجانًا. دون تسجيل أو دفع.",
+      "Send enquiry by email": "إرسال استفسار بالبريد",
+      "Background atmosphere": "نمط الخلفية",
+      "Original-inspired aurora": "شفق مستوحى من الموقع الأصلي",
+      "Soft studio gradient": "تدرج استوديو ناعم",
+      "Minimal solid color": "لون موحد بسيط",
+      "Profile photo (optional)": "صورة الملف (اختياري)",
+      "Compose an enquiry in your email app; nothing will be sent without your approval.": "أنشئ الاستفسار في تطبيق البريد؛ لن يُرسل شيء دون موافقتك.",
+      "Complete the form to open an email draft. No files are downloaded and no email is sent automatically.": "أكمل النموذج لفتح مسودة بريد. لا تُنزّل ملفات ولا تُرسل رسائل تلقائيًا.",
+      "Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.": "اختر صورتك. تُعالج في المتصفح فقط وتُصدّر في ملف JSON. عند عدم اختيار صورة يظهر الرسم الخيالي."
     },
     "zh-CN": {
       "Skip to content": "跳转到内容",
@@ -479,7 +542,16 @@
       "Next": "下一步",
       "Try this": "立即试用",
       "Explore free demo": "探索免费演示",
-      "Free to explore. No registration or payment.": "免费探索，无需注册或付款。"
+      "Free to explore. No registration or payment.": "免费探索，无需注册或付款。",
+      "Send enquiry by email": "通过电子邮件发送咨询",
+      "Background atmosphere": "背景氛围",
+      "Original-inspired aurora": "原站灵感极光",
+      "Soft studio gradient": "柔和工作室渐变",
+      "Minimal solid color": "简洁纯色",
+      "Profile photo (optional)": "个人照片（可选）",
+      "Compose an enquiry in your email app; nothing will be sent without your approval.": "在邮件应用中撰写咨询；未经您的确认不会发送。",
+      "Complete the form to open an email draft. No files are downloaded and no email is sent automatically.": "填写表单以打开邮件草稿。不下载文件，也不自动发送邮件。",
+      "Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.": "选择您自己的图片。仅在浏览器处理并随 JSON 导出；未选择则保留虚构肖像。"
     },
     "ja": {
       "Skip to content": "コンテンツへ移動",
@@ -539,7 +611,16 @@
       "Next": "次へ",
       "Try this": "試してみる",
       "Explore free demo": "無料デモを試す",
-      "Free to explore. No registration or payment.": "登録や支払いなしで無料体験。"
+      "Free to explore. No registration or payment.": "登録や支払いなしで無料体験。",
+      "Send enquiry by email": "メールでお問い合わせ",
+      "Background atmosphere": "背景の雰囲気",
+      "Original-inspired aurora": "オリジナル風オーロラ",
+      "Soft studio gradient": "柔らかなスタジオグラデーション",
+      "Minimal solid color": "シンプルな単色",
+      "Profile photo (optional)": "プロフィール写真（任意）",
+      "Compose an enquiry in your email app; nothing will be sent without your approval.": "メールアプリでお問い合わせを作成します。ご自身が承認しない限り送信されません。",
+      "Complete the form to open an email draft. No files are downloaded and no email is sent automatically.": "フォームに入力するとメールの下書きが開きます。ダウンロードや自動送信はありません。",
+      "Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.": "画像はブラウザー内だけで処理され、JSON に含めて書き出せます。未選択なら架空の肖像を使います。"
     }
   }
 }
