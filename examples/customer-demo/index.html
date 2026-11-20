@@ -43,6 +43,7 @@
   <link rel="stylesheet" href="studio-layout-fixes.css">
   <link rel="stylesheet" href="studio-visual-final.css">
   <link rel="stylesheet" href="studio-system-menu.css">
+  <link rel="stylesheet" href="studio-personalization.css">
 </head>
 <body data-theme="orbit">
   <a class="skip-link" href="#top">Skip to content</a>
@@ -82,6 +83,8 @@
           <label class="wide">About<textarea name="about" maxlength="1200"></textarea></label>
           <label class="wide">Skills (comma separated)<input name="skills" maxlength="350"></label>
           <label>Background color<input name="background" type="color"></label>
+          <label>Background atmosphere<select name="backgroundStyle"><option value="original">Original-inspired aurora</option><option value="studio">Soft studio gradient</option><option value="solid">Minimal solid color</option></select></label>
+          <label class="wide">Profile photo (optional)<input id="portrait-upload" type="file" accept="image/jpeg,image/png,image/webp"><small>Personalize with your own image. Processed in this browser only; exported in the JSON profile. If no image is selected, the fictional illustration remains.</small></label>
           <label>SEO title<input name="seoTitle" maxlength="100"></label>
           <label class="wide">SEO description<input name="seoDescription" maxlength="240"></label>
           <label>Contact label<input name="contactLabel" maxlength="90"></label>
@@ -166,11 +169,11 @@
         <div class="capability-grid reveal"><article><span>01 / DESIGN</span><h3>Clarity first</h3><p>Thoughtful visual hierarchies and accessibility.</p></article><article><span>02 / BUILD</span><h3>Practical tooling</h3><p>Resilient, modular web experiences.</p></article><article><span>03 / IMPROVE</span><h3>Iterate with evidence</h3><p>Measure outcomes and refine the experience.</p></article></div>
       </section>
       <section class="section" id="contact-section" aria-labelledby="contact-title">
-        <div class="contact-grid reveal"><div><span class="eyebrow">04 / Say hello</span><h2 id="contact-title">Let's create something <span style="color:var(--accent)">meaningful.</span></h2><p class="muted">These are demonstration links only. Real email sending and customer services are not connected.</p><p id="email"></p></div><div id="social" class="links"></div></div>
+        <div class="contact-grid reveal"><div><span class="eyebrow">04 / Say hello</span><h2 id="contact-title">Let's create something <span style="color:var(--accent)">meaningful.</span></h2><p class="muted">Enquiries can open your email application when a real recipient is configured. Direct server-side delivery requires a verified private email service.</p><p id="email"></p></div><div id="social" class="links"></div></div>
       </section>
       <section class="section proposal-section" id="proposal-section" aria-labelledby="proposal-title">
-        <details class="proposal-panel reveal"><summary><span><span class="eyebrow">05 / Sample client inquiry</span><strong id="proposal-title">Have a project in mind?</strong><small>Try the demonstration brief builder. No message will be sent.</small></span><span class="proposal-chevron" aria-hidden="true">⌄</span></summary>
-          <form id="proposal-form" class="proposal-form"><div class="fields"><label>Your name<input name="name" maxlength="100" required></label><label>Contact email<input name="email" type="email" maxlength="180" required></label><label>Project type<select name="service" required><option value="">Choose a service</option><option>Website redesign</option><option>Software development</option><option>Accessibility review</option><option>Consultation</option></select></label><label>Ideal timeline<select name="timeline" required><option value="">Select timeline</option><option>Within one month</option><option>In 1–3 months</option><option>Exploring options</option></select></label><label class="wide">Project brief<textarea name="brief" maxlength="3000" minlength="12" required placeholder="What would you like to build?"></textarea></label></div><div class="proposal-actions"><button type="submit" class="button">Download sample brief</button><p id="proposal-status" role="status">Your details remain in your browser until you download the sample.</p></div></form>
+        <details class="proposal-panel reveal"><summary><span><span class="eyebrow">05 / Sample client inquiry</span><strong id="proposal-title">Have a project in mind?</strong><small>Compose an enquiry in your email app; nothing will be sent without your approval.</small></span><span class="proposal-chevron" aria-hidden="true">⌄</span></summary>
+          <form id="proposal-form" class="proposal-form"><div class="fields"><label>Your name<input name="name" maxlength="100" required></label><label>Contact email<input name="email" type="email" maxlength="180" required></label><label>Project type<select name="service" required><option value="">Choose a service</option><option>Website redesign</option><option>Software development</option><option>Accessibility review</option><option>Consultation</option></select></label><label>Ideal timeline<select name="timeline" required><option value="">Select timeline</option><option>Within one month</option><option>In 1–3 months</option><option>Exploring options</option></select></label><label class="wide">Project brief<textarea name="brief" maxlength="3000" minlength="12" required placeholder="What would you like to build?"></textarea></label></div><div class="proposal-actions"><button type="submit" class="button" id="proposal-submit">Send enquiry by email</button><p id="proposal-status" role="status">Complete the form to open an email draft. No files are downloaded and no email is sent automatically.</p></div></form>
         </details>
       </section>
     </main>
@@ -194,5 +197,6 @@
   <script src="studio-i18n.js" defer></script>
   <script src="studio-ownership.js" defer></script>
   <script src="studio-system-menu.js" defer></script>
+  <script src="studio-email.js" defer></script>
 </body>
 </html>
