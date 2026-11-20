@@ -2,10 +2,7 @@
   "version": 1,
   "translations": {
     "hi": {
-      "Creative Developer & Interface Engineer": "रचनात्मक डेवलपर और इंटरफ़ेस इंजीनियर",
-      "Designing expressive experiences that just work.": "ऐसे अभिव्यंजक डिजिटल अनुभव बनाना जो सही से काम करें।",
       "Harbor City (fictional)": "हार्बर सिटी (काल्पनिक)",
-      "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.": "निको वेल पूरी तरह काल्पनिक रचनात्मक डेवलपर हैं। यह स्वतंत्र उदाहरण दिखाता है कि दृश्य एडिटर, तीन लेआउट, संपादन योग्य परियोजनाओं और पोर्टेबल प्रोफ़ाइल डेटा से कोई भी यादगार व्यक्तिगत वेबसाइट बना सकता है।",
       "Web applications": "वेब एप्लिकेशन",
       "Accessibility": "सुगम्यता",
       "UI prototyping": "UI प्रोटोटाइप",
@@ -23,13 +20,13 @@
       "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment.": "समस्या: बिखरे नोट्स व्यवस्थित करना। तरीका: तेज़ नोट लेना, टैग और पारदर्शी निर्यात। परिणाम: काल्पनिक उत्पादकता प्रयोग।",
       "Portfolio example": "पोर्टफ़ोलियो उदाहरण",
       "GitHub example": "GitHub उदाहरण",
-      "Contact (example only)": "संपर्क (केवल उदाहरण)"
+      "Contact (example only)": "संपर्क (केवल उदाहरण)",
+      "Creative Developer, Designer & Product Builder": "रचनात्मक डेवलपर और इंटरफ़ेस इंजीनियर",
+      "Building expressive, useful and resilient experiences for the web.": "ऐसे अभिव्यंजक डिजिटल अनुभव बनाना जो सही से काम करें।",
+      "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.": "देव दास पूरी तरह काल्पनिक रचनात्मक डेवलपर हैं। यह स्वतंत्र उदाहरण दिखाता है कि दृश्य एडिटर, तीन लेआउट, संपादन योग्य परियोजनाओं और पोर्टेबल प्रोफ़ाइल डेटा से कोई भी यादगार व्यक्तिगत वेबसाइट बना सकता है।"
     },
     "bn": {
-      "Creative Developer & Interface Engineer": "সৃজনশীল ডেভেলপার ও ইন্টারফেস ইঞ্জিনিয়ার",
-      "Designing expressive experiences that just work.": "প্রকাশভঙ্গিমাপূর্ণ এবং কার্যকর ডিজিটাল অভিজ্ঞতা তৈরি।",
       "Harbor City (fictional)": "হারবার সিটি (কাল্পনিক)",
-      "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.": "নিকো ভেল সম্পূর্ণ কাল্পনিক সৃজনশীল ডেভেলপার। এই স্বাধীন উদাহরণ দেখায় কীভাবে ভিজ্যুয়াল এডিটর, তিনটি লেআউট, সম্পাদনাযোগ্য প্রকল্প এবং বহনযোগ্য প্রোফাইল দিয়ে নিজের ওয়েবসাইট তৈরি করা যায়।",
       "Web applications": "ওয়েব অ্যাপ্লিকেশন",
       "Accessibility": "অ্যাক্সেসযোগ্যতা",
       "UI prototyping": "UI প্রোটোটাইপ",
@@ -47,13 +44,13 @@
       "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment.": "সমস্যা: ছড়ানো নোট সংগঠিত করা। পদ্ধতি: দ্রুত সংরক্ষণ, ট্যাগ ও স্বচ্ছ রপ্তানি। ফল: কাল্পনিক উৎপাদনশীলতার পরীক্ষা।",
       "Portfolio example": "পোর্টফোলিও উদাহরণ",
       "GitHub example": "GitHub উদাহরণ",
-      "Contact (example only)": "যোগাযোগ (শুধু নমুনা)"
+      "Contact (example only)": "যোগাযোগ (শুধু নমুনা)",
+      "Creative Developer, Designer & Product Builder": "সৃজনশীল ডেভেলপার ও ইন্টারফেস ইঞ্জিনিয়ার",
+      "Building expressive, useful and resilient experiences for the web.": "প্রকাশভঙ্গিমাপূর্ণ এবং কার্যকর ডিজিটাল অভিজ্ঞতা তৈরি।",
+      "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.": "দেব দাস সম্পূর্ণ কাল্পনিক সৃজনশীল ডেভেলপার। এই স্বাধীন উদাহরণ দেখায় কীভাবে ভিজ্যুয়াল এডিটর, তিনটি লেআউট, সম্পাদনাযোগ্য প্রকল্প এবং বহনযোগ্য প্রোফাইল দিয়ে নিজের ওয়েবসাইট তৈরি করা যায়।"
     },
     "es": {
-      "Creative Developer & Interface Engineer": "Desarrollador creativo e ingeniero de interfaces",
-      "Designing expressive experiences that just work.": "Diseñando experiencias expresivas que realmente funcionan.",
       "Harbor City (fictional)": "Ciudad Puerto (ficticia)",
-      "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.": "Nico Vale es un desarrollador creativo completamente ficticio. Este ejemplo independiente muestra cómo crear un sitio personal memorable con editor visual, tres diseños, proyectos editables y datos portátiles.",
       "Web applications": "Aplicaciones web",
       "Accessibility": "Accesibilidad",
       "UI prototyping": "Prototipado de interfaces",
@@ -71,13 +68,13 @@
       "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment.": "Problema: organizar notas dispersas. Enfoque: captura rápida, etiquetas y exportación transparente. Resultado: experimento de productividad ficticio.",
       "Portfolio example": "Ejemplo de portfolio",
       "GitHub example": "Ejemplo de GitHub",
-      "Contact (example only)": "Contacto (solo ejemplo)"
+      "Contact (example only)": "Contacto (solo ejemplo)",
+      "Creative Developer, Designer & Product Builder": "Desarrollador creativo e ingeniero de interfaces",
+      "Building expressive, useful and resilient experiences for the web.": "Diseñando experiencias expresivas que realmente funcionan.",
+      "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.": "Dev Das es un desarrollador creativo completamente ficticio. Este ejemplo independiente muestra cómo crear un sitio personal memorable con editor visual, tres diseños, proyectos editables y datos portátiles."
     },
     "fr": {
-      "Creative Developer & Interface Engineer": "Développeur créatif et ingénieur d'interfaces",
-      "Designing expressive experiences that just work.": "Concevoir des expériences expressives qui fonctionnent vraiment.",
       "Harbor City (fictional)": "Ville du Port (fictive)",
-      "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.": "Nico Vale est un développeur créatif entièrement fictif. Cet exemple indépendant montre comment créer un site personnel mémorable avec un éditeur visuel, trois mises en page, des projets modifiables et des données portables.",
       "Web applications": "Applications web",
       "Accessibility": "Accessibilité",
       "UI prototyping": "Prototypage UI",
@@ -95,13 +92,13 @@
       "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment.": "Problème : organiser des notes dispersées. Approche : saisie rapide, étiquettes et export transparent. Résultat : expérience fictive de productivité.",
       "Portfolio example": "Exemple de portfolio",
       "GitHub example": "Exemple GitHub",
-      "Contact (example only)": "Contact (exemple uniquement)"
+      "Contact (example only)": "Contact (exemple uniquement)",
+      "Creative Developer, Designer & Product Builder": "Développeur créatif et ingénieur d'interfaces",
+      "Building expressive, useful and resilient experiences for the web.": "Concevoir des expériences expressives qui fonctionnent vraiment.",
+      "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.": "Dev Das est un développeur créatif entièrement fictif. Cet exemple indépendant montre comment créer un site personnel mémorable avec un éditeur visuel, trois mises en page, des projets modifiables et des données portables."
     },
     "de": {
-      "Creative Developer & Interface Engineer": "Kreativer Entwickler und Interface-Ingenieur",
-      "Designing expressive experiences that just work.": "Ausdrucksstarke Erlebnisse gestalten, die einfach funktionieren.",
       "Harbor City (fictional)": "Hafenstadt (fiktiv)",
-      "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.": "Nico Vale ist ein vollständig fiktiver kreativer Entwickler. Dieses unabhängige Beispiel zeigt, wie jeder mit einem visuellen Editor, drei Layouts, bearbeitbaren Projekten und portablen Profildaten eine einprägsame Website erstellen kann.",
       "Web applications": "Webanwendungen",
       "Accessibility": "Barrierefreiheit",
       "UI prototyping": "UI-Prototyping",
@@ -119,13 +116,13 @@
       "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment.": "Problem: verstreute Notizen organisieren. Ansatz: schnelle Erfassung, Tags und transparenter Export. Ergebnis: fiktiver Produktivitätsversuch.",
       "Portfolio example": "Portfolio-Beispiel",
       "GitHub example": "GitHub-Beispiel",
-      "Contact (example only)": "Kontakt (nur Beispiel)"
+      "Contact (example only)": "Kontakt (nur Beispiel)",
+      "Creative Developer, Designer & Product Builder": "Kreativer Entwickler und Interface-Ingenieur",
+      "Building expressive, useful and resilient experiences for the web.": "Ausdrucksstarke Erlebnisse gestalten, die einfach funktionieren.",
+      "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.": "Dev Das ist ein vollständig fiktiver kreativer Entwickler. Dieses unabhängige Beispiel zeigt, wie jeder mit einem visuellen Editor, drei Layouts, bearbeitbaren Projekten und portablen Profildaten eine einprägsame Website erstellen kann."
     },
     "pt": {
-      "Creative Developer & Interface Engineer": "Desenvolvedor criativo e engenheiro de interfaces",
-      "Designing expressive experiences that just work.": "Criando experiências expressivas que realmente funcionam.",
       "Harbor City (fictional)": "Cidade do Porto (fictícia)",
-      "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.": "Nico Vale é um desenvolvedor criativo totalmente fictício. Este exemplo independente mostra como criar um site pessoal memorável com editor visual, três layouts, projetos editáveis e dados portáteis.",
       "Web applications": "Aplicações web",
       "Accessibility": "Acessibilidade",
       "UI prototyping": "Protótipos de interface",
@@ -143,13 +140,13 @@
       "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment.": "Problema: organizar notas dispersas. Abordagem: captura rápida, tags e exportação transparente. Resultado: experimento fictício de produtividade.",
       "Portfolio example": "Exemplo de portfólio",
       "GitHub example": "Exemplo do GitHub",
-      "Contact (example only)": "Contato (apenas exemplo)"
+      "Contact (example only)": "Contato (apenas exemplo)",
+      "Creative Developer, Designer & Product Builder": "Desenvolvedor criativo e engenheiro de interfaces",
+      "Building expressive, useful and resilient experiences for the web.": "Criando experiências expressivas que realmente funcionam.",
+      "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.": "Dev Das é um desenvolvedor criativo totalmente fictício. Este exemplo independente mostra como criar um site pessoal memorável com editor visual, três layouts, projetos editáveis e dados portáteis."
     },
     "ar": {
-      "Creative Developer & Interface Engineer": "مطور إبداعي ومهندس واجهات",
-      "Designing expressive experiences that just work.": "تصميم تجارب معبرة تعمل بسلاسة.",
       "Harbor City (fictional)": "مدينة الميناء (خيالية)",
-      "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.": "نيكو فال مطور إبداعي خيالي بالكامل. يوضح هذا المثال كيف يمكن للجميع بناء موقع شخصي مميز باستخدام محرر مرئي وثلاثة تخطيطات ومشاريع قابلة للتعديل وبيانات قابلة للنقل.",
       "Web applications": "تطبيقات الويب",
       "Accessibility": "إمكانية الوصول",
       "UI prototyping": "نماذج واجهات أولية",
@@ -167,13 +164,13 @@
       "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment.": "المشكلة: تنظيم الملاحظات المتفرقة. النهج: حفظ سريع ووسوم وتصدير واضح. النتيجة: تجربة إنتاجية خيالية.",
       "Portfolio example": "مثال معرض أعمال",
       "GitHub example": "مثال GitHub",
-      "Contact (example only)": "تواصل (مثال فقط)"
+      "Contact (example only)": "تواصل (مثال فقط)",
+      "Creative Developer, Designer & Product Builder": "مطور إبداعي ومهندس واجهات",
+      "Building expressive, useful and resilient experiences for the web.": "تصميم تجارب معبرة تعمل بسلاسة.",
+      "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.": "ديف داس مطور إبداعي خيالي بالكامل. يوضح هذا المثال كيف يمكن للجميع بناء موقع شخصي مميز باستخدام محرر مرئي وثلاثة تخطيطات ومشاريع قابلة للتعديل وبيانات قابلة للنقل."
     },
     "zh-CN": {
-      "Creative Developer & Interface Engineer": "创意开发者与界面工程师",
-      "Designing expressive experiences that just work.": "设计富有表现力、真正好用的数字体验。",
       "Harbor City (fictional)": "港湾城（虚构）",
-      "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.": "Nico Vale 是完全虚构的创意开发者。此独立示例展示如何使用可视化编辑器、三种布局、可编辑项目和可移植资料，创建令人难忘的个人网站。",
       "Web applications": "网页应用",
       "Accessibility": "无障碍设计",
       "UI prototyping": "界面原型",
@@ -191,13 +188,13 @@
       "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment.": "问题：整理散乱笔记。方法：快速记录、分类标签和透明导出。示例成果：开发者效率实验。",
       "Portfolio example": "作品集示例",
       "GitHub example": "GitHub 示例",
-      "Contact (example only)": "联系（仅示例）"
+      "Contact (example only)": "联系（仅示例）",
+      "Creative Developer, Designer & Product Builder": "创意开发者与界面工程师",
+      "Building expressive, useful and resilient experiences for the web.": "设计富有表现力、真正好用的数字体验。",
+      "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.": "Dev Das 是完全虚构的创意开发者。此独立示例展示如何使用可视化编辑器、三种布局、可编辑项目和可移植资料，创建令人难忘的个人网站。"
     },
     "ja": {
-      "Creative Developer & Interface Engineer": "クリエイティブ開発者・インターフェースエンジニア",
-      "Designing expressive experiences that just work.": "表現豊かで使いやすい体験をデザインする。",
       "Harbor City (fictional)": "ハーバーシティ（架空）",
-      "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.": "Nico Vale は完全に架空のクリエイティブ開発者です。この独立した例では、ビジュアルエディター、3つのレイアウト、編集可能な作品、持ち運べるプロフィール情報で印象的な個人サイトを作る方法を紹介します。",
       "Web applications": "ウェブアプリ",
       "Accessibility": "アクセシビリティ",
       "UI prototyping": "UI プロトタイプ",
@@ -215,7 +212,10 @@
       "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment.": "課題：散らばったメモを整理する。方法：すばやい記録、タグ付け、透明なエクスポート。結果：架空の生産性実験。",
       "Portfolio example": "ポートフォリオ例",
       "GitHub example": "GitHub の例",
-      "Contact (example only)": "連絡先（サンプルのみ）"
+      "Contact (example only)": "連絡先（サンプルのみ）",
+      "Creative Developer, Designer & Product Builder": "クリエイティブ開発者・インターフェースエンジニア",
+      "Building expressive, useful and resilient experiences for the web.": "表現豊かで使いやすい体験をデザインする。",
+      "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.": "Dev Das は完全に架空のクリエイティブ開発者です。この独立した例では、ビジュアルエディター、3つのレイアウト、編集可能な作品、持ち運べるプロフィール情報で印象的な個人サイトを作る方法を紹介します。"
     }
   }
 }
