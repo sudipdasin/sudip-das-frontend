@@ -6,6 +6,7 @@
   let initialProfile, profile;
   const byId = id => document.getElementById(id);
   const text = (id, value) => { byId(id).textContent = value || ''; };
+  const localized = value => window.StudioI18n?.translate?.(value) || value;
   const make = (tag, content, cls) => {
     const element = document.createElement(tag);
     if (cls) element.className = cls;
@@ -61,10 +62,10 @@
     text('name',identity.displayName);
     text('demo-brand',identity.displayName);
     text('portrait-caption','Fictional developer • '+identity.displayName);
-    text('role',identity.role);
-    text('location',identity.location);
-    text('tagline',identity.tagline);
-    text('about',profile.about);
+    text('role',localized(identity.role));
+    text('location',localized(identity.location));
+    text('tagline',localized(identity.tagline));
+    text('about',localized(profile.about));
     const avatar=byId('avatar');
     avatar.replaceChildren();
     const portrait=document.createElement('img');
@@ -79,26 +80,26 @@
     document.title=(profile.seo.title || identity.displayName + ' | Demo Portfolio') + ' — Demo';
     const meta=document.querySelector('meta[name="description"]');
     if(meta)meta.content=profile.seo.description;
-    byId('skills').replaceChildren(...profile.skills.map(s=>make('span',s,'chip')));
+    byId('skills').replaceChildren(...profile.skills.map(s=>make('span',localized(s),'chip')));
     byId('projects').replaceChildren(...profile.projects.map(p=>{
       const card=make('article','','card');
-      card.append(make('span',p.category,'eyebrow'),make('h3',p.name),make('p',p.description,'muted'));
+      card.append(make('span',localized(p.category),'eyebrow'),make('h3',p.name),make('p',localized(p.description),'muted'));
       if (p.caseStudy) {
         const study=make('details','','project-study');
-        study.append(make('summary','Read sample case study'),make('p',p.caseStudy,'muted'));
+        study.append(make('summary',localized('Read sample case study')),make('p',localized(p.caseStudy),'muted'));
         card.append(study);
       }
       if (p.url && validExampleUrl(p.url)) {
-        const link=make('a','View project');
+        const link=make('a',localized('View project'));
         link.href=p.url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);
       }
       return card;
     }));
     byId('social').replaceChildren(...profile.social.filter(s=>validExampleUrl(s.url)).map(item=>{
-      const link=make('a',item.label);
+      const link=make('a',localized(item.label));
       link.href=item.url;link.target='_blank';link.rel='noopener noreferrer';return link;
     }));
-    text('email',profile.contact.label+' · '+profile.contact.email+' (display only; no mail sent)');
+    text('email',localized(profile.contact.label)+' · '+profile.contact.email+' ('+localized('display only; no mail sent')+')');
   }
   function field(parent,title,value,kind,property,maxlength) {
     const label=make('label',title);
@@ -236,6 +237,7 @@
       status('Demo profile imported and previewed. Saved locally in this browser.');
     }catch(error){status('Import rejected: '+error.message);}
   });
+  document.addEventListener('studio:language',()=>{if(profile)draw();});
   fetch('./profile.json',{cache:'no-store'}).then(response=>{
     if(!response.ok)throw Error('Profile sample unavailable');
     return response.json();
