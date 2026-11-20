@@ -56,3 +56,18 @@ test('appearance colors are defined explicitly',()=>{
   for(const color of [profile.appearance.accent,profile.appearance.background])
     assert.match(color,/^#[0-9a-fA-F]{6}$/);
 });
+
+test('GitHub Pages demo defaults to Neon Studio while preserving real controls',async()=>{
+  const html=await read('index.html');
+  const js=await read('studio-features.js');
+  assert.match(html,/<body data-theme="neon-studio">/);
+  assert.match(js,/setTheme\(storage\('studio-demo-layout-v1'\)\|\|'neon-studio'\)/);
+  for(const id of ['backup-download','backup-import','system-customize','system-reset']){
+    assert.match(html,new RegExp('id="'+id+'"'));
+    assert.doesNotMatch(html,new RegExp('<button[^>]*disabled[^>]*id="'+id+'"'));
+  }
+  const planned=html.match(/<button type="button" disabled title="[^"]+">/g)||[];
+  assert.equal(planned.length,6);
+  assert.match(html,/class="studio-planned-grid"/);
+  assert.match(html,/Coming soon/);
+});

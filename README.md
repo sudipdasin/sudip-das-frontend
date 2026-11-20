@@ -28,6 +28,18 @@ Do not commit passwords, API tokens, private profile records, D1 database export
 
 Changes must be validated through preview deployment before promotion. Production publication and DNS changes are intentionally separate operations.
 
+## Dev Das Web Studio — primary GitHub Pages destination
+
+The owner-designated public URL for the **fictional Dev Das Web Studio demo** is:
+
+https://sudipdasin.github.io/sudip-das-frontend/
+
+To update that URL, change the authoritative files under `examples/customer-demo/`, include regression tests, and merge the verified changes into `main`. The existing `.github/workflows/customer-demo-pages.yml` builds the isolated allowlisted demo, tests it in Chromium, and deploys `dist/customer-demo-preview/` to GitHub Pages.
+
+Do **not** assume that changes to the portfolio-root `index.html` or the separate `preview/neon-studio/` page will appear at that GitHub Pages address. Keep personal-portfolio and fictional-demo identities separate. Do not include confidential credentials, live profile data, or a real portrait in the fictional sample.
+
+Features without working implementations must be visibly disabled and not simulate success. Preserve the working local editor, backup import/export, language picker, theme switcher and email-composition flow.
+
 ## Fictional customer web preview
 
 A separate fictional buyer demo resides in [`examples/customer-demo/`](examples/customer-demo/README.md). The GitHub Pages workflow publishes an allowlisted copy of that demo rather than the personal website. The live preview address should only be used after a successful `Publish fictional customer demo preview` Actions deployment.
