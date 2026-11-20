@@ -183,6 +183,7 @@ try {
    await page.locator('#studio-theme').selectOption('orbit');
  })();
  await check('different themes actually change typography and backgrounds',async()=>{
+   await page.locator('#reset-profile').click();
    await page.locator('#studio-theme').selectOption('editorial');
    const light=await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor);
    const editorialFont=await page.locator('#name').evaluate(el=>getComputedStyle(el).fontFamily);
