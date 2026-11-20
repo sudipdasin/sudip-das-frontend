@@ -274,7 +274,7 @@ try {
  await check('English restore preserves editable profile data and core safety claims',async()=>{
    await page.locator('#studio-language').selectOption('en');
    await page.waitForFunction(()=>document.querySelector('#usp-heading')?.textContent==='Your web presence should outlive any provider.');
-   assert.equal(await page.locator('#role').innerText(),'Creative Developer & Interface Engineer');
+   assert.equal(await page.locator('#role').innerText(),'Creative Developer, Designer & Product Builder');
    assert.match(await page.locator('#resilience').innerText(),/not an uptime guarantee/);
    await page.reload();
    await page.waitForFunction(()=>window.StudioI18n?.language==='en');
