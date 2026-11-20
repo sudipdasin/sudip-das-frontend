@@ -53,18 +53,20 @@
       <div class="system-menu" id="system-menu">
         <button type="button" class="ghost system-menu-trigger" id="system-menu-trigger" aria-expanded="false" aria-controls="system-menu-panel" aria-haspopup="true"><span data-i18n="systemMenuLabel">Studio &amp; system</span><span class="system-menu-chevron" aria-hidden="true">⌄</span></button>
         <div class="system-menu-panel" id="system-menu-panel" hidden role="group" aria-label="Studio and system actions">
-          <div class="system-menu-section"><span class="system-menu-heading" data-i18n="systemDataHeading">Your data</span>
+          <div class="system-menu-intro"><div class="system-menu-intro-top"><span class="system-menu-mark" aria-hidden="true">✦</span><span class="system-menu-status"><span class="system-menu-status-dot" aria-hidden="true"></span><span data-i18n="systemLocalStatus">Local workspace</span></span></div><h2 data-i18n="systemPanelTitle">Your studio, your control.</h2><p data-i18n="systemPanelSubtitle">Private-by-default tools to manage your demo and keep a copy of your data.</p></div>
+          <div class="system-menu-section system-menu-data"><span class="system-menu-heading" data-i18n="systemDataHeading">Your data</span>
             <button type="button" id="backup-download"><span aria-hidden="true">↓</span><span data-i18n="ownershipExport">Download my profile backup</span></button>
             <button type="button" id="backup-import"><span aria-hidden="true">↑</span><span data-i18n="ownershipImport">Restore from my JSON backup</span></button>
             <p class="system-menu-note" data-i18n="ownershipAvailable">Manual profile export and restore work now. Automatic cloud backups and recovery are not yet available.</p>
           </div>
-          <div class="system-menu-section"><span class="system-menu-heading" data-i18n="systemManageHeading">Manage this demo</span>
+          <div class="system-menu-section system-menu-manage"><span class="system-menu-heading" data-i18n="systemManageHeading">Manage this demo</span>
             <button type="button" id="system-customize"><span aria-hidden="true">✎</span><span data-i18n="systemCustomize">Open profile editor</span></button>
             <button type="button" id="system-reset" class="system-menu-danger"><span aria-hidden="true">↺</span><span data-i18n="systemReset">Restore fictional demo defaults</span></button>
           </div>
           <div class="system-menu-section system-menu-coming"><span class="system-menu-heading" data-i18n="systemFutureHeading">Site infrastructure · Planned</span>
             <p data-i18n="systemFutureBody">Hosting, domain, DNS/CNAME, API, cloud backup, recovery and security controls are not connected in this preview.</p>
           </div>
+          <div class="system-menu-footer"><span aria-hidden="true">◉</span><span data-i18n="systemFooterText">No cloud connection · You own the exported file</span></div>
         </div>
       </div></div></header>
     <section class="panel editor" id="editor" aria-labelledby="editor-heading">
