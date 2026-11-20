@@ -23,7 +23,7 @@ main>.hero>div:first-child{align-self:center}
   min-height:44px;white-space:normal;max-width:none;
   text-align:center;
 }
-.hero-art{overflow:visible;padding-bottom:24px}
+.hero-art{overflow:visible;padding-bottom:0}
 .hero-art .float-tag{
   top:4%!important;bottom:auto!important;right:0!important;left:auto!important;
   max-width:40%!important;padding:8px 12px!important;
@@ -69,7 +69,7 @@ main>.hero>div:first-child{align-self:center}
   }
   .studio-product-actions button:first-child{grid-column:1/-1}
   .studio-product-actions button{font-size:.84rem!important;min-width:0}
-  .hero-art{padding-bottom:13px!important}
+  .hero-art{padding-bottom:0!important}
   .hero-art .float-tag{
     top:0!important;right:0!important;
     max-width:38%!important;padding:7px!important;font-size:.52rem!important;
