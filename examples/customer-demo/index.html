@@ -6,6 +6,8 @@
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#0c1420">
   <title>Customer Demo | Personal Profile Web Studio</title>
+  <meta name="description" content="Explore the fictional Avery Example portfolio and customize it live.">
+  <link rel="stylesheet" href="premium.css">
   <style>
     :root{font-family:Inter,system-ui,-apple-system,sans-serif;color-scheme:dark;--accent:#8de4b3;--base:#0c1420;--panel:#162235;--ink:#edf6f6;--muted:#a8c0c8;--line:#355167}
     *{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(ellipse at 80% 0%,#244359 0%,var(--base) 55%)}
@@ -39,7 +41,7 @@
 <body>
   <div class="banner" role="status">FICTIONAL DEMO PROFILE — No real person, business, or working contact endpoint</div>
   <div class="wrap">
-    <header><div class="brand">Personal Profile Web Studio / Customer Demo</div><button class="ghost" id="edit-toggle" type="button" aria-expanded="false" aria-controls="editor">Customize demo</button></header>
+    <header><div class="nav-bar"><div class="brand">Avery Example <span class="muted">/ Studio demo</span></div><nav class="nav-links" aria-label="Site navigation"><a href="#about-section">About</a><a href="#skills-section">Expertise</a><a href="#projects-section">Projects</a><a href="#contact-section">Contact</a></nav><button class="ghost" id="edit-toggle" type="button" aria-expanded="false" aria-controls="editor">✦ Customize site</button></div></header>
     <section class="panel editor" id="editor" aria-labelledby="editor-heading">
       <h2 id="editor-heading">Customization wizard — local preview</h2>
       <p class="muted">Changes stay in this browser. Export JSON to save the example; no account, payment, cloud provider, or email service is connected.</p>
@@ -67,14 +69,41 @@
       </form>
     </section>
     <main id="top">
-      <section class="hero"><div><span class="eyebrow" id="location"></span><h1 id="name"></h1><p class="lead" id="role"></p><p class="muted" id="tagline"></p></div><div class="avatar" id="avatar" aria-hidden="true"></div></section>
-      <section class="section" aria-labelledby="about-title"><h2 id="about-title">About</h2><p id="about"></p></section>
-      <section class="section" aria-labelledby="skills-title"><h2 id="skills-title">What I work with</h2><div id="skills" class="chips"></div></section>
-      <section class="section" aria-labelledby="projects-title"><h2 id="projects-title">Selected projects</h2><div id="projects" class="cards"></div></section>
-      <section class="section" aria-labelledby="contact-title"><h2 id="contact-title">Connect</h2><p class="muted">Demonstration links are examples. Email details are shown for preview purposes only; no message is sent.</p><div id="social" class="links"></div><p id="email"></p></section>
+      <section class="hero" aria-label="Introduction">
+        <div class="reveal">
+          <p class="eyebrow" id="location"></p>
+          <h1 id="name"></h1>
+          <p class="lead" id="role"></p>
+          <p class="muted" id="tagline"></p>
+          <div class="hero-actions"><a class="button" href="#projects-section">Explore work <span aria-hidden="true">↗</span></a><a class="button secondary" href="#contact-section">Connect <span aria-hidden="true">→</span></a></div>
+        </div>
+        <div class="hero-art reveal" aria-label="Decorative portrait illustration">
+          <div class="orbit" aria-hidden="true"></div><div class="orbit second" aria-hidden="true"></div>
+          <div class="avatar" id="avatar" aria-hidden="true"></div>
+          <div class="float-tag">● AVAILABLE FOR IDEAS</div>
+        </div>
+      </section>
+      <div class="studio-ticker" aria-label="Skills and interests"><div class="ticker-track" aria-hidden="true"><span>CREATIVE ENGINEERING <b>✦</b></span><span>WEB EXPERIENCES <b>✦</b></span><span>ACCESSIBLE DESIGN <b>✦</b></span><span>IDEAS INTO PRODUCTS <b>✦</b></span><span>CREATIVE ENGINEERING <b>✦</b></span><span>WEB EXPERIENCES <b>✦</b></span><span>ACCESSIBLE DESIGN <b>✦</b></span><span>IDEAS INTO PRODUCTS <b>✦</b></span></div></div>
+      <section class="section" id="about-section" aria-labelledby="about-title">
+        <div class="section-head reveal"><div><span class="kicker">01 / Introduction</span><h2 id="about-title">A little about me.</h2></div><p>Crafting experiences that feel natural, useful, and considered.</p></div>
+        <div class="about-copy reveal"><span class="subhead">The short version</span><p id="about"></p></div>
+        <div class="proof-row reveal" aria-label="Demo overview"><div class="proof"><strong>03</strong><span>Sample portfolio projects</span></div><div class="proof"><strong>100%</strong><span>Editable example profile</span></div><div class="proof"><strong>∞</strong><span>Creative possibilities</span></div></div>
+      </section>
+      <section class="section" id="skills-section" aria-labelledby="skills-title">
+        <div class="section-head reveal"><div><span class="kicker">02 / Capabilities</span><h2 id="skills-title">What I bring.</h2></div><p>A practical toolbox for designing, building, and improving digital products.</p></div>
+        <div id="skills" class="chips reveal"></div>
+      </section>
+      <section class="section" id="projects-section" aria-labelledby="projects-title">
+        <div class="section-head reveal"><div><span class="kicker">03 / Selected work</span><h2 id="projects-title">Made with intention.</h2></div><p>Selected sample projects. Everything you see here can be edited in the studio.</p></div>
+        <div id="projects" class="cards reveal"></div>
+      </section>
+      <section class="section" id="contact-section" aria-labelledby="contact-title">
+        <div class="contact-grid reveal"><div><span class="eyebrow">04 / Say hello</span><h2 id="contact-title">Let's create something <span style="color:var(--accent)">meaningful.</span></h2><p class="muted">These are demonstration links only. Real email sending and customer services are not connected.</p><p id="email"></p></div><div id="social" class="links"></div></div>
+      </section>
     </main>
     <footer>This sample is intentionally fictional. Replace its profile data, destinations, and email integration before publishing a customer website.</footer>
   </div>
   <script src="app.js" defer></script>
+  <script src="premium.js" defer></script>
 </body>
 </html>
