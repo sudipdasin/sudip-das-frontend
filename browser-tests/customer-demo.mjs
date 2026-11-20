@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -30,7 +30,7 @@ try {
  await check('fictional customer profile loads',async()=>{
   await page.goto(url);
   await page.locator('#name').waitFor({state:'visible'});
-  assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+  assert.equal(await page.locator('#name').innerText(),'Dev Das');
   assert.equal(await page.locator('#projects article').count(),3);
   assert.equal(await page.locator('.nav-links a').count(),5);
   assert.equal(await page.locator('.orbit').count(),2);
@@ -88,7 +88,7 @@ try {
   await page.waitForFunction(() => document.querySelector('#name')?.textContent === 'Imported Example');
   assert.equal(await page.locator('#name').innerText(),'Imported Example');
   await page.getByRole('button',{name:'Reset demo'}).click();
-  assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+  assert.equal(await page.locator('#name').innerText(),'Dev Das');
  })();
 
  await check('original-inspired fictional portrait loads',async()=>{
@@ -132,18 +132,33 @@ try {
    assert.equal(await page.locator('#skills-section').isVisible(),true);
    await page.locator('#studio-theme').selectOption('orbit');
  })();
- await check('offline proposal wizard downloads but never sends',async()=>{
+ await check('client enquiry opens an email draft, never downloads a brief or fakes delivery',async()=>{
    await page.locator('#proposal-section summary').click();
    await page.locator('#proposal-form [name="name"]').fill('Test Visitor');
-   await page.locator('#proposal-form [name="email"]').fill('visitor@example.com');
+   await page.locator('#proposal-form [name="email"]').fill('visitor@gmail.com');
    await page.locator('#proposal-form [name="service"]').selectOption('Website redesign');
    await page.locator('#proposal-form [name="timeline"]').selectOption('Exploring options');
    await page.locator('#proposal-form [name="brief"]').fill('Create a fictional accessible demo website.');
-   const download=page.waitForEvent('download');
    await page.locator('#proposal-form [type="submit"]').click();
-   const file=await download;
-   assert.equal(file.suggestedFilename(),'sample-project-brief.txt');
-   assert.match(await page.locator('#proposal-status').innerText(),/No email or API request was sent/);
+   assert.match(await page.locator('#proposal-status').innerText(),/Configure a real receiving email address/i);
+   if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
+   await page.locator('#profile-form [name="contactEmail"]').fill('owner@gmail.com');
+   await page.locator('#profile-form button[type="submit"]').click();
+   await page.evaluate(()=>{
+     window.__mailtoURL='';
+     const original=HTMLAnchorElement.prototype.click;
+     HTMLAnchorElement.prototype.click=function(){
+       if(this.href.startsWith('mailto:')){window.__mailtoURL=this.href;return;}
+       return original.call(this);
+     };
+   });
+   await page.locator('#proposal-form [type="submit"]').click();
+   await page.waitForFunction(()=>!!window.__mailtoURL);
+   const href=await page.evaluate(()=>window.__mailtoURL);
+   assert.match(href,/^mailto:owner%40gmail.com\?/);
+   assert.match(decodeURIComponent(href),/Project brief:[\s\S]*accessible demo website/);
+   assert.match(await page.locator('#proposal-status').innerText(),/review it and press Send/i);
+   await page.locator('#reset-profile').click();
  })();
  await check('mobile menu provides responsive navigation',async()=>{
    const mobile=await browser.newPage({viewport:{width:390,height:844}});
@@ -168,13 +183,15 @@ try {
    await page.locator('#studio-theme').selectOption('orbit');
  })();
  await check('different themes actually change typography and backgrounds',async()=>{
+   await page.locator('#reset-profile').click();
    await page.locator('#studio-theme').selectOption('editorial');
    const light=await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor);
    const editorialFont=await page.locator('#name').evaluate(el=>getComputedStyle(el).fontFamily);
    await page.locator('#studio-theme').selectOption('terminal');
    const dark=await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor);
    const terminalFont=await page.locator('#name').evaluate(el=>getComputedStyle(el).fontFamily);
-   assert.notEqual(light,dark);assert.notEqual(editorialFont,terminalFont);
+   const state=await page.evaluate(()=>({theme:document.body.dataset.theme,custom:document.body.dataset.customBackground,background:document.body.dataset.background,base:getComputedStyle(document.body).getPropertyValue('--base'),actual:getComputedStyle(document.body).backgroundColor}));
+   assert.notEqual(light,dark,'Default theme backgrounds must differ: '+JSON.stringify({light,dark,state}));assert.notEqual(editorialFont,terminalFont);
    await page.locator('#studio-theme').selectOption('orbit');
  })();
  await check('interactive tour opens and can drive editor',async()=>{
@@ -200,15 +217,15 @@ try {
    assert.equal(await page.locator('#studio-plans').isVisible(),true);
  })();
  await check('new fictional identity appears consistently',async()=>{
-   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
-   assert.equal(await page.locator('#demo-brand').textContent(),'Nico Vale');
-   assert.match(await page.locator('#portrait-caption').textContent(),/Nico Vale/);
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
+   assert.equal(await page.locator('#demo-brand').textContent(),'Dev Das');
+   assert.match(await page.locator('#portrait-caption').textContent(),/Dev Das/);
    if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
    await page.locator('input[name="displayName"]').fill('Sage Demo');
    await page.getByRole('button',{name:'Save & preview'}).click();
    assert.equal(await page.locator('#demo-brand').textContent(),'Sage Demo');
    await page.locator('#reset-profile').click();
-   assert.equal(await page.locator('#demo-brand').textContent(),'Nico Vale');
+   assert.equal(await page.locator('#demo-brand').textContent(),'Dev Das');
  })();
  await check('layout has no horizontal overflow at common viewport sizes',async()=>{
    for(const width of [390,768,1280]){
@@ -259,11 +276,11 @@ try {
  await check('English restore preserves editable profile data and core safety claims',async()=>{
    await page.locator('#studio-language').selectOption('en');
    await page.waitForFunction(()=>document.querySelector('#usp-heading')?.textContent==='Your web presence should outlive any provider.');
-   assert.equal(await page.locator('#role').innerText(),'Creative Developer & Interface Engineer');
+   assert.equal(await page.locator('#role').innerText(),'Creative Developer, Designer & Product Builder');
    assert.match(await page.locator('#resilience').innerText(),/not an uptime guarantee/);
    await page.reload();
    await page.waitForFunction(()=>window.StudioI18n?.language==='en');
-   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
  })();
  await check('portrait and both orbit rings share the same center in all layouts',async()=>{
    for(const width of [390,768,1280]){
@@ -303,7 +320,7 @@ try {
    await page.locator('#import-profile').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(file))});
    await page.waitForFunction(()=>document.querySelector('#name')?.textContent==='Ownership Test');
    await page.locator('#reset-profile').click();
-   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
  })();
  await check('header, CTAs and editing buttons never overlap at responsive widths',async()=>{
    for(const theme of ['orbit','editorial','terminal']){
@@ -383,7 +400,7 @@ try {
    });
    assert.ok(m.spread<=2,'desktop CTA buttons not aligned: '+JSON.stringify(m));
    assert.equal(m.overlap,false);
-   assert.equal(await page.locator('#demo-brand-wrapper').getAttribute('data-initials'),'NV');
+   assert.equal(await page.locator('#demo-brand-wrapper').getAttribute('data-initials'),'DD');
    if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
    await page.locator('input[name="displayName"]').fill('Nova Studio');
    await page.getByRole('button',{name:'Save & preview'}).click();
@@ -418,7 +435,7 @@ try {
    assert.equal(await page.locator('#name').innerText(),'System Menu Test');
    await page.locator('#system-menu-trigger').click();
    await page.locator('#system-reset').click();
-   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
  })();
  await check('system menu fits on phone and is keyboard operable',async()=>{
    await page.setViewportSize({width:390,height:844});
@@ -438,10 +455,47 @@ try {
    await page.locator('#studio-theme').selectOption('orbit');
    await page.setViewportSize({width:1280,height:900});
  })();
+ await check('Dev Das portrait is distinct and consistent across three themes and mobile widths',async()=>{
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
+   for(const theme of ['orbit','editorial','terminal']){
+     await page.locator('#studio-theme').selectOption(theme);
+     for(const width of [390,768,1280]){
+       await page.setViewportSize({width,height:900});
+       const img=page.locator('#avatar img.demo-portrait');
+       await img.waitFor({state:'visible'});
+       assert.match(await img.getAttribute('src'),/dev-das-portrait\.svg/);
+       const data=await img.evaluate(el=>({loaded:el.complete&&el.naturalWidth>0,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height}));
+       assert.equal(data.loaded,true,theme+'/'+width+' portrait');
+       assert.ok(Math.abs(data.width-data.height)<3,theme+'/'+width+' portrait shape');
+       const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+       assert.ok(overflow<=2,theme+'/'+width+' overflow '+overflow);
+     }
+   }
+   await page.locator('#studio-theme').selectOption('orbit');
+   await page.setViewportSize({width:1280,height:900});
+ })();
+ await check('background treatments and uploaded portrait preserve a portable local profile',async()=>{
+   if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
+   await page.locator('#profile-form select[name="backgroundStyle"]').selectOption('solid');
+   await page.locator('#profile-form button[type="submit"]').click();
+   assert.equal(await page.locator('body').getAttribute('data-background'),'solid');
+   await page.locator('#profile-form select[name="backgroundStyle"]').selectOption('original');
+   await page.locator('#profile-form button[type="submit"]').click();
+   assert.equal(await page.locator('body').getAttribute('data-background'),'original');
+   const buffer=await page.evaluate(()=>{
+     const canvas=document.createElement('canvas');canvas.width=120;canvas.height=120;
+     canvas.getContext('2d').fillStyle='#127a6a';canvas.getContext('2d').fillRect(0,0,120,120);
+     return canvas.toDataURL('image/png').split(',')[1];
+   });
+   await page.locator('#portrait-upload').setInputFiles({name:'custom.png',mimeType:'image/png',buffer:Buffer.from(buffer,'base64')});
+   await page.waitForFunction(()=>document.querySelector('#avatar img')?.src.startsWith('data:image/jpeg;base64,'));
+   await page.locator('#reset-profile').click();
+   assert.match(await page.locator('#avatar img').getAttribute('src'),/dev-das-portrait\.svg/);
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,39);
+assert.equal(passed,41);
 console.log('Browser checks passed: '+passed);

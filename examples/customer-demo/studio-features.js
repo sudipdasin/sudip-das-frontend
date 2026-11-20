@@ -112,23 +112,6 @@
     if(changes.some(change=>change.type==='childList')){syncCategories();applyProjectFilters();}
   }).observe(projectGrid,{childList:true});
   syncCategories();applyProjectFilters();
-  const inquiry=$('proposal-form'),inquiryStatus=$('proposal-status');
-  inquiry.addEventListener('submit',event=>{
-    event.preventDefault();if(!inquiry.reportValidity())return;
-    const fields=Object.fromEntries(new FormData(inquiry).entries());
-    const content=[
-      'FICTIONAL CUSTOMER DEMO — PROJECT BRIEF (NOT SENT)',
-      'Name: '+fields.name,'Email: '+fields.email,
-      'Service: '+fields.service,'Timeline: '+fields.timeline,
-      'Brief:',''+fields.brief,'',
-      'This document is a local preview. No message has been delivered.'
-    ].join('\n');
-    const blob=new Blob([content],{type:'text/plain'});
-    const url=URL.createObjectURL(blob),link=document.createElement('a');
-    link.href=url;link.download='sample-project-brief.txt';document.body.append(link);link.click();link.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),2500);
-    inquiryStatus.textContent='Sample brief download requested. No email or API request was sent.';
-  });
   setTheme(storage('studio-demo-layout-v1')||'orbit');
   setLanguage(storage('studio-demo-language-v1')||'en');
 })();

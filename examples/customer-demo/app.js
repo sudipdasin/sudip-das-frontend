@@ -29,6 +29,8 @@
     if (!identity || !appearance || !seo || !contact) throw Error('Missing profile section.');
     if (!safeText(identity.displayName,70) || !safeText(identity.role,110)) throw Error('Name and role are required.');
     if (!validColor(appearance.accent) || !validColor(appearance.background)) throw Error('Invalid profile colors.');
+    const backgroundStyle=['original','studio','solid'].includes(appearance.backgroundStyle)?appearance.backgroundStyle:'original';
+    const portrait=typeof appearance.portrait==='string'&&/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(appearance.portrait)&&appearance.portrait.length<115000?appearance.portrait:'';
     if (!Array.isArray(raw.skills) || raw.skills.length > 24 || !Array.isArray(raw.projects) || raw.projects.length > 24 || !Array.isArray(raw.social) || raw.social.length > 16) throw Error('Too many skills, projects, or social links.');
     const skills = raw.skills.map(s => safeText(s,70)).filter(Boolean);
     const projects = raw.projects.map((p,i) => {
@@ -47,7 +49,7 @@
       identity:{displayName:safeText(identity.displayName,70),role:safeText(identity.role,110),tagline:safeText(identity.tagline,160),location:safeText(identity.location,100),initials:safeText(identity.displayName,70).split(/\s+/).slice(0,2).map(s=>s[0]||'').join('').toUpperCase()},
       about:safeText(raw.about,1200),skills,projects,social,
       contact:{label:safeText(contact.label,90),email},
-      appearance:{accent:appearance.accent,background:appearance.background},
+      appearance:{accent:appearance.accent,background:appearance.background,backgroundStyle,portrait},
       seo:{title:safeText(seo.title,100),description:safeText(seo.description,240)}
     };
   }
@@ -70,7 +72,7 @@
     const avatar=byId('avatar');
     avatar.replaceChildren();
     const portrait=document.createElement('img');
-    portrait.src='./illustrated-developer.svg';
+    portrait.src=profile.appearance.portrait||'./dev-das-portrait.svg';
     portrait.alt='';
     portrait.width=600;
     portrait.height=600;
@@ -78,6 +80,10 @@
     avatar.append(portrait);
     document.documentElement.style.setProperty('--accent',profile.appearance.accent);
     document.documentElement.style.setProperty('--base',profile.appearance.background);
+    document.body.dataset.background=profile.appearance.backgroundStyle||'original';
+    document.body.style.setProperty('--customer-background',profile.appearance.background);
+    document.body.dataset.customBackground=initialProfile&&profile.appearance.background!==initialProfile.appearance.background?'true':'false';
+    document.dispatchEvent(new CustomEvent('studio:profile',{detail:{displayName:identity.displayName}}));
     document.title=(profile.seo.title || identity.displayName + ' | Demo Portfolio') + ' — Demo';
     const meta=document.querySelector('meta[name="description"]');
     if(meta)meta.content=profile.seo.description;
@@ -149,6 +155,7 @@
     for(const key of ['displayName','role','location','tagline'])form.elements.namedItem(key).value=profile.identity[key]||'';
     form.elements.namedItem('accent').value=profile.appearance.accent;
     form.elements.namedItem('background').value=profile.appearance.background;
+    form.elements.namedItem('backgroundStyle').value=profile.appearance.backgroundStyle||'original';
     form.elements.namedItem('about').value=profile.about;
     form.elements.namedItem('skills').value=profile.skills.join(', ');
     form.elements.namedItem('seoTitle').value=profile.seo.title;
@@ -163,6 +170,7 @@
     for(const key of ['displayName','role','location','tagline'])draft.identity[key]=form.elements.namedItem(key).value;
     draft.appearance.accent=form.elements.namedItem('accent').value;
     draft.appearance.background=form.elements.namedItem('background').value;
+    draft.appearance.backgroundStyle=form.elements.namedItem('backgroundStyle').value;
     draft.about=form.elements.namedItem('about').value;
     draft.skills=form.elements.namedItem('skills').value.split(',').map(x=>x.trim()).filter(Boolean);
     draft.seo.title=form.elements.namedItem('seoTitle').value;
@@ -238,6 +246,27 @@
       status('Demo profile imported and previewed. Saved locally in this browser.');
     }catch(error){status('Import rejected: '+error.message);}
   });
+  // Expose only validated, local recipient configuration to the email composer.
+  window.StudioDemo=Object.freeze({getRecipient:()=>profile?.contact?.email||'',getProfile:()=>profile?structuredClone(profile):null});
+  const upload=byId('portrait-upload');
+  upload.addEventListener('change',async()=>{
+    const file=upload.files?.[0];upload.value='';
+    if(!file||!profile)return;
+    if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>3*1024*1024){status('Use a JPG, PNG or WebP image smaller than 3 MB.');return;}
+    try{
+      const bmp=await createImageBitmap(file);
+      if(bmp.width<100||bmp.height<100||bmp.width>6000||bmp.height>6000)throw Error('Image dimensions must be between 100 and 6000 pixels.');
+      const canvas=document.createElement('canvas');canvas.width=240;canvas.height=240;
+      const ctx=canvas.getContext('2d');
+      const edge=Math.min(bmp.width,bmp.height),x=(bmp.width-edge)/2,y=(bmp.height-edge)/2;
+      ctx.drawImage(bmp,x,y,edge,edge,0,0,240,240);bmp.close?.();
+      const data=canvas.toDataURL('image/jpeg',0.65);
+      if(data.length>=115000)throw Error('Image cannot fit the portable profile limit.');
+      profile.appearance.portrait=data;
+      if(!save())return;
+      draw();status('Photo updated locally. Export your JSON profile to keep it.');
+    }catch(error){status('Photo not updated: '+error.message);}
+  });
   document.addEventListener('studio:language',()=>{if(profile)draw();});
   fetch('./profile.json',{cache:'no-store'}).then(response=>{
     if(!response.ok)throw Error('Profile sample unavailable');
@@ -247,7 +276,18 @@
     profile=structuredClone(initialProfile);
     try{
       const stored=localStorage.getItem(STORAGE_KEY);
-      if(stored) profile=validateProfile(JSON.parse(stored));
+      if(stored){
+        const saved=JSON.parse(stored);
+        // Upgrade untouched legacy demo identity without overwriting genuinely customized profiles.
+        if(saved?.identity?.displayName==='Nico Vale'&&saved?.identity?.role==='Creative Developer & Interface Engineer'){
+          saved.identity=structuredClone(initialProfile.identity);
+          if(saved.about?.startsWith('Nico Vale is an entirely fictional'))saved.about=initialProfile.about;
+          if(saved.seo?.title?.startsWith('Nico Vale'))saved.seo=structuredClone(initialProfile.seo);
+          if(!saved.appearance?.portrait)saved.appearance.portrait='';
+          if(!saved.appearance?.backgroundStyle)saved.appearance.backgroundStyle='original';
+        }
+        profile=validateProfile(saved);
+      }
     }catch{status('Saved changes were invalid; the original demo was loaded.');}
     populateForm();draw();
   }).catch(()=>{
