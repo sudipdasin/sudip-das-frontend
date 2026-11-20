@@ -53,3 +53,10 @@ The fictional sample now includes customer-safe adaptations of the source portfo
 - New full-copy translation catalogs for ten languages, including fictional profile, product message, journey copy and onboarding; RTL Arabic support and reversible switches.
 - Adds research-grounded product-growth and distribution plan at `docs/PRODUCT-GROWTH-STRATEGY.md`, and resilience architecture at `docs/ENDURING-WEB-PRESENCE.md`.
 - No verified automated cloud backup, monitoring, failover, billing or managed hosting is claimed. This release is limited to the separate fictional demo.
+
+## v0.2.0-rc.11 — Responsive interface refinement
+- Reorder the demo so real introductory actions and the profile hero appear before detailed resilience marketing content.
+- Consolidate header/navigation, CTA, editor, project-filter, ownership, pricing, tour and form layout rules in a final responsive CSS layer.
+- Make action groups wrap/grid responsively with touch-friendly targets, control width limits, readable translated labels and visible keyboard focus.
+- Add real Chromium overlap and horizontal-scroll checks for 320/390/600/768/1024/1440px in all three themes, plus translated labels in English, Hindi, German and Arabic.
+- Preserve customer editing, backups, languages, avatar/orbit geometry and disabled payment safeguards.
