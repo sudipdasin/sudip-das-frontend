@@ -35,3 +35,11 @@ The fictional sample now includes customer-safe adaptations of the source portfo
 - Expanded automated tests for all three themes, portrait, mobile overflow, editable identity, tour and gateway safety.
 
 **Release scope:** public customer demonstration only. Live paid purchase, license provisioning and hosted customer publishing remain blocked until merchant and backend integration is verified. See `docs/COMMERCIAL-LAUNCH.md`.
+
+## v0.2.0-rc.9 — Enduring Web Presence USP and expanded multilingual demo
+- Central claim changed to the planned **Auto-Regenerative Presence Engine**: detect, preserve with independent local/cloud backups, restore to another provider, and verify recovery.
+- Clear warning: website availability cannot be guaranteed against expired domains, DNS caching, security incidents or provider outages; backup/failover orchestration remains planned rather than implemented.
+- Added source-owned localized product, page, UI, portfolio and tour copy for ten languages: English, Hindi, Bengali, Spanish, French, German, Portuguese, Arabic, Chinese and Japanese.
+- Added right-to-left Arabic layout support and tests for language-switch reversibility, mobile dimensions and demo profile isolation.
+- Added `docs/ENDURING-WEB-PRESENCE.md` and `docs/GROWTH-AND-LAUNCH-PLAYBOOK.md` for architectural and commercial release milestones.
+- This release concerns the fictional demo. No private backend, production DNS or payment gateway is activated.
