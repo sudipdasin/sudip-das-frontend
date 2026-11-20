@@ -71,3 +71,6 @@ body[data-theme=terminal] .tour-card{background:#0b1e15;border-color:#48a974}
  .system-menu-panel{max-height:min(70dvh,610px)}
 }
 @media(prefers-reduced-motion:reduce){body{transition:none}}
+
+body[data-custom-background=true]{background:var(--customer-background)!important}
+body[data-custom-background=true][data-background=solid]::before{background:none!important}
