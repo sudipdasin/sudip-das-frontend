@@ -59,4 +59,5 @@ jobs:
           test -s examples/customer-demo/i18n-dynamic.json
           test -s examples/customer-demo/studio-product.css
           test -s examples/customer-demo/studio-layout-fixes.css
+          test -s examples/customer-demo/studio-visual-final.css
           grep -qi '<html' index.html
