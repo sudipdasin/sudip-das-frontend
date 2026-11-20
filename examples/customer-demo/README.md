@@ -39,3 +39,10 @@ After GitHub Pages is enabled for this repository and the `Publish fictional cus
 The Pages build uses `scripts/build-customer-demo.mjs`, an explicit allowlist that exports **only** this fictional demo and disallows publishing the author's actual portfolio or API.
 
 If a deployment reports that GitHub Pages has not been enabled, visit **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source, then rerun the workflow. Until deployment succeeds, the address should not be presented as a live preview.
+
+## Fully functional standalone editor
+The online preview includes edit-and-save for customer identity, about, skills, background and accent colors, contact display, SEO metadata, projects and social links. It also supports adding/removing projects and links, JSON profile import/export, persistence across reloads in the same browser and reset to the original fictional profile. Inputs are constrained and text rendered safely.
+
+**Production boundaries:** These features work entirely in the browser. A real multi-user backend, authentication, hosted custom domains, storage synchronization, payment flows, email delivery and an installer are separate product milestones, not simulated as working services.
+
+The preview workflow runs real Chromium interaction tests as a publishing gate; a successful GitHub Actions build alone must not be confused with a verified Pages deployment.
