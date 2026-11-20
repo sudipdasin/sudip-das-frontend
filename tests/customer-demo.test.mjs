@@ -6,7 +6,7 @@ const profile=JSON.parse(await read('profile.json'));
 test('demo profile is schema-versioned and explicitly fictional',()=>{
   assert.equal(profile.schemaVersion,1);
   assert.equal(profile.demo,true);
-  assert.match(profile.identity.displayName,/Example|Demo/i);
+  assert.equal(profile.identity.displayName,'Nico Vale');
   assert.match(profile.identity.location,/fictional|example/i);
 });
 test('demo identity is not the real portfolio identity',()=>{
