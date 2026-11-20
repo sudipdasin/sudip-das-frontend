@@ -232,7 +232,7 @@ try {
    assert.match(await page.locator('#projects .card .muted').first().innerText(),/panel ficticio/);
  })();
  await check('Hindi Bengali Portuguese Chinese and Japanese switch reversibly',async()=>{
-   const cases=[['hi','आपकी वेब'],['bn','আপনার ওয়েব'],['pt','Sua presença'],['zh-CN','您的网络'],['ja','ウェブプレゼンス']];
+   const cases=[['hi','आपकी वेब'],['bn','আপনার ওয়েব'],['pt','Sua presença'],['zh-CN','您的网络'],['ja','ウェブ上の存在']];
    for(const [locale,phrase] of cases){
      await page.locator('#studio-language').selectOption(locale);
      await page.waitForFunction(({phrase})=>document.querySelector('#usp-heading')?.textContent.includes(phrase),{phrase});
