@@ -106,3 +106,6 @@ body[data-theme="neon-studio"] .neon-position{font-size:0!important;letter-spaci
 body[data-theme="neon-studio"] .neon-position:before{content:"CREATIVE DEVELOPER   •   INTERFACE ENGINEER   •   PRODUCT BUILDER";font-size:clamp(.61rem,.85vw,.8rem);white-space:normal}
 body[data-theme="neon-studio"] main>.hero h1:after{content:".";color:#00f1f1;display:inline}
 @media(max-width:860px){body[data-theme="neon-studio"] main>.hero:before{background-position:center bottom;background-size:auto 100%}}
+
+/* Other demo themes retain their prior clean layout and working controls. */
+body:not([data-theme="neon-studio"]) :is(.studio-nav-dropdown,.demo-theme-icon,.neon-value-section,.neon-feature-grid,.neon-role-pills,.neon-intro-button,.neon-home-link){display:none!important}
