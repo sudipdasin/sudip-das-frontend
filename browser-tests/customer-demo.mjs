@@ -10,11 +10,11 @@ const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const output=join(root,'dist','customer-demo-preview');
 const result=spawnSync(process.execPath,['scripts/build-customer-demo.mjs'],{cwd:root,encoding:'utf8'});
 assert.equal(result.status,0,result.stderr);
-const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;charset=utf-8','.json':'application/json;charset=utf-8','.txt':'text/plain'};
+const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;charset=utf-8','.css':'text/css;charset=utf-8','.json':'application/json;charset=utf-8','.txt':'text/plain'};
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -32,6 +32,8 @@ try {
   await page.locator('#name').waitFor({state:'visible'});
   assert.equal(await page.locator('#name').innerText(),'Avery Example');
   assert.equal(await page.locator('#projects article').count(),3);
+  assert.equal(await page.locator('.nav-links a').count(),4);
+  assert.equal(await page.locator('.orbit').count(),2);
  })();
  await check('editing and saving fields works',async()=>{
   await page.getByRole('button',{name:'Customize demo'}).click();
