@@ -76,3 +76,11 @@ The fictional sample now includes customer-safe adaptations of the source portfo
 - Preserve the existing profile editor's advanced actions, the local-only backup/restore mechanism, and the separate theme/language selectors.
 - Show hosting, domains, DNS/CNAME, APIs, cloud backups and recovery as explicitly **planned**, never as working infrastructure.
 - Add regression coverage for menu accessibility, mobile sizing, live backup/restore, editor and reset behavior.
+
+## v0.2.0-rc.14 — Dev Das developer demo & original-inspired experience
+- Replace Nico Vale with **Dev Das**, a fictional developer, designer and product builder. Migrate untouched old demo browser saves while preserving genuinely personalized records.
+- Ship a separate AI-generated fictional profile portrait, distinct from the real developer's photo, and support optional user photo uploads processed locally in browser and exported as profile JSON.
+- Add a layered aurora/gradient/solid background selector, and harmonize three theme palettes with shared responsive orbit and portrait framing.
+- Replace proposal TXT downloads with explicit `mailto:` email composition. Demo requests **are not auto-sent or verified as delivered**. Require a real, customer-configured recipient, never reuse the site owner's personal email.
+- Expand localization for editor media settings and email enquiry. Keep all management actions local and future infrastructure capabilities marked as planned.
+- Verify full source, packaging and Chromium regression suite on the exact release commit before merge.
