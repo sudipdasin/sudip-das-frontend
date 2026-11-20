@@ -18,6 +18,7 @@ jobs:
       - name: Verify domain cutover checker
         run: |
           node --check scripts/site-readiness.mjs
+          node --check scripts/repo-discovery.js
           node --test tests/*.test.mjs
       - name: Ensure expected public assets exist
         run: |
@@ -26,6 +27,7 @@ jobs:
           test -s sudip-das-portrait.jpg
           test -s data/site.json
           test -s data/site.xml
+          test -s scripts/repo-discovery.js
           test -s _headers
           test -s 404.html
           grep -qi '<html' index.html
