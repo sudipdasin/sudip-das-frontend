@@ -5,7 +5,7 @@
  const modal=$('demo-tour'),title=$('tour-title'),description=$('tour-description'),
    progress=$('tour-progress'),back=$('tour-back'),next=$('tour-next'),tryButton=$('tour-try'),exit=$('tour-exit');
  const steps=[
-  {title:'Meet your next website.',description:'This is a fictional developer portfolio. The studio behind it makes each profile independent and editable.',action:'See the portfolio',target:'top'},
+  {title:'Meet your enduring web presence.',description:'The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.',action:'Explore resilience',target:'resilience'},
   {title:'Three layouts, one profile.',description:'Orbit, Editorial and Terminal each have their own typography and composition. Your portrait and details remain visible when you switch.',action:'Try Editorial layout',target:'theme'},
   {title:'Make every detail yours.',description:'Change name, role, color, skills, SEO, projects and links. Save locally and export the profile without an account.',action:'Open the editor',target:'editor'},
   {title:'Projects tell your story.',description:'Filter the sample projects, read their case studies, and edit descriptions. No programming required.',action:'Explore projects',target:'projects-section'},
