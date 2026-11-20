@@ -415,7 +415,9 @@ try {
    await trigger.click();
    assert.equal(await trigger.getAttribute('aria-expanded'),'true');
    assert.equal(await panel.isVisible(),true);
-   assert.equal(await panel.locator('button').count(),4);
+   assert.equal(await panel.locator('button:not(:disabled)').count(),4);
+   assert.equal(await panel.locator('.studio-planned-grid button:disabled').count(),6);
+   assert.equal(await panel.locator('button').count(),10);
    assert.equal(await panel.locator('.system-menu-data>button').count(),2);
    assert.equal(await panel.locator('.system-menu-intro h2').innerText(),'Your studio, your control.');
    assert.equal(await panel.locator('.system-menu-footer').isVisible(),true);
