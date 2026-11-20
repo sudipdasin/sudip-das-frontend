@@ -289,6 +289,7 @@ try {
  })();
  await check('direct download is an actual manual ownership backup',async()=>{
    const started=page.waitForEvent('download');
+   await page.locator('#system-menu-trigger').click();
    await page.locator('#backup-download').click();
    const download=await started;
    assert.equal(download.suggestedFilename(),'customer-demo-profile.json');
@@ -309,7 +310,7 @@ try {
      for(const width of [320,390,600,768,1024,1440]){
        await page.setViewportSize({width,height:900});
        const result=await page.evaluate(()=>{
-         const selectors=['.nav-bar .brand','.nav-bar #mobile-menu','.nav-bar #edit-toggle','.nav-bar .studio-controls','.nav-bar .nav-links','.studio-product-actions button','.ownership-actions button','.hero-actions a'];
+         const selectors=['.nav-bar .brand','.nav-bar #mobile-menu','.nav-bar #edit-toggle','.nav-bar .studio-controls','.nav-bar .nav-links','.nav-bar .system-menu-trigger','.studio-product-actions button','.ownership-actions button','.hero-actions a'];
          const overlaps=[];const visible=[];
          for(const sel of selectors)for(const el of document.querySelectorAll(sel)){
            const s=getComputedStyle(el),r=el.getBoundingClientRect();
@@ -383,10 +384,55 @@ try {
    assert.equal(await page.locator('#demo-brand-wrapper').getAttribute('data-initials'),'NS');
    await page.locator('#reset-profile').click();
  })();
+ await check('system controls are grouped in a dedicated accessible top menu',async()=>{
+   await page.setViewportSize({width:1280,height:900});
+   const trigger=page.locator('#system-menu-trigger'),panel=page.locator('#system-menu-panel');
+   assert.equal(await trigger.getAttribute('aria-expanded'),'false');
+   assert.equal(await panel.isVisible(),false);
+   await trigger.click();
+   assert.equal(await trigger.getAttribute('aria-expanded'),'true');
+   assert.equal(await panel.isVisible(),true);
+   assert.equal(await panel.locator('button').count(),4);
+   assert.equal(await page.locator('#backup-download').count(),1);
+   assert.equal(await page.locator('#backup-import').count(),1);
+   assert.match(await page.locator('.system-menu-coming').innerText(),/not connected/i);
+   await page.keyboard.press('Escape');
+   assert.equal(await panel.isVisible(),false);
+   assert.equal(await trigger.evaluate(el=>el===document.activeElement),true);
+ })();
+ await check('system menu editor and reset actions reuse working controls',async()=>{
+   await page.locator('#system-menu-trigger').click();
+   await page.locator('#system-customize').click();
+   assert.equal(await page.locator('#editor').isVisible(),true);
+   await page.locator('input[name="displayName"]').fill('System Menu Test');
+   await page.getByRole('button',{name:'Save & preview'}).click();
+   assert.equal(await page.locator('#name').innerText(),'System Menu Test');
+   await page.locator('#system-menu-trigger').click();
+   await page.locator('#system-reset').click();
+   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+ })();
+ await check('system menu fits on phone and is keyboard operable',async()=>{
+   await page.setViewportSize({width:390,height:844});
+   for(const theme of ['orbit','editorial','terminal']){
+     await page.locator('#studio-theme').selectOption(theme);
+     await page.locator('#system-menu-trigger').click();
+     const r=await page.locator('#system-menu-panel').boundingBox();
+     assert.ok(r&&r.x>=-1&&r.x+r.width<=391,theme+' menu exceeds phone width');
+     await page.locator('#system-menu-trigger').focus();
+     await page.keyboard.press('ArrowDown');
+     assert.equal(await page.locator('#backup-download').evaluate(el=>el===document.activeElement),true);
+     await page.keyboard.press('ArrowDown');
+     assert.equal(await page.locator('#backup-import').evaluate(el=>el===document.activeElement),true);
+     await page.keyboard.press('Escape');
+     assert.equal(await page.locator('#system-menu-panel').isVisible(),false);
+   }
+   await page.locator('#studio-theme').selectOption('orbit');
+   await page.setViewportSize({width:1280,height:900});
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,36);
+assert.equal(passed,39);
 console.log('Browser checks passed: '+passed);
