@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-i18n.js','/studio-ownership.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-i18n.js','/studio-ownership.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -303,10 +303,53 @@ try {
    await page.locator('#reset-profile').click();
    assert.equal(await page.locator('#name').innerText(),'Nico Vale');
  })();
+ await check('header, CTAs and editing buttons never overlap at responsive widths',async()=>{
+   for(const theme of ['orbit','editorial','terminal']){
+     await page.locator('#studio-theme').selectOption(theme);
+     for(const width of [320,390,600,768,1024,1440]){
+       await page.setViewportSize({width,height:900});
+       const result=await page.evaluate(()=>{
+         const selectors=['.nav-bar .brand','.nav-bar #mobile-menu','.nav-bar #edit-toggle','.nav-bar .studio-controls','.nav-bar .nav-links','.studio-product-actions button','.ownership-actions button','.hero-actions a'];
+         const overlaps=[];const visible=[];
+         for(const sel of selectors)for(const el of document.querySelectorAll(sel)){
+           const s=getComputedStyle(el),r=el.getBoundingClientRect();
+           if(s.display==='none'||s.visibility==='hidden'||r.width===0||r.height===0)continue;
+           visible.push({name:el.id||el.textContent.trim().slice(0,25),sel,r:{x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height}});
+         }
+         const intersection=(a,b)=>Math.max(0,Math.min(a.right,b.right)-Math.max(a.x,b.x))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y));
+         for(let i=0;i<visible.length;i++)for(let j=i+1;j<visible.length;j++){
+           if(intersection(visible[i].r,visible[j].r)>24)overlaps.push([visible[i].name,visible[j].name]);
+         }
+         return {overlaps,overflow:document.documentElement.scrollWidth-innerWidth,outside:visible.filter(x=>x.r.x < -2||x.r.right>innerWidth+2).map(x=>x.name)};
+       });
+       assert.deepEqual(result.overlaps,[],theme+'/'+width+': '+JSON.stringify(result));
+       assert.deepEqual(result.outside,[],theme+'/'+width+': '+JSON.stringify(result));
+       assert.ok(result.overflow<=2,theme+'/'+width+': horizontal overflow '+result.overflow);
+     }
+   }
+   await page.locator('#studio-theme').selectOption('orbit');
+   await page.setViewportSize({width:1280,height:900});
+ })();
+ await check('translated long button labels wrap without collision',async()=>{
+   for(const language of ['en','de','hi','ar']){
+     await page.locator('#studio-language').selectOption(language);
+     await page.waitForFunction(lang=>window.StudioI18n?.language===lang,language);
+     await page.setViewportSize({width:390,height:850});
+     const check=await page.locator('.ownership-actions').evaluate(el=>{
+       const boxes=[...el.querySelectorAll('button')].map(b=>b.getBoundingClientRect());
+       const a=boxes[0],b=boxes[1];
+       return {overlap:Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)),outside:boxes.some(r=>r.left < -1||r.right>innerWidth+1)};
+     });
+     assert.equal(check.overlap,0,language+': backup buttons overlap');
+     assert.equal(check.outside,false,language+': button outside viewport');
+   }
+   await page.locator('#studio-language').selectOption('en');
+   await page.setViewportSize({width:1280,height:900});
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,32);
+assert.equal(passed,34);
 console.log('Browser checks passed: '+passed);
