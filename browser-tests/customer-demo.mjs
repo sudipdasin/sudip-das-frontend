@@ -145,10 +145,21 @@ try {
    assert.equal(file.suggestedFilename(),'sample-project-brief.txt');
    assert.match(await page.locator('#proposal-status').innerText(),/No email or API request was sent/);
  })();
+ await check('mobile menu provides responsive navigation',async()=>{
+   const mobile=await browser.newPage({viewport:{width:390,height:844}});
+   try {
+     await mobile.goto(url);
+     await mobile.locator('#mobile-menu').click();
+     assert.equal(await mobile.locator('#mobile-menu').getAttribute('aria-expanded'),'true');
+     assert.equal(await mobile.locator('#studio-nav').isVisible(),true);
+     await mobile.locator('#studio-nav a[href="#projects-section"]').click();
+     assert.equal(await mobile.locator('#mobile-menu').getAttribute('aria-expanded'),'false');
+   } finally {await mobile.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,15);
+assert.equal(passed,16);
 console.log('Browser checks passed: '+passed);
