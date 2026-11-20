@@ -15,6 +15,10 @@ jobs:
           node-version: '22'
       - name: Check JavaScript syntax
         run: node --check languages.js
+      - name: Verify domain cutover checker
+        run: |
+          node --check scripts/site-readiness.mjs
+          node --test tests/site-readiness.test.mjs
       - name: Ensure expected public assets exist
         run: |
           test -s index.html
