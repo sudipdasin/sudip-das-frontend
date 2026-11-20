@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -30,7 +30,7 @@ try {
  await check('fictional customer profile loads',async()=>{
   await page.goto(url);
   await page.locator('#name').waitFor({state:'visible'});
-  assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+  assert.equal(await page.locator('#name').innerText(),'Dev Das');
   assert.equal(await page.locator('#projects article').count(),3);
   assert.equal(await page.locator('.nav-links a').count(),5);
   assert.equal(await page.locator('.orbit').count(),2);
@@ -88,7 +88,7 @@ try {
   await page.waitForFunction(() => document.querySelector('#name')?.textContent === 'Imported Example');
   assert.equal(await page.locator('#name').innerText(),'Imported Example');
   await page.getByRole('button',{name:'Reset demo'}).click();
-  assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+  assert.equal(await page.locator('#name').innerText(),'Dev Das');
  })();
 
  await check('original-inspired fictional portrait loads',async()=>{
@@ -200,15 +200,15 @@ try {
    assert.equal(await page.locator('#studio-plans').isVisible(),true);
  })();
  await check('new fictional identity appears consistently',async()=>{
-   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
-   assert.equal(await page.locator('#demo-brand').textContent(),'Nico Vale');
-   assert.match(await page.locator('#portrait-caption').textContent(),/Nico Vale/);
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
+   assert.equal(await page.locator('#demo-brand').textContent(),'Dev Das');
+   assert.match(await page.locator('#portrait-caption').textContent(),/Dev Das/);
    if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
    await page.locator('input[name="displayName"]').fill('Sage Demo');
    await page.getByRole('button',{name:'Save & preview'}).click();
    assert.equal(await page.locator('#demo-brand').textContent(),'Sage Demo');
    await page.locator('#reset-profile').click();
-   assert.equal(await page.locator('#demo-brand').textContent(),'Nico Vale');
+   assert.equal(await page.locator('#demo-brand').textContent(),'Dev Das');
  })();
  await check('layout has no horizontal overflow at common viewport sizes',async()=>{
    for(const width of [390,768,1280]){
@@ -263,7 +263,7 @@ try {
    assert.match(await page.locator('#resilience').innerText(),/not an uptime guarantee/);
    await page.reload();
    await page.waitForFunction(()=>window.StudioI18n?.language==='en');
-   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
  })();
  await check('portrait and both orbit rings share the same center in all layouts',async()=>{
    for(const width of [390,768,1280]){
@@ -303,7 +303,7 @@ try {
    await page.locator('#import-profile').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(file))});
    await page.waitForFunction(()=>document.querySelector('#name')?.textContent==='Ownership Test');
    await page.locator('#reset-profile').click();
-   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
  })();
  await check('header, CTAs and editing buttons never overlap at responsive widths',async()=>{
    for(const theme of ['orbit','editorial','terminal']){
@@ -418,7 +418,7 @@ try {
    assert.equal(await page.locator('#name').innerText(),'System Menu Test');
    await page.locator('#system-menu-trigger').click();
    await page.locator('#system-reset').click();
-   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
  })();
  await check('system menu fits on phone and is keyboard operable',async()=>{
    await page.setViewportSize({width:390,height:844});
