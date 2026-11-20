@@ -20,6 +20,7 @@ jobs:
           node --check scripts/site-readiness.mjs
           node --check scripts/repo-discovery.js
           node --check examples/customer-demo/app.js
+          node --check scripts/build-customer-demo.mjs
           node --test tests/*.test.mjs
       - name: Ensure expected public assets exist
         run: |

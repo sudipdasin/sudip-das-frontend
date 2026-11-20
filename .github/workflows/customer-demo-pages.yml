@@ -1,0 +1,70 @@
+name: Publish fictional customer demo preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'examples/customer-demo/**'
+      - 'scripts/build-customer-demo.mjs'
+      - 'tests/customer-demo*.test.mjs'
+      - '.github/workflows/customer-demo-pages.yml'
+  pull_request:
+    paths:
+      - 'examples/customer-demo/**'
+      - 'scripts/build-customer-demo.mjs'
+      - 'tests/customer-demo*.test.mjs'
+      - 'browser-tests/customer-demo.mjs'
+      - '.github/workflows/customer-demo-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: customer-demo-github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and validate isolated preview
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test fictional customer demo
+        run: |
+          node --check examples/customer-demo/app.js
+          node --check scripts/build-customer-demo.mjs
+          node --test tests/customer-demo.test.mjs tests/customer-demo-build.test.mjs
+      - name: Install headless Chromium for real browser tests
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify wizard in Chromium
+        run: node browser-tests/customer-demo.mjs
+      - name: Produce isolated Pages artifact
+        run: node scripts/build-customer-demo.mjs
+      - name: Upload deployment artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/customer-demo-preview
+
+  deploy:
+    name: Deploy GitHub Pages preview
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Prepare GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy isolated demo
+        id: deployment
+        uses: actions/deploy-pages@v4
