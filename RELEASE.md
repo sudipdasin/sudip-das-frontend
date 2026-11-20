@@ -25,3 +25,13 @@ The fictional portfolio now uses the design language of the existing personal si
 The fictional sample now includes customer-safe adaptations of the source portfolio's most useful presentation patterns: Orbit/Editorial/Terminal modes, animated connected identity art (original fictional SVG), sticky and mobile navigation, scroll-progress feedback, subtle pointer tilt, six-language navigation/section labels, live project search and categories, editable case-study accordions, a fictional experience timeline and capabilities, and a functional offline proposal brief exporter. Existing edit/save, local storage, import/export and reset remain preserved. 
 
 **Security separation:** The owner's real portrait, Cloudflare Turnstile keys, private-information request/vault workflow, backend APIs and email delivery were not copied. The proposal feature only downloads a local text file and explicitly does not send it anywhere. The demo remains a reusable static customer sample, not a production multi-tenant hosted application.
+
+## v0.2.0-rc.8 — Quality and discovery hardening
+- New entirely fictional starter developer: Nico Vale.
+- Visual redesign ensures the fictional SVG portrait is visible in all Orbit, Editorial and Terminal modes, with distinct backgrounds, typography and responsive layouts.
+- Optional five-step guided tour: layout switching, editor, projects and plans, with keyboard Escape and focus return.
+- Separate transparent product discovery and prelaunch plan section; no invented prices, payment processing or account claims.
+- Fail-closed hosted-checkout adapter supporting configured Stripe Payment Links and Razorpay Payment Pages on a verified commercial host. GitHub Pages **never** enables payment; public config remains disabled.
+- Expanded automated tests for all three themes, portrait, mobile overflow, editable identity, tour and gateway safety.
+
+**Release scope:** public customer demonstration only. Live paid purchase, license provisioning and hosted customer publishing remain blocked until merchant and backend integration is verified. See `docs/COMMERCIAL-LAUNCH.md`.

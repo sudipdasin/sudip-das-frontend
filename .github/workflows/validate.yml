@@ -22,6 +22,8 @@ jobs:
           node --check examples/customer-demo/app.js
           node --check examples/customer-demo/premium.js
           node --check examples/customer-demo/studio-features.js
+          node --check examples/customer-demo/studio-tour.js
+          node --check examples/customer-demo/commerce.js
           node --check scripts/build-customer-demo.mjs
           node --test tests/*.test.mjs
       - name: Ensure expected public assets exist
@@ -42,4 +44,8 @@ jobs:
           test -s examples/customer-demo/studio-features.js
           test -s examples/customer-demo/studio-features.css
           test -s examples/customer-demo/illustrated-developer.svg
+          test -s examples/customer-demo/studio-polish.css
+          test -s examples/customer-demo/studio-tour.js
+          test -s examples/customer-demo/commerce.js
+          test -s examples/customer-demo/commerce.json
           grep -qi '<html' index.html

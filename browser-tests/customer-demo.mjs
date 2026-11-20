@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -30,7 +30,7 @@ try {
  await check('fictional customer profile loads',async()=>{
   await page.goto(url);
   await page.locator('#name').waitFor({state:'visible'});
-  assert.equal(await page.locator('#name').innerText(),'Avery Example');
+  assert.equal(await page.locator('#name').innerText(),'Nico Vale');
   assert.equal(await page.locator('#projects article').count(),3);
   assert.equal(await page.locator('.nav-links a').count(),5);
   assert.equal(await page.locator('.orbit').count(),2);
@@ -88,7 +88,7 @@ try {
   await page.waitForFunction(() => document.querySelector('#name')?.textContent === 'Imported Example');
   assert.equal(await page.locator('#name').innerText(),'Imported Example');
   await page.getByRole('button',{name:'Reset demo'}).click();
-  assert.equal(await page.locator('#name').innerText(),'Avery Example');
+  assert.equal(await page.locator('#name').innerText(),'Nico Vale');
  })();
 
  await check('original-inspired fictional portrait loads',async()=>{
@@ -156,10 +156,72 @@ try {
      assert.equal(await mobile.locator('#mobile-menu').getAttribute('aria-expanded'),'false');
    } finally {await mobile.close();}
  })();
+ await check('portrait visible in all three distinct themes',async()=>{
+   for(const theme of ['orbit','editorial','terminal']){
+     await page.locator('#studio-theme').selectOption(theme);
+     const img=page.locator('#avatar img.demo-portrait');
+     assert.equal(await img.isVisible(),true,theme+' avatar hidden');
+     const dims=await img.boundingBox();
+     assert.ok(dims?.width>100&&dims?.height>100,theme+' avatar too small');
+     assert.ok(await img.evaluate(el=>el.complete&&el.naturalWidth>0));
+   }
+   await page.locator('#studio-theme').selectOption('orbit');
+ })();
+ await check('different themes actually change typography and backgrounds',async()=>{
+   await page.locator('#studio-theme').selectOption('editorial');
+   const light=await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor);
+   const editorialFont=await page.locator('#name').evaluate(el=>getComputedStyle(el).fontFamily);
+   await page.locator('#studio-theme').selectOption('terminal');
+   const dark=await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor);
+   const terminalFont=await page.locator('#name').evaluate(el=>getComputedStyle(el).fontFamily);
+   assert.notEqual(light,dark);assert.notEqual(editorialFont,terminalFont);
+   await page.locator('#studio-theme').selectOption('orbit');
+ })();
+ await check('interactive tour opens and can drive editor',async()=>{
+   await page.locator('#tour-start').click();
+   assert.equal(await page.locator('#demo-tour').isVisible(),true);
+   await page.locator('#tour-next').click();
+   await page.locator('#tour-next').click();
+   await page.locator('#tour-try').click();
+   assert.equal(await page.locator('#demo-tour').isVisible(),false);
+   assert.equal(await page.locator('#editor').isVisible(),true);
+ })();
+ await check('tour Escape closes and restores focus',async()=>{
+   await page.locator('#tour-start').click();
+   await page.keyboard.press('Escape');
+   assert.equal(await page.locator('#demo-tour').isVisible(),false);
+   assert.equal(await page.locator('#tour-start').evaluate(el=>el===document.activeElement),true);
+ })();
+ await check('purchase is disabled and plans never impersonate checkout',async()=>{
+   const btn=page.locator('#checkout-button');
+   assert.equal(await btn.isDisabled(),true);
+   assert.match(await page.locator('#checkout-status').innerText(),/No payments|Checkout is not activated|unavailable/i);
+   await page.locator('#explore-plans').click();
+   assert.equal(await page.locator('#studio-plans').isVisible(),true);
+ })();
+ await check('new fictional identity appears consistently',async()=>{
+   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+   assert.equal(await page.locator('#demo-brand').textContent(),'Nico Vale');
+   assert.match(await page.locator('#portrait-caption').textContent(),/Nico Vale/);
+   if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
+   await page.locator('input[name="displayName"]').fill('Sage Demo');
+   await page.getByRole('button',{name:'Save & preview'}).click();
+   assert.equal(await page.locator('#demo-brand').textContent(),'Sage Demo');
+   await page.locator('#reset-profile').click();
+   assert.equal(await page.locator('#demo-brand').textContent(),'Nico Vale');
+ })();
+ await check('layout has no horizontal overflow at common viewport sizes',async()=>{
+   for(const width of [390,768,1280]){
+     await page.setViewportSize({width,height:900});
+     const dimensions=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,viewport:window.innerWidth}));
+     assert.ok(dimensions.scroll<=dimensions.viewport+2,`${width}: ${JSON.stringify(dimensions)}`);
+   }
+   await page.setViewportSize({width:1280,height:900});
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,16);
+assert.equal(passed,23);
 console.log('Browser checks passed: '+passed);

@@ -1,0 +1,62 @@
+/* v0.2.0-rc.8 — distinct, accessible visual systems; portrait never disappears. */
+:root{--surface-glass:rgba(18,36,35,.8);--shadow:0 28px 85px rgba(0,0,0,.25);--radius:22px}
+body{background:var(--base);color:var(--ink);text-rendering:optimizeLegibility}
+body::before{z-index:-1}.wrap{width:min(1200px,calc(100% - 44px))}
+.banner{font-size:.68rem;letter-spacing:.05em}
+header{border-bottom:1px solid var(--line)}.nav-bar{padding:12px 0;min-height:80px}
+.nav-links a{transition:color .16s}.studio-controls select{min-width:105px}
+.hero{position:relative;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);min-height:580px;padding:80px 0 75px}
+.hero h1{font-size:clamp(3.65rem,7.4vw,7.5rem);line-height:.94;letter-spacing:-.075em}
+.hero-art{min-height:390px}.hero-art .orbit{width:370px;max-width:95%}.hero-art .orbit.second{width:305px;max-width:82%}
+.avatar{width:260px!important;height:260px!important;border-radius:38%!important;box-shadow:0 15px 65px #0007,0 0 65px color-mix(in srgb,var(--accent),transparent 83%);border:2px solid color-mix(in srgb,var(--accent),transparent 42%)}
+.avatar img.demo-portrait{width:100%;height:100%;object-fit:cover;display:block}
+.float-tag{right:6%;bottom:12%;border-radius:9px}
+.section-head h2{line-height:1.05}.cards .card{min-height:245px}.card[hidden]{display:none!important}
+.proof-row{border-radius:12px;overflow:hidden}.proof{min-width:0}
+section#about-section,section#skills-section,section#projects-section,section#journey-section{scroll-margin-top:110px}
+.portrait-caption{position:absolute;bottom:0;left:9%;font:.7rem var(--mono);color:var(--accent);background:var(--panel);padding:8px 12px;border:1px solid var(--line);border-radius:8px}
+.studio-product-strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(105deg,color-mix(in srgb,var(--accent),var(--panel) 94%),var(--panel));border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-top:10px}
+.studio-product-strip strong{font:600 1.12rem var(--display)}.studio-product-strip p{margin:3px 0;color:var(--muted);font-size:.85rem}.studio-product-actions{display:flex;gap:10px;flex-wrap:wrap}
+.studio-product-actions button,.studio-product-actions a{background:var(--accent);color:#11231d;border:1px solid var(--accent);padding:11px 16px;border-radius:8px;font-weight:700;text-decoration:none;cursor:pointer}
+.studio-product-actions .secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+.pricing-panel{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:clamp(22px,4vw,42px);margin:30px 0 65px;box-shadow:var(--shadow)}
+.pricing-heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:15px}.pricing-heading h2{font:600 clamp(1.7rem,4vw,2.7rem) var(--display);margin:0}.pricing-heading p{color:var(--muted);max-width:530px}
+.pricing-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:24px}.price-card{border:1px solid var(--line);border-radius:14px;padding:24px;background:var(--base)}
+.price-card h3{font:600 1.4rem var(--display);margin:0}.price-card p{color:var(--muted)}.price-card ul{padding-left:20px;color:var(--muted)}.price-card li{margin:8px 0}.price-card button{border:1px solid var(--accent);background:var(--accent);color:#10221a;border-radius:8px;padding:11px 18px;font-weight:700;cursor:pointer}
+.price-card button:disabled{background:transparent;color:var(--muted);border-color:var(--line);cursor:not-allowed}.price-card .status{font:.78rem var(--mono);color:var(--accent)}
+#checkout-status{color:var(--muted);font-size:.88rem;margin-top:12px}
+.demo-tour{position:fixed;z-index:101;inset:0;display:grid;place-items:center;padding:20px;background:rgba(4,12,16,.74);backdrop-filter:blur(7px)}.demo-tour[hidden]{display:none!important}
+.tour-card{width:min(510px,100%);background:#162d28;border:1px solid #6fd2ae;box-shadow:0 32px 100px #0008;border-radius:20px;padding:28px;color:#f8fff9}
+.tour-card .eyebrow{color:#89e8bc}.tour-card h2{font:600 clamp(1.75rem,4vw,2.35rem)/1.1 var(--display);margin:10px 0 15px;color:#fff}.tour-card p{color:#cfdfd6}
+.tour-progress{display:flex;gap:7px;margin:24px 0}.tour-progress span{height:5px;flex:1;background:#48695c;border-radius:10px}.tour-progress span.active{background:#9deac0}
+.tour-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.tour-actions button{background:#9deac0;color:#0b2014;border:0;border-radius:8px;padding:11px 18px;font-weight:700;cursor:pointer}.tour-actions button.secondary{background:transparent;color:#eaf8ee;border:1px solid #547c65}.tour-actions button:disabled{opacity:.4;cursor:not-allowed}
+body.tour-open{overflow:hidden}
+body[data-theme=editorial]{--base:#f7f2e8;--panel:#ffffff;--ink:#182d2a;--muted:#4b625f;--line:#d7ddd6;color-scheme:light;--surface-glass:#f5f0e7}
+body[data-theme=editorial]::before{background:radial-gradient(circle at 88% 13%,#e6c6a166,transparent 45%),radial-gradient(circle at 5% 50%,#80b7bd26,transparent 48%)}
+body[data-theme=editorial] header{background:#f7f2e9e9}body[data-theme=editorial] .nav-links a{color:#29413a}body[data-theme=editorial] .hero{grid-template-columns:minmax(0,1fr) minmax(320px,.8fr)}
+body[data-theme=editorial] .hero h1{font-family:Georgia,serif;font-weight:400;letter-spacing:-.06em;color:#19382d}
+body[data-theme=editorial] .hero h1::after{color:#ba654b}body[data-theme=editorial] .hero .lead{color:#34514b}
+body[data-theme=editorial] .avatar{border-radius:18px!important;transform:rotate(-3deg);box-shadow:18px 18px 0 #eccbac}
+body[data-theme=editorial] .orbit{border-style:dotted}body[data-theme=editorial] .card{background:#fff;box-shadow:0 10px 26px #203c2810}
+body[data-theme=editorial] .chip{background:#fff;color:#19382d}body[data-theme=editorial] .proof{background:#fff}
+body[data-theme=editorial] .control-caption select,body[data-theme=editorial] .project-tools input,body[data-theme=editorial] .project-tools select{background:#fff;color:#19382d}
+body[data-theme=editorial] .button.secondary{color:#19382d}
+body[data-theme=editorial] .contact-grid{background:#24483d;color:#f0faed}body[data-theme=editorial] .contact-grid .muted{color:#d5e3db}
+body[data-theme=editorial] .pricing-panel,body[data-theme=editorial] .price-card{background:#fff}
+body[data-theme=editorial] .studio-product-strip{background:#fff}
+body[data-theme=terminal]{--base:#08120f;--panel:#10251b;--ink:#dbffe3;--muted:#a0ccae;--line:#345a43;color-scheme:dark}
+body[data-theme=terminal] main>.hero{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(270px,.75fr);min-height:420px;padding:48px 0!important}
+body[data-theme=terminal] .hero h1{font-size:clamp(2.5rem,5vw,5rem)}
+body[data-theme=terminal] .hero-art{display:grid!important;min-height:330px}
+body[data-theme=terminal] .avatar{width:220px!important;height:220px!important;border-radius:10px!important;border-style:dashed}
+body[data-theme=terminal] .hero-art .orbit{width:290px}body[data-theme=terminal] .hero-art .orbit.second{width:240px}
+body[data-theme=terminal] .hero-actions a{border-radius:0}body[data-theme=terminal] .float-tag{bottom:5%}
+body[data-theme=terminal] .card{background:#0c2218;border-radius:2px}
+body[data-theme=terminal] .studio-product-strip,body[data-theme=terminal] .pricing-panel,body[data-theme=terminal] .price-card{border-radius:3px}
+body[data-theme=terminal] .terminal-nav{border-radius:5px}
+body[data-theme=terminal] main>.section:not(.terminal-active){display:none}
+body[data-theme=terminal] .pricing-panel{display:block!important}
+body[data-theme=terminal] .studio-product-strip{display:flex!important}
+@media(max-width:860px){.hero,body[data-theme=editorial] .hero,body[data-theme=terminal] main>.hero{grid-template-columns:1fr;gap:4px}.hero-art{min-height:310px!important}.hero-art .orbit{width:300px}.hero-art .orbit.second{width:250px}.avatar,body[data-theme=terminal] .avatar{width:205px!important;height:205px!important}.studio-product-strip{margin-bottom:28px}}
+@media(max-width:600px){.pricing-cards{grid-template-columns:1fr}.tour-card{padding:22px}.hero-art{min-height:260px!important}.avatar,body[data-theme=terminal] .avatar{width:172px!important;height:172px!important}.hero-art .orbit{width:245px!important}.hero-art .orbit.second{width:200px!important}.portrait-caption{left:0}.studio-product-actions{width:100%}.studio-product-actions button{flex:1}}
+@media(prefers-reduced-motion:reduce){.avatar img.demo-portrait,.hero-art{transition:none!important;transform:none!important}}

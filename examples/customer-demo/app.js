@@ -59,6 +59,8 @@
     if (!profile) return;
     const identity=profile.identity;
     text('name',identity.displayName);
+    text('demo-brand',identity.displayName);
+    text('portrait-caption','Fictional developer • '+identity.displayName);
     text('role',identity.role);
     text('location',identity.location);
     text('tagline',identity.tagline);

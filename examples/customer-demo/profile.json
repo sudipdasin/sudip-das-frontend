@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "demo": true,
   "identity": {
-    "displayName": "Avery Example",
-    "role": "Software Developer & Creative Problem Solver",
-    "tagline": "Building approachable digital experiences.",
-    "location": "Example City (fictional)",
-    "initials": "AE"
+    "displayName": "Nico Vale",
+    "role": "Creative Developer & Interface Engineer",
+    "tagline": "Designing expressive experiences that just work.",
+    "location": "Harbor City (fictional)",
+    "initials": "NV"
   },
-  "about": "This is a fictional portfolio created to demonstrate how Personal Profile Web Studio can adapt to any customer. Replace every example before publishing your own site.",
+  "about": "Nico Vale is an entirely fictional creative developer. This independent example shows how anyone can build a memorable personal website with a visual editor, three layouts, editable projects, and portable profile data.",
   "skills": [
     "Web applications",
     "Accessibility",
@@ -59,7 +59,7 @@
     "background": "#0c1420"
   },
   "seo": {
-    "title": "Avery Example | Demo Portfolio",
-    "description": "A completely fictional customer profile for Personal Profile Web Studio."
+    "title": "Nico Vale | Creative Developer",
+    "description": "A fictional creative developer portfolio built with Personal Profile Web Studio."
   }
 }

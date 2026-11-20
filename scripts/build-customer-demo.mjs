@@ -6,7 +6,7 @@ import {resolve,dirname,join} from 'node:path';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const source=join(root,'examples','customer-demo');
 const output=resolve(process.env.DEMO_OUTPUT_DIR || join(root,'dist','customer-demo-preview'));
-const allowlist=['index.html','app.js','premium.css','premium.js','studio-features.css','studio-features.js','illustrated-developer.svg','profile.json'];
+const allowlist=['index.html','app.js','premium.css','premium.js','studio-features.css','studio-features.js','illustrated-developer.svg','studio-polish.css','studio-tour.js','commerce.js','commerce.json','profile.json'];
 if (output===root || output===source || !output.startsWith(root + '/')) throw new Error('Unsafe build destination');
 const profile=JSON.parse(await readFile(join(source,'profile.json'),'utf8'));
 if(profile.demo!==true||profile.schemaVersion!==1||!profile.identity?.displayName) throw new Error('Only fictional versioned demo profiles may be published');
