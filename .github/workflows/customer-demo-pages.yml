@@ -40,6 +40,7 @@ jobs:
           node --check examples/customer-demo/studio-tour.js
           node --check examples/customer-demo/studio-i18n.js
           node --check examples/customer-demo/studio-ownership.js
+          node --check examples/customer-demo/studio-system-menu.js
           node --check examples/customer-demo/commerce.js
           node --check scripts/build-customer-demo.mjs
           node --test tests/customer-demo.test.mjs tests/customer-demo-build.test.mjs tests/demo-i18n.test.mjs
