@@ -39,7 +39,7 @@
  document.addEventListener('pointerdown',event=>{if(!dd.contains(event.target))setOpen(false)});
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!panel.hidden){setOpen(false);trigger.focus()}});
  panel.querySelectorAll('button:not(:disabled)').forEach(b=>b.addEventListener('click',()=>setOpen(false)));
- const addHome=document.createElement('a');addHome.href='#top';addHome.textContent='⌂ Home';nav.prepend(addHome);
+ const addHome=document.createElement('a');addHome.className='neon-home-link';addHome.href='#top';addHome.textContent='⌂ Home';nav.prepend(addHome);
  const projects=nav.querySelector('a[href="#projects-section"]');if(projects)projects.textContent='▱ Projects';
  const control=document.createElement('button');control.type='button';control.className='demo-theme-icon';control.textContent='☾';control.title='Switch to another visual theme';
  control.addEventListener('click',()=>{
