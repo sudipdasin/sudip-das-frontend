@@ -332,18 +332,23 @@ try {
    await page.locator('#studio-theme').selectOption('orbit');
    await page.setViewportSize({width:1280,height:900});
  })();
- await check('translated long button labels wrap without collision',async()=>{
+ await check('translated system backup tiles are readable and do not collide',async()=>{
    for(const language of ['en','de','hi','ar']){
      await page.locator('#studio-language').selectOption(language);
      await page.waitForFunction(lang=>window.StudioI18n?.language===lang,language);
      await page.setViewportSize({width:390,height:850});
-     const check=await page.locator('.ownership-actions').evaluate(el=>{
-       const boxes=[...el.querySelectorAll('button')].map(b=>b.getBoundingClientRect());
+     await page.locator('#system-menu-trigger').click();
+     const layout=await page.locator('#system-menu-panel').evaluate(el=>{
+       const boxes=[...el.querySelectorAll('.system-menu-data>button')].map(b=>b.getBoundingClientRect());
        const a=boxes[0],b=boxes[1];
-       return {overlap:Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)),outside:boxes.some(r=>r.left < -1||r.right>innerWidth+1)};
+       const overlap=Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+       const rect=el.getBoundingClientRect();
+       return {overlap,overflow:boxes.some(r=>r.left < -1||r.right>innerWidth+1),panelOverflow:rect.left < -1||rect.right>innerWidth+1};
      });
-     assert.equal(check.overlap,0,language+': backup buttons overlap');
-     assert.equal(check.outside,false,language+': button outside viewport');
+     assert.equal(layout.overlap,0,language+': translated backup tiles overlap');
+     assert.equal(layout.overflow,false,language+': translated tile outside viewport');
+     assert.equal(layout.panelOverflow,false,language+': panel outside viewport');
+     await page.keyboard.press('Escape');
    }
    await page.locator('#studio-language').selectOption('en');
    await page.setViewportSize({width:1280,height:900});
