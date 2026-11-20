@@ -59,7 +59,7 @@
  if(banner){
   const tagline=document.createElement('span');tagline.className='demo-glow-banner';
   tagline.innerHTML='<b aria-hidden="true">∞</b> Web Studio — Create an Everlasting Web Presence  |  Modular • Customizable • Local to Global • Provider Freedom';
-  banner.prepend(tagline);
+  banner.replaceChildren(tagline);
   const old=document.createElement('span');old.className='sr-only';old.textContent='Fictional demo, no working contact service';banner.append(old);
  }
  const hero=document.querySelector('main>.hero');
@@ -103,4 +103,7 @@
   article.append(ic,info);cards.append(article);
  }
  hero.insertAdjacentElement('afterend',value);value.insertAdjacentElement('afterend',cards);
+ // Keep the existing tour/editor/plan actions mounted and visible below the reference hero.
+ const product=document.querySelector('.studio-product-strip');
+ if(product)cards.insertAdjacentElement('afterend',product);
 })();
