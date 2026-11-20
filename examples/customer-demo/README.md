@@ -58,3 +58,10 @@ The fictional starter is **Nico Vale**, not a real person. A five-step opt-in gu
 **No active payment gateway:** The plan panel explains that checkout is unavailable. `commerce.json` is a disabled merchant-hosted payment-link configuration. `commerce.js` validates trusted external URL formats and refuses to activate on GitHub Pages, which is not a permitted primary host for an e-commerce/SaaS business. A private backend, verified account, signed webhooks, and real fulfillment must be connected before accepting payment. This public demo will never process card data.
 
 Commercial launch planning: `../../docs/COMMERCIAL-LAUNCH.md`.
+
+## Enduring Web Presence and multilingual platform demo (rc.9)
+The app's intended distinction is **a personal online presence that is portable, backed up and recoverable even when vendors fail**. The planned Auto-Regenerative Presence Engine uses independent encrypted backups, provider-neutral adapters, health/DNS/certificate monitoring and staged recovery. These features are **not yet live**; the working demo currently provides local browser editing and JSON import/export, not automatic cloud backups or failover.
+
+The demo contains ten local language catalogs for its marketing, interface, fictional example content, and tour, with Arabic RTL support. The source dictionaries are bundled; the site never sends customer data to external translation APIs. If a customer replaces the fictional text with their own content, their authored content remains as written.
+
+Growth and engineering strategies: [Enduring Web Presence](../../docs/ENDURING-WEB-PRESENCE.md) and [Growth and Launch Playbook](../../docs/GROWTH-AND-LAUNCH-PLAYBOOK.md).

@@ -39,13 +39,14 @@
   <link rel="stylesheet" href="premium.css">
   <link rel="stylesheet" href="studio-features.css">
   <link rel="stylesheet" href="studio-polish.css">
+  <link rel="stylesheet" href="studio-product.css">
 </head>
 <body data-theme="orbit">
   <a class="skip-link" href="#top">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
   <div class="banner" role="status">FICTIONAL DEMO PROFILE — No real person, business, or working contact endpoint</div>
   <div class="wrap">
-    <header><div class="nav-bar"><div class="brand"><span id="demo-brand">Nico Vale</span> <span class="muted">/ Studio demo</span></div><button class="ghost mobile-menu" id="mobile-menu" aria-expanded="false" aria-controls="studio-nav" type="button">Menu</button><nav class="nav-links" id="studio-nav" aria-label="Site navigation"><a data-copy="about" href="#about-section">About</a><a data-copy="expertise" href="#skills-section">Expertise</a><a data-copy="projects" href="#projects-section">Projects</a><a data-copy="journey" href="#journey-section">Journey</a><a data-copy="contact" href="#contact-section">Contact</a></nav><div class="studio-controls"><label class="control-caption">Language <select id="studio-language" aria-label="Choose site language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="bn">বাংলা</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option></select></label><label class="control-caption">Layout <select id="studio-theme" aria-label="Choose site layout"><option value="orbit">Orbit</option><option value="editorial">Editorial</option><option value="terminal">Terminal</option></select></label></div><button class="ghost" id="edit-toggle" type="button" aria-expanded="false" aria-controls="editor">Customize demo</button></div></header>
+    <header><div class="nav-bar"><div class="brand"><span id="demo-brand">Nico Vale</span> <span class="muted">/ Studio demo</span></div><button class="ghost mobile-menu" id="mobile-menu" aria-expanded="false" aria-controls="studio-nav" type="button">Menu</button><nav class="nav-links" id="studio-nav" aria-label="Site navigation"><a data-copy="about" href="#about-section">About</a><a data-copy="expertise" href="#skills-section">Expertise</a><a data-copy="projects" href="#projects-section">Projects</a><a data-copy="journey" href="#journey-section">Journey</a><a data-copy="contact" href="#contact-section">Contact</a></nav><div class="studio-controls"><label class="control-caption">Language <select id="studio-language" aria-label="Choose site language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="bn">বাংলা</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="ar">العربية</option><option value="zh-CN">简体中文</option><option value="ja">日本語</option></select></label><label class="control-caption">Layout <select id="studio-theme" aria-label="Choose site layout"><option value="orbit">Orbit</option><option value="editorial">Editorial</option><option value="terminal">Terminal</option></select></label></div><button class="ghost" id="edit-toggle" type="button" aria-expanded="false" aria-controls="editor">Customize demo</button></div></header>
     <section class="panel editor" id="editor" aria-labelledby="editor-heading">
       <h2 id="editor-heading">Customization wizard — local preview</h2>
       <p class="muted">Changes stay in this browser. Export JSON to save the example; no account, payment, cloud provider, or email service is connected.</p>
@@ -72,8 +73,35 @@
         <p id="editor-status" role="status" class="muted"></p>
       </form>
     </section>
+        <section class="usp-section" id="studio-platform" aria-labelledby="usp-heading">
+      <div class="usp-intro">
+        <span class="eyebrow" data-i18n="uspKicker">YOUR WEB PRESENCE, BUILT TO ENDURE</span>
+        <h2 id="usp-heading" data-i18n="uspHeadline">Your web presence should outlive any provider.</h2>
+        <p class="usp-lead" data-i18n="uspIntro">Create an enduring personal web presence with modular design, portable data, multiple local and cloud backup destinations, independent hosting options, and a planned auto-recovery system. Stay in control when domains expire, providers go offline, DNS breaks, or attacks disrupt service.</p>
+        <div class="usp-badges" aria-label="Product principles"><span data-i18n="uspModular">Fully modular</span><span data-i18n="uspPremium">Premium design</span><span data-i18n="uspPortable">No single point of provider lock-in</span><span data-i18n="uspLocalGlobal">Local to global</span></div>
+      </div>
+      <div class="usp-grid">
+        <article><span aria-hidden="true">◈</span><h3 data-i18n="modularTitle">Modular by design</h3><p data-i18n="modularText">Customize layouts, themes, content, sections and integrations independently—without rebuilding your whole site.</p></article>
+        <article><span aria-hidden="true">✦</span><h3 data-i18n="styleTitle">Premium and personal</h3><p data-i18n="styleText">Distinctive, responsive, accessible experiences with complete control over how you present yourself.</p></article>
+        <article><span aria-hidden="true">⇄</span><h3 data-i18n="switchTitle">Escape provider failure</h3><p data-i18n="switchText">Move hosting, DNS, domain, CNAME, API and storage settings through a planned guided migration path when a provider fails or becomes unaffordable.</p></article>
+        <article><span aria-hidden="true">⇣</span><h3 data-i18n="backupTitle">Multiple backups. Recover faster.</h3><p data-i18n="backupText">Keep versioned local and cloud copies, verify their integrity, and restore to an independent provider when a site fails.</p></article>
+        <article><span aria-hidden="true">⚙</span><h3 data-i18n="manageTitle">Monitor, defend, and recover</h3><p data-i18n="manageText">The planned control center monitors availability, DNS, certificates, content integrity, spam and malicious traffic, with alerting and recovery actions.</p></article>
+        <article><span aria-hidden="true">◎</span><h3 data-i18n="scaleTitle">Local resilience. Global reach.</h3><p data-i18n="scaleText">Start locally, replicate to cloud storage, and publish through independent hosts and regions for greater resilience.</p></article>
+      </div>
+      <div class="resilience-panel" id="resilience" aria-labelledby="resilience-title">
+        <div><div class="engine-pill"><strong>Auto-Regenerative Presence Engine</strong><span data-i18n="regenerativeStatus">Planned: multi-location backups, independent recovery, tested failover and rollback.</span></div><p class="eyebrow" data-i18n="resilienceKicker">THE ENDURING WEB PRESENCE PRINCIPLE</p><h3 id="resilience-title" data-i18n="resilienceHeadline">Design for recovery. Not dependence.</h3><p data-i18n="resilienceLead">One broken provider should not erase your identity. Web Studio is being designed to make backups, restoration and provider switching manageable from one place.</p></div>
+        <div class="resilience-flow" role="list">
+          <div role="listitem"><strong data-i18n="resilienceOne">1 · Detect</strong><span data-i18n="resilienceDetect">Check site, DNS, TLS and content integrity; distinguish outages from configuration errors and attacks.</span></div>
+          <div role="listitem"><strong data-i18n="resilienceTwo">2 · Preserve</strong><span data-i18n="resiliencePreserve">Keep encrypted, versioned, tested copies in local and independent cloud destinations.</span></div>
+          <div role="listitem"><strong data-i18n="resilienceThree">3 · Recover</strong><span data-i18n="resilienceRecover">Restore healthy content, redeploy to an alternate host and use verified DNS change procedures.</span></div>
+          <div role="listitem"><strong data-i18n="resilienceFour">4 · Verify</strong><span data-i18n="resilienceVerify">Check HTTPS, content, forms and services after recovery; alert the owner and retain rollback options.</span></div>
+        </div>
+        <p class="resilience-disclaimer" data-i18n="resilienceCaveat">Reliability goal, not an uptime guarantee: domain expiration, DNS caching, registry policies, attacks and provider outages can still interrupt service. Automatic failover and recovery are under development and require real-world validation.</p>
+      </div>
+      <div class="usp-roadmap" role="note"><strong data-i18n="availableLabel">Available in this demo</strong><span data-i18n="availableNow">Live editing, three themes, browser-local saving, and JSON import/export.</span><strong data-i18n="plannedLabel">Planned resilience features—not live yet</strong><span data-i18n="plannedNext">Domain and DNS monitoring, automated offsite backup replication, integrity checks, provider failover, emergency restore, DDoS mitigations, private APIs and managed customer hosting.</span></div>
+    </section>
     <section class="studio-product-strip" aria-label="Explore Personal Profile Web Studio">
-      <div><strong>Explore the studio behind this website</strong><p>Try three layouts, personalize the profile, and take your work with you.</p></div>
+      <div><strong data-i18n="productCtaTitle">Your web presence, protected from provider lock-in.</strong><p data-i18n="productCtaBody">Explore the demo today. Discover the planned modular backup, monitoring and self-recovery system.</p></div>
       <div class="studio-product-actions"><button type="button" id="tour-start">Take the 90-second tour</button><button type="button" id="try-customize" class="secondary">Try the editor</button><button type="button" id="explore-plans" class="secondary">Explore plans</button></div>
     </section>
     <main id="top">
@@ -136,5 +164,7 @@
   <script src="studio-features.js" defer></script>
   <script src="commerce.js" defer></script>
   <script src="studio-tour.js" defer></script>
+  <script src="studio-i18n.js" defer></script>
+  <script src="studio-i18n.js" defer></script>
 </body>
 </html>
