@@ -36,7 +36,8 @@
       "availableLabel": "Available in this demo",
       "availableNow": "Live editing, three themes, browser-local saving, and JSON import/export.",
       "plannedLabel": "Planned resilience features—not live yet",
-      "plannedNext": "Domain and DNS monitoring, automated offsite backup replication, integrity checks, provider failover, emergency restore, DDoS mitigations, private APIs and managed customer hosting."
+      "plannedNext": "Domain and DNS monitoring, automated offsite backup replication, integrity checks, provider failover, emergency restore, DDoS mitigations, private APIs and managed customer hosting.",
+      "regenerativeStatus": "Planned: multi-location backups, independent recovery, tested failover and rollback."
     },
     "hi": {
       "uspKicker": "आपकी वेब पहचान, लंबे समय तक सुरक्षित",
@@ -73,7 +74,8 @@
       "availableLabel": "इस डेमो में उपलब्ध",
       "availableNow": "लाइव संपादन, तीन थीम, ब्राउज़र में स्थानीय सेव और JSON आयात/निर्यात।",
       "plannedLabel": "नियोजित सुरक्षा सुविधाएँ—अभी सक्रिय नहीं",
-      "plannedNext": "डोमेन/DNS निगरानी, स्वचालित ऑफ़साइट बैकअप, अखंडता जाँच, प्रदाता फ़ेलओवर, आपातकालीन बहाली, DDoS सुरक्षा, निजी API और प्रबंधित ग्राहक होस्टिंग।"
+      "plannedNext": "डोमेन/DNS निगरानी, स्वचालित ऑफ़साइट बैकअप, अखंडता जाँच, प्रदाता फ़ेलओवर, आपातकालीन बहाली, DDoS सुरक्षा, निजी API और प्रबंधित ग्राहक होस्टिंग।",
+      "regenerativeStatus": "नियोजित: कई स्थानों पर बैकअप, स्वतंत्र बहाली, परीक्षण किया गया फ़ेलओवर और रोलबैक।"
     },
     "bn": {
       "uspKicker": "আপনার ওয়েব পরিচয়, দীর্ঘস্থায়ী হওয়ার জন্য তৈরি",
@@ -110,7 +112,8 @@
       "availableLabel": "এই ডেমোতে উপলব্ধ",
       "availableNow": "সরাসরি সম্পাদনা, তিনটি থিম, ব্রাউজারে স্থানীয় সংরক্ষণ এবং JSON আমদানি/রপ্তানি।",
       "plannedLabel": "পরিকল্পিত স্থিতিস্থাপকতা—এখনও চালু নয়",
-      "plannedNext": "ডোমেন ও DNS পর্যবেক্ষণ, স্বয়ংক্রিয় অফসাইট ব্যাকআপ, সততা যাচাই, প্রদানকারী পরিবর্তন, জরুরি পুনরুদ্ধার, DDoS প্রতিরোধ, ব্যক্তিগত API ও পরিচালিত হোস্টিং।"
+      "plannedNext": "ডোমেন ও DNS পর্যবেক্ষণ, স্বয়ংক্রিয় অফসাইট ব্যাকআপ, সততা যাচাই, প্রদানকারী পরিবর্তন, জরুরি পুনরুদ্ধার, DDoS প্রতিরোধ, ব্যক্তিগত API ও পরিচালিত হোস্টিং।",
+      "regenerativeStatus": "পরিকল্পিত: একাধিক স্থানে ব্যাকআপ, স্বাধীন পুনরুদ্ধার, পরীক্ষিত ফেইলওভার ও আগের অবস্থায় ফেরা।"
     },
     "es": {
       "uspKicker": "TU PRESENCIA WEB, CREADA PARA PERDURAR",
@@ -147,7 +150,8 @@
       "availableLabel": "Disponible en esta demo",
       "availableNow": "Edición en vivo, tres temas, guardado local en el navegador e importación/exportación JSON.",
       "plannedLabel": "Funciones de resiliencia previstas, aún no activas",
-      "plannedNext": "Supervisión de dominio/DNS, copias remotas automáticas, comprobación de integridad, cambio de proveedor, restauración de emergencia, mitigación DDoS, API privadas y alojamiento gestionado."
+      "plannedNext": "Supervisión de dominio/DNS, copias remotas automáticas, comprobación de integridad, cambio de proveedor, restauración de emergencia, mitigación DDoS, API privadas y alojamiento gestionado.",
+      "regenerativeStatus": "Previsto: copias en varios lugares, recuperación independiente, failover probado y reversión."
     },
     "fr": {
       "uspKicker": "VOTRE PRÉSENCE WEB, CONÇUE POUR DURER",
@@ -184,7 +188,8 @@
       "availableLabel": "Disponible dans cette démo",
       "availableNow": "Édition en direct, trois thèmes, sauvegarde locale dans le navigateur et import/export JSON.",
       "plannedLabel": "Fonctions de résilience prévues, non disponibles",
-      "plannedNext": "Surveillance domaines/DNS, réplication automatique des sauvegardes, contrôle d'intégrité, basculement fournisseur, restauration d'urgence, protection DDoS, API privées et hébergement géré."
+      "plannedNext": "Surveillance domaines/DNS, réplication automatique des sauvegardes, contrôle d'intégrité, basculement fournisseur, restauration d'urgence, protection DDoS, API privées et hébergement géré.",
+      "regenerativeStatus": "Prévu : sauvegardes multisites, restauration indépendante, basculement testé et retour arrière."
     },
     "de": {
       "uspKicker": "IHRE WEBPRÄSENZ, FÜR DIE ZUKUNFT GEMACHT",
@@ -221,7 +226,8 @@
       "availableLabel": "In dieser Demo verfügbar",
       "availableNow": "Live-Bearbeitung, drei Designs, lokales Speichern im Browser und JSON-Import/-Export.",
       "plannedLabel": "Geplante Resilienzfunktionen – noch nicht live",
-      "plannedNext": "Domain-/DNS-Überwachung, automatische externe Sicherungen, Integritätsprüfungen, Provider-Failover, Notfallwiederherstellung, DDoS-Abwehr, private APIs und verwaltetes Hosting."
+      "plannedNext": "Domain-/DNS-Überwachung, automatische externe Sicherungen, Integritätsprüfungen, Provider-Failover, Notfallwiederherstellung, DDoS-Abwehr, private APIs und verwaltetes Hosting.",
+      "regenerativeStatus": "Geplant: Backups an mehreren Orten, unabhängige Wiederherstellung, getestetes Failover und Rollback."
     },
     "pt": {
       "uspKicker": "SUA PRESENÇA NA WEB, FEITA PARA DURAR",
@@ -258,7 +264,8 @@
       "availableLabel": "Disponível nesta demonstração",
       "availableNow": "Edição ao vivo, três temas, salvamento local no navegador e importação/exportação JSON.",
       "plannedLabel": "Recursos de resiliência planejados — ainda indisponíveis",
-      "plannedNext": "Monitoramento de domínio/DNS, backups remotos automáticos, verificação de integridade, failover, recuperação de emergência, mitigação DDoS, APIs privadas e hospedagem gerenciada."
+      "plannedNext": "Monitoramento de domínio/DNS, backups remotos automáticos, verificação de integridade, failover, recuperação de emergência, mitigação DDoS, APIs privadas e hospedagem gerenciada.",
+      "regenerativeStatus": "Planejado: backups em vários locais, recuperação independente, failover testado e reversão."
     },
     "ar": {
       "uspKicker": "حضورك على الويب، مصمم ليستمر",
@@ -295,7 +302,8 @@
       "availableLabel": "متاح في هذا العرض",
       "availableNow": "تحرير مباشر وثلاث سمات وحفظ محلي بالمتصفح واستيراد وتصدير JSON.",
       "plannedLabel": "ميزات المرونة المخططة — غير متاحة بعد",
-      "plannedNext": "مراقبة النطاق وDNS والنسخ الاحتياطي البعيد التلقائي وفحص السلامة والتبديل بين المزودين والاستعادة الطارئة وتخفيف DDoS وواجهات خاصة واستضافة مُدارة."
+      "plannedNext": "مراقبة النطاق وDNS والنسخ الاحتياطي البعيد التلقائي وفحص السلامة والتبديل بين المزودين والاستعادة الطارئة وتخفيف DDoS وواجهات خاصة واستضافة مُدارة.",
+      "regenerativeStatus": "مخطط: نسخ احتياطية متعددة المواقع، استرداد مستقل، تبديل مختبر وإمكانية التراجع."
     },
     "zh-CN": {
       "uspKicker": "让您的网络形象历久弥新",
@@ -332,7 +340,8 @@
       "availableLabel": "此演示中可用",
       "availableNow": "实时编辑、三种主题、浏览器本地保存以及 JSON 导入/导出。",
       "plannedLabel": "规划中的韧性功能——尚未上线",
-      "plannedNext": "域名和 DNS 监控、自动异地备份、完整性校验、服务商故障切换、紧急恢复、DDoS 缓解、私有 API 和托管客户网站。"
+      "plannedNext": "域名和 DNS 监控、自动异地备份、完整性校验、服务商故障切换、紧急恢复、DDoS 缓解、私有 API 和托管客户网站。",
+      "regenerativeStatus": "规划中：多地点备份、独立恢复、经过测试的故障转移和回滚。"
     },
     "ja": {
       "uspKicker": "あなたのウェブプレゼンスを、長く続くものに",
@@ -369,7 +378,8 @@
       "availableLabel": "このデモで利用可能",
       "availableNow": "ライブ編集、3 種のテーマ、ブラウザー内保存、JSON のインポートとエクスポート。",
       "plannedLabel": "計画中の耐障害機能—まだ未提供",
-      "plannedNext": "ドメイン/DNS監視、自動遠隔バックアップ、整合性確認、事業者切り替え、緊急復元、DDoS緩和、プライベートAPI、マネージドホスティング。"
+      "plannedNext": "ドメイン/DNS監視、自動遠隔バックアップ、整合性確認、事業者切り替え、緊急復元、DDoS緩和、プライベートAPI、マネージドホスティング。",
+      "regenerativeStatus": "計画中：複数拠点へのバックアップ、独立した復元、検証済みの切り替えとロールバック。"
     }
   }
 }
