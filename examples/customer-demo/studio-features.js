@@ -112,6 +112,6 @@
     if(changes.some(change=>change.type==='childList')){syncCategories();applyProjectFilters();}
   }).observe(projectGrid,{childList:true});
   syncCategories();applyProjectFilters();
-  setTheme(storage('studio-demo-layout-v1')||'orbit');
+  setTheme(storage('studio-demo-layout-v1')||'neon-studio');
   setLanguage(storage('studio-demo-language-v1')||'en');
 })();
