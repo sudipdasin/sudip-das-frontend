@@ -520,7 +520,7 @@ try {
    sample.appearance.portrait='data:image/jpeg;base64,'+'a'.repeat(1000);
    await page.locator('#import-profile').setInputFiles({name:'legacy.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(sample))});
    await page.waitForFunction(()=>document.querySelector('#avatar img')?.getAttribute('src')==='./dev-das-portrait.svg');
-   const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('studio-demo-profile-v1')||'{}'));
+   const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('personal-profile-web-studio:fictional-demo:v1')||'{}'));
    if(stored.appearance)assert.equal(stored.appearance.portrait,'');
    await page.locator('#reset-profile').click();
  })();
