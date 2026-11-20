@@ -400,7 +400,7 @@ try {
    });
    assert.ok(m.spread<=2,'desktop CTA buttons not aligned: '+JSON.stringify(m));
    assert.equal(m.overlap,false);
-   assert.equal(await page.locator('#demo-brand-wrapper').getAttribute('data-initials'),'NV');
+   assert.equal(await page.locator('#demo-brand-wrapper').getAttribute('data-initials'),'DD');
    if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
    await page.locator('input[name="displayName"]').fill('Nova Studio');
    await page.getByRole('button',{name:'Save & preview'}).click();
