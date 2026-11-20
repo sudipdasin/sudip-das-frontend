@@ -20,6 +20,7 @@ jobs:
           node --check scripts/site-readiness.mjs
           node --check scripts/repo-discovery.js
           node --check examples/customer-demo/app.js
+          node --check examples/customer-demo/premium.js
           node --check scripts/build-customer-demo.mjs
           node --test tests/*.test.mjs
       - name: Ensure expected public assets exist
@@ -35,4 +36,6 @@ jobs:
           test -s examples/customer-demo/index.html
           test -s examples/customer-demo/profile.json
           test -s examples/customer-demo/app.js
+          test -s examples/customer-demo/premium.css
+          test -s examples/customer-demo/premium.js
           grep -qi '<html' index.html
