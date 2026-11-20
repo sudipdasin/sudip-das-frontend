@@ -53,7 +53,11 @@
       "systemReset": "Restore fictional demo defaults",
       "systemFutureHeading": "Site infrastructure · Planned",
       "systemFutureBody": "Hosting, domain, DNS/CNAME, API, cloud backup, recovery and security controls are not connected in this preview.",
-      "systemFindActions": "Manage backups and restore from the Studio & system menu in the top bar."
+      "systemFindActions": "Manage backups and restore from the Studio & system menu in the top bar.",
+      "systemLocalStatus": "Local workspace",
+      "systemPanelTitle": "Your studio, your control.",
+      "systemPanelSubtitle": "Private-by-default tools to manage your demo and keep a copy of your data.",
+      "systemFooterText": "No cloud connection · You own the exported file"
     },
     "hi": {
       "uspKicker": "आपकी वेब पहचान, लंबे समय तक सुरक्षित",
@@ -107,7 +111,11 @@
       "systemReset": "काल्पनिक डेमो डिफ़ॉल्ट लौटाएँ",
       "systemFutureHeading": "साइट संरचना · नियोजित",
       "systemFutureBody": "होस्टिंग, डोमेन, DNS/CNAME, API, क्लाउड बैकअप, बहाली और सुरक्षा नियंत्रण इस पूर्वावलोकन में जुड़े नहीं हैं।",
-      "systemFindActions": "बैकअप और बहाली ऊपर के स्टूडियो और सिस्टम मेनू से प्रबंधित करें।"
+      "systemFindActions": "बैकअप और बहाली ऊपर के स्टूडियो और सिस्टम मेनू से प्रबंधित करें।",
+      "systemLocalStatus": "स्थानीय कार्यक्षेत्र",
+      "systemPanelTitle": "आपका स्टूडियो, आपका नियंत्रण।",
+      "systemPanelSubtitle": "डेमो प्रबंधित करने और डेटा की प्रति सुरक्षित रखने के लिए निजी उपकरण।",
+      "systemFooterText": "कोई क्लाउड कनेक्शन नहीं · निर्यात की गई फ़ाइल आपकी है"
     },
     "bn": {
       "uspKicker": "আপনার ওয়েব পরিচয়, দীর্ঘস্থায়ী হওয়ার জন্য তৈরি",
@@ -161,7 +169,11 @@
       "systemReset": "কাল্পনিক ডেমো পুনরায় সেট",
       "systemFutureHeading": "সাইট অবকাঠামো · পরিকল্পিত",
       "systemFutureBody": "হোস্টিং, ডোমেন, DNS/CNAME, API, ক্লাউড ব্যাকআপ, পুনরুদ্ধার ও নিরাপত্তা নিয়ন্ত্রণ এই প্রিভিউতে সংযুক্ত নয়।",
-      "systemFindActions": "উপরের স্টুডিও ও সিস্টেম মেনু থেকে ব্যাকআপ ও পুনরুদ্ধার পরিচালনা করুন।"
+      "systemFindActions": "উপরের স্টুডিও ও সিস্টেম মেনু থেকে ব্যাকআপ ও পুনরুদ্ধার পরিচালনা করুন।",
+      "systemLocalStatus": "স্থানীয় কাজের জায়গা",
+      "systemPanelTitle": "আপনার স্টুডিও, আপনার নিয়ন্ত্রণ।",
+      "systemPanelSubtitle": "ডেমো পরিচালনা ও নিজের ডেটার কপি রাখার জন্য ব্যক্তিগত সরঞ্জাম।",
+      "systemFooterText": "ক্লাউড সংযোগ নেই · রপ্তানি করা ফাইল আপনার"
     },
     "es": {
       "uspKicker": "TU PRESENCIA WEB, CREADA PARA PERDURAR",
@@ -215,7 +227,11 @@
       "systemReset": "Restaurar la demo ficticia",
       "systemFutureHeading": "Infraestructura web · Prevista",
       "systemFutureBody": "El alojamiento, dominio, DNS/CNAME, API, copias en la nube, recuperación y seguridad todavía no están conectados.",
-      "systemFindActions": "Gestiona las copias y la restauración desde el menú Estudio y sistema de la barra superior."
+      "systemFindActions": "Gestiona las copias y la restauración desde el menú Estudio y sistema de la barra superior.",
+      "systemLocalStatus": "Espacio local",
+      "systemPanelTitle": "Tu estudio, tu control.",
+      "systemPanelSubtitle": "Herramientas privadas para administrar la demo y conservar tus datos.",
+      "systemFooterText": "Sin conexión a la nube · El archivo exportado es tuyo"
     },
     "fr": {
       "uspKicker": "VOTRE PRÉSENCE WEB, CONÇUE POUR DURER",
@@ -269,7 +285,11 @@
       "systemReset": "Rétablir la démo fictive",
       "systemFutureHeading": "Infrastructure web · Prévue",
       "systemFutureBody": "L’hébergement, le domaine, DNS/CNAME, l’API, les sauvegardes cloud, la restauration et la sécurité ne sont pas connectés.",
-      "systemFindActions": "Gérez les sauvegardes et la restauration depuis le menu Studio et système en haut."
+      "systemFindActions": "Gérez les sauvegardes et la restauration depuis le menu Studio et système en haut.",
+      "systemLocalStatus": "Espace local",
+      "systemPanelTitle": "Votre studio, votre contrôle.",
+      "systemPanelSubtitle": "Des outils privés pour gérer la démo et conserver vos données.",
+      "systemFooterText": "Pas de connexion cloud · Le fichier exporté vous appartient"
     },
     "de": {
       "uspKicker": "IHRE WEBPRÄSENZ, FÜR DIE ZUKUNFT GEMACHT",
@@ -323,7 +343,11 @@
       "systemReset": "Fiktive Demo zurücksetzen",
       "systemFutureHeading": "Web-Infrastruktur · Geplant",
       "systemFutureBody": "Hosting, Domain, DNS/CNAME, API, Cloud-Backup, Wiederherstellung und Sicherheit sind in dieser Vorschau nicht verbunden.",
-      "systemFindActions": "Backups und Wiederherstellung finden Sie oben im Menü Studio und System."
+      "systemFindActions": "Backups und Wiederherstellung finden Sie oben im Menü Studio und System.",
+      "systemLocalStatus": "Lokaler Arbeitsbereich",
+      "systemPanelTitle": "Ihr Studio, Ihre Kontrolle.",
+      "systemPanelSubtitle": "Private Werkzeuge für die Demo und eine eigene Datenkopie.",
+      "systemFooterText": "Keine Cloud-Verbindung · Die exportierte Datei gehört Ihnen"
     },
     "pt": {
       "uspKicker": "SUA PRESENÇA NA WEB, FEITA PARA DURAR",
@@ -377,7 +401,11 @@
       "systemReset": "Restaurar demo fictícia",
       "systemFutureHeading": "Infraestrutura web · Planejada",
       "systemFutureBody": "Hospedagem, domínio, DNS/CNAME, API, backup na nuvem, recuperação e segurança não estão conectados nesta prévia.",
-      "systemFindActions": "Gerencie backups e restauração no menu Estúdio e sistema da barra superior."
+      "systemFindActions": "Gerencie backups e restauração no menu Estúdio e sistema da barra superior.",
+      "systemLocalStatus": "Espaço local",
+      "systemPanelTitle": "Seu estúdio, seu controle.",
+      "systemPanelSubtitle": "Ferramentas privadas para gerenciar a demo e guardar seus dados.",
+      "systemFooterText": "Sem conexão com nuvem · O arquivo exportado é seu"
     },
     "ar": {
       "uspKicker": "حضورك على الويب، مصمم ليستمر",
@@ -431,7 +459,11 @@
       "systemReset": "استعادة إعدادات العرض الخيالي",
       "systemFutureHeading": "بنية الموقع · مخططة",
       "systemFutureBody": "الاستضافة والنطاق وDNS/CNAME وAPI والنسخ السحابية والاسترداد والأمان غير متصلة في هذا العرض.",
-      "systemFindActions": "تحكم في النسخ الاحتياطية والاستعادة من قائمة الاستوديو والنظام في الشريط العلوي."
+      "systemFindActions": "تحكم في النسخ الاحتياطية والاستعادة من قائمة الاستوديو والنظام في الشريط العلوي.",
+      "systemLocalStatus": "مساحة عمل محلية",
+      "systemPanelTitle": "استوديوك، تحكمك.",
+      "systemPanelSubtitle": "أدوات خاصة لإدارة العرض والاحتفاظ بنسخة من بياناتك.",
+      "systemFooterText": "لا اتصال سحابي · الملف المُصدّر ملكك"
     },
     "zh-CN": {
       "uspKicker": "让您的网络形象历久弥新",
@@ -485,7 +517,11 @@
       "systemReset": "恢复虚构演示默认值",
       "systemFutureHeading": "网站基础设施 · 规划中",
       "systemFutureBody": "托管、域名、DNS/CNAME、API、云端备份、恢复与安全控制尚未连接。",
-      "systemFindActions": "请从顶部的工作室与系统菜单管理备份和恢复。"
+      "systemFindActions": "请从顶部的工作室与系统菜单管理备份和恢复。",
+      "systemLocalStatus": "本地工作区",
+      "systemPanelTitle": "您的工作室，由您掌控。",
+      "systemPanelSubtitle": "默认保护隐私的工具，用于管理演示并保留数据副本。",
+      "systemFooterText": "未连接云端 · 导出文件归您所有"
     },
     "ja": {
       "uspKicker": "あなたのウェブプレゼンスを、長く続くものに",
@@ -539,7 +575,11 @@
       "systemReset": "架空デモを初期状態に戻す",
       "systemFutureHeading": "サイト基盤 · 計画中",
       "systemFutureBody": "ホスティング、ドメイン、DNS/CNAME、API、クラウドバックアップ、復元、セキュリティ機能は未接続です。",
-      "systemFindActions": "バックアップと復元は上部のスタジオとシステムメニューから管理できます。"
+      "systemFindActions": "バックアップと復元は上部のスタジオとシステムメニューから管理できます。",
+      "systemLocalStatus": "ローカルワークスペース",
+      "systemPanelTitle": "あなたのスタジオ、あなたの管理。",
+      "systemPanelSubtitle": "デモを管理し、自分のデータのコピーを保管するためのプライベートなツール。",
+      "systemFooterText": "クラウド未接続 · エクスポートしたファイルはあなたのもの"
     }
   }
 }
