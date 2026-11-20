@@ -201,14 +201,14 @@ try {
  })();
  await check('new fictional identity appears consistently',async()=>{
    assert.equal(await page.locator('#name').innerText(),'Nico Vale');
-   assert.equal(await page.locator('#demo-brand').innerText(),'Nico Vale');
-   assert.match(await page.locator('#portrait-caption').innerText(),/Nico Vale/);
+   assert.equal(await page.locator('#demo-brand').textContent(),'Nico Vale');
+   assert.match(await page.locator('#portrait-caption').textContent(),/Nico Vale/);
    await page.locator('#edit-toggle').click();
    await page.locator('input[name="displayName"]').fill('Sage Demo');
    await page.getByRole('button',{name:'Save & preview'}).click();
-   assert.equal(await page.locator('#demo-brand').innerText(),'Sage Demo');
+   assert.equal(await page.locator('#demo-brand').textContent(),'Sage Demo');
    await page.locator('#reset-profile').click();
-   assert.equal(await page.locator('#demo-brand').innerText(),'Nico Vale');
+   assert.equal(await page.locator('#demo-brand').textContent(),'Nico Vale');
  })();
  await check('layout has no horizontal overflow at common viewport sizes',async()=>{
    for(const width of [390,768,1280]){
