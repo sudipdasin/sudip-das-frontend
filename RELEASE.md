@@ -68,3 +68,11 @@ The fictional sample now includes customer-safe adaptations of the source portfo
 - Align all three primary onboarding buttons on one desktop row with responsive grids at smaller widths.
 - Feather the scrolling ticker's left/right edges for less abrupt clipping.
 - Add explicit Chromium geometry assertions for portrait-caption and demo-pill intersections, hero vertical spacing, brand monogram update and desktop CTA row.
+
+## v0.2.0-rc.13 — Studio & system menu
+- Move manual profile JSON backup/restore from the marketing section into a dedicated top-navigation **Studio & system** menu.
+- Group active customer-data actions, demo customization, and restore-defaults separately from planned infrastructure capabilities.
+- Make the menu responsive, keyboard operable (Escape, arrows, Home/End), dismissible outside, and localized in all ten languages.
+- Preserve the existing profile editor's advanced actions, the local-only backup/restore mechanism, and the separate theme/language selectors.
+- Show hosting, domains, DNS/CNAME, APIs, cloud backups and recovery as explicitly **planned**, never as working infrastructure.
+- Add regression coverage for menu accessibility, mobile sizing, live backup/restore, editor and reset behavior.

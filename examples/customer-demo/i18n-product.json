@@ -45,7 +45,19 @@
       "ownershipDetail": "Your profile stays portable. Choose how it looks, export a copy, and decide where to host it. Multi-provider backups, monitoring and emergency recovery are part of our development roadmap.",
       "ownershipExport": "Download my profile backup",
       "ownershipImport": "Restore from my JSON backup",
-      "ownershipAvailable": "Manual profile export and restore work now. Automatic cloud backups and recovery are not yet available."
+      "ownershipAvailable": "Manual profile export and restore work now. Automatic cloud backups and recovery are not yet available.",
+      "systemMenuLabel": "Studio & system",
+      "systemDataHeading": "Your data",
+      "systemManageHeading": "Manage this demo",
+      "systemCustomize": "Open profile editor",
+      "systemReset": "Restore fictional demo defaults",
+      "systemFutureHeading": "Site infrastructure · Planned",
+      "systemFutureBody": "Hosting, domain, DNS/CNAME, API, cloud backup, recovery and security controls are not connected in this preview.",
+      "systemFindActions": "Manage backups and restore from the Studio & system menu in the top bar.",
+      "systemLocalStatus": "Local workspace",
+      "systemPanelTitle": "Your studio, your control.",
+      "systemPanelSubtitle": "Private-by-default tools to manage your demo and keep a copy of your data.",
+      "systemFooterText": "No cloud connection · You own the exported file"
     },
     "hi": {
       "uspKicker": "आपकी वेब पहचान, लंबे समय तक सुरक्षित",
@@ -91,7 +103,19 @@
       "ownershipDetail": "आपकी प्रोफ़ाइल पोर्टेबल रहती है। उसका रूप चुनें, प्रति निर्यात करें और होस्टिंग तय करें। अनेक प्रदाताओं में बैकअप, निगरानी और आपातकालीन बहाली हमारी विकास योजना में हैं।",
       "ownershipExport": "मेरी प्रोफ़ाइल का बैकअप डाउनलोड करें",
       "ownershipImport": "मेरे JSON बैकअप से बहाल करें",
-      "ownershipAvailable": "प्रोफ़ाइल का मैनुअल निर्यात और बहाली अभी काम करते हैं। स्वचालित क्लाउड बैकअप और रिकवरी अभी उपलब्ध नहीं हैं।"
+      "ownershipAvailable": "प्रोफ़ाइल का मैनुअल निर्यात और बहाली अभी काम करते हैं। स्वचालित क्लाउड बैकअप और रिकवरी अभी उपलब्ध नहीं हैं।",
+      "systemMenuLabel": "स्टूडियो और सिस्टम",
+      "systemDataHeading": "आपका डेटा",
+      "systemManageHeading": "यह डेमो प्रबंधित करें",
+      "systemCustomize": "प्रोफ़ाइल एडिटर खोलें",
+      "systemReset": "काल्पनिक डेमो डिफ़ॉल्ट लौटाएँ",
+      "systemFutureHeading": "साइट संरचना · नियोजित",
+      "systemFutureBody": "होस्टिंग, डोमेन, DNS/CNAME, API, क्लाउड बैकअप, बहाली और सुरक्षा नियंत्रण इस पूर्वावलोकन में जुड़े नहीं हैं।",
+      "systemFindActions": "बैकअप और बहाली ऊपर के स्टूडियो और सिस्टम मेनू से प्रबंधित करें।",
+      "systemLocalStatus": "स्थानीय कार्यक्षेत्र",
+      "systemPanelTitle": "आपका स्टूडियो, आपका नियंत्रण।",
+      "systemPanelSubtitle": "डेमो प्रबंधित करने और डेटा की प्रति सुरक्षित रखने के लिए निजी उपकरण।",
+      "systemFooterText": "कोई क्लाउड कनेक्शन नहीं · निर्यात की गई फ़ाइल आपकी है"
     },
     "bn": {
       "uspKicker": "আপনার ওয়েব পরিচয়, দীর্ঘস্থায়ী হওয়ার জন্য তৈরি",
@@ -137,7 +161,19 @@
       "ownershipDetail": "আপনার প্রোফাইল বহনযোগ্য থাকে। নকশা বেছে নিন, কপি রপ্তানি করুন এবং হোস্টিং ঠিক করুন। একাধিক প্রদানকারীতে ব্যাকআপ, নজরদারি ও জরুরি পুনরুদ্ধার উন্নয়ন পরিকল্পনায় রয়েছে।",
       "ownershipExport": "আমার প্রোফাইল ব্যাকআপ ডাউনলোড",
       "ownershipImport": "আমার JSON ব্যাকআপ থেকে ফিরিয়ে আনুন",
-      "ownershipAvailable": "ম্যানুয়াল প্রোফাইল রপ্তানি ও পুনরুদ্ধার এখন কাজ করে। স্বয়ংক্রিয় ক্লাউড ব্যাকআপ ও পুনরুদ্ধার এখনও চালু নয়।"
+      "ownershipAvailable": "ম্যানুয়াল প্রোফাইল রপ্তানি ও পুনরুদ্ধার এখন কাজ করে। স্বয়ংক্রিয় ক্লাউড ব্যাকআপ ও পুনরুদ্ধার এখনও চালু নয়।",
+      "systemMenuLabel": "স্টুডিও ও সিস্টেম",
+      "systemDataHeading": "আপনার তথ্য",
+      "systemManageHeading": "ডেমো পরিচালনা",
+      "systemCustomize": "প্রোফাইল এডিটর খুলুন",
+      "systemReset": "কাল্পনিক ডেমো পুনরায় সেট",
+      "systemFutureHeading": "সাইট অবকাঠামো · পরিকল্পিত",
+      "systemFutureBody": "হোস্টিং, ডোমেন, DNS/CNAME, API, ক্লাউড ব্যাকআপ, পুনরুদ্ধার ও নিরাপত্তা নিয়ন্ত্রণ এই প্রিভিউতে সংযুক্ত নয়।",
+      "systemFindActions": "উপরের স্টুডিও ও সিস্টেম মেনু থেকে ব্যাকআপ ও পুনরুদ্ধার পরিচালনা করুন।",
+      "systemLocalStatus": "স্থানীয় কাজের জায়গা",
+      "systemPanelTitle": "আপনার স্টুডিও, আপনার নিয়ন্ত্রণ।",
+      "systemPanelSubtitle": "ডেমো পরিচালনা ও নিজের ডেটার কপি রাখার জন্য ব্যক্তিগত সরঞ্জাম।",
+      "systemFooterText": "ক্লাউড সংযোগ নেই · রপ্তানি করা ফাইল আপনার"
     },
     "es": {
       "uspKicker": "TU PRESENCIA WEB, CREADA PARA PERDURAR",
@@ -183,7 +219,19 @@
       "ownershipDetail": "Tu perfil es portátil. Elige su aspecto, exporta una copia y decide dónde alojarlo. Las copias entre proveedores, la supervisión y la recuperación de emergencia forman parte del plan de desarrollo.",
       "ownershipExport": "Descargar copia de mi perfil",
       "ownershipImport": "Restaurar desde mi copia JSON",
-      "ownershipAvailable": "La exportación y restauración manual ya funcionan. Las copias automáticas en la nube y la recuperación aún no están disponibles."
+      "ownershipAvailable": "La exportación y restauración manual ya funcionan. Las copias automáticas en la nube y la recuperación aún no están disponibles.",
+      "systemMenuLabel": "Estudio y sistema",
+      "systemDataHeading": "Tus datos",
+      "systemManageHeading": "Administrar esta demo",
+      "systemCustomize": "Abrir editor de perfil",
+      "systemReset": "Restaurar la demo ficticia",
+      "systemFutureHeading": "Infraestructura web · Prevista",
+      "systemFutureBody": "El alojamiento, dominio, DNS/CNAME, API, copias en la nube, recuperación y seguridad todavía no están conectados.",
+      "systemFindActions": "Gestiona las copias y la restauración desde el menú Estudio y sistema de la barra superior.",
+      "systemLocalStatus": "Espacio local",
+      "systemPanelTitle": "Tu estudio, tu control.",
+      "systemPanelSubtitle": "Herramientas privadas para administrar la demo y conservar tus datos.",
+      "systemFooterText": "Sin conexión a la nube · El archivo exportado es tuyo"
     },
     "fr": {
       "uspKicker": "VOTRE PRÉSENCE WEB, CONÇUE POUR DURER",
@@ -229,7 +277,19 @@
       "ownershipDetail": "Votre profil reste portable. Choisissez son apparence, exportez une copie et décidez où l'héberger. Les sauvegardes multi-fournisseurs, la surveillance et la reprise d'urgence font partie de notre feuille de route.",
       "ownershipExport": "Télécharger la sauvegarde de mon profil",
       "ownershipImport": "Restaurer depuis ma sauvegarde JSON",
-      "ownershipAvailable": "L'export et la restauration manuels sont disponibles. Les sauvegardes cloud automatiques et la reprise ne le sont pas encore."
+      "ownershipAvailable": "L'export et la restauration manuels sont disponibles. Les sauvegardes cloud automatiques et la reprise ne le sont pas encore.",
+      "systemMenuLabel": "Studio et système",
+      "systemDataHeading": "Vos données",
+      "systemManageHeading": "Gérer cette démo",
+      "systemCustomize": "Ouvrir l’éditeur de profil",
+      "systemReset": "Rétablir la démo fictive",
+      "systemFutureHeading": "Infrastructure web · Prévue",
+      "systemFutureBody": "L’hébergement, le domaine, DNS/CNAME, l’API, les sauvegardes cloud, la restauration et la sécurité ne sont pas connectés.",
+      "systemFindActions": "Gérez les sauvegardes et la restauration depuis le menu Studio et système en haut.",
+      "systemLocalStatus": "Espace local",
+      "systemPanelTitle": "Votre studio, votre contrôle.",
+      "systemPanelSubtitle": "Des outils privés pour gérer la démo et conserver vos données.",
+      "systemFooterText": "Pas de connexion cloud · Le fichier exporté vous appartient"
     },
     "de": {
       "uspKicker": "IHRE WEBPRÄSENZ, FÜR DIE ZUKUNFT GEMACHT",
@@ -275,7 +335,19 @@
       "ownershipDetail": "Ihr Profil bleibt portabel. Wählen Sie das Design, exportieren Sie eine Kopie und bestimmen Sie den Host. Anbieterübergreifende Backups, Überwachung und Notfallwiederherstellung stehen auf der Entwicklungs-Roadmap.",
       "ownershipExport": "Profil-Backup herunterladen",
       "ownershipImport": "Aus meinem JSON-Backup wiederherstellen",
-      "ownershipAvailable": "Manueller Export und Wiederherstellung funktionieren bereits. Automatische Cloud-Backups und Wiederherstellung sind noch nicht verfügbar."
+      "ownershipAvailable": "Manueller Export und Wiederherstellung funktionieren bereits. Automatische Cloud-Backups und Wiederherstellung sind noch nicht verfügbar.",
+      "systemMenuLabel": "Studio und System",
+      "systemDataHeading": "Ihre Daten",
+      "systemManageHeading": "Demo verwalten",
+      "systemCustomize": "Profil-Editor öffnen",
+      "systemReset": "Fiktive Demo zurücksetzen",
+      "systemFutureHeading": "Web-Infrastruktur · Geplant",
+      "systemFutureBody": "Hosting, Domain, DNS/CNAME, API, Cloud-Backup, Wiederherstellung und Sicherheit sind in dieser Vorschau nicht verbunden.",
+      "systemFindActions": "Backups und Wiederherstellung finden Sie oben im Menü Studio und System.",
+      "systemLocalStatus": "Lokaler Arbeitsbereich",
+      "systemPanelTitle": "Ihr Studio, Ihre Kontrolle.",
+      "systemPanelSubtitle": "Private Werkzeuge für die Demo und eine eigene Datenkopie.",
+      "systemFooterText": "Keine Cloud-Verbindung · Die exportierte Datei gehört Ihnen"
     },
     "pt": {
       "uspKicker": "SUA PRESENÇA NA WEB, FEITA PARA DURAR",
@@ -321,7 +393,19 @@
       "ownershipDetail": "Seu perfil continua portátil. Escolha a aparência, exporte uma cópia e decida onde hospedar. Backups entre provedores, monitoramento e recuperação de emergência fazem parte do roteiro de desenvolvimento.",
       "ownershipExport": "Baixar backup do meu perfil",
       "ownershipImport": "Restaurar do meu backup JSON",
-      "ownershipAvailable": "Exportação e restauração manuais já funcionam. Backups automáticos na nuvem e recuperação ainda não estão disponíveis."
+      "ownershipAvailable": "Exportação e restauração manuais já funcionam. Backups automáticos na nuvem e recuperação ainda não estão disponíveis.",
+      "systemMenuLabel": "Estúdio e sistema",
+      "systemDataHeading": "Seus dados",
+      "systemManageHeading": "Gerenciar esta demo",
+      "systemCustomize": "Abrir editor de perfil",
+      "systemReset": "Restaurar demo fictícia",
+      "systemFutureHeading": "Infraestrutura web · Planejada",
+      "systemFutureBody": "Hospedagem, domínio, DNS/CNAME, API, backup na nuvem, recuperação e segurança não estão conectados nesta prévia.",
+      "systemFindActions": "Gerencie backups e restauração no menu Estúdio e sistema da barra superior.",
+      "systemLocalStatus": "Espaço local",
+      "systemPanelTitle": "Seu estúdio, seu controle.",
+      "systemPanelSubtitle": "Ferramentas privadas para gerenciar a demo e guardar seus dados.",
+      "systemFooterText": "Sem conexão com nuvem · O arquivo exportado é seu"
     },
     "ar": {
       "uspKicker": "حضورك على الويب، مصمم ليستمر",
@@ -367,7 +451,19 @@
       "ownershipDetail": "يبقى ملفك قابلًا للنقل. اختر مظهره وصدّر نسخة وحدد مكان استضافته. النسخ الاحتياطي عبر مزودين متعددين والمراقبة والاستعادة الطارئة جزء من خطة التطوير.",
       "ownershipExport": "تنزيل نسخة احتياطية من ملفي",
       "ownershipImport": "استعادة ملفي من نسخة JSON",
-      "ownershipAvailable": "تعمل الآن عملية التصدير والاستعادة اليدوية. النسخ السحابية التلقائية والاسترداد غير متاحين بعد."
+      "ownershipAvailable": "تعمل الآن عملية التصدير والاستعادة اليدوية. النسخ السحابية التلقائية والاسترداد غير متاحين بعد.",
+      "systemMenuLabel": "الاستوديو والنظام",
+      "systemDataHeading": "بياناتك",
+      "systemManageHeading": "إدارة هذا العرض",
+      "systemCustomize": "فتح محرر الملف",
+      "systemReset": "استعادة إعدادات العرض الخيالي",
+      "systemFutureHeading": "بنية الموقع · مخططة",
+      "systemFutureBody": "الاستضافة والنطاق وDNS/CNAME وAPI والنسخ السحابية والاسترداد والأمان غير متصلة في هذا العرض.",
+      "systemFindActions": "تحكم في النسخ الاحتياطية والاستعادة من قائمة الاستوديو والنظام في الشريط العلوي.",
+      "systemLocalStatus": "مساحة عمل محلية",
+      "systemPanelTitle": "استوديوك، تحكمك.",
+      "systemPanelSubtitle": "أدوات خاصة لإدارة العرض والاحتفاظ بنسخة من بياناتك.",
+      "systemFooterText": "لا اتصال سحابي · الملف المُصدّر ملكك"
     },
     "zh-CN": {
       "uspKicker": "让您的网络形象历久弥新",
@@ -413,7 +509,19 @@
       "ownershipDetail": "您的资料可以移植。您可以选择外观、导出副本并决定托管位置。跨服务商备份、监控和紧急恢复属于产品开发规划。",
       "ownershipExport": "下载我的资料备份",
       "ownershipImport": "从 JSON 备份恢复",
-      "ownershipAvailable": "目前支持手动资料导出与恢复。自动云端备份和恢复尚未提供。"
+      "ownershipAvailable": "目前支持手动资料导出与恢复。自动云端备份和恢复尚未提供。",
+      "systemMenuLabel": "工作室与系统",
+      "systemDataHeading": "您的数据",
+      "systemManageHeading": "管理此演示",
+      "systemCustomize": "打开资料编辑器",
+      "systemReset": "恢复虚构演示默认值",
+      "systemFutureHeading": "网站基础设施 · 规划中",
+      "systemFutureBody": "托管、域名、DNS/CNAME、API、云端备份、恢复与安全控制尚未连接。",
+      "systemFindActions": "请从顶部的工作室与系统菜单管理备份和恢复。",
+      "systemLocalStatus": "本地工作区",
+      "systemPanelTitle": "您的工作室，由您掌控。",
+      "systemPanelSubtitle": "默认保护隐私的工具，用于管理演示并保留数据副本。",
+      "systemFooterText": "未连接云端 · 导出文件归您所有"
     },
     "ja": {
       "uspKicker": "あなたのウェブプレゼンスを、長く続くものに",
@@ -459,7 +567,19 @@
       "ownershipDetail": "プロフィールは持ち運べます。見た目を選び、コピーを書き出し、ホストを決められます。複数事業者へのバックアップ、監視、緊急復旧は今後の開発計画です。",
       "ownershipExport": "プロフィールのバックアップをダウンロード",
       "ownershipImport": "JSON バックアップから復元",
-      "ownershipAvailable": "手動でのプロフィール書き出しと復元は利用できます。クラウド自動バックアップと復旧は未提供です。"
+      "ownershipAvailable": "手動でのプロフィール書き出しと復元は利用できます。クラウド自動バックアップと復旧は未提供です。",
+      "systemMenuLabel": "スタジオとシステム",
+      "systemDataHeading": "あなたのデータ",
+      "systemManageHeading": "デモを管理",
+      "systemCustomize": "プロフィール編集を開く",
+      "systemReset": "架空デモを初期状態に戻す",
+      "systemFutureHeading": "サイト基盤 · 計画中",
+      "systemFutureBody": "ホスティング、ドメイン、DNS/CNAME、API、クラウドバックアップ、復元、セキュリティ機能は未接続です。",
+      "systemFindActions": "バックアップと復元は上部のスタジオとシステムメニューから管理できます。",
+      "systemLocalStatus": "ローカルワークスペース",
+      "systemPanelTitle": "あなたのスタジオ、あなたの管理。",
+      "systemPanelSubtitle": "デモを管理し、自分のデータのコピーを保管するためのプライベートなツール。",
+      "systemFooterText": "クラウド未接続 · エクスポートしたファイルはあなたのもの"
     }
   }
 }
