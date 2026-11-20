@@ -8,6 +8,7 @@
   const originalAttributes = new WeakMap();
   let product = null;
   let labels = null;
+  let dictionaryCoverage = {};
   let active = 'en';
   let scheduled = false;
   let applying = false;
@@ -31,7 +32,11 @@
       if(node.parentElement?.closest('script,style,[data-i18n],#name,#role,#tagline,#about,#skills,#projects,#social,#email,#demo-brand,#portrait-caption'))continue;
       const existing = originals.get(node);
       const current = normalize(node.nodeValue);
-      const original = existing || current;
+      let original = existing || current;
+      if(existing && current !== original && current !== translate(original,active)) {
+        // The editor or tour replaced this node with new source text: retain the latest source.
+        original = current;originals.set(node,original);
+      }
       if(!existing && !(original in (labels.translations.hi||{})))continue;
       if(!existing)originals.set(node,original);
       const desired = translate(original,active);
@@ -58,19 +63,25 @@
   }
   const data = Promise.all([
     fetch('./i18n-product.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Product translations missing');return r.json();}),
-    fetch('./i18n-ui.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('UI translations missing');return r.json();})
-  ]).then(([productData,uiData])=>{
+    fetch('./i18n-ui.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('UI translations missing');return r.json();}),
+    fetch('./i18n-copy.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Page translations missing');return r.json();}),
+    fetch('./i18n-profile.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Profile translations missing');return r.json();})
+  ]).then(([productData,uiData,copyData,profileData])=>{
     for(const lang of locales){
       if(!productData.locales[lang])throw Error('Missing product language: '+lang);
       if(lang!=='en'&&!uiData.translations[lang])throw Error('Missing UI language: '+lang);
     }
     product=productData;
-    labels=uiData;
+    labels={translations:{}};
+    for(const lang of locales){
+      labels.translations[lang]={...(uiData.translations[lang]||{}),...(copyData.translations[lang]||{}),...(profileData.translations[lang]||{})};
+      dictionaryCoverage[lang]=Object.keys(labels.translations[lang]).length;
+    }
     const current=language.value;
     select(current);
     language.addEventListener('change',()=>select(language.value));
     new MutationObserver(schedule).observe(document.body,{subtree:true,childList:true,characterData:true});
-    window.StudioI18n=Object.freeze({select,get language(){return active;},translate:(text,lang=active)=>translate(text,lang),ready:Promise.resolve(true)});
+    window.StudioI18n=Object.freeze({select,get language(){return active;},translate:(text,lang=active)=>translate(text,lang),coverage:dictionaryCoverage,ready:Promise.resolve(true)});
     return true;
   }).catch(error=>{
     console.error('Local translations could not initialize:',error);
