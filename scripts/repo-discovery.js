@@ -13,7 +13,7 @@
   function normalizeRepo(repo, owner = OWNER) {
     if (!isPublicRepo(repo, owner)) return null;
     return {
-      name: repo.name,
+      name: repo.name, owner:{login:owner},
       language: typeof repo.language === 'string' ? repo.language.slice(0, 80) : null,
       stargazers_count: Number.isFinite(repo.stargazers_count) ? Math.max(0, repo.stargazers_count) : 0,
       pushed_at: typeof repo.pushed_at === 'string' && !Number.isNaN(Date.parse(repo.pushed_at)) ? repo.pushed_at : null,
