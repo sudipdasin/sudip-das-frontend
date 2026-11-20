@@ -132,18 +132,33 @@ try {
    assert.equal(await page.locator('#skills-section').isVisible(),true);
    await page.locator('#studio-theme').selectOption('orbit');
  })();
- await check('offline proposal wizard downloads but never sends',async()=>{
+ await check('client enquiry opens an email draft, never downloads a brief or fakes delivery',async()=>{
    await page.locator('#proposal-section summary').click();
    await page.locator('#proposal-form [name="name"]').fill('Test Visitor');
-   await page.locator('#proposal-form [name="email"]').fill('visitor@example.com');
+   await page.locator('#proposal-form [name="email"]').fill('visitor@gmail.com');
    await page.locator('#proposal-form [name="service"]').selectOption('Website redesign');
    await page.locator('#proposal-form [name="timeline"]').selectOption('Exploring options');
    await page.locator('#proposal-form [name="brief"]').fill('Create a fictional accessible demo website.');
-   const download=page.waitForEvent('download');
    await page.locator('#proposal-form [type="submit"]').click();
-   const file=await download;
-   assert.equal(file.suggestedFilename(),'sample-project-brief.txt');
-   assert.match(await page.locator('#proposal-status').innerText(),/No email or API request was sent/);
+   assert.match(await page.locator('#proposal-status').innerText(),/Configure a real receiving email address/i);
+   if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
+   await page.locator('#profile-form [name="contactEmail"]').fill('owner@gmail.com');
+   await page.locator('#profile-form button[type="submit"]').click();
+   await page.evaluate(()=>{
+     window.__mailtoURL='';
+     const original=HTMLAnchorElement.prototype.click;
+     HTMLAnchorElement.prototype.click=function(){
+       if(this.href.startsWith('mailto:')){window.__mailtoURL=this.href;return;}
+       return original.call(this);
+     };
+   });
+   await page.locator('#proposal-form [type="submit"]').click();
+   await page.waitForFunction(()=>!!window.__mailtoURL);
+   const href=await page.evaluate(()=>window.__mailtoURL);
+   assert.match(href,/^mailto:owner%40gmail.com\?/);
+   assert.match(decodeURIComponent(href),/Project brief:[\s\S]*accessible demo website/);
+   assert.match(await page.locator('#proposal-status').innerText(),/review it and press Send/i);
+   await page.locator('#reset-profile').click();
  })();
  await check('mobile menu provides responsive navigation',async()=>{
    const mobile=await browser.newPage({viewport:{width:390,height:844}});
@@ -438,10 +453,47 @@ try {
    await page.locator('#studio-theme').selectOption('orbit');
    await page.setViewportSize({width:1280,height:900});
  })();
+ await check('Dev Das portrait is distinct and consistent across three themes and mobile widths',async()=>{
+   assert.equal(await page.locator('#name').innerText(),'Dev Das');
+   for(const theme of ['orbit','editorial','terminal']){
+     await page.locator('#studio-theme').selectOption(theme);
+     for(const width of [390,768,1280]){
+       await page.setViewportSize({width,height:900});
+       const img=page.locator('#avatar img.demo-portrait');
+       await img.waitFor({state:'visible'});
+       assert.match(await img.getAttribute('src'),/dev-das-portrait\.svg/);
+       const data=await img.evaluate(el=>({loaded:el.complete&&el.naturalWidth>0,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height}));
+       assert.equal(data.loaded,true,theme+'/'+width+' portrait');
+       assert.ok(Math.abs(data.width-data.height)<3,theme+'/'+width+' portrait shape');
+       const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+       assert.ok(overflow<=2,theme+'/'+width+' overflow '+overflow);
+     }
+   }
+   await page.locator('#studio-theme').selectOption('orbit');
+   await page.setViewportSize({width:1280,height:900});
+ })();
+ await check('background treatments and uploaded portrait preserve a portable local profile',async()=>{
+   if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
+   await page.locator('#profile-form select[name="backgroundStyle"]').selectOption('solid');
+   await page.locator('#profile-form button[type="submit"]').click();
+   assert.equal(await page.locator('body').getAttribute('data-background'),'solid');
+   await page.locator('#profile-form select[name="backgroundStyle"]').selectOption('original');
+   await page.locator('#profile-form button[type="submit"]').click();
+   assert.equal(await page.locator('body').getAttribute('data-background'),'original');
+   const buffer=await page.evaluate(()=>{
+     const canvas=document.createElement('canvas');canvas.width=120;canvas.height=120;
+     canvas.getContext('2d').fillStyle='#127a6a';canvas.getContext('2d').fillRect(0,0,120,120);
+     return canvas.toDataURL('image/png').split(',')[1];
+   });
+   await page.locator('#portrait-upload').setInputFiles({name:'custom.png',mimeType:'image/png',buffer:Buffer.from(buffer,'base64')});
+   await page.waitForFunction(()=>document.querySelector('#avatar img')?.src.startsWith('data:image/jpeg;base64,'));
+   await page.locator('#reset-profile').click();
+   assert.match(await page.locator('#avatar img').getAttribute('src'),/dev-das-portrait\.svg/);
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,39);
+assert.equal(passed,41);
 console.log('Browser checks passed: '+passed);
