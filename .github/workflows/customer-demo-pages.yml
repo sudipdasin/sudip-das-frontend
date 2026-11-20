@@ -38,6 +38,7 @@ jobs:
           node --check examples/customer-demo/premium.js
           node --check examples/customer-demo/studio-features.js
           node --check examples/customer-demo/studio-tour.js
+          node --check examples/customer-demo/studio-i18n.js
           node --check examples/customer-demo/commerce.js
           node --check scripts/build-customer-demo.mjs
           node --test tests/customer-demo.test.mjs tests/customer-demo-build.test.mjs
