@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-i18n.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-i18n.js','/studio-ownership.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -265,10 +265,48 @@ try {
    await page.waitForFunction(()=>window.StudioI18n?.language==='en');
    assert.equal(await page.locator('#name').innerText(),'Nico Vale');
  })();
+ await check('portrait and both orbit rings share the same center in all layouts',async()=>{
+   for(const width of [390,768,1280]){
+     await page.setViewportSize({width,height:900});
+     for(const theme of ['orbit','editorial','terminal']){
+       await page.locator('#studio-theme').selectOption(theme);
+       const geometry=await page.evaluate(()=>{
+         const bounds=selector=>document.querySelector(selector).getBoundingClientRect();
+         const avatar=bounds('#avatar'),outer=bounds('.hero-art .orbit'),inner=bounds('.hero-art .orbit.second'),img=bounds('#avatar img');
+         const center=r=>({x:r.left+r.width/2,y:r.top+r.height/2});
+         return {avatar:{...center(avatar),size:avatar.width},outer:{...center(outer),size:outer.width},inner:{...center(inner),size:inner.width},img:{...center(img),size:img.width},radius:getComputedStyle(document.querySelector('#avatar')).borderRadius};
+       });
+       for(const key of ['outer','inner','img']){
+         assert.ok(Math.abs(geometry.avatar.x-geometry[key].x)<=5,theme+'/'+width+'/'+key+' x alignment: '+JSON.stringify(geometry));
+         assert.ok(Math.abs(geometry.avatar.y-geometry[key].y)<=5,theme+'/'+width+'/'+key+' y alignment: '+JSON.stringify(geometry));
+       }
+       assert.ok(geometry.outer.size>geometry.inner.size&&geometry.inner.size>geometry.avatar.size);
+       assert.ok(geometry.radius.includes('50%'),theme+' portrait crop should fit round artwork');
+     }
+   }
+   await page.locator('#studio-theme').selectOption('orbit');
+   await page.setViewportSize({width:1280,height:900});
+ })();
+ await check('direct download is an actual manual ownership backup',async()=>{
+   const started=page.waitForEvent('download');
+   await page.locator('#backup-download').click();
+   const download=await started;
+   assert.equal(download.suggestedFilename(),'customer-demo-profile.json');
+ })();
+ await check('direct restore opens the editor and selects local JSON',async()=>{
+   await page.locator('#backup-import').click();
+   assert.equal(await page.locator('#editor').isVisible(),true);
+   const file=JSON.parse(await readFile(join(output,'profile.json'),'utf8'));
+   file.identity.displayName='Ownership Test';
+   await page.locator('#import-profile').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(file))});
+   await page.waitForFunction(()=>document.querySelector('#name')?.textContent==='Ownership Test');
+   await page.locator('#reset-profile').click();
+   assert.equal(await page.locator('#name').innerText(),'Nico Vale');
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,29);
+assert.equal(passed,32);
 console.log('Browser checks passed: '+passed);

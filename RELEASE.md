@@ -43,3 +43,13 @@ The fictional sample now includes customer-safe adaptations of the source portfo
 - Added right-to-left Arabic layout support and tests for language-switch reversibility, mobile dimensions and demo profile isolation.
 - Added `docs/ENDURING-WEB-PRESENCE.md` and `docs/GROWTH-AND-LAUNCH-PLAYBOOK.md` for architectural and commercial release milestones.
 - This release concerns the fictional demo. No private backend, production DNS or payment gateway is activated.
+
+
+## v0.2.0-rc.9 — customer ownership, resilient web presence and localization
+- Launch message: **You are in control of your web presence and your data.**
+- A transparent rescue-first product vision: modularity, provider choice, DNS/domain migration, multi-location backup, integrity checks, restoration and verified monitoring (future roadmap, not yet operating in static demo).
+- Current demo now gives working one-click manual profile JSON backup and a direct restore entry, independent of a cloud account.
+- Re-centered illustrated portrait and animated orbits around common responsive geometry, with tests for Orbit / Editorial / Terminal across desktop, tablet and mobile.
+- New full-copy translation catalogs for ten languages, including fictional profile, product message, journey copy and onboarding; RTL Arabic support and reversible switches.
+- Adds research-grounded product-growth and distribution plan at `docs/PRODUCT-GROWTH-STRATEGY.md`, and resilience architecture at `docs/ENDURING-WEB-PRESENCE.md`.
+- No verified automated cloud backup, monitoring, failover, billing or managed hosting is claimed. This release is limited to the separate fictional demo.

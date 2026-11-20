@@ -39,7 +39,13 @@
       "plannedNext": "Domain and DNS monitoring, automated offsite backup replication, integrity checks, provider failover, emergency restore, DDoS mitigations, private APIs and managed customer hosting.",
       "regenerativeStatus": "Planned: multi-location backups, independent recovery, tested failover and rollback.",
       "productCtaTitle": "Your web presence, protected from provider lock-in.",
-      "productCtaBody": "Explore the demo today. Discover the planned modular backup, monitoring and self-recovery system."
+      "productCtaBody": "Explore the demo today. Discover the planned modular backup, monitoring and self-recovery system.",
+      "ownershipKicker": "YOUR PRESENCE · YOUR DATA · YOUR DECISION",
+      "ownershipPromise": "You are in control of your web presence and your data.",
+      "ownershipDetail": "Your profile stays portable. Choose how it looks, export a copy, and decide where to host it. Multi-provider backups, monitoring and emergency recovery are part of our development roadmap.",
+      "ownershipExport": "Download my profile backup",
+      "ownershipImport": "Restore from my JSON backup",
+      "ownershipAvailable": "Manual profile export and restore work now. Automatic cloud backups and recovery are not yet available."
     },
     "hi": {
       "uspKicker": "आपकी वेब पहचान, लंबे समय तक सुरक्षित",
@@ -79,7 +85,13 @@
       "plannedNext": "डोमेन/DNS निगरानी, स्वचालित ऑफ़साइट बैकअप, अखंडता जाँच, प्रदाता फ़ेलओवर, आपातकालीन बहाली, DDoS सुरक्षा, निजी API और प्रबंधित ग्राहक होस्टिंग।",
       "regenerativeStatus": "नियोजित: कई स्थानों पर बैकअप, स्वतंत्र बहाली, परीक्षण किया गया फ़ेलओवर और रोलबैक।",
       "productCtaTitle": "आपकी वेब पहचान, प्रदाता-निर्भरता से मुक्त।",
-      "productCtaBody": "आज डेमो देखें। नियोजित मॉड्यूलर बैकअप, निगरानी और स्वयं-पुनर्प्राप्ति सिस्टम को जानें।"
+      "productCtaBody": "आज डेमो देखें। नियोजित मॉड्यूलर बैकअप, निगरानी और स्वयं-पुनर्प्राप्ति सिस्टम को जानें।",
+      "ownershipKicker": "आपकी पहचान · आपका डेटा · आपका निर्णय",
+      "ownershipPromise": "आपकी वेब पहचान और आपके डेटा का नियंत्रण आपके हाथों में है।",
+      "ownershipDetail": "आपकी प्रोफ़ाइल पोर्टेबल रहती है। उसका रूप चुनें, प्रति निर्यात करें और होस्टिंग तय करें। अनेक प्रदाताओं में बैकअप, निगरानी और आपातकालीन बहाली हमारी विकास योजना में हैं।",
+      "ownershipExport": "मेरी प्रोफ़ाइल का बैकअप डाउनलोड करें",
+      "ownershipImport": "मेरे JSON बैकअप से बहाल करें",
+      "ownershipAvailable": "प्रोफ़ाइल का मैनुअल निर्यात और बहाली अभी काम करते हैं। स्वचालित क्लाउड बैकअप और रिकवरी अभी उपलब्ध नहीं हैं।"
     },
     "bn": {
       "uspKicker": "আপনার ওয়েব পরিচয়, দীর্ঘস্থায়ী হওয়ার জন্য তৈরি",
@@ -119,7 +131,13 @@
       "plannedNext": "ডোমেন ও DNS পর্যবেক্ষণ, স্বয়ংক্রিয় অফসাইট ব্যাকআপ, সততা যাচাই, প্রদানকারী পরিবর্তন, জরুরি পুনরুদ্ধার, DDoS প্রতিরোধ, ব্যক্তিগত API ও পরিচালিত হোস্টিং।",
       "regenerativeStatus": "পরিকল্পিত: একাধিক স্থানে ব্যাকআপ, স্বাধীন পুনরুদ্ধার, পরীক্ষিত ফেইলওভার ও আগের অবস্থায় ফেরা।",
       "productCtaTitle": "আপনার ওয়েব পরিচয়, একক প্রদানকারীর বন্ধন থেকে মুক্ত।",
-      "productCtaBody": "আজ ডেমো দেখুন। পরিকল্পিত মডিউলার ব্যাকআপ, পর্যবেক্ষণ ও স্বয়ংক্রিয় পুনরুদ্ধার জানুন।"
+      "productCtaBody": "আজ ডেমো দেখুন। পরিকল্পিত মডিউলার ব্যাকআপ, পর্যবেক্ষণ ও স্বয়ংক্রিয় পুনরুদ্ধার জানুন।",
+      "ownershipKicker": "আপনার পরিচয় · আপনার তথ্য · আপনার সিদ্ধান্ত",
+      "ownershipPromise": "আপনার ওয়েব উপস্থিতি ও তথ্যের নিয়ন্ত্রণ আপনার হাতে।",
+      "ownershipDetail": "আপনার প্রোফাইল বহনযোগ্য থাকে। নকশা বেছে নিন, কপি রপ্তানি করুন এবং হোস্টিং ঠিক করুন। একাধিক প্রদানকারীতে ব্যাকআপ, নজরদারি ও জরুরি পুনরুদ্ধার উন্নয়ন পরিকল্পনায় রয়েছে।",
+      "ownershipExport": "আমার প্রোফাইল ব্যাকআপ ডাউনলোড",
+      "ownershipImport": "আমার JSON ব্যাকআপ থেকে ফিরিয়ে আনুন",
+      "ownershipAvailable": "ম্যানুয়াল প্রোফাইল রপ্তানি ও পুনরুদ্ধার এখন কাজ করে। স্বয়ংক্রিয় ক্লাউড ব্যাকআপ ও পুনরুদ্ধার এখনও চালু নয়।"
     },
     "es": {
       "uspKicker": "TU PRESENCIA WEB, CREADA PARA PERDURAR",
@@ -159,7 +177,13 @@
       "plannedNext": "Supervisión de dominio/DNS, copias remotas automáticas, comprobación de integridad, cambio de proveedor, restauración de emergencia, mitigación DDoS, API privadas y alojamiento gestionado.",
       "regenerativeStatus": "Previsto: copias en varios lugares, recuperación independiente, failover probado y reversión.",
       "productCtaTitle": "Tu presencia web, sin depender de un único proveedor.",
-      "productCtaBody": "Explora la demo y descubre el sistema modular previsto de copias, supervisión y recuperación automática."
+      "productCtaBody": "Explora la demo y descubre el sistema modular previsto de copias, supervisión y recuperación automática.",
+      "ownershipKicker": "TU PRESENCIA · TUS DATOS · TUS DECISIONES",
+      "ownershipPromise": "Tú controlas tu presencia web y tus datos.",
+      "ownershipDetail": "Tu perfil es portátil. Elige su aspecto, exporta una copia y decide dónde alojarlo. Las copias entre proveedores, la supervisión y la recuperación de emergencia forman parte del plan de desarrollo.",
+      "ownershipExport": "Descargar copia de mi perfil",
+      "ownershipImport": "Restaurar desde mi copia JSON",
+      "ownershipAvailable": "La exportación y restauración manual ya funcionan. Las copias automáticas en la nube y la recuperación aún no están disponibles."
     },
     "fr": {
       "uspKicker": "VOTRE PRÉSENCE WEB, CONÇUE POUR DURER",
@@ -199,7 +223,13 @@
       "plannedNext": "Surveillance domaines/DNS, réplication automatique des sauvegardes, contrôle d'intégrité, basculement fournisseur, restauration d'urgence, protection DDoS, API privées et hébergement géré.",
       "regenerativeStatus": "Prévu : sauvegardes multisites, restauration indépendante, basculement testé et retour arrière.",
       "productCtaTitle": "Votre présence web, sans dépendre d'un seul fournisseur.",
-      "productCtaBody": "Explorez la démo et découvrez le système modulaire prévu de sauvegarde, surveillance et restauration automatique."
+      "productCtaBody": "Explorez la démo et découvrez le système modulaire prévu de sauvegarde, surveillance et restauration automatique.",
+      "ownershipKicker": "VOTRE PRÉSENCE · VOS DONNÉES · VOS CHOIX",
+      "ownershipPromise": "Vous contrôlez votre présence web et vos données.",
+      "ownershipDetail": "Votre profil reste portable. Choisissez son apparence, exportez une copie et décidez où l'héberger. Les sauvegardes multi-fournisseurs, la surveillance et la reprise d'urgence font partie de notre feuille de route.",
+      "ownershipExport": "Télécharger la sauvegarde de mon profil",
+      "ownershipImport": "Restaurer depuis ma sauvegarde JSON",
+      "ownershipAvailable": "L'export et la restauration manuels sont disponibles. Les sauvegardes cloud automatiques et la reprise ne le sont pas encore."
     },
     "de": {
       "uspKicker": "IHRE WEBPRÄSENZ, FÜR DIE ZUKUNFT GEMACHT",
@@ -239,7 +269,13 @@
       "plannedNext": "Domain-/DNS-Überwachung, automatische externe Sicherungen, Integritätsprüfungen, Provider-Failover, Notfallwiederherstellung, DDoS-Abwehr, private APIs und verwaltetes Hosting.",
       "regenerativeStatus": "Geplant: Backups an mehreren Orten, unabhängige Wiederherstellung, getestetes Failover und Rollback.",
       "productCtaTitle": "Ihre Webpräsenz, ohne Bindung an einen einzelnen Anbieter.",
-      "productCtaBody": "Entdecken Sie die Demo und das geplante modulare System für Backups, Überwachung und automatische Wiederherstellung."
+      "productCtaBody": "Entdecken Sie die Demo und das geplante modulare System für Backups, Überwachung und automatische Wiederherstellung.",
+      "ownershipKicker": "IHRE PRÄSENZ · IHRE DATEN · IHRE ENTSCHEIDUNG",
+      "ownershipPromise": "Sie kontrollieren Ihre Webpräsenz und Ihre Daten.",
+      "ownershipDetail": "Ihr Profil bleibt portabel. Wählen Sie das Design, exportieren Sie eine Kopie und bestimmen Sie den Host. Anbieterübergreifende Backups, Überwachung und Notfallwiederherstellung stehen auf der Entwicklungs-Roadmap.",
+      "ownershipExport": "Profil-Backup herunterladen",
+      "ownershipImport": "Aus meinem JSON-Backup wiederherstellen",
+      "ownershipAvailable": "Manueller Export und Wiederherstellung funktionieren bereits. Automatische Cloud-Backups und Wiederherstellung sind noch nicht verfügbar."
     },
     "pt": {
       "uspKicker": "SUA PRESENÇA NA WEB, FEITA PARA DURAR",
@@ -279,7 +315,13 @@
       "plannedNext": "Monitoramento de domínio/DNS, backups remotos automáticos, verificação de integridade, failover, recuperação de emergência, mitigação DDoS, APIs privadas e hospedagem gerenciada.",
       "regenerativeStatus": "Planejado: backups em vários locais, recuperação independente, failover testado e reversão.",
       "productCtaTitle": "Sua presença na web, sem dependência de um único provedor.",
-      "productCtaBody": "Explore a demo e conheça o sistema modular planejado de backups, monitoramento e autorrecuperação."
+      "productCtaBody": "Explore a demo e conheça o sistema modular planejado de backups, monitoramento e autorrecuperação.",
+      "ownershipKicker": "SUA PRESENÇA · SEUS DADOS · SUA ESCOLHA",
+      "ownershipPromise": "Você controla sua presença na web e seus dados.",
+      "ownershipDetail": "Seu perfil continua portátil. Escolha a aparência, exporte uma cópia e decida onde hospedar. Backups entre provedores, monitoramento e recuperação de emergência fazem parte do roteiro de desenvolvimento.",
+      "ownershipExport": "Baixar backup do meu perfil",
+      "ownershipImport": "Restaurar do meu backup JSON",
+      "ownershipAvailable": "Exportação e restauração manuais já funcionam. Backups automáticos na nuvem e recuperação ainda não estão disponíveis."
     },
     "ar": {
       "uspKicker": "حضورك على الويب، مصمم ليستمر",
@@ -319,7 +361,13 @@
       "plannedNext": "مراقبة النطاق وDNS والنسخ الاحتياطي البعيد التلقائي وفحص السلامة والتبديل بين المزودين والاستعادة الطارئة وتخفيف DDoS وواجهات خاصة واستضافة مُدارة.",
       "regenerativeStatus": "مخطط: نسخ احتياطية متعددة المواقع، استرداد مستقل، تبديل مختبر وإمكانية التراجع.",
       "productCtaTitle": "حضورك الرقمي دون ارتباط بمزود واحد.",
-      "productCtaBody": "استكشف العرض وتعرّف على نظام النسخ الاحتياطي والمراقبة والاسترداد التلقائي المعياري المخطط له."
+      "productCtaBody": "استكشف العرض وتعرّف على نظام النسخ الاحتياطي والمراقبة والاسترداد التلقائي المعياري المخطط له.",
+      "ownershipKicker": "حضورك · بياناتك · قرارك",
+      "ownershipPromise": "أنت تتحكم في حضورك على الويب وفي بياناتك.",
+      "ownershipDetail": "يبقى ملفك قابلًا للنقل. اختر مظهره وصدّر نسخة وحدد مكان استضافته. النسخ الاحتياطي عبر مزودين متعددين والمراقبة والاستعادة الطارئة جزء من خطة التطوير.",
+      "ownershipExport": "تنزيل نسخة احتياطية من ملفي",
+      "ownershipImport": "استعادة ملفي من نسخة JSON",
+      "ownershipAvailable": "تعمل الآن عملية التصدير والاستعادة اليدوية. النسخ السحابية التلقائية والاسترداد غير متاحين بعد."
     },
     "zh-CN": {
       "uspKicker": "让您的网络形象历久弥新",
@@ -359,7 +407,13 @@
       "plannedNext": "域名和 DNS 监控、自动异地备份、完整性校验、服务商故障切换、紧急恢复、DDoS 缓解、私有 API 和托管客户网站。",
       "regenerativeStatus": "规划中：多地点备份、独立恢复、经过测试的故障转移和回滚。",
       "productCtaTitle": "您的网络形象，不受单一服务商束缚。",
-      "productCtaBody": "体验演示，了解规划中的模块化备份、监控与自动恢复系统。"
+      "productCtaBody": "体验演示，了解规划中的模块化备份、监控与自动恢复系统。",
+      "ownershipKicker": "您的形象 · 您的数据 · 您的决定",
+      "ownershipPromise": "您的网络形象和数据由您掌控。",
+      "ownershipDetail": "您的资料可以移植。您可以选择外观、导出副本并决定托管位置。跨服务商备份、监控和紧急恢复属于产品开发规划。",
+      "ownershipExport": "下载我的资料备份",
+      "ownershipImport": "从 JSON 备份恢复",
+      "ownershipAvailable": "目前支持手动资料导出与恢复。自动云端备份和恢复尚未提供。"
     },
     "ja": {
       "uspKicker": "あなたのウェブプレゼンスを、長く続くものに",
@@ -399,7 +453,13 @@
       "plannedNext": "ドメイン/DNS監視、自動遠隔バックアップ、整合性確認、事業者切り替え、緊急復元、DDoS緩和、プライベートAPI、マネージドホスティング。",
       "regenerativeStatus": "計画中：複数拠点へのバックアップ、独立した復元、検証済みの切り替えとロールバック。",
       "productCtaTitle": "あなたのウェブプレゼンスを、特定の事業者に縛られずに。",
-      "productCtaBody": "デモを体験し、計画中のモジュール型バックアップ・監視・自動復旧システムをご覧ください。"
+      "productCtaBody": "デモを体験し、計画中のモジュール型バックアップ・監視・自動復旧システムをご覧ください。",
+      "ownershipKicker": "あなたの存在 · あなたのデータ · あなたの選択",
+      "ownershipPromise": "ウェブ上の存在とデータを管理するのはあなたです。",
+      "ownershipDetail": "プロフィールは持ち運べます。見た目を選び、コピーを書き出し、ホストを決められます。複数事業者へのバックアップ、監視、緊急復旧は今後の開発計画です。",
+      "ownershipExport": "プロフィールのバックアップをダウンロード",
+      "ownershipImport": "JSON バックアップから復元",
+      "ownershipAvailable": "手動でのプロフィール書き出しと復元は利用できます。クラウド自動バックアップと復旧は未提供です。"
     }
   }
 }

@@ -65,3 +65,9 @@ The app's intended distinction is **a personal online presence that is portable,
 The demo contains ten local language catalogs for its marketing, interface, fictional example content, and tour, with Arabic RTL support. The source dictionaries are bundled; the site never sends customer data to external translation APIs. If a customer replaces the fictional text with their own content, their authored content remains as written.
 
 Growth and engineering strategies: [Enduring Web Presence](../../docs/ENDURING-WEB-PRESENCE.md) and [Growth and Launch Playbook](../../docs/GROWTH-AND-LAUNCH-PLAYBOOK.md).
+
+
+## Customer ownership and resilience positioning
+**You are in control of your web presence and your data.** The live preview includes local profile editing, explicit manual JSON backup and restore, provider-neutral profile content and multilingual messaging. The *Auto-Regenerative Presence Engine*—encrypted independent local/cloud backups, verified restores, provider migration, monitoring and emergency response—is a **planned engineering system**. It does not yet protect this static demo. Failure of a domain registrar, DNS, upstream network or DDoS mitigation can never be guaranteed away.
+
+The responsive portrait/orbit artwork shares one geometry system across three layouts and is guarded by Chromium checks at mobile, tablet and desktop widths. Multilingual copy is shipped as local JSON dictionaries; customer-written content remains customer controlled.

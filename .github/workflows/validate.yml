@@ -24,6 +24,7 @@ jobs:
           node --check examples/customer-demo/studio-features.js
           node --check examples/customer-demo/studio-tour.js
           node --check examples/customer-demo/studio-i18n.js
+          node --check examples/customer-demo/studio-ownership.js
           node --check examples/customer-demo/commerce.js
           node --check scripts/build-customer-demo.mjs
           node --test tests/*.test.mjs
@@ -50,6 +51,7 @@ jobs:
           test -s examples/customer-demo/commerce.js
           test -s examples/customer-demo/commerce.json
           test -s examples/customer-demo/studio-i18n.js
+          test -s examples/customer-demo/studio-ownership.js
           test -s examples/customer-demo/i18n-product.json
           test -s examples/customer-demo/i18n-ui.json
           test -s examples/customer-demo/i18n-copy.json
