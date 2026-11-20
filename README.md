@@ -27,3 +27,15 @@ Before changing providers:
 Do not commit passwords, API tokens, private profile records, D1 database exports, OAuth secrets, encrypted-vault private keys, or restricted personal data here. Static deployment files are **publicly accessible**, even if a host interface labels them private. Backend application code and migrations remain in the private repository.
 
 Changes must be validated through preview deployment before promotion. Production publication and DNS changes are intentionally separate operations.
+
+## Fictional customer web preview
+
+A separate fictional buyer demo resides in [`examples/customer-demo/`](examples/customer-demo/README.md). The GitHub Pages workflow publishes an allowlisted copy of that demo rather than the personal website. The live preview address should only be used after a successful `Publish fictional customer demo preview` Actions deployment.
+
+Preview locally:
+
+```sh
+python3 -m http.server 8000
+```
+
+Open `http://localhost:8000/examples/customer-demo/`.
