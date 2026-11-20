@@ -10,7 +10,7 @@ test('preview build contains only fictional sample assets',async()=>{
  try{
   const result=spawnSync(process.execPath,['scripts/build-customer-demo.mjs'],{cwd:root,env:{...process.env,DEMO_OUTPUT_DIR:output},encoding:'utf8'});
   assert.equal(result.status,0,result.stderr);
-  assert.deepEqual((await readdir(output)).sort(),['.nojekyll','app.js','index.html','profile.json','robots.txt']);
+  assert.deepEqual((await readdir(output)).sort(),['.nojekyll','app.js','index.html','premium.css','premium.js','profile.json','robots.txt']);
   const data=JSON.parse(await readFile(join(output,'profile.json'),'utf8'));
   assert.equal(data.demo,true);
   assert.equal(data.identity.displayName,'Avery Example');
