@@ -51,3 +51,10 @@ The preview workflow runs real Chromium interaction tests as a publishing gate; 
 This edition adapts the personal portfolio's visual patterns without duplicating its identity: three switchable layout modes (Orbit, Editorial, Terminal), six-language navigation, mobile menu, scroll progress, interactive hero illustration, project search/category filters, case-study panels, fictional experience timeline, strengths cards and an offline project-inquiry brief generator.
 
 Everything still runs in a standalone static preview. The new SVG is an original illustration of a **fictional** developer, not a portrait of the software author. The language selector localizes navigation and section labels only; customer-written content remains as entered. Live GitHub status and secure private-profile/email workflows are deliberately not imported because those need independently configured customer accounts and backend permissions.
+
+## Interactive product tour and commercial preview (v0.2.0-rc.8)
+The fictional starter is **Nico Vale**, not a real person. A five-step opt-in guided tour introduces the portfolio, layout selector, editor, projects and plans. Layout styles are materially different and the fictional portrait remains visible in all three modes. Use **Try the editor**, **Take the tour** or **Explore plans**; the tour can be skipped and has a keyboard Escape exit.
+
+**No active payment gateway:** The plan panel explains that checkout is unavailable. `commerce.json` is a disabled merchant-hosted payment-link configuration. `commerce.js` validates trusted external URL formats and refuses to activate on GitHub Pages, which is not a permitted primary host for an e-commerce/SaaS business. A private backend, verified account, signed webhooks, and real fulfillment must be connected before accepting payment. This public demo will never process card data.
+
+Commercial launch planning: `../../docs/COMMERCIAL-LAUNCH.md`.
