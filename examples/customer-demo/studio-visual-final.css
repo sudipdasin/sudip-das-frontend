@@ -1,5 +1,5 @@
 /* rc.12 — screenshot-driven hero and CTA finishing layer */
-.brand::before{content:'NV';flex:none;letter-spacing:0}
+.brand::before{content:attr(data-initials);flex:none;letter-spacing:0}
 main>.hero,body[data-theme=editorial] main>.hero,body[data-theme=terminal] main>.hero{
   min-height:0!important;
   padding-top:clamp(28px,4vw,54px)!important;
