@@ -30,6 +30,12 @@ jobs:
           node --check examples/customer-demo/app.js
           node --check scripts/build-customer-demo.mjs
           node --test tests/customer-demo.test.mjs tests/customer-demo-build.test.mjs
+      - name: Install headless Chromium for real browser tests
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify wizard in Chromium
+        run: node browser-tests/customer-demo.mjs
       - name: Produce isolated Pages artifact
         run: node scripts/build-customer-demo.mjs
       - name: Upload deployment artifact
