@@ -10,11 +10,11 @@ const root=resolve(fileURLToPath(new URL('..',import.meta.url)));
 const output=join(root,'dist','customer-demo-preview');
 const result=spawnSync(process.execPath,['scripts/build-customer-demo.mjs'],{cwd:root,encoding:'utf8'});
 assert.equal(result.status,0,result.stderr);
-const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;charset=utf-8','.css':'text/css;charset=utf-8','.json':'application/json;charset=utf-8','.txt':'text/plain'};
+const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;charset=utf-8','.css':'text/css;charset=utf-8','.svg':'image/svg+xml','.json':'application/json;charset=utf-8','.txt':'text/plain'};
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -90,10 +90,65 @@ try {
   await page.getByRole('button',{name:'Reset demo'}).click();
   assert.equal(await page.locator('#name').innerText(),'Avery Example');
  })();
+
+ await check('original-inspired fictional portrait loads',async()=>{
+   const img=page.locator('#avatar img.demo-portrait');
+   await img.waitFor();
+   assert.ok(await img.evaluate(el=>el.complete && el.naturalWidth > 0));
+ })();
+ await check('editable project case study opens',async()=>{
+   await page.locator('#projects .project-study summary').first().click();
+   assert.ok(await page.locator('#projects .project-study').first().evaluate(el=>el.open));
+ })();
+ await check('layouts switch and persist across reload',async()=>{
+   await page.locator('#studio-theme').selectOption('editorial');
+   assert.equal(await page.locator('body').getAttribute('data-theme'),'editorial');
+   await page.reload();
+   assert.equal(await page.locator('body').getAttribute('data-theme'),'editorial');
+   await page.locator('#studio-theme').selectOption('orbit');
+ })();
+ await check('six-language UI changes navigation',async()=>{
+   await page.locator('#studio-language').selectOption('es');
+   assert.equal(await page.locator('#studio-nav a').first().innerText(),'Acerca de');
+   await page.locator('#studio-language').selectOption('hi');
+   assert.equal(await page.locator('html').getAttribute('lang'),'hi');
+   await page.locator('#studio-language').selectOption('en');
+ })();
+ await check('project search and category filters work',async()=>{
+   await page.locator('#project-search').fill('Project Atlas');
+   assert.equal(await page.locator('#projects .card:visible').count(),1);
+   await page.locator('#project-search').fill('not-a-project');
+   assert.equal(await page.locator('#projects .card:visible').count(),0);
+   assert.equal(await page.locator('#project-empty').isVisible(),true);
+   await page.locator('#project-search').fill('');
+   await page.locator('#project-filter').selectOption({label:'Community project'});
+   assert.equal(await page.locator('#projects .card:visible').count(),1);
+   await page.locator('#project-filter').selectOption('all');
+ })();
+ await check('terminal theme section pager is navigable',async()=>{
+   await page.locator('#studio-theme').selectOption('terminal');
+   assert.equal(await page.locator('#about-section').isVisible(),true);
+   await page.locator('.terminal-nav [data-terminal-move="1"]').click();
+   assert.equal(await page.locator('#skills-section').isVisible(),true);
+   await page.locator('#studio-theme').selectOption('orbit');
+ })();
+ await check('offline proposal wizard downloads but never sends',async()=>{
+   await page.locator('#proposal-section summary').click();
+   await page.locator('#proposal-form [name="name"]').fill('Test Visitor');
+   await page.locator('#proposal-form [name="email"]').fill('visitor@example.com');
+   await page.locator('#proposal-form [name="service"]').selectOption('Website redesign');
+   await page.locator('#proposal-form [name="timeline"]').selectOption('Exploring options');
+   await page.locator('#proposal-form [name="brief"]').fill('Create a fictional accessible demo website.');
+   const download=page.waitForEvent('download');
+   await page.locator('#proposal-form [type="submit"]').click();
+   const file=await download;
+   assert.equal(file.suggestedFilename(),'sample-project-brief.txt');
+   assert.match(await page.locator('#proposal-status').innerText(),/No email or API request was sent/);
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,8);
+assert.equal(passed,15);
 console.log('Browser checks passed: '+passed);
