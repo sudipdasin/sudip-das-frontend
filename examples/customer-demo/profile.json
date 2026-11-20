@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "demo": true,
+  "identity": {
+    "displayName": "Avery Example",
+    "role": "Software Developer & Creative Problem Solver",
+    "tagline": "Building approachable digital experiences.",
+    "location": "Example City (fictional)",
+    "initials": "AE"
+  },
+  "about": "This is a fictional portfolio created to demonstrate how Personal Profile Web Studio can adapt to any customer. Replace every example before publishing your own site.",
+  "skills": [
+    "Web applications",
+    "Accessibility",
+    "UI prototyping",
+    "APIs",
+    "Automation",
+    "Technical writing"
+  ],
+  "projects": [
+    {
+      "name": "Project Atlas",
+      "category": "Web application",
+      "description": "A fictional planning dashboard demonstrating reusable interface components.",
+      "url": "https://example.com/atlas"
+    },
+    {
+      "name": "Greenline",
+      "category": "Community project",
+      "description": "A sample accessibility-first community directory with clear navigation.",
+      "url": "https://example.com/greenline"
+    },
+    {
+      "name": "Signal Notes",
+      "category": "Developer tool",
+      "description": "A dummy note-taking concept that illustrates how portfolio entries can be edited.",
+      "url": "https://example.com/signal"
+    }
+  ],
+  "social": [
+    {
+      "label": "Portfolio example",
+      "url": "https://example.com"
+    },
+    {
+      "label": "GitHub example",
+      "url": "https://github.com/example"
+    }
+  ],
+  "contact": {
+    "label": "Contact (example only)",
+    "email": "demo@example.com"
+  },
+  "appearance": {
+    "accent": "#8de4b3",
+    "background": "#0c1420"
+  },
+  "seo": {
+    "title": "Avery Example | Demo Portfolio",
+    "description": "A completely fictional customer profile for Personal Profile Web Studio."
+  }
+}
