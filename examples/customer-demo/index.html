@@ -30,6 +30,8 @@
     input,textarea{width:100%;padding:10px 12px;background:var(--base);color:var(--ink);border:1px solid var(--line);border-radius:8px}
     textarea{min-height:96px;resize:vertical}.wide{grid-column:1/-1}
     .actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+    .edit-row{border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0;background:#101b2b}.edit-row h4{margin:0 0 12px}.edit-row .actions{margin-bottom:0}.section-label{margin-top:22px}.hint{font-size:.85rem;color:var(--muted)}.alert{color:#ffd994}.editor.open{display:block}#editor-status{min-height:1.5em}
+    .preview-notice{font-size:.85rem;color:var(--muted)}.site-mode .editor{display:none!important}.site-mode #edit-toggle{display:none}
     footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:.9rem}
     @media(max-width:720px){.hero{grid-template-columns:1fr}.avatar{width:130px;height:130px;font-size:3rem;grid-row:1}.cards,.fields{grid-template-columns:1fr}header{flex-wrap:wrap}main{padding-top:38px}}
   </style>
@@ -50,8 +52,17 @@
           <label class="wide">Tagline<input name="tagline" maxlength="160"></label>
           <label class="wide">About<textarea name="about" maxlength="1200"></textarea></label>
           <label class="wide">Skills (comma separated)<input name="skills" maxlength="350"></label>
+          <label>Background color<input name="background" type="color"></label>
+          <label>SEO title<input name="seoTitle" maxlength="100"></label>
+          <label class="wide">SEO description<input name="seoDescription" maxlength="240"></label>
+          <label>Contact label<input name="contactLabel" maxlength="90"></label>
+          <label>Contact email<input name="contactEmail" type="email" maxlength="180"></label>
         </div>
-        <div class="actions"><button type="submit" class="button">Preview changes</button><button type="button" class="ghost" id="export-profile">Export profile JSON</button><button type="button" class="ghost" id="reset-profile">Reset demo</button></div>
+
+        <section aria-label="Edit projects"><h3 class="section-label">Projects</h3><p class="hint">Add, update, or remove portfolio projects. Use HTTPS links only.</p><div id="project-editor"></div><button type="button" class="ghost" id="add-project">+ Add project</button></section>
+        <section aria-label="Edit social links"><h3 class="section-label">Social links</h3><div id="social-editor"></div><button type="button" class="ghost" id="add-social">+ Add social link</button></section>
+        <div class="actions"><button type="submit" class="button">Save &amp; preview</button><button type="button" class="ghost" id="export-profile">Export profile JSON</button><label class="ghost" style="display:inline-block;padding:10px 14px;border:1px solid var(--line);border-radius:8px">Import profile JSON<input id="import-profile" aria-label="Import profile JSON" type="file" accept=".json,application/json" style="max-width:185px;margin-top:6px"></label><button type="button" class="ghost" id="reset-profile">Reset demo</button></div>
+        <p class="hint">Changes are saved in this browser only. Importing JSON replaces the local demo; it never changes the published sample.</p>
         <p id="editor-status" role="status" class="muted"></p>
       </form>
     </section>
@@ -60,7 +71,7 @@
       <section class="section" aria-labelledby="about-title"><h2 id="about-title">About</h2><p id="about"></p></section>
       <section class="section" aria-labelledby="skills-title"><h2 id="skills-title">What I work with</h2><div id="skills" class="chips"></div></section>
       <section class="section" aria-labelledby="projects-title"><h2 id="projects-title">Selected projects</h2><div id="projects" class="cards"></div></section>
-      <section class="section" aria-labelledby="contact-title"><h2 id="contact-title">Connect</h2><p class="muted">Demonstration links are examples and may not lead to real projects or inboxes.</p><div id="social" class="links"></div><p id="email"></p></section>
+      <section class="section" aria-labelledby="contact-title"><h2 id="contact-title">Connect</h2><p class="muted">Demonstration links are examples. Email details are shown for preview purposes only; no message is sent.</p><div id="social" class="links"></div><p id="email"></p></section>
     </main>
     <footer>This sample is intentionally fictional. Replace its profile data, destinations, and email integration before publishing a customer website.</footer>
   </div>
