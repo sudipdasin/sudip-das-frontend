@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0c1420">
+  <title>Customer Demo | Personal Profile Web Studio</title>
+  <style>
+    :root{font-family:Inter,system-ui,-apple-system,sans-serif;color-scheme:dark;--accent:#8de4b3;--base:#0c1420;--panel:#162235;--ink:#edf6f6;--muted:#a8c0c8;--line:#355167}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(ellipse at 80% 0%,#244359 0%,var(--base) 55%)}
+    a{color:var(--accent)}button,input,textarea{font:inherit}button{cursor:pointer}
+    a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+    .wrap{width:min(1040px,calc(100% - 36px));margin:0 auto}
+    .banner{background:#ffe4a8;color:#292314;font-weight:700;text-align:center;padding:10px 20px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:25px 0;border-bottom:1px solid var(--line)}
+    .brand{letter-spacing:.1em;font-size:.76rem;text-transform:uppercase;color:var(--accent);font-weight:800}
+    .button{display:inline-block;border:1px solid var(--accent);border-radius:8px;padding:11px 17px;color:var(--base);background:var(--accent);font-weight:750;text-decoration:none}
+    button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);padding:10px 14px;border-radius:8px}
+    main{padding:70px 0 90px}.hero{display:grid;grid-template-columns:1fr 200px;gap:35px;align-items:center}
+    .eyebrow{font-size:.82rem;color:var(--accent);font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+    h1{font-size:clamp(2.6rem,7vw,5rem);letter-spacing:-.055em;line-height:1.04;margin:13px 0 17px}
+    .lead{font-size:1.3rem;line-height:1.55;max-width:660px}.muted{color:var(--muted)}
+    .avatar{width:190px;height:190px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(140deg,#25516c,#25533f);border:1px solid var(--line);color:var(--accent);font-size:5rem;font-weight:750}
+    .section{padding:45px 0;border-top:1px solid var(--line);margin-top:48px}h2{font-size:1.5rem}p{line-height:1.65}
+    .chips{display:flex;flex-wrap:wrap;gap:10px}.chip{background:var(--panel);border:1px solid var(--line);padding:9px 12px;border-radius:50px}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.card{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:24px;min-width:0}.card h3{margin-top:7px}.card a{overflow-wrap:anywhere}
+    .links{display:flex;flex-wrap:wrap;gap:20px}.panel{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:22px;margin:20px 0}
+    .editor{display:none}.editor.open{display:block}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}label{display:grid;gap:6px;font-weight:650}
+    input,textarea{width:100%;padding:10px 12px;background:var(--base);color:var(--ink);border:1px solid var(--line);border-radius:8px}
+    textarea{min-height:96px;resize:vertical}.wide{grid-column:1/-1}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+    footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:.9rem}
+    @media(max-width:720px){.hero{grid-template-columns:1fr}.avatar{width:130px;height:130px;font-size:3rem;grid-row:1}.cards,.fields{grid-template-columns:1fr}header{flex-wrap:wrap}main{padding-top:38px}}
+  </style>
+</head>
+<body>
+  <div class="banner" role="status">FICTIONAL DEMO PROFILE — No real person, business, or working contact endpoint</div>
+  <div class="wrap">
+    <header><div class="brand">Personal Profile Web Studio / Customer Demo</div><button class="ghost" id="edit-toggle" type="button" aria-expanded="false" aria-controls="editor">Customize demo</button></header>
+    <section class="panel editor" id="editor" aria-labelledby="editor-heading">
+      <h2 id="editor-heading">Customization wizard — local preview</h2>
+      <p class="muted">Changes stay in this browser. Export JSON to save the example; no account, payment, cloud provider, or email service is connected.</p>
+      <form id="profile-form">
+        <div class="fields">
+          <label>Name<input name="displayName" maxlength="70" required></label>
+          <label>Role<input name="role" maxlength="110" required></label>
+          <label>Location<input name="location" maxlength="100"></label>
+          <label>Accent color<input name="accent" type="color"></label>
+          <label class="wide">Tagline<input name="tagline" maxlength="160"></label>
+          <label class="wide">About<textarea name="about" maxlength="1200"></textarea></label>
+          <label class="wide">Skills (comma separated)<input name="skills" maxlength="350"></label>
+        </div>
+        <div class="actions"><button type="submit" class="button">Preview changes</button><button type="button" class="ghost" id="export-profile">Export profile JSON</button><button type="button" class="ghost" id="reset-profile">Reset demo</button></div>
+        <p id="editor-status" role="status" class="muted"></p>
+      </form>
+    </section>
+    <main id="top">
+      <section class="hero"><div><span class="eyebrow" id="location"></span><h1 id="name"></h1><p class="lead" id="role"></p><p class="muted" id="tagline"></p></div><div class="avatar" id="avatar" aria-hidden="true"></div></section>
+      <section class="section" aria-labelledby="about-title"><h2 id="about-title">About</h2><p id="about"></p></section>
+      <section class="section" aria-labelledby="skills-title"><h2 id="skills-title">What I work with</h2><div id="skills" class="chips"></div></section>
+      <section class="section" aria-labelledby="projects-title"><h2 id="projects-title">Selected projects</h2><div id="projects" class="cards"></div></section>
+      <section class="section" aria-labelledby="contact-title"><h2 id="contact-title">Connect</h2><p class="muted">Demonstration links are examples and may not lead to real projects or inboxes.</p><div id="social" class="links"></div><p id="email"></p></section>
+    </main>
+    <footer>This sample is intentionally fictional. Replace its profile data, destinations, and email integration before publishing a customer website.</footer>
+  </div>
+  <script src="app.js" defer></script>
+</body>
+</html>

@@ -18,12 +18,15 @@ jobs:
             test -s scripts/repo-discovery.js
             test -s _headers
             test -s 404.html
+            test -s examples/customer-demo/index.html
+            test -s examples/customer-demo/profile.json
       - run:
           name: Check JavaScript syntax
           command: |
             node --check languages.js
             node --check scripts/site-readiness.mjs
             node --check scripts/repo-discovery.js
+            node --check examples/customer-demo/app.js
             node --test tests/*.test.mjs
       - run:
           name: Check HTML structure
