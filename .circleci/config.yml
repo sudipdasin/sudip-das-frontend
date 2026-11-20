@@ -20,22 +20,7 @@ jobs:
       - run:
           name: Check HTML structure
           command: |
-            python3 - <<'PY'
-            from html.parser import HTMLParser
-            from pathlib import Path
-
-            class Parser(HTMLParser):
-                pass
-
-            parser = Parser()
-            parser.feed(
-                Path("index.html").read_text(
-                    encoding="utf-8"
-                )
-            )
-            parser.close()
-            print("HTML parsing completed")
-            PY
+            python3 -c 'from html.parser import HTMLParser; from pathlib import Path; parser = HTMLParser(); parser.feed(Path("index.html").read_text(encoding="utf-8")); parser.close(); print("HTML parsing completed")'
 
 workflows:
   frontend-checks:
