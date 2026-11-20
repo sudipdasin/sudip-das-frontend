@@ -17,3 +17,6 @@ The portfolio website and `sudipdas.is-a.dev` DNS are not modified. No live priv
 
 ## Functional browser-preview acceptance criteria
 The customer preview must pass a headless Chromium run that loads the static build, edits and saves text, adds and removes projects, edits social links, rejects unsafe URLs, downloads JSON, restores local changes after reload, imports a valid profile, and resets to the original fictional customer profile. No server-side emails, customer accounts, payments, or hosting-provider configuration are implied by this standalone static demo.
+
+## Premium buyer-demo experience — v0.2.0-rc.6
+The fictional portfolio now uses the design language of the existing personal site: typographic hero, circular animated identity, layered gradients, sticky navigation, project cards, marquee, section headings, animated reveals, responsive layout and reduced-motion support. The entire visual layer is independent, editable, and ships only in the isolated customer demo artifact. Existing locally saved customer edits continue working. The browser CI test must exercise the actual published layout assets before promotion.
