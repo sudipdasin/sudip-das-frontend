@@ -1,6 +1,6 @@
 /* Original-site visual DNA with independent fictional Dev Das branding.
    Three deliberately distinct color modes share one stable responsive geometry. */
-body{background:var(--base)!important;color:var(--ink);transition:background-color .2s,color .2s}
+body{background:var(--base)!important;color:var(--ink);transition:none}
 body[data-background=original]::before{
  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
  background:
