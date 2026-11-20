@@ -61,7 +61,7 @@
     const identity=profile.identity;
     text('name',identity.displayName);
     text('demo-brand',identity.displayName);
-    text('portrait-caption','Fictional developer • '+identity.displayName);
+    text('portrait-caption',localized('Fictional creative developer')+' • '+identity.displayName);
     text('role',localized(identity.role));
     text('location',localized(identity.location));
     text('tagline',localized(identity.tagline));
