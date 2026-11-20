@@ -83,6 +83,7 @@ try {
   const saved=JSON.parse(await readFile(join(output,'profile.json'),'utf8'));
   saved.identity.displayName='Imported Example';
   await input.setInputFiles({name:'profile.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(saved))});
+  await page.waitForFunction(() => document.querySelector('#name')?.textContent === 'Imported Example');
   assert.equal(await page.locator('#name').innerText(),'Imported Example');
   await page.getByRole('button',{name:'Reset demo'}).click();
   assert.equal(await page.locator('#name').innerText(),'Avery Example');
