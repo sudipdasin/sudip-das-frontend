@@ -7,6 +7,13 @@ on:
       - 'scripts/build-customer-demo.mjs'
       - 'tests/customer-demo*.test.mjs'
       - '.github/workflows/customer-demo-pages.yml'
+  pull_request:
+    paths:
+      - 'examples/customer-demo/**'
+      - 'scripts/build-customer-demo.mjs'
+      - 'tests/customer-demo*.test.mjs'
+      - 'browser-tests/customer-demo.mjs'
+      - '.github/workflows/customer-demo-pages.yml'
   workflow_dispatch:
 
 permissions:
