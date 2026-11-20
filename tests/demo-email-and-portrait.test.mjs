@@ -38,6 +38,7 @@ test('fictional Dev Das source never loads the real profile photo',async()=>{
  assert.match(html,/Dev Das/);
  assert.match(app,/dev-das-portrait\.svg/);
  assert.match(portrait,/fictional developer Dev Das/);
- assert.doesNotMatch(portrait,/<image\\b|data:image\\/(?:jpeg|png|webp)/i);
+ assert.equal(portrait.includes('<image'),false);
+ assert.equal(portrait.includes('data:image/'),false);
  assert.doesNotMatch(html+app,/sudip-das-portrait\.jpg/);
 });
