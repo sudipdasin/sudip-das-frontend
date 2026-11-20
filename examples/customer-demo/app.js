@@ -33,7 +33,7 @@
     const projects = raw.projects.map((p,i) => {
       if (!p || !safeText(p.name,110) || !safeText(p.description,650)) throw Error('Project '+(i+1)+' needs a name and description.');
       if (p.url && !validExampleUrl(p.url)) throw Error('Project '+(i+1)+' needs a valid HTTPS URL.');
-      return {name:safeText(p.name,110), category:safeText(p.category,80), description:safeText(p.description,650), url:safeText(p.url,500)};
+      return {name:safeText(p.name,110), category:safeText(p.category,80), description:safeText(p.description,650), caseStudy:safeText(p.caseStudy,700), url:safeText(p.url,500)};
     });
     const social = raw.social.map((s,i)=>{
       if (!s || !safeText(s.label,70) || !validExampleUrl(s.url)) throw Error('Social link '+(i+1)+' needs a label and HTTPS URL.');
@@ -63,7 +63,15 @@
     text('location',identity.location);
     text('tagline',identity.tagline);
     text('about',profile.about);
-    text('avatar',identity.initials);
+    const avatar=byId('avatar');
+    avatar.replaceChildren();
+    const portrait=document.createElement('img');
+    portrait.src='./illustrated-developer.svg';
+    portrait.alt='';
+    portrait.width=600;
+    portrait.height=600;
+    portrait.className='demo-portrait';
+    avatar.append(portrait);
     document.documentElement.style.setProperty('--accent',profile.appearance.accent);
     document.documentElement.style.setProperty('--base',profile.appearance.background);
     document.title=(profile.seo.title || identity.displayName + ' | Demo Portfolio') + ' — Demo';
@@ -73,6 +81,11 @@
     byId('projects').replaceChildren(...profile.projects.map(p=>{
       const card=make('article','','card');
       card.append(make('span',p.category,'eyebrow'),make('h3',p.name),make('p',p.description,'muted'));
+      if (p.caseStudy) {
+        const study=make('details','','project-study');
+        study.append(make('summary','Read sample case study'),make('p',p.caseStudy,'muted'));
+        card.append(study);
+      }
       if (p.url && validExampleUrl(p.url)) {
         const link=make('a','View project');
         link.href=p.url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);
@@ -106,6 +119,8 @@
       field(fields,'Category',p.category,'text','category',80);
       const desc=field(fields,'Description',p.description,'textarea','description',650);
       desc.parentElement.classList.add('wide');
+      const caseStudy=field(fields,'Case study / approach',p.caseStudy||'','textarea','caseStudy',700);
+      caseStudy.parentElement.classList.add('wide');
       const url=field(fields,'HTTPS project link',p.url,'url','url',500);
       url.parentElement.classList.add('wide');
       row.append(fields);
@@ -173,7 +188,7 @@
   byId('add-project').addEventListener('click',()=>{
     if(!profile||!applyDraft('Current changes saved.'))return;
     if(profile.projects.length>=24){status('Maximum 24 projects.');return;}
-    profile.projects.push({name:'New Project',category:'Portfolio',description:'Describe your project.',url:''});
+    profile.projects.push({name:'New Project',category:'Portfolio',description:'Describe your project.',caseStudy:'Explain the challenge and how it was approached.',url:''});
     save();drawEditors();draw();status('New project added. Edit it and save.');
   });
   byId('add-social').addEventListener('click',()=>{

@@ -46,3 +46,8 @@ The online preview includes edit-and-save for customer identity, about, skills, 
 **Production boundaries:** These features work entirely in the browser. A real multi-user backend, authentication, hosted custom domains, storage synchronization, payment flows, email delivery and an installer are separate product milestones, not simulated as working services.
 
 The preview workflow runs real Chromium interaction tests as a publishing gate; a successful GitHub Actions build alone must not be confused with a verified Pages deployment.
+
+## Portfolio-inspired buyer features (v0.2.0-rc.7)
+This edition adapts the personal portfolio's visual patterns without duplicating its identity: three switchable layout modes (Orbit, Editorial, Terminal), six-language navigation, mobile menu, scroll progress, interactive hero illustration, project search/category filters, case-study panels, fictional experience timeline, strengths cards and an offline project-inquiry brief generator.
+
+Everything still runs in a standalone static preview. The new SVG is an original illustration of a **fictional** developer, not a portrait of the software author. The language selector localizes navigation and section labels only; customer-written content remains as entered. Live GitHub status and secure private-profile/email workflows are deliberately not imported because those need independently configured customer accounts and backend permissions.

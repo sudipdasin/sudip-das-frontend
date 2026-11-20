@@ -22,19 +22,22 @@
       "name": "Project Atlas",
       "category": "Web application",
       "description": "A fictional planning dashboard demonstrating reusable interface components.",
-      "url": "https://example.com/atlas"
+      "url": "https://example.com/atlas",
+      "caseStudy": "Problem: make a large fictional work queue approachable. Approach: reusable dashboard components, accessible filters and clear summaries. Example outcome: a documented prototype."
     },
     {
       "name": "Greenline",
       "category": "Community project",
       "description": "A sample accessibility-first community directory with clear navigation.",
-      "url": "https://example.com/greenline"
+      "url": "https://example.com/greenline",
+      "caseStudy": "Problem: present sample community information accessibly. Approach: plain-language navigation, keyboard-friendly interaction and inclusive layouts. Example outcome: an illustrative directory concept."
     },
     {
       "name": "Signal Notes",
       "category": "Developer tool",
       "description": "A dummy note-taking concept that illustrates how portfolio entries can be edited.",
-      "url": "https://example.com/signal"
+      "url": "https://example.com/signal",
+      "caseStudy": "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment."
     }
   ],
   "social": [

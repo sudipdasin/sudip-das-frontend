@@ -20,3 +20,8 @@ The customer preview must pass a headless Chromium run that loads the static bui
 
 ## Premium buyer-demo experience — v0.2.0-rc.6
 The fictional portfolio now uses the design language of the existing personal site: typographic hero, circular animated identity, layered gradients, sticky navigation, project cards, marquee, section headings, animated reveals, responsive layout and reduced-motion support. The entire visual layer is independent, editable, and ships only in the isolated customer demo artifact. Existing locally saved customer edits continue working. The browser CI test must exercise the actual published layout assets before promotion.
+
+## Customer Studio Parity — v0.2.0-rc.7
+The fictional sample now includes customer-safe adaptations of the source portfolio's most useful presentation patterns: Orbit/Editorial/Terminal modes, animated connected identity art (original fictional SVG), sticky and mobile navigation, scroll-progress feedback, subtle pointer tilt, six-language navigation/section labels, live project search and categories, editable case-study accordions, a fictional experience timeline and capabilities, and a functional offline proposal brief exporter. Existing edit/save, local storage, import/export and reset remain preserved. 
+
+**Security separation:** The owner's real portrait, Cloudflare Turnstile keys, private-information request/vault workflow, backend APIs and email delivery were not copied. The proposal feature only downloads a local text file and explicitly does not send it anywhere. The demo remains a reusable static customer sample, not a production multi-tenant hosted application.
