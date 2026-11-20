@@ -37,7 +37,9 @@
       "availableNow": "Live editing, three themes, browser-local saving, and JSON import/export.",
       "plannedLabel": "Planned resilience features—not live yet",
       "plannedNext": "Domain and DNS monitoring, automated offsite backup replication, integrity checks, provider failover, emergency restore, DDoS mitigations, private APIs and managed customer hosting.",
-      "regenerativeStatus": "Planned: multi-location backups, independent recovery, tested failover and rollback."
+      "regenerativeStatus": "Planned: multi-location backups, independent recovery, tested failover and rollback.",
+      "productCtaTitle": "Your web presence, protected from provider lock-in.",
+      "productCtaBody": "Explore the demo today. Discover the planned modular backup, monitoring and self-recovery system."
     },
     "hi": {
       "uspKicker": "आपकी वेब पहचान, लंबे समय तक सुरक्षित",
@@ -75,7 +77,9 @@
       "availableNow": "लाइव संपादन, तीन थीम, ब्राउज़र में स्थानीय सेव और JSON आयात/निर्यात।",
       "plannedLabel": "नियोजित सुरक्षा सुविधाएँ—अभी सक्रिय नहीं",
       "plannedNext": "डोमेन/DNS निगरानी, स्वचालित ऑफ़साइट बैकअप, अखंडता जाँच, प्रदाता फ़ेलओवर, आपातकालीन बहाली, DDoS सुरक्षा, निजी API और प्रबंधित ग्राहक होस्टिंग।",
-      "regenerativeStatus": "नियोजित: कई स्थानों पर बैकअप, स्वतंत्र बहाली, परीक्षण किया गया फ़ेलओवर और रोलबैक।"
+      "regenerativeStatus": "नियोजित: कई स्थानों पर बैकअप, स्वतंत्र बहाली, परीक्षण किया गया फ़ेलओवर और रोलबैक।",
+      "productCtaTitle": "आपकी वेब पहचान, प्रदाता-निर्भरता से मुक्त।",
+      "productCtaBody": "आज डेमो देखें। नियोजित मॉड्यूलर बैकअप, निगरानी और स्वयं-पुनर्प्राप्ति सिस्टम को जानें।"
     },
     "bn": {
       "uspKicker": "আপনার ওয়েব পরিচয়, দীর্ঘস্থায়ী হওয়ার জন্য তৈরি",
@@ -113,7 +117,9 @@
       "availableNow": "সরাসরি সম্পাদনা, তিনটি থিম, ব্রাউজারে স্থানীয় সংরক্ষণ এবং JSON আমদানি/রপ্তানি।",
       "plannedLabel": "পরিকল্পিত স্থিতিস্থাপকতা—এখনও চালু নয়",
       "plannedNext": "ডোমেন ও DNS পর্যবেক্ষণ, স্বয়ংক্রিয় অফসাইট ব্যাকআপ, সততা যাচাই, প্রদানকারী পরিবর্তন, জরুরি পুনরুদ্ধার, DDoS প্রতিরোধ, ব্যক্তিগত API ও পরিচালিত হোস্টিং।",
-      "regenerativeStatus": "পরিকল্পিত: একাধিক স্থানে ব্যাকআপ, স্বাধীন পুনরুদ্ধার, পরীক্ষিত ফেইলওভার ও আগের অবস্থায় ফেরা।"
+      "regenerativeStatus": "পরিকল্পিত: একাধিক স্থানে ব্যাকআপ, স্বাধীন পুনরুদ্ধার, পরীক্ষিত ফেইলওভার ও আগের অবস্থায় ফেরা।",
+      "productCtaTitle": "আপনার ওয়েব পরিচয়, একক প্রদানকারীর বন্ধন থেকে মুক্ত।",
+      "productCtaBody": "আজ ডেমো দেখুন। পরিকল্পিত মডিউলার ব্যাকআপ, পর্যবেক্ষণ ও স্বয়ংক্রিয় পুনরুদ্ধার জানুন।"
     },
     "es": {
       "uspKicker": "TU PRESENCIA WEB, CREADA PARA PERDURAR",
@@ -151,7 +157,9 @@
       "availableNow": "Edición en vivo, tres temas, guardado local en el navegador e importación/exportación JSON.",
       "plannedLabel": "Funciones de resiliencia previstas, aún no activas",
       "plannedNext": "Supervisión de dominio/DNS, copias remotas automáticas, comprobación de integridad, cambio de proveedor, restauración de emergencia, mitigación DDoS, API privadas y alojamiento gestionado.",
-      "regenerativeStatus": "Previsto: copias en varios lugares, recuperación independiente, failover probado y reversión."
+      "regenerativeStatus": "Previsto: copias en varios lugares, recuperación independiente, failover probado y reversión.",
+      "productCtaTitle": "Tu presencia web, sin depender de un único proveedor.",
+      "productCtaBody": "Explora la demo y descubre el sistema modular previsto de copias, supervisión y recuperación automática."
     },
     "fr": {
       "uspKicker": "VOTRE PRÉSENCE WEB, CONÇUE POUR DURER",
@@ -189,7 +197,9 @@
       "availableNow": "Édition en direct, trois thèmes, sauvegarde locale dans le navigateur et import/export JSON.",
       "plannedLabel": "Fonctions de résilience prévues, non disponibles",
       "plannedNext": "Surveillance domaines/DNS, réplication automatique des sauvegardes, contrôle d'intégrité, basculement fournisseur, restauration d'urgence, protection DDoS, API privées et hébergement géré.",
-      "regenerativeStatus": "Prévu : sauvegardes multisites, restauration indépendante, basculement testé et retour arrière."
+      "regenerativeStatus": "Prévu : sauvegardes multisites, restauration indépendante, basculement testé et retour arrière.",
+      "productCtaTitle": "Votre présence web, sans dépendre d'un seul fournisseur.",
+      "productCtaBody": "Explorez la démo et découvrez le système modulaire prévu de sauvegarde, surveillance et restauration automatique."
     },
     "de": {
       "uspKicker": "IHRE WEBPRÄSENZ, FÜR DIE ZUKUNFT GEMACHT",
@@ -227,7 +237,9 @@
       "availableNow": "Live-Bearbeitung, drei Designs, lokales Speichern im Browser und JSON-Import/-Export.",
       "plannedLabel": "Geplante Resilienzfunktionen – noch nicht live",
       "plannedNext": "Domain-/DNS-Überwachung, automatische externe Sicherungen, Integritätsprüfungen, Provider-Failover, Notfallwiederherstellung, DDoS-Abwehr, private APIs und verwaltetes Hosting.",
-      "regenerativeStatus": "Geplant: Backups an mehreren Orten, unabhängige Wiederherstellung, getestetes Failover und Rollback."
+      "regenerativeStatus": "Geplant: Backups an mehreren Orten, unabhängige Wiederherstellung, getestetes Failover und Rollback.",
+      "productCtaTitle": "Ihre Webpräsenz, ohne Bindung an einen einzelnen Anbieter.",
+      "productCtaBody": "Entdecken Sie die Demo und das geplante modulare System für Backups, Überwachung und automatische Wiederherstellung."
     },
     "pt": {
       "uspKicker": "SUA PRESENÇA NA WEB, FEITA PARA DURAR",
@@ -265,7 +277,9 @@
       "availableNow": "Edição ao vivo, três temas, salvamento local no navegador e importação/exportação JSON.",
       "plannedLabel": "Recursos de resiliência planejados — ainda indisponíveis",
       "plannedNext": "Monitoramento de domínio/DNS, backups remotos automáticos, verificação de integridade, failover, recuperação de emergência, mitigação DDoS, APIs privadas e hospedagem gerenciada.",
-      "regenerativeStatus": "Planejado: backups em vários locais, recuperação independente, failover testado e reversão."
+      "regenerativeStatus": "Planejado: backups em vários locais, recuperação independente, failover testado e reversão.",
+      "productCtaTitle": "Sua presença na web, sem dependência de um único provedor.",
+      "productCtaBody": "Explore a demo e conheça o sistema modular planejado de backups, monitoramento e autorrecuperação."
     },
     "ar": {
       "uspKicker": "حضورك على الويب، مصمم ليستمر",
@@ -303,7 +317,9 @@
       "availableNow": "تحرير مباشر وثلاث سمات وحفظ محلي بالمتصفح واستيراد وتصدير JSON.",
       "plannedLabel": "ميزات المرونة المخططة — غير متاحة بعد",
       "plannedNext": "مراقبة النطاق وDNS والنسخ الاحتياطي البعيد التلقائي وفحص السلامة والتبديل بين المزودين والاستعادة الطارئة وتخفيف DDoS وواجهات خاصة واستضافة مُدارة.",
-      "regenerativeStatus": "مخطط: نسخ احتياطية متعددة المواقع، استرداد مستقل، تبديل مختبر وإمكانية التراجع."
+      "regenerativeStatus": "مخطط: نسخ احتياطية متعددة المواقع، استرداد مستقل، تبديل مختبر وإمكانية التراجع.",
+      "productCtaTitle": "حضورك الرقمي دون ارتباط بمزود واحد.",
+      "productCtaBody": "استكشف العرض وتعرّف على نظام النسخ الاحتياطي والمراقبة والاسترداد التلقائي المعياري المخطط له."
     },
     "zh-CN": {
       "uspKicker": "让您的网络形象历久弥新",
@@ -341,7 +357,9 @@
       "availableNow": "实时编辑、三种主题、浏览器本地保存以及 JSON 导入/导出。",
       "plannedLabel": "规划中的韧性功能——尚未上线",
       "plannedNext": "域名和 DNS 监控、自动异地备份、完整性校验、服务商故障切换、紧急恢复、DDoS 缓解、私有 API 和托管客户网站。",
-      "regenerativeStatus": "规划中：多地点备份、独立恢复、经过测试的故障转移和回滚。"
+      "regenerativeStatus": "规划中：多地点备份、独立恢复、经过测试的故障转移和回滚。",
+      "productCtaTitle": "您的网络形象，不受单一服务商束缚。",
+      "productCtaBody": "体验演示，了解规划中的模块化备份、监控与自动恢复系统。"
     },
     "ja": {
       "uspKicker": "あなたのウェブプレゼンスを、長く続くものに",
@@ -379,7 +397,9 @@
       "availableNow": "ライブ編集、3 種のテーマ、ブラウザー内保存、JSON のインポートとエクスポート。",
       "plannedLabel": "計画中の耐障害機能—まだ未提供",
       "plannedNext": "ドメイン/DNS監視、自動遠隔バックアップ、整合性確認、事業者切り替え、緊急復元、DDoS緩和、プライベートAPI、マネージドホスティング。",
-      "regenerativeStatus": "計画中：複数拠点へのバックアップ、独立した復元、検証済みの切り替えとロールバック。"
+      "regenerativeStatus": "計画中：複数拠点へのバックアップ、独立した復元、検証済みの切り替えとロールバック。",
+      "productCtaTitle": "あなたのウェブプレゼンスを、特定の事業者に縛られずに。",
+      "productCtaBody": "デモを体験し、計画中のモジュール型バックアップ・監視・自動復旧システムをご覧ください。"
     }
   }
 }
