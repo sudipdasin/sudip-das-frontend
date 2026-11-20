@@ -1,0 +1,23 @@
+name: Public frontend validation
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: node --check languages.js
+      - name: Ensure expected public assets exist
+        run: |
+          test -s index.html
+          test -s languages.js
+          test -s sudip-das-portrait.jpg
+          grep -qi '<html' index.html
