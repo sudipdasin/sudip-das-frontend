@@ -63,7 +63,15 @@
     text('location',identity.location);
     text('tagline',identity.tagline);
     text('about',profile.about);
-    text('avatar',identity.initials);
+    const avatar=byId('avatar');
+    avatar.replaceChildren();
+    const portrait=document.createElement('img');
+    portrait.src='./illustrated-developer.svg';
+    portrait.alt='';
+    portrait.width=600;
+    portrait.height=600;
+    portrait.className='demo-portrait';
+    avatar.append(portrait);
     document.documentElement.style.setProperty('--accent',profile.appearance.accent);
     document.documentElement.style.setProperty('--base',profile.appearance.background);
     document.title=(profile.seo.title || identity.displayName + ' | Demo Portfolio') + ' — Demo';
