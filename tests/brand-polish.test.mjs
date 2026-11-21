@@ -15,6 +15,8 @@ test('portfolio declares its branded SVG favicon and canonical domain', () => {
 test('header brand stays on one line and has a small-screen menu before links become cramped', () => {
   assert.match(html, /\.brand\{[^}]*white-space:nowrap/);
   assert.match(html, /\.brand-name\{white-space:nowrap\}/);
+  assert.ok(html.includes('<span class="brand-mark" aria-hidden="true">SD</span>'));
+  assert.ok(html.includes('<span class="brand-name">Sudip Das</span>'));
   const tablet = html.indexOf('@media(max-width:860px)');
   const mobile = html.indexOf('@media(max-width:600px)', tablet);
   assert.ok(tablet >= 0 && mobile > tablet && html.indexOf('.menu{display:block', tablet) < mobile);
