@@ -40,8 +40,38 @@ assert(!has(cosmic, /body\[data-theme=["']neon-studio["']\]/), 'Aurora selector 
 
 // Detect photographic data embedded in an SVG wrapper. An SVG extension alone
 // does not imply a high-resolution portrait.
-if (has(portrait, /data:image\/(?:jpeg|jpg|png|webp);base64,/i)) {
-  warnings.push('Portrait SVG contains raster image data: verify ORIGINAL raster dimensions and usage rights before claiming high resolution.');
+// Read actual JPEG SOF metadata rather than trusting the SVG viewBox.
+function jpegSize(bytes) {
+  if (bytes[0] !== 0xff || bytes[1] !== 0xd8) return null;
+  let pos = 2;
+  while (pos + 9 < bytes.length) {
+    if (bytes[pos++] !== 0xff) return null;
+    while (bytes[pos] === 0xff) pos++;
+    const marker = bytes[pos++];
+    if (marker === 0xd9 || marker === 0xda) break;
+    if (marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) continue;
+    const length = bytes.readUInt16BE(pos);
+    if (length < 2 || pos + length > bytes.length) return null;
+    if ([0xc0,0xc1,0xc2,0xc3,0xc5,0xc6,0xc7,0xc9,0xca,0xcb,0xcd,0xce,0xcf].includes(marker)) {
+      return {width: bytes.readUInt16BE(pos + 3), height: bytes.readUInt16BE(pos + 1)};
+    }
+    pos += length;
+  }
+  return null;
+}
+const jpeg = portrait.match(/data:image\/jpe?g;base64,([A-Za-z0-9+/=]+)/i);
+if (jpeg) {
+  const dimensions = jpegSize(Buffer.from(jpeg[1], 'base64'));
+  if (dimensions) {
+    console.log(`Embedded original JPEG: ${dimensions.width}x${dimensions.height} pixels`);
+    if (Math.min(dimensions.width, dimensions.height) < 768) {
+      warnings.push(`Portrait original is only ${dimensions.width}x${dimensions.height}; replace with a licensed, genuinely higher-resolution original (recommended >=768px per side).`);
+    }
+  } else {
+    warnings.push('Portrait contains an embedded JPEG whose original dimensions could not be verified.');
+  }
+} else if (has(portrait, /data:image\/(?:png|webp);base64,/i)) {
+  warnings.push('Portrait SVG embeds a raster image: inspect original pixel dimensions and rights.');
 }
 if (!portrait) warnings.push('Portrait asset unavailable for quality inspection.');
 for (const [name, width, height] of [['Aurora',1833,858],['Cosmic',1672,941]]) {
