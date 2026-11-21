@@ -372,3 +372,31 @@ body[data-theme] .nav-bar .system-menu-chevron{
 @media(prefers-reduced-motion:reduce){
   body[data-theme] .nav-bar :is(.studio-nav-trigger,.system-menu-trigger,.studio-controls .control-caption select){transition:none;}
 }
+
+/* Symmetric outer gutters. Theme artwork can bleed behind the content, but
+   the actual header, editor and main panels must remain centered. */
+body[data-theme] > .wrap{
+  margin-inline:auto!important;
+  box-sizing:border-box;
+  max-width:calc(100% - 30px);
+}
+body:is([data-theme="neon-studio"],[data-theme="design-2"]) > .wrap{
+  width:min(1690px,calc(100% - 112px));
+  max-width:none;
+  margin-inline:auto!important;
+}
+@media(max-width:1180px){
+  body:is([data-theme="neon-studio"],[data-theme="design-2"]) > .wrap{
+    width:calc(100% - 50px);
+  }
+}
+@media(max-width:860px){
+  body:is([data-theme="neon-studio"],[data-theme="design-2"]) > .wrap{
+    width:calc(100% - 38px);
+  }
+}
+@media(max-width:520px){
+  body:is([data-theme="neon-studio"],[data-theme="design-2"]) > .wrap{
+    width:calc(100% - 30px);
+  }
+}
