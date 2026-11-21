@@ -64,6 +64,11 @@ const originalTagline='Designing expressive, high-performance and user-friendly 
 const designOneTagline='Building useful, creative and open-source software for Linux, the web and everyday life.';
 function updateThemeIdentity(){
  const first=document.body.dataset.theme==='design-2';
+ const referencePortrait=document.querySelector('.hero-art .neon-reference-photo');
+ if(referencePortrait){
+   const next=first?'design-two-reference-portrait.svg':'neon-reference-portrait.svg';
+   if(referencePortrait.getAttribute('src')!==next)referencePortrait.setAttribute('src',next);
+ }
  if(systemLabel)systemLabel.textContent=first?'Services':'System';
  if(role && (role.textContent.trim()===originalRole||role.textContent.trim()===designOneRole))
    role.textContent=first?designOneRole:originalRole;
