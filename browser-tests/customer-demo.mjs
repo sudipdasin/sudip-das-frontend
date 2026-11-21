@@ -1237,10 +1237,40 @@ try {
      assert.equal(await p.getByRole('button',{name:/Publish to social networks/}).isDisabled(),true);
    }finally{await p.close();}
  })();
+ await check('Social Studio editing preserves draft identity, supports cancellation and accessible actions',async()=>{
+   const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});
+   const p=await context.newPage();
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     await p.locator('#social-draft-form input[name="title"]').fill('First title');
+     await p.locator('#social-draft-form textarea[name="caption"]').fill('First caption');
+     await p.locator('#social-draft-save').click();
+     assert.equal(await p.locator('.social-draft-card').count(),1);
+     assert.equal(await p.getByRole('button',{name:'Edit draft: First title'}).count(),1);
+     assert.equal(await p.getByRole('button',{name:'Delete draft: First title'}).count(),1);
+     await p.getByRole('button',{name:'Edit draft: First title'}).click();
+     assert.equal(await p.locator('#social-draft-cancel').isVisible(),true);
+     assert.equal(await p.locator('#social-draft-form input[name="title"]').inputValue(),'First title');
+     await p.locator('#social-draft-form input[name="title"]').fill('Discarded change');
+     await p.locator('#social-draft-cancel').click();
+     assert.equal(await p.locator('#social-draft-cancel').isHidden(),true);
+     assert.equal(await p.locator('.social-draft-card strong').textContent(),'First title');
+     await p.getByRole('button',{name:'Edit draft: First title'}).click();
+     await p.locator('#social-draft-form input[name="title"]').fill('Updated title');
+     await p.locator('#social-draft-form textarea[name="caption"]').fill('Updated caption');
+     await p.locator('#social-draft-save').click();
+     assert.equal(await p.locator('.social-draft-card').count(),1);
+     assert.equal(await p.locator('.social-draft-card strong').textContent(),'Updated title');
+     await p.reload();
+     assert.equal(await p.locator('.social-draft-card strong').textContent(),'Updated title');
+     await p.getByRole('button',{name:'Delete draft: Updated title'}).click();
+     assert.equal(await p.locator('.social-draft-card').count(),0);
+   }finally{await context.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,62);
+assert.equal(passed,63);
 console.log('Browser checks passed: '+passed);
