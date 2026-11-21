@@ -161,7 +161,7 @@ body[data-theme="design-2"] main>.hero #tagline{
 body[data-theme="design-2"] main>.hero .hero-actions{gap:15px}
 body[data-theme="design-2"] main>.hero .hero-actions a{border-radius:29px;min-height:54px}
 body[data-theme="design-2"] .hero-art .float-tag{display:none!important}
-body[data-theme="design-2"] .hero-art .portrait-caption{
+body[data-theme="design-2"] main>.hero .hero-art .portrait-caption{
   font-size:.85rem!important;white-space:nowrap;bottom:-6px!important;
   max-width:95%!important;padding:9px 24px!important;
 }
