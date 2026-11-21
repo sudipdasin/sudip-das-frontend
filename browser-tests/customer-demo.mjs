@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-lifesphere.css','/studio-lifesphere-renewals.css','/studio-lifesphere-renewals.js','/studio-theme-controls.css','/studio-exposure.css','/studio-exposure.js','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-about.css','/studio-about.js','/studio-theme-controls.css','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -87,16 +87,28 @@ try {
      assert.equal(await context.locator('#studio-language').inputValue(),'hi');
    }finally{await context.close();}
  })();
- await check('LifeSphere fictional document renewals preview works without collecting identity data',async()=>{
-    await page.locator('#lifesphere .ls-renewal-form').waitFor();
-    await page.locator('.ls-renewal-form select').first().selectOption('passport');
-    await page.locator('.ls-renewal-form input[type=date]').fill('2030-11-20');
-    await page.locator('.ls-renewal-form button[type=submit]').click();
-    assert.match(await page.locator('.ls-renewal-result').innerText(),/passport expiry/i);
-    assert.match(await page.locator('.ls-renewal-result').innerText(),/No alert was scheduled/);
-    assert.equal(await page.locator('#lifesphere input[type=file]').count(),0);
-    assert.equal(await page.locator('#lifesphere input[type=password]').count(),0);
-  })();
+ await check('WebStudio About and Help keeps LifeSphere suite behind user action',async()=>{
+   assert.equal(await page.locator('#lifesphere').count(),0);
+   assert.equal(await page.locator('#exposure-watch').count(),0);
+   assert.equal(await page.locator('.ls-renewal-form').count(),0);
+   assert.equal(await page.locator('#ws-about-modal').isVisible(),false);
+   await page.locator('#footer-about').click();
+   assert.equal(await page.locator('#ws-about-modal').isVisible(),true);
+   assert.match(await page.locator('#ws-about-intro').innerText(),/WebStudio.*DevDas Development/s);
+   assert.equal(await page.locator('#ws-suite-panel').isVisible(),false);
+   await page.locator('#ws-suite-details').click();
+   assert.equal(await page.locator('#ws-suite-panel').isVisible(),true);
+   assert.match(await page.locator('#ws-suite-panel').innerText(),/Private Vault/);
+   assert.match(await page.locator('#ws-suite-panel').innerText(),/development prototype/);
+   await page.keyboard.press('Escape');
+   assert.equal(await page.locator('#ws-about-modal').isVisible(),false);
+   assert.equal(await page.locator('#footer-about').evaluate(e=>e===document.activeElement),true);
+   await page.locator('#system-menu-trigger').click();
+   await page.locator('#system-about').click();
+   assert.equal(await page.locator('#ws-about-modal').isVisible(),true);
+   assert.equal(await page.locator('#ws-suite-panel').isVisible(),false);
+   await page.locator('#ws-about-close').click();
+ })();
  await check('editing and saving fields works',async()=>{
   await page.getByRole('button',{name:'Customize demo'}).click();
   await page.locator('input[name="displayName"]').fill('Taylor Demo');
@@ -959,7 +971,7 @@ try {
       assert.equal(state.brandCount,1,JSON.stringify(state));
       assert.equal(state.trustCount,1,JSON.stringify(state));
       assert.ok(state.shieldVisible&&state.brandVisible&&state.trustVisible,JSON.stringify(state));
-      assert.ok(state.brandText.includes('LifeSphere')&&state.brandText.includes('WebStudio')&&state.brandText.includes('DevDas Development'),JSON.stringify(state));
+      assert.ok(state.brandText.includes('WebStudio')&&state.brandText.includes('DevDas Development')&&!state.brandText.includes('LifeSphere'),JSON.stringify(state));
       assert.ok(state.trustText.includes('You are in control'),JSON.stringify(state));
       assert.match(state.disclosure||'',/FICTIONAL DEMO PROFILE/i);
       assert.ok(state.barHeight>=35&&state.barHeight<=50,JSON.stringify(state));
@@ -989,7 +1001,7 @@ try {
     for(const lang of ['hi','bn','es','fr','de','pt','ar','zh-CN','ja']){
       await visual.locator('#studio-language').selectOption(lang);
       const expected=langPack[lang];
-      assert.equal((await visual.locator('.studio-utility-brand strong').textContent()).trim(),'LifeSphere',lang+' app brand remains unchanged');
+      assert.equal((await visual.locator('.studio-utility-brand strong').textContent()).trim(),'WebStudio',lang+' app brand remains unchanged');
       assert.equal(await visual.locator('.studio-utility-trust span').textContent(),expected['You are in control of your web presence and your data'],lang+' trust line');
       assert.equal(await visual.locator('.cosmic-menu-section h3').first().textContent(),expected['Profile & Content'],lang+' dropdown category');
       assert.equal(await visual.locator('.cosmic-menu-label').first().textContent(),expected['Edit Profile'],lang+' dropdown action');
@@ -1006,7 +1018,7 @@ try {
     }
     await visual.locator('#studio-language').selectOption('en');
     assert.equal(await visual.locator('#role').textContent(),'Developer · Designer · Creator','English restore');
-    assert.equal(await visual.locator('.studio-utility-brand strong').textContent(),'LifeSphere','Brand restore');
+    assert.equal(await visual.locator('.studio-utility-brand strong').textContent(),'WebStudio','Brand restore');
     await visual.locator('#studio-theme').selectOption('neon-studio');
     assert.equal(await visual.locator('#role').textContent(),'Creative Developer & Interface Engineer','Theme identity restores');
     await visual.setViewportSize({width:390,height:844});
