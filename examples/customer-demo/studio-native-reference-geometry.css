@@ -94,6 +94,6 @@
    At wider viewport sizes the panel needs a different offset. */
 @media(min-width:1570px) and (max-width:1799px) and (pointer:fine){
  body.desktop-reference-preview[data-theme="design-2"] .studio-nav-panel{
-   left:0!important;
+   left:-28px!important;
  }
 }
