@@ -1,0 +1,39 @@
+/* WebStudio Free: visual chapter guide, edition cards and export control. */
+#ws-free-starter{isolation:isolate;margin:44px auto 70px;padding:clamp(20px,3vw,42px);border:1px solid color-mix(in srgb,var(--accent),transparent 48%);border-radius:26px;background:linear-gradient(135deg,color-mix(in srgb,var(--panel),var(--accent) 9%),var(--panel));color:var(--ink);box-shadow:0 24px 72px #0003}
+#ws-free-starter [hidden]{display:none!important}
+.ws-free-label{letter-spacing:.15em;font-size:.72rem;font-weight:800;color:var(--accent);text-transform:uppercase}
+.ws-free-head{display:flex;justify-content:space-between;gap:20px;align-items:start;flex-wrap:wrap}
+.ws-free-head h2{font-size:clamp(1.8rem,4vw,3.1rem);letter-spacing:-.05em;margin:9px 0}
+.ws-free-head p{max-width:660px;color:var(--muted);line-height:1.6}
+.ws-free-btn{border-radius:12px;padding:12px 18px;min-height:44px;font-weight:750;border:1px solid var(--accent);background:var(--accent);color:var(--base);cursor:pointer}
+.ws-free-btn.secondary{background:transparent;color:var(--ink)}
+.ws-free-btn:disabled{opacity:.5;cursor:not-allowed}
+.ws-free-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:23px 0}
+.ws-free-card{padding:22px;border:1px solid var(--line);border-radius:19px;background:color-mix(in srgb,var(--panel),var(--base) 22%);min-width:0}
+.ws-free-card h3{margin:10px 0;font-size:1.2rem}
+.ws-free-card p{font-size:.88rem;line-height:1.65;color:var(--muted)}
+.ws-free-tags{display:flex;flex-wrap:wrap;gap:8px}
+.ws-free-tag{display:inline-flex;border:1px solid var(--line);padding:6px 11px;border-radius:100px;font-size:.72rem;font-weight:700}
+.ws-free-tag.free{border-color:var(--accent);color:var(--accent)}
+.ws-free-candy{height:115px;border-radius:13px;position:relative;overflow:hidden;background:radial-gradient(circle at 70% 40%,#17dfca66,transparent 45%),linear-gradient(130deg,#071b2b,#214861);margin:16px 0}
+.ws-free-candy.editorial{background:radial-gradient(circle at 72% 50%,#c39a7f80,transparent 35%),linear-gradient(130deg,#ede0cf,#a56e45)}
+.ws-free-candy span{position:absolute;border:1px solid #ffffff60;border-radius:50%;width:130px;height:130px;left:calc(50% - 65px);top:-7px;box-shadow:0 0 0 12px #ffffff0d,0 0 0 30px #ffffff08}
+.ws-free-chapter{display:grid;grid-template-columns:minmax(100px,1fr) minmax(0,2fr);align-items:center;gap:25px;margin:24px 0;padding:26px;border:1px solid var(--line);border-radius:20px;background:color-mix(in srgb,var(--base),var(--panel) 60%)}
+.ws-free-chapter-art{font-size:clamp(4rem,10vw,7rem);text-align:center;color:var(--accent);text-shadow:0 0 40px var(--accent)}
+.ws-free-chapter h3{font-size:clamp(1.45rem,3vw,2.15rem);line-height:1.2;margin:8px 0}
+.ws-free-chapter p{line-height:1.65;color:var(--muted)}
+.ws-free-meter-track{height:6px;border-radius:10px;background:var(--line);overflow:hidden;margin-top:18px}
+#ws-free-meter{display:block;width:20%;height:100%;background:var(--accent);transition:width .25s}
+.ws-free-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:15px}
+.ws-free-config{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin:25px 0}
+.ws-free-config label{display:flex;flex-direction:column;gap:8px;font-size:.83rem;font-weight:700}
+.ws-free-config select,.ws-free-config input,.ws-free-config textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px;color:var(--ink);background:var(--base);font:inherit}
+.ws-free-config .wide{grid-column:1/-1}
+.ws-free-config .checkline{display:flex;flex-direction:row;align-items:start;gap:11px;font-size:.85rem;line-height:1.5}
+.ws-free-config .checkline input{width:18px;height:18px;flex:none;margin-top:2px;accent-color:var(--accent)}
+.ws-free-hint{color:var(--muted);font-size:.78rem;line-height:1.55}
+.ws-free-status{min-height:2em;padding:9px 0;font-weight:650}
+.ws-free-reminder{border:1px solid #e7b174;border-radius:12px;padding:15px;margin-top:17px;background:#b66c2218}
+.ws-free-reminder p{margin:0 0 11px;font-size:.85rem}
+@media(max-width:650px){.ws-free-grid,.ws-free-config,.ws-free-chapter{grid-template-columns:1fr}.ws-free-chapter{padding:18px}.ws-free-chapter-art{font-size:4.5rem}.ws-free-config .wide{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){#ws-free-meter{transition:none}}

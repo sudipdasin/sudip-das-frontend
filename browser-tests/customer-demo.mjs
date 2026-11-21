@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-about.css','/studio-about.js','/studio-creative-lab.css','/studio-creative-lab.js','/studio-launch-audit.css','/studio-launch-audit.js','/studio-theme-controls.css','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-about.css','/studio-about.js','/studio-creative-lab.css','/studio-creative-lab.js','/studio-launch-audit.css','/studio-launch-audit.js','/webstudio-freemium.css','/webstudio-starter.js','/webstudio-freemium.js','/studio-theme-controls.css','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -1543,10 +1543,35 @@ try {
       'Focus must return to the visible system menu trigger');
   }finally{await p.close();}
  })();
+ await check('Free setup completes five chapters and exports a real ZIP with free-theme isolation',async()=>{
+   const p=await browser.newPage({viewport:{width:1280,height:900},acceptDownloads:true});
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     const section=p.locator('#ws-free-starter');
+     assert.equal(await section.isVisible(),true);
+     assert.equal(await p.locator('#ws-free-theme option').count(),2);
+     await p.locator('#ws-free-export').click();
+     assert.match(await p.locator('#ws-free-status').innerText(),/complete all five/i);
+     await p.locator('#ws-free-begin').click();
+     assert.equal(await p.locator('#ws-free-onboard').isVisible(),true);
+     for(let i=0;i<5;i++)await p.locator('#ws-free-next').click();
+     assert.equal(await p.locator('#ws-free-onboard').isVisible(),false);
+     await p.locator('#ws-free-export').click();
+     assert.match(await p.locator('#ws-free-status').innerText(),/terms/i);
+     await p.locator('#ws-free-terms').check();
+     await p.locator('#ws-free-theme').selectOption('editorial');
+     const event=p.waitForEvent('download');
+     await p.locator('#ws-free-export').click();
+     const download=await event;
+     assert.equal(download.suggestedFilename(),'WebStudio-Free-editorial-website.zip');
+     assert.match(await p.locator('#ws-free-status').innerText(),/ZIP is ready/i);
+     assert.equal(await p.locator('#studio-theme option').count(),6,'Premium theme previews remain browsable');
+   }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,73);
+assert.equal(passed,74);
 console.log('Browser checks passed: '+passed);
