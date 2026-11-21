@@ -47,6 +47,7 @@ try {
   await page.getByRole('button',{name:'Save & preview'}).click();
   assert.equal(await page.locator('#name').innerText(),'Taylor Demo');
   assert.equal(await page.locator('#role').innerText(),'Design Engineer');
+  assert.equal(await page.locator('#portrait-caption').innerText(),'Taylor Demo','Nameplate must track edits');
  })();
  await check('project creation editing and removal work',async()=>{
   await page.getByRole('button',{name:'Add project'}).click();
@@ -635,6 +636,16 @@ try {
         systemText:document.querySelector('#system-menu-trigger').textContent.trim(),
         badges:style,overflow:document.documentElement.scrollWidth-innerWidth};
     });
+    const caption=await page.locator('#portrait-caption').evaluate(el=>({
+      text:el.textContent.trim(),after:getComputedStyle(el,'::after').content,
+      fontSize:parseFloat(getComputedStyle(el).fontSize),
+      height:el.getBoundingClientRect().height
+    }));
+    assert.equal(caption.text,'Dev Das','Reference screenshot must use fictional demo name');
+    assert.ok(caption.fontSize>=20,'Nameplate is undersized: '+JSON.stringify(caption));
+    assert.ok(caption.height>=38,'Nameplate is too small: '+JSON.stringify(caption));
+    assert.equal(caption.after,theme==='design-2'?'"Developer & Creator"':'none',
+      'Only Design 2 has the portrait subtitle');
     assert.equal(measurements.theme,theme);
     assert.ok(measurements.overflow<=2,'Horizontal overflow: '+JSON.stringify(measurements));
     assert.equal(measurements.four,theme==='design-2',JSON.stringify(measurements));
