@@ -76,6 +76,15 @@
   revokeApproval('Theme changed. Inspect and approve the new preview.');
   if(!panel.hidden)refreshPreview();
  });
+ // Live iframe shares origin but runs independently. Keep the parent profile
+ // synchronized if someone edits inside the preview, then revoke approval.
+ window.addEventListener('storage',event=>{
+  if(event.key!=='personal-profile-web-studio:fictional-demo:v1')return;
+  if(window.StudioDemo?.syncFromStorage?.()){
+   revokeApproval('Preview data changed. Please inspect and approve the refreshed site.');
+   if(!panel.hidden)refreshPreview();
+  }
+ });
  function refreshPreview(){
   if(panel.hidden)return;
   const url=new URL(location.href);
