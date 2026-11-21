@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-lifesphere.css','/studio-theme-controls.css','/studio-exposure.css','/studio-exposure.js','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-lifesphere.css','/studio-lifesphere-renewals.css','/studio-lifesphere-renewals.js','/studio-theme-controls.css','/studio-exposure.css','/studio-exposure.js','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -87,6 +87,16 @@ try {
      assert.equal(await context.locator('#studio-language').inputValue(),'hi');
    }finally{await context.close();}
  })();
+ await check('LifeSphere fictional document renewals preview works without collecting identity data',async()=>{
+    await page.locator('#lifesphere .ls-renewal-form').waitFor();
+    await page.locator('.ls-renewal-form select').first().selectOption('passport');
+    await page.locator('.ls-renewal-form input[type=date]').fill('2030-11-20');
+    await page.locator('.ls-renewal-form button[type=submit]').click();
+    assert.match(await page.locator('.ls-renewal-result').innerText(),/passport expiry/i);
+    assert.match(await page.locator('.ls-renewal-result').innerText(),/No alert was scheduled/);
+    assert.equal(await page.locator('#lifesphere input[type=file]').count(),0);
+    assert.equal(await page.locator('#lifesphere input[type=password]').count(),0);
+  })();
  await check('editing and saving fields works',async()=>{
   await page.getByRole('button',{name:'Customize demo'}).click();
   await page.locator('input[name="displayName"]').fill('Taylor Demo');
@@ -1325,5 +1335,5 @@ try {
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,65);
+assert.equal(passed,66);
 console.log('Browser checks passed: '+passed);
