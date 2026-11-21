@@ -882,3 +882,23 @@ body[data-theme="design-2"] .hero-actions .neon-intro-button{display:inline-flex
 body[data-theme="design-2"] .neon-feature-grid,
 body[data-theme="design-2"] .neon-value-section{display:none!important}
 body[data-theme="design-2"] .neon-reference-photo{display:block!important}
+
+
+/* Refined from the inspected native-size Chromium screenshot. */
+body[data-theme="design-2"] main>.hero .neon-eyebrow-pill{
+ display:inline-flex!important;
+ width:max-content;max-width:100%;visibility:visible;
+ position:relative;z-index:5;
+ margin-bottom:22px;
+ background:linear-gradient(110deg,#09233def,#151c47e0);
+}
+body[data-theme="design-2"] main>.hero h1::after{
+ content:"";display:inline-block;width:.18em;height:.18em;min-width:15px;min-height:15px;
+ border-radius:50%;background:#00e9f0;vertical-align:.08em;margin-left:.025em;
+ box-shadow:0 0 8px #00eafa55;
+}
+body[data-theme="design-2"] .d2-utility-shield svg{
+ width:25px;height:25px;display:block;stroke:#4aff78;filter:drop-shadow(0 0 6px #34ff796b);
+}
+body[data-theme="design-2"] .d2-utility{gap:18px}
+body[data-theme="design-2"] .d2-utility strong{font-size:15px;color:#eef6ff}
