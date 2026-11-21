@@ -483,7 +483,7 @@ try {
  })();
  await check('five themes retain a square vector illustration at mobile tablet and desktop',async()=>{
    const themes=['orbit','editorial','terminal','aurora-peak','neon-studio'];
-   assert.equal(await page.locator('#studio-theme option').count(),5);
+   assert.equal(await page.locator('#studio-theme option').count(),6);
    for(const theme of themes){
      await page.locator('#studio-theme').selectOption(theme);
      for(const width of [390,768,1280]){
