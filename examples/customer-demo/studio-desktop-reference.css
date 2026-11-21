@@ -106,3 +106,25 @@ body[data-theme="design-2"] .cosmic-pro{
   body.desktop-reference-preview .studio-nav-panel,
   body.desktop-reference-preview .system-menu-panel{animation:none;transition:none}
 }
+/* Desktop dropdown containment: never paint menu actions over underlying cards.
+   The menu remains user-opened and scrolls within the available viewport. */
+body[data-theme="design-2"] .studio-nav-panel,
+body[data-theme="neon-studio"] .studio-nav-panel {
+  max-height:min(68dvh,calc(100dvh - 140px));
+  overflow-y:auto;
+  overscroll-behavior:contain;
+}
+@media(min-width:1570px) and (pointer:fine) {
+  body.desktop-reference-preview[data-theme="design-2"] .studio-nav-panel {
+    max-height:min(68dvh,calc(100dvh - 140px));
+    overflow-y:auto;
+  }
+}
+
+/* A closed menu must stay closed even while reference presentation is active.
+   The desktop reference display:block rule previously overrode hidden in Cosmic. */
+body.desktop-reference-preview .studio-nav-panel[hidden],
+body.desktop-reference-preview .system-menu-panel[hidden],
+body[data-theme="design-2"] .studio-nav-panel[hidden] {
+  display:none!important;
+}
