@@ -165,6 +165,8 @@ try {
      const p=await browser.newPage({viewport:{width,height:850}});
      try{
        await p.goto(url);
+       await p.locator('#edit-toggle').click();
+       await p.locator('#editor').waitFor({state:'visible'});
        const compact=await p.evaluate(()=>{
          const label=document.querySelector('#studio-language').closest('label');
          const text=label.querySelector('.control-text');
