@@ -5,14 +5,15 @@
  'use strict';
  const THEMES=Object.freeze({
   orbit:Object.freeze({id:'orbit',label:'Orbit',accent:'#65ddce',background:'#091b2d'}),
-  editorial:Object.freeze({id:'editorial',label:'Editorial',accent:'#bd743e',background:'#f6f0e6'})
+  editorial:Object.freeze({id:'editorial',label:'Editorial',accent:'#bd743e',background:'#f6f0e6'}),
+  terminal:Object.freeze({id:'terminal',label:'Terminal',accent:'#47da91',background:'#061911'})
  });
  const printable=(v,max)=>typeof v==='string'&&v.trim().length>0&&v.trim().length<=max&&!/[\u0000-\u001f]/.test(v);
  const safeURL=v=>{try{const u=new URL(v);return u.protocol==='https:'&&!u.username&&!u.password&&u.hostname.includes('.')&&!['localhost','127.0.0.1'].includes(u.hostname);}catch{return false;}};
  const escapeHTML=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const asText=v=>escapeHTML(v||'');
  function validate(profile,theme){
-  if(!Object.hasOwn(THEMES,theme))throw Error('Only Orbit and Editorial are exportable in the free edition.');
+  if(!Object.hasOwn(THEMES,theme))throw Error('Only Orbit, Editorial and Terminal are exportable in the free edition.');
   if(!profile||profile.schemaVersion!==1||profile.demo!==true)throw Error('Please edit a valid WebStudio demo profile.');
   if(!printable(profile.identity?.displayName,70)||!printable(profile.identity?.role,110))throw Error('Name and role are required.');
   if(!printable(profile.identity?.tagline,160))throw Error('Tagline is required.');
@@ -58,7 +59,8 @@ footer{border-top:1px solid var(--line);padding:24px 0 48px;color:var(--muted)}
 `;
  const themeCSS=Object.freeze({
   orbit:':root{--bg:#091b2d;--panel:#11283b;--ink:#f4f9ff;--muted:#b0c7d5;--accent:#65ddce;--button-ink:#061e28;--line:#35566b;--halo:#65ddce20}\n.art{background:radial-gradient(circle,#1a5575,#091b2d)}\n',
-  editorial:':root{--bg:#f6f0e6;--panel:#fffaf3;--ink:#242624;--muted:#565d58;--accent:#9b5431;--button-ink:#fff;--line:#c7b9a8;--halo:#9b543125}\nh1,h2,h3{font-family:Georgia,serif}.art{border-radius:12px;background:#efe0cf;box-shadow:12px 12px 0 var(--halo)}\n'
+  editorial:':root{--bg:#f6f0e6;--panel:#fffaf3;--ink:#242624;--muted:#565d58;--accent:#9b5431;--button-ink:#fff;--line:#c7b9a8;--halo:#9b543125}\nh1,h2,h3{font-family:Georgia,serif}.art{border-radius:12px;background:#efe0cf;box-shadow:12px 12px 0 var(--halo)}\n',
+  terminal:':root{--bg:#061911;--panel:#0e281d;--ink:#e0fbe9;--muted:#a8d7b7;--accent:#47da91;--button-ink:#071c10;--line:#2b6644;--halo:#47da9128}\nbody{font-family:ui-monospace,monospace}.art,article,.button{border-radius:4px}\n'
  });
  function build(profile,theme){
   validate(profile,theme);
@@ -104,7 +106,72 @@ footer{border-top:1px solid var(--line);padding:24px 0 48px;color:var(--muted)}
   e.setUint32(12,size,true);e.setUint32(16,offset,true);
   return new Blob([...chunks,...central,end],{type:'application/zip'});
  }
- const api=Object.freeze({THEMES,validate,build,zip});
+
+ // Exports the exact working demo app, not a simplified static template.
+ // All dependencies are copied from the same isolated build manifest that
+ // GitHub Pages deploys. The saved personal profile replaces fictional defaults.
+ async function buildInteractive(profile,theme,source='./'){
+  validate(profile,theme);
+  const base=new URL(source,root.location.href);
+  if(!['http:','https:'].includes(base.protocol)||base.origin!==root.location.origin)
+   throw Error('The export source must be the current same-origin WebStudio preview.');
+  const get=async name=>{
+   if(!/^[a-zA-Z0-9][a-zA-Z0-9._-]*$/.test(name))throw Error('Unsafe runtime asset path');
+   const response=await fetch(new URL(name,base),{cache:'no-store',credentials:'omit'});
+   if(!response.ok)throw Error('Required interactive preview file unavailable: '+name);
+   const body=await response.text();
+   if(body.length>1024*1024)throw Error('Runtime asset too large: '+name);
+   return body;
+  };
+  const manifest=JSON.parse(await get('webstudio-runtime-manifest.json'));
+  if(manifest.schemaVersion!==1||!Array.isArray(manifest.files)||manifest.files.length<40||manifest.files.length>120)
+   throw Error('Invalid isolated runtime manifest');
+  const paths=[...new Set(manifest.files)];
+  if(paths.length!==manifest.files.length||!paths.includes('index.html')||!paths.includes('app.js')||!paths.includes('studio-features.js'))
+   throw Error('Required interactive app modules missing from manifest');
+  const pairs=await Promise.all(paths.map(async name=>[name,await get(name)]));
+  const files=Object.fromEntries(pairs);
+  const clean=structuredClone(profile);
+  clean.appearance.portrait='';
+  files['profile.json']=JSON.stringify(clean,null,2)+'\n';
+  const policy=String.raw`/* WebStudio Free exported-theme and edition restrictions. */
+(()=>{
+'use strict';
+const free=['orbit','editorial','terminal'];
+const current='__THEME__';
+const apply=()=>{
+  const select=document.getElementById('studio-theme');
+  if(!select)return;
+  for(const opt of select.options)if(!free.includes(opt.value)){opt.disabled=true;opt.textContent=opt.textContent.replace(/\s*·\s*Pro preview/g,'')+' · Pro preview';}
+  if(!free.includes(select.value)||select.value!==current){
+    select.value=current;select.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+  document.body.dataset.theme=current;
+  const freePanel=document.getElementById('ws-free-starter');
+  if(freePanel)freePanel.hidden=true;
+  const other=document.getElementById('tour-start');
+  if(other)other.hidden=true;
+};
+document.addEventListener('DOMContentLoaded',apply);
+window.addEventListener('pageshow',apply);
+})();`.replace('__THEME__',theme);
+  files['webstudio-free-runtime.js']=policy;
+  files['index.html']=files['index.html'].replace('</body>',
+   '<script src="webstudio-free-runtime.js" defer></script></body>');
+  files['webstudio-runtime-manifest.json']=JSON.stringify({schemaVersion:1,
+   source:'exported-interactive-free',files:[...paths,'webstudio-free-runtime.js']},null,2)+'\n';
+  files['README.txt']='WEBSTUDIO INTERACTIVE FREE WEBSITE\n\n'+
+   '1. Extract the ZIP and upload the contents of site/ to your own HTTP(S) host.\n'+
+   '2. For local testing: cd site && python3 -m http.server 8000\n'+
+   '3. The exported site uses the SAME complete WebStudio interactive HTML/CSS/JS runtime as the preview, with your own saved profile.json.\n'+
+   '4. Only Orbit, Editorial and Terminal are permitted in this Free export. Four other themes are disabled previews.\n'+
+   '5. Editing works in browser-local storage; visitors cannot edit your hosting source remotely. Export new JSON/site files to republish changes.\n'+
+   '6. This is a standalone interactive frontend, not a hosted CMS or verified email system. No automatic hosting, backend or secrets are included.\n'+
+   '7. Static frontends are readable and can be copied. Never put private keys, credentials or sensitive records in these exported files.\n';
+  return files;
+ }
+
+  const api=Object.freeze({THEMES,validate,build,buildInteractive,zip});
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
  if(root)root.WebStudioStarter=api;
 })(typeof window!=='undefined'?window:undefined);
