@@ -10,6 +10,17 @@
  if(!modal || !close || !system || !footer || !details || !panel) return;
  let previous=null;
  let scrollBefore='';
+ let redirectingFocus=false;
+ const focusableSelector='a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),summary,[tabindex]:not([tabindex="-1"])';
+ const focusables=()=>[...modal.querySelectorAll(focusableSelector)].filter(el=>!el.closest('[hidden],[inert]') && el.getClientRects().length>0 && getComputedStyle(el).visibility!=='hidden');
+ function containFocus(event){
+   if(!isOpen() || modal.contains(event.target) || redirectingFocus)return;
+   redirectingFocus=true;
+   (focusables()[0] || close).focus();
+   redirectingFocus=false;
+ }
+ document.addEventListener('focusin',containFocus);
+
  const isOpen=()=>!modal.hidden;
  function show(){
    if(isOpen())return;
@@ -30,7 +41,8 @@
    if(!isOpen())return;
    modal.hidden=true;
    document.body.style.overflow=scrollBefore;
-   if(previous && previous.isConnected && typeof previous.focus==='function') previous.focus();
+   if(previous && previous.isConnected && typeof previous.focus==='function' && !previous.closest('[hidden],[inert]')) previous.focus();
+   else document.getElementById('system-menu-trigger')?.focus();
  }
  for(const opener of [system,footer]) opener.addEventListener('click',show);
  close.addEventListener('click',hide);
@@ -43,10 +55,11 @@
  modal.addEventListener('keydown', event=>{
    if(event.key==='Escape'){event.preventDefault();hide();return;}
    if(event.key!=='Tab')return;
-   const focusables=[...modal.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(el=>el.getClientRects().length>0);
-   if(!focusables.length)return;
-   const first=focusables[0],last=focusables[focusables.length-1];
-   if(event.shiftKey && document.activeElement===first){event.preventDefault();last.focus();}
-   else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first.focus();}
+   const items=focusables();
+   if(!items.length){event.preventDefault();close.focus();return;}
+   const first=items[0],last=items[items.length-1];
+   const current=items.indexOf(document.activeElement);
+   if(event.shiftKey && current<=0){event.preventDefault();last.focus();}
+   else if(!event.shiftKey && (current===items.length-1 || current===-1)){event.preventDefault();first.focus();}
  });
 })();
