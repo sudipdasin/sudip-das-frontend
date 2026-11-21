@@ -97,9 +97,11 @@
   modal.hidden=true;priorFocus?.focus({preventScroll:true});priorFocus=null;
  }
  function show(){
-  priorFocus=document.activeElement;
   const systemPanel=document.getElementById('system-menu-panel');
   const systemTrigger=document.getElementById('system-menu-trigger');
+  // The menu button becomes hidden when the dialog opens. Return focus to
+  // its still-visible trigger, never to an invisible menu child.
+  priorFocus=systemTrigger||document.activeElement;
   if(systemPanel)systemPanel.hidden=true;
   systemTrigger?.setAttribute('aria-expanded','false');
   audit();modal.hidden=false;closeButton.focus({preventScroll:true});
