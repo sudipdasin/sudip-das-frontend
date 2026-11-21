@@ -13,7 +13,7 @@
  const isOpen=()=>!modal.hidden;
  function show(){
    if(isOpen())return;
-   previous=document.activeElement;
+   previous=document.activeElement===system ? document.getElementById('system-menu-trigger') : document.activeElement;
    const systemPanel=document.getElementById('system-menu-panel');
    const systemTrigger=document.getElementById('system-menu-trigger');
    if(systemPanel && !systemPanel.hidden){
