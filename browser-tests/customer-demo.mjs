@@ -1130,7 +1130,7 @@ try {
          return {scrollY,scrollWidth:document.documentElement.scrollWidth,width:innerWidth,
            editorOpen:document.querySelector('#editor')?.classList.contains('open'),
            badges:[...document.querySelectorAll('.neon-role-pills .neon-orbit-badge')].filter(shown).length,
-           cards:[...document.querySelectorAll('.neon-feature-card')].filter(shown).length,
+           cards:[...document.querySelectorAll(document.body.dataset.theme==='design-2'?'.d2-feature-row .d2-feature':'.neon-feature-grid .neon-feature-card')].filter(el=>el.getClientRects().length>0).length,
            selected:document.querySelector('#studio-theme').value,
            caption:document.querySelector('#portrait-caption')?.textContent?.trim()};
        });
