@@ -600,8 +600,15 @@ try {
   await page.screenshot({path:join(shots,'neon-desktop-1777.png'),fullPage:false});
   await page.setViewportSize({width:390,height:844});
   assert.ok(await orbit.first().isVisible());
-  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
-  assert.ok(overflow<=2,'Mobile overflow: '+overflow);
+  const mobileLayout=await page.evaluate(()=>({
+    overflow:document.documentElement.scrollWidth-innerWidth,
+    bannerHeight:document.querySelector('.banner').getBoundingClientRect().height,
+    navHeight:document.querySelector('.nav-bar').getBoundingClientRect().height,
+    heroTop:document.querySelector('main>.hero').getBoundingClientRect().top
+  }));
+  assert.ok(mobileLayout.overflow<=2,'Mobile overflow: '+JSON.stringify(mobileLayout));
+  assert.ok(mobileLayout.bannerHeight<=42&&mobileLayout.navHeight<=235&&mobileLayout.heroTop<=290,
+    'Mobile utility/header consumes too much of the first viewport: '+JSON.stringify(mobileLayout));
   await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
   await page.waitForTimeout(150);
   await page.screenshot({path:join(shots,'neon-mobile-390.png'),fullPage:false});
