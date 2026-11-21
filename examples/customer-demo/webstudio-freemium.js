@@ -201,9 +201,9 @@
    script.addEventListener('load',()=>{
     if(!window.turnstile?.render){notice('Feedback anti-spam widget could not be loaded.');return;}
     window.turnstile.render('#ws-free-turnstile',{sitekey:challengeSiteKey,
-      callback:token=>{challengeToken=token},
-      'expired-callback':()=>{challengeToken=''},
-      'error-callback':()=>{challengeToken=''}
+      callback:token=>{challengeToken=token;$('ws-free-turnstile').dataset.verified='true'},
+      'expired-callback':()=>{challengeToken='';$('ws-free-turnstile').dataset.verified='false'},
+      'error-callback':()=>{challengeToken='';$('ws-free-turnstile').dataset.verified='false'}
     });
    });
    script.addEventListener('error',()=>notice('The feedback challenge could not load. Please retry.'));
