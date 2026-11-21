@@ -163,8 +163,8 @@ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge{
   opacity:1;
 }
 body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1){
-  --orbit-x:calc(var(--badge-r)*.34);
-  --orbit-y:calc(var(--badge-r)*-1.03);
+  --orbit-x:calc(var(--badge-r)*.29);
+  --orbit-y:calc(var(--badge-r)*-.76);
 }
 body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(2){
   --orbit-x:calc(var(--badge-r)*.96);
@@ -176,11 +176,11 @@ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(3){
 }
 body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(4){
   --orbit-x:calc(var(--badge-r)*.94);
-  --orbit-y:calc(var(--badge-r)*.77);
+  --orbit-y:calc(var(--badge-r)*.58);
 }
 body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){
-  --orbit-x:calc(var(--badge-r)*-.64);
-  --orbit-y:calc(var(--badge-r)*.87);
+  --orbit-x:calc(var(--badge-r)*-.92);
+  --orbit-y:calc(var(--badge-r)*.47);
 }
 body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-bubble{
   width:30px;
@@ -306,7 +306,7 @@ body[data-theme="neon-studio"] .neon-feature-card small{
   body[data-theme="neon-studio"] main>.hero{grid-template-columns:1fr!important}
   body[data-theme="neon-studio"] .hero-art{--orbit-badge-radius:150px;margin-bottom:35px}
   body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){
-    --orbit-x:calc(var(--badge-r)*-.86);--orbit-y:calc(var(--badge-r)*.67);
+    --orbit-x:calc(var(--badge-r)*-.87);--orbit-y:calc(var(--badge-r)*.44);
   }
   body[data-theme="neon-studio"] .nav-bar .brand{flex:1 1 190px}
   body[data-theme="neon-studio"] .neon-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -322,7 +322,7 @@ body[data-theme="neon-studio"] .neon-feature-card small{
     width:23px;height:23px;border:0;
   }
   body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){
-    --orbit-x:calc(var(--badge-r)*-.9);--orbit-y:calc(var(--badge-r)*.62);
+    --orbit-x:calc(var(--badge-r)*-.87);--orbit-y:calc(var(--badge-r)*.44);
   }
   body[data-theme="neon-studio"] .neon-feature-grid{grid-template-columns:1fr}
   body[data-theme="neon-studio"] .neon-value-benefits{grid-template-columns:repeat(2,1fr)}
