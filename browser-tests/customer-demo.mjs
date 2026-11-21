@@ -50,6 +50,7 @@ try {
        await context.locator('#studio-theme').selectOption(theme);
        // Compare the default palette with neither selector focused; focus accents are intentionally different.
        await context.evaluate(()=>{document.getElementById('studio-language').blur();document.getElementById('studio-theme').blur();});
+       await context.waitForTimeout(250); // allow the 150ms border-color theme transition to settle
        const state=await context.evaluate(()=>{
          const language=document.getElementById('studio-language');
          const layout=document.getElementById('studio-theme');
