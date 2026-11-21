@@ -55,7 +55,7 @@
   }
   const status = message => text('editor-status',message);
   function save() {
-    try {localStorage.setItem(STORAGE_KEY,JSON.stringify(profile));return true;}
+    try {localStorage.setItem(STORAGE_KEY,JSON.stringify(profile));document.dispatchEvent(new Event('studio:profile-saved'));return true;}
     catch {status('Preview updated, but browser storage is unavailable. Export JSON to retain changes.');return false;}
   }
   function draw() {
