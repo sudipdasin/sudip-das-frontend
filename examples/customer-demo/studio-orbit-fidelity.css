@@ -332,3 +332,11 @@ body[data-theme="neon-studio"] .neon-feature-card small{
     transition:none;animation:none;
   }
 }
+/* Reference-only actions are native-disabled until a real workflow exists. */
+body[data-theme="neon-studio"] .neon-intro-button:disabled{
+  color:#9db4c9;opacity:.6;filter:grayscale(.55);
+  cursor:not-allowed;text-shadow:none;box-shadow:none;
+}
+body[data-theme="neon-studio"] .neon-intro-button:disabled:hover{
+  color:#9db4c9;transform:none;
+}
