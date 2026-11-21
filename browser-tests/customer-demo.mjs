@@ -804,6 +804,20 @@ try {
        assert.ok(geometry.hero.top>=0&&geometry.hero.top<h*.3,'Screenshot is not showing the hero '+JSON.stringify(geometry));
        assert.ok(geometry.heading.top>geometry.hero.top&&geometry.heading.top<h*.55,'Hero title outside screenshot '+JSON.stringify(geometry));
        assert.ok(geometry.horizontalOverflow<=2,'Desktop overflow '+JSON.stringify(geometry));
+       const collision=await visual.evaluate(()=>{
+         const photo=document.querySelector('.hero-art .neon-reference-photo').getBoundingClientRect();
+         const panel=document.querySelector(document.body.dataset.theme==='neon-studio'?'#system-menu-panel':'#studio-nav-panel').getBoundingClientRect();
+         const badges=[...document.querySelectorAll('.neon-role-pills .neon-orbit-badge')]
+           .filter(e=>getComputedStyle(e).display!=='none').map(e=>e.getBoundingClientRect().right);
+         return {photoLeft:photo.left,menuRight:panel.right,overlap:Math.max(0,panel.right-photo.left),
+           maxBadgeRight:Math.max(...badges,0),vw:window.innerWidth};
+       });
+       if(variant==='neon-studio'){
+         assert.ok(collision.overlap<75,'Aurora System panel covers too much portrait: '+JSON.stringify(collision));
+         assert.ok(collision.maxBadgeRight<collision.vw-7,'Aurora orbit roles clip at screen edge: '+JSON.stringify(collision));
+       }else{
+         assert.ok(collision.overlap<15,'Cosmic Studio menu hides face: '+JSON.stringify(collision));
+       }
        if(variant==='design-2'){
          assert.ok(await visual.locator('.cosmic-menu-reference button:disabled').count()>=4);
          assert.ok(await visual.locator('.cosmic-menu-reference button:not(:disabled)').count()>=4);
