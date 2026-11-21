@@ -78,7 +78,7 @@
     product=productData;
     labels={translations:{}};
     for(const lang of locales){
-      labels.translations[lang]={...(uiData.translations[lang]||{}),...(copyData.translations[lang]||{}),...(profileData.translations[lang]||{}),...(dynamicData.translations[lang]||{})};
+      labels.translations[lang]={...(uiData.translations[lang]||{}),...(copyData.translations[lang]||{}),...(profileData.translations[lang]||{}),...(dynamicData.translations[lang]||{}),...(themeData.translations[lang]||{})};
       dictionaryCoverage[lang]=Object.keys(labels.translations[lang]).length;
     }
     const current=language.value;
