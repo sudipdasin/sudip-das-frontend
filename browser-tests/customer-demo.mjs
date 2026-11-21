@@ -160,6 +160,36 @@ try {
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('#creative-command').isVisible(),false);
  })();
+ await check('compact header selectors and uncluttered JSON import action at desktop and phone sizes',async()=>{
+   for(const width of [1440,820,390]){
+     const p=await browser.newPage({viewport:{width,height:850}});
+     try{
+       await p.goto(url);
+       const compact=await p.evaluate(()=>{
+         const label=document.querySelector('#studio-language').closest('label');
+         const text=label.querySelector('.control-text');
+         const input=document.getElementById('import-profile');
+         const upload=input.closest('label');
+         const rect=upload.getBoundingClientRect();
+         const picker=document.querySelector('#studio-language').getBoundingClientRect();
+         const theme=document.querySelector('#studio-theme').getBoundingClientRect();
+         return {labelWidth:text.getBoundingClientRect().width,clip:getComputedStyle(text).clip,
+           inputWidth:input.getBoundingClientRect().width,uploadWidth:rect.width,
+           uploadHeight:rect.height,pickerHeight:picker.height,themeHeight:theme.height,
+           pickerWidth:picker.width,themeWidth:theme.width,overflow:document.documentElement.scrollWidth-innerWidth};
+       });
+       assert.ok(compact.labelWidth<=2,'header caption not visually hidden '+width+' '+JSON.stringify(compact));
+       assert.ok(compact.pickerHeight<=44 && compact.themeHeight<=44,'header controls still too tall '+width);
+       assert.ok(compact.pickerWidth>100 && compact.themeWidth>100,'header touch targets too small '+width);
+       assert.ok(compact.uploadWidth>130 && compact.uploadHeight>=40,'JSON import button not usable '+width);
+       assert.ok(compact.inputWidth<=2,'native chooser must not clutter action bar');
+       assert.ok(compact.overflow<=2,'horizontal overflow '+width);
+       assert.equal(await p.locator('#import-profile').getAttribute('accept'),'.json,application/json');
+       await p.locator('#studio-theme').selectOption('terminal');
+       assert.equal(await p.locator('body').getAttribute('data-theme'),'terminal');
+     }finally{await p.close();}
+   }
+ })();
  await check('editing and saving fields works',async()=>{
   await page.getByRole('button',{name:'Customize demo'}).click();
   await page.locator('input[name="displayName"]').fill('Taylor Demo');
@@ -1400,5 +1430,5 @@ try {
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,68);
+assert.equal(passed,69);
 console.log('Browser checks passed: '+passed);
