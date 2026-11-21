@@ -205,6 +205,12 @@ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-label{
   display:block;
   font-size:12px;
   letter-spacing:-.01em;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  min-height:0;
 }
 body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5) .neon-orbit-bubble{
   color:#c08dff;
