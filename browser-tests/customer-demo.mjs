@@ -766,10 +766,35 @@ try {
   await page.setViewportSize({width:1280,height:900});
   await page.locator('#studio-theme').selectOption('neon-studio');
  })();
+ await check('Desktop screenshot menus stay distinct and all unimplemented actions are disabled',async()=>{
+   await page.setViewportSize({width:1833,height:858});
+   await page.locator('#studio-theme').selectOption('neon-studio');
+   await page.waitForTimeout(130);
+   assert.equal(await page.locator('#studio-nav-panel').isVisible(),true,'Aurora Studio menu should be open');
+   assert.equal(await page.locator('#system-menu-panel').isVisible(),true,'Aurora System menu should be open');
+   assert.equal(await page.locator('.cosmic-menu-reference').isVisible(),false,'Cosmic items must not appear in Aurora');
+   await page.screenshot({path:join(root,'dist','visual-audit','aurora-reference-menu-desktop.png'),fullPage:false});
+   await page.locator('#studio-theme').selectOption('design-2');
+   await page.waitForTimeout(130);
+   assert.equal(await page.locator('#studio-nav-panel').isVisible(),true,'Cosmic Studio menu should be open');
+   assert.equal(await page.locator('.cosmic-menu-reference').isVisible(),true,'Cosmic grouped menu should be present');
+   assert.equal(await page.locator('#system-menu-panel').isVisible(),false,'Cosmic has one reference menu');
+   assert.ok(await page.locator('.cosmic-menu-reference button:disabled').count()>=4);
+   assert.ok(await page.locator('.cosmic-menu-reference button:not(:disabled)').count()>=4);
+   await page.screenshot({path:join(root,'dist','visual-audit','cosmic-reference-menu-desktop.png'),fullPage:false});
+   await page.mouse.click(50,550);
+   assert.equal(await page.locator('#studio-nav-panel').isVisible(),false,'Click outside closes preview');
+   await page.setViewportSize({width:390,height:844});
+   await page.locator('#studio-theme').selectOption('neon-studio');
+   await page.waitForTimeout(100);
+   assert.equal(await page.locator('#studio-nav-panel').isVisible(),false,'Phone does not auto-open desktop dropdown');
+   assert.equal(await page.locator('#system-menu-panel').isVisible(),false,'Phone does not auto-open system dropdown');
+   await page.setViewportSize({width:1280,height:900});
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,50);
+assert.equal(passed,51);
 console.log('Browser checks passed: '+passed);
