@@ -15,6 +15,13 @@
   let applying = false;
   const normalize = value => String(value||'').trim();
   const translate = (text,lang) => labels?.translations?.[lang]?.[text] || text;
+  // Map known localized UI labels back to their original English keys.
+  // Dynamic widgets sometimes replace a translated node after first render.
+  let canonicalLabels = new Map();
+  const canonical = text => canonicalLabels.get(text) || text;
+  const knownUI = text => canonicalLabels.has(text);
+  const excluded = 'script,style,[data-i18n],input,textarea,[contenteditable],#name,#role,#tagline,#about,#skills,#projects,#social,#email,#demo-brand,#portrait-caption';
+  
   function apply() {
     if(!product || !labels)return;
     applying = true;
@@ -30,15 +37,17 @@
     const nodes = [];
     while(walker.nextNode())nodes.push(walker.currentNode);
     for(const node of nodes) {
-      if(node.parentElement?.closest('script,style,[data-i18n],#name,#role,#tagline,#about,#skills,#projects,#social,#email,#demo-brand,#portrait-caption'))continue;
+      if(node.parentElement?.closest(excluded))continue;
       const existing = originals.get(node);
       const current = normalize(node.nodeValue);
-      let original = existing || current;
+      let original = existing || canonical(current);
       if(existing && current !== original && current !== lastRendered.get(node)) {
-        // The editor or tour replaced this node with new source text: retain the latest source.
-        original = current;originals.set(node,original);
+        // New stock UI content can already be localized by another widget.
+        // Preserve customer-authored fields outside the translation tree.
+        original = canonical(current);
+        originals.set(node,original);
       }
-      if(!existing && !(original in (labels.translations.hi||{})))continue;
+      if(!existing && !knownUI(original))continue;
       if(!existing)originals.set(node,original);
       const desired = translate(original,active);
       if(current !== desired)node.nodeValue = node.nodeValue.replace(current,desired);
@@ -46,9 +55,24 @@
     }
     const attrs=['aria-label','placeholder','title'];
     document.querySelectorAll('[aria-label],[placeholder],[title]').forEach(element=>{
+      if(element.closest('input[data-user-content],textarea[data-user-content],[contenteditable]'))return;
       let saved=originalAttributes.get(element);
-      if(!saved){saved={};for(const name of attrs){const value=element.getAttribute(name);if(value && value in (labels.translations.hi||{}))saved[name]=value;}originalAttributes.set(element,saved);}
-      for(const [name,source] of Object.entries(saved)){const value=translate(source,active);if(element.getAttribute(name)!==value)element.setAttribute(name,value);}
+      if(!saved){saved={};originalAttributes.set(element,saved);}
+      for(const name of attrs){
+        const value=element.getAttribute(name);
+        if(!value)continue;
+        const previous=saved[name];
+        if(previous && value!==previous.source && value!==previous.rendered){
+          // React to new tooltip/accessible labels added after first render.
+          saved[name]={source:canonical(value),rendered:value};
+        }else if(!previous && knownUI(canonical(value))){
+          saved[name]={source:canonical(value),rendered:value};
+        }
+        if(!saved[name] || !knownUI(saved[name].source))continue;
+        const next=translate(saved[name].source,active);
+        if(value!==next)element.setAttribute(name,next);
+        saved[name].rendered=next;
+      }
     });
     applying = false;
   }
@@ -80,6 +104,13 @@
     for(const lang of locales){
       labels.translations[lang]={...(uiData.translations[lang]||{}),...(copyData.translations[lang]||{}),...(profileData.translations[lang]||{}),...(dynamicData.translations[lang]||{}),...(themeData.translations[lang]||{})};
       dictionaryCoverage[lang]=Object.keys(labels.translations[lang]).length;
+    }
+    canonicalLabels=new Map();
+    for(const dictionary of Object.values(labels.translations)){
+      for(const [source,localized] of Object.entries(dictionary)){
+        canonicalLabels.set(source,source);
+        if(localized)canonicalLabels.set(localized,source);
+      }
     }
     const current=language.value;
     select(current);
