@@ -896,7 +896,7 @@ try {
     for(const lang of ['hi','bn','es','fr','de','pt','ar','zh-CN','ja']){
       await visual.locator('#studio-language').selectOption(lang);
       const expected=langPack[lang];
-      assert.equal(await visual.locator('.studio-utility-brand strong').innerText(),expected['Web Studio'],lang+' branding');
+      assert.equal((await visual.locator('.studio-utility-brand strong').textContent()).trim(),expected['Web Studio'],lang+' branding');
       assert.equal(await visual.locator('.studio-utility-trust span').innerText(),expected['You are in control of your web presence and your data'],lang+' trust line');
       assert.equal(await visual.locator('.cosmic-menu-section h3').first().innerText(),expected['Profile & Content'],lang+' dropdown category');
       assert.equal(await visual.locator('.cosmic-menu-label').first().innerText(),expected['Edit Profile'],lang+' dropdown action');
