@@ -36,7 +36,8 @@ export default {
    {method:'POST',body:params,signal:AbortSignal.timeout(10000)});
   if(!verify.ok)return send(502,{error:'CAPTCHA verification unavailable'});
   const verdict=await verify.json();
-  if(verdict.success!==true)return send(403,{error:'CAPTCHA challenge invalid'});
+  if(verdict.success!==true||verdict.hostname!==new URL(allow).hostname)
+   return send(403,{error:'CAPTCHA challenge invalid for this website'});
   const message=['WebStudio Free tester feedback','Theme: '+theme,
     'Reply email (optional): '+(email||'Not supplied'),'',
     'Feedback:',notes].join('\n');
