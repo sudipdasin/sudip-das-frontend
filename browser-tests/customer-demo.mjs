@@ -900,7 +900,7 @@ try {
       assert.equal(state.brandCount,1,JSON.stringify(state));
       assert.equal(state.trustCount,1,JSON.stringify(state));
       assert.ok(state.shieldVisible&&state.brandVisible&&state.trustVisible,JSON.stringify(state));
-      assert.ok(state.brandText.includes('Web Studio')&&state.brandText.includes('Your Everlasting Web Presence'),JSON.stringify(state));
+      assert.ok(state.brandText.includes('LifeSphere')&&state.brandText.includes('WebStudio')&&state.brandText.includes('DevDas Development'),JSON.stringify(state));
       assert.ok(state.trustText.includes('You are in control'),JSON.stringify(state));
       assert.match(state.disclosure||'',/FICTIONAL DEMO PROFILE/i);
       assert.ok(state.barHeight>=35&&state.barHeight<=50,JSON.stringify(state));
@@ -930,7 +930,7 @@ try {
     for(const lang of ['hi','bn','es','fr','de','pt','ar','zh-CN','ja']){
       await visual.locator('#studio-language').selectOption(lang);
       const expected=langPack[lang];
-      assert.equal((await visual.locator('.studio-utility-brand strong').textContent()).trim(),expected['Web Studio'],lang+' branding');
+      assert.equal((await visual.locator('.studio-utility-brand strong').textContent()).trim(),'LifeSphere',lang+' app brand remains unchanged');
       assert.equal(await visual.locator('.studio-utility-trust span').textContent(),expected['You are in control of your web presence and your data'],lang+' trust line');
       assert.equal(await visual.locator('.cosmic-menu-section h3').first().textContent(),expected['Profile & Content'],lang+' dropdown category');
       assert.equal(await visual.locator('.cosmic-menu-label').first().textContent(),expected['Edit Profile'],lang+' dropdown action');
@@ -947,7 +947,7 @@ try {
     }
     await visual.locator('#studio-language').selectOption('en');
     assert.equal(await visual.locator('#role').textContent(),'Developer · Designer · Creator','English restore');
-    assert.equal(await visual.locator('.studio-utility-brand strong').textContent(),'Web Studio','Brand restore');
+    assert.equal(await visual.locator('.studio-utility-brand strong').textContent(),'LifeSphere','Brand restore');
     await visual.locator('#studio-theme').selectOption('neon-studio');
     assert.equal(await visual.locator('#role').textContent(),'Creative Developer & Interface Engineer','Theme identity restores');
     await visual.setViewportSize({width:390,height:844});
