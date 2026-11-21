@@ -756,9 +756,12 @@ try {
     });
     assert.ok(actual.background.includes(filename),theme+' wrong background: '+JSON.stringify(actual));
     assert.ok(actual.overflow<=2,theme+' horizontal overflow: '+JSON.stringify(actual));
-    const response=await page.request.get('/'+filename);
-    assert.equal(response.status(),200,filename+' not published');
-    assert.match(await response.text(),/<svg/);
+    const response=await page.evaluate(async name=>{
+      const r=await fetch(name);
+      return {status:r.status,body:await r.text()};
+    },filename);
+    assert.equal(response.status,200,filename+' not published');
+    assert.match(response.body,/<svg/);
   }
   await page.setViewportSize({width:1280,height:900});
   await page.locator('#studio-theme').selectOption('neon-studio');
