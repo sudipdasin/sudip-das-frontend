@@ -56,7 +56,7 @@ const existing=document.querySelector('.neon-feature-grid');
 if(existing)existing.insertAdjacentElement('afterend',row);
 else hero.insertAdjacentElement('afterend',row);
 const menuTrigger=document.getElementById('system-menu-trigger');
-const systemLabel=menuTrigger?.querySelector('span[data-i18n]');
+const systemLabel=menuTrigger?.querySelector('span:first-child');
 const role=document.getElementById('role'),tagline=document.getElementById('tagline');
 const originalRole='Creative Developer & Interface Engineer';
 const designOneRole='Developer · Designer · Creator';
