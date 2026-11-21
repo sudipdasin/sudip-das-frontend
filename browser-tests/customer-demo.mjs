@@ -124,6 +124,28 @@ try {
      assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=2);
    }finally{await p.close();}
  })();
+ await check('all themes keep symmetrical left and right outer margins',async()=>{
+   const p=await browser.newPage({viewport:{width:1788,height:920}});
+   try{
+     await p.goto(url);
+     for(const width of [1788,1280,820,390]){
+       await p.setViewportSize({width,height:920});
+       for(const theme of ['orbit','editorial','terminal','aurora-peak','neon-studio','design-2']){
+         await p.locator('#studio-theme').selectOption(theme);
+         const geometry=await p.evaluate(()=>{
+           const outer=document.querySelector('body > .wrap').getBoundingClientRect();
+           return {left:outer.left,right:innerWidth-outer.right,width:outer.width,
+             overflow:document.documentElement.scrollWidth-innerWidth};
+         });
+         assert.ok(Math.abs(geometry.left-geometry.right)<=2,
+           theme+' unbalanced gutters at '+width+': '+JSON.stringify(geometry));
+         assert.ok(geometry.left>=13&&geometry.right>=13,
+           theme+' insufficient page spacing at '+width+': '+JSON.stringify(geometry));
+         assert.ok(geometry.overflow<=2,theme+' page overflow at '+width);
+       }
+     }
+   }finally{await p.close();}
+ })();
  await check('WebStudio About and Help keeps LifeSphere suite behind user action',async()=>{
    assert.equal(await page.locator('#lifesphere').count(),0);
    assert.equal(await page.locator('#exposure-watch').count(),0);
@@ -1469,5 +1491,5 @@ try {
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,70);
+assert.equal(passed,71);
 console.log('Browser checks passed: '+passed);
