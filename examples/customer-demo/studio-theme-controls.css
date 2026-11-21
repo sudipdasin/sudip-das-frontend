@@ -221,8 +221,8 @@ body[data-theme] .nav-bar .studio-controls .control-caption::after{
 @media(max-width:440px){
   body[data-theme] .nav-bar .studio-controls{gap:5px}
   body[data-theme] .nav-bar .studio-controls .control-caption select{
-    min-width:96px;
-    max-width:110px!important;
+    min-width:104px;
+    max-width:112px!important;
     padding-left:8px;
     padding-right:23px;
     font-size:.73rem;
