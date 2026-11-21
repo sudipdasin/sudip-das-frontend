@@ -1,4 +1,4 @@
-/* Design 2 — Cosmic Studio: independent reference composition. Keep Aurora Design 1 untouched. */
+/* Cosmic: independent reference composition. Keep Aurora isolated. */
 (()=>{
 'use strict';
 const theme=document.getElementById('studio-theme');
@@ -33,7 +33,7 @@ for(const [symbol,value,label] of examples){
  stat.append(strong,small);stats.append(stat);
 }
 hero.append(stats);
-const row=document.createElement('section');row.className='d2-feature-row';row.setAttribute('aria-label','Design 2 visual feature cards');
+const row=document.createElement('section');row.className='d2-feature-row';row.setAttribute('aria-label','Cosmic visual feature cards');
 const features=[
  ['shield','Everlasting Presence','Stay online through provider changes, expiry, or attacks.','Planned'],
  ['layers','Your Data, Your Control','Backup, restore and move anytime, anywhere.','Local JSON works; automatic backup planned'],
