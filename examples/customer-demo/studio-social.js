@@ -34,6 +34,7 @@
    catch{return initial();}
  };
  let state=read();
+ let editingDraftIndex=null;
  function save(){
    try{localStorage.setItem(KEY,JSON.stringify(state));return true;}
    catch{setStatus('Browser storage unavailable. Export your drafts to retain them.');return false;}
@@ -72,7 +73,7 @@
    state.links.forEach((item,i)=>{
      const row=el('div',undefined,'social-row'),name=el('strong',item.platform),a=el('a',item.url,'social-link');
      a.href=item.url;a.target='_blank';a.rel='noopener noreferrer nofollow';
-     const remove=el('button','Remove','ghost');remove.type='button';remove.dataset.removeLink=String(i);
+     const remove=el('button','Remove','ghost');remove.type='button';remove.dataset.removeLink=String(i);remove.setAttribute('aria-label','Remove '+item.platform+' profile link');
      row.append(name,a,remove);list.append(row);
    });
  }
@@ -82,7 +83,11 @@
    state.drafts.slice().reverse().forEach((draft,j)=>{
      const index=state.drafts.length-1-j,row=el('article',undefined,'social-draft-card');
      row.append(el('strong',draft.title),el('small',draft.platform+' · Local draft · Never published'),el('p',draft.caption));
-     const remove=el('button','Delete draft','ghost');remove.type='button';remove.dataset.removeDraft=String(index);row.append(remove);list.append(row);
+     const edit=el('button','Edit draft','ghost');edit.type='button';edit.dataset.editDraft=String(index);
+     edit.setAttribute('aria-label','Edit draft: '+draft.title);
+     const remove=el('button','Delete draft','ghost');remove.type='button';remove.dataset.removeDraft=String(index);
+     remove.setAttribute('aria-label','Delete draft: '+draft.title);
+     row.append(edit,remove);list.append(row);
    });
  }
  function render(){
@@ -115,14 +120,35 @@
    const form=e.currentTarget,platform=form.elements.platform.value,title=plain(form.elements.title.value),caption=plain(form.elements.caption.value);
    const draft={platform,title,caption,created:new Date().toISOString(),id:String(Date.now())};
    if(!safeDraft(draft)){setStatus('Choose a platform and enter a title (up to 90 characters) and caption (up to 2000).');return;}
-   if(state.drafts.length>=50){setStatus('Maximum 50 drafts. Export or delete existing drafts first.');return;}
+   if(editingDraftIndex===null&&state.drafts.length>=50){setStatus('Maximum 50 drafts. Export or delete existing drafts first.');return;}
+   if(editingDraftIndex!==null){
+     if(!Number.isInteger(editingDraftIndex)||editingDraftIndex<0||editingDraftIndex>=state.drafts.length){editingDraftIndex=null;setStatus('Draft no longer exists. Please save a new draft.');return;}
+     const existing=state.drafts[editingDraftIndex];
+     state.drafts[editingDraftIndex]={...draft,id:existing.id,created:existing.created};
+     editingDraftIndex=null;event('draft_saved');form.reset();text('social-draft-save','Save local draft');render();setStatus('Local draft updated. Nothing has been posted.');return;
+   }
    state.drafts.push(draft);event('draft_saved');form.reset();render();setStatus('Draft saved locally. Nothing has been posted.');
  });
  byId('social-drafts-list').addEventListener('click',e=>{
-   const control=e.target.closest('[data-remove-draft]');if(!control)return;
-   const i=Number(control.dataset.removeDraft);
+   const control=e.target.closest('[data-edit-draft],[data-remove-draft]');if(!control)return;
+   const editing=control.hasAttribute('data-edit-draft');
+   const i=Number(editing?control.dataset.editDraft:control.dataset.removeDraft);
    if(!Number.isInteger(i)||i<0||i>=state.drafts.length)return;
-   state.drafts.splice(i,1);save();render();setStatus('Draft deleted.');
+   if(editing){
+     const draft=state.drafts[i],form=byId('social-draft-form');
+     form.elements.platform.value=draft.platform;
+     form.elements.title.value=draft.title;
+     form.elements.caption.value=draft.caption;
+     editingDraftIndex=i;
+     text('social-draft-save','Update local draft');
+     form.elements.title.focus();
+     setStatus('Editing '+draft.title+'. Save to update the existing local draft. Nothing is published.');
+     return;
+   }
+   state.drafts.splice(i,1);
+   if(editingDraftIndex===i){editingDraftIndex=null;byId('social-draft-form').reset();text('social-draft-save','Save local draft');}
+   else if(editingDraftIndex!==null&&editingDraftIndex>i)editingDraftIndex--;
+   save();render();setStatus('Draft deleted.');
  });
  byId('social-export').addEventListener('click',()=>{
    const payload={version:1,links:state.links,drafts:state.drafts,assignment:state.assignment,preview:state.preview};
@@ -138,13 +164,13 @@
    try{
      const imported=validate(JSON.parse(await file.text()));
      // Explicit import replaces local drafts, but does not change experiment assignment.
-     state.links=imported.links;state.drafts=imported.drafts;save();render();
+     state.links=imported.links;state.drafts=imported.drafts;editingDraftIndex=null;byId('social-draft-form').reset();text('social-draft-save','Save local draft');save();render();
      setStatus('Social drafts and links imported locally. No account connections were created.');
    }catch{setStatus('Import rejected: invalid or unsupported Social Studio JSON.');}
  });
  byId('social-clear').addEventListener('click',()=>{
    if(!confirm('Clear locally saved Social Studio drafts and links? This does not affect your profile editor.'))return;
-   state.links=[];state.drafts=[];save();render();setStatus('Social Studio drafts and links cleared.');
+   state.links=[];state.drafts=[];editingDraftIndex=null;byId('social-draft-form').reset();text('social-draft-save','Save local draft');save();render();setStatus('Social Studio drafts and links cleared.');
  });
  render();
 })();
