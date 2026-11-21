@@ -46,14 +46,16 @@ function jpegSize(bytes) {
   let pos = 2;
   while (pos + 9 < bytes.length) {
     if (bytes[pos++] !== 0xff) return null;
-    while (bytes[pos] === 0xff) pos++;
+    while (pos < bytes.length && bytes[pos] === 0xff) pos++;
     const marker = bytes[pos++];
     if (marker === 0xd9 || marker === 0xda) break;
+    if (pos + 2 > bytes.length) return null;
     if (marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) continue;
     const length = bytes.readUInt16BE(pos);
     if (length < 2 || pos + length > bytes.length) return null;
     if ([0xc0,0xc1,0xc2,0xc3,0xc5,0xc6,0xc7,0xc9,0xca,0xcb,0xcd,0xce,0xcf].includes(marker)) {
-      return {width: bytes.readUInt16BE(pos + 3), height: bytes.readUInt16BE(pos + 1)};
+      if (length < 7) return null;
+      return {width: bytes.readUInt16BE(pos + 5), height: bytes.readUInt16BE(pos + 3)};
     }
     pos += length;
   }
