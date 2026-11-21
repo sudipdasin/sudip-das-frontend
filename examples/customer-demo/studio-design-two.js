@@ -67,13 +67,21 @@ function updateThemeIdentity(){
    if(referencePortrait.getAttribute('src')!==next)referencePortrait.setAttribute('src',next);
  }
  if(systemLabel)systemLabel.textContent=first?'Services':'System';
- if(role && (role.textContent.trim()===originalRole||role.textContent.trim()===designTwoRole))
-   role.textContent=first?designTwoRole:originalRole;
- if(tagline && (tagline.textContent.trim()===originalTagline||tagline.textContent.trim()===designTwoTagline))
-   tagline.textContent=first?designTwoTagline:originalTagline;
+ // Translate only the stock fictional reference identity. User-edited profile
+ // fields are deliberately not machine-translated or silently overwritten.
+ const l10n=window.StudioI18n;
+ const locales=['en','hi','bn','es','fr','de','pt','ar','zh-CN','ja'];
+ const variants=[originalRole,designTwoRole,originalTagline,designTwoTagline];
+ const knownDemoText=value=>variants.some(source=>source===value||locales.some(lang=>l10n?.translate(source,lang)===value));
+ const translated=source=>l10n?.translate(source)||source;
+ if(role && knownDemoText(role.textContent.trim()))
+   role.textContent=translated(first?designTwoRole:originalRole);
+ if(tagline && knownDemoText(tagline.textContent.trim()))
+   tagline.textContent=translated(first?designTwoTagline:originalTagline);
 }
 new MutationObserver(updateThemeIdentity).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
 theme.addEventListener('change',updateThemeIdentity);
+document.addEventListener('studio:language',updateThemeIdentity);
 window.addEventListener('load',updateThemeIdentity,{once:true});
 updateThemeIdentity();
 })();
