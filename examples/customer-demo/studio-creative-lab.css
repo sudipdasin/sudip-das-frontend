@@ -39,3 +39,9 @@ body[data-creative-motion=off] .hero-art{--photo-tilt-x:0deg!important;--photo-t
 .creative-lab :is(input,button):focus-visible,.creative-command :is(input,button):focus-visible{outline:3px solid var(--accent,#5defcd);outline-offset:3px}
 @media(max-width:760px){.creative-lab-controls{grid-template-columns:1fr 1fr}.creative-lab-toggle{grid-column:1/-1}.creative-command-trigger{right:12px;bottom:12px;min-height:42px}}
 @media(max-width:520px){.creative-lab-heading{flex-wrap:wrap}.creative-lab-controls{grid-template-columns:1fr}.creative-lab-toggle{grid-column:auto}.creative-command{padding-top:20px}.creative-command-panel{max-height:90vh}}
+
+.creative-lab-heading-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:center}
+.creative-lab-import-label{display:inline-flex!important;align-items:center;justify-content:center;position:relative;padding:10px 14px;border:1px solid var(--line,#526a7a);border-radius:9px;color:var(--ink,#fff);cursor:pointer;font-size:.86rem}
+.creative-lab-import-label input{position:absolute;opacity:0;width:1px;height:1px;overflow:hidden;pointer-events:none}
+.creative-lab-import-label:focus-within{outline:3px solid var(--accent,#55ebc8);outline-offset:3px}
+@media(max-width:620px){.creative-lab-heading-actions{justify-content:flex-start}}
