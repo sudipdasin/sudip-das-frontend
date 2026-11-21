@@ -126,8 +126,7 @@
  const actions=hero.querySelector('.hero-actions');
  if(actions){
    const tour=document.createElement('button');tour.type='button';tour.className='neon-intro-button';
-   tour.textContent='▷ Watch Intro';tour.title='Open the working guided tour';
-   tour.addEventListener('click',()=>$('tour-start')?.click());
+   tour.textContent='▷ Watch Intro · Soon';tour.title='Intro video is not yet available';tour.disabled=true;
    actions.append(tour);
  }
  const value=document.createElement('section');value.className='neon-value-section';value.setAttribute('aria-label','Web Studio values');
