@@ -47,10 +47,13 @@ test('all six visual themes use distinct real SVG image files in auto mode',asyn
   assert.match(js,/attributeFilter:\['data-theme'\]/);
   assert.match(js,/src = next === 'photo'/);
 });
-test('LifeSphere identity distinguishes company app and website feature',async()=>{
+test('WebStudio is the standalone demo, while LifeSphere is found only in About/Help',async()=>{
   const html=await read('index.html');
-  assert.match(html,/LifeSphere — WebStudio Demo \| DevDas Development/);
-  assert.match(html,/LifeSphere is the application developed by/);
-  assert.match(html,/WebStudio<\/strong> is its website and portfolio creation feature/);
-  assert.match(html,/No private LifeSphere vault/);
+  assert.match(html,/WebStudio — Interactive Demo \| DevDas Development/);
+  assert.match(html,/<strong>WebStudio<\/strong>/);
+  assert.match(html,/id="ws-about-modal"/);
+  assert.match(html,/WebStudio is part of the LifeSphere suite/);
+  assert.match(html,/id="ws-suite-details"/);
+  assert.doesNotMatch(html,/id="exposure-watch"|id="lifesphere"|ls-renewal-form/);
+  assert.doesNotMatch(html,/studio-exposure\.js|studio-lifesphere-renewals\.js/);
 });
