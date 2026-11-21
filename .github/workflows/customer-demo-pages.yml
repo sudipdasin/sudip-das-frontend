@@ -11,6 +11,7 @@ on:
       - 'tests/customer-demo*.test.mjs'
       - 'tests/avatar-studio.test.mjs'
       - 'browser-tests/customer-demo.mjs'
+      - 'tests/webstudio-freemium.test.mjs'
       - '.github/workflows/customer-demo-pages.yml'
   pull_request:
     paths:
@@ -21,6 +22,7 @@ on:
       - 'tests/personal-port-contract.test.mjs'
       - 'tests/customer-demo*.test.mjs'
       - 'browser-tests/customer-demo.mjs'
+      - 'tests/webstudio-freemium.test.mjs'
       - '.github/workflows/customer-demo-pages.yml'
   workflow_dispatch:
 
@@ -56,7 +58,7 @@ jobs:
           node --check examples/customer-demo/studio-email.js
           node --check examples/customer-demo/commerce.js
           node --check scripts/build-customer-demo.mjs
-          node --test tests/customer-demo.test.mjs tests/customer-demo-build.test.mjs tests/demo-i18n.test.mjs tests/avatar-studio.test.mjs tests/personal-port-contract.test.mjs
+          node --test tests/customer-demo.test.mjs tests/customer-demo-build.test.mjs tests/demo-i18n.test.mjs tests/avatar-studio.test.mjs tests/personal-port-contract.test.mjs tests/webstudio-freemium.test.mjs
       - name: Install headless Chromium for real browser tests
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
