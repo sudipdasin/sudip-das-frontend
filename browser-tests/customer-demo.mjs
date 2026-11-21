@@ -552,6 +552,8 @@ try {
   await page.setViewportSize({width:1777,height:832});
   const orbit=page.locator('.neon-role-pills .neon-orbit-badge');
   assert.equal(await orbit.count(),5);
+  assert.equal(await page.locator('.neon-intro-button').isDisabled(),true,
+    'Unimplemented Watch Intro must be genuinely disabled');
   const g=await page.evaluate(()=>{
     const art=document.querySelector('.hero-art').getBoundingClientRect();
     const mid={x:art.left+art.width/2,y:art.top+art.height/2};
