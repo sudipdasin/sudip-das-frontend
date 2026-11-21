@@ -1,5 +1,5 @@
 import { createServer } from 'node:http';
-import {readFile} from 'node:fs/promises';
+import {readFile,mkdir} from 'node:fs/promises';
 import {resolve,join,extname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {chromium} from 'playwright';
@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -36,8 +36,8 @@ try {
   assert.equal(await page.locator('.orbit').count(),2);
  })();
  await check('Neon design assets load without a 404',async()=>{
-   const resources=await page.evaluate(()=>Promise.all(['studio-reference-layout.css','studio-reference-layout.js','neon-reference-portrait.svg','neon-horizon.svg'].map(async path=>({path,status:(await fetch(path)).status}))));
-   assert.deepEqual(resources.map(x=>x.status),[200,200,200,200],JSON.stringify(resources));
+   const resources=await page.evaluate(()=>Promise.all(['studio-reference-layout.css','studio-orbit-fidelity.css','studio-reference-layout.js','neon-reference-portrait.svg','neon-horizon.svg'].map(async path=>({path,status:(await fetch(path)).status}))));
+   assert.deepEqual(resources.map(x=>x.status),[200,200,200,200,200],JSON.stringify(resources));
    assert.equal(await page.locator('.neon-eyebrow-pill').isVisible(),true);
  })();
  await check('editing and saving fields works',async()=>{
@@ -552,5 +552,5 @@ try {
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,45);
+assert.equal(passed,46);
 console.log('Browser checks passed: '+passed);
