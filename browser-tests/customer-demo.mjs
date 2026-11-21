@@ -646,6 +646,11 @@ try {
     assert.equal(measurements.tiles,6);
     assert.ok(measurements.badges.every(b=>b.labelVisible===(theme==='neon-studio')),JSON.stringify(measurements));
     assert.match(measurements.systemText,theme==='design-2'?/Services/:/System/);
+    const source=await page.locator('.hero-art .neon-reference-photo').getAttribute('src');
+    assert.equal(source,theme==='design-2'?'design-two-reference-portrait.svg':'neon-reference-portrait.svg',
+      'Themes must not share the same reference portrait asset');
+    await page.waitForFunction(()=>{const im=document.querySelector('.hero-art .neon-reference-photo');
+      return im?.complete&&im.naturalWidth>0;});
     await page.screenshot({path:join(shots,theme+'-reference-desktop.png'),fullPage:false});
   }
   for(const theme of ['neon-studio','design-2']){
