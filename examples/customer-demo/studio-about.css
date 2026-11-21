@@ -10,7 +10,7 @@
 .ws-about-card p{margin:9px 0}
 .ws-about-features{border-top:1px solid var(--line,#3d7080);padding-top:5px}
 .ws-about-suite{margin:22px 0;padding:17px;border:1px solid color-mix(in srgb,var(--accent,#45dbc1),transparent 40%);border-radius:15px;background:color-mix(in srgb,var(--accent,#45dbc1),transparent 94%)}
-.ws-suite-button{display:inline-flex;min-height:43px;padding:10px 16px;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--accent,#45dbc1);border-radius:10px;background:color-mix(in srgb,var(--accent,#45dbc1),transparent 82%);color:var(--ink,#f6faff);font:700 .9rem/1.3 inherit}
+.ws-suite-button{display:inline-flex;min-height:43px;padding:10px 16px;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--accent,#45dbc1);border-radius:10px;background:color-mix(in srgb,var(--accent,#45dbc1),transparent 82%);color:var(--ink,#f6faff);font-size:.9rem;font-weight:700;line-height:1.3;font-family:inherit}
 .ws-suite-button:hover{background:color-mix(in srgb,var(--accent,#45dbc1),transparent 68%)}
 .ws-suite-details{margin:13px 0 0;border-top:1px solid var(--line,#3d7080);padding-top:10px}
 .ws-suite-details ul{padding-left:22px;margin:9px 0}
