@@ -114,7 +114,7 @@ try {
  })();
  await check('six-language UI changes navigation',async()=>{
    await page.locator('#studio-language').selectOption('es');
-   assert.equal(await page.locator('#studio-nav a').first().innerText(),'Acerca de');
+   assert.equal(await page.locator('#studio-nav a[data-copy="about"]').innerText(),'Acerca de');
    await page.locator('#studio-language').selectOption('hi');
    assert.equal(await page.locator('html').getAttribute('lang'),'hi');
    await page.locator('#studio-language').selectOption('en');
