@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: customer-demo-github-pages
+  group: customer-demo-github-pages-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
   cancel-in-progress: false
 
 jobs:
