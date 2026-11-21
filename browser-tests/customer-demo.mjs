@@ -968,10 +968,42 @@ try {
      assert.equal(await fresh.evaluate(()=>document.documentElement.dir),'rtl');
    }finally{await fresh.close();}
  })();
+ await check('Aurora and Cosmic branded themes persist, switch cleanly, and guided tour reaches Cosmic',async()=>{
+   const p=await browser.newPage({viewport:{width:1280,height:900}});
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     const options=await p.locator('#studio-theme option').evaluateAll(nodes=>nodes.map(n=>({id:n.value,label:n.textContent.trim()})));
+     assert.deepEqual(options.filter(x=>['neon-studio','design-2'].includes(x.id)),
+       [{id:'neon-studio',label:'Aurora'},{id:'design-2',label:'Cosmic'}]);
+     assert.ok(options.every(o=>!/^Design [12]/.test(o.label)),'Obsolete names remain in dropdown');
+     await p.locator('#studio-theme').selectOption('design-2');
+     assert.equal(await p.locator('body').getAttribute('data-theme'),'design-2');
+     assert.equal(await p.locator('.d2-feature-row').isVisible(),true);
+     assert.equal(await p.locator('.neon-feature-grid').isVisible(),false);
+     await p.reload();
+     assert.equal(await p.locator('#studio-theme').inputValue(),'design-2','Cosmic saved theme lost');
+     await p.locator('#studio-theme').selectOption('neon-studio');
+     assert.equal(await p.locator('.neon-feature-grid').isVisible(),true);
+     assert.equal(await p.locator('.d2-feature-row').isVisible(),false);
+     await p.reload();
+     assert.equal(await p.locator('#studio-theme').inputValue(),'neon-studio','Aurora saved theme lost');
+     await p.locator('#tour-start').click();
+     assert.equal(await p.locator('#demo-tour').isVisible(),true);
+     await p.locator('#tour-next').click();
+     assert.match(await p.locator('#tour-title').textContent(),/^Six themes/);
+     await p.locator('#tour-try').click();
+     assert.equal(await p.locator('#demo-tour').isVisible(),false);
+     assert.equal(await p.locator('#studio-theme').inputValue(),'design-2');
+     assert.equal(await p.locator('#studio-theme option:checked').textContent(),'Cosmic');
+     await p.locator('#studio-language').selectOption('hi');
+     assert.equal(await p.locator('#studio-theme option:checked').textContent(),'Cosmic','Theme name must remain its brand name');
+     assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=2,true);
+   }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,54);
+assert.equal(passed,55);
 console.log('Browser checks passed: '+passed);
