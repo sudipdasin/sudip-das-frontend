@@ -676,10 +676,37 @@ try {
   await page.setViewportSize({width:1280,height:900});
   await page.locator('#studio-theme').selectOption('neon-studio');
  })();
+ await check('theme round-trip preserves edited content, language, and separate reference assets',async()=>{
+   await page.setViewportSize({width:1280,height:900});
+   await page.locator('#studio-theme').selectOption('neon-studio');
+   await page.locator('#studio-language').selectOption('es');
+   if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
+   await page.locator('input[name="displayName"]').fill('Reference Demo');
+   await page.locator('input[name="role"]').fill('Custom Fictional Creator');
+   await page.getByRole('button',{name:'Save & preview'}).click();
+   for(const [theme,portrait,first,second] of [
+      ['neon-studio','neon-reference-portrait.svg',true,false],
+      ['design-2','design-two-reference-portrait.svg',false,true],
+      ['neon-studio','neon-reference-portrait.svg',true,false]
+   ]){
+     await page.locator('#studio-theme').selectOption(theme);
+     assert.equal(await page.locator('#name').innerText(),'Reference Demo');
+     assert.equal(await page.locator('#role').innerText(),'Custom Fictional Creator');
+     assert.match(await page.locator('#portrait-caption').innerText(),/Reference Demo/);
+     assert.equal(await page.locator('.hero-art .neon-reference-photo').getAttribute('src'),portrait);
+     assert.equal(await page.locator('.d2-feature-row').isVisible(),second);
+     assert.equal(await page.locator('.neon-feature-grid').isVisible(),first);
+     assert.equal(await page.locator('html').getAttribute('lang'),'es');
+     assert.equal(await page.locator('#studio-nav a[data-copy="about"]').innerText(),'Acerca de');
+     assert.equal(await page.locator('.neon-intro-button').isDisabled(),true);
+   }
+   await page.locator('#studio-language').selectOption('en');
+   await page.locator('#reset-profile').click();
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,47);
+assert.equal(passed,48);
 console.log('Browser checks passed: '+passed);
