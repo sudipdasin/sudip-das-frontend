@@ -120,3 +120,11 @@ body[data-theme="neon-studio"] .studio-nav-panel {
     overflow-y:auto;
   }
 }
+
+/* A closed menu must stay closed even while reference presentation is active.
+   The desktop reference display:block rule previously overrode hidden in Cosmic. */
+body.desktop-reference-preview .studio-nav-panel[hidden],
+body.desktop-reference-preview .system-menu-panel[hidden],
+body[data-theme="design-2"] .studio-nav-panel[hidden] {
+  display:none!important;
+}
