@@ -1108,10 +1108,77 @@ try {
        'Aurora role badges must remain untouched');
    }finally{await fresh.close();}
  })();
+ await check('fresh isolated native and mobile theme screenshots retain distinct reference structures',async()=>{
+   const cases=[
+     {theme:'neon-studio',width:1833,height:858,count:5,features:6,name:'aurora'},
+     {theme:'design-2',width:1672,height:941,count:4,features:4,name:'cosmic'},
+     {theme:'neon-studio',width:390,height:844,count:5,features:6,name:'aurora-mobile'},
+     {theme:'design-2',width:390,height:844,count:4,features:4,name:'cosmic-mobile'}
+   ];
+   for(const c of cases){
+     // Fresh context prevents edited profile, locale, open menus and storage from contaminating references.
+     const context=await browser.newContext({viewport:{width:c.width,height:c.height},deviceScaleFactor:1,reducedMotion:'reduce'});
+     const p=await context.newPage();
+     try{
+       await p.goto(url,{waitUntil:'load'});
+       await p.locator('#studio-theme').selectOption(c.theme);
+       await p.evaluate(()=>{window.scrollTo(0,0);document.querySelector('#editor')?.classList.remove('open');});
+       await p.evaluate(()=>document.fonts.ready);
+       await p.waitForTimeout(150);
+       const g=await p.evaluate(()=>{
+         const shown=el=>el&&getComputedStyle(el).display!=='none';
+         return {scrollY,scrollWidth:document.documentElement.scrollWidth,width:innerWidth,
+           editorOpen:document.querySelector('#editor')?.classList.contains('open'),
+           badges:[...document.querySelectorAll('.neon-role-pills .neon-orbit-badge')].filter(shown).length,
+           cards:[...document.querySelectorAll('.neon-feature-card')].filter(shown).length,
+           selected:document.querySelector('#studio-theme').value,
+           caption:document.querySelector('#portrait-caption')?.textContent?.trim()};
+       });
+       assert.equal(g.selected,c.theme,JSON.stringify(g));
+       assert.equal(g.scrollY,0,'Fresh reference page not at top');
+       assert.equal(g.editorOpen,false,'Editor leaked into reference capture');
+       assert.equal(g.badges,c.count,c.name+' orbit badges: '+JSON.stringify(g));
+       assert.equal(g.cards,c.features,c.name+' feature cards: '+JSON.stringify(g));
+       assert.ok(g.scrollWidth<=g.width+2,c.name+' horizontal overflow: '+JSON.stringify(g));
+       await p.screenshot({path:join(root,'dist','visual-audit','isolated-'+c.name+'-'+c.width+'.png'),fullPage:false,animations:'disabled'});
+     }finally{await context.close();}
+   }
+ })();
+ await check('all ten locales preserve theme selector focus visibility and mobile overflow',async()=>{
+   const locales=['en','hi','bn','es','fr','de','pt','ar','zh-CN','ja'];
+   const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'});
+   try{
+     const p=await context.newPage();
+     await p.goto(url,{waitUntil:'load'});
+     for(const theme of ['neon-studio','design-2']){
+       await p.locator('#studio-theme').selectOption(theme);
+       for(const locale of locales){
+         await p.locator('#studio-language').selectOption(locale);
+         await p.locator('#studio-language').focus();
+         const v=await p.evaluate(()=>{
+           const e=document.querySelector('#studio-language');
+           const r=e.getBoundingClientRect(),style=getComputedStyle(e);
+           return {lang:document.documentElement.lang,dir:document.documentElement.dir,
+             outline:style.outlineStyle,outlineWidth:parseFloat(style.outlineWidth),
+             scrollWidth:document.documentElement.scrollWidth,width:innerWidth,
+             rect:{left:r.left,right:r.right},selected:document.querySelector('#studio-theme option:checked').textContent.trim()};
+         });
+         assert.equal(v.lang,locale,'Wrong document language '+locale);
+         assert.equal(v.dir,locale==='ar'?'rtl':'ltr','Direction mismatch '+locale);
+         assert.ok(v.rect.left>=-1&&v.rect.right<=391,'Language selector clipped: '+JSON.stringify(v));
+         assert.ok(v.scrollWidth<=392,'Locale/theme horizontal overflow: '+JSON.stringify({theme,locale,...v}));
+         assert.ok(v.outline!=='none'&&v.outlineWidth>=2,'Keyboard focus invisible: '+JSON.stringify({theme,locale,...v}));
+         assert.equal(v.selected,theme==='neon-studio'?'Aurora':'Cosmic');
+       }
+     }
+     await p.locator('#studio-language').selectOption('en');
+     assert.equal(await p.locator('#studio-language').inputValue(),'en');
+   }finally{await context.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,58);
+assert.equal(passed,60);
 console.log('Browser checks passed: '+passed);
