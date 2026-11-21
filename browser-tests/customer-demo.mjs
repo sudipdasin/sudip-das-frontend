@@ -131,6 +131,7 @@ try {
   assert.equal(Object.hasOwn(recipe,'profile'),false);
   const imported={...recipe,accent:'#ff9e79',glow:40,spacing:70,theme:'editorial',language:'en'};
   await lab.locator('#creative-lab-import').setInputFiles({name:'webstudio-creative-look.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(imported))});
+  await page.waitForFunction(()=>document.querySelector('#creative-glow-value')?.textContent==='40%');
   assert.equal(await lab.locator('#creative-glow-value').innerText(),'40%');
   assert.equal(await page.locator('body').getAttribute('data-theme'),'editorial');
   assert.equal(await page.locator('body').getAttribute('data-creative-custom-spacing'),'on');
