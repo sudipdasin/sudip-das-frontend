@@ -768,8 +768,8 @@ try {
  })();
  await check('Desktop reference screenshot checks start from fresh clean homepages',async()=>{
    for(const [variant,w,h,file] of [
-     ['neon-studio',1777,832,'aurora-reference-menu-desktop.png'],
-     ['design-2',1833,858,'cosmic-reference-menu-desktop.png']
+     ['neon-studio',1833,858,'aurora-reference-menu-desktop.png'],
+     ['design-2',1672,941,'cosmic-reference-menu-desktop.png']
    ]){
      const visual=await browser.newPage({viewport:{width:w,height:h},deviceScaleFactor:1});
      try{
