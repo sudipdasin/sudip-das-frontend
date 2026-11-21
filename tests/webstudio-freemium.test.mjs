@@ -5,10 +5,10 @@ import {readFile} from 'node:fs/promises';
 const require=createRequire(import.meta.url);
 const starter=require('../examples/customer-demo/webstudio-starter.js');
 const base=JSON.parse(await readFile(new URL('../examples/customer-demo/profile.json',import.meta.url),'utf8'));
-test('only two first themes are authorized for Free manual site export',()=>{
- assert.deepEqual(Object.keys(starter.THEMES),['orbit','editorial']);
- for(const theme of ['orbit','editorial'])assert.equal(starter.validate(base,theme),true);
- for(const theme of ['terminal','aurora-peak','neon-studio','design-2'])assert.throws(()=>starter.build(base,theme),/only Orbit and Editorial/i);
+test('only three first themes are authorized for Free manual site export',()=>{
+ assert.deepEqual(Object.keys(starter.THEMES),['orbit','editorial','terminal']);
+ for(const theme of ['orbit','editorial','terminal'])assert.equal(starter.validate(base,theme),true);
+ for(const theme of ['aurora-peak','neon-studio','design-2'])assert.throws(()=>starter.build(base,theme),/only Orbit, Editorial and Terminal/i);
 });
 test('build creates stand-alone website, separate modular CSS, JSON and instructions',()=>{
  for(const theme of Object.keys(starter.THEMES)){
@@ -52,10 +52,18 @@ test('Free ZIP is valid stored-entry archive with all manual website files',asyn
 });
 test('edition manifest keeps premium additions future-only and account verification honest',async()=>{
  const edition=JSON.parse(await readFile(new URL('../examples/customer-demo/webstudio-editions.json',import.meta.url),'utf8'));
- assert.deepEqual(edition.freeThemeIds,['orbit','editorial']);
- assert.equal(edition.premiumThemeIds.length,4);
+ assert.deepEqual(edition.freeThemeIds,['orbit','editorial','terminal']);
+ assert.equal(edition.premiumThemeIds.length,3);
  assert.equal(edition.security.emailVerifiedByBackend,false);
  assert.equal(edition.security.encryptedPrivateServerCodeInClient,false);
- assert.equal(edition.feedback.trialHours,48);
+ assert.equal(edition.feedback.requiredBeforeExport,true);
  assert.equal(edition.feedback.doesNotDisableExistingExports,true);
+});
+
+test('interactive site builder is implemented separately from legacy static fallback',async()=>{
+ const source=await readFile(new URL('../examples/customer-demo/webstudio-starter.js',import.meta.url),'utf8');
+ assert.equal(typeof starter.buildInteractive,'function');
+ assert.match(source,/webstudio-runtime-manifest\\.json/);
+ assert.match(source,/webstudio-free-runtime\\.js/);
+ assert.match(source,/profile\\.json/);
 });
