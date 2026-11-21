@@ -105,7 +105,8 @@ try {
  await check('six layouts render six distinct fully loaded SVG portraits',async()=>{
    const variants=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'];
    const urls=new Set();
-   await page.getByRole('button',{name:'Customize demo'}).click().catch(()=>{});
+   if (!await page.locator('#editor').evaluate(el=>el.classList.contains('open')))
+     await page.getByRole('button',{name:'Customize demo'}).click();
    await page.locator('input[name="avatar-preset"][value="auto"]').check();
    for(const theme of variants){
      await page.locator('#studio-theme').selectOption(theme);
