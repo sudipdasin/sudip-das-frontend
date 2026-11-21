@@ -123,6 +123,8 @@ try {
   await lab.locator('#creative-lab-reset').click();
   assert.equal(await lab.locator('button[data-mood=electric]').getAttribute('aria-pressed'),'true');
   assert.equal(await page.locator('body').getAttribute('data-creative-motion'),'on');
+  // Restore original state for the legacy editor regression sequence.
+  if(await page.locator('#editor').isVisible())await page.locator('#edit-toggle').click();
  })();
  await check('keyboard quick actions switch themes and expose Help without leaking LifeSphere tools',async()=>{
   await page.keyboard.press('Control+k');
