@@ -1,99 +1,199 @@
-/* Guided free-plan onboarding, real local ZIP export, and transparent feedback.
-   No account verification claims, tracking endpoints, or artificial degradation. */
+/* WebStudio Free 3-theme interactive release flow.
+   Preview -> approve exact profile/theme -> submit feedback -> export.
+   Server receipts are real only if a configured feedback endpoint acknowledges.
+   Otherwise the user must explicitly attest that the email was sent. */
 (()=>{
  'use strict';
- const api=window.WebStudioStarter;
- const panel=document.getElementById('ws-free-starter');
- if(!panel||!api)return;
- const $=id=>document.getElementById(id);
- const steps=[
-  ['Welcome to WebStudio','Explore six distinctive visual directions. Free includes the Orbit and Editorial starter themes; the other four are Pro previews.','01','Design'],
-  ['Build a genuine portfolio','Edit your display name, role, tagline, SEO, projects, and contact information in the working local editor.','02','Create'],
-  ['Own your starter files','Generate a complete static-site ZIP with HTML, CSS, JSON and manual publishing instructions. No hosting account is needed to export.','03','Export'],
-  ['Keep your privacy','Static website files are readable by visitors. Never place passwords or private records in browser assets. Cloud vault and encrypted server features are not in this edition.','04','Protect'],
-  ['Help shape the product','Feedback after two days is appreciated. You can compose it in your email application; delivery cannot be verified from this static site.','05','Improve']
- ];
- const onboard=$('ws-free-onboard'),begin=$('ws-free-begin'),next=$('ws-free-next'),back=$('ws-free-back');
- const tourProgress=$('ws-free-step'),tourTitle=$('ws-free-tour-title'),tourCopy=$('ws-free-tour-copy'),tourIcon=$('ws-free-tour-icon');
- const terms=$('ws-free-terms'),theme=$('ws-free-theme'),email=$('ws-free-reply'),status=$('ws-free-status');
- const exportBtn=$('ws-free-export'),feedback=$('ws-free-feedback'),feedbackNotes=$('ws-free-feedback-text');
- let step=0,completed=false;
- const storeKey='webstudio:free-intro-v1';
- const firstKey='webstudio:free-feedback-start-v1';
- const feedbackAfter=48*60*60*1000;
- const safeRead=(key)=>{try{return localStorage.getItem(key);}catch{return null;}};
- const safeWrite=(key,value)=>{try{localStorage.setItem(key,value);}catch{}};
- function update(){
-  const s=steps[step];
-  tourProgress.textContent='STEP '+s[2]+' / '+steps.length+' · '+s[3].toUpperCase();
-  tourTitle.textContent=s[0];tourCopy.textContent=s[1];
-  tourIcon.textContent=['✦','◈','⬡','◇','✉'][step];
-  back.disabled=step===0;
-  next.textContent=step===steps.length-1?'Complete walkthrough':'Next chapter';
-  const percent=Math.round((step+1)/steps.length*100);
-  $('ws-free-meter').style.width=percent+'%';
+ const api=window.WebStudioStarter,$=id=>document.getElementById(id);
+ if(!api||!$('ws-free-starter'))return;
+ const embedded=new URLSearchParams(location.search).get('ws-free-preview')==='1';
+ if(embedded){
+  document.body.classList.add('ws-embedded-preview');
+  return; // Preview is the same app, but never starts another nested export.
  }
- function renderStart(){
-  completed=safeRead(storeKey)==='completed';
-  if(completed){onboard.hidden=true;begin.textContent='Replay full walkthrough';}
-  const started=Number(safeRead(firstKey)||0),elapsed=started?Date.now()-started:0;
-  if(started&&elapsed>=feedbackAfter&&!safeRead('webstudio:free-feedback-reminded-v1')){
-   $('ws-free-reminder').hidden=false;
-  }
+ const steps=[
+  ['Choose an interactive theme','Orbit, Editorial and Terminal include the working Free website runtime. Aurora Peak, Neon Studio and Cosmic are Pro previews.','01','Design'],
+  ['Personalize real website content','Edit and save your name, role, SEO, skills, projects, contact fields and links in the live local editor.','02','Create'],
+  ['Inspect the real live preview','See the exact selected theme with your saved data in an interactive browser frame, then explicitly approve it.','03','Review'],
+  ['Protect your private records','HTML, CSS, JavaScript and JSON used in a browser are readable. Never include secrets in files you publish.','04','Protect'],
+  ['Feedback unlocks the export','After approval, send detailed feedback to the developer through a verified server receipt or manually confirm you sent the prepared email.','05','Feedback']
+ ];
+ const intro=$('ws-free-onboard'),begin=$('ws-free-begin'),next=$('ws-free-next'),back=$('ws-free-back');
+ const theme=$('ws-free-theme'),reply=$('ws-free-reply'),terms=$('ws-free-terms');
+ const notes=$('ws-free-feedback-text'),feedbackButton=$('ws-free-feedback');
+ const exportButton=$('ws-free-export'),status=$('ws-free-status');
+ const previewButton=$('ws-free-preview'),panel=$('ws-free-preview-panel'),
+  frame=$('ws-free-preview-frame'),approveButton=$('ws-free-approve');
+ const approveCheckbox=$('ws-free-accept-preview'),attestButton=$('ws-free-confirm-send');
+ const key='webstudio:free-intro-v1',firstKey='webstudio:free-feedback-start-v1',
+  reminderKey='webstudio:free-feedback-reminded-v1';
+ let step=0,completed=false,approved=null,receipt=null,feedbackEndpoint='',challengeSiteKey='';
+ const storage={
+  read(k){try{return localStorage.getItem(k)}catch{return null}},
+  write(k,v){try{localStorage.setItem(k,v)}catch{}}
+ };
+ const current=()=>window.StudioDemo?.getProfile?.();
+ const signature=()=>JSON.stringify({theme:theme.value,profile:current()});
+ function notice(message){status.textContent=message;}
+ function revokeApproval(message){
+  approved=null;receipt=null;exportButton.disabled=true;attestButton.hidden=true;
+  approveCheckbox.checked=false;
+  if(message)notice(message);
+ }
+ function validReply(email){return !email||email.length<=180&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);}
+ function redrawTour(){
+  const [heading,body,index,kind]=steps[step];
+  $('ws-free-step').textContent='STEP '+index+' / 5 · '+kind.toUpperCase();
+  $('ws-free-tour-title').textContent=heading;
+  $('ws-free-tour-copy').textContent=body;
+  $('ws-free-tour-icon').textContent=['✦','◈','⬡','◇','✉'][step];
+  $('ws-free-meter').style.width=Math.round((step+1)*20)+'%';
+  back.disabled=step===0;next.textContent=step===4?'Complete walkthrough':'Next chapter';
+ }
+ function markComplete(){
+  completed=true;storage.write(key,'completed');
+  if(!storage.read(firstKey))storage.write(firstKey,String(Date.now()));
+  intro.hidden=true;begin.textContent='Replay full walkthrough';
+  notice('Walkthrough complete. Save your personal details, preview the chosen Free theme, and approve it.');
  }
  begin.addEventListener('click',()=>{
-  step=0;completed=false;onboard.hidden=false;update();
-  onboard.scrollIntoView({behavior:'smooth',block:'center'});next.focus();
+  step=0;completed=false;intro.hidden=false;redrawTour();
+  intro.scrollIntoView({behavior:'smooth',block:'center'});next.focus();
  });
- back.addEventListener('click',()=>{if(step>0){step--;update();}});
- next.addEventListener('click',()=>{
-  if(step<steps.length-1){step++;update();return;}
-  completed=true;safeWrite(storeKey,'completed');
-  if(!safeRead(firstKey))safeWrite(firstKey,String(Date.now()));
-  onboard.hidden=true;begin.textContent='Replay full walkthrough';
-  status.textContent='Walkthrough complete. Choose a free theme, accept the starter terms, and export your site.';
-  theme.focus();
- });
- function clearReminder(){
-  $('ws-free-reminder').hidden=true;safeWrite('webstudio:free-feedback-reminded-v1','1');
- }
- $('ws-free-reminder-dismiss').addEventListener('click',clearReminder);
- const validReply=v=>v===''||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)&&v.length<=180;
- exportBtn.addEventListener('click',()=>{
-  status.textContent='';
-  if(!completed){status.textContent='Complete all five walkthrough chapters before exporting.';begin.focus();return;}
-  if(!terms.checked){status.textContent='Review and accept the local export terms first.';terms.focus();return;}
-  if(!validReply(email.value.trim())){status.textContent='Enter a valid optional reply email or leave it empty.';email.focus();return;}
-  try{
-   const current=window.StudioDemo?.getProfile?.();
-   if(!current)throw Error('The editable demo profile is still loading. Try again.');
-   const files=api.build(current,theme.value),archive=api.zip(files);
-   const address=URL.createObjectURL(archive),link=document.createElement('a');
-   link.href=address;link.download='WebStudio-Free-'+theme.value+'-website.zip';
-   document.body.append(link);link.click();link.remove();
-   setTimeout(()=>URL.revokeObjectURL(address),4000);
-   status.textContent='Your self-contained site ZIP is ready. Extract it and publish manually. No files were uploaded.';
-  }catch(error){status.textContent='Export not completed: '+error.message;}
- });
+ back.addEventListener('click',()=>{if(step>0){step--;redrawTour()}});
+ next.addEventListener('click',()=>{if(step===4)markComplete();else{step++;redrawTour();}});
  $('ws-free-edit').addEventListener('click',()=>{
   const editor=$('editor');
   if(editor&&!editor.classList.contains('open'))$('edit-toggle')?.click();
   editor?.scrollIntoView({behavior:'smooth',block:'start'});
  });
- feedback.addEventListener('click',()=>{
-  const notes=feedbackNotes.value.trim(),reply=email.value.trim();
-  if(notes.length<20||notes.length>1800){status.textContent='Please write 20–1800 characters of useful product feedback.';feedbackNotes.focus();return;}
-  if(!validReply(reply)){status.textContent='The optional reply address is not valid.';email.focus();return;}
-  const subject='WebStudio Free · Product feedback';
-  const body=['WebStudio Free tester feedback','',notes,'','Preferred reply address (optional): '+(reply||'Not supplied'),
-   'Edition: Free (Orbit / Editorial)','', 'Sent by the tester using their own email application.'].join('\n');
-  const uri='mailto:sudipdasin@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-  if(uri.length>5000){status.textContent='Feedback is too long for a mail application. Please shorten it.';return;}
-  const link=document.createElement('a');link.href=uri;document.body.append(link);link.click();link.remove();
-  status.textContent='Your email application was requested. Review the message and press Send. This website cannot verify delivery.';
-  clearReminder();
+ // Save/edit/reset/import in app.js all invalidate the approved preview.
+ document.addEventListener('studio:profile-saved',()=>revokeApproval('Profile changed. Refresh and approve the updated live preview before exporting.'));
+ theme.addEventListener('change',()=>{
+  revokeApproval('Theme changed. Inspect and approve the new preview.');
+  if(!panel.hidden)refreshPreview();
  });
- // Premium theme availability is explained by the plan cards; preserve
- // localized theme selector labels and all existing translation contracts.
- update();renderStart();
+ function refreshPreview(){
+  if(panel.hidden)return;
+  const url=new URL(location.href);
+  url.searchParams.set('ws-free-preview','1');
+  url.hash='';
+  frame.src=url.href;
+  frame.onload=()=>{
+   try{
+    const select=frame.contentDocument?.getElementById('studio-theme');
+    if(select){select.value=theme.value;select.dispatchEvent(new Event('change',{bubbles:true}));}
+   }catch{notice('Interactive iframe preview could not be initialized. Confirm browser permits same-origin frames.');}
+  };
+ }
+ previewButton.addEventListener('click',()=>{
+  if(!completed){notice('Complete all five chapters first.');begin.focus();return;}
+  if(!terms.checked){notice('Accept the export terms before inspecting the final build.');terms.focus();return;}
+  try{
+   api.validate(current(),theme.value);
+   panel.hidden=false;revokeApproval();
+   refreshPreview();
+   notice('Review the full live interactive website below, then approve this exact theme and saved profile.');
+   panel.scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(error){notice('Cannot preview: '+error.message);}
+ });
+ approveButton.addEventListener('click',()=>{
+  if(panel.hidden||!frame.contentDocument||frame.contentDocument.readyState!=='complete'){
+   notice('The interactive preview is not loaded yet.');return;
+  }
+  if(!approveCheckbox.checked){notice('Check the preview approval box first.');approveCheckbox.focus();return;}
+  try{
+   api.validate(current(),theme.value);
+   approved=signature();receipt=null;exportButton.disabled=true;
+   notice('Preview approved. Submit detailed feedback to unlock ZIP generation.');
+  }catch(error){notice('Approval rejected: '+error.message);}
+ });
+ const feedbackReady=()=>{
+  if(!approved||signature()!==approved){
+   revokeApproval('Your saved profile or theme changed; preview and approve it again.');
+   return false;
+  }
+  if(notes.value.trim().length<60||notes.value.trim().length>1800){
+   notice('Detailed feedback must contain 60–1800 characters.');notes.focus();return false;
+  }
+  if(!validReply(reply.value.trim())){notice('Enter a valid optional reply email or leave it blank.');reply.focus();return false;}
+  return true;
+ };
+ const allowExport=(acknowledgment)=>{
+  if(!feedbackReady())return;
+  receipt={approved,acknowledgment,feedback:notes.value.trim(),theme:theme.value};
+  attestButton.hidden=true;exportButton.disabled=false;
+  $('ws-free-reminder').hidden=true;storage.write(reminderKey,'1');
+  notice(acknowledgment==='server-confirmed'?
+   'Feedback received by the configured service. You may generate the approved interactive ZIP.':
+   'You confirmed sending the feedback email. Delivery is not verified; ZIP generation is unlocked locally.');
+ };
+ feedbackButton.addEventListener('click',async()=>{
+  if(!feedbackReady())return;
+  feedbackButton.disabled=true;
+  const body={schemaVersion:1,theme:theme.value,feedback:notes.value.trim(),
+   replyEmail:reply.value.trim(),source:'webstudio-free-interactive-preview'};
+  try{
+   if(feedbackEndpoint){
+    const url=new URL(feedbackEndpoint,location.href);
+    if(url.protocol!=='https:')throw Error('Feedback service must use HTTPS.');
+    const response=await fetch(url.href,{method:'POST',mode:'cors',credentials:'omit',
+     headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(15000)});
+    if(!response.ok)throw Error('Feedback service failed (HTTP '+response.status+'). No receipt was issued.');
+    const ack=await response.json();
+    if(ack?.accepted!==true||typeof ack.receiptId!=='string'||ack.receiptId.length<8)
+     throw Error('Feedback service did not acknowledge delivery.');
+    allowExport('server-confirmed');
+   }else{
+    // Mailto does not provide an API acknowledgment. No false claims of submission.
+    const content=['WebStudio Free detailed user feedback','',
+     'Selected theme: '+theme.value,'',
+     notes.value.trim(),'',
+     'Reply email (optional): '+(reply.value.trim()||'Not supplied')].join('\n');
+    const uri='mailto:sudipdasin@gmail.com?subject='+encodeURIComponent('WebStudio Free tester feedback')+
+     '&body='+encodeURIComponent(content);
+    if(uri.length>6000)throw Error('Feedback is too long for a mail application.');
+    const link=document.createElement('a');link.href=uri;document.body.append(link);link.click();link.remove();
+    attestButton.hidden=false;
+    notice('Your mail application was requested. Press Send there, then confirm here. This site cannot verify email delivery.');
+   }
+  }catch(e){notice('Feedback not acknowledged: '+e.message+' ZIP remains locked.');}
+  finally{feedbackButton.disabled=false;}
+ });
+ attestButton.addEventListener('click',()=>allowExport('manually-attested-email'));
+ exportButton.addEventListener('click',async()=>{
+  if(!receipt||!approved||receipt.approved!==signature()){
+   revokeApproval('Export locked: approve the current profile and submit feedback first.');
+   return;
+  }
+  exportButton.disabled=true;
+  try{
+   notice('Collecting the exact interactive WebStudio runtime for your ZIP…');
+   const files=await api.buildInteractive(current(),theme.value);
+   if(receipt.approved!==signature())throw Error('Your profile changed during packaging. Please approve again.');
+   const blob=api.zip(files),href=URL.createObjectURL(blob),link=document.createElement('a');
+   link.href=href;link.download='WebStudio-Free-'+theme.value+'-interactive-website.zip';
+   document.body.append(link);link.click();link.remove();
+   setTimeout(()=>URL.revokeObjectURL(href),5000);
+   notice('Full interactive ZIP generated. The same WebStudio modules are included; host the site/ folder manually.');
+  }catch(error){notice('ZIP generation failed: '+error.message);}
+  finally{exportButton.disabled=false;}
+ });
+ $('ws-free-reminder-dismiss').addEventListener('click',()=>{
+  $('ws-free-reminder').hidden=true;storage.write(reminderKey,'1');
+ });
+ fetch('./webstudio-editions.json',{cache:'no-store'}).then(r=>r.json()).then(edition=>{
+  const configured=edition.feedback||{};
+  feedbackEndpoint=typeof configured.endpoint==='string'?configured.endpoint:'';
+  challengeSiteKey=typeof configured.challengeSiteKey==='string'?configured.challengeSiteKey:'';
+  if(feedbackEndpoint&& !challengeSiteKey){
+   feedbackEndpoint=''; // Don't claim server verification without a configured challenge.
+  }
+ }).catch(()=>{});
+ completed=storage.read(key)==='completed';
+ if(completed){intro.hidden=true;begin.textContent='Replay full walkthrough';}
+ const started=Number(storage.read(firstKey)||0);
+ if(started&&Date.now()-started>=48*3600000&&!storage.read(reminderKey))
+  $('ws-free-reminder').hidden=false;
+ redrawTour();
 })();
