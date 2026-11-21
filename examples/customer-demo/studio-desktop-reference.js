@@ -68,39 +68,34 @@
     ])
   );
   studioPanel.append(cosmic);
-  const setState=(panel,trigger,open)=>{
-    panel.hidden=!open;trigger.setAttribute('aria-expanded',String(open));
+  // Reference styling is available on deliberate interaction only.
+  // Auto-opening both menus on desktop obscured the hero and feature cards.
+  const isWideReference=()=>allowed.includes(document.body.dataset.theme)
+    &&window.innerWidth>=1570&&window.matchMedia('(pointer:fine)').matches;
+  const syncPreviewStyle=()=>{
+    document.body.classList.toggle(
+      'desktop-reference-preview',
+      isWideReference()&&(!studioPanel.hidden||!systemPanel.hidden)
+    );
   };
-  const preferred=()=>allowed.includes(document.body.dataset.theme)&&window.innerWidth>=1570&&window.matchMedia('(pointer:fine)').matches;
-  const refresh=()=>{
-    const variant=document.body.dataset.theme;
-    const display=preferred()&&!dismissed;
-    const isAurora=variant==='neon-studio';
-    if(display){
-      setState(studioPanel,studioTrigger,true);
-      setState(systemPanel,systemTrigger,isAurora);
-      active=true;
-      document.body.classList.add('desktop-reference-preview');
-    }else if(active){
-      setState(studioPanel,studioTrigger,false);
-      setState(systemPanel,systemTrigger,false);
-      active=false;
-      document.body.classList.remove('desktop-reference-preview');
-    }
-  };
-  // Explicit user interaction dismisses reference display, leaving menus usable.
+  // Never expand dropdowns on page load, theme change or viewport resize.
+  studioPanel.hidden=true;studioTrigger.setAttribute('aria-expanded','false');
+  systemPanel.hidden=true;systemTrigger.setAttribute('aria-expanded','false');
+  studioTrigger.addEventListener('click',syncPreviewStyle);
+  systemTrigger.addEventListener('click',syncPreviewStyle);
   document.addEventListener('pointerdown',event=>{
-    if(!active)return;
-    if(event.target.closest('.studio-nav-panel,.system-menu-panel,.studio-nav-trigger,.system-menu-trigger'))return;
-    dismissed=true;active=false;
-    document.body.classList.remove('desktop-reference-preview');
+    if(!event.target.closest('.studio-nav-dropdown,.system-menu')) {
+      // Existing click-away listeners close the panels synchronously.
+      syncPreviewStyle();
+    }
   });
-  studioTrigger.addEventListener('click',()=>{dismissed=true;active=false;document.body.classList.remove('desktop-reference-preview');});
-  systemTrigger.addEventListener('click',()=>{dismissed=true;active=false;document.body.classList.remove('desktop-reference-preview');});
   document.addEventListener('keydown',event=>{
-    if(event.key==='Escape'&&active){dismissed=true;active=false;document.body.classList.remove('desktop-reference-preview');}
+    if(event.key==='Escape')requestAnimationFrame(syncPreviewStyle);
   });
-  theme.addEventListener('change',()=>{dismissed=false;requestAnimationFrame(refresh);});
-  window.addEventListener('resize',()=>{if(window.innerWidth<1570)refresh();});
-  requestAnimationFrame(refresh);
+  theme.addEventListener('change',()=>{
+    studioPanel.hidden=true;studioTrigger.setAttribute('aria-expanded','false');
+    systemPanel.hidden=true;systemTrigger.setAttribute('aria-expanded','false');
+    syncPreviewStyle();
+  });
+  window.addEventListener('resize',syncPreviewStyle);
 })();
