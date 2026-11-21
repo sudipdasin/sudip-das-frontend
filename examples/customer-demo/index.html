@@ -56,6 +56,7 @@
   <link rel="stylesheet" href="studio-reference-portrait-placement.css?v=20261121k">
   <link rel="stylesheet" href="studio-utility-unified.css?v=20261121u">
   <link rel="stylesheet" href="studio-cosmic-orbit-fidelity.css?v=20261121orb2">
+  <link rel="stylesheet" href="studio-social.css?v=20261121social1">
 </head>
 <body data-theme="neon-studio">
   <a class="skip-link" href="#top">Skip to content</a>
@@ -208,6 +209,64 @@
         </details>
       </section>
     </main>
+    <section id="social-studio" aria-labelledby="social-studio-title">
+      <div class="social-head">
+        <div><p class="social-eyebrow">Social Studio · Local MVP</p>
+          <h2 id="social-studio-title">Your social presence, one workspace.</h2>
+          <p>Create posts, organize public profile links, compare onboarding ideas, and export your work — all without connecting accounts.</p>
+        </div>
+        <p class="social-small" id="social-summary" aria-live="polite">Local drafts and links</p>
+      </div>
+      <div class="social-module-grid">
+        <section class="social-module" aria-labelledby="social-onboarding-title">
+          <span class="social-status-label">A/B onboarding concept</span>
+          <h3 id="social-onboarding-title">Explore the experience</h3>
+          <p class="social-footnote">Your browser receives a locally saved variant. Switching below previews the alternative; no visitor experiment or server tracking is active.</p>
+          <label for="social-variant">Preview version</label>
+          <select id="social-variant" aria-label="Social onboarding variant"><option value="A">A · Connect first</option><option value="B">B · Preview first</option></select>
+          <p id="social-variant-name" aria-live="polite"></p>
+          <p id="social-variant-explanation"></p>
+          <div id="social-variant-preview"></div>
+          <div class="social-actions"><button type="button" class="ghost" id="social-reset-variant">Return to assigned variant</button></div>
+          <p class="social-footnote" id="social-local-events">Browser-only demonstration activity</p>
+        </section>
+        <section class="social-module" aria-labelledby="social-profiles-title">
+          <span class="social-status-label">Public profiles · Working locally</span>
+          <h3 id="social-profiles-title">Social profile directory</h3>
+          <p>Add HTTPS links to public profiles. A saved link is not an authenticated account connection.</p>
+          <form class="social-form" id="social-link-form">
+            <label>Platform<select name="platform" required>
+              <option>GitHub</option><option>LinkedIn</option><option>YouTube</option><option>Instagram</option><option>Facebook</option><option>Bluesky</option><option>Mastodon</option><option>X</option><option>TikTok</option><option>Other</option>
+            </select></label>
+            <label>Public HTTPS profile URL<input name="url" type="url" inputmode="url" maxlength="600" placeholder="https://example.com/your-profile" required></label>
+            <button type="submit">Save profile link</button>
+          </form>
+          <div id="social-links-list" aria-live="polite"></div>
+        </section>
+        <section class="social-module social-module-wide" aria-labelledby="social-composer-title">
+          <span class="social-status-label">Composer · Working locally</span>
+          <h3 id="social-composer-title">Draft a post</h3>
+          <div class="social-module-grid">
+            <form id="social-draft-form" class="social-form">
+              <label>Target platform<select name="platform" required><option>GitHub</option><option>LinkedIn</option><option>YouTube</option><option>Instagram</option><option>Facebook</option><option>Bluesky</option><option>Mastodon</option><option>X</option><option>TikTok</option><option>Other</option></select></label>
+              <label>Draft title<input id="social-draft-title" name="title" maxlength="90" required placeholder="A project update"></label>
+              <label>Post caption<textarea name="caption" maxlength="2000" placeholder="Write your post here"></textarea></label>
+              <button type="submit">Save local draft</button>
+              <button type="button" disabled title="Requires a secure, approved account integration">Publish to social networks · Planned</button>
+            </form>
+            <div aria-labelledby="social-saved-drafts-title"><h3 id="social-saved-drafts-title">Saved drafts</h3><div id="social-drafts-list" aria-live="polite"></div></div>
+          </div>
+        </section>
+      </div>
+      <div class="social-banner">
+        <button type="button" id="social-export">Export Social Studio JSON</button>
+        <label class="social-inline-link">Import Social Studio JSON <input id="social-import" aria-label="Import Social Studio JSON" type="file" accept="application/json,.json"></label>
+        <button type="button" class="ghost" id="social-clear">Clear local social data</button>
+        <button type="button" disabled title="Secure account connectivity is not yet implemented">Connect OAuth accounts · Planned</button>
+      </div>
+      <p id="social-status" role="status" aria-live="polite"></p>
+      <p class="social-footnote">Fictional, offline-only preview. No remote analytics, authentication, message inbox, scheduled publishing, or automated posting.</p>
+    </section>
     <section class="pricing-panel" id="studio-plans" aria-labelledby="plans-title">
       <div class="pricing-heading"><div><p class="eyebrow">Your website. Your rules.</p><h2 id="plans-title">From first draft to your own site.</h2></div><p>Explore the free demo today. Paid product plans and checkout will launch only after licensing, fulfillment, and payment verification are ready.</p></div>
       <div class="pricing-cards">
@@ -232,5 +291,6 @@
   <script src="studio-reference-layout.js?v=20261121b" defer></script>
   <script src="studio-design-two.js?v=20261121d" defer></script>
   <script src="studio-desktop-reference.js?v=20261121h" defer></script>
+  <script src="studio-social.js?v=20261121social1" defer></script>
 </body>
 </html>

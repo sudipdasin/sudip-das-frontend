@@ -67,7 +67,9 @@ test('GitHub Pages demo defaults to Neon Studio while preserving real controls',
     assert.doesNotMatch(html,new RegExp('<button[^>]*disabled[^>]*id="'+id+'"'));
   }
   const planned=html.match(/<button type="button" disabled title="[^"]+">/g)||[];
-  assert.equal(planned.length,6);
+  assert.equal(planned.length,8); // Six existing future actions plus Social Studio OAuth/publishing
   assert.match(html,/class="studio-planned-grid"/);
   assert.match(html,/Coming soon/);
+  assert.match(html,/id="social-studio"/);
+  assert.match(html,/Publish to social networks · Planned/);
 });
