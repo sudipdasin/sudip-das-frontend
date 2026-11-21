@@ -4,7 +4,7 @@
    Source photograph is a low-resolution existing asset: CSS must not pretend to
    recover source detail. Reduce enlargement until a higher-res asset is available.
 */
-body[data-theme="design-2"] .hero-art{
+body[data-theme="design-2"] main>.hero .hero-art{
   --portrait-diameter:clamp(238px,17.5vw,294px);
   --orbit-inner-diameter:calc(var(--portrait-diameter) * 1.17);
   --orbit-outer-diameter:calc(var(--portrait-diameter) * 1.4);
