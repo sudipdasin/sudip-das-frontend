@@ -749,7 +749,7 @@ try {
   ];
   for(const [theme,filename] of images){
     await page.locator('#studio-theme').selectOption(theme);
-    await page.setViewportSize({width:theme==='neon-studio'?1777:1833,height:theme==='neon-studio'?941:858});
+    await page.setViewportSize({width:theme==='neon-studio'?1833:1672,height:theme==='neon-studio'?858:941});
     const actual=await page.evaluate(()=>{
       const hero=document.querySelector('main>.hero');
       return {background:getComputedStyle(hero,'::before').backgroundImage,overflow:document.documentElement.scrollWidth-innerWidth};
