@@ -35,6 +35,9 @@
  };
  let state=read();
  let editingDraftIndex=null;
+ const cancelButton=byId('social-draft-cancel');
+ const stopEditing=()=>{editingDraftIndex=null;byId('social-draft-form').reset();text('social-draft-save','Save local draft');cancelButton.hidden=true;};
+ cancelButton.addEventListener('click',()=>{stopEditing();setStatus('Draft editing cancelled; saved draft unchanged.');});
  function save(){
    try{localStorage.setItem(KEY,JSON.stringify(state));return true;}
    catch{setStatus('Browser storage unavailable. Export your drafts to retain them.');return false;}
@@ -125,7 +128,7 @@
      if(!Number.isInteger(editingDraftIndex)||editingDraftIndex<0||editingDraftIndex>=state.drafts.length){editingDraftIndex=null;setStatus('Draft no longer exists. Please save a new draft.');return;}
      const existing=state.drafts[editingDraftIndex];
      state.drafts[editingDraftIndex]={...draft,id:existing.id,created:existing.created};
-     editingDraftIndex=null;event('draft_saved');form.reset();text('social-draft-save','Save local draft');render();setStatus('Local draft updated. Nothing has been posted.');return;
+     stopEditing();event('draft_saved');render();setStatus('Local draft updated. Nothing has been posted.');return;
    }
    state.drafts.push(draft);event('draft_saved');form.reset();render();setStatus('Draft saved locally. Nothing has been posted.');
  });
@@ -140,13 +143,13 @@
      form.elements.title.value=draft.title;
      form.elements.caption.value=draft.caption;
      editingDraftIndex=i;
-     text('social-draft-save','Update local draft');
+     text('social-draft-save','Update local draft');cancelButton.hidden=false;
      form.elements.title.focus();
      setStatus('Editing '+draft.title+'. Save to update the existing local draft. Nothing is published.');
      return;
    }
    state.drafts.splice(i,1);
-   if(editingDraftIndex===i){editingDraftIndex=null;byId('social-draft-form').reset();text('social-draft-save','Save local draft');}
+   if(editingDraftIndex===i){stopEditing();}
    else if(editingDraftIndex!==null&&editingDraftIndex>i)editingDraftIndex--;
    save();render();setStatus('Draft deleted.');
  });
@@ -164,7 +167,7 @@
    try{
      const imported=validate(JSON.parse(await file.text()));
      // Explicit import replaces local drafts, but does not change experiment assignment.
-     state.links=imported.links;state.drafts=imported.drafts;editingDraftIndex=null;byId('social-draft-form').reset();text('social-draft-save','Save local draft');save();render();
+     state.links=imported.links;state.drafts=imported.drafts;stopEditing();save();render();
      setStatus('Social drafts and links imported locally. No account connections were created.');
    }catch{setStatus('Import rejected: invalid or unsupported Social Studio JSON.');}
  });
