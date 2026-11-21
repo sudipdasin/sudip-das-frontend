@@ -135,6 +135,8 @@ try {
    await page.locator('.avatar-studio button').click();
    await page.waitForFunction(()=>document.body.dataset.avatarPreset==='terminal');
    assert.equal(await page.locator('#avatar img[data-avatar-choice]').getAttribute('src'),'./avatar-terminal.svg');
+   // Restore the canonical initial layout; Terminal's section pager hides later case-study controls.
+   await page.locator('#studio-theme').selectOption('neon-studio');
  })();
  await check('editable project case study opens',async()=>{
    await page.locator('#projects .project-study summary').first().click();
