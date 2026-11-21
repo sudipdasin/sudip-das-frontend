@@ -81,3 +81,13 @@ The default profile is the entirely fictional **Dev Das**. Its bundled AI-genera
 **Aurora Peak** (cinematic blue-green aurora) and **Neon Studio** (violet/cyan modern studio) are now selectable alongside Orbit, Editorial and Terminal. Their typography, backgrounds, surfaces and portrait/orbit treatment are responsive.
 
 The default fictional **Dev Das** portrait is now a genuine hand-authored SVG: no embedded JPEG, PNG, WebP or stock photo. The customer demo intentionally does not permit raster portrait uploads. Existing imported JSON containing a raster portrait is sanitized to an empty value and the SVG illustration is displayed instead. The full commercial product can retain separate customer image management subject to licensing, privacy and validation.
+
+## Avatar Studio — theme-aware portrait presets and private photo preview
+
+The public demo offers two distinct hand-authored SVG presets:
+- **Creative developer** (headphones and hoodie) — defaults on Orbit, Terminal, Aurora Peak, Neon Studio, and Cosmic.
+- **Professional developer** (formal jacket) — defaults on Editorial.
+
+Choose **Match active theme** for automatic selection or force either preset from the customization wizard. You can also select **My photo** by uploading a JPEG, PNG, or WebP image up to 8 MB, and adjust the vertical crop position. Upload is a local browser preview only: it uses an ephemeral object URL, is not persisted, is not added to exported JSON, and is never uploaded to a backend. Switching themes preserves the current manual selection. Reloading the page restores the last vector preset, not the private photo. Use **Remove uploaded photo** to revert.
+
+This feature is part of the fictional buyer preview, not customer identity hosting, face processing, or online photo storage. The creative SVG is original vector artwork representing the requested casual developer concept; the original user-supplied raster illustration is not redistributed in this public repo.
