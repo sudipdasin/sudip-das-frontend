@@ -84,7 +84,7 @@
     document.body.style.setProperty('--customer-background',profile.appearance.background);
     document.body.dataset.customBackground=initialProfile&&profile.appearance.background!==initialProfile.appearance.background?'true':'false';
     document.dispatchEvent(new CustomEvent('studio:profile',{detail:{displayName:identity.displayName}}));
-    document.title='LifeSphere WebStudio — ' + (profile.seo.title || identity.displayName + ' | Demo Portfolio') + ' (Fictional Demo)';
+    document.title='WebStudio — ' + (profile.seo.title || identity.displayName + ' | Demo Portfolio') + ' (Fictional Demo)';
     const meta=document.querySelector('meta[name="description"]');
     if(meta)meta.content=profile.seo.description;
     byId('skills').replaceChildren(...profile.skills.map(s=>make('span',localized(s),'chip')));
