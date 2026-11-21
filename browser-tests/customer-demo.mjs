@@ -725,7 +725,7 @@ try {
    for(const [theme,portrait,first,second] of [
       ['neon-studio','./avatar-neon-studio.svg',true,false],
       ['design-2','./avatar-design-2.svg',false,true],
-      ['neon-studio','neon-reference-portrait.svg',true,false]
+      ['neon-studio','./avatar-neon-studio.svg',true,false]
    ]){
      await page.locator('#studio-theme').selectOption(theme);
      assert.equal(await page.locator('#name').innerText(),'Reference Demo');
