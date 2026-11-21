@@ -143,3 +143,15 @@ body[data-theme="neon-studio"] .neon-feature-card small{
  body[data-theme="neon-studio"] .neon-feature-grid{grid-template-columns:1fr}
  body[data-theme="neon-studio"] .neon-value-section{padding:15px}
 }
+
+
+/* Refined from the inspected native-size Chromium screenshot. */
+body[data-theme="neon-studio"] main>.hero h1 .neon-name-gradient{
+ background:linear-gradient(90deg,#f9faff,#e5ecff 60%,#9eeefb);
+ background-clip:text;-webkit-background-clip:text;color:transparent;
+}
+body[data-theme="neon-studio"] main>.hero h1::after{
+ content:"";display:inline-block;width:.18em;height:.18em;min-width:15px;min-height:15px;
+ border-radius:50%;background:#00eff0;vertical-align:.08em;margin-left:.025em;
+ box-shadow:0 0 8px #00eafa45;
+}
