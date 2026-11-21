@@ -569,12 +569,23 @@ try {
       spanY:Math.max(...badges.map(b=>b.y))-Math.min(...badges.map(b=>b.y)),
       brand:{headingTop:first.top,subtitleTop:sub.top,headingLeft:first.left,subtitleLeft:sub.left},
       overlap:badges.some((a,i)=>badges.some((b,j)=>j>i&&overlap(a,b)>12)),
+      headerBottom:document.querySelector('.nav-bar').getBoundingClientRect().bottom,
+      caption:(()=>{const r=document.querySelector('.hero-art .portrait-caption').getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2,width:r.width,height:r.height}})(),
+      valueTop:document.querySelector('.neon-value-section').getBoundingClientRect().top,
       overflow:document.documentElement.scrollWidth-innerWidth};
   });
   assert.ok(g.badges.every(b=>b.visible&&b.icon),JSON.stringify(g));
   assert.ok(g.distances.every(d=>d>145&&d<325),'Badges are not around orbit: '+JSON.stringify(g));
   assert.ok(g.spanX>180&&g.spanY>230,'Badges are stacked: '+JSON.stringify(g));
   assert.equal(g.overlap,false,'Badges overlap: '+JSON.stringify(g));
+  assert.ok(g.badges[0].y-g.badges[0].height/2>g.headerBottom+2,
+    'Developer badge is hidden beneath header: '+JSON.stringify(g));
+  assert.ok(g.badges.every(b=>b.y+b.height/2<g.valueTop-5),
+    'Badge collides with value band: '+JSON.stringify(g));
+  const captionOverlap=(a,b)=>Math.max(0,Math.min(a.x+a.width/2,b.x+b.width/2)-Math.max(a.x-a.width/2,b.x-b.width/2))*
+    Math.max(0,Math.min(a.y+a.height/2,b.y+b.height/2)-Math.max(a.y-a.height/2,b.y-b.height/2));
+  assert.ok(g.badges.every(b=>captionOverlap(b,g.caption)<6),
+    'Badge overlaps name caption: '+JSON.stringify(g));
   assert.ok(g.brand.subtitleTop>g.brand.headingTop+10,'Subtitle not stacked under brand title');
   assert.ok(Math.abs(g.brand.subtitleLeft-g.brand.headingLeft)<4,'Brand text not left aligned');
   assert.ok(g.overflow<=2,'Desktop overflow: '+g.overflow);
