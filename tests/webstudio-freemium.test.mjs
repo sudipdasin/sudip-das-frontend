@@ -57,7 +57,7 @@ test('edition manifest keeps premium additions future-only and account verificat
  assert.equal(edition.security.emailVerifiedByBackend,false);
  assert.equal(edition.security.encryptedPrivateServerCodeInClient,false);
  assert.equal(edition.feedback.requiredBeforeExport,true);
- assert.equal(edition.feedback.doesNotDisableExistingExports,true);
+ assert.equal(edition.feedback.requiresPreviewApproval,true);
 });
 
 test('interactive site builder is implemented separately from legacy static fallback',async()=>{
