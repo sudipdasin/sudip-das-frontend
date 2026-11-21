@@ -1351,6 +1351,7 @@ try {
        localStorage.setItem(key,JSON.stringify(data));
      },key);
      await p.reload();
+     await p.locator('#social-reset-variant').click(); // Save the sanitized in-memory state.
      const normalized=await p.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
      assert.deepEqual(normalized.events,{preview_opened:0,link_saved:0,draft_saved:7,exported:3});
      assert.equal(await p.locator('#social-links-list a').count(),1);
