@@ -1330,10 +1330,40 @@ try {
      assert.equal(await p.getByRole('button',{name:/Publish to social networks/}).isDisabled(),true);
    }finally{await p.close();}
  })();
+ await check('Social Studio browser counters survive reload and corrupted local data fails closed',async()=>{
+   const p=await browser.newPage({viewport:{width:390,height:844}});
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     const key='web-studio:social-studio:v1';
+     await p.locator('#social-variant').selectOption('B');
+     await p.locator('#social-link-form input[name="url"]').fill('https://example.com/creator');
+     await p.locator('#social-link-form button[type="submit"]').click();
+     const before=await p.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
+     assert.ok(before.events.preview_opened>=1);
+     assert.equal(before.events.link_saved,1);
+     await p.reload();
+     const after=await p.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
+     assert.deepEqual(after.events,before.events,'Local event counters must survive reload');
+     assert.equal(await p.locator('#social-links-list a').count(),1);
+     await p.evaluate(key=>{
+       const data=JSON.parse(localStorage.getItem(key));
+       data.events={preview_opened:1e100,link_saved:-4,draft_saved:7,exported:3,secret:123};
+       localStorage.setItem(key,JSON.stringify(data));
+     },key);
+     await p.reload();
+     const normalized=await p.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
+     assert.deepEqual(normalized.events,{preview_opened:0,link_saved:0,draft_saved:7,exported:3});
+     assert.equal(await p.locator('#social-links-list a').count(),1);
+     await p.evaluate(key=>localStorage.setItem(key,'x'.repeat(100001)),key);
+     await p.reload();
+     assert.equal(await p.locator('#social-links-list a').count(),0,'Oversized local data must be rejected');
+     assert.ok(['A','B'].includes(await p.locator('#social-variant').inputValue()));
+   }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,66);
+assert.equal(passed,67);
 console.log('Browser checks passed: '+passed);
