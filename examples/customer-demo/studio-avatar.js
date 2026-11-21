@@ -89,6 +89,14 @@
       avatar.replaceChildren(image);
     }
     if (image.getAttribute('src') !== src) image.setAttribute('src',src);
+    // Preserve the artwork geometry of Aurora and Cosmic by putting the SAME
+    // selected SVG in their reference-size positioning element.
+    const positioned = hero.querySelector('.neon-reference-photo');
+    if (positioned && next !== 'photo') {
+      if (positioned.getAttribute('src') !== src) positioned.setAttribute('src', src);
+      positioned.alt = '';
+      positioned.setAttribute('aria-hidden','true');
+    }
     image.style.objectPosition = 'center ' + photoPosition + '%';
     document.body.classList.add('avatar-studio-active');
     document.body.dataset.avatarPreset = next;
