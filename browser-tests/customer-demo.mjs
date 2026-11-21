@@ -887,10 +887,48 @@ try {
     assert.ok(colors.size>=5,'Theme colors did not vary across layouts: '+JSON.stringify([...colors]));
   }finally{await fresh.close();}
  })();
+ await check('all nine translations cover shared UI, both reference themes and default hero without changing customer edits',async()=>{
+  const langPack=JSON.parse(await readFile(join(root,'examples','customer-demo','i18n-theme.json'),'utf8')).translations;
+  const visual=await browser.newPage({viewport:{width:1440,height:900}});
+  try{
+    await visual.goto(url,{waitUntil:'load'});
+    assert.equal(await visual.evaluate(()=>window.StudioI18nReady),true,'Local translation dictionaries did not initialize');
+    for(const lang of ['hi','bn','es','fr','de','pt','ar','zh-CN','ja']){
+      await visual.locator('#studio-language').selectOption(lang);
+      const expected=langPack[lang];
+      assert.equal(await visual.locator('.studio-utility-brand strong').innerText(),expected['Web Studio'],lang+' branding');
+      assert.equal(await visual.locator('.studio-utility-trust span').innerText(),expected['You are in control of your web presence and your data'],lang+' trust line');
+      assert.equal(await visual.locator('.cosmic-menu-section h3').first().innerText(),expected['Profile & Content'],lang+' dropdown category');
+      assert.equal(await visual.locator('.cosmic-menu-label').first().innerText(),expected['Edit Profile'],lang+' dropdown action');
+      await visual.locator('#studio-theme').selectOption('neon-studio');
+      assert.equal(await visual.locator('#role').innerText(),expected['Creative Developer & Interface Engineer'],lang+' Aurora role');
+      await visual.locator('#studio-theme').selectOption('design-2');
+      assert.equal(await visual.locator('#role').innerText(),expected['Developer · Designer · Creator'],lang+' Cosmic role');
+      assert.equal(await visual.locator('.d2-feature h3').first().innerText(),expected['Everlasting Presence'],lang+' product card');
+      const state=await visual.evaluate(()=>({lang:document.documentElement.lang,dir:document.documentElement.dir,
+        overflow:document.documentElement.scrollWidth-innerWidth}));
+      assert.equal(state.lang,lang);
+      assert.equal(state.dir,lang==='ar'?'rtl':'ltr');
+      assert.ok(state.overflow<=2,lang+' 1440px overflow '+JSON.stringify(state));
+    }
+    await visual.locator('#studio-language').selectOption('en');
+    assert.equal(await visual.locator('#role').innerText(),'Developer · Designer · Creator','English restore');
+    assert.equal(await visual.locator('.studio-utility-brand strong').innerText(),'Web Studio','Brand restore');
+    await visual.locator('#studio-theme').selectOption('neon-studio');
+    assert.equal(await visual.locator('#role').innerText(),'Creative Developer & Interface Engineer','Theme identity restores');
+    await visual.setViewportSize({width:390,height:844});
+    await visual.locator('#studio-language').selectOption('ar');
+    const mobile=await visual.evaluate(()=>({dir:document.documentElement.dir,overflow:document.documentElement.scrollWidth-innerWidth,
+      height:document.querySelector('.studio-utility-bar').getBoundingClientRect().height}));
+    assert.equal(mobile.dir,'rtl');
+    assert.ok(mobile.height<=42&&mobile.overflow<=2,'Arabic mobile UI overflow '+JSON.stringify(mobile));
+    await visual.locator('#studio-language').selectOption('en');
+  }finally{await visual.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,52);
+assert.equal(passed,53);
 console.log('Browser checks passed: '+passed);
