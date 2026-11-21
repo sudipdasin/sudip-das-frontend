@@ -1520,10 +1520,33 @@ try {
      assert.equal(await p.getByRole('button',{name:/Publish to social networks/}).isDisabled(),true);
    }finally{await p.close();}
  })();
+ await check('local launch-readiness inspector audits the fictional demo without publishing',async()=>{
+  const p=await browser.newPage({viewport:{width:1440,height:900},acceptDownloads:true});
+  try{
+    await p.goto(url,{waitUntil:'load'});
+    await p.locator('#system-menu-trigger').click();
+    await p.locator('#studio-audit-open').click();
+    const dialog=p.locator('#studio-audit-dialog');
+    assert.equal(await dialog.isVisible(),true,'Readiness dialog did not open');
+    assert.equal(await p.locator('#system-menu-panel').isVisible(),false,'Background system menu must close');
+    assert.equal(await dialog.locator('.studio-audit-row').count(),10,'Expected ten advisory checks');
+    assert.match(await dialog.locator('.studio-audit-summary').innerText(),/10 advisory checks pass|of 10 advisory checks pass/);
+    await dialog.locator('button',{hasText:'Run checks again'}).click();
+    assert.equal(await dialog.locator('.studio-audit-row').count(),10);
+    const downloadEvent=p.waitForEvent('download');
+    await dialog.locator('.studio-audit-export').click();
+    const download=await downloadEvent;
+    assert.equal(download.suggestedFilename(),'webstudio-demo-readiness.json');
+    await p.keyboard.press('Escape');
+    assert.equal(await dialog.isVisible(),false,'Escape must close readiness inspector');
+    assert.equal(await p.locator('#system-menu-trigger').evaluate(el=>document.activeElement===el),true,
+      'Focus must return to the visible system menu trigger');
+  }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,72);
+assert.equal(passed,73);
 console.log('Browser checks passed: '+passed);
