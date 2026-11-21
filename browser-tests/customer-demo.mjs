@@ -1175,10 +1175,40 @@ try {
      assert.equal(await p.locator('#studio-language').inputValue(),'en');
    }finally{await context.close();}
  })();
+ await check('Aurora five role badges follow a scaled right-side arc on isolated native and mobile pages',async()=>{
+   for(const [width,height] of [[1833,858],[1280,900],[390,844]]){
+     const isolated=await browser.newContext({viewport:{width,height},deviceScaleFactor:1,reducedMotion:'reduce'});
+     const p=await isolated.newPage();
+     try{
+       await p.goto(url,{waitUntil:'load'});
+       await p.locator('#studio-theme').selectOption('neon-studio');
+       await p.evaluate(()=>scrollTo(0,0));
+       const g=await p.evaluate(()=>{
+         const art=document.querySelector('main>.hero .hero-art');
+         const photo=art.querySelector('.neon-reference-photo').getBoundingClientRect();
+         const cx=photo.left+photo.width/2,cy=photo.top+photo.height/2;
+         const badges=[...art.querySelectorAll('.neon-orbit-badge')].filter(e=>getComputedStyle(e).display!=='none').map(e=>{
+           const r=e.getBoundingClientRect();
+           return {x:r.left+r.width/2-cx,y:r.top+r.height/2-cy,left:r.left,right:r.right};
+         });
+         return {badges,scrollWidth:document.documentElement.scrollWidth,
+           editorClosed:document.querySelector('#editor')?.hidden,
+           scrollY:window.scrollY};
+       });
+       assert.equal(g.badges.length,5,'Aurora must show five distinct role badges at '+width);
+       assert.ok(g.badges.every(b=>b.x>0),'Aurora badges must remain right of portrait center: '+JSON.stringify(g));
+       assert.ok(g.badges.every((b,i,a)=>i===0||b.y>a[i-1].y+5),
+         'Aurora role arc must descend without collisions: '+JSON.stringify(g));
+       assert.ok(g.scrollWidth<=width+2,'Aurora horizontal overflow at '+width+': '+JSON.stringify(g));
+       assert.equal(g.scrollY,0);
+       await p.screenshot({path:join(root,'dist','visual-audit','aurora-responsive-role-arc-'+width+'.png'),fullPage:false});
+     }finally{await isolated.close();}
+   }
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,60);
+assert.equal(passed,61);
 console.log('Browser checks passed: '+passed);

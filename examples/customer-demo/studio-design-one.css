@@ -72,11 +72,13 @@ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge{
  background:#052034c5;box-shadow:0 0 10px #00e9e422;
  transform:translate(-50%,-50%) translate(var(--orbit-x),var(--orbit-y));
 }
-body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1){--orbit-x:calc(var(--badge-r)*.96);--orbit-y:-153px}
-body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(2){--orbit-x:calc(var(--badge-r)*1.1);--orbit-y:-79px}
-body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(3){--orbit-x:calc(var(--badge-r)*1.12);--orbit-y:-5px}
-body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(4){--orbit-x:calc(var(--badge-r)*1.12);--orbit-y:69px}
-body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){--orbit-x:calc(var(--badge-r)*1.01);--orbit-y:143px}
+/* Keep Aurora's FIVE text/icon pills on a right-side arc, scaled to the
+   portrait orbit instead of fixed vertical pixel offsets at smaller widths. */
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1){--orbit-x:calc(var(--badge-r)*.96);--orbit-y:calc(var(--badge-r)*-.715)}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(2){--orbit-x:calc(var(--badge-r)*1.1);--orbit-y:calc(var(--badge-r)*-.369)}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(3){--orbit-x:calc(var(--badge-r)*1.12);--orbit-y:calc(var(--badge-r)*-.023)}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(4){--orbit-x:calc(var(--badge-r)*1.12);--orbit-y:calc(var(--badge-r)*.322)}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){--orbit-x:calc(var(--badge-r)*1.01);--orbit-y:calc(var(--badge-r)*.668)}
 body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge .neon-orbit-bubble{
  width:27px;height:27px;
  background:#063146;border-color:#076681;
@@ -133,11 +135,11 @@ body[data-theme="neon-studio"] .neon-feature-card small{
  }
  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-label{display:none!important}
  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-bubble{width:25px;height:25px}
- body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1){--orbit-x:90px;--orbit-y:-145px}
- body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(2){--orbit-x:145px;--orbit-y:-75px}
- body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(3){--orbit-x:156px;--orbit-y:0px}
- body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(4){--orbit-x:145px;--orbit-y:75px}
- body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){--orbit-x:90px;--orbit-y:145px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1){--orbit-x:calc(var(--badge-r)*.616);--orbit-y:calc(var(--badge-r)*-.993)}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(2){--orbit-x:calc(var(--badge-r)*.993);--orbit-y:calc(var(--badge-r)*-.514)}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(3){--orbit-x:calc(var(--badge-r)*1.068);--orbit-y:0px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(4){--orbit-x:calc(var(--badge-r)*.993);--orbit-y:calc(var(--badge-r)*.514)}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){--orbit-x:calc(var(--badge-r)*.616);--orbit-y:calc(var(--badge-r)*.993)}
 }
 @media(max-width:600px){
  body[data-theme="neon-studio"] .neon-feature-grid{grid-template-columns:1fr}
