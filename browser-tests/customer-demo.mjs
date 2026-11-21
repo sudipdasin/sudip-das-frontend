@@ -628,9 +628,9 @@ try {
       const visible=selector=>{const e=document.querySelector(selector);return !!e&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0;};
       const roleBadges=[...document.querySelectorAll('.neon-role-pills .neon-orbit-badge')];
       const style=roleBadges.map(e=>({display:getComputedStyle(e).display,labelVisible:getComputedStyle(e.querySelector('.neon-orbit-label')).display!=='none'}));
-      return {theme:document.body.dataset.theme,utility:visible('.d1-utility'),stats:visible('.d1-stats'),
-        four:visible('.d1-feature-row'),six:visible('.neon-feature-grid'),value:visible('.neon-value-section'),
-        cards:document.querySelectorAll('.d1-feature-row .d1-feature').length,
+      return {theme:document.body.dataset.theme,utility:visible('.d2-utility'),stats:visible('.d2-stats'),
+        four:visible('.d2-feature-row'),six:visible('.neon-feature-grid'),value:visible('.neon-value-section'),
+        cards:document.querySelectorAll('.d2-feature-row .d2-feature').length,
         tiles:document.querySelectorAll('.neon-feature-grid .neon-feature-card').length,
         systemText:document.querySelector('#system-menu-trigger').textContent.trim(),
         badges:style,overflow:document.documentElement.scrollWidth-innerWidth};
