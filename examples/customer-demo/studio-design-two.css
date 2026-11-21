@@ -905,7 +905,7 @@ body[data-theme="design-2"] .d2-utility strong{font-size:15px;color:#eef6ff}
 
 /* Reference 2: nameplate with the smaller "Developer & Creator" subtitle.
    The name itself remains dynamic when users edit their fictional profile. */
-body[data-theme="design-2"] .hero-art .portrait-caption{
+body[data-theme="design-2"] main>.hero .hero-art .portrait-caption{
  display:flex!important;flex-direction:column;align-items:center;justify-content:center;
  min-width:235px;max-width:88%;min-height:60px;
  font-size:22px!important;line-height:1.1;font-weight:800;
