@@ -902,3 +902,20 @@ body[data-theme="design-2"] .d2-utility-shield svg{
 }
 body[data-theme="design-2"] .d2-utility{gap:18px}
 body[data-theme="design-2"] .d2-utility strong{font-size:15px;color:#eef6ff}
+
+/* Reference 2: nameplate with the smaller "Developer & Creator" subtitle.
+   The name itself remains dynamic when users edit their fictional profile. */
+body[data-theme="design-2"] .hero-art .portrait-caption{
+ display:flex!important;flex-direction:column;align-items:center;justify-content:center;
+ min-width:235px;max-width:88%;min-height:60px;
+ font-size:22px!important;line-height:1.1;font-weight:800;
+ color:#fff!important;letter-spacing:-.02em;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+ border:1px solid #00d9f3!important;background:#052041ed!important;
+ padding:8px 16px!important;border-radius:24px!important;
+}
+body[data-theme="design-2"] .hero-art .portrait-caption::after{
+ content:"Developer & Creator";display:block;margin-top:5px;
+ color:#e6f3ff;font-size:13px;line-height:1.1;font-weight:500;
+ letter-spacing:0;white-space:nowrap;
+}
