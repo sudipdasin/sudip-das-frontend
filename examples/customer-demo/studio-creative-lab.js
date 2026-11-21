@@ -56,6 +56,7 @@
     document.body.style.setProperty('--creative-glow',String(state.glow/100));
     document.body.style.setProperty('--creative-rhythm',String(state.spacing/100));
     document.body.dataset.creativeMotion=state.motion?'on':'off';
+    document.body.dataset.creativeCustomSpacing=state.spacing===50?'off':'on';
     document.documentElement.style.setProperty('--creative-accent',state.accent);
     glow.value=state.glow;spacing.value=state.spacing;motion.checked=state.motion;
     panel.querySelector('#creative-glow-value').textContent=state.glow+'%';
@@ -91,7 +92,7 @@
   trigger.textContent='⌘ Quick actions';
   trigger.setAttribute('aria-keyshortcuts','Control+K Meta+K');
   const editorToggle=document.getElementById('edit-toggle');
-  if(editorToggle)editorToggle.insertAdjacentElement('beforebegin',trigger);
+  document.body.append(trigger);
   let previous=null,found=[];
   const search=shell.querySelector('#creative-command-search'),results=shell.querySelector('#creative-command-results');
   const actions=[
