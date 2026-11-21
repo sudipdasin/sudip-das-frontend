@@ -5,6 +5,7 @@ on:
     paths:
       - 'examples/customer-demo/**'
       - 'scripts/build-customer-demo.mjs'
+      - 'scripts/verify-customer-demo.mjs'
       - 'tests/customer-demo*.test.mjs'
       - 'tests/avatar-studio.test.mjs'
       - 'browser-tests/customer-demo.mjs'
@@ -13,6 +14,7 @@ on:
     paths:
       - 'examples/customer-demo/**'
       - 'scripts/build-customer-demo.mjs'
+      - 'scripts/verify-customer-demo.mjs'
       - 'tests/customer-demo*.test.mjs'
       - 'browser-tests/customer-demo.mjs'
       - '.github/workflows/customer-demo-pages.yml'
@@ -67,6 +69,8 @@ jobs:
           retention-days: 14
       - name: Produce isolated Pages artifact
         run: node scripts/build-customer-demo.mjs
+      - name: Verify built preview and inspect for accidental secrets
+        run: node scripts/verify-customer-demo.mjs
       - name: Upload deployment artifact
         uses: actions/upload-pages-artifact@v4
         with:
