@@ -14,7 +14,7 @@ test('preview build contains only fictional sample assets',async()=>{
   const data=JSON.parse(await readFile(join(output,'profile.json'),'utf8'));
   assert.equal(data.demo,true);
   assert.equal(data.identity.displayName,'Dev Das');
-  assert.match(await readFile(join(output,'index.html'),'utf8'),/CUSTOMER DEMO|Customer Demo/i);
+  assert.match(await readFile(join(output,'index.html'),'utf8'),/LifeSphere — WebStudio Demo/);
   assert.equal(await readFile(join(output,'robots.txt'),'utf8'),'User-agent: *\nDisallow: /\n');
  }finally{await rm(output,{recursive:true,force:true});}
 });
