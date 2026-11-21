@@ -120,7 +120,22 @@ try {
   assert.equal(await lab.locator('#creative-glow-value').innerText(),'25%');
   await lab.locator('#creative-motion').uncheck();
   assert.equal(await page.locator('body').getAttribute('data-creative-motion'),'off');
+  // Confirm export contains only visual controls and re-import validates the schema.
+  const promise=page.waitForEvent('download');
+  await lab.locator('#creative-lab-export').click();
+  const downloaded=await promise;
+  assert.equal(downloaded.suggestedFilename(),'webstudio-creative-look.json');
+  const recipe=JSON.parse(await readFile(await downloaded.path(),'utf8'));
+  assert.equal(recipe.schema,'webstudio-creative-look');
+  assert.equal(recipe.motion,false);
+  assert.equal(Object.hasOwn(recipe,'profile'),false);
+  const imported={...recipe,accent:'#ff9e79',glow:40,spacing:70,theme:'editorial',language:'en'};
+  await lab.locator('#creative-lab-import').setInputFiles({name:'webstudio-creative-look.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(imported))});
+  assert.equal(await lab.locator('#creative-glow-value').innerText(),'40%');
+  assert.equal(await page.locator('body').getAttribute('data-theme'),'editorial');
+  assert.equal(await page.locator('body').getAttribute('data-creative-custom-spacing'),'on');
   await lab.locator('#creative-lab-reset').click();
+  await page.locator('#studio-theme').selectOption('neon-studio');
   assert.equal(await lab.locator('button[data-mood=electric]').getAttribute('aria-pressed'),'true');
   assert.equal(await page.locator('body').getAttribute('data-creative-motion'),'on');
   // Restore original state for the legacy editor regression sequence.
