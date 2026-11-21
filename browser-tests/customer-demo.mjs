@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -742,10 +742,34 @@ try {
    assert.ok((await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth))<=2,'Mobile overflow');
    await page.setViewportSize({width:1280,height:900});
  })();
+ await check('Aurora and Cosmic load distinct reference imagery without theme leakage',async()=>{
+  const images=[
+    ['neon-studio','aurora-reference-horizon.svg'],
+    ['design-2','cosmic-reference-wave.svg']
+  ];
+  for(const [theme,filename] of images){
+    await page.locator('#studio-theme').selectOption(theme);
+    await page.setViewportSize({width:theme==='neon-studio'?1777:1833,height:theme==='neon-studio'?941:858});
+    const actual=await page.evaluate(()=>{
+      const hero=document.querySelector('main>.hero');
+      return {background:getComputedStyle(hero,'::before').backgroundImage,overflow:document.documentElement.scrollWidth-innerWidth};
+    });
+    assert.ok(actual.background.includes(filename),theme+' wrong background: '+JSON.stringify(actual));
+    assert.ok(actual.overflow<=2,theme+' horizontal overflow: '+JSON.stringify(actual));
+    const response=await page.evaluate(async name=>{
+      const r=await fetch(name);
+      return {status:r.status,body:await r.text()};
+    },filename);
+    assert.equal(response.status,200,filename+' not published');
+    assert.match(response.body,/<svg/);
+  }
+  await page.setViewportSize({width:1280,height:900});
+  await page.locator('#studio-theme').selectOption('neon-studio');
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,49);
+assert.equal(passed,50);
 console.log('Browser checks passed: '+passed);
