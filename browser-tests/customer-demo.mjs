@@ -1000,10 +1000,32 @@ try {
      assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=2,true);
    }finally{await p.close();}
  })();
+ await check('product catalog reflects six actual themes in every language without exposing unfinished checkout',async()=>{
+   const p=await browser.newPage({viewport:{width:1366,height:768}});
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     const themes=await p.locator('#studio-theme option').count();
+     assert.equal(themes,6);
+     assert.equal(await p.locator('#checkout-button').isDisabled(),true);
+     const phrases={
+       en:/six themes/i,hi:/छह थीम/,bn:/ছয়টি থিম/,es:/seis temas/i,
+       fr:/six thèmes/i,de:/sechs designs/i,pt:/seis temas/i,ar:/ست سمات/,
+       'zh-CN':/六种主题/,ja:/6 種のテーマ/
+     };
+     for(const [lang,expected] of Object.entries(phrases)){
+       await p.locator('#studio-language').selectOption(lang);
+       assert.match(await p.locator('[data-i18n="availableNow"]').textContent(),expected,lang+' six-theme product statement');
+       assert.equal(await p.locator('#checkout-button').isDisabled(),true,lang+' disabled checkout');
+     }
+     await p.locator('#studio-language').selectOption('en');
+     assert.match(await p.locator('.price-card').first().textContent(),/Six visual themes, including Aurora and Cosmic/);
+     assert.equal(await p.locator('#checkout-button').isDisabled(),true);
+   }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,55);
+assert.equal(passed,56);
 console.log('Browser checks passed: '+passed);
