@@ -868,7 +868,7 @@ try {
       assert.ok(state.shieldVisible&&state.brandVisible&&state.trustVisible,JSON.stringify(state));
       assert.ok(state.brandText.includes('Web Studio')&&state.brandText.includes('Your Everlasting Web Presence'),JSON.stringify(state));
       assert.ok(state.trustText.includes('You are in control'),JSON.stringify(state));
-      assert.match(state.disclosure||'',/Fictional demo/);
+      assert.match(state.disclosure||'',/FICTIONAL DEMO PROFILE/i);
       assert.ok(state.barHeight>=35&&state.barHeight<=50,JSON.stringify(state));
       assert.ok(state.leftRight<=state.rightLeft+2,'Banner items overlap '+JSON.stringify(state));
       assert.ok(state.overflow<=2,'Desktop banner overflow '+JSON.stringify(state));
