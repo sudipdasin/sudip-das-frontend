@@ -8,7 +8,8 @@ body[data-theme="design-2"] main>.hero .hero-art{
   --portrait-diameter:clamp(238px,17.5vw,294px);
   --orbit-inner-diameter:calc(var(--portrait-diameter) * 1.17);
   --orbit-outer-diameter:calc(var(--portrait-diameter) * 1.4);
-  --badge-r:calc(var(--orbit-outer-diameter) * .5);
+  /* One radius shared by every satellite: the visible outer ring. */
+  --cosmic-orbit-radius:calc(var(--orbit-outer-diameter) / 2);
   min-height:440px!important;
   position:relative;
   isolation:isolate;
@@ -56,7 +57,14 @@ body[data-theme="design-2"] .hero-art .neon-orbit-badge{
   border-radius:50%!important;
   background:linear-gradient(150deg,#063d57,#05233d)!important;
   box-shadow:0 0 14px #00c7f866,inset 0 0 10px #14d3ed24!important;
-  transform:translate(-50%,-50%) translate(var(--orbit-x),var(--orbit-y))!important;
+  /* Icon CENTER sits on the outer ring, regardless of icon dimensions. */
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)
+    translate(
+      calc(cos(var(--cosmic-angle)) * var(--cosmic-orbit-radius)),
+      calc(sin(var(--cosmic-angle)) * var(--cosmic-orbit-radius))
+    )!important;
 }
 body[data-theme="design-2"] .hero-art .neon-orbit-badge .neon-orbit-bubble{
   width:42px!important;
@@ -74,21 +82,19 @@ body[data-theme="design-2"] .hero-art .neon-orbit-badge .neon-orbit-bubble svg{
   width:27px!important;height:27px!important;
   filter:drop-shadow(0 0 4px #00ebff55);
 }
+/* Angles change the direction, NEVER the radius.
+   CSS trig is supported by the Chromium browser used in CI. */
 body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(1){
-  --orbit-x:calc(var(--badge-r)*.64)!important;
-  --orbit-y:calc(var(--badge-r)*-1.04)!important;
+  --cosmic-angle:-68deg;
 }
 body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(2){
-  --orbit-x:calc(var(--badge-r)*1.17)!important;
-  --orbit-y:calc(var(--badge-r)*.30)!important;
+  --cosmic-angle:9deg;
 }
 body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(3){
-  --orbit-x:calc(var(--badge-r)*-.84)!important;
-  --orbit-y:calc(var(--badge-r)*.87)!important;
+  --cosmic-angle:145deg;
 }
 body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(4){
-  --orbit-x:calc(var(--badge-r)*.73)!important;
-  --orbit-y:calc(var(--badge-r)*1.0)!important;
+  --cosmic-angle:57deg;
 }
 body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(5){display:none!important}
 body[data-theme="design-2"] main>.hero .hero-art .portrait-caption{
