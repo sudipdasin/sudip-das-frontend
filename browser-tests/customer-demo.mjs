@@ -118,7 +118,7 @@ try {
      const src=await image.getAttribute('src');
      assert.equal(src,'./avatar-'+theme+'.svg');
      urls.add(src);
-     assert.equal(await page.locator('.neon-reference-photo').isVisible(),false,'obsolete overlay must not obscure themed avatar');
+     assert.equal(await page.locator('.neon-reference-photo').isVisible(),['neon-studio','design-2'].includes(theme),'reference-size illustration should appear only in its dedicated themes');
    }
    assert.equal(urls.size,6);
  })();
@@ -507,7 +507,7 @@ try {
        await page.setViewportSize({width,height:900});
        const img=page.locator('#avatar img.demo-portrait');
        await img.waitFor({state:'visible'});
-       assert.match(await img.getAttribute('src'),/dev-das-portrait\.svg/);
+       assert.equal(await img.getAttribute('src'),'./avatar-'+theme+'.svg');
        const data=await img.evaluate(el=>({loaded:el.complete&&el.naturalWidth>0,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height}));
        assert.equal(data.loaded,true,theme+'/'+width+' portrait');
        assert.ok(Math.abs(data.width-data.height)<3,theme+'/'+width+' portrait shape');
@@ -532,7 +532,7 @@ try {
            theme:document.body.dataset.theme};
        });
        assert.equal(visual.theme,theme);
-       assert.equal(visual.src,'./dev-das-portrait.svg');
+       assert.equal(visual.src,'./avatar-'+theme+'.svg');
        assert.equal(visual.loaded,true,theme+'/'+width+' illustration');
        assert.ok(visual.square<=3,theme+'/'+width+' not square');
        assert.ok(visual.overflow<=2,theme+'/'+width+' horizontal overflow');
@@ -563,7 +563,7 @@ try {
    const sample=JSON.parse(await readFile(join(output,'profile.json'),'utf8'));
    sample.appearance.portrait='data:image/jpeg;base64,'+'a'.repeat(1000);
    await page.locator('#import-profile').setInputFiles({name:'legacy.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(sample))});
-   await page.waitForFunction(()=>document.querySelector('#avatar img')?.getAttribute('src')==='./dev-das-portrait.svg');
+   await page.waitForFunction(()=>document.querySelector('#avatar img')?.getAttribute('src')==='./avatar-orbit.svg');
    const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('personal-profile-web-studio:fictional-demo:v1')||'{}'));
    if(stored.appearance)assert.equal(stored.appearance.portrait,'');
    await page.locator('#reset-profile').click();
@@ -582,7 +582,7 @@ try {
    assert.ok(pic.rect.width>=180,'Portrait must have a meaningful visual diameter');
    await page.locator('#studio-theme').selectOption('orbit');
    assert.equal(await photo.isVisible(),false);
-   assert.equal(await page.locator('#avatar img').getAttribute('src'),'./dev-das-portrait.svg');
+   assert.equal(await page.locator('#avatar img').getAttribute('src'),'./avatar-orbit.svg');
  })();
  await check('Design 1 orbit labels follow the right orbital arc and brand is left-aligned',async()=>{
   await page.locator('#studio-theme').selectOption('neon-studio');
@@ -696,7 +696,7 @@ try {
     assert.ok(measurements.badges.every(b=>b.labelVisible===(theme==='neon-studio')),JSON.stringify(measurements));
     assert.match(measurements.systemText,theme==='design-2'?/Services/:/System/);
     const source=await page.locator('.hero-art .neon-reference-photo').getAttribute('src');
-    assert.equal(source,theme==='design-2'?'design-two-reference-portrait.svg':'neon-reference-portrait.svg',
+    assert.equal(source,theme==='design-2'?'./avatar-design-2.svg':'./avatar-neon-studio.svg',
       'Themes must not share the same reference portrait asset');
     await page.waitForFunction(()=>{const im=document.querySelector('.hero-art .neon-reference-photo');
       return im?.complete&&im.naturalWidth>0;});
@@ -723,8 +723,8 @@ try {
    await page.locator('input[name="role"]').fill('Custom Fictional Creator');
    await page.locator('#editor button[type="submit"]').click();
    for(const [theme,portrait,first,second] of [
-      ['neon-studio','neon-reference-portrait.svg',true,false],
-      ['design-2','design-two-reference-portrait.svg',false,true],
+      ['neon-studio','./avatar-neon-studio.svg',true,false],
+      ['design-2','./avatar-design-2.svg',false,true],
       ['neon-studio','neon-reference-portrait.svg',true,false]
    ]){
      await page.locator('#studio-theme').selectOption(theme);
@@ -1081,7 +1081,7 @@ try {
          ratio:devicePixelRatio};
      });
      let g=await measure();
-     assert.match(g.source,/design-two-reference-portrait\.svg/);
+     assert.match(g.source,/avatar-design-2\.svg/);
      assert.ok(g.photo.width>=265&&g.photo.width<=300,'Portrait scaling not controlled: '+JSON.stringify(g));
      assert.ok(g.caption.y>=g.photo.bottom+12,'Nameplate overlaps photo: '+JSON.stringify(g));
      assert.equal(g.badges.length,4,'Cosmic must have four independent orbit icons');
