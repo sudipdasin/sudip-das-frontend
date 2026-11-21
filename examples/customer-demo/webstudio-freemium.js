@@ -75,6 +75,11 @@
    status.textContent='Your self-contained site ZIP is ready. Extract it and publish manually. No files were uploaded.';
   }catch(error){status.textContent='Export not completed: '+error.message;}
  });
+ $('ws-free-edit').addEventListener('click',()=>{
+  const editor=$('editor');
+  if(editor&&!editor.classList.contains('open'))$('edit-toggle')?.click();
+  editor?.scrollIntoView({behavior:'smooth',block:'start'});
+ });
  feedback.addEventListener('click',()=>{
   const notes=feedbackNotes.value.trim(),reply=email.value.trim();
   if(notes.length<20||notes.length>1800){status.textContent='Please write 20–1800 characters of useful product feedback.';feedbackNotes.focus();return;}
