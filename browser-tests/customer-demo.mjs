@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-about.css','/studio-about.js','/studio-creative-lab.css','/studio-creative-lab.js','/studio-theme-controls.css','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-about.css','/studio-about.js','/studio-creative-lab.css','/studio-creative-lab.js','/studio-launch-audit.css','/studio-launch-audit.js','/studio-theme-controls.css','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -668,9 +668,9 @@ try {
    await trigger.click();
    assert.equal(await trigger.getAttribute('aria-expanded'),'true');
    assert.equal(await panel.isVisible(),true);
-   assert.equal(await panel.locator('button:not(:disabled)').count(),5);
+   assert.equal(await panel.locator('button:not(:disabled)').count(),6);
    assert.equal(await panel.locator('.studio-planned-grid button:disabled').count(),6);
-   assert.equal(await panel.locator('button').count(),11);
+   assert.equal(await panel.locator('button').count(),12);
    assert.equal(await panel.locator('.system-menu-data>button').count(),2);
    assert.equal(await panel.locator('.system-menu-intro h2').innerText(),'Your studio, your control.');
    assert.equal(await panel.locator('.system-menu-footer').isVisible(),true);
@@ -1520,10 +1520,33 @@ try {
      assert.equal(await p.getByRole('button',{name:/Publish to social networks/}).isDisabled(),true);
    }finally{await p.close();}
  })();
+ await check('local launch-readiness inspector audits the fictional demo without publishing',async()=>{
+  const p=await browser.newPage({viewport:{width:1440,height:900},acceptDownloads:true});
+  try{
+    await p.goto(url,{waitUntil:'load'});
+    await p.locator('#system-menu-trigger').click();
+    await p.locator('#studio-audit-open').click();
+    const dialog=p.locator('#studio-audit-dialog');
+    assert.equal(await dialog.isVisible(),true,'Readiness dialog did not open');
+    assert.equal(await p.locator('#system-menu-panel').isVisible(),false,'Background system menu must close');
+    assert.equal(await dialog.locator('.studio-audit-row').count(),10,'Expected ten advisory checks');
+    assert.match(await dialog.locator('.studio-audit-summary').innerText(),/10 advisory checks pass|of 10 advisory checks pass/);
+    await dialog.locator('button',{hasText:'Run checks again'}).click();
+    assert.equal(await dialog.locator('.studio-audit-row').count(),10);
+    const downloadEvent=p.waitForEvent('download');
+    await dialog.locator('.studio-audit-export').click();
+    const download=await downloadEvent;
+    assert.equal(download.suggestedFilename(),'webstudio-demo-readiness.json');
+    await p.keyboard.press('Escape');
+    assert.equal(await dialog.isVisible(),false,'Escape must close readiness inspector');
+    assert.equal(await p.locator('#system-menu-trigger').evaluate(el=>document.activeElement===el),true,
+      'Focus must return to the visible system menu trigger');
+  }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,72);
+assert.equal(passed,73);
 console.log('Browser checks passed: '+passed);
