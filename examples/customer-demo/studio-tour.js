@@ -39,13 +39,20 @@
  next.addEventListener('click',()=>{if(step===steps.length-1){close();return;}step++;render();});
  tryButton.addEventListener('click',jump);
  modal.addEventListener('click',event=>{if(event.target===modal)close();});
+ // Keep programmatic focus changes inside the open dialog as well as Tab navigation.
+ document.addEventListener('focusin',event=>{if(!modal.hidden&&!modal.contains(event.target))next.focus();});
  document.addEventListener('keydown',event=>{
   if(modal.hidden)return;
   if(event.key==='Escape'){event.preventDefault();close();return;}
   if(event.key!=='Tab')return;
-  const items=[exit,back,next,tryButton].filter(el=>!el.disabled);
+  // Derive tab order from the actual modal DOM, not a hard-coded button list.
+  // Disabled/hidden controls must never become keyboard destinations.
+  const items=Array.from(modal.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'))
+    .filter(el=>!el.hidden&&el.getClientRects().length>0&&getComputedStyle(el).visibility!=='hidden');
+  if(!items.length){event.preventDefault();modal.focus();return;}
   const first=items[0],last=items[items.length-1];
-  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+  if(!modal.contains(document.activeElement)){event.preventDefault();(event.shiftKey?last:first).focus();}
+  else if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
  });
 })();
