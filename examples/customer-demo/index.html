@@ -58,6 +58,7 @@
   <link rel="stylesheet" href="studio-cosmic-orbit-fidelity.css?v=20261121orb2">
   <link rel="stylesheet" href="studio-social.css?v=20261121social1">
   <link rel="stylesheet" href="studio-avatar.css">
+  <link rel="stylesheet" href="studio-exposure.css">
 </head>
 <body data-theme="neon-studio">
   <a class="skip-link" href="#top">Skip to content</a>
@@ -268,6 +269,21 @@
       <p id="social-status" role="status" aria-live="polite"></p>
       <p class="social-footnote">Fictional, offline-only preview. No remote analytics, authentication, message inbox, scheduled publishing, or automated posting.</p>
     </section>
+    <section class="ew-section" id="exposure-watch" aria-labelledby="ew-title">
+  <div class="ew-head"><div><p class="eyebrow">PRIVACY &amp; SECURITY · EARLY PREVIEW</p><h2 id="ew-title">Exposure Watch</h2>
+  <p class="ew-subtitle">Know what to do when your account, identity, or sensitive information may have been exposed. This local incident tracker does <strong>not</strong> scan the dark web, verify breaches, or continuously monitor accounts.</p></div>
+  <p id="ew-count" aria-live="polite">No unresolved concerns recorded locally</p></div>
+  <div class="ew-helpers"><a href="https://monitor.mozilla.org/" target="_blank" rel="noopener noreferrer">Check email breaches and enable external alerts — Mozilla Monitor</a><a href="https://haveibeenpwned.com/" target="_blank" rel="noopener noreferrer">Review known breaches — Have I Been Pwned</a></div>
+  <p class="hint">Use the official services directly to check an email address and subscribe to their alerts. WebStudio does not receive your email or their results. Never enter passwords into this demo. No checks or alerts can guarantee that every leak will be detected.</p>
+  <form id="ew-form" class="ew-form"><h3>Record a security concern</h3>
+    <div class="ew-fields"><label>Concern type<select id="ew-category" required><option value="account">Account or password</option><option value="identity">Identity or personal information</option><option value="financial">Financial information</option><option value="phishing">Phishing or impersonation</option></select></label>
+    <label>What happened? (no passwords, account numbers, or other secrets)<textarea id="ew-note" rows="2" maxlength="240" required placeholder="Example: Received a verified breach notification for a service I use"></textarea></label></div>
+    <button type="submit">Record concern and show advice</button><p id="ew-status" role="status" class="hint"></p>
+  </form>
+  <div id="ew-list" aria-label="Locally recorded security incidents"></div>
+  <button id="ew-clear" type="button" class="ghost">Clear local incident history</button>
+  <p class="hint">All records stay in this browser until deleted. Local storage is not encrypted; don't write confidential information here. Automatic breach detection, authenticated sources, notification delivery, and dark-web intelligence require a separately secured backend and user consent.</p>
+</section>
     <section class="pricing-panel" id="studio-plans" aria-labelledby="plans-title">
       <div class="pricing-heading"><div><p class="eyebrow">Your website. Your rules.</p><h2 id="plans-title">From first draft to your own site.</h2></div><p>Explore the free demo today. Paid product plans and checkout will launch only after licensing, fulfillment, and payment verification are ready.</p></div>
       <div class="pricing-cards">
@@ -294,5 +310,6 @@
   <script src="studio-desktop-reference.js?v=20261121h" defer></script>
   <script src="studio-social.js?v=20261121social1" defer></script>
   <script src="studio-avatar.js" defer></script>
+  <script src="studio-exposure.js" defer></script>
 </body>
 </html>
