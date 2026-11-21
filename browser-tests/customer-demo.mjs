@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -704,10 +704,46 @@ try {
    if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
    await page.locator('#reset-profile').click();
  })();
+ await check('highlighted Design 1 header and orbit items match reference semantics',async()=>{
+   await page.setViewportSize({width:1833,height:858});
+   await page.locator('#studio-theme').selectOption('neon-studio');
+   await page.evaluate(()=>scrollTo(0,0));
+   await page.waitForTimeout(180);
+   const visual=await page.evaluate(()=>{
+     const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom};};
+     const brand=document.querySelector('.nav-bar .brand');
+     const nav=document.querySelector('.nav-links');
+     const home=document.querySelector('.nav-links .neon-home-link');
+     const menu=document.getElementById('studio-nav-panel');
+     const bubbles=[...document.querySelectorAll('.neon-role-pills .neon-orbit-badge')].map(e=>{
+       const b=e.querySelector('.neon-orbit-bubble');
+       const cs=getComputedStyle(e);
+       return {rect:rect(e),icon:rect(b),border:cs.borderTopWidth,background:cs.backgroundColor,labelVisible:getComputedStyle(e.querySelector('.neon-orbit-label')).display!=='none'};
+     });
+     const photo=document.querySelector('.hero-art .neon-reference-photo');
+     const caption=document.querySelector('.hero-art .portrait-caption');
+     return {brand:rect(brand),nav:rect(nav),home:rect(home),menu:rect(menu),
+       bubbles,photo:rect(photo),caption:rect(caption),
+       pageOverflow:document.documentElement.scrollWidth-innerWidth};
+   });
+   assert.ok(visual.home.x-visual.brand.x<360,'Home is too far from logo: '+JSON.stringify(visual));
+   assert.equal(visual.bubbles.length,5);
+   assert.ok(visual.bubbles.every(b=>b.border==='0px' && b.labelVisible),'Role labels must not be boxed: '+JSON.stringify(visual));
+   assert.ok(visual.bubbles.every(b=>Math.abs(b.icon.width-b.icon.height)<3&&b.icon.width>=35),'Icons must be circular: '+JSON.stringify(visual));
+   assert.ok(visual.caption.y>visual.photo.y+visual.photo.height,'Nameplate needs to sit below image: '+JSON.stringify(visual));
+   assert.ok(visual.pageOverflow<=2,'No horizontal desktop overflow: '+JSON.stringify(visual));
+   await page.locator('#studio-theme').selectOption('design-2');
+   assert.equal(await page.locator('.d2-feature-row').isVisible(),true);
+   assert.equal(await page.locator('.neon-feature-grid').isVisible(),false);
+   await page.locator('#studio-theme').selectOption('neon-studio');
+   await page.setViewportSize({width:390,height:844});
+   assert.ok((await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth))<=2,'Mobile overflow');
+   await page.setViewportSize({width:1280,height:900});
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,48);
+assert.equal(passed,49);
 console.log('Browser checks passed: '+passed);
