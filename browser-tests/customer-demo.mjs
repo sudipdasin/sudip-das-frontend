@@ -1543,29 +1543,34 @@ try {
       'Focus must return to the visible system menu trigger');
   }finally{await p.close();}
  })();
- await check('Free setup completes five chapters and exports a real ZIP with free-theme isolation',async()=>{
+ await check('Free three-theme interactive preview requires approval and feedback before ZIP',async()=>{
    const p=await browser.newPage({viewport:{width:1280,height:900},acceptDownloads:true});
    try{
      await p.goto(url,{waitUntil:'load'});
-     const section=p.locator('#ws-free-starter');
-     assert.equal(await section.isVisible(),true);
-     assert.equal(await p.locator('#ws-free-theme option').count(),2);
-     await p.locator('#ws-free-export').click();
-     assert.match(await p.locator('#ws-free-status').innerText(),/complete all five/i);
+     assert.equal(await p.locator('#ws-free-theme option').count(),3);
+     assert.equal(await p.locator('#ws-free-export').isDisabled(),true);
      await p.locator('#ws-free-begin').click();
-     assert.equal(await p.locator('#ws-free-onboard').isVisible(),true);
      for(let i=0;i<5;i++)await p.locator('#ws-free-next').click();
-     assert.equal(await p.locator('#ws-free-onboard').isVisible(),false);
-     await p.locator('#ws-free-export').click();
-     assert.match(await p.locator('#ws-free-status').innerText(),/terms/i);
      await p.locator('#ws-free-terms').check();
-     await p.locator('#ws-free-theme').selectOption('editorial');
-     const event=p.waitForEvent('download');
+     await p.locator('#ws-free-theme').selectOption('terminal');
+     await p.locator('#ws-free-preview').click();
+     const frame=p.frameLocator('#ws-free-preview-frame');
+     await frame.locator('#studio-theme').waitFor();
+     await p.locator('#ws-free-accept-preview').check();
+     await p.locator('#ws-free-approve').click();
+     assert.match(await p.locator('#ws-free-status').innerText(),/feedback/i);
+     assert.equal(await p.locator('#ws-free-export').isDisabled(),true);
+     await p.locator('#ws-free-feedback-text').fill('I tested the Terminal theme, personalization, keyboard support, preview rendering and project editing. I would like better mobile navigation and additional configurable layouts.');
+     await p.locator('#ws-free-feedback').click();
+     await p.locator('#ws-free-confirm-send').click();
+     assert.equal(await p.locator('#ws-free-export').isEnabled(),true);
+     const download=p.waitForEvent('download');
      await p.locator('#ws-free-export').click();
-     const download=await event;
-     assert.equal(download.suggestedFilename(),'WebStudio-Free-editorial-website.zip');
-     assert.match(await p.locator('#ws-free-status').innerText(),/ZIP is ready/i);
-     assert.equal(await p.locator('#studio-theme option').count(),6,'Premium theme previews remain browsable');
+     const artifact=await download;
+     assert.equal(artifact.suggestedFilename(),'WebStudio-Free-terminal-interactive-website.zip');
+     assert.match(await p.locator('#ws-free-status').innerText(),/Full interactive ZIP generated/i);
+     await p.locator('#ws-free-theme').selectOption('editorial');
+     assert.equal(await p.locator('#ws-free-export').isDisabled(),true,'Theme change must revoke approval');
    }finally{await p.close();}
  })();
  await page.close();
