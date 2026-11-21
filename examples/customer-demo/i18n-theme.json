@@ -83,7 +83,9 @@
       "Media & Assets": "मीडिया और संसाधन",
       "SEO & Meta": "एसईओ और मेटा",
       "Studio & system": "स्टूडियो और सिस्टम",
-      "Fictional profile demo": "काल्पनिक प्रोफ़ाइल डेमो"
+      "Fictional profile demo": "काल्पनिक प्रोफ़ाइल डेमो",
+      "Six visual themes, including Aurora and Cosmic": "छह दृश्य थीम, जिनमें ऑरोरा और कॉस्मिक शामिल हैं",
+      "Cosmic visual feature cards": "कॉस्मिक के दृश्य फीचर कार्ड"
     },
     "bn": {
       "Web Studio": "ওয়েব স্টুডিও",
@@ -168,7 +170,9 @@
       "Media & Assets": "মিডিয়া ও উপকরণ",
       "SEO & Meta": "এসইও ও মেটা",
       "Studio & system": "স্টুডিও ও সিস্টেম",
-      "Fictional profile demo": "কাল্পনিক প্রোফাইল ডেমো"
+      "Fictional profile demo": "কাল্পনিক প্রোফাইল ডেমো",
+      "Six visual themes, including Aurora and Cosmic": "অরোরা ও কসমিকসহ ছয়টি ভিজ্যুয়াল থিম",
+      "Cosmic visual feature cards": "কসমিকের বৈশিষ্ট্য কার্ড"
     },
     "es": {
       "Web Studio": "Estudio web",
@@ -253,7 +257,9 @@
       "Media & Assets": "Medios y recursos",
       "SEO & Meta": "SEO y metadatos",
       "Studio & system": "Estudio y sistema",
-      "Fictional profile demo": "Demostración de perfil ficticio"
+      "Fictional profile demo": "Demostración de perfil ficticio",
+      "Six visual themes, including Aurora and Cosmic": "Seis temas visuales, incluidos Aurora y Cosmic",
+      "Cosmic visual feature cards": "Tarjetas de funciones de Cosmic"
     },
     "fr": {
       "Web Studio": "Studio web",
@@ -338,7 +344,9 @@
       "Media & Assets": "Médias et ressources",
       "SEO & Meta": "SEO et métadonnées",
       "Studio & system": "Studio et système",
-      "Fictional profile demo": "Démo de profil fictif"
+      "Fictional profile demo": "Démo de profil fictif",
+      "Six visual themes, including Aurora and Cosmic": "Six thèmes visuels, dont Aurora et Cosmic",
+      "Cosmic visual feature cards": "Cartes de fonctionnalités Cosmic"
     },
     "de": {
       "Web Studio": "Webstudio",
@@ -423,7 +431,9 @@
       "Media & Assets": "Medien und Ressourcen",
       "SEO & Meta": "SEO und Metadaten",
       "Studio & system": "Studio und System",
-      "Fictional profile demo": "Fiktives Profildemo"
+      "Fictional profile demo": "Fiktives Profildemo",
+      "Six visual themes, including Aurora and Cosmic": "Sechs visuelle Designs, darunter Aurora und Cosmic",
+      "Cosmic visual feature cards": "Cosmic-Funktionskarten"
     },
     "pt": {
       "Web Studio": "Estúdio Web",
@@ -508,7 +518,9 @@
       "Media & Assets": "Mídia e recursos",
       "SEO & Meta": "SEO e metadados",
       "Studio & system": "Estúdio e sistema",
-      "Fictional profile demo": "Demonstração de perfil fictício"
+      "Fictional profile demo": "Demonstração de perfil fictício",
+      "Six visual themes, including Aurora and Cosmic": "Seis temas visuais, incluindo Aurora e Cosmic",
+      "Cosmic visual feature cards": "Cartões de recursos do Cosmic"
     },
     "ar": {
       "Web Studio": "استوديو الويب",
@@ -593,7 +605,9 @@
       "Media & Assets": "الوسائط والموارد",
       "SEO & Meta": "تحسين البحث والبيانات الوصفية",
       "Studio & system": "الاستوديو والنظام",
-      "Fictional profile demo": "عرض ملف شخصي خيالي"
+      "Fictional profile demo": "عرض ملف شخصي خيالي",
+      "Six visual themes, including Aurora and Cosmic": "ست سمات مرئية، منها أورورا وكوزميك",
+      "Cosmic visual feature cards": "بطاقات ميزات كوزميك"
     },
     "zh-CN": {
       "Web Studio": "网页工作室",
@@ -678,7 +692,9 @@
       "Media & Assets": "媒体与素材",
       "SEO & Meta": "搜索优化与元数据",
       "Studio & system": "工作室与系统",
-      "Fictional profile demo": "虚构人物演示"
+      "Fictional profile demo": "虚构人物演示",
+      "Six visual themes, including Aurora and Cosmic": "六种视觉主题，包括 Aurora 和 Cosmic",
+      "Cosmic visual feature cards": "Cosmic 特色卡片"
     },
     "ja": {
       "Web Studio": "ウェブスタジオ",
@@ -763,7 +779,9 @@
       "Media & Assets": "メディアと素材",
       "SEO & Meta": "SEOとメタ情報",
       "Studio & system": "スタジオとシステム",
-      "Fictional profile demo": "架空のプロフィールデモ"
+      "Fictional profile demo": "架空のプロフィールデモ",
+      "Six visual themes, including Aurora and Cosmic": "Aurora と Cosmic を含む6つのビジュアルテーマ",
+      "Cosmic visual feature cards": "Cosmic の機能カード"
     }
   }
 }
