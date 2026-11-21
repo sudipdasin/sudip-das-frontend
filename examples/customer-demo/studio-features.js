@@ -15,7 +15,7 @@
     'zh-CN':{about:'关于',expertise:'技能',projects:'项目',journey:'经历',contact:'联系',search:'搜索项目',filter:'分类',journeyTitle:'我的工作方式',empty:'没有匹配的项目。',count:'个可见项目',all:'所有分类'},
     ja:{about:'自己紹介',expertise:'スキル',projects:'プロジェクト',journey:'経歴',contact:'連絡先',search:'プロジェクト検索',filter:'カテゴリ',journeyTitle:'仕事の進め方',empty:'一致するプロジェクトがありません。',count:'件のプロジェクトを表示',all:'すべてのカテゴリ'},
   };
-  const themes=['orbit','editorial','terminal','aurora-peak','design-1','neon-studio'];
+  const themes=['orbit','editorial','terminal','aurora-peak','design-2','neon-studio'];
   const sections=['about-section','skills-section','projects-section','journey-section','contact-section','proposal-section'];
   const theme=$('studio-theme'),language=$('studio-language'),nav=$('studio-nav'),menu=$('mobile-menu');
   const progress=document.querySelector('.scroll-progress span');
