@@ -1372,9 +1372,11 @@ try {
      await p.goto(url,{waitUntil:'load'});
      const invalid=Buffer.from(JSON.stringify({version:1,links:[{platform:'X',url:'javascript:alert(1)'}],drafts:[]}));
      await p.locator('#social-import').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:invalid});
+     await p.waitForFunction(()=>/Import rejected/.test(document.querySelector('#social-status')?.textContent||''));
      assert.match(await p.locator('#social-status').textContent(),/Import rejected/);
      const imported=Buffer.from(JSON.stringify({version:1,links:[{platform:'LinkedIn',url:'https://www.linkedin.com/company/example-demo'}],drafts:[{platform:'Bluesky',title:'A local post',caption:'Only in the browser',created:'2026-11-21',id:'demo'}]}));
      await p.locator('#social-import').setInputFiles({name:'good.json',mimeType:'application/json',buffer:imported});
+     await p.waitForFunction(()=>/imported locally/.test(document.querySelector('#social-status')?.textContent||''));
      assert.match(await p.locator('#social-status').textContent(),/imported locally/);
      assert.equal(await p.locator('.social-draft-card').count(),1);
      assert.equal(await p.locator('#social-links-list a').count(),1);
