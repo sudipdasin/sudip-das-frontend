@@ -1278,5 +1278,5 @@ try {
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,62);
+assert.equal(passed,64);
 console.log('Browser checks passed: '+passed);
