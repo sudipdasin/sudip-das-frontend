@@ -61,6 +61,7 @@
   <link rel="stylesheet" href="studio-theme-controls.css">
   <link rel="stylesheet" href="studio-about.css">
   <link rel="stylesheet" href="studio-creative-lab.css">
+  <link rel="stylesheet" href="webstudio-freemium.css">
   <link rel="stylesheet" href="studio-launch-audit.css">
 </head>
 <body data-theme="neon-studio">
@@ -139,6 +140,68 @@
         <section class="studio-product-strip" aria-label="Explore WebStudio">
       <div><strong data-i18n="productCtaTitle">Your web presence, protected from provider lock-in.</strong><p data-i18n="productCtaBody">Explore the demo today. Discover the planned modular backup, monitoring and self-recovery system.</p></div>
       <div class="studio-product-actions"><button type="button" id="tour-start">Take the 90-second tour</button><button type="button" id="try-customize" class="secondary">Try the editor</button><button type="button" id="explore-plans" class="secondary">Explore plans</button></div>
+    </section>
+
+    <section id="ws-free-starter" class="ws-free-starter" aria-labelledby="ws-free-heading">
+      <div class="ws-free-head">
+        <div><p class="ws-free-label">WEBSTUDIO · FREE COMMUNITY EDITION</p>
+          <h2 id="ws-free-heading">Build something worth sharing.</h2>
+          <p>Try the full visual showcase, follow five illustrated chapters, then export a complete manual-deployment website with one of two free themes. No hosting, payment, or sign-up required.</p>
+        </div>
+        <button type="button" class="ws-free-btn" id="ws-free-begin">Start full guided walkthrough</button>
+      </div>
+      <div class="ws-free-grid" aria-label="Free versus upcoming Pro edition">
+        <article class="ws-free-card"><div class="ws-free-tags"><span class="ws-free-tag free">FREE · AVAILABLE NOW</span><span class="ws-free-tag">No payment</span></div>
+          <div class="ws-free-candy" role="img" aria-label="Cyan orbital graphic showing the Orbit theme"><span></span></div>
+          <h3>Orbit + Editorial</h3>
+          <p>Two production-ready starter layouts to export, profile editor, editable projects, local JSON and ZIP, responsive navigation, portable HTML/CSS and manual installation instructions.</p>
+          <div class="ws-free-tags"><span class="ws-free-tag">2 exportable themes</span><span class="ws-free-tag">Manual deployment</span><span class="ws-free-tag">Editable project cards</span></div>
+        </article>
+        <article class="ws-free-card"><div class="ws-free-tags"><span class="ws-free-tag">PRO · COMING SOON</span><span class="ws-free-tag">Not for sale</span></div>
+          <div class="ws-free-candy editorial" role="img" aria-label="Warm editorial graphic showing premium design variety"><span></span></div>
+          <h3>Expanded creative studio</h3>
+          <p>Terminal, Aurora Peak, Neon Studio and Cosmic premium themes, future hosted publishing, verified accounts, managed backups, advanced plugins and protected server features.</p>
+          <div class="ws-free-tags"><span class="ws-free-tag">4 theme previews</span><span class="ws-free-tag">Planned plugins</span><span class="ws-free-tag">No checkout yet</span></div>
+        </article>
+      </div>
+      <div class="ws-free-chapter" id="ws-free-onboard" hidden aria-labelledby="ws-free-tour-title">
+        <div class="ws-free-chapter-art" id="ws-free-tour-icon" aria-hidden="true">✦</div>
+        <div><p class="ws-free-label" id="ws-free-step">STEP 01 / 5 · DESIGN</p>
+          <h3 id="ws-free-tour-title">Welcome to WebStudio</h3>
+          <p id="ws-free-tour-copy">Meet the two free themes and inspect premium previews.</p>
+          <div class="ws-free-meter-track" aria-hidden="true"><span id="ws-free-meter"></span></div>
+          <div class="ws-free-row">
+            <button type="button" class="ws-free-btn secondary" id="ws-free-back">Previous chapter</button>
+            <button type="button" class="ws-free-btn" id="ws-free-next">Next chapter</button>
+          </div>
+          <p class="ws-free-hint">The walkthrough has five chapters. Complete it to enable a Free ZIP export; browsing the demo remains unrestricted.</p>
+        </div>
+      </div>
+      <div class="ws-free-config">
+        <label>Free export theme
+          <select id="ws-free-theme" aria-label="Choose one of two exportable free themes"><option value="orbit">Orbit · Free</option><option value="editorial">Editorial · Free</option></select>
+        </label>
+        <label>Feedback reply email (optional)
+          <input id="ws-free-reply" type="email" maxlength="180" autocomplete="email" placeholder="you@example.com" aria-describedby="ws-free-email-note">
+        </label>
+        <p class="ws-free-hint wide" id="ws-free-email-note">Email format is checked locally. Email ownership is NOT verified; accounts and verification links require a future secure backend. This address is not uploaded to WebStudio.</p>
+        <label class="wide checkline"><input id="ws-free-terms" type="checkbox" required>
+          I understand that this is a local, static Free export; public HTML/CSS/JavaScript are readable, sensitive secrets must never be included, and I must set up my own hosting. No automatic deployment or encrypted server vault is supplied.</label>
+        <label class="wide">Detailed product feedback (20–1800 characters)
+          <textarea id="ws-free-feedback-text" maxlength="1800" rows="3" placeholder="What worked well? What should be improved? Which theme or feature would help most?"></textarea>
+        </label>
+      </div>
+      <div class="ws-free-row">
+        <button type="button" class="ws-free-btn" id="ws-free-export">Export my complete Free website ZIP</button>
+        <button type="button" class="ws-free-btn secondary" id="ws-free-feedback">Compose developer feedback</button>
+        <button type="button" class="ws-free-btn secondary" onclick="document.getElementById('edit-toggle').click()">Open demo editor</button>
+      </div>
+      <div id="ws-free-status" class="ws-free-status" role="status" aria-live="polite"></div>
+      <div class="ws-free-reminder" id="ws-free-reminder" hidden>
+        <p>It's been around 48 hours since you started the Free edition. Your detailed feedback would help improve the next release. Features and previously exported websites remain usable.</p>
+        <button type="button" class="ws-free-btn secondary" id="ws-free-reminder-dismiss">Dismiss reminder</button>
+      </div>
+      <p class="ws-free-hint">Free is fully usable without telemetry or verified accounts. Premium previews are illustrative and not licensed for Free export. Feedback opens your own mail app; delivery is not tracked.</p>
     </section>
     <main id="top">
       <section class="hero" aria-label="Introduction">
@@ -326,5 +389,7 @@
   <script src="studio-about.js" defer></script>
   <script src="studio-creative-lab.js" defer></script>
   <script src="studio-launch-audit.js" defer></script>
+  <script src="webstudio-starter.js" defer></script>
+  <script src="webstudio-freemium.js" defer></script>
 </body>
 </html>
