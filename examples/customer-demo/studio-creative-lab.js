@@ -75,8 +75,7 @@
   spacing.addEventListener('input',update);
   motion.addEventListener('change',update);
   panel.querySelector('#creative-lab-reset').addEventListener('click',()=>{
-    state={...presets.electric,selected:'electric'};persist();render();
-    document.documentElement.style.removeProperty('--creative-accent');
+    state={...presets.electric,selected:'electric'};persist();render();setAccent(state.accent);
   });
   panel.querySelector('#creative-lab-export').addEventListener('click',()=>{
     const payload={
