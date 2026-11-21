@@ -55,6 +55,18 @@ Worker, with protected runtime secrets and variables:
 - `FEEDBACK_FROM`: verified sending address for the email provider
 - `FEEDBACK_TO`: developer's private receiving address
 
+From `services/webstudio-feedback/`, with your Cloudflare account already authenticated:
+```bash
+npx wrangler secret put TURNSTILE_SECRET_KEY
+npx wrangler secret put RESEND_API_KEY
+npx wrangler secret put FEEDBACK_FROM
+npx wrangler secret put FEEDBACK_TO
+npx wrangler deploy
+```
+Each command securely prompts for a secret. Do not paste values into shell
+arguments, GitHub files, logs, or browser JavaScript. Verify your sending
+domain with the email provider. The checked-in `wrangler.toml` sets the
+allowed GitHub Pages origin; do not use the private personal-site API.
 Set the *public* Turnstile site key and feedback Worker HTTPS endpoint in
 the edition manifest only after successful server and browser testing. Never
 put Turnstile secret or email API key into a public manifest.
