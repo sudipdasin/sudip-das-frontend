@@ -776,11 +776,24 @@ try {
        await visual.goto(url,{waitUntil:'load'});
        await visual.locator('#studio-theme').selectOption(variant);
        await visual.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
-       await visual.waitForTimeout(180);
+       await visual.waitForTimeout(1100);
        assert.equal(await visual.locator('#editor').isVisible(),false,'Screenshots must not show an open editor');
        assert.equal(await visual.locator('#studio-nav-panel').isVisible(),true,'Studio menu must be open for '+variant);
        assert.equal(await visual.locator('#system-menu-panel').isVisible(),variant==='neon-studio','System menu should appear only in Aurora');
        assert.equal(await visual.locator('.cosmic-menu-reference').isVisible(),variant==='design-2','Cosmic groups should appear only in Cosmic');
+       if(variant==='neon-studio'){
+         const layout=await visual.evaluate(()=>{
+           const box=id=>{const r=document.querySelector(id).getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom}};
+           return {studio:box('#studio-nav-panel'),system:box('#system-menu-panel'),hero:box('main>.hero'),value:box('.neon-value-section')};
+         });
+         assert.ok(layout.studio.x>700&&layout.studio.x<920,'Aurora Studio menu offset '+JSON.stringify(layout));
+         assert.ok(layout.system.x>950&&layout.system.x<1250,'Aurora System menu offset '+JSON.stringify(layout));
+         assert.ok(layout.system.height<390,'Aurora System panel too tall '+JSON.stringify(layout));
+         assert.ok(layout.value.y>=layout.hero.bottom-10&&layout.value.y<630,'Aurora value band is too low '+JSON.stringify(layout));
+       }else{
+         const x=await visual.locator('#studio-nav-panel').evaluate(el=>el.getBoundingClientRect().x);
+         assert.ok(x>800&&x<1000,'Cosmic long Studio menu is too far right: '+x);
+       }
        const geometry=await visual.evaluate(()=>{
          const box=e=>{const r=e.getBoundingClientRect();return {top:r.top,left:r.left,bottom:r.bottom,width:r.width,height:r.height}};
          const hero=document.querySelector('main>.hero'),heading=document.querySelector('main>.hero h1');
