@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'scripts/package-webstudio-demo.mjs'
+      - 'scripts/build-personalized-preview.mjs'
+      - 'tests/personalized-preview.test.mjs'
       - 'scripts/build-customer-demo.mjs'
       - 'tests/webstudio-package.test.mjs'
       - '.github/workflows/webstudio-demo-package.yml'
@@ -18,6 +20,7 @@ jobs:
       - name: Run automated checks
         run: |
           node --check scripts/package-webstudio-demo.mjs
+          node --check scripts/build-personalized-preview.mjs
           node --test tests/*.test.mjs
       - name: Build standalone fictional demo ZIP
         run: node scripts/package-webstudio-demo.mjs
