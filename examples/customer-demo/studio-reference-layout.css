@@ -220,10 +220,10 @@ body[data-theme="neon-studio"] .neon-feature-card small{font-size:.68rem}
   body[data-theme="neon-studio"] .neon-feature-card{min-height:82px}
 }
 
-/* Stable screenshot portrait is a Neon-only overlay, not a mutation of the data renderer. */
-.neon-reference-photo{display:none}
+/* Stable screenshot portrait is a Neon-only overlay, never a grid item. */
+.hero-art>.neon-reference-photo{display:none!important;position:absolute!important;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
 body[data-theme="neon-studio"] .hero-art .neon-reference-photo{
-  display:block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  display:block!important;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
   width:var(--portrait-diameter);height:var(--portrait-diameter);
   object-fit:cover;object-position:center;border-radius:50%;
   border:3px solid #75e9ff;box-shadow:0 0 24px #00caff,0 0 60px #008aff8b;
