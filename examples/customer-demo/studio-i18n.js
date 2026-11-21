@@ -68,8 +68,9 @@
     fetch('./i18n-ui.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('UI translations missing');return r.json();}),
     fetch('./i18n-copy.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Page translations missing');return r.json();}),
     fetch('./i18n-profile.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Profile translations missing');return r.json();}),
-    fetch('./i18n-dynamic.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Dynamic translations missing');return r.json();})
-  ]).then(([productData,uiData,copyData,profileData,dynamicData])=>{
+    fetch('./i18n-dynamic.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Dynamic translations missing');return r.json();}),
+    fetch('./i18n-theme.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Theme translations missing');return r.json();})
+  ]).then(([productData,uiData,copyData,profileData,dynamicData,themeData])=>{
     for(const lang of locales){
       if(!productData.locales[lang])throw Error('Missing product language: '+lang);
       if(lang!=='en'&&!uiData.translations[lang])throw Error('Missing UI language: '+lang);
@@ -77,7 +78,7 @@
     product=productData;
     labels={translations:{}};
     for(const lang of locales){
-      labels.translations[lang]={...(uiData.translations[lang]||{}),...(copyData.translations[lang]||{}),...(profileData.translations[lang]||{}),...(dynamicData.translations[lang]||{})};
+      labels.translations[lang]={...(uiData.translations[lang]||{}),...(copyData.translations[lang]||{}),...(profileData.translations[lang]||{}),...(dynamicData.translations[lang]||{}),...(themeData.translations[lang]||{})};
       dictionaryCoverage[lang]=Object.keys(labels.translations[lang]).length;
     }
     const current=language.value;

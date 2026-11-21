@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -887,10 +887,48 @@ try {
     assert.ok(colors.size>=5,'Theme colors did not vary across layouts: '+JSON.stringify([...colors]));
   }finally{await fresh.close();}
  })();
+ await check('all nine translations cover shared UI, both reference themes and default hero without changing customer edits',async()=>{
+  const langPack=JSON.parse(await readFile(join(root,'examples','customer-demo','i18n-theme.json'),'utf8')).translations;
+  const visual=await browser.newPage({viewport:{width:1440,height:900}});
+  try{
+    await visual.goto(url,{waitUntil:'load'});
+    assert.equal(await visual.evaluate(()=>window.StudioI18nReady),true,'Local translation dictionaries did not initialize');
+    for(const lang of ['hi','bn','es','fr','de','pt','ar','zh-CN','ja']){
+      await visual.locator('#studio-language').selectOption(lang);
+      const expected=langPack[lang];
+      assert.equal((await visual.locator('.studio-utility-brand strong').textContent()).trim(),expected['Web Studio'],lang+' branding');
+      assert.equal(await visual.locator('.studio-utility-trust span').textContent(),expected['You are in control of your web presence and your data'],lang+' trust line');
+      assert.equal(await visual.locator('.cosmic-menu-section h3').first().textContent(),expected['Profile & Content'],lang+' dropdown category');
+      assert.equal(await visual.locator('.cosmic-menu-label').first().textContent(),expected['Edit Profile'],lang+' dropdown action');
+      await visual.locator('#studio-theme').selectOption('neon-studio');
+      assert.equal(await visual.locator('#role').textContent(),expected['Creative Developer & Interface Engineer'],lang+' Aurora role');
+      await visual.locator('#studio-theme').selectOption('design-2');
+      assert.equal(await visual.locator('#role').textContent(),expected['Developer · Designer · Creator'],lang+' Cosmic role');
+      assert.equal(await visual.locator('.d2-feature h3').first().textContent(),expected['Everlasting Presence'],lang+' product card');
+      const state=await visual.evaluate(()=>({lang:document.documentElement.lang,dir:document.documentElement.dir,
+        overflow:document.documentElement.scrollWidth-innerWidth}));
+      assert.equal(state.lang,lang);
+      assert.equal(state.dir,lang==='ar'?'rtl':'ltr');
+      assert.ok(state.overflow<=2,lang+' 1440px overflow '+JSON.stringify(state));
+    }
+    await visual.locator('#studio-language').selectOption('en');
+    assert.equal(await visual.locator('#role').textContent(),'Developer · Designer · Creator','English restore');
+    assert.equal(await visual.locator('.studio-utility-brand strong').textContent(),'Web Studio','Brand restore');
+    await visual.locator('#studio-theme').selectOption('neon-studio');
+    assert.equal(await visual.locator('#role').textContent(),'Creative Developer & Interface Engineer','Theme identity restores');
+    await visual.setViewportSize({width:390,height:844});
+    await visual.locator('#studio-language').selectOption('ar');
+    const mobile=await visual.evaluate(()=>({dir:document.documentElement.dir,overflow:document.documentElement.scrollWidth-innerWidth,
+      height:document.querySelector('.studio-utility-bar').getBoundingClientRect().height}));
+    assert.equal(mobile.dir,'rtl');
+    assert.ok(mobile.height<=42&&mobile.overflow<=2,'Arabic mobile UI overflow '+JSON.stringify(mobile));
+    await visual.locator('#studio-language').selectOption('en');
+  }finally{await visual.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,52);
+assert.equal(passed,53);
 console.log('Browser checks passed: '+passed);
