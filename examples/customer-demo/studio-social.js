@@ -9,17 +9,19 @@
  if(!root)return;
  const KEY='web-studio:social-studio:v1';
  const MAX_BYTES=100000;
+ const EVENT_NAMES=['preview_opened','link_saved','draft_saved','exported'];
+ const safeCount=value=>Number.isSafeInteger(value)&&value>=0?Math.min(99999,value):0;
  const PLATFORMS=['GitHub','LinkedIn','YouTube','Instagram','Facebook','Bluesky','Mastodon','X','TikTok','Other'];
  const text=(id,value)=>{const el=byId(id);if(el)el.textContent=String(value);};
  const initial=()=>({version:1,assignment:null,preview:null,links:[],drafts:[],events:{preview_opened:0,link_saved:0,draft_saved:0,exported:0}});
  const plain=v=>typeof v==='string'?v.trim():'';
  const validURL=value=>{
-   try{const u=new URL(value);return u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password&&value.length<=600;}
+   try{const u=new URL(value);return u.protocol==='https:'&&!!u.hostname&&!u.username&&!u.password&&!/[\\u0000-\\u001f\\u007f]/.test(value)&&value.length<=600;}
    catch{return false;}
  };
  const safeDraft=d=>d&&PLATFORMS.includes(d.platform)&&plain(d.title).length>0&&plain(d.title).length<=90&&plain(d.caption).length<=2000;
  const validate=raw=>{
-   if(!raw||raw.version!==1||!Array.isArray(raw.links)||!Array.isArray(raw.drafts)||raw.links.length>20||raw.drafts.length>50)throw Error('Invalid Social Studio file');
+   if(!raw||typeof raw!=='object'||raw.version!==1||!Array.isArray(raw.links)||!Array.isArray(raw.drafts)||raw.links.length>20||raw.drafts.length>50)throw Error('Invalid Social Studio file');
    if(raw.links.some(l=>!PLATFORMS.includes(l.platform)||!validURL(l.url)))throw Error('Invalid social link');
    if(raw.drafts.some(d=>!safeDraft(d)))throw Error('Invalid draft');
    const state=initial();
@@ -27,10 +29,14 @@
    state.drafts=raw.drafts.map(d=>({platform:d.platform,title:plain(d.title),caption:plain(d.caption),created:typeof d.created==='string'?d.created.slice(0,30):'',id:typeof d.id==='string'?d.id.slice(0,45):''}));
    state.assignment=['A','B'].includes(raw.assignment)?raw.assignment:null;
    state.preview=['A','B'].includes(raw.preview)?raw.preview:null;
+   // Preserve only known, bounded browser-local counters; never trust arbitrary keys.
+   if(raw.events&&typeof raw.events==='object'&&!Array.isArray(raw.events)){
+     for(const name of EVENT_NAMES)state.events[name]=safeCount(raw.events[name]);
+   }
    return state;
  };
  const read=()=>{
-   try{const stored=localStorage.getItem(KEY);return stored?validate(JSON.parse(stored)):initial();}
+   try{const stored=localStorage.getItem(KEY);return stored&&stored.length<=MAX_BYTES?validate(JSON.parse(stored)):initial();}
    catch{return initial();}
  };
  let state=read();
@@ -39,7 +45,7 @@
    catch{setStatus('Browser storage unavailable. Export your drafts to retain them.');return false;}
  }
  function setStatus(message){text('social-status',message);}
- function event(name){state.events[name]=Math.min(99999,(Number(state.events[name])||0)+1);save();}
+ function event(name){if(!EVENT_NAMES.includes(name))return;state.events[name]=Math.min(99999,safeCount(state.events[name])+1);save();}
  const el=(tag,content,className)=>{
    const node=document.createElement(tag);
    if(content!==undefined)node.textContent=content;
@@ -88,7 +94,7 @@
  function render(){
    renderVariant();renderLinks();renderDrafts();
    text('social-summary',state.links.length+' profile links · '+state.drafts.length+' local drafts');
-   text('social-local-events',Object.values(state.events).reduce((a,b)=>a+(Number(b)||0),0)+' local demo interactions (not real-world A/B results)');
+   text('social-local-events',EVENT_NAMES.reduce((a,name)=>a+safeCount(state.events[name]),0)+' local demo interactions (not real-world A/B results)');
  }
  byId('social-variant').addEventListener('change',e=>{
    state.preview=e.target.value==='A'?'A':'B';event('preview_opened');render();setStatus('Showing variant '+active()+'. This is a local preview; no live experiment is running.');
