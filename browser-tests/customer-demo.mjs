@@ -535,7 +535,7 @@ try {
    await page.locator('#studio-theme').selectOption('neon-studio');
    const pill=page.locator('main>.hero .neon-eyebrow-pill');
    assert.equal(await pill.isVisible(),true);
-   assert.match(await pill.innerText(),/Creative Developer.*Interface Engineer.*Product Builder/);
+   assert.match((await pill.innerText()).replace(/\\s+/g,' '),/Creative Developer.*Interface Engineer.*Product Builder/);
    const p=await pill.evaluate(el=>({width:el.getBoundingClientRect().width,text:el.textContent.trim(),color:getComputedStyle(el).color}));
    assert.ok(p.width>150 && p.width<700,JSON.stringify(p));
    const photo=page.locator('.hero-art .neon-reference-photo');
