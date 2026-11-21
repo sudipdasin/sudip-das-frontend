@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-lifesphere.css','/studio-exposure.css','/studio-exposure.js','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -101,6 +101,39 @@ try {
    const img=page.locator('#avatar img.demo-portrait');
    await img.waitFor();
    assert.ok(await img.evaluate(el=>el.complete && el.naturalWidth > 0));
+ })();
+ await check('six layouts render six distinct fully loaded SVG portraits',async()=>{
+   const variants=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'];
+   const urls=new Set();
+   await page.getByRole('button',{name:'Customize demo'}).click().catch(()=>{});
+   await page.locator('input[name="avatar-preset"][value="auto"]').check();
+   for(const theme of variants){
+     await page.locator('#studio-theme').selectOption(theme);
+     const image=page.locator('#avatar img[data-avatar-choice]');
+     await page.waitForFunction(expected=>{
+       const img=document.querySelector('#avatar img[data-avatar-choice]');
+       return img?.getAttribute('src')==='./avatar-'+expected+'.svg' && img.complete && img.naturalWidth>0;
+     },theme);
+     const src=await image.getAttribute('src');
+     assert.equal(src,'./avatar-'+theme+'.svg');
+     urls.add(src);
+     assert.equal(await page.locator('.neon-reference-photo').isVisible(),false,'obsolete overlay must not obscure themed avatar');
+   }
+   assert.equal(urls.size,6);
+ })();
+ await check('user photo remains local-only and theme switch preserves it',async()=>{
+   const fixture=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aW0sAAAAASUVORK5CYII=','base64');
+   await page.locator('.avatar-studio-upload input[type=file]').setInputFiles({name:'preview.png',mimeType:'image/png',buffer:fixture});
+   const status=page.locator('.avatar-studio [role="status"]');
+   await page.waitForFunction(()=>document.body.dataset.avatarPreset==='photo');
+   assert.match(await status.innerText(),/local photo preview only/i);
+   const photo=await page.locator('#avatar img[data-avatar-choice]').getAttribute('src');
+   assert.ok(photo.startsWith('blob:'),'photo remains an object URL');
+   await page.locator('#studio-theme').selectOption('terminal');
+   assert.equal(await page.locator('#avatar img[data-avatar-choice]').getAttribute('src'),photo);
+   await page.locator('.avatar-studio button').click();
+   await page.waitForFunction(()=>document.body.dataset.avatarPreset==='terminal');
+   assert.equal(await page.locator('#avatar img[data-avatar-choice]').getAttribute('src'),'./avatar-terminal.svg');
  })();
  await check('editable project case study opens',async()=>{
    await page.locator('#projects .project-study summary').first().click();
