@@ -88,11 +88,7 @@
   status.textContent='Your email application was requested. Review the message and press Send. This website cannot verify delivery.';
   clearReminder();
  });
- // Premium themes can be examined in the full demo but cannot enter Free export.
- document.querySelectorAll('#studio-theme option').forEach(option=>{
-  if(!Object.hasOwn(api.THEMES,option.value)&&!option.textContent.includes('Pro preview')){
-   option.textContent+=' · Pro preview';
-  }
- });
+ // Premium theme availability is explained by the plan cards; preserve
+ // localized theme selector labels and all existing translation contracts.
  update();renderStart();
 })();
