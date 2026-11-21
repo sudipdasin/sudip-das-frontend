@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -1022,10 +1022,57 @@ try {
      assert.equal(await p.locator('#checkout-button').isDisabled(),true);
    }finally{await p.close();}
  })();
+ await check('Cosmic orbit portrait, satellites and nameplate have stable non-overlapping geometry',async()=>{
+   const visual=await browser.newPage({viewport:{width:1672,height:941},deviceScaleFactor:1});
+   try{
+     await visual.goto(url,{waitUntil:'load'});
+     await visual.locator('#studio-theme').selectOption('design-2');
+     await visual.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+     await visual.waitForTimeout(350);
+     const measure=()=>visual.evaluate(()=>{
+       const art=document.querySelector('.hero-art');
+       const photo=art.querySelector('.neon-reference-photo').getBoundingClientRect();
+       const caption=art.querySelector('.portrait-caption').getBoundingClientRect();
+       const badges=[...art.querySelectorAll('.neon-orbit-badge')].filter(el=>getComputedStyle(el).display!=='none')
+         .map(el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,cx:r.x+r.width/2,cy:r.y+r.height/2};});
+       const area=art.getBoundingClientRect();
+       const center={x:photo.x+photo.width/2,y:photo.y+photo.height/2};
+       return {width:window.innerWidth,photo:{x:photo.x,y:photo.y,width:photo.width,height:photo.height,
+           right:photo.right,bottom:photo.bottom},
+         caption:{x:caption.x,y:caption.y,width:caption.width,height:caption.height,right:caption.right,bottom:caption.bottom},
+         badges,center,area:{x:area.x,width:area.width},scrollWidth:document.documentElement.scrollWidth,
+         source:art.querySelector('.neon-reference-photo').getAttribute('src'),
+         ratio:devicePixelRatio};
+     });
+     let g=await measure();
+     assert.match(g.source,/design-two-reference-portrait\.svg/);
+     assert.ok(g.photo.width>=265&&g.photo.width<=300,'Portrait scaling not controlled: '+JSON.stringify(g));
+     assert.ok(g.caption.y>=g.photo.bottom+12,'Nameplate overlaps photo: '+JSON.stringify(g));
+     assert.equal(g.badges.length,4,'Cosmic must have four independent orbit icons');
+     assert.ok(g.badges.every(b=>Math.hypot(b.cx-g.center.x,b.cy-g.center.y)>g.photo.width*.58),
+       'Orbit satellites overlap the portrait: '+JSON.stringify(g));
+     assert.ok(g.badges.every(b=>b.x>=0&&b.x+b.width<=g.width+1),
+       'Satellite clipped at desktop edge: '+JSON.stringify(g));
+     assert.ok(g.scrollWidth<=g.width+2,'Desktop horizontal overflow: '+JSON.stringify(g));
+     assert.ok(g.caption.bottom<=941,'Nameplate falls outside screenshot: '+JSON.stringify(g));
+     await visual.screenshot({path:join(root,'dist','visual-audit','cosmic-orbit-fidelity-1672.png'),fullPage:false});
+     await visual.setViewportSize({width:390,height:844});
+     await visual.waitForTimeout(100);
+     g=await measure();
+     assert.ok(g.photo.width>=185&&g.photo.width<=242,'Mobile photo size: '+JSON.stringify(g));
+     assert.ok(g.caption.y>=g.photo.bottom+5,'Mobile caption overlaps photo: '+JSON.stringify(g));
+     assert.ok(g.badges.every(b=>b.x>=-1&&b.x+b.width<=390+1),'Mobile clipped icon: '+JSON.stringify(g));
+     assert.ok(g.scrollWidth<=392,'Cosmic mobile overflow: '+JSON.stringify(g));
+     await visual.screenshot({path:join(root,'dist','visual-audit','cosmic-orbit-fidelity-390.png'),fullPage:false});
+     await visual.locator('#studio-theme').selectOption('neon-studio');
+     assert.equal(await visual.locator('.neon-role-pills .neon-orbit-badge:visible').count(),5,
+       'Aurora five-role arrangement was unintentionally changed');
+   }finally{await visual.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,56);
+assert.equal(passed,57);
 console.log('Browser checks passed: '+passed);

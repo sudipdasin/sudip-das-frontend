@@ -1,0 +1,174 @@
+/* Cosmic portrait fidelity: ONE contained, four-satellite orbital composition.
+   Preserves Aurora, Orbit, Editorial, Terminal and Aurora Peak unchanged.
+   Reference target = supplied Cosmic design 2.png, 1672×941.
+   Source photograph is a low-resolution existing asset: CSS must not pretend to
+   recover source detail. Reduce enlargement until a higher-res asset is available.
+*/
+body[data-theme="design-2"] main>.hero .hero-art{
+  --portrait-diameter:clamp(238px,17.5vw,294px);
+  --orbit-inner-diameter:calc(var(--portrait-diameter) * 1.17);
+  --orbit-outer-diameter:calc(var(--portrait-diameter) * 1.4);
+  --badge-r:calc(var(--orbit-outer-diameter) * .5);
+  min-height:440px!important;
+  position:relative;
+  isolation:isolate;
+}
+body[data-theme="design-2"] .hero-art .neon-reference-photo{
+  width:var(--portrait-diameter)!important;
+  height:var(--portrait-diameter)!important;
+  object-fit:cover!important;
+  object-position:center 44%!important;
+  image-rendering:auto!important;
+  border:3px solid #30eafa!important;
+  border-radius:50%!important;
+  box-shadow:0 0 0 4px #06172b,0 0 16px 4px #03e3ff91,0 0 38px #047cec65!important;
+  filter:contrast(1.05) saturate(1.055);
+}
+body[data-theme="design-2"] .hero-art .orbit{
+  border-width:1.5px!important;
+  border-color:#20bafb!important;
+  box-shadow:0 0 12px #19bbfc6b,inset 0 0 9px #09acff29!important;
+}
+body[data-theme="design-2"] .hero-art .orbit.second{
+  border-color:#a65efa!important;
+  box-shadow:0 0 13px #955cff75,inset 0 0 10px #945fff30!important;
+}
+body[data-theme="design-2"] .hero-art:before{
+  background:radial-gradient(circle,#038ce800 46%,#009af914 53%,#833df417 65%,transparent 72%)!important;
+  box-shadow:none!important;
+  border-color:#0dacf84d!important;
+}
+body[data-theme="design-2"] .hero-art .neon-role-pills{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  z-index:6!important;
+  pointer-events:none;
+}
+body[data-theme="design-2"] .hero-art .neon-orbit-badge{
+  width:52px!important;
+  height:52px!important;
+  min-height:52px!important;
+  max-width:52px!important;
+  padding:4px!important;
+  border:1px solid #19d9fa!important;
+  border-radius:50%!important;
+  background:linear-gradient(150deg,#063d57,#05233d)!important;
+  box-shadow:0 0 14px #00c7f866,inset 0 0 10px #14d3ed24!important;
+  transform:translate(-50%,-50%) translate(var(--orbit-x),var(--orbit-y))!important;
+}
+body[data-theme="design-2"] .hero-art .neon-orbit-badge .neon-orbit-bubble{
+  width:42px!important;
+  height:42px!important;
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 42px!important;
+  margin:0!important;
+  border:0!important;
+  background:none!important;
+  box-shadow:none!important;
+  color:#2ff1fa!important;
+}
+body[data-theme="design-2"] .hero-art .neon-orbit-badge .neon-orbit-bubble svg{
+  width:27px!important;height:27px!important;
+  filter:drop-shadow(0 0 4px #00ebff55);
+}
+body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(1){
+  --orbit-x:calc(var(--badge-r)*.64)!important;
+  --orbit-y:calc(var(--badge-r)*-1.04)!important;
+}
+body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(2){
+  --orbit-x:calc(var(--badge-r)*1.17)!important;
+  --orbit-y:calc(var(--badge-r)*.30)!important;
+}
+body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(3){
+  --orbit-x:calc(var(--badge-r)*-.84)!important;
+  --orbit-y:calc(var(--badge-r)*.87)!important;
+}
+body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(4){
+  --orbit-x:calc(var(--badge-r)*.73)!important;
+  --orbit-y:calc(var(--badge-r)*1.0)!important;
+}
+body[data-theme="design-2"] .hero-art .neon-orbit-badge:nth-child(5){display:none!important}
+body[data-theme="design-2"] main>.hero .hero-art .portrait-caption{
+  position:absolute!important;
+  left:50%!important;
+  right:auto!important;
+  top:calc(50% + var(--orbit-outer-diameter)*.5 + 12px)!important;
+  bottom:auto!important;
+  transform:translateX(-50%)!important;
+  z-index:8!important;
+  min-width:235px!important;
+  max-width:calc(100% - 24px)!important;
+  min-height:57px!important;
+  padding:8px 22px!important;
+  border-radius:24px!important;
+  border:1px solid #19d5f9!important;
+  background:linear-gradient(130deg,#062642f6,#051b3cf6)!important;
+  box-shadow:inset 0 1px 0 #55eaf13b,0 0 18px #02d8fa4d!important;
+  color:#f8fbff!important;
+  font:800 21px/1.18 Inter,system-ui,sans-serif!important;
+  text-align:center!important;
+  overflow:visible!important;
+}
+body[data-theme="design-2"] .hero-art .portrait-caption::after{
+  color:#d8ecff!important;
+  font-size:12px!important;
+  font-weight:500!important;
+  margin-top:4px!important;
+}
+/* A slightly larger portrait without the old 112px relative shift at the
+   exact reference width. Keep the orbital module inside the right hero column. */
+@media(min-width:1570px) and (max-width:1799px){
+  body[data-theme="design-2"] main>.hero .hero-art{
+    transform:translateX(126px)!important;
+  }
+}
+@media(min-width:1800px){
+  body[data-theme="design-2"] main>.hero .hero-art{
+    transform:translateX(16px)!important;
+  }
+}
+@media(min-width:861px) and (max-width:1569px){
+  body[data-theme="design-2"] main>.hero .hero-art{
+    --portrait-diameter:clamp(220px,20vw,272px);
+    min-height:420px!important;
+  }
+}
+@media(max-width:860px){
+  body[data-theme="design-2"] main>.hero .hero-art{
+    transform:none!important;
+    --portrait-diameter:clamp(205px,59vw,262px);
+    --orbit-inner-diameter:calc(var(--portrait-diameter)*1.17);
+    --orbit-outer-diameter:calc(var(--portrait-diameter)*1.38);
+    min-height:405px!important;
+    margin-bottom:26px!important;
+  }
+  body[data-theme="design-2"] main>.hero .hero-art .portrait-caption{
+    min-width:190px!important;
+    min-height:51px!important;
+    font-size:17px!important;
+  }
+  body[data-theme="design-2"] .hero-art .neon-orbit-badge{
+    width:41px!important;height:41px!important;min-height:41px!important;max-width:41px!important;
+  }
+  body[data-theme="design-2"] .hero-art .neon-orbit-badge .neon-orbit-bubble{
+    width:32px!important;height:32px!important;flex-basis:32px!important;
+  }
+  body[data-theme="design-2"] .hero-art .neon-orbit-badge .neon-orbit-bubble svg{width:22px!important;height:22px!important}
+}
+@media(max-width:420px){
+  body[data-theme="design-2"] main>.hero .hero-art{
+    --portrait-diameter:clamp(188px,55vw,228px);
+    min-height:360px!important;
+    transform:translateX(-58px)!important;
+  }
+  body[data-theme="design-2"] main>.hero .hero-art .portrait-caption{
+    top:calc(50% + var(--orbit-outer-diameter)*.5 + 8px)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-theme="design-2"] .hero-art .orbit,
+  body[data-theme="design-2"] .hero-art .neon-orbit-badge{animation:none!important;transition:none!important}
+}
