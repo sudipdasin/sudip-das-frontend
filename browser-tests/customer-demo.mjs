@@ -619,8 +619,8 @@ try {
  })();
  await check('Design 1 and Design 2 preserve separate screenshot-specific structure',async()=>{
   const choices=await page.locator('#studio-theme option').evaluateAll(list=>list.map(option=>({value:option.value,text:option.textContent})));
-  assert.ok(choices.some(x=>x.value==='neon-studio'&&/Design 1/.test(x.text)),JSON.stringify(choices));
-  assert.ok(choices.some(x=>x.value==='design-2'&&/Design 2/.test(x.text)),JSON.stringify(choices));
+  assert.ok(choices.some(x=>x.value==='neon-studio'&&x.text.trim()==='Aurora'),JSON.stringify(choices));
+  assert.ok(choices.some(x=>x.value==='design-2'&&x.text.trim()==='Cosmic'),JSON.stringify(choices));
   const shots=join(root,'dist','visual-audit');await mkdir(shots,{recursive:true});
   for(const [theme,width,height] of [['neon-studio',1833,858],['design-2',1672,941]]){
     await page.setViewportSize({width,height});
