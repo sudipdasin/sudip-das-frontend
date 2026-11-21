@@ -1,0 +1,16 @@
+/* Exposure Watch: incident response, not an unverified scanning product. */
+.ew-section{margin:36px 0;padding:clamp(18px,3vw,34px);border-radius:22px;border:1px solid var(--line,#4c6a77);background:linear-gradient(145deg,rgba(12,42,62,.55),rgba(24,84,85,.13))}
+.ew-section h2{margin:0 0 8px}.ew-section p{line-height:1.55}
+.ew-section .ew-head{display:flex;gap:18px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.ew-subtitle{max-width:780px}.ew-alert,.ew-ok{display:inline-flex;padding:8px 12px;border-radius:12px;font-weight:700}
+.ew-alert{background:#7f360d30;color:#ffca8c;border:1px solid #c7804480}
+.ew-ok{background:#116d552c;color:var(--accent,#72dfbd);border:1px solid #5bd0ad60}
+.ew-helpers{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}.ew-helpers a{display:inline-flex;padding:10px 14px;border:1px solid var(--line,#50728b);border-radius:12px;color:inherit;text-decoration:underline;text-underline-offset:3px}
+.ew-form{padding:18px;border:1px solid var(--line,#4d6a7a);border-radius:16px;margin-top:16px;background:rgba(5,20,34,.16)}
+.ew-fields{display:grid;grid-template-columns:1fr 2fr;gap:14px}.ew-fields label{display:flex;flex-direction:column;gap:7px}
+.ew-fields textarea,.ew-fields select,.ew-item select{padding:10px;min-width:0;width:100%;color:var(--text,#f2f8fb);background:var(--panel,#152b3b);border:1px solid var(--line,#4f7487);border-radius:10px}
+.ew-form button{margin-top:12px}.ew-item{border:1px solid var(--line,#496a79);border-radius:14px;padding:16px;margin:12px 0;background:rgba(8,31,45,.18)}
+.ew-item p{margin:8px 0}.ew-guidance{padding:10px;border-left:3px solid var(--accent,#73dcca)}
+.ew-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.ew-actions select{max-width:180px}
+.ew-section :is(a,button,input,select,textarea):focus-visible{outline:3px solid var(--accent,#65e5c9);outline-offset:3px}
+@media(max-width:680px){.ew-fields{grid-template-columns:1fr}.ew-section{padding:16px}}
