@@ -6,7 +6,7 @@
    progress=$('tour-progress'),back=$('tour-back'),next=$('tour-next'),tryButton=$('tour-try'),exit=$('tour-exit');
  const steps=[
   {title:'Meet your enduring web presence.',description:'The planned Auto-Regenerative Presence Engine combines independent backups, provider portability, outage detection and tested emergency restoration. Try the working demo features now.',action:'Explore resilience',target:'resilience'},
-  {title:'Three layouts, one profile.',description:'Orbit, Editorial and Terminal each have their own typography and composition. Your portrait and details remain visible when you switch.',action:'Try Editorial layout',target:'theme'},
+  {title:'Six themes, one profile.',description:'Aurora and Cosmic preserve their two distinct reference designs. Orbit, Editorial, Terminal and Aurora Peak offer additional layouts. Your saved profile travels with the theme you choose.',action:'Try Cosmic theme',target:'theme'},
   {title:'Make every detail yours.',description:'Change name, role, color, skills, SEO, projects and links. Save locally and export the profile without an account.',action:'Open the editor',target:'editor'},
   {title:'Projects tell your story.',description:'Filter the sample projects, read their case studies, and edit descriptions. No programming required.',action:'Explore projects',target:'projects-section'},
   {title:'See the product roadmap.',description:'Explore the free demo today. Customer hosting and paid plans are not live yet; checkout is deliberately disabled.',action:'View plans',target:'studio-plans'}
@@ -22,7 +22,7 @@
  function close(){modal.hidden=true;document.body.classList.remove('tour-open');if(previousFocus?.isConnected)previousFocus.focus();}
  function jump(){
   const target=steps[step].target;close();
-  if(target==='theme'){$('studio-theme').value='editorial';$('studio-theme').dispatchEvent(new Event('change',{bubbles:true}));$('studio-theme').focus();return;}
+  if(target==='theme'){$('studio-theme').value='design-2';$('studio-theme').dispatchEvent(new Event('change',{bubbles:true}));$('studio-theme').focus();return;}
   if(target==='editor'){if(!$('editor').classList.contains('open'))$('edit-toggle').click();$('editor').scrollIntoView({behavior:'auto',block:'start'});return;}
   if(document.body.dataset.theme==='terminal'){$('studio-theme').value='orbit';$('studio-theme').dispatchEvent(new Event('change',{bubbles:true}));}
   $(target)?.scrollIntoView({behavior:'smooth',block:'start'});

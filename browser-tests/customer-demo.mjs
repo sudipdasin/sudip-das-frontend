@@ -276,7 +276,7 @@ try {
    await page.locator('#tour-start').click();
    await page.waitForFunction(()=>document.querySelector('#tour-title')?.textContent==='تعرّف على حضورك الرقمي المستدام.');
    await page.locator('#tour-next').click();
-   await page.waitForFunction(()=>document.querySelector('#tour-title')?.textContent==='ثلاثة تخطيطات لملف واحد.');
+   await page.waitForFunction(()=>document.querySelector('#tour-title')?.textContent==='ست سمات لملف شخصي واحد.');
    await page.keyboard.press('Escape');
  })();
  await check('English restore preserves editable profile data and core safety claims',async()=>{
@@ -619,8 +619,8 @@ try {
  })();
  await check('Design 1 and Design 2 preserve separate screenshot-specific structure',async()=>{
   const choices=await page.locator('#studio-theme option').evaluateAll(list=>list.map(option=>({value:option.value,text:option.textContent})));
-  assert.ok(choices.some(x=>x.value==='neon-studio'&&/Design 1/.test(x.text)),JSON.stringify(choices));
-  assert.ok(choices.some(x=>x.value==='design-2'&&/Design 2/.test(x.text)),JSON.stringify(choices));
+  assert.ok(choices.some(x=>x.value==='neon-studio'&&x.text.trim()==='Aurora'),JSON.stringify(choices));
+  assert.ok(choices.some(x=>x.value==='design-2'&&x.text.trim()==='Cosmic'),JSON.stringify(choices));
   const shots=join(root,'dist','visual-audit');await mkdir(shots,{recursive:true});
   for(const [theme,width,height] of [['neon-studio',1833,858],['design-2',1672,941]]){
     await page.setViewportSize({width,height});
@@ -968,10 +968,64 @@ try {
      assert.equal(await fresh.evaluate(()=>document.documentElement.dir),'rtl');
    }finally{await fresh.close();}
  })();
+ await check('Aurora and Cosmic branded themes persist, switch cleanly, and guided tour reaches Cosmic',async()=>{
+   const p=await browser.newPage({viewport:{width:1280,height:900}});
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     const options=await p.locator('#studio-theme option').evaluateAll(nodes=>nodes.map(n=>({id:n.value,label:n.textContent.trim()})));
+     assert.deepEqual(options.filter(x=>['neon-studio','design-2'].includes(x.id)),
+       [{id:'neon-studio',label:'Aurora'},{id:'design-2',label:'Cosmic'}]);
+     assert.ok(options.every(o=>!/^Design [12]/.test(o.label)),'Obsolete names remain in dropdown');
+     await p.locator('#studio-theme').selectOption('design-2');
+     assert.equal(await p.locator('body').getAttribute('data-theme'),'design-2');
+     assert.equal(await p.locator('.d2-feature-row').isVisible(),true);
+     assert.equal(await p.locator('.neon-feature-grid').isVisible(),false);
+     await p.reload();
+     assert.equal(await p.locator('#studio-theme').inputValue(),'design-2','Cosmic saved theme lost');
+     await p.locator('#studio-theme').selectOption('neon-studio');
+     assert.equal(await p.locator('.neon-feature-grid').isVisible(),true);
+     assert.equal(await p.locator('.d2-feature-row').isVisible(),false);
+     await p.reload();
+     assert.equal(await p.locator('#studio-theme').inputValue(),'neon-studio','Aurora saved theme lost');
+     await p.locator('#tour-start').click();
+     assert.equal(await p.locator('#demo-tour').isVisible(),true);
+     await p.locator('#tour-next').click();
+     assert.match(await p.locator('#tour-title').textContent(),/^Six themes/);
+     await p.locator('#tour-try').click();
+     assert.equal(await p.locator('#demo-tour').isVisible(),false);
+     assert.equal(await p.locator('#studio-theme').inputValue(),'design-2');
+     assert.equal(await p.locator('#studio-theme option:checked').textContent(),'Cosmic');
+     await p.locator('#studio-language').selectOption('hi');
+     assert.equal(await p.locator('#studio-theme option:checked').textContent(),'Cosmic','Theme name must remain its brand name');
+     assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=2,true);
+   }finally{await p.close();}
+ })();
+ await check('product catalog reflects six actual themes in every language without exposing unfinished checkout',async()=>{
+   const p=await browser.newPage({viewport:{width:1366,height:768}});
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     const themes=await p.locator('#studio-theme option').count();
+     assert.equal(themes,6);
+     assert.equal(await p.locator('#checkout-button').isDisabled(),true);
+     const phrases={
+       en:/six themes/i,hi:/छह थीम/,bn:/ছয়টি থিম/,es:/seis temas/i,
+       fr:/six thèmes/i,de:/sechs designs/i,pt:/seis temas/i,ar:/ست سمات/,
+       'zh-CN':/六种主题/,ja:/6 種のテーマ/
+     };
+     for(const [lang,expected] of Object.entries(phrases)){
+       await p.locator('#studio-language').selectOption(lang);
+       assert.match(await p.locator('[data-i18n="availableNow"]').textContent(),expected,lang+' six-theme product statement');
+       assert.equal(await p.locator('#checkout-button').isDisabled(),true,lang+' disabled checkout');
+     }
+     await p.locator('#studio-language').selectOption('en');
+     assert.match(await p.locator('.price-card').first().textContent(),/Six visual themes, including Aurora and Cosmic/);
+     assert.equal(await p.locator('#checkout-button').isDisabled(),true);
+   }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,54);
+assert.equal(passed,56);
 console.log('Browser checks passed: '+passed);
