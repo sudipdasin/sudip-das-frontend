@@ -1175,10 +1175,72 @@ try {
      assert.equal(await p.locator('#studio-language').inputValue(),'en');
    }finally{await context.close();}
  })();
+ await check('Social Studio local A/B onboarding and public HTTPS links persist without network publishing',async()=>{
+   const p=await browser.newPage({viewport:{width:1280,height:900},acceptDownloads:true});
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     assert.equal(await p.locator('#social-studio').isVisible(),true);
+     assert.equal(await p.locator('#social-variant option').count(),2);
+     assert.equal(await p.getByRole('button',{name:/Connect OAuth accounts/}).isDisabled(),true);
+     assert.equal(await p.getByRole('button',{name:/Publish to social networks/}).isDisabled(),true);
+     const original=await p.locator('#social-variant').inputValue();
+     assert.ok(['A','B'].includes(original));
+     await p.locator('#social-variant').selectOption(original==='A'?'B':'A');
+     assert.match(await p.locator('#social-status').textContent(),/local preview/);
+     await p.locator('#social-reset-variant').click();
+     assert.equal(await p.locator('#social-variant').inputValue(),original,'Experiment assignment must remain stable');
+     await p.locator('#social-link-form select[name="platform"]').selectOption('GitHub');
+     await p.locator('#social-link-form input[name="url"]').fill('https://github.com/example-demo');
+     await p.locator('#social-link-form button[type="submit"]').click();
+     assert.equal(await p.locator('#social-links-list a').count(),1);
+     assert.equal(await p.locator('#social-links-list a').getAttribute('rel'),'noopener noreferrer nofollow');
+     await p.locator('#social-draft-form input[name="title"]').fill('Social MVP demo');
+     await p.locator('#social-draft-form textarea[name="caption"]').fill('<img src=x onerror=alert(1)>');
+     await p.locator('#social-draft-form button[type="submit"]').click();
+     assert.equal(await p.locator('.social-draft-card').count(),1);
+     assert.equal(await p.locator('.social-draft-card img').count(),0,'Draft content must never parse as HTML');
+     assert.match(await p.locator('.social-draft-card p').textContent(),/<img src=x onerror=alert\(1\)>/);
+     await p.reload();
+     assert.equal(await p.locator('#social-links-list a').count(),1);
+     assert.equal(await p.locator('.social-draft-card').count(),1);
+     assert.equal(await p.locator('#social-variant').inputValue(),original);
+     const downloadPromise=p.waitForEvent('download');
+     await p.locator('#social-export').click();
+     const download=await downloadPromise;
+     assert.equal(download.suggestedFilename(),'web-studio-social-drafts.json');
+     assert.match(await p.locator('#social-status').textContent(),/exported as JSON/);
+   }finally{await p.close();}
+ })();
+ await check('Social Studio import validation and six-theme mobile layouts remain safe',async()=>{
+   const p=await browser.newPage({viewport:{width:390,height:844}});
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     const invalid=Buffer.from(JSON.stringify({version:1,links:[{platform:'X',url:'javascript:alert(1)'}],drafts:[]}));
+     await p.locator('#social-import').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:invalid});
+     assert.match(await p.locator('#social-status').textContent(),/Import rejected/);
+     const imported=Buffer.from(JSON.stringify({version:1,links:[{platform:'LinkedIn',url:'https://www.linkedin.com/company/example-demo'}],drafts:[{platform:'Bluesky',title:'A local post',caption:'Only in the browser',created:'2026-11-21',id:'demo'}]}));
+     await p.locator('#social-import').setInputFiles({name:'good.json',mimeType:'application/json',buffer:imported});
+     assert.match(await p.locator('#social-status').textContent(),/imported locally/);
+     assert.equal(await p.locator('.social-draft-card').count(),1);
+     assert.equal(await p.locator('#social-links-list a').count(),1);
+     for(const theme of ['orbit','editorial','terminal','aurora-peak','neon-studio','design-2']){
+       await p.locator('#studio-theme').selectOption(theme);
+       const m=await p.evaluate(()=>{
+         const r=document.querySelector('#social-studio').getBoundingClientRect();
+         return {scrollWidth:document.documentElement.scrollWidth,width:innerWidth,sectionWidth:r.width,sectionLeft:r.left};
+       });
+       assert.ok(m.scrollWidth<=m.width+2,'Social mobile horizontal overflow '+theme+': '+JSON.stringify(m));
+       assert.ok(m.sectionLeft>=0&&m.sectionWidth>200,theme+' social section clipped '+JSON.stringify(m));
+     }
+     const link=await p.locator('#social-links-list a').first().getAttribute('href');
+     assert.equal(link,'https://www.linkedin.com/company/example-demo');
+     assert.equal(await p.getByRole('button',{name:/Publish to social networks/}).isDisabled(),true);
+   }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,60);
+assert.equal(passed,62);
 console.log('Browser checks passed: '+passed);
