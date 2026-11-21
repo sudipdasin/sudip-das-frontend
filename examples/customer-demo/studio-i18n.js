@@ -70,7 +70,7 @@
     fetch('./i18n-profile.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Profile translations missing');return r.json();}),
     fetch('./i18n-dynamic.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Dynamic translations missing');return r.json();}),
     fetch('./i18n-theme.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Theme translations missing');return r.json();})
-  ]).then(([productData,uiData,copyData,profileData,dynamicData])=>{
+  ]).then(([productData,uiData,copyData,profileData,dynamicData,themeData])=>{
     for(const lang of locales){
       if(!productData.locales[lang])throw Error('Missing product language: '+lang);
       if(lang!=='en'&&!uiData.translations[lang])throw Error('Missing UI language: '+lang);
