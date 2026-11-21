@@ -1,85 +1,90 @@
-# WebStudio Free / Pro Architecture — First functional milestone
+# WebStudio Free — Interactive export and verified feedback gate
 
-## Free available now
+## Free themes and parity
+Orbit, Editorial and Terminal are the **first three exportable Free themes**.
+Aurora Peak, Neon Studio and Cosmic are Pro preview designs only.
 
-The community/free edition has **two exportable themes: Orbit and Editorial**.
-These are the first two selections in the studio theme menu. All six designs
-remain visible in the interactive demo for evaluation, but Terminal,
-Aurora Peak, Neon Studio, and Cosmic are **Pro previews**, not distributable
-free packages.
+The live preview iframe loads the **same isolated WebStudio application** as
+the setup demo. Saving profile changes refreshes the preview and clears approval.
+Changing the selected theme also clears approval. Only the selected, approved
+profile/theme may proceed to feedback.
 
-The Free section's five illustrated walkthrough chapters cover design,
-editing, portable export, privacy, and feedback. All five must be completed
-to start a Free export; the regular demo may be explored at any time.
+The interactive ZIP is assembled from the exact generated
+`webstudio-runtime-manifest.json` emitted by
+`scripts/build-customer-demo.mjs`; it includes the working JS/CSS/SVG/HTML
+runtime files, substitutes the validated edited `profile.json`, and inserts
+`webstudio-free-runtime.js` to set the Free theme policy. It is **not** the
+older minimal static website template. All application logic still runs in the
+visitor's browser, not on a backend. Manual HTTP(S) hosting is required.
+Browser-local edits do not automatically modify hosted files.
 
-The working Free export:
-- Reads the locally saved demo profile through the existing validated
-  `StudioDemo.getProfile()` API.
-- Requires a name, role, tagline, SEO fields and at least one project.
-- Validates HTTPS project/social URLs, sizes and dangerous secret markers.
-- Renders all user-provided text as escaped HTML.
-- Produces a browser-local standard ZIP containing `site/index.html`,
-  `site/assets/base.css`, `site/themes/{orbit|editorial}.css`,
-  `site/data/profile.json`, `site/config/modules.json`, and
-  `site/README.txt`.
-- Uses no third-party package, upload, telemetry, hosting or deployment.
-  The user extracts and publishes the `site/` contents manually.
+## Mandatory feedback workflow
 
-**Module architecture:** edition boundaries are declared in
-`examples/customer-demo/webstudio-editions.json`. The static generator
-uses a small explicit theme registry and separate, selectable theme CSS.
-The configuration file reserves a plugins list for future reviewed modules.
-It is intentionally empty; no arbitrary third-party plugin JavaScript is
-executed or imported automatically.
+1. Complete the five-chapter introductory tour.
+2. Edit and save required personal profile fields.
+3. Select Orbit, Editorial or Terminal.
+4. Inspect the actual interactive preview and explicitly approve the exact
+   saved profile/theme.
+5. Enter 60–1800 characters of detailed feedback, optionally a reply email.
+6. Complete Turnstile and submit to the configured feedback receiver.
+7. **Only** after the server verifies Turnstile and the email provider accepts
+   the feedback does it return an opaque `{accepted:true,receiptId:"..."}`.
+8. The browser then unlocks interactive ZIP generation for that approved
+   profile/theme. Any later profile/theme change revokes its approval.
 
-## Email, feedback, and privacy limits
+No `mailto:` action or client-side declaration counts as verified submission.
+The exported website ZIP contains no feedback submission token, email delivery
+API key, CAPTCHA secret, or backend credentials.
 
-After approximately 48 hours of local Free usage, the browser may display a
-dismissible detailed-feedback reminder. The user can write feedback and open
-their own email client addressed to the developer. The browser cannot confirm
-whether the message was actually sent or received. No automatic account
-verification or verified email identity exists in this release, and no
-existing site or previously exported package is disabled for not sending
-feedback. A local device clock or storage can be changed: it is not a
-tamper-proof licensing trial.
+## Required deployment configuration
 
-An email field accepts only a format-valid optional reply address and stays
-local until the tester chooses to compose feedback. Adding a real server-side
-email-confirmation flow requires: consent/privacy terms, rate limiting,
-anti-abuse controls, time-limited single-use token storage, email provider,
-and live end-to-end delivery verification. **Do not label syntactically
-valid addresses as verified users.**
+The public runtime's
+`examples/customer-demo/webstudio-editions.json` has two initially blank
+fields: `feedback.endpoint` and `feedback.challengeSiteKey`. Until they
+are configured, **preview and approval work but ZIP export is intentionally
+locked**. Do not advertise a live feedback-enabled release before delivery
+checks pass.
 
-## Security boundary
+Deploy `services/webstudio-feedback/worker.mjs` as a separate Cloudflare
+Worker, with protected runtime secrets and variables:
 
-Publicly served HTML, CSS, JavaScript and JSON cannot be encrypted in a way
-that prevents a site visitor from reading or copying them: the visitor's
-browser must decrypt or execute them. Static ZIPs must contain no secrets or
-private records. Private/proprietary services and source belong in a separate
-access-controlled backend, not in this free static package. Premium claims
-about secure vaults, hosted publishing or automation remain **planned**.
+- `ALLOWED_ORIGIN`: the actual demo origin used for previews
+  (for GitHub Pages, `https://sudipdasin.github.io`).
+- `TURNSTILE_SECRET_KEY`: Cloudflare Turnstile server secret
+- `RESEND_API_KEY`: private email provider API key
+- `FEEDBACK_FROM`: verified sending address for the email provider
+- `FEEDBACK_TO`: developer's private receiving address
 
-The demo has no payment button activated; it must remain disabled until
-commerce and fulfillment are independently validated.
+Set the *public* Turnstile site key and feedback Worker HTTPS endpoint in
+the edition manifest only after successful server and browser testing. Never
+put Turnstile secret or email API key into a public manifest.
 
-## WebStudio -> Personal adaptation
+The Worker accepts POST with strict origin, theme and size validation. It
+verifies the Turnstile challenge and hostname, then calls the mail provider.
+It returns an accepted receipt only after the provider confirms acceptance.
+Provider acceptance is not a guarantee of final inbox placement. Maintain
+provider abuse controls and rate limiting before production launch.
 
-Use the reviewed `contracts/personal-port-v1.json` pipeline when moving
-visual design or features to the real private personal portfolio. Never
-copy the fictional Dev Das profile, local editable-content demo, developer
-feedback onboarding, unverified email trial, or demo-specific ZIP exporter
-into the real public visitor profile. Theme token and accessible UI
-components can be adapted after review and private site acceptance tests.
+## Source and security limits
 
-## Tests
+The exported UI is interactive but remains a publicly readable
+HTML/CSS/JavaScript frontend. A browser must download its source, so the
+client-side components cannot be made uncopyable by encryption. Free/Pro
+entitlements need protected server-side enforcement for any genuinely secret
+or billable features. No live paid checkout or hosting automation is included.
+
+The fictional demo and personal portfolio root remain separate; WebStudio
+does not automatically copy fictional data to the personal site.
+
+## Verification
 
 ```bash
-node --test tests/webstudio-freemium.test.mjs
+node --test tests/webstudio-freemium.test.mjs tests/webstudio-dynamic-export.test.mjs tests/webstudio-feedback-worker.test.mjs
 node --test tests/customer-demo-build.test.mjs
-node browser-tests/customer-demo.mjs
 node scripts/build-customer-demo.mjs
 node scripts/verify-customer-demo.mjs
+node browser-tests/customer-demo.mjs
 ```
 
-This milestone does not include backend email verification, real cloud
-hosting, paid entitlements, encrypted server code, or automatic publication.
+Full interactive export is only **production-ready after** the feedback
+Worker, CAPTCHA, provider, and end-to-end receipt/delivery test are live.
