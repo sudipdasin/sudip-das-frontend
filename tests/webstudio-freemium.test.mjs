@@ -64,6 +64,6 @@ test('interactive site builder is implemented separately from legacy static fall
  const source=await readFile(new URL('../examples/customer-demo/webstudio-starter.js',import.meta.url),'utf8');
  assert.equal(typeof starter.buildInteractive,'function');
  assert.ok(source.includes('webstudio-runtime-manifest.json'));
- assert.ok(source.includes('webstudio-free-runtime.json'));
+ assert.ok(source.includes('webstudio-free-runtime.js'));
  assert.ok(source.includes('profile.json'));
 });
