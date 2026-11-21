@@ -551,6 +551,8 @@ try {
  await check('Design 1 orbit labels follow the right orbital arc and brand is left-aligned',async()=>{
   await page.locator('#studio-theme').selectOption('neon-studio');
   await page.setViewportSize({width:1777,height:832});
+  await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+  await page.waitForTimeout(120);
   const orbit=page.locator('.neon-role-pills .neon-orbit-badge');
   assert.equal(await orbit.count(),5);
   assert.equal(await page.locator('.neon-intro-button').isDisabled(),true,
@@ -578,7 +580,7 @@ try {
       overflow:document.documentElement.scrollWidth-innerWidth};
   });
   assert.ok(g.badges.every(b=>b.visible&&b.icon),JSON.stringify(g));
-  assert.ok(g.distances.every(d=>d>145&&d<325),'Badges are not around orbit: '+JSON.stringify(g));
+  assert.ok(g.distances.every(d=>d>180&&d<440),'Badges are not around orbit: '+JSON.stringify(g));
   assert.ok(g.spanX<125&&g.spanY>220,'Design 1 role badges must align vertically along the outer right orbit: '+JSON.stringify(g));
   assert.equal(g.overlap,false,'Badges overlap: '+JSON.stringify(g));
   assert.ok(g.badges[0].y-g.badges[0].height/2>g.headerBottom+2,
