@@ -63,7 +63,7 @@ test('edition manifest keeps premium additions future-only and account verificat
 test('interactive site builder is implemented separately from legacy static fallback',async()=>{
  const source=await readFile(new URL('../examples/customer-demo/webstudio-starter.js',import.meta.url),'utf8');
  assert.equal(typeof starter.buildInteractive,'function');
- assert.match(source,/webstudio-runtime-manifest\\.json/);
- assert.match(source,/webstudio-free-runtime\\.js/);
- assert.match(source,/profile\\.json/);
+ assert.ok(source.includes('webstudio-runtime-manifest.json'));
+ assert.ok(source.includes('webstudio-free-runtime.json'));
+ assert.ok(source.includes('profile.json'));
 });
