@@ -837,10 +837,60 @@ try {
      assert.ok(await mobile.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=2);
    }finally{await mobile.close();}
  })();
+ await check('shared Web Studio utility banner keeps one structure with six theme-specific skins',async()=>{
+  const fresh=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});
+  try{
+    await fresh.goto(url,{waitUntil:'load'});
+    const themes=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'];
+    const colors=new Set();
+    const shots=join(root,'dist','visual-audit');
+    await mkdir(shots,{recursive:true});
+    for(const theme of themes){
+      await fresh.locator('#studio-theme').selectOption(theme);
+      await fresh.waitForTimeout(80);
+      const state=await fresh.evaluate(()=>{
+        const banner=document.querySelector('.studio-utility-bar');
+        const brand=banner.querySelector('.studio-utility-brand');
+        const shield=banner.querySelector('.studio-utility-shield');
+        const trust=banner.querySelector('.studio-utility-trust');
+        const bar=banner.getBoundingClientRect(),left=brand.getBoundingClientRect(),right=trust.getBoundingClientRect();
+        const visible=e=>{const s=getComputedStyle(e);const r=e.getBoundingClientRect();return s.display!=='none'&&s.visibility!=='hidden'&&r.width>0&&r.height>0};
+        return {theme:document.body.dataset.theme,bg:getComputedStyle(banner).backgroundImage||getComputedStyle(banner).backgroundColor,
+          color:getComputedStyle(banner).color,barHeight:bar.height,brandCount:banner.querySelectorAll('.studio-utility-brand').length,
+          trustCount:banner.querySelectorAll('.studio-utility-trust').length,
+          shieldVisible:visible(shield),brandVisible:visible(brand),trustVisible:visible(trust),
+          leftRight:left.right,rightLeft:right.left,overflow:document.documentElement.scrollWidth-innerWidth,
+          brandText:brand.textContent,trustText:trust.textContent,disclosure:banner.querySelector('.sr-only')?.textContent};
+      });
+      assert.equal(state.theme,theme);
+      assert.equal(state.brandCount,1,JSON.stringify(state));
+      assert.equal(state.trustCount,1,JSON.stringify(state));
+      assert.ok(state.shieldVisible&&state.brandVisible&&state.trustVisible,JSON.stringify(state));
+      assert.ok(state.brandText.includes('Web Studio')&&state.brandText.includes('Your Everlasting Web Presence'),JSON.stringify(state));
+      assert.ok(state.trustText.includes('You are in control'),JSON.stringify(state));
+      assert.match(state.disclosure||'',/Fictional demo/);
+      assert.ok(state.barHeight>=35&&state.barHeight<=50,JSON.stringify(state));
+      assert.ok(state.leftRight<=state.rightLeft+2,'Banner items overlap '+JSON.stringify(state));
+      assert.ok(state.overflow<=2,'Desktop banner overflow '+JSON.stringify(state));
+      colors.add(state.bg);
+      await fresh.screenshot({path:join(shots,'utility-'+theme+'-desktop.png'),clip:{x:0,y:0,width:1440,height:Math.ceil(state.barHeight+2)}});
+      await fresh.setViewportSize({width:390,height:844});
+      const mobile=await fresh.evaluate(()=>{
+        const b=document.querySelector('.studio-utility-bar');
+        const left=b.querySelector('.studio-utility-brand').getBoundingClientRect();
+        const right=b.querySelector('.studio-utility-trust').getBoundingClientRect();
+        return {h:b.getBoundingClientRect().height,overflow:document.documentElement.scrollWidth-innerWidth,leftRight:left.right,rightLeft:right.left,trustVisible:getComputedStyle(b.querySelector('.studio-utility-trust')).display!=='none'};
+      });
+      assert.ok(mobile.h<=42&&mobile.overflow<=2&&mobile.leftRight<=mobile.rightLeft+2&&mobile.trustVisible,theme+': '+JSON.stringify(mobile));
+      await fresh.setViewportSize({width:1440,height:900});
+    }
+    assert.ok(colors.size>=5,'Theme colors did not vary across layouts: '+JSON.stringify([...colors]));
+  }finally{await fresh.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,51);
+assert.equal(passed,52);
 console.log('Browser checks passed: '+passed);
