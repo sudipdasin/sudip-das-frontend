@@ -52,6 +52,14 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Verify wizard in Chromium
         run: node browser-tests/customer-demo.mjs
+      - name: Upload desktop and mobile visual audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neon-visual-audit-${{ github.run_id }}
+          path: dist/visual-audit/
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Produce isolated Pages artifact
         run: node scripts/build-customer-demo.mjs
       - name: Upload deployment artifact

@@ -1,5 +1,5 @@
 import { createServer } from 'node:http';
-import {readFile} from 'node:fs/promises';
+import {readFile,mkdir} from 'node:fs/promises';
 import {resolve,join,extname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {chromium} from 'playwright';
@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -36,8 +36,8 @@ try {
   assert.equal(await page.locator('.orbit').count(),2);
  })();
  await check('Neon design assets load without a 404',async()=>{
-   const resources=await page.evaluate(()=>Promise.all(['studio-reference-layout.css','studio-reference-layout.js','neon-reference-portrait.svg','neon-horizon.svg'].map(async path=>({path,status:(await fetch(path)).status}))));
-   assert.deepEqual(resources.map(x=>x.status),[200,200,200,200],JSON.stringify(resources));
+   const resources=await page.evaluate(()=>Promise.all(['studio-reference-layout.css','studio-orbit-fidelity.css','studio-reference-layout.js','neon-reference-portrait.svg','neon-horizon.svg'].map(async path=>({path,status:(await fetch(path)).status}))));
+   assert.deepEqual(resources.map(x=>x.status),[200,200,200,200,200],JSON.stringify(resources));
    assert.equal(await page.locator('.neon-eyebrow-pill').isVisible(),true);
  })();
  await check('editing and saving fields works',async()=>{
@@ -547,10 +547,77 @@ try {
    assert.equal(await photo.isVisible(),false);
    assert.equal(await page.locator('#avatar img').getAttribute('src'),'./dev-das-portrait.svg');
  })();
+ await check('Neon orbit badges follow the circumference and brand is left-aligned',async()=>{
+  await page.locator('#studio-theme').selectOption('neon-studio');
+  await page.setViewportSize({width:1777,height:832});
+  const orbit=page.locator('.neon-role-pills .neon-orbit-badge');
+  assert.equal(await orbit.count(),5);
+  assert.equal(await page.locator('.neon-intro-button').isDisabled(),true,
+    'Unimplemented Watch Intro must be genuinely disabled');
+  const g=await page.evaluate(()=>{
+    const art=document.querySelector('.hero-art').getBoundingClientRect();
+    const mid={x:art.left+art.width/2,y:art.top+art.height/2};
+    const badges=[...document.querySelectorAll('.neon-role-pills .neon-orbit-badge')].map(el=>{
+      const r=el.getBoundingClientRect();return {text:el.textContent.trim(),x:r.x+r.width/2,y:r.y+r.height/2,
+        width:r.width,height:r.height,icon:!!el.querySelector('svg'),
+        visible:getComputedStyle(el).display!=='none'};
+    });
+    const first=document.getElementById('demo-brand').getBoundingClientRect();
+    const sub=document.querySelector('#demo-brand-wrapper .muted').getBoundingClientRect();
+    const overlap=(a,b)=>Math.max(0,Math.min(a.x+a.width/2,b.x+b.width/2)-Math.max(a.x-a.width/2,b.x-b.width/2))*
+      Math.max(0,Math.min(a.y+a.height/2,b.y+b.height/2)-Math.max(a.y-a.height/2,b.y-b.height/2));
+    return {badges,distances:badges.map(b=>Math.hypot(b.x-mid.x,b.y-mid.y)),
+      spanX:Math.max(...badges.map(b=>b.x))-Math.min(...badges.map(b=>b.x)),
+      spanY:Math.max(...badges.map(b=>b.y))-Math.min(...badges.map(b=>b.y)),
+      brand:{headingTop:first.top,subtitleTop:sub.top,headingLeft:first.left,subtitleLeft:sub.left},
+      overlap:badges.some((a,i)=>badges.some((b,j)=>j>i&&overlap(a,b)>12)),
+      headerBottom:document.querySelector('.nav-bar').getBoundingClientRect().bottom,
+      caption:(()=>{const r=document.querySelector('.hero-art .portrait-caption').getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2,width:r.width,height:r.height}})(),
+      valueTop:document.querySelector('.neon-value-section').getBoundingClientRect().top,
+      overflow:document.documentElement.scrollWidth-innerWidth};
+  });
+  assert.ok(g.badges.every(b=>b.visible&&b.icon),JSON.stringify(g));
+  assert.ok(g.distances.every(d=>d>145&&d<325),'Badges are not around orbit: '+JSON.stringify(g));
+  assert.ok(g.spanX>180&&g.spanY>230,'Badges are stacked: '+JSON.stringify(g));
+  assert.equal(g.overlap,false,'Badges overlap: '+JSON.stringify(g));
+  assert.ok(g.badges[0].y-g.badges[0].height/2>g.headerBottom+2,
+    'Developer badge is hidden beneath header: '+JSON.stringify(g));
+  assert.ok(g.badges.every(b=>b.y+b.height/2<g.valueTop-5),
+    'Badge collides with value band: '+JSON.stringify(g));
+  const captionOverlap=(a,b)=>Math.max(0,Math.min(a.x+a.width/2,b.x+b.width/2)-Math.max(a.x-a.width/2,b.x-b.width/2))*
+    Math.max(0,Math.min(a.y+a.height/2,b.y+b.height/2)-Math.max(a.y-a.height/2,b.y-b.height/2));
+  assert.ok(g.badges.every(b=>captionOverlap(b,g.caption)<6),
+    'Badge overlaps name caption: '+JSON.stringify(g));
+  assert.ok(g.brand.subtitleTop>g.brand.headingTop+10,'Subtitle not stacked under brand title');
+  assert.ok(Math.abs(g.brand.subtitleLeft-g.brand.headingLeft)<4,'Brand text not left aligned');
+  assert.ok(g.overflow<=2,'Desktop overflow: '+g.overflow);
+  const shots=join(root,'dist','visual-audit');
+  await mkdir(shots,{recursive:true});
+  // Reset real UI state left by earlier functional tests; audit the actual homepage.
+  if(await page.locator('#editor').isVisible()) await page.locator('#edit-toggle').click();
+  await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+  await page.waitForTimeout(250);
+  await page.screenshot({path:join(shots,'neon-desktop-1777.png'),fullPage:false});
+  await page.setViewportSize({width:390,height:844});
+  assert.ok(await orbit.first().isVisible());
+  const mobileLayout=await page.evaluate(()=>({
+    overflow:document.documentElement.scrollWidth-innerWidth,
+    bannerHeight:document.querySelector('.banner').getBoundingClientRect().height,
+    navHeight:document.querySelector('.nav-bar').getBoundingClientRect().height,
+    heroTop:document.querySelector('main>.hero').getBoundingClientRect().top
+  }));
+  assert.ok(mobileLayout.overflow<=2,'Mobile overflow: '+JSON.stringify(mobileLayout));
+  assert.ok(mobileLayout.bannerHeight<=42&&mobileLayout.navHeight<=235&&mobileLayout.heroTop<=290,
+    'Mobile utility/header consumes too much of the first viewport: '+JSON.stringify(mobileLayout));
+  await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+  await page.waitForTimeout(150);
+  await page.screenshot({path:join(shots,'neon-mobile-390.png'),fullPage:false});
+  await page.setViewportSize({width:1280,height:900});
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,45);
+assert.equal(passed,46);
 console.log('Browser checks passed: '+passed);
