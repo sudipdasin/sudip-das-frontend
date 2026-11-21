@@ -1069,10 +1069,49 @@ try {
        'Aurora five-role arrangement was unintentionally changed');
    }finally{await visual.close();}
  })();
+ await check('Cosmic four satellite centers use exactly one circular radius at desktop and mobile viewports',async()=>{
+   const fresh=await browser.newPage({viewport:{width:1672,height:941},deviceScaleFactor:1});
+   try{
+     await fresh.goto(url,{waitUntil:'load'});
+     await fresh.locator('#studio-theme').selectOption('design-2');
+     for(const [width,height] of [[1672,941],[1440,900],[768,900],[390,844]]){
+       await fresh.setViewportSize({width,height});
+       await fresh.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
+       await fresh.waitForTimeout(160);
+       const result=await fresh.evaluate(()=>{
+         const art=document.querySelector('main>.hero .hero-art');
+         const p=art.querySelector('.neon-reference-photo').getBoundingClientRect();
+         const cx=p.left+p.width/2,cy=p.top+p.height/2;
+         const css=getComputedStyle(art);
+         const badges=[...art.querySelectorAll('.neon-role-pills .neon-orbit-badge')]
+           .filter(e=>getComputedStyle(e).display!=='none').map(e=>{
+             const r=e.getBoundingClientRect(), x=r.left+r.width/2,y=r.top+r.height/2;
+             return {x,y,dist:Math.hypot(x-cx,y-cy),angle:getComputedStyle(e).getPropertyValue('--cosmic-angle').trim(),
+               left:r.left,right:r.right,top:r.top,bottom:r.bottom};
+           });
+         return {cx,cy,badges,diameter:p.width,viewport:innerWidth,
+           scrollWidth:document.documentElement.scrollWidth,
+           declaredRadius:css.getPropertyValue('--cosmic-orbit-radius').trim()};
+       });
+       assert.equal(result.badges.length,4,'Cosmic four icons lost at '+width+': '+JSON.stringify(result));
+       const radii=result.badges.map(b=>b.dist);
+       const spread=Math.max(...radii)-Math.min(...radii);
+       assert.ok(spread<=2,'Icons not on a single circumference at '+width+' spread='+spread+': '+JSON.stringify(result));
+       assert.ok(radii.every(x=>x>result.diameter*.60),'Icons intrude on portrait at '+width+': '+JSON.stringify(result));
+       assert.ok(result.badges.every(b=>b.left>=-1&&b.right<=width+1),
+         'Cosmic badge clipped at '+width+': '+JSON.stringify(result));
+       assert.ok(result.scrollWidth<=width+2,'Cosmic horizontal overflow at '+width+': '+JSON.stringify(result));
+       await fresh.screenshot({path:join(root,'dist','visual-audit','cosmic-shared-orbit-'+width+'.png'),fullPage:false});
+     }
+     await fresh.locator('#studio-theme').selectOption('neon-studio');
+     assert.equal(await fresh.locator('.neon-role-pills .neon-orbit-badge:visible').count(),5,
+       'Aurora role badges must remain untouched');
+   }finally{await fresh.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,57);
+assert.equal(passed,58);
 console.log('Browser checks passed: '+passed);
