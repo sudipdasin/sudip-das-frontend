@@ -766,30 +766,49 @@ try {
   await page.setViewportSize({width:1280,height:900});
   await page.locator('#studio-theme').selectOption('neon-studio');
  })();
- await check('Desktop screenshot menus stay distinct and all unimplemented actions are disabled',async()=>{
-   await page.setViewportSize({width:1833,height:858});
-   await page.locator('#studio-theme').selectOption('neon-studio');
-   await page.waitForTimeout(130);
-   assert.equal(await page.locator('#studio-nav-panel').isVisible(),true,'Aurora Studio menu should be open');
-   assert.equal(await page.locator('#system-menu-panel').isVisible(),true,'Aurora System menu should be open');
-   assert.equal(await page.locator('.cosmic-menu-reference').isVisible(),false,'Cosmic items must not appear in Aurora');
-   await page.screenshot({path:join(root,'dist','visual-audit','aurora-reference-menu-desktop.png'),fullPage:false});
-   await page.locator('#studio-theme').selectOption('design-2');
-   await page.waitForTimeout(130);
-   assert.equal(await page.locator('#studio-nav-panel').isVisible(),true,'Cosmic Studio menu should be open');
-   assert.equal(await page.locator('.cosmic-menu-reference').isVisible(),true,'Cosmic grouped menu should be present');
-   assert.equal(await page.locator('#system-menu-panel').isVisible(),false,'Cosmic has one reference menu');
-   assert.ok(await page.locator('.cosmic-menu-reference button:disabled').count()>=4);
-   assert.ok(await page.locator('.cosmic-menu-reference button:not(:disabled)').count()>=4);
-   await page.screenshot({path:join(root,'dist','visual-audit','cosmic-reference-menu-desktop.png'),fullPage:false});
-   await page.mouse.click(50,550);
-   assert.equal(await page.locator('#studio-nav-panel').isVisible(),false,'Click outside closes preview');
-   await page.setViewportSize({width:390,height:844});
-   await page.locator('#studio-theme').selectOption('neon-studio');
-   await page.waitForTimeout(100);
-   assert.equal(await page.locator('#studio-nav-panel').isVisible(),false,'Phone does not auto-open desktop dropdown');
-   assert.equal(await page.locator('#system-menu-panel').isVisible(),false,'Phone does not auto-open system dropdown');
-   await page.setViewportSize({width:1280,height:900});
+ await check('Desktop reference screenshot checks start from fresh clean homepages',async()=>{
+   for(const [variant,w,h,file] of [
+     ['neon-studio',1777,832,'aurora-reference-menu-desktop.png'],
+     ['design-2',1833,858,'cosmic-reference-menu-desktop.png']
+   ]){
+     const visual=await browser.newPage({viewport:{width:w,height:h},deviceScaleFactor:1});
+     try{
+       await visual.goto(url,{waitUntil:'load'});
+       await visual.locator('#studio-theme').selectOption(variant);
+       await visual.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+       await visual.waitForTimeout(180);
+       assert.equal(await visual.locator('#editor').isVisible(),false,'Screenshots must not show an open editor');
+       assert.equal(await visual.locator('#studio-nav-panel').isVisible(),true,'Studio menu must be open for '+variant);
+       assert.equal(await visual.locator('#system-menu-panel').isVisible(),variant==='neon-studio','System menu should appear only in Aurora');
+       assert.equal(await visual.locator('.cosmic-menu-reference').isVisible(),variant==='design-2','Cosmic groups should appear only in Cosmic');
+       const geometry=await visual.evaluate(()=>{
+         const box=e=>{const r=e.getBoundingClientRect();return {top:r.top,left:r.left,bottom:r.bottom,width:r.width,height:r.height}};
+         const hero=document.querySelector('main>.hero'),heading=document.querySelector('main>.hero h1');
+         return {scrollY,hero:box(hero),heading:box(heading),
+           horizontalOverflow:document.documentElement.scrollWidth-innerWidth};
+       });
+       assert.equal(geometry.scrollY,0,'Screenshot scrolled away from top '+JSON.stringify(geometry));
+       assert.ok(geometry.hero.top>=0&&geometry.hero.top<h*.3,'Screenshot is not showing the hero '+JSON.stringify(geometry));
+       assert.ok(geometry.heading.top>geometry.hero.top&&geometry.heading.top<h*.55,'Hero title outside screenshot '+JSON.stringify(geometry));
+       assert.ok(geometry.horizontalOverflow<=2,'Desktop overflow '+JSON.stringify(geometry));
+       if(variant==='design-2'){
+         assert.ok(await visual.locator('.cosmic-menu-reference button:disabled').count()>=4);
+         assert.ok(await visual.locator('.cosmic-menu-reference button:not(:disabled)').count()>=4);
+       }
+       await visual.screenshot({path:join(root,'dist','visual-audit',file),fullPage:false});
+       await visual.mouse.click(40,550);
+       assert.equal(await visual.locator('#studio-nav-panel').isVisible(),false,'Outside pointerdown must close Studio menu');
+     }finally{await visual.close();}
+   }
+   const mobile=await browser.newPage({viewport:{width:390,height:844}});
+   try{
+     await mobile.goto(url);
+     await mobile.locator('#studio-theme').selectOption('neon-studio');
+     await mobile.waitForTimeout(120);
+     assert.equal(await mobile.locator('#studio-nav-panel').isVisible(),false);
+     assert.equal(await mobile.locator('#system-menu-panel').isVisible(),false);
+     assert.ok(await mobile.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=2);
+   }finally{await mobile.close();}
  })();
  await page.close();
 }finally{
