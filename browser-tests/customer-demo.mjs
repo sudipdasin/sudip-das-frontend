@@ -742,10 +742,31 @@ try {
    assert.ok((await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth))<=2,'Mobile overflow');
    await page.setViewportSize({width:1280,height:900});
  })();
+ await check('Aurora and Cosmic load distinct reference imagery without theme leakage',async()=>{
+  const images=[
+    ['neon-studio','aurora-reference-horizon.svg'],
+    ['design-2','cosmic-reference-wave.svg']
+  ];
+  for(const [theme,filename] of images){
+    await page.locator('#studio-theme').selectOption(theme);
+    await page.setViewportSize({width:theme==='neon-studio'?1777:1833,height:theme==='neon-studio'?941:858});
+    const actual=await page.evaluate(()=>{
+      const hero=document.querySelector('main>.hero');
+      return {background:getComputedStyle(hero,'::before').backgroundImage,overflow:document.documentElement.scrollWidth-innerWidth};
+    });
+    assert.ok(actual.background.includes(filename),theme+' wrong background: '+JSON.stringify(actual));
+    assert.ok(actual.overflow<=2,theme+' horizontal overflow: '+JSON.stringify(actual));
+    const response=await page.request.get('/'+filename);
+    assert.equal(response.status(),200,filename+' not published');
+    assert.match(await response.text(),/<svg/);
+  }
+  await page.setViewportSize({width:1280,height:900});
+  await page.locator('#studio-theme').selectOption('neon-studio');
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,49);
+assert.equal(passed,50);
 console.log('Browser checks passed: '+passed);
