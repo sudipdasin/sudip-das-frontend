@@ -1581,6 +1581,9 @@ try {
        route.fulfill({status:200,contentType:'application/javascript',
          body:"window.turnstile={render:function(selector,config){config.callback('valid-test-token');return 1;}};"}));
      await p.route('https://feedback.test/submit',route=>{
+       if(route.request().method()==='OPTIONS')return route.fulfill({status:204,
+         headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'POST, OPTIONS',
+           'Access-Control-Allow-Headers':'content-type'}});
        if(route.request().method()!=='POST')return route.fulfill({status:405});
        const body=JSON.parse(route.request().postData());
        assert.equal(body.theme,'terminal');
