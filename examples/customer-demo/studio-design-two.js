@@ -1,4 +1,4 @@
-/* Design 2 is an independent reference composition, not a restyling of Design 2. */
+/* Design 2 — Cosmic Studio: independent reference composition. Keep Aurora Design 1 untouched. */
 (()=>{
 'use strict';
 const theme=document.getElementById('studio-theme');
@@ -59,9 +59,9 @@ const menuTrigger=document.getElementById('system-menu-trigger');
 const systemLabel=menuTrigger?.querySelector('span:first-child');
 const role=document.getElementById('role'),tagline=document.getElementById('tagline');
 const originalRole='Creative Developer & Interface Engineer';
-const designOneRole='Developer · Designer · Creator';
+const designTwoRole='Developer · Designer · Creator';
 const originalTagline='Designing expressive, high-performance and user-friendly experiences that just work — from idea to real world.';
-const designOneTagline='Building useful, creative and open-source software for Linux, the web and everyday life.';
+const designTwoTagline='Building useful, creative and open-source software for Linux, the web and everyday life.';
 function updateThemeIdentity(){
  const first=document.body.dataset.theme==='design-2';
  const referencePortrait=document.querySelector('.hero-art .neon-reference-photo');
@@ -70,10 +70,10 @@ function updateThemeIdentity(){
    if(referencePortrait.getAttribute('src')!==next)referencePortrait.setAttribute('src',next);
  }
  if(systemLabel)systemLabel.textContent=first?'Services':'System';
- if(role && (role.textContent.trim()===originalRole||role.textContent.trim()===designOneRole))
-   role.textContent=first?designOneRole:originalRole;
- if(tagline && (tagline.textContent.trim()===originalTagline||tagline.textContent.trim()===designOneTagline))
-   tagline.textContent=first?designOneTagline:originalTagline;
+ if(role && (role.textContent.trim()===originalRole||role.textContent.trim()===designTwoRole))
+   role.textContent=first?designTwoRole:originalRole;
+ if(tagline && (tagline.textContent.trim()===originalTagline||tagline.textContent.trim()===designTwoTagline))
+   tagline.textContent=first?designTwoTagline:originalTagline;
 }
 new MutationObserver(updateThemeIdentity).observe(document.body,{attributes:true,attributeFilter:['data-theme']});
 theme.addEventListener('change',updateThemeIdentity);
