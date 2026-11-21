@@ -167,3 +167,11 @@ body[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption {
     font-size:18px!important;min-width:150px!important;
   }
 }
+
+/* Reserve enough space for the nameplate between the portrait and value band. */
+@media(min-width:1181px){
+ body[data-theme="neon-studio"] main>.hero{min-height:540px!important}
+ body[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+   top:calc(50% + var(--orbit-badge-radius) - 20px)!important;
+ }
+}
