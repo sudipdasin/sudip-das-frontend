@@ -59,6 +59,8 @@ const originalTagline='Designing expressive, high-performance and user-friendly 
 const designTwoTagline='Building useful, creative and open-source software for Linux, the web and everyday life.';
 function updateThemeIdentity(){
  const first=document.body.dataset.theme==='design-2';
+ banner.querySelector('.studio-utility-brand')?.classList.toggle('d2-utility',first);
+ banner.querySelector('.studio-utility-trust')?.classList.toggle('d2-trust',first);
  const referencePortrait=document.querySelector('.hero-art .neon-reference-photo');
  if(referencePortrait){
    const next=first?'design-two-reference-portrait.svg':'neon-reference-portrait.svg';
