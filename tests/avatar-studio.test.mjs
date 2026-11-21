@@ -30,3 +30,27 @@ test('user photo is browser-preview-only and export schema is unaltered',async()
   assert.match(html,/studio-avatar\.js/);
   assert.match(html,/studio-avatar\.css/);
 });
+
+test('all six visual themes use distinct real SVG image files in auto mode',async()=>{
+  const js=await read('studio-avatar.js');
+  const names=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'];
+  const svgContents=[];
+  for(const name of names){
+    assert.ok(js.includes(name+": './avatar-"+name+".svg'") || js.includes("'"+name+"': './avatar-"+name+".svg'"),'no theme-to-asset mapping for '+name);
+    const svg=await read('avatar-'+name+'.svg');
+    assert.match(svg,/<svg\b/);
+    assert.doesNotMatch(svg,/<image\b|data:image\/|base64/i);
+    svgContents.push(svg);
+  }
+  assert.equal(new Set(svgContents).size,6,'theme portraits must not be duplicates');
+  assert.match(js,/chooseAuto\(\)/);
+  assert.match(js,/attributeFilter:\['data-theme'\]/);
+  assert.match(js,/src = next === 'photo'/);
+});
+test('LifeSphere identity distinguishes company app and website feature',async()=>{
+  const html=await read('index.html');
+  assert.match(html,/LifeSphere — WebStudio Demo \| DevDas Development/);
+  assert.match(html,/LifeSphere is the application developed by/);
+  assert.match(html,/WebStudio<\/strong> is its website and portfolio creation feature/);
+  assert.match(html,/No private LifeSphere vault/);
+});
