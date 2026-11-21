@@ -1543,10 +1543,35 @@ try {
       'Focus must return to the visible system menu trigger');
   }finally{await p.close();}
  })();
+ await check('Free setup completes five chapters and exports a real ZIP with free-theme isolation',async()=>{
+   const p=await browser.newPage({viewport:{width:1280,height:900},acceptDownloads:true});
+   try{
+     await p.goto(url,{waitUntil:'load'});
+     const section=p.locator('#ws-free-starter');
+     assert.equal(await section.isVisible(),true);
+     assert.equal(await p.locator('#ws-free-theme option').count(),2);
+     await p.locator('#ws-free-export').click();
+     assert.match(await p.locator('#ws-free-status').innerText(),/complete all five/i);
+     await p.locator('#ws-free-begin').click();
+     assert.equal(await p.locator('#ws-free-onboard').isVisible(),true);
+     for(let i=0;i<5;i++)await p.locator('#ws-free-next').click();
+     assert.equal(await p.locator('#ws-free-onboard').isVisible(),false);
+     await p.locator('#ws-free-export').click();
+     assert.match(await p.locator('#ws-free-status').innerText(),/terms/i);
+     await p.locator('#ws-free-terms').check();
+     await p.locator('#ws-free-theme').selectOption('editorial');
+     const event=p.waitForEvent('download');
+     await p.locator('#ws-free-export').click();
+     const download=await event;
+     assert.equal(download.suggestedFilename(),'WebStudio-Free-editorial-website.zip');
+     assert.match(await p.locator('#ws-free-status').innerText(),/ZIP is ready/i);
+     assert.equal(await p.locator('#studio-theme option').count(),6,'Premium theme previews remain browsable');
+   }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,73);
+assert.equal(passed,74);
 console.log('Browser checks passed: '+passed);
