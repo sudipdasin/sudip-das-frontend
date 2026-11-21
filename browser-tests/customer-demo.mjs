@@ -48,6 +48,8 @@ try {
      await context.goto(url);
      for (const theme of variants){
        await context.locator('#studio-theme').selectOption(theme);
+       // Compare the default palette with neither selector focused; focus accents are intentionally different.
+       await context.evaluate(()=>{document.getElementById('studio-language').blur();document.getElementById('studio-theme').blur();});
        const state=await context.evaluate(()=>{
          const language=document.getElementById('studio-language');
          const layout=document.getElementById('studio-theme');
