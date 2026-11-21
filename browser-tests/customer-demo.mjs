@@ -1568,10 +1568,51 @@ try {
      assert.equal(await p.locator('#ws-free-export').isDisabled(),true,'Changing theme revokes approval');
    }finally{await p.close();}
  })();
+ await check('Free export unlocks only after mocked server receipt and ZIP mirrors runtime',async()=>{
+   const p=await browser.newPage({viewport:{width:1280,height:900},acceptDownloads:true});
+   try{
+     await p.route('**/webstudio-editions.json',route=>{
+       route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({
+         schemaVersion:1,feedback:{endpoint:'https://feedback.test/submit',
+           challengeSiteKey:'test-site-key',requiresPreviewApproval:true}
+       })});
+     });
+     await p.route('**/turnstile/v0/api.js?render=explicit',route=>
+       route.fulfill({status:200,contentType:'application/javascript',
+         body:"window.turnstile={render:function(selector,config){config.callback('valid-test-token');return 1;}};"}));
+     await p.route('https://feedback.test/submit',route=>{
+       if(route.request().method()!=='POST')return route.fulfill({status:405});
+       const body=JSON.parse(route.request().postData());
+       assert.equal(body.theme,'terminal');
+       assert.ok(body.feedback.length>=60);
+       assert.equal(body.turnstileToken,'valid-test-token');
+       route.fulfill({status:200,headers:{'Access-Control-Allow-Origin':'*','Content-Type':'application/json'},
+         body:JSON.stringify({accepted:true,receiptId:'mail_1234567890abc'})});
+     });
+     await p.goto(url,{waitUntil:'load'});
+     await p.locator('#ws-free-begin').click();
+     for(let i=0;i<5;i++)await p.locator('#ws-free-next').click();
+     await p.locator('#ws-free-terms').check();
+     await p.locator('#ws-free-theme').selectOption('terminal');
+     await p.locator('#ws-free-preview').click();
+     await p.frameLocator('#ws-free-preview-frame').locator('#studio-theme').waitFor();
+     await p.locator('#ws-free-accept-preview').check();
+     await p.locator('#ws-free-approve').click();
+     await p.locator('#ws-free-feedback-text').fill('I reviewed the live Terminal interactive website, saved personal project information, tested responsive navigation and editing, and suggest better animation preferences and a more compact mobile menu.');
+     await p.locator('#ws-free-feedback').click();
+     await p.locator('#ws-free-export').waitFor({state:'visible'});
+     assert.equal(await p.locator('#ws-free-export').isEnabled(),true,'Server receipt must unlock');
+     const downloadEvent=p.waitForEvent('download');
+     await p.locator('#ws-free-export').click();
+     const download=await downloadEvent;
+     assert.equal(download.suggestedFilename(),'WebStudio-Free-terminal-interactive-website.zip');
+     assert.match(await p.locator('#ws-free-status').innerText(),/Full interactive ZIP generated/i);
+   }finally{await p.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,74);
+assert.equal(passed,75);
 console.log('Browser checks passed: '+passed);
