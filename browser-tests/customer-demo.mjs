@@ -87,6 +87,43 @@ try {
      assert.equal(await context.locator('#studio-language').inputValue(),'hi');
    }finally{await context.close();}
  })();
+ await check('Studio Services Language and Theme share theme-native header styling',async()=>{
+   const p=await browser.newPage({viewport:{width:1440,height:900}});
+   try{
+     await p.goto(url);
+     const uniqueMaterials=new Set();
+     for(const theme of ['orbit','editorial','terminal','aurora-peak','neon-studio','design-2']){
+       await p.locator('#studio-theme').selectOption(theme);
+       await p.evaluate(()=>document.activeElement?.blur());
+       await p.waitForTimeout(200);
+       const styles=await p.evaluate(()=>{
+         const ids=['#studio-language','#studio-theme','#system-menu-trigger'];
+         const studio=document.querySelector('.studio-nav-trigger');
+         if(studio && studio.getClientRects().length)ids.push('.studio-nav-trigger');
+         const items=ids.map(q=>{
+           const el=document.querySelector(q),css=getComputedStyle(el),rect=el.getBoundingClientRect();
+           return {q,bg:css.backgroundColor,border:css.borderTopColor,fg:css.color,
+             radius:css.borderTopLeftRadius,height:Math.round(rect.height)};
+         });
+         return {items,overflow:document.documentElement.scrollWidth-innerWidth};
+       });
+       const first=styles.items[0];
+       for(const item of styles.items){
+         assert.equal(item.bg,first.bg,theme+' background '+item.q);
+         assert.equal(item.border,first.border,theme+' border '+item.q);
+         assert.equal(item.fg,first.fg,theme+' foreground '+item.q);
+         assert.equal(item.radius,first.radius,theme+' radius '+item.q);
+         assert.equal(item.height,first.height,theme+' height '+item.q);
+       }
+       assert.ok(styles.overflow<=2,theme+' overflow '+JSON.stringify(styles));
+       uniqueMaterials.add(first.bg+'/'+first.border);
+     }
+     assert.equal(uniqueMaterials.size,6);
+     await p.setViewportSize({width:390,height:844});
+     await p.locator('#studio-theme').selectOption('design-2');
+     assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=2);
+   }finally{await p.close();}
+ })();
  await check('WebStudio About and Help keeps LifeSphere suite behind user action',async()=>{
    assert.equal(await page.locator('#lifesphere').count(),0);
    assert.equal(await page.locator('#exposure-watch').count(),0);
@@ -1432,5 +1469,5 @@ try {
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,69);
+assert.equal(passed,70);
 console.log('Browser checks passed: '+passed);
