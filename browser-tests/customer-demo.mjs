@@ -533,11 +533,14 @@ try {
    assert.match(await pill.innerText(),/Creative Developer.*Interface Engineer.*Product Builder/);
    const p=await pill.evaluate(el=>({width:el.getBoundingClientRect().width,text:el.textContent.trim(),color:getComputedStyle(el).color}));
    assert.ok(p.width>150 && p.width<700,JSON.stringify(p));
-   await page.waitForFunction(()=>document.querySelector('#avatar img')?.getAttribute('src')==='./neon-reference-portrait.svg');
-   const pic=await page.locator('#avatar img').evaluate(el=>({complete:el.complete,width:el.naturalWidth}));
+   const photo=page.locator('.hero-art .neon-reference-photo');
+   assert.equal(await photo.isVisible(),true);
+   const pic=await photo.evaluate(el=>({complete:el.complete,width:el.naturalWidth,rect:el.getBoundingClientRect().toJSON()}));
    assert.ok(pic.complete&&pic.width>0,'Neon reference portrait must decode in Chromium');
+   assert.ok(pic.rect.width>=180,'Portrait must have a meaningful visual diameter');
    await page.locator('#studio-theme').selectOption('orbit');
-   await page.waitForFunction(()=>document.querySelector('#avatar img')?.getAttribute('src')==='./dev-das-portrait.svg');
+   assert.equal(await photo.isVisible(),false);
+   assert.equal(await page.locator('#avatar img').getAttribute('src'),'./dev-das-portrait.svg');
  })();
  await page.close();
 }finally{
