@@ -55,7 +55,7 @@ entries.push({ name: 'START-HERE.txt', data: Buffer.from([
   'Source: https://github.com/sudipdasin/sudip-das-frontend',
   'Review source/dependency licenses before any commercial redistribution.',
   ''
-].join('\n') });
+].join('\n')) });
 
 function crc32(data) {
   let crc = 0xffffffff;
