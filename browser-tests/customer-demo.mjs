@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -614,10 +614,56 @@ try {
   await page.screenshot({path:join(shots,'neon-mobile-390.png'),fullPage:false});
   await page.setViewportSize({width:1280,height:900});
  })();
+ await check('Design 1 and Design 2 preserve separate screenshot-specific structure',async()=>{
+  const choices=await page.locator('#studio-theme option').evaluateAll(list=>list.map(option=>({value:option.value,text:option.textContent})));
+  assert.ok(choices.some(x=>x.value==='design-1'&&/Design 1/.test(x.text)),JSON.stringify(choices));
+  assert.ok(choices.some(x=>x.value==='neon-studio'&&/Design 2/.test(x.text)),JSON.stringify(choices));
+  const shots=join(root,'dist','visual-audit');await mkdir(shots,{recursive:true});
+  for(const [theme,width,height] of [['design-1',1833,858],['neon-studio',1672,941]]){
+    await page.setViewportSize({width,height});
+    await page.locator('#studio-theme').selectOption(theme);
+    await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+    await page.waitForTimeout(150);
+    const measurements=await page.evaluate(()=>{
+      const visible=selector=>{const e=document.querySelector(selector);return !!e&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().width>0;};
+      const roleBadges=[...document.querySelectorAll('.neon-role-pills .neon-orbit-badge')];
+      const style=roleBadges.map(e=>({display:getComputedStyle(e).display,labelVisible:getComputedStyle(e.querySelector('.neon-orbit-label')).display!=='none'}));
+      return {theme:document.body.dataset.theme,utility:visible('.d1-utility'),stats:visible('.d1-stats'),
+        four:visible('.d1-feature-row'),six:visible('.neon-feature-grid'),value:visible('.neon-value-section'),
+        cards:document.querySelectorAll('.d1-feature-row .d1-feature').length,
+        tiles:document.querySelectorAll('.neon-feature-grid .neon-feature-card').length,
+        systemText:document.querySelector('#system-menu-trigger').textContent.trim(),
+        badges:style,overflow:document.documentElement.scrollWidth-innerWidth};
+    });
+    assert.equal(measurements.theme,theme);
+    assert.ok(measurements.overflow<=2,'Horizontal overflow: '+JSON.stringify(measurements));
+    assert.equal(measurements.four,theme==='design-1',JSON.stringify(measurements));
+    assert.equal(measurements.six,theme==='neon-studio',JSON.stringify(measurements));
+    assert.equal(measurements.utility,theme==='design-1',JSON.stringify(measurements));
+    assert.equal(measurements.stats,theme==='design-1',JSON.stringify(measurements));
+    assert.equal(measurements.value,theme==='neon-studio',JSON.stringify(measurements));
+    assert.equal(measurements.cards,4);
+    assert.equal(measurements.tiles,6);
+    assert.ok(measurements.badges.every(b=>b.labelVisible===(theme==='neon-studio')),JSON.stringify(measurements));
+    assert.match(measurements.systemText,theme==='design-1'?/Services/:/System/);
+    await page.screenshot({path:join(shots,theme+'-reference-desktop.png'),fullPage:false});
+  }
+  for(const theme of ['design-1','neon-studio']){
+    await page.setViewportSize({width:390,height:844});
+    await page.locator('#studio-theme').selectOption(theme);
+    await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+    await page.waitForTimeout(120);
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    assert.ok(overflow<=2,theme+' mobile overflow '+overflow);
+    await page.screenshot({path:join(shots,theme+'-mobile-390.png'),fullPage:false});
+  }
+  await page.setViewportSize({width:1280,height:900});
+  await page.locator('#studio-theme').selectOption('neon-studio');
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,46);
+assert.equal(passed,47);
 console.log('Browser checks passed: '+passed);
