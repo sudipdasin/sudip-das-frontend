@@ -21,13 +21,8 @@ function icon(key){
  svg.setAttribute('aria-hidden','true');svg.innerHTML=paths[key];
  return svg;
 }
-const utility=document.createElement('div');utility.className='d2-utility';
-const shield=document.createElement('span');shield.className='d2-utility-shield';shield.append(icon('shield'));
-const utilityName=document.createElement('strong');utilityName.textContent='Web Studio';
-const divider=document.createElement('span');divider.className='d2-utility-divider';
-const utilityTagline=document.createElement('span');utilityTagline.className='d2-utility-tagline';utilityTagline.textContent='Your Everlasting Web Presence';
-utility.append(shield,utilityName,divider,utilityTagline);banner.prepend(utility);
-const trust=document.createElement('span');trust.className='d2-trust';trust.append(icon('lock'),document.createTextNode('You are in control of your web presence and your data'));banner.append(trust);
+// Both reference themes reuse the same accessible utility banner.
+ // The d2-utility and d2-trust classes on that banner preserve theme isolation.
 const stats=document.createElement('div');stats.className='d2-stats';stats.setAttribute('aria-label','Illustrative demo metrics — not actual users or downloads');
 const examples=[['⌘','50+','Projects'],['♧','8K+','Users'],['☆','4.9','Community Rating'],['↓','100K+','Downloads']];
 for(const [symbol,value,label] of examples){
@@ -64,6 +59,8 @@ const originalTagline='Designing expressive, high-performance and user-friendly 
 const designTwoTagline='Building useful, creative and open-source software for Linux, the web and everyday life.';
 function updateThemeIdentity(){
  const first=document.body.dataset.theme==='design-2';
+ banner.querySelector('.studio-utility-brand')?.classList.toggle('d2-utility',first);
+ banner.querySelector('.studio-utility-trust')?.classList.toggle('d2-trust',first);
  const referencePortrait=document.querySelector('.hero-art .neon-reference-photo');
  if(referencePortrait){
    const next=first?'design-two-reference-portrait.svg':'neon-reference-portrait.svg';

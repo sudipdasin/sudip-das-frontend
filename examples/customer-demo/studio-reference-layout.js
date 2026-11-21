@@ -63,15 +63,8 @@
      lockup.append(brandName,subBrand);brand.append(lockup);
    }
  }
- const banner=document.querySelector('.banner');
- if(banner){
-  const tagline=document.createElement('span');tagline.className='demo-glow-banner';
-  tagline.innerHTML='<b aria-hidden="true">∞</b> Web Studio — Create an Everlasting Web Presence  |  Modular • Customizable • Local to Global • Provider Freedom';
-  banner.replaceChildren(tagline);
-   // Add a small honest demo label outside the hero design area.
-   const notice=document.createElement('span');notice.className='demo-identity-note';notice.textContent='Fictional profile demo';banner.append(notice);
-  const old=document.createElement('span');old.className='sr-only';old.textContent='Fictional demo, no working contact service';banner.append(old);
- }
+ // The shared utility bar is authored once in HTML for all six themes.
+ // Theme-specific visual styles are applied through data-theme CSS only.
  const hero=document.querySelector('main>.hero');
  if(!hero)return;
  const name=$('name');

@@ -1,0 +1,236 @@
+/* A single information-bar component for ALL Web Studio themes.
+   Identical content and slot structure; CSS custom properties tailor the theme.
+   Loaded after reference-theme layers, preserving the separate page designs. */
+body{
+  --utility-bg:linear-gradient(90deg,#102536,#143a4a,#102635);
+  --utility-text:#f4fdff;
+  --utility-muted:#c9e0e8;
+  --utility-accent:var(--accent,#7dd8d4);
+  --utility-line:color-mix(in srgb,var(--utility-accent),transparent 42%);
+  --utility-trust-bg:color-mix(in srgb,var(--utility-accent),transparent 91%);
+  --utility-trust-line:color-mix(in srgb,var(--utility-accent),transparent 30%);
+  --utility-trust-text:var(--utility-text);
+  --utility-shield-glow:color-mix(in srgb,var(--utility-accent),transparent 42%);
+  --utility-font:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --utility-case:uppercase;
+  --utility-letter:.015em;
+  --utility-shadow:0 2px 19px #0002;
+}
+body[data-theme="orbit"]{
+  --utility-bg:linear-gradient(95deg,#0c2735,#15413f 55%,#0c2d34);
+  --utility-accent:#88e4b6;
+  --utility-muted:#bfdfd8;
+  --utility-trust-bg:#163e3a;
+  --utility-trust-line:#83d9ae;
+}
+body[data-theme="editorial"]{
+  --utility-bg:linear-gradient(90deg,#fcf5e9,#e9eee3 60%,#f8f2e6);
+  --utility-text:#263d35;
+  --utility-muted:#47584b;
+  --utility-accent:#26684d;
+  --utility-line:#8fa598;
+  --utility-trust-bg:#eef5e9;
+  --utility-trust-line:#7c9c83;
+  --utility-trust-text:#254832;
+  --utility-shield-glow:transparent;
+  --utility-shadow:0 2px 8px #1524191b;
+  --utility-case:none;
+}
+body[data-theme="terminal"]{
+  --utility-bg:#04110d;
+  --utility-text:#b4ffba;
+  --utility-muted:#7add9e;
+  --utility-accent:#4cf58b;
+  --utility-line:#207d48;
+  --utility-trust-bg:#08231a;
+  --utility-trust-line:#3fbd72;
+  --utility-trust-text:#a5f2b5;
+  --utility-font:'SFMono-Regular',Consolas,'Liberation Mono',monospace;
+  --utility-letter:.025em;
+  --utility-shadow:none;
+}
+body[data-theme="aurora-peak"]{
+  --utility-bg:linear-gradient(95deg,#071e33,#123e4a 57%,#10243f);
+  --utility-text:#ecfaff;
+  --utility-muted:#c1d2e6;
+  --utility-accent:#6de5d4;
+  --utility-line:#379ca0;
+  --utility-trust-bg:#0b3c3c;
+  --utility-trust-line:#55dcc5;
+}
+body[data-theme="neon-studio"]{
+  --utility-bg:linear-gradient(100deg,#021b29,#053f41 57%,#041c30);
+  --utility-text:#efffff;
+  --utility-muted:#b8e9eb;
+  --utility-accent:#00f0dc;
+  --utility-line:#03c7d5;
+  --utility-trust-bg:linear-gradient(95deg,#063d39,#054639);
+  --utility-trust-line:#12cd9b;
+  --utility-trust-text:#f1fff9;
+  --utility-shield-glow:#2cfbea75;
+  --utility-shadow:0 3px 19px #00f3ec21;
+}
+body[data-theme="design-2"]{
+  --utility-bg:linear-gradient(95deg,#061a37,#043353 65%,#071a36);
+  --utility-text:#f6faff;
+  --utility-muted:#b3cce9;
+  --utility-accent:#42f47d;
+  --utility-line:#458bcc;
+  --utility-trust-bg:linear-gradient(95deg,#063e36,#073c32);
+  --utility-trust-line:#1fd068;
+  --utility-trust-text:#e9fff2;
+  --utility-shield-glow:#2af96374;
+  --utility-shadow:0 3px 25px #2a75f62d;
+}
+body .banner.studio-utility-bar{
+  position:relative!important;
+  isolation:isolate;
+  z-index:25!important;
+  box-sizing:border-box;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  flex-wrap:nowrap!important;
+  gap:16px!important;
+  width:100%!important;
+  height:46px!important;
+  min-height:46px!important;
+  max-height:46px!important;
+  margin:0!important;
+  padding:0 clamp(17px,2.6vw,50px)!important;
+  border:0!important;
+  border-bottom:1px solid var(--utility-line)!important;
+  border-radius:0!important;
+  background:var(--utility-bg)!important;
+  box-shadow:var(--utility-shadow)!important;
+  color:var(--utility-text)!important;
+  text-align:left!important;
+  font:500 12px/1.2 var(--utility-font)!important;
+  letter-spacing:var(--utility-letter)!important;
+  overflow:hidden;
+}
+body .banner.studio-utility-bar .studio-utility-brand{
+  position:static!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  flex:0 1 auto!important;
+  gap:15px!important;
+  min-width:0;
+  max-width:calc(100% - 320px);
+  margin:0!important;
+  padding:0!important;
+  background:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:var(--utility-text)!important;
+  font:inherit!important;
+  text-transform:var(--utility-case);
+}
+body .banner.studio-utility-bar .studio-utility-shield{
+  flex:0 0 24px!important;
+  width:24px!important;
+  height:24px!important;
+  color:var(--utility-accent)!important;
+  filter:drop-shadow(0 0 6px var(--utility-shield-glow));
+}
+body .banner.studio-utility-bar .studio-utility-brand strong{
+  display:inline-block;
+  color:var(--utility-text)!important;
+  font:800 13px/1.2 var(--utility-font)!important;
+  letter-spacing:.025em;
+  white-space:nowrap;
+}
+body .banner.studio-utility-bar .studio-utility-divider{
+  display:block!important;
+  flex:0 0 1px!important;
+  height:25px!important;
+  width:1px!important;
+  margin:0 1px!important;
+  border-left:1px solid var(--utility-line)!important;
+  background:none!important;
+}
+body .banner.studio-utility-bar .studio-utility-tagline{
+  display:block!important;
+  min-width:0;
+  color:var(--utility-muted)!important;
+  font:400 14px/1.2 var(--utility-font)!important;
+  letter-spacing:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  text-transform:var(--utility-case);
+}
+body .banner.studio-utility-bar .studio-utility-trust{
+  position:static!important;
+  transform:none!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  flex:0 0 auto!important;
+  gap:9px!important;
+  max-width:45%;
+  min-height:30px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:7px 15px!important;
+  border:1px solid var(--utility-trust-line)!important;
+  border-radius:999px!important;
+  background:var(--utility-trust-bg)!important;
+  box-shadow:none!important;
+  color:var(--utility-trust-text)!important;
+  font:500 11px/1.25 var(--utility-font)!important;
+  letter-spacing:.006em!important;
+  text-transform:var(--utility-case);
+  white-space:nowrap;
+}
+body .banner.studio-utility-bar .studio-utility-trust svg{
+  flex:0 0 15px!important;
+  width:15px!important;
+  height:15px!important;
+  color:var(--utility-trust-text)!important;
+}
+body .banner.studio-utility-bar .studio-utility-trust span{
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+body[data-theme="terminal"] .banner.studio-utility-bar .studio-utility-trust,
+body[data-theme="terminal"] .banner.studio-utility-bar .studio-utility-divider{
+  border-radius:2px!important;
+}
+body[data-theme="editorial"] .banner.studio-utility-bar{
+  border-bottom-width:2px!important;
+}
+@media(max-width:1100px){
+  body .banner.studio-utility-bar .studio-utility-brand{max-width:57%;gap:10px!important}
+  body .banner.studio-utility-bar .studio-utility-brand strong{font-size:12px!important}
+  body .banner.studio-utility-bar .studio-utility-tagline{font-size:12px!important}
+  body .banner.studio-utility-bar .studio-utility-trust{max-width:40%;font-size:10px!important;padding:6px 9px!important}
+}
+@media(max-width:720px){
+  body .banner.studio-utility-bar{
+    height:38px!important;min-height:38px!important;max-height:38px!important;
+    gap:6px!important;padding:0 12px!important;
+  }
+  body .banner.studio-utility-bar .studio-utility-brand{
+    flex:0 0 auto!important;max-width:60%!important;gap:7px!important;
+  }
+  body .banner.studio-utility-bar .studio-utility-shield{width:18px!important;height:18px!important;flex-basis:18px!important}
+  body .banner.studio-utility-bar .studio-utility-brand strong{font-size:11px!important}
+  body .banner.studio-utility-bar .studio-utility-divider,
+  body .banner.studio-utility-bar .studio-utility-tagline{display:none!important}
+  body .banner.studio-utility-bar .studio-utility-trust{
+    max-width:55%!important;min-height:26px!important;
+    padding:5px 8px!important;font-size:9px!important;
+  }
+  body .banner.studio-utility-bar .studio-utility-trust svg{width:12px!important;height:12px!important;flex-basis:12px!important}
+  body .banner.studio-utility-bar .studio-utility-trust span{white-space:nowrap}
+}
+@media(max-width:375px){
+  body .banner.studio-utility-bar .studio-utility-trust{
+    padding:4px 7px!important;max-width:48%!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body .banner.studio-utility-bar,
+  body .banner.studio-utility-bar *{animation:none!important;transition:none!important}
+}
