@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" role="img" aria-label="Stylized vector illustration of fictional developer Dev Das">
+  <title>LifeSphere WebStudio — editorial theme developer avatar</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#594637"/><stop offset=".55" stop-color="#aa8773"/><stop offset="1" stop-color="#efe1ca"/></linearGradient>
+    <linearGradient id="jacket" x1=".2" y1="0" x2="1" y2="1"><stop stop-color="#403c45"/><stop offset="1" stop-color="#222733"/></linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#efae7f"/><stop offset="1" stop-color="#ca775c"/></linearGradient>
+    <clipPath id="frame"><circle cx="240" cy="240" r="238"/></clipPath>
+  </defs>
+  <g clip-path="url(#frame)">
+    <path fill="url(#sky)" d="M0 0h480v480H0z"/>
+    <circle cx="374" cy="114" r="117" fill="#f9e9c9" opacity=".17"/>
+    <circle cx="82" cy="340" r="169" fill="#0c264b" opacity=".46"/>
+    <g fill="none" stroke="#7feada" stroke-opacity=".32" stroke-width="3">
+      <path d="M12 144h112m-56 32h96M336 79h105M332 95h73"/>
+      <path d="M390 260h87M8 290h73"/>
+    </g>
+    <g fill="#86ffdb"><circle cx="82" cy="111" r="5"/><circle cx="125" cy="90" r="3"/><circle cx="390" cy="294" r="4"/></g>
+    <g fill="none" stroke="#e8c49a" stroke-width="2" opacity=".68"><path d="M24 126 170 22M365 35 470 142M12 385 115 458"/></g>
+<path d="M61 480q6-109 72-143l73-26h70l75 27q69 33 70 142" fill="url(#jacket)"/>
+    <path d="M174 338l64 91 68-91-36-28h-59z" fill="#f0f5ef"/>
+    <path d="M215 361l25 28 25-28-17-17h-16z" fill="#102a43"/>
+    <path d="M239 387l-20 93h50l-25-93" fill="#1d627b"/>
+    <path d="M121 363q43 40 79 72m154-76q-42 41-80 75" fill="none" stroke="#74dcc3" stroke-width="6" stroke-linecap="round"/>
+    <path d="M211 295h58v65q-26 26-58 0z" fill="#d68f6c"/>
+    <ellipse cx="240" cy="217" rx="103" ry="121" fill="url(#skin)"/>
+    <path d="M134 205q-18-94 34-123 59-42 115-14 70-6 79 104l-15 58q-3-35-25-67-37 2-78-37-36 38-91 34z" fill="#142848"/>
+    <path d="M151 169q-14-63 42-85 56-22 110 8 27 16 42 62-56 8-94-25-42 42-100 40z" fill="#213957"/>
+    <path d="M171 202q22-9 45-1m49 0q22-9 45 1" fill="none" stroke="#502d35" stroke-width="7" stroke-linecap="round"/>
+    <g stroke="#102a42" stroke-width="8" fill="none"><rect x="163" y="207" rx="17" width="72" height="50"/><rect x="247" y="207" rx="17" width="72" height="50"/><path d="M235 224q7-6 12 0m-84 0-27-11m183 11 25-11"/></g>
+    <circle cx="197" cy="232" r="5" fill="#183045"/><circle cx="281" cy="232" r="5" fill="#183045"/>
+    <path d="M240 233l-8 28 15 3" fill="none" stroke="#ad5e4b" stroke-width="4" stroke-linecap="round"/>
+    <path d="M214 282q26 20 51 0" stroke="#8a434b" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M166 279q24 48 75 48 59 0 81-54" fill="none" stroke="#f9c09b" stroke-opacity=".35" stroke-width="7"/>
+    <path d="M168 395l-27 85h75m101-85 30 85h-76" fill="none" stroke="#98c5d2" stroke-opacity=".5" stroke-width="3"/>
+    <rect x="316" y="378" width="55" height="9" rx="4" fill="#c4896c" opacity=".8"/>
+  </g>
+  <circle cx="240" cy="240" r="235" stroke="#f7dcb1" stroke-opacity=".75" stroke-width="6" fill="none"/>
+</svg>
