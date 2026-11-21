@@ -1,7 +1,7 @@
 /* WebStudio Free 3-theme interactive release flow.
    Preview -> approve exact profile/theme -> submit feedback -> export.
    Server receipts are real only if a configured feedback endpoint acknowledges.
-   Otherwise the user must explicitly attest that the email was sent. */
+   Without a deployed receiver, export stays locked rather than faking proof. */
 (()=>{
  'use strict';
  const api=window.WebStudioStarter,$=id=>document.getElementById(id);
@@ -16,7 +16,7 @@
   ['Personalize real website content','Edit and save your name, role, SEO, skills, projects, contact fields and links in the live local editor.','02','Create'],
   ['Inspect the real live preview','See the exact selected theme with your saved data in an interactive browser frame, then explicitly approve it.','03','Review'],
   ['Protect your private records','HTML, CSS, JavaScript and JSON used in a browser are readable. Never include secrets in files you publish.','04','Protect'],
-  ['Feedback unlocks the export','After approval, send detailed feedback to the developer through a verified server receipt or manually confirm you sent the prepared email.','05','Feedback']
+  ['Feedback unlocks the export','After approval, submit detailed feedback. A real server acknowledgment is required before ZIP generation.','05','Feedback']
  ];
  const intro=$('ws-free-onboard'),begin=$('ws-free-begin'),next=$('ws-free-next'),back=$('ws-free-back');
  const theme=$('ws-free-theme'),reply=$('ws-free-reply'),terms=$('ws-free-terms');
@@ -24,7 +24,7 @@
  const exportButton=$('ws-free-export'),status=$('ws-free-status');
  const previewButton=$('ws-free-preview'),panel=$('ws-free-preview-panel'),
   frame=$('ws-free-preview-frame'),approveButton=$('ws-free-approve');
- const approveCheckbox=$('ws-free-accept-preview'),attestButton=$('ws-free-confirm-send');
+ const approveCheckbox=$('ws-free-accept-preview');
  const key='webstudio:free-intro-v1',firstKey='webstudio:free-feedback-start-v1',
   reminderKey='webstudio:free-feedback-reminded-v1';
  let step=0,completed=false,approved=null,receipt=null,feedbackEndpoint='',challengeSiteKey='',challengeToken='';
@@ -36,7 +36,7 @@
  const signature=()=>JSON.stringify({theme:theme.value,profile:current()});
  function notice(message){status.textContent=message;}
  function revokeApproval(message){
-  approved=null;receipt=null;exportButton.disabled=true;attestButton.hidden=true;
+  approved=null;receipt=null;exportButton.disabled=true;
   approveCheckbox.checked=false;
   if(message)notice(message);
  }
@@ -122,11 +122,11 @@
  const allowExport=(acknowledgment)=>{
   if(!feedbackReady())return;
   receipt={approved,acknowledgment,feedback:notes.value.trim(),theme:theme.value};
-  attestButton.hidden=true;exportButton.disabled=false;
+  exportButton.disabled=false;
   $('ws-free-reminder').hidden=true;storage.write(reminderKey,'1');
   notice(acknowledgment==='server-confirmed'?
    'Feedback received by the configured service. You may generate the approved interactive ZIP.':
-   'You confirmed sending the feedback email. Delivery is not verified; ZIP generation is unlocked locally.');
+   'Feedback delivery was acknowledged by the configured server.');
  };
  feedbackButton.addEventListener('click',async()=>{
   if(!feedbackReady())return;
@@ -146,22 +146,12 @@
      throw Error('Feedback service did not acknowledge delivery.');
     allowExport('server-confirmed');
    }else{
-    // Mailto does not provide an API acknowledgment. No false claims of submission.
-    const content=['WebStudio Free detailed user feedback','',
-     'Selected theme: '+theme.value,'',
-     notes.value.trim(),'',
-     'Reply email (optional): '+(reply.value.trim()||'Not supplied')].join('\n');
-    const uri='mailto:sudipdasin@gmail.com?subject='+encodeURIComponent('WebStudio Free tester feedback')+
-     '&body='+encodeURIComponent(content);
-    if(uri.length>6000)throw Error('Feedback is too long for a mail application.');
-    const link=document.createElement('a');link.href=uri;document.body.append(link);link.click();link.remove();
-    attestButton.hidden=false;
-    notice('Your mail application was requested. Press Send there, then confirm here. This site cannot verify email delivery.');
+    throw Error('Verified feedback delivery is not configured yet; website generation remains locked.');
+
    }
   }catch(e){notice('Feedback not acknowledged: '+e.message+' ZIP remains locked.');}
   finally{feedbackButton.disabled=false;}
  });
- attestButton.addEventListener('click',()=>allowExport('manually-attested-email'));
  exportButton.addEventListener('click',async()=>{
   if(!receipt||!approved||receipt.approved!==signature()){
    revokeApproval('Export locked: approve the current profile and submit feedback first.');
@@ -190,6 +180,7 @@
   if(feedbackEndpoint&& !challengeSiteKey){
    feedbackEndpoint=''; // Don't claim server verification without a configured challenge.
   }
+  if(!feedbackEndpoint)notice('Feedback submission service is not configured. Preview and approval work, but ZIP export remains locked until verified feedback delivery is available.');
   if(feedbackEndpoint&&challengeSiteKey){
    $('ws-free-turnstile').hidden=false;
    const script=document.createElement('script');
