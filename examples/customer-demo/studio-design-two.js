@@ -62,7 +62,7 @@ function updateThemeIdentity(){
  banner.querySelector('.studio-utility-brand')?.classList.toggle('d2-utility',first);
  banner.querySelector('.studio-utility-trust')?.classList.toggle('d2-trust',first);
  const referencePortrait=document.querySelector('.hero-art .neon-reference-photo');
- if(referencePortrait){
+ if(referencePortrait && !document.body.classList.contains('avatar-studio-active')){
    const next=first?'design-two-reference-portrait.svg':'neon-reference-portrait.svg';
    if(referencePortrait.getAttribute('src')!==next)referencePortrait.setAttribute('src',next);
  }
