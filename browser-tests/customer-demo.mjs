@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-lifesphere.css','/studio-exposure.css','/studio-exposure.js','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-lifesphere.css','/studio-theme-controls.css','/studio-exposure.css','/studio-exposure.js','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -39,6 +39,50 @@ try {
    const resources=await page.evaluate(()=>Promise.all(['studio-reference-layout.css','studio-orbit-fidelity.css','studio-reference-layout.js','neon-reference-portrait.svg','neon-horizon.svg'].map(async path=>({path,status:(await fetch(path)).status}))));
    assert.deepEqual(resources.map(x=>x.status),[200,200,200,200,200],JSON.stringify(resources));
    assert.equal(await page.locator('.neon-eyebrow-pill').isVisible(),true);
+ })();
+ await check('language and layout controls adopt six distinct theme skins and remain accessible',async()=>{
+   const variants=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'];
+   const appearances=new Set();
+   const context=await browser.newPage({viewport:{width:1440,height:900}});
+   try{
+     await context.goto(url);
+     for (const theme of variants){
+       await context.locator('#studio-theme').selectOption(theme);
+       const state=await context.evaluate(()=>{
+         const language=document.getElementById('studio-language');
+         const layout=document.getElementById('studio-theme');
+         const styles=[language,layout].map(el=>{
+           const css=getComputedStyle(el),bounds=el.getBoundingClientRect();
+           return {color:css.color,bg:css.backgroundColor,border:css.borderTopColor,radius:css.borderTopLeftRadius,
+             appearance:css.appearance,width:bounds.width,height:bounds.height,focusable:el.tabIndex>=0};
+         });
+         return {styles,overflow:document.documentElement.scrollWidth-innerWidth,
+           theme:document.body.dataset.theme};
+       });
+       assert.equal(state.theme,theme);
+       assert.equal(state.styles[0].bg,state.styles[1].bg,theme+' language/layout must match');
+       assert.equal(state.styles[0].border,state.styles[1].border,theme+' border mismatch');
+       assert.ok(state.styles.every(x=>x.height>=39&&x.focusable&&x.color!=='rgb(0, 0, 0)'),theme+' select not usable '+JSON.stringify(state));
+       assert.ok(state.overflow<=2,theme+' layout overflow');
+       appearances.add(state.styles[0].bg+'/'+state.styles[0].border);
+       await context.locator('#studio-language').focus();
+       assert.equal(await context.locator('#studio-language').evaluate(el=>el===document.activeElement),true);
+     }
+     assert.equal(appearances.size,6,'Every theme needs its own distinct input colors');
+     await context.setViewportSize({width:390,height:844});
+     for(const theme of variants){
+       await context.locator('#studio-theme').selectOption(theme);
+       const measured=await context.evaluate(()=>{
+         const a=document.getElementById('studio-language').getBoundingClientRect();
+         const b=document.getElementById('studio-theme').getBoundingClientRect();
+         return {first:a.toJSON(),second:b.toJSON(),overflow:document.documentElement.scrollWidth-innerWidth};
+       });
+       assert.ok(measured.first.width>100&&measured.second.width>100,theme+' selectors too small');
+       assert.ok(measured.first.left>=0&&measured.second.right<=392&&measured.overflow<=2,theme+' mobile selector overflow '+JSON.stringify(measured));
+     }
+     await context.locator('#studio-language').selectOption('hi');
+     assert.equal(await context.locator('#studio-language').inputValue(),'hi');
+   }finally{await context.close();}
  })();
  await check('editing and saving fields works',async()=>{
   await page.getByRole('button',{name:'Customize demo'}).click();
@@ -1278,5 +1322,5 @@ try {
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,64);
+assert.equal(passed,65);
 console.log('Browser checks passed: '+passed);
