@@ -1013,6 +1013,26 @@ try {
   await page.setViewportSize({width:1280,height:900});
   await page.locator('#studio-theme').selectOption('neon-studio');
  })();
+ await check('Cosmic desktop menu is click-to-open and scroll-contained',async()=>{
+   const visual=await browser.newPage({viewport:{width:1672,height:941}});
+   try{
+     await visual.goto(url,{waitUntil:'load'});
+     await visual.locator('#studio-theme').selectOption('design-2');
+     assert.equal(await visual.locator('#studio-nav-panel').isVisible(),false,'No menu overlay on homepage');
+     assert.equal(await visual.locator('#system-menu-panel').isVisible(),false,'No system overlay on homepage');
+     await visual.locator('.studio-nav-trigger').click();
+     assert.equal(await visual.locator('#studio-nav-panel').isVisible(),true,'Studio menu opens on user click');
+     const metrics=await visual.locator('#studio-nav-panel').evaluate(el=>{
+       const r=el.getBoundingClientRect(),css=getComputedStyle(el);
+       return {bottom:r.bottom,height:r.height,overflowY:css.overflowY,scrollHeight:el.scrollHeight,clientHeight:el.clientHeight,vh:innerHeight};
+     });
+     assert.ok(metrics.bottom<=metrics.vh-8,'Cosmic menu extends off viewport: '+JSON.stringify(metrics));
+     assert.ok(metrics.scrollHeight>metrics.clientHeight,'Long menu must scroll: '+JSON.stringify(metrics));
+     assert.equal(metrics.overflowY,'auto','Long menu must contain overflow');
+     await visual.keyboard.press('Escape');
+     assert.equal(await visual.locator('#studio-nav-panel').isVisible(),false,'Escape closes menu');
+   }finally{await visual.close();}
+ })();
  await check('Desktop reference screenshot checks start from fresh clean homepages',async()=>{
    for(const [variant,w,h,file] of [
      ['neon-studio',1833,858,'aurora-reference-menu-desktop.png'],
@@ -1025,7 +1045,21 @@ try {
        await visual.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
        await visual.waitForTimeout(1100);
        assert.equal(await visual.locator('#editor').isVisible(),false,'Screenshots must not show an open editor');
-       assert.equal(await visual.locator('#studio-nav-panel').isVisible(),true,'Studio menu must be open for '+variant);
+       // Opening both menus at load was a screenshot-only convenience that
+       // obscured real visitor content. The public homepage must start clean.
+       assert.equal(await visual.locator('#studio-nav-panel').isVisible(),false,'Studio menu must start closed');
+       assert.equal(await visual.locator('#system-menu-panel').isVisible(),false,'System menu must start closed');
+       // Explicitly enable reference composition only inside this screenshot test.
+       await visual.evaluate(variant=>{
+         const studio=document.getElementById('studio-nav-panel');
+         const system=document.getElementById('system-menu-panel');
+         studio.hidden=false;
+         document.querySelector('.studio-nav-trigger').setAttribute('aria-expanded','true');
+         system.hidden=variant!=='neon-studio';
+         document.getElementById('system-menu-trigger').setAttribute('aria-expanded',String(variant==='neon-studio'));
+         document.body.classList.add('desktop-reference-preview');
+       },variant);
+       assert.equal(await visual.locator('#studio-nav-panel').isVisible(),true,'Studio screenshot reference must be open for '+variant);
        assert.equal(await visual.locator('#system-menu-panel').isVisible(),variant==='neon-studio','System menu should appear only in Aurora');
        assert.equal(await visual.locator('.cosmic-menu-reference').isVisible(),variant==='design-2','Cosmic groups should appear only in Cosmic');
        if(variant==='neon-studio'){
