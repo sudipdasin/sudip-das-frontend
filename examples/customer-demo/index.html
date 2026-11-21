@@ -253,7 +253,7 @@
               <label>Target platform<select name="platform" required><option>GitHub</option><option>LinkedIn</option><option>YouTube</option><option>Instagram</option><option>Facebook</option><option>Bluesky</option><option>Mastodon</option><option>X</option><option>TikTok</option><option>Other</option></select></label>
               <label>Draft title<input id="social-draft-title" name="title" maxlength="90" required placeholder="A project update"></label>
               <label>Post caption<textarea name="caption" maxlength="2000" placeholder="Write your post here"></textarea></label>
-              <button type="submit">Save local draft</button>
+              <div class="social-actions"><button id="social-draft-save" type="submit">Save local draft</button><button id="social-draft-cancel" type="button" class="ghost" hidden>Cancel editing</button></div>
               <button type="button" disabled title="Requires a secure, approved account integration">Publish to social networks · Planned</button>
             </form>
             <div aria-labelledby="social-saved-drafts-title"><h3 id="social-saved-drafts-title">Saved drafts</h3><div id="social-drafts-list" aria-live="polite"></div></div>
