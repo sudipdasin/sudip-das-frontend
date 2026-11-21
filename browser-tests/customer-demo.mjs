@@ -1022,10 +1022,57 @@ try {
      assert.equal(await p.locator('#checkout-button').isDisabled(),true);
    }finally{await p.close();}
  })();
+ await check('Cosmic orbit portrait, satellites and nameplate have stable non-overlapping geometry',async()=>{
+   const visual=await browser.newPage({viewport:{width:1672,height:941},deviceScaleFactor:1});
+   try{
+     await visual.goto(url,{waitUntil:'load'});
+     await visual.locator('#studio-theme').selectOption('design-2');
+     await visual.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+     await visual.waitForTimeout(350);
+     const measure=()=>visual.evaluate(()=>{
+       const art=document.querySelector('.hero-art');
+       const photo=art.querySelector('.neon-reference-photo').getBoundingClientRect();
+       const caption=art.querySelector('.portrait-caption').getBoundingClientRect();
+       const badges=[...art.querySelectorAll('.neon-orbit-badge')].filter(el=>getComputedStyle(el).display!=='none')
+         .map(el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,cx:r.x+r.width/2,cy:r.y+r.height/2};});
+       const area=art.getBoundingClientRect();
+       const center={x:photo.x+photo.width/2,y:photo.y+photo.height/2};
+       return {width:window.innerWidth,photo:{x:photo.x,y:photo.y,width:photo.width,height:photo.height,
+           right:photo.right,bottom:photo.bottom},
+         caption:{x:caption.x,y:caption.y,width:caption.width,height:caption.height,right:caption.right,bottom:caption.bottom},
+         badges,center,area:{x:area.x,width:area.width},scrollWidth:document.documentElement.scrollWidth,
+         source:art.querySelector('.neon-reference-photo').getAttribute('src'),
+         ratio:devicePixelRatio};
+     });
+     let g=await measure();
+     assert.match(g.source,/design-two-reference-portrait\.svg/);
+     assert.ok(g.photo.width>=265&&g.photo.width<=300,'Portrait scaling not controlled: '+JSON.stringify(g));
+     assert.ok(g.caption.y>=g.photo.bottom+12,'Nameplate overlaps photo: '+JSON.stringify(g));
+     assert.equal(g.badges.length,4,'Cosmic must have four independent orbit icons');
+     assert.ok(g.badges.every(b=>Math.hypot(b.cx-g.center.x,b.cy-g.center.y)>g.photo.width*.58),
+       'Orbit satellites overlap the portrait: '+JSON.stringify(g));
+     assert.ok(g.badges.every(b=>b.x>=0&&b.x+b.width<=g.width+1),
+       'Satellite clipped at desktop edge: '+JSON.stringify(g));
+     assert.ok(g.scrollWidth<=g.width+2,'Desktop horizontal overflow: '+JSON.stringify(g));
+     assert.ok(g.caption.bottom<=941,'Nameplate falls outside screenshot: '+JSON.stringify(g));
+     await visual.screenshot({path:join(root,'dist','visual-audit','cosmic-orbit-fidelity-1672.png'),fullPage:false});
+     await visual.setViewportSize({width:390,height:844});
+     await visual.waitForTimeout(100);
+     g=await measure();
+     assert.ok(g.photo.width>=185&&g.photo.width<=242,'Mobile photo size: '+JSON.stringify(g));
+     assert.ok(g.caption.y>=g.photo.bottom+5,'Mobile caption overlaps photo: '+JSON.stringify(g));
+     assert.ok(g.badges.every(b=>b.x>=-1&&b.x+b.width<=390+1),'Mobile clipped icon: '+JSON.stringify(g));
+     assert.ok(g.scrollWidth<=392,'Cosmic mobile overflow: '+JSON.stringify(g));
+     await visual.screenshot({path:join(root,'dist','visual-audit','cosmic-orbit-fidelity-390.png'),fullPage:false});
+     await visual.locator('#studio-theme').selectOption('neon-studio');
+     assert.equal(await visual.locator('.neon-role-pills .neon-orbit-badge:visible').count(),5,
+       'Aurora five-role arrangement was unintentionally changed');
+   }finally{await visual.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,56);
+assert.equal(passed,57);
 console.log('Browser checks passed: '+passed);
