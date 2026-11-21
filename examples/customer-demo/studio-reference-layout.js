@@ -64,21 +64,7 @@
    const notice=document.createElement('span');notice.className='demo-identity-note';notice.textContent='Fictional profile demo';banner.append(notice);
   const old=document.createElement('span');old.className='sr-only';old.textContent='Fictional demo, no working contact service';banner.append(old);
  }
- // Match the supplied portrait only in Neon Studio, retaining the original
- // vector-only profile image in other demo layouts and their regression tests.
- const portraitAvatar=$('avatar');
- const portraitForTheme=()=>{
-   const img=portraitAvatar?.querySelector('img.demo-portrait');
-   if(!img)return;
-   const desired=document.body.dataset.theme==='neon-studio'?'./neon-reference-portrait.svg':'./dev-das-portrait.svg';
-   if(img.getAttribute('src')!==desired)img.setAttribute('src',desired);
- };
- if(portraitAvatar){
-   new MutationObserver(portraitForTheme).observe(portraitAvatar,{childList:true});
-   $('studio-theme')?.addEventListener('change',portraitForTheme);
-   portraitForTheme();
- }
-  const hero=document.querySelector('main>.hero');
+ const hero=document.querySelector('main>.hero');
  if(!hero)return;
  const name=$('name');
  let updating=false;
