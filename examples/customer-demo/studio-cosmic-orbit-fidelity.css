@@ -122,7 +122,7 @@ body[data-theme="design-2"] .hero-art .portrait-caption::after{
    exact reference width. Keep the orbital module inside the right hero column. */
 @media(min-width:1570px) and (max-width:1799px){
   body[data-theme="design-2"] main>.hero .hero-art{
-    transform:translateX(76px)!important;
+    transform:translateX(126px)!important;
   }
 }
 @media(min-width:1800px){
