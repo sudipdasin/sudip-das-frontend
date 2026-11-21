@@ -19,8 +19,8 @@ function getOptions(id) {
  return [...selected[2].matchAll(/<option\b[^>]*\bvalue=["']([^"']+)["'][^>]*>([\s\S]*?)<\/option>/gi)]
   .map(([,value,label])=>[value,label.replace(/<[^>]*>/g,'').trim()]);
 }
-const themes=getOptions('theme-select');
-const langs=getOptions('language-select');
+const themes=getOptions('studio-theme');
+const langs=getOptions('studio-language');
 for(const [name,entries] of [['themes',themes],['languages',langs]]) {
  if(new Set(entries.map(([id])=>id)).size!==entries.length) errors.push('Duplicate '+name+' IDs');
 }
