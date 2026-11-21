@@ -871,3 +871,14 @@ body:not([data-theme="design-1"]) :is(.d1-utility,.d1-trust,.d1-stats,.d1-featur
  body[data-theme="design-1"] .neon-eyebrow-pill{font-size:10px;letter-spacing:.05em}
  body[data-theme="design-1"] .d1-feature-icon{width:58px;height:58px;flex-basis:58px}
 }
+
+/* Inter-theme isolation: restore only the controls valid in Design 1.
+   The older Design 2 stylesheet hides these controls on all other themes. */
+body[data-theme="design-1"] .nav-bar .studio-nav-dropdown{display:block!important}
+body[data-theme="design-1"] .nav-bar .demo-theme-icon{display:flex!important}
+body[data-theme="design-1"] .nav-bar .neon-home-link{display:inline-flex!important}
+body[data-theme="design-1"] .hero-art .neon-role-pills{display:block!important}
+body[data-theme="design-1"] .hero-actions .neon-intro-button{display:inline-flex!important}
+body[data-theme="design-1"] .neon-feature-grid,
+body[data-theme="design-1"] .neon-value-section{display:none!important}
+body[data-theme="design-1"] .neon-reference-photo{display:block!important}
