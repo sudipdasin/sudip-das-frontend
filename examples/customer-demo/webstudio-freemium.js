@@ -27,7 +27,7 @@
  const approveCheckbox=$('ws-free-accept-preview'),attestButton=$('ws-free-confirm-send');
  const key='webstudio:free-intro-v1',firstKey='webstudio:free-feedback-start-v1',
   reminderKey='webstudio:free-feedback-reminded-v1';
- let step=0,completed=false,approved=null,receipt=null,feedbackEndpoint='',challengeSiteKey='';
+ let step=0,completed=false,approved=null,receipt=null,feedbackEndpoint='',challengeSiteKey='',challengeToken='';
  const storage={
   read(k){try{return localStorage.getItem(k)}catch{return null}},
   write(k,v){try{localStorage.setItem(k,v)}catch{}}
@@ -131,10 +131,11 @@
  feedbackButton.addEventListener('click',async()=>{
   if(!feedbackReady())return;
   feedbackButton.disabled=true;
-  const body={schemaVersion:1,theme:theme.value,feedback:notes.value.trim(),
+  const body={schemaVersion:1,theme:theme.value,turnstileToken:challengeToken,feedback:notes.value.trim(),
    replyEmail:reply.value.trim(),source:'webstudio-free-interactive-preview'};
   try{
    if(feedbackEndpoint){
+    if(!challengeToken)throw Error('Complete the CAPTCHA challenge before submitting feedback.');
     const url=new URL(feedbackEndpoint,location.href);
     if(url.protocol!=='https:')throw Error('Feedback service must use HTTPS.');
     const response=await fetch(url.href,{method:'POST',mode:'cors',credentials:'omit',
@@ -188,6 +189,22 @@
   challengeSiteKey=typeof configured.challengeSiteKey==='string'?configured.challengeSiteKey:'';
   if(feedbackEndpoint&& !challengeSiteKey){
    feedbackEndpoint=''; // Don't claim server verification without a configured challenge.
+  }
+  if(feedbackEndpoint&&challengeSiteKey){
+   $('ws-free-turnstile').hidden=false;
+   const script=document.createElement('script');
+   script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+   script.async=true;script.defer=true;
+   script.addEventListener('load',()=>{
+    if(!window.turnstile?.render){notice('Feedback anti-spam widget could not be loaded.');return;}
+    window.turnstile.render('#ws-free-turnstile',{sitekey:challengeSiteKey,
+      callback:token=>{challengeToken=token},
+      'expired-callback':()=>{challengeToken=''},
+      'error-callback':()=>{challengeToken=''}
+    });
+   });
+   script.addEventListener('error',()=>notice('The feedback challenge could not load. Please retry.'));
+   document.head.append(script);
   }
  }).catch(()=>{});
  completed=storage.read(key)==='completed';
