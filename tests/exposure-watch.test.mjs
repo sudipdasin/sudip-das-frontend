@@ -9,10 +9,8 @@ const source=file=>readFile(join(root,'examples/customer-demo',file),'utf8');
 
 test('Exposure Watch explicitly distinguishes manual reports from verified breach monitoring',async()=>{
   const [html,js]=await Promise.all([source('index.html'),source('studio-exposure.js')]);
-  assert.match(html,/id="exposure-watch"/);
-  assert.match(html,/does <strong>not<\/strong> scan the dark web/);
-  assert.match(html,/https:\/\/monitor\.mozilla\.org\//);
-  assert.match(html,/https:\/\/haveibeenpwned\.com\//);
+  assert.doesNotMatch(html,/id="exposure-watch"|studio-exposure\\.js/);
+  assert.match(html,/LifeSphere suite/);
   assert.match(js,/Self-reported/);
   assert.match(js,/No incidents recorded/);
   assert.match(js,/localStorage/);
