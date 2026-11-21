@@ -68,7 +68,10 @@
   editor?.scrollIntoView({behavior:'smooth',block:'start'});
  });
  // Save/edit/reset/import in app.js all invalidate the approved preview.
- document.addEventListener('studio:profile-saved',()=>revokeApproval('Profile changed. Refresh and approve the updated live preview before exporting.'));
+ document.addEventListener('studio:profile-saved',()=>{
+  revokeApproval('Saved profile changed. The live interactive preview is refreshing; approve it again before exporting.');
+  if(!panel.hidden)refreshPreview();
+ });
  theme.addEventListener('change',()=>{
   revokeApproval('Theme changed. Inspect and approve the new preview.');
   if(!panel.hidden)refreshPreview();
