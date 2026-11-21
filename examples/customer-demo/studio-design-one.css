@@ -157,7 +157,7 @@ body[data-theme="neon-studio"] main>.hero h1::after{
 }
 
 /* Reference 1: name-only cyan-outlined capsule below the photographic orbit. */
-body[data-theme="neon-studio"] .hero-art .portrait-caption{
+body[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
  display:flex!important;align-items:center;justify-content:center;
  min-width:174px;max-width:82%;min-height:41px;
  font-size:21px!important;line-height:1.1;font-weight:750;
