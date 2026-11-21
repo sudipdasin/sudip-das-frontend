@@ -168,8 +168,9 @@ body[data-theme="design-2"] .hero-art .portrait-caption::after{
 @media(max-width:420px){
   body[data-theme="design-2"] main>.hero .hero-art{
     --portrait-diameter:clamp(188px,55vw,228px);
+    --orbit-outer-diameter:calc(var(--portrait-diameter)*1.26);
     min-height:360px!important;
-    transform:translateX(-42px)!important;
+    transform:translateX(-58px)!important;
   }
   body[data-theme="design-2"] main>.hero .hero-art .portrait-caption{
     top:calc(50% + var(--orbit-outer-diameter)*.5 + 8px)!important;
