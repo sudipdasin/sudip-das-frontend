@@ -925,10 +925,53 @@ try {
     await visual.locator('#studio-language').selectOption('en');
   }finally{await visual.close();}
  })();
+ await check('dynamically inserted localized menu text, accessible labels and user content stay correct through language switches',async()=>{
+   const fresh=await browser.newPage({viewport:{width:1280,height:900}});
+   try{
+     await fresh.goto(url,{waitUntil:'load'});
+     assert.equal(await fresh.evaluate(()=>window.StudioI18nReady),true);
+     await fresh.locator('#studio-language').selectOption('es');
+     const sources=await fresh.evaluate(()=>{
+       const i18n=window.StudioI18n;
+       const original='Background & Theme',span=document.createElement('span');
+       span.id='test-dynamic-l10n';span.textContent=i18n.translate(original,'es');
+       span.setAttribute('aria-label',i18n.translate('Edit Profile','es'));
+       document.querySelector('main').append(span);
+       const custom=document.createElement('textarea');custom.id='test-customer-preserve';custom.value='My original creative project';document.querySelector('main').append(custom);
+       return {source:span.textContent,aria:span.getAttribute('aria-label')};
+     });
+     assert.notEqual(sources.source,'Background & Theme');
+     await fresh.locator('#studio-language').selectOption('hi');
+     await fresh.waitForTimeout(80);
+     const hindi=await fresh.evaluate(()=>({
+       text:document.querySelector('#test-dynamic-l10n').textContent,
+       aria:document.querySelector('#test-dynamic-l10n').getAttribute('aria-label'),
+       personal:document.querySelector('#test-customer-preserve').value
+     }));
+     assert.equal(hindi.text,'पृष्ठभूमि और थीम');
+     assert.equal(hindi.aria,'प्रोफ़ाइल संपादित करें');
+     assert.equal(hindi.personal,'My original creative project');
+     await fresh.evaluate(()=>{
+       const node=document.querySelector('#test-dynamic-l10n');
+       node.setAttribute('title','Advanced Tools');
+       node.firstChild.nodeValue='Background & Theme';
+     });
+     await fresh.waitForTimeout(80);
+     assert.equal(await fresh.locator('#test-dynamic-l10n').getAttribute('title'),'उन्नत उपकरण');
+     assert.equal(await fresh.locator('#test-dynamic-l10n').textContent(),'पृष्ठभूमि और थीम');
+     await fresh.locator('#studio-language').selectOption('en');
+     assert.equal(await fresh.locator('#test-dynamic-l10n').textContent(),'Background & Theme');
+     assert.equal(await fresh.locator('#test-dynamic-l10n').getAttribute('aria-label'),'Edit Profile');
+     assert.equal(await fresh.locator('#test-dynamic-l10n').getAttribute('title'),'Advanced Tools');
+     await fresh.locator('#studio-language').selectOption('ar');
+     assert.equal(await fresh.locator('#test-dynamic-l10n').textContent(),'الخلفية والسمة');
+     assert.equal(await fresh.evaluate(()=>document.documentElement.dir),'rtl');
+   }finally{await fresh.close();}
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,53);
+assert.equal(passed,54);
 console.log('Browser checks passed: '+passed);
