@@ -1,0 +1,177 @@
+/* Fidelity patch targeted ONLY at uploaded design 1.png (Aurora / neon-studio).
+   Reference: Design 1 @ 1833 x 858, NOT Design 2's cosmic/four-card design.
+   This file deliberately does not modify [data-theme="design-2"].
+ */
+@media (min-width: 1181px) {
+  body[data-theme="neon-studio"] .wrap {
+    width: min(1715px, calc(100% - 112px));
+  }
+  body[data-theme="neon-studio"] .nav-bar {
+    justify-content: flex-start;
+    gap: clamp(8px,.65vw,14px);
+    min-height: 83px;
+  }
+  body[data-theme="neon-studio"] .nav-bar .brand {
+    flex: 0 0 218px;
+    min-width: 218px;
+    justify-content: flex-start;
+  }
+  body[data-theme="neon-studio"] .nav-bar .nav-links {
+    flex: 0 1 auto;
+    justify-content: flex-start;
+    min-width: 0;
+    margin-left: 0;
+    gap: 3px;
+  }
+  body[data-theme="neon-studio"] .nav-bar .nav-links a {
+    padding: 11px 9px;
+    font-size: clamp(12px,.8vw,14px);
+  }
+  body[data-theme="neon-studio"] .nav-bar .studio-nav-dropdown {
+    margin-left: 10px;
+  }
+  body[data-theme="neon-studio"] .nav-bar .studio-controls {
+    margin-left: auto;
+    flex: 0 1 auto;
+    gap: 6px;
+  }
+  body[data-theme="neon-studio"] .nav-bar #edit-toggle {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+/* The 5 roles in Design 1 are individual icon medallions with bare
+   white text; the reference DOES NOT put a cyan pill around each word. */
+body[data-theme="neon-studio"] .hero-art {
+  --orbit-badge-radius: clamp(182px,13vw,224px);
+}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge {
+  position: absolute!important;
+  display: flex!important;
+  align-items: center!important;
+  gap: 10px!important;
+  min-height: 42px!important;
+  height: auto!important;
+  width: max-content!important;
+  max-width: 180px!important;
+  padding: 0!important;
+  border: 0!important;
+  border-radius: 0!important;
+  background: none!important;
+  box-shadow: none!important;
+  filter: none!important;
+  color: #f3f9ff!important;
+  opacity: 1!important;
+}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge .neon-orbit-bubble {
+  display: grid!important;
+  place-items: center!important;
+  width: 42px!important;
+  height: 42px!important;
+  flex: 0 0 42px!important;
+  margin: 0!important;
+  border: 1px solid #118eab!important;
+  border-radius: 50%!important;
+  color: #13f5ee!important;
+  background: linear-gradient(135deg,#04314a,#051e32)!important;
+  box-shadow: inset 0 0 15px #04dfe52d,0 0 15px #00b6f336!important;
+}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge .neon-orbit-bubble svg {
+  width: 24px!important;
+  height: 24px!important;
+}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge .neon-orbit-label {
+  display: inline-block!important;
+  color: #f1f7ff!important;
+  font: 600 clamp(12px,.86vw,14px)/1.25 Inter,system-ui,sans-serif!important;
+  white-space: nowrap!important;
+  text-shadow: 0 1px 10px #000c!important;
+}
+@media (min-width: 1521px) {
+  /* Align the labels with the right orbit tangent, not a vertical
+     row of badges over the portrait. */
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1) {
+    --orbit-x: calc(var(--badge-r)*1.58)!important;
+    --orbit-y: -135px!important;
+  }
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(2) {
+    --orbit-x: calc(var(--badge-r)*1.70)!important;
+    --orbit-y: -73px!important;
+  }
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(3) {
+    --orbit-x: calc(var(--badge-r)*1.76)!important;
+    --orbit-y: -11px!important;
+  }
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(4) {
+    --orbit-x: calc(var(--badge-r)*1.72)!important;
+    --orbit-y: 51px!important;
+  }
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5) {
+    --orbit-x: calc(var(--badge-r)*1.62)!important;
+    --orbit-y: 113px!important;
+  }
+}
+@media (min-width:1181px) and (max-width:1520px) {
+  body[data-theme="neon-studio"] .hero-art{--orbit-badge-radius:165px}
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1){--orbit-x:260px!important;--orbit-y:-126px!important}
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(2){--orbit-x:275px!important;--orbit-y:-65px!important}
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(3){--orbit-x:278px!important;--orbit-y:-5px!important}
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(4){--orbit-x:275px!important;--orbit-y:55px!important}
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){--orbit-x:260px!important;--orbit-y:115px!important}
+}
+
+/* The nameplate is centered UNDER the orbit rather than over the
+   lower portrait. Its border and 22px title match Design 1. */
+body[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption {
+  position: absolute!important;
+  top: calc(50% + var(--orbit-badge-radius) + 14px)!important;
+  bottom: auto!important;
+  left: calc(50% + 65px)!important;
+  right: auto!important;
+  transform: translateX(-50%)!important;
+  min-width: 185px!important;
+  width: max-content!important;
+  max-width: 250px!important;
+  min-height: 44px!important;
+  padding: 7px 26px!important;
+  display: flex!important;
+  justify-content: center!important;
+  align-items: center!important;
+  border: 1px solid #1acdf0!important;
+  border-radius: 28px!important;
+  background: #032033ed!important;
+  box-shadow: 0 0 17px #00dfff3d!important;
+  color: #bcfeff!important;
+  font: 750 22px/1 Inter,system-ui,sans-serif!important;
+  text-align: center!important;
+  white-space: nowrap!important;
+}
+@media(max-width:1180px){
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge {
+    width: 34px!important;
+    height: 34px!important;
+    min-height:34px!important;
+    padding: 0!important;
+    border-radius: 50%!important;
+  }
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-label {
+    display:none!important;
+  }
+  body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-bubble {
+    width: 34px!important;height:34px!important;flex-basis:34px!important;
+  }
+  body[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption {
+    top: calc(50% + var(--orbit-badge-radius) + 12px)!important;
+    left:50%!important;
+    font-size:18px!important;min-width:150px!important;
+  }
+}
+
+/* Reserve enough space for the nameplate between the portrait and value band. */
+@media(min-width:1181px){
+ body[data-theme="neon-studio"] main>.hero{min-height:540px!important}
+ body[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+   top:calc(50% + var(--orbit-badge-radius) - 20px)!important;
+ }
+}
