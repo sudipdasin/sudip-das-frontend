@@ -14,9 +14,11 @@
 .avatar-studio :is(input,button):focus-visible{outline:3px solid var(--accent, #57dac9);outline-offset:3px}
 .avatar-studio-active .hero-art .avatar{overflow:hidden}
 .avatar-studio-active .hero-art .avatar .avatar-studio-image{display:block!important;width:100%!important;height:100%!important;max-width:100%;object-fit:cover;transform:none!important;animation:none!important;border-radius:inherit}
-body.avatar-studio-active .hero-art > .neon-reference-photo,
-body.avatar-studio-active[data-theme="design-2"] .hero-art > .neon-reference-photo,
-body.avatar-studio-active[data-theme="neon-studio"] .hero-art > .neon-reference-photo{display:none!important;visibility:hidden!important}
+/* Screenshot-specific themes reuse the positioning element but show the currently selected SVG.
+   User photo preview always hides the positioned duplicate. */
+body.avatar-studio-active[data-avatar-preset="photo"] .hero-art > .neon-reference-photo,
+body.avatar-studio-active[data-avatar-preset="photo"][data-theme="design-2"] .hero-art > .neon-reference-photo,
+body.avatar-studio-active[data-avatar-preset="photo"][data-theme="neon-studio"] .hero-art > .neon-reference-photo{display:none!important;visibility:hidden!important}
 body.avatar-studio-active[data-theme="editorial"] .hero-art .avatar{box-shadow:0 14px 32px #0004,0 0 0 4px #d9cba4!important}
 body.avatar-studio-active[data-theme="terminal"] .hero-art .avatar{box-shadow:0 0 0 4px #4cf18f,0 0 26px #20ed7166!important}
 body.avatar-studio-active[data-theme="aurora-peak"] .hero-art .avatar{box-shadow:0 0 0 4px #52ecce,0 0 35px #52ecce88!important}
