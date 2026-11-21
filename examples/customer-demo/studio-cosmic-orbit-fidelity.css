@@ -162,6 +162,7 @@ body[data-theme="design-2"] .hero-art .portrait-caption::after{
   body[data-theme="design-2"] main>.hero .hero-art{
     --portrait-diameter:clamp(188px,55vw,228px);
     min-height:360px!important;
+    transform:translateX(-58px)!important;
   }
   body[data-theme="design-2"] main>.hero .hero-art .portrait-caption{
     top:calc(50% + var(--orbit-outer-diameter)*.5 + 8px)!important;
