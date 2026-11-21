@@ -276,7 +276,7 @@ try {
    await page.locator('#tour-start').click();
    await page.waitForFunction(()=>document.querySelector('#tour-title')?.textContent==='تعرّف على حضورك الرقمي المستدام.');
    await page.locator('#tour-next').click();
-   await page.waitForFunction(()=>document.querySelector('#tour-title')?.textContent==='ثلاثة تخطيطات لملف واحد.');
+   await page.waitForFunction(()=>document.querySelector('#tour-title')?.textContent==='ست سمات لملف شخصي واحد.');
    await page.keyboard.press('Escape');
  })();
  await check('English restore preserves editable profile data and core safety claims',async()=>{
