@@ -547,6 +547,47 @@ try {
    assert.equal(await photo.isVisible(),false);
    assert.equal(await page.locator('#avatar img').getAttribute('src'),'./dev-das-portrait.svg');
  })();
+ await check('Neon orbit badges follow the circumference and brand is left-aligned',async()=>{
+  await page.locator('#studio-theme').selectOption('neon-studio');
+  await page.setViewportSize({width:1777,height:832});
+  const orbit=page.locator('.neon-role-pills .neon-orbit-badge');
+  assert.equal(await orbit.count(),5);
+  const g=await page.evaluate(()=>{
+    const art=document.querySelector('.hero-art').getBoundingClientRect();
+    const mid={x:art.left+art.width/2,y:art.top+art.height/2};
+    const badges=[...document.querySelectorAll('.neon-role-pills .neon-orbit-badge')].map(el=>{
+      const r=el.getBoundingClientRect();return {text:el.textContent.trim(),x:r.x+r.width/2,y:r.y+r.height/2,
+        width:r.width,height:r.height,icon:!!el.querySelector('svg'),
+        visible:getComputedStyle(el).display!=='none'};
+    });
+    const first=document.getElementById('demo-brand').getBoundingClientRect();
+    const sub=document.querySelector('#demo-brand-wrapper .muted').getBoundingClientRect();
+    const overlap=(a,b)=>Math.max(0,Math.min(a.x+a.width/2,b.x+b.width/2)-Math.max(a.x-a.width/2,b.x-b.width/2))*
+      Math.max(0,Math.min(a.y+a.height/2,b.y+b.height/2)-Math.max(a.y-a.height/2,b.y-b.height/2));
+    return {badges,distances:badges.map(b=>Math.hypot(b.x-mid.x,b.y-mid.y)),
+      spanX:Math.max(...badges.map(b=>b.x))-Math.min(...badges.map(b=>b.x)),
+      spanY:Math.max(...badges.map(b=>b.y))-Math.min(...badges.map(b=>b.y)),
+      brand:{headingTop:first.top,subtitleTop:sub.top,headingLeft:first.left,subtitleLeft:sub.left},
+      overlap:badges.some((a,i)=>badges.some((b,j)=>j>i&&overlap(a,b)>12)),
+      overflow:document.documentElement.scrollWidth-innerWidth};
+  });
+  assert.ok(g.badges.every(b=>b.visible&&b.icon),JSON.stringify(g));
+  assert.ok(g.distances.every(d=>d>145&&d<325),'Badges are not around orbit: '+JSON.stringify(g));
+  assert.ok(g.spanX>180&&g.spanY>230,'Badges are stacked: '+JSON.stringify(g));
+  assert.equal(g.overlap,false,'Badges overlap: '+JSON.stringify(g));
+  assert.ok(g.brand.subtitleTop>g.brand.headingTop+10,'Subtitle not stacked under brand title');
+  assert.ok(Math.abs(g.brand.subtitleLeft-g.brand.headingLeft)<4,'Brand text not left aligned');
+  assert.ok(g.overflow<=2,'Desktop overflow: '+g.overflow);
+  const shots=join(root,'dist','visual-audit');
+  await mkdir(shots,{recursive:true});
+  await page.screenshot({path:join(shots,'neon-desktop-1777.png'),fullPage:false});
+  await page.setViewportSize({width:390,height:844});
+  assert.ok(await orbit.first().isVisible());
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+  assert.ok(overflow<=2,'Mobile overflow: '+overflow);
+  await page.screenshot({path:join(shots,'neon-mobile-390.png'),fullPage:false});
+  await page.setViewportSize({width:1280,height:900});
+ })();
  await page.close();
 }finally{
  await browser.close();
