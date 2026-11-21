@@ -14,7 +14,7 @@
     minimal:{accent:'#a2c5da',glow:15,spacing:64,motion:false}
   });
   const panel=document.createElement('section');panel.className='creative-lab';panel.setAttribute('aria-labelledby','creative-lab-title');
-  panel.innerHTML='<div class="creative-lab-heading"><div><span class="creative-lab-kicker">LIVE DESIGN CONTROLS</span><h3 id="creative-lab-title">Creative Lab</h3><p>Fine-tune the visual energy without changing your portfolio content. Local preview only.</p></div><button class="ghost" id="creative-lab-reset" type="button">Reset look</button></div><div class="creative-lab-presets" role="group" aria-label="Visual mood presets"></div><div class="creative-lab-controls"><label>Glow intensity <output id="creative-glow-value">55%</output><input id="creative-glow" type="range" min="0" max="100" step="5" value="55"></label><label>Section rhythm <output id="creative-space-value">50%</output><input id="creative-space" type="range" min="0" max="100" step="5" value="50"></label><label class="creative-lab-toggle"><input id="creative-motion" type="checkbox" checked> Ambient motion</label></div><p class="creative-lab-status" id="creative-lab-status" role="status"></p>';
+  panel.innerHTML='<div class="creative-lab-heading"><div><span class="creative-lab-kicker">LIVE DESIGN CONTROLS</span><h3 id="creative-lab-title">Creative Lab</h3><p>Fine-tune the visual energy without changing your portfolio content. Local preview only.</p></div><div class="creative-lab-heading-actions"><button class="ghost" id="creative-lab-export" type="button">Export look</button><label class="ghost creative-lab-import-label">Import look<input id="creative-lab-import" type="file" accept=".json,application/json"></label><button class="ghost" id="creative-lab-reset" type="button">Reset look</button></div></div><div class="creative-lab-presets" role="group" aria-label="Visual mood presets"></div><div class="creative-lab-controls"><label>Glow intensity <output id="creative-glow-value">55%</output><input id="creative-glow" type="range" min="0" max="100" step="5" value="55"></label><label>Section rhythm <output id="creative-space-value">50%</output><input id="creative-space" type="range" min="0" max="100" step="5" value="50"></label><label class="creative-lab-toggle"><input id="creative-motion" type="checkbox" checked> Ambient motion</label></div><p class="creative-lab-status" id="creative-lab-status" role="status"></p>';
   const avatar=document.querySelector('.avatar-studio');
   const target=avatar||form.querySelector('.actions');
   if(target)target.parentNode.insertBefore(panel,avatar ? avatar.nextSibling : target);
@@ -77,6 +77,39 @@
   panel.querySelector('#creative-lab-reset').addEventListener('click',()=>{
     state={...presets.electric,selected:'electric'};persist();render();
     document.documentElement.style.removeProperty('--creative-accent');
+  });
+  panel.querySelector('#creative-lab-export').addEventListener('click',()=>{
+    const payload={
+      schema:'webstudio-creative-look',version:1,theme:theme.value,language:language.value,
+      selected:state.selected,accent:state.accent,glow:state.glow,spacing:state.spacing,motion:state.motion
+    };
+    const blob=new Blob([JSON.stringify(payload,null,2)+'\n'],{type:'application/json'});
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');
+    a.href=url;a.download='webstudio-creative-look.json';document.body.append(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+    panel.querySelector('#creative-lab-status').textContent='Downloaded portable visual settings (no profile or private data).';
+  });
+  panel.querySelector('#creative-lab-import').addEventListener('change',async event=>{
+    const input=event.target,file=input.files?.[0];
+    if(!file)return;
+    const status=panel.querySelector('#creative-lab-status');
+    try{
+      if(file.size>8192||file.size<10)throw Error('Invalid or oversized design recipe.');
+      const data=JSON.parse(await file.text());
+      if(data?.schema!=='webstudio-creative-look'||data.version!==1
+        ||typeof data.glow!=='number'||data.glow<0||data.glow>100
+        ||typeof data.spacing!=='number'||data.spacing<0||data.spacing>100
+        ||typeof data.motion!=='boolean'||!/^#[0-9a-f]{6}$/i.test(data.accent||'')
+        ||!['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'].includes(data.theme)
+        ||![...language.options].some(o=>o.value===data.language))throw Error('Unsupported design recipe.');
+      const next={selected:Object.hasOwn(presets,data.selected)?data.selected:'custom',
+        accent:data.accent,glow:clamp(data.glow),spacing:clamp(data.spacing),motion:data.motion};
+      state=next;persist();render();setAccent(data.accent);
+      theme.value=data.theme;theme.dispatchEvent(new Event('change',{bubbles:true}));
+      language.value=data.language;language.dispatchEvent(new Event('change',{bubbles:true}));
+      status.textContent='Imported a validated design recipe. Save & preview to keep profile content changes.';
+    }catch(err){status.textContent='Could not import design recipe: '+err.message;}
+    finally{input.value='';}
   });
   document.getElementById('reset-profile')?.addEventListener('click',()=>{
     state={...presets.electric,selected:'electric'};persist();render();
