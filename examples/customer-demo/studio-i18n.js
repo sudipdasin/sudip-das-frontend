@@ -68,7 +68,8 @@
     fetch('./i18n-ui.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('UI translations missing');return r.json();}),
     fetch('./i18n-copy.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Page translations missing');return r.json();}),
     fetch('./i18n-profile.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Profile translations missing');return r.json();}),
-    fetch('./i18n-dynamic.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Dynamic translations missing');return r.json();})
+    fetch('./i18n-dynamic.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Dynamic translations missing');return r.json();}),
+    fetch('./i18n-theme.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Theme translations missing');return r.json();})
   ]).then(([productData,uiData,copyData,profileData,dynamicData])=>{
     for(const lang of locales){
       if(!productData.locales[lang])throw Error('Missing product language: '+lang);
