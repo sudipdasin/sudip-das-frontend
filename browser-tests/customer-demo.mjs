@@ -897,14 +897,14 @@ try {
       await visual.locator('#studio-language').selectOption(lang);
       const expected=langPack[lang];
       assert.equal((await visual.locator('.studio-utility-brand strong').textContent()).trim(),expected['Web Studio'],lang+' branding');
-      assert.equal(await visual.locator('.studio-utility-trust span').innerText(),expected['You are in control of your web presence and your data'],lang+' trust line');
-      assert.equal(await visual.locator('.cosmic-menu-section h3').first().innerText(),expected['Profile & Content'],lang+' dropdown category');
-      assert.equal(await visual.locator('.cosmic-menu-label').first().innerText(),expected['Edit Profile'],lang+' dropdown action');
+      assert.equal(await visual.locator('.studio-utility-trust span').textContent(),expected['You are in control of your web presence and your data'],lang+' trust line');
+      assert.equal(await visual.locator('.cosmic-menu-section h3').first().textContent(),expected['Profile & Content'],lang+' dropdown category');
+      assert.equal(await visual.locator('.cosmic-menu-label').first().textContent(),expected['Edit Profile'],lang+' dropdown action');
       await visual.locator('#studio-theme').selectOption('neon-studio');
-      assert.equal(await visual.locator('#role').innerText(),expected['Creative Developer & Interface Engineer'],lang+' Aurora role');
+      assert.equal(await visual.locator('#role').textContent(),expected['Creative Developer & Interface Engineer'],lang+' Aurora role');
       await visual.locator('#studio-theme').selectOption('design-2');
-      assert.equal(await visual.locator('#role').innerText(),expected['Developer · Designer · Creator'],lang+' Cosmic role');
-      assert.equal(await visual.locator('.d2-feature h3').first().innerText(),expected['Everlasting Presence'],lang+' product card');
+      assert.equal(await visual.locator('#role').textContent(),expected['Developer · Designer · Creator'],lang+' Cosmic role');
+      assert.equal(await visual.locator('.d2-feature h3').first().textContent(),expected['Everlasting Presence'],lang+' product card');
       const state=await visual.evaluate(()=>({lang:document.documentElement.lang,dir:document.documentElement.dir,
         overflow:document.documentElement.scrollWidth-innerWidth}));
       assert.equal(state.lang,lang);
@@ -912,10 +912,10 @@ try {
       assert.ok(state.overflow<=2,lang+' 1440px overflow '+JSON.stringify(state));
     }
     await visual.locator('#studio-language').selectOption('en');
-    assert.equal(await visual.locator('#role').innerText(),'Developer · Designer · Creator','English restore');
-    assert.equal(await visual.locator('.studio-utility-brand strong').innerText(),'Web Studio','Brand restore');
+    assert.equal(await visual.locator('#role').textContent(),'Developer · Designer · Creator','English restore');
+    assert.equal(await visual.locator('.studio-utility-brand strong').textContent(),'Web Studio','Brand restore');
     await visual.locator('#studio-theme').selectOption('neon-studio');
-    assert.equal(await visual.locator('#role').innerText(),'Creative Developer & Interface Engineer','Theme identity restores');
+    assert.equal(await visual.locator('#role').textContent(),'Creative Developer & Interface Engineer','Theme identity restores');
     await visual.setViewportSize({width:390,height:844});
     await visual.locator('#studio-language').selectOption('ar');
     const mobile=await visual.evaluate(()=>({dir:document.documentElement.dir,overflow:document.documentElement.scrollWidth-innerWidth,
