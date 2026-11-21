@@ -683,7 +683,7 @@ try {
    if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
    await page.locator('input[name="displayName"]').fill('Reference Demo');
    await page.locator('input[name="role"]').fill('Custom Fictional Creator');
-   await page.getByRole('button',{name:'Save & preview'}).click();
+   await page.locator('#editor button[type="submit"]').click();
    for(const [theme,portrait,first,second] of [
       ['neon-studio','neon-reference-portrait.svg',true,false],
       ['design-2','design-two-reference-portrait.svg',false,true],
@@ -701,6 +701,7 @@ try {
      assert.equal(await page.locator('.neon-intro-button').isDisabled(),true);
    }
    await page.locator('#studio-language').selectOption('en');
+   if(!(await page.locator('#editor').isVisible()))await page.locator('#edit-toggle').click();
    await page.locator('#reset-profile').click();
  })();
  await page.close();
