@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -766,10 +766,35 @@ try {
   await page.setViewportSize({width:1280,height:900});
   await page.locator('#studio-theme').selectOption('neon-studio');
  })();
+ await check('Desktop screenshot menus stay distinct and all unimplemented actions are disabled',async()=>{
+   await page.setViewportSize({width:1833,height:858});
+   await page.locator('#studio-theme').selectOption('neon-studio');
+   await page.waitForTimeout(130);
+   assert.equal(await page.locator('#studio-nav-panel').isVisible(),true,'Aurora Studio menu should be open');
+   assert.equal(await page.locator('#system-menu-panel').isVisible(),true,'Aurora System menu should be open');
+   assert.equal(await page.locator('.cosmic-menu-reference').isVisible(),false,'Cosmic items must not appear in Aurora');
+   await page.screenshot({path:join(root,'dist','visual-audit','aurora-reference-menu-desktop.png'),fullPage:false});
+   await page.locator('#studio-theme').selectOption('design-2');
+   await page.waitForTimeout(130);
+   assert.equal(await page.locator('#studio-nav-panel').isVisible(),true,'Cosmic Studio menu should be open');
+   assert.equal(await page.locator('.cosmic-menu-reference').isVisible(),true,'Cosmic grouped menu should be present');
+   assert.equal(await page.locator('#system-menu-panel').isVisible(),false,'Cosmic has one reference menu');
+   assert.ok(await page.locator('.cosmic-menu-reference button:disabled').count()>=4);
+   assert.ok(await page.locator('.cosmic-menu-reference button:not(:disabled)').count()>=4);
+   await page.screenshot({path:join(root,'dist','visual-audit','cosmic-reference-menu-desktop.png'),fullPage:false});
+   await page.mouse.click(50,550);
+   assert.equal(await page.locator('#studio-nav-panel').isVisible(),false,'Click outside closes preview');
+   await page.setViewportSize({width:390,height:844});
+   await page.locator('#studio-theme').selectOption('neon-studio');
+   await page.waitForTimeout(100);
+   assert.equal(await page.locator('#studio-nav-panel').isVisible(),false,'Phone does not auto-open desktop dropdown');
+   assert.equal(await page.locator('#system-menu-panel').isVisible(),false,'Phone does not auto-open system dropdown');
+   await page.setViewportSize({width:1280,height:900});
+ })();
  await page.close();
 }finally{
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,50);
+assert.equal(passed,51);
 console.log('Browser checks passed: '+passed);
