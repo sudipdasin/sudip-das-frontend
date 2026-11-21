@@ -116,7 +116,7 @@ try {
   await lab.locator('button[data-mood=ultraviolet]').click();
   assert.equal(await lab.locator('button[data-mood=ultraviolet]').getAttribute('aria-pressed'),'true');
   assert.equal(await page.locator('input[name=accent]').inputValue(),'#bc86ff');
-  await lab.locator('#creative-glow').fill('25');
+  await lab.locator('#creative-glow').evaluate(el=>{el.value='25';el.dispatchEvent(new Event('input',{bubbles:true}));});
   assert.equal(await lab.locator('#creative-glow-value').innerText(),'25%');
   await lab.locator('#creative-motion').uncheck();
   assert.equal(await page.locator('body').getAttribute('data-creative-motion'),'off');
