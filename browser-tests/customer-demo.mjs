@@ -580,11 +580,17 @@ try {
   assert.ok(g.overflow<=2,'Desktop overflow: '+g.overflow);
   const shots=join(root,'dist','visual-audit');
   await mkdir(shots,{recursive:true});
+  // Reset real UI state left by earlier functional tests; audit the actual homepage.
+  if(await page.locator('#editor').isVisible()) await page.locator('#edit-toggle').click();
+  await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+  await page.waitForTimeout(250);
   await page.screenshot({path:join(shots,'neon-desktop-1777.png'),fullPage:false});
   await page.setViewportSize({width:390,height:844});
   assert.ok(await orbit.first().isVisible());
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
   assert.ok(overflow<=2,'Mobile overflow: '+overflow);
+  await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+  await page.waitForTimeout(150);
   await page.screenshot({path:join(shots,'neon-mobile-390.png'),fullPage:false});
   await page.setViewportSize({width:1280,height:900});
  })();
