@@ -155,3 +155,14 @@ body[data-theme="neon-studio"] main>.hero h1::after{
  border-radius:50%;background:#00eff0;vertical-align:.08em;margin-left:.025em;
  box-shadow:0 0 8px #00eafa45;
 }
+
+/* Reference 1: name-only cyan-outlined capsule below the photographic orbit. */
+body[data-theme="neon-studio"] .hero-art .portrait-caption{
+ display:flex!important;align-items:center;justify-content:center;
+ min-width:174px;max-width:82%;min-height:41px;
+ font-size:21px!important;line-height:1.1;font-weight:750;
+ color:#b9ffff!important;letter-spacing:-.025em;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+ border:1px solid #2ae5ed!important;background:#032b39eb!important;
+ padding:7px 19px!important;border-radius:999px!important;
+}
