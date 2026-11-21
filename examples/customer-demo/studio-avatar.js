@@ -1,4 +1,4 @@
-/* Avatar Studio: two SVG presets plus ephemeral, local-only image preview. */
+/* LifeSphere WebStudio: six theme-specific SVG portraits and local-only photo preview. */
 (() => {
   'use strict';
   const mount = document.querySelector('.vector-portrait-note');
@@ -7,6 +7,12 @@
   if (!mount || !avatar || !hero) return;
   const KEY = 'devdas-webstudio:avatar-preset:v1';
   const assets = Object.freeze({
+    orbit: './avatar-orbit.svg',
+    editorial: './avatar-editorial.svg',
+    terminal: './avatar-terminal.svg',
+    'aurora-peak': './avatar-aurora-peak.svg',
+    'neon-studio': './avatar-neon-studio.svg',
+    'design-2': './avatar-design-2.svg',
     creative: './studio-creative-avatar.svg',
     professional: './dev-das-portrait.svg'
   });
@@ -62,14 +68,17 @@
   panel.append(legend,intro,options,uploadLabel,positionLabel,reset,status);
   mount.replaceWith(panel);
 
-  const chooseAuto = () => document.body.dataset.theme === 'editorial' ? 'professional' : 'creative';
+  // Every active theme maps to its OWN SVG asset, not just a color treatment.
+  const chooseAuto = () => Object.hasOwn(assets, document.body.dataset.theme)
+    && !['creative','professional'].includes(document.body.dataset.theme)
+      ? document.body.dataset.theme : 'orbit';
   const effective = () => mode === 'auto' ? chooseAuto() : mode;
   const radios = () => [...panel.querySelectorAll('input[name="avatar-preset"]')];
   let scheduled = false;
   function draw() {
     scheduled = false;
     const next = effective();
-    const src = next === 'photo' && photoURL ? photoURL : assets[next] || assets.creative;
+    const src = next === 'photo' && photoURL ? photoURL : assets[next] || assets.orbit;
     let image = avatar.querySelector('img[data-avatar-choice]');
     if (!image) {
       image = document.createElement('img');
@@ -88,7 +97,7 @@
     position.disabled = next !== 'photo';reset.disabled = !photoURL;
     status.textContent = next === 'photo'
       ? 'Local photo preview only. Exported JSON will not contain your photo.'
-      : 'Using '+next+' vector avatar' + (mode === 'auto' ? ' (matched to active theme).' : '.');
+      : 'Using '+next.replaceAll('-', ' ')+' vector avatar' + (mode === 'auto' ? ' (automatically changed with the selected theme).' : ' (manually selected).');
   }
   function schedule() {
     if (scheduled) return;
