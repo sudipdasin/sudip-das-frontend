@@ -30,6 +30,8 @@ jobs:
             node --check webstudio-parity.js
             node --check scripts/verify-six-theme-fidelity.mjs
             node scripts/verify-six-theme-fidelity.mjs
+            node --check scripts/verify-aurora-reference-v2.mjs
+            node scripts/verify-aurora-reference-v2.mjs
             # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
             const fs=require('node:fs');
@@ -144,6 +146,24 @@ jobs:
                     await page.locator('.hero-art .ws-orbit-chip').first().waitFor();
                     const expectedBadges=theme==='neon-studio'?5:theme==='design-2'?4:3;
                     assert.equal(await page.locator('.hero-art .ws-orbit-chip').count(),expectedBadges,'Orbit badges '+theme+'/'+width);
+                    const aurora=page.locator('.ws-aurora-reference');
+                    assert.equal(await aurora.count(),1,'Aurora reference section absent '+theme+'/'+width);
+                    if(theme==='neon-studio'){
+                      assert.ok(await aurora.isVisible(),'Aurora reference section not visible');
+                      assert.equal(await page.locator('.ws-aurora-info-band').count(),1,'Design 1 information band missing');
+                      assert.equal(await page.locator('.ws-aurora-band-details .ws-aurora-mini-detail').count(),4,'Four detail items expected');
+                      assert.equal(await page.locator('.ws-aurora-feature-grid .ws-aurora-feature').count(),6,'Design 1 requires six compact cards');
+                      assert.equal(await page.locator('.ws-aurora-cta-actions a').count(),3,'Aurora visitor CTA group missing');
+                      assert.equal(await page.locator('.hero-art .ws-orbit-chip .ws-orbit-glyph').count(),5,'Five icon medallions expected');
+                      assert.equal(await page.locator('.hero-art .ws-orbit-chip .ws-orbit-label').count(),5,'Five skill labels expected');
+                      assert.equal(await page.locator('main>.ticker').isVisible(),false,'Old ticker should not duplicate Aurora section');
+                      const bandBox=await page.locator('.ws-aurora-info-band').boundingBox();
+                      const heroBox=await page.locator('.hero').boundingBox();
+                      assert.ok(bandBox&&heroBox&&bandBox.y>=heroBox.y+heroBox.height-4,'Aurora information band must follow hero');
+                    } else {
+                      assert.equal(await aurora.isVisible(),false,'Aurora reference must not leak into '+theme);
+                    }
+
                     assert.equal(await page.locator('#ws-studio-open').count(),0,'Studio leak '+theme);
                     assert.equal(await page.locator('#profile-look-open').count(),0,'Appearance leak '+theme);
                     const snapshot=await page.evaluate(()=>{

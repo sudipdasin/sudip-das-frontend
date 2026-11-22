@@ -105,11 +105,16 @@
       const isCosmic = theme === 'design-2';
       const list = theme === 'neon-studio' ? skills : isCosmic ? skills.slice(0, 4) : skills.slice(0, 3);
       for (const [name, position, glyph] of list) {
-        const chip = node('span', 'ws-orbit-chip', isCosmic ? glyph : name);
+        const isAuroraReference = theme === 'neon-studio';
+        const chip = node('span', 'ws-orbit-chip', isCosmic ? glyph : isAuroraReference ? undefined : name);
         chip.dataset.pos = position;
         chip.setAttribute('aria-label', name);
         chip.setAttribute('aria-hidden', 'true');
-        if (!isCosmic) chip.prepend(node('i'));
+        if (isAuroraReference) {
+          chip.append(node('span', 'ws-orbit-glyph', glyph), node('span', 'ws-orbit-label', name));
+        } else if (!isCosmic) {
+          chip.prepend(node('i'));
+        }
         art.append(chip);
       }
     };
@@ -130,5 +135,74 @@
       row.append(cell);
     }
     ticker.insertAdjacentElement('afterend', row);
+
+    // WebStudio Aurora composition: a 1+4 information band, six compact
+    // feature tiles and a three-action strip. Reuse only PUBLIC, already
+    // approved site themes/skills/navigation; no fictional demo claims,
+    // private details, owner settings, requests or publishing actions.
+    const aurora = node('section', 'ws-aurora-reference');
+    aurora.id = 'ws-aurora-reference';
+    aurora.setAttribute('aria-label', 'Portfolio skills and quick navigation');
+    const inner = node('div', 'ws-aurora-reference-inner wrap');
+    const band = node('div', 'ws-aurora-info-band');
+    const bandIntro = node('div', 'ws-aurora-band-intro');
+    bandIntro.append(node('span', 'ws-aurora-infinity', '∞'));
+    const bandCopy = node('div', 'ws-aurora-band-copy');
+    bandCopy.append(
+      node('strong', '', 'Building practical tools, better everyday experiences.'),
+      node('small', '', 'Technology, systems, open source and creative work.')
+    );
+    bandIntro.append(bandCopy);
+    band.append(bandIntro);
+    const details = node('div', 'ws-aurora-band-details');
+    for (const [icon, label] of [
+      ['⌘', 'Linux & desktop'], ['◎', 'Systems & CRM'],
+      ['◇', 'Technical support'], ['✦', 'Creative technology']
+    ]) {
+      const detail = node('span', 'ws-aurora-mini-detail');
+      detail.append(node('span', 'ws-aurora-mini-icon', icon), node('span', '', label));
+      details.append(detail);
+    }
+    band.append(details);
+    inner.append(band);
+
+    const featureGrid = node('nav', 'ws-aurora-feature-grid');
+    featureGrid.setAttribute('aria-label', 'Portfolio areas');
+    const sixSkills = [...ticker.querySelectorAll('.ticker-in > span')].slice(0, 6);
+    const featureIcons = ['⬡', '◇', '≋', '◎', '⇄', '▦'];
+    const featureLinks = ['#projects', '#capabilities', '#experience', '#experience', '#capabilities', '#projects'];
+    sixSkills.forEach((skill, index) => {
+      const link = node('a', 'ws-aurora-feature');
+      link.href = featureLinks[index];
+      const label = skill.textContent.replace(/[✳✱*]/g, '').trim();
+      link.append(node('span', 'ws-aurora-feature-icon', featureIcons[index]));
+      const copy = node('span', 'ws-aurora-feature-copy');
+      copy.append(node('strong', '', label), node('small', '', index < 2 ? 'Explore practical work' : 'View experience'));
+      link.append(copy);
+      featureGrid.append(link);
+    });
+    inner.append(featureGrid);
+
+    const cta = node('div', 'ws-aurora-cta');
+    const ctaCopy = node('div', 'ws-aurora-cta-copy');
+    ctaCopy.append(
+      node('strong', '', 'Explore selected projects and experience.'),
+      node('small', '', 'Practical software, systems, service and creative technology.')
+    );
+    cta.append(ctaCopy);
+    const ctaActions = node('div', 'ws-aurora-cta-actions');
+    for (const [label, href, primary] of [
+      ['Explore my work', '#projects', true],
+      ['Experience', '#experience', false],
+      ['Get in touch', '#contact', false]
+    ]) {
+      const link = node('a', primary ? 'ws-aurora-cta-primary' : '', label);
+      link.href = href;
+      ctaActions.append(link);
+    }
+    cta.append(ctaActions);
+    inner.append(cta);
+    aurora.append(inner);
+    ticker.before(aurora);
   }
 })();
