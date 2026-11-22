@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="portfolio-environment" content="current-preview">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101713">
@@ -183,7 +185,7 @@
             <div class="visually-hidden-website" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
             <label class="request-consent"><input type="checkbox" name="consent" required><span>I consent to using these details to verify and respond to this request. I understand the selected information is sent only after email verification and the profile owner’s approval.</span></label>
             <div class="captcha-slot"><p class="captcha-note">Complete the security check to help prevent automated requests.</p><div class="cf-turnstile" data-sitekey="0x4AAAAAAGH9fA57L306xoj7" data-theme="dark"></div></div>
-            <button class="button primary" type="submit"><span data-i18n="submitRequest">Send verified access request</span><span class="arrow" aria-hidden="true">→</span></button>
+            <button class="button primary" type="submit" disabled aria-disabled="true"><span data-i18n="submitRequest">Send verified access request</span><span class="arrow" aria-hidden="true">→</span></button>
             <p class="request-status" id="request-status" role="status" aria-live="polite">Private detail requests are temporarily offline. No form data is transmitted or stored.</p>
             <p class="privacy-copy">When secure request processing is enabled, email verification and owner approval will be required before any selected profile details are shared.</p>
           </form>
@@ -237,7 +239,7 @@
     document.addEventListener('profile-language-change',()=>{updateSmartPreview();if(document.body.dataset.theme==='terminal')renderTerminalFlow();});
     requestForm.addEventListener('input',updateSmartPreview);requestForm.addEventListener('change',updateSmartPreview);requestForm.addEventListener('reset',()=>setTimeout(updateSmartPreview,0));updateSmartPreview();
     requestForm.addEventListener('submit',async event=>{
-      event.preventDefault();if(!window.PUBLIC_API_BASE||document.querySelector('.cf-turnstile')?.dataset.sitekey===''){statusNode.textContent=i18n.get('secureNotReady');return;}statusNode.textContent=i18n.get('sending');
+      event.preventDefault();if(window.PORTFOLIO_PREVIEW_MODE){statusNode.textContent='Preview only — private requests are disabled and no information is sent.';return;}if(!window.PUBLIC_API_BASE||document.querySelector('.cf-turnstile')?.dataset.sitekey===''){statusNode.textContent=i18n.get('secureNotReady');return;}statusNode.textContent=i18n.get('sending');
       const values=Object.fromEntries(new FormData(requestForm).entries());
       values.turnstileToken=values['cf-turnstile-response'];delete values['cf-turnstile-response'];delete values.consent;
       try{const response=await fetch(`${window.PUBLIC_API_BASE||''}/api/v1/private-info/request`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(values)});const result=await response.json();if(!response.ok)throw new Error(result.error==='captcha_failed'?i18n.get('captchaFailed'):result.error==='select_requested_information'?i18n.get('selectDetails'):i18n.get('requestFailed'));requestForm.reset();if(window.turnstile)window.turnstile.reset();statusNode.textContent=i18n.get('requestReceived');}catch(error){statusNode.textContent=error.message;}
@@ -247,6 +249,6 @@
   <script src="webstudio-portfolio-gallery.js" defer></script>
   <script src="webstudio-visitor-hub.js" defer></script>
   <script src="webstudio-parity.js" defer></script>
-  <script>window.PUBLIC_API_BASE="https://sudip-das-profile-api.sudipdasin.workers.dev";</script>
+  <script>window.PUBLIC_API_BASE="";window.PORTFOLIO_PREVIEW_MODE=true;</script>
 </body>
 </html>
