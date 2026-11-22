@@ -43,7 +43,7 @@
   };
 
   const B = [
-    ['language','[data-i18n="language"]'],['themeLabel','[data-i18n="themeLabel"]'],['menu','.menu'],['nav','#navlinks a[href^="#"]:not(.nav-cta)','list'],['eyebrow','.eyebrow'],['heroTitle','.hero h1','html'],['heroCopy','.hero-copy'],['explore','.actions a.button.primary','label'],['github','.actions a.button:not(.primary)','label'],['location','.location span:last-child'],['portrait','.portrait-caption span:last-child'],
+    ['language','[data-i18n="language"]'],['themeLabel','[data-i18n="themeLabel"]'],['menu','.menu'],['nav','#navlinks a[href^="#"]:not(.nav-cta)','list'],['eyebrow','.eyebrow'],['heroTitle','.hero-role','plainHtml'],['heroCopy','.hero-copy'],['explore','.actions a.button.primary','label'],['github','.actions a.button:not(.primary)','label'],['location','.location span:last-child'],['portrait','.portrait-caption span:last-child'],
     ['aboutKicker','#about .kicker'],['aboutTitle','#about .section-head h2','html'],['aboutSummary','#about .section-head>p'],['aboutStamp','.intro-stamp'],['aboutCopy','.intro-copy','html'],['proof','.proof span','list'],
     ['projectsKicker','#projects .kicker'],['projectsTitle','#projects .section-head h2','html'],['projectsSummary','#projects .section-head>p'],['projectTypes','.project-type','list'],['projectStates','.project-state','list'],['projectDescriptions','.project p','list'],['repository','.project-link','labelList'],['projectNote','.project-note'],
     ['experienceKicker','#experience > .wrap > .section-head .kicker'],['experienceTitle','#experience .section-head h2'],['experienceSummary','#experience .section-head>p'],['qualities','.work-aside h3','html'],['experienceCopy','.work-aside p'],['linkedin','.work-aside a','label'],['publicLocation','#experience .work-grid .kicker'],['address','.work-grid > div h3'],['country','.public-country'],['locationPrivacy','.location-privacy'],['vaultKicker','.vault-kicker'],['requestTitle','.request-shell-summary h3'],['requestDesc','.request-shell-summary p'],['exploreDetails','.request-shell-action span:first-child'],['requestInstruction','.request-shell-inner>p'],['categoryTitles','.vault-title','list'],['categorySubtitles','.vault-subtitle','list'],['categoryNotes','.accordion-note','list'],['radioOptions','.radio-option','radioGroups'],['panelStates','.panel-state','panelStates'],['smartTitle','#smart-title'],['smartIntro','#smart-copy'],['formLabels','.request-grid label','labelList'],['website','.visually-hidden-website label','label'],['consent','.request-consent span'],['captchaNote','.captcha-note'],['submitRequest','[data-i18n="submitRequest"]'],['requestOffline','#request-status'],['privacyFlow','.privacy-copy'],
@@ -72,6 +72,14 @@
           for(const input of inputs){const group=byGroup[input.name];const index=[...input.closest('.radio-list').querySelectorAll('input')].indexOf(input);const v=value[group]?.[index];if(v!==undefined)label(input.closest('.radio-option'),v);}
         } else nodes.forEach((el,i)=>{const v=Array.isArray(value)?(value[i]??value[value.length-1]):value;if(v===undefined)return;if(mode==='labelList')label(el,v);else if(mode==='panelStates')text(el,el.closest('[data-category]')?.dataset.category==='certifications'?data.panelStates[2]:data.panelStates[0]);else text(el,v);});
       } else if(mode==='html') html(nodes[0],value);
+      else if(mode==='plainHtml'){
+        // Keep the REAL owner's H1 immutable. The legacy translated slogan
+        // originally targeted .hero h1, overwriting the personal name.
+        // Decode the trusted translation markup as text in the role subtitle.
+        const phrase=document.createElement('span');
+        phrase.innerHTML=String(value).replace(/<br\s*\/?>/gi,' ');
+        text(nodes[0],(phrase.textContent||'').replace(/\s+/g,' ').trim());
+      }
       else if(mode==='label') label(nodes[0],value);
       else text(nodes[0],value);
     }
