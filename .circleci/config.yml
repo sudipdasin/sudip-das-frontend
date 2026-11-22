@@ -34,7 +34,7 @@ jobs:
               assert.equal(fs.existsSync(path),false,'Development/private source in public artifact: '+path);
             }
             const html=fs.readFileSync('index.html','utf8');
-            for(const key of ['Sudip Das','id="private-request-form"','webstudio-visual-port.js','webstudio-portfolio-gallery.js','webstudio-visitor-hub.js']){
+            for(const key of ['Sudip Das','id="private-request-form"','webstudio-parity.js','webstudio-portfolio-gallery.js','webstudio-visitor-hub.js']){
               assert.ok(html.includes(key),'Missing personal site feature: '+key);
             }
             assert.ok(!html.includes('__PUBLIC_')&&!html.includes('__TURNSTILE_SITE_KEY__'),'Unresolved build placeholder');
@@ -50,6 +50,20 @@ jobs:
               assert.doesNotMatch(html,/sudip-das-profile-api\.sudipdasin\.workers\.dev/,'Preview leaks production API URL');
               const parity=fs.readFileSync('webstudio-parity.js','utf8');
               assert.ok(parity.includes('CURRENT PERSONAL PREVIEW'),'Preview visual label missing');
+              assert.ok(!html.includes('src="webstudio-visual-port.js"'),'Visitor must not load advanced appearance editor');
+              assert.ok(html.includes('src="webstudio-parity.js"'),'Visitor visual runtime must be loaded');
+              for(const forbidden of ['ws-studio-open','ws-studio-panel','profile-look-open','profile-shortcuts-open','data-import-look','data-export-look','localStorage','fetch(']){
+                assert.ok(!parity.includes(forbidden),'Forbidden visitor mutation/editor control in parity runtime: '+forbidden);
+              }
+              assert.ok(!parity.includes('Studio & system'),'Unauthorized public studio UI reintroduced');
+              assert.ok(parity.includes('ws-visitor-quick-open'),'Safe visitor Quick Actions missing');
+              assert.ok(parity.includes('ws-visitor-quick-panel'),'Safe visitor section/theme panel missing');
+              assert.ok(parity.includes("themeSelect.dispatchEvent(new Event('change'"),'Quick theme change missing');
+              for(const section of ['about','projects','experience','capabilities','contact']){
+                assert.ok(parity.includes("'"+section+"'"),'Quick link missing: '+section);
+              }
+
+
               assert.ok(!parity.includes('Real projects · Six design experiences · No account required'),'Demo banner reappeared');
             } else {
               assert.ok(html.includes('https://sudip-das-profile-api.sudipdasin.workers.dev'),'Production request API endpoint missing');
@@ -99,7 +113,19 @@ jobs:
                 try{
                   const r=await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
                   assert.ok(r?.ok(),'Local static root unavailable');
-                  await page.locator('#profile-look-open').waitFor({timeout:15000});
+                  await page.locator('.ws-utility-right').waitFor({timeout:15000});
+                  assert.equal(await page.locator('#ws-studio-open').count(),0,'Studio button publicly visible');
+                  assert.equal(await page.locator('#profile-look-open').count(),0,'Appearance button publicly visible');
+                  assert.equal(await page.locator('#profile-shortcuts-open').count(),0,'Advanced quick editor must not be visible');
+                  assert.equal(await page.locator('#ws-visitor-quick-open').count(),1,'Visitor quick actions missing');
+                  await page.locator('#ws-visitor-quick-open').click();
+                  assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'true');
+                  assert.equal(await page.locator('#ws-visitor-quick-panel a[href="#projects"]').count(),1);
+                  await page.locator('#ws-visitor-quick-panel button[data-theme="design-2"]').click();
+                  assert.equal(await page.locator('body').getAttribute('data-theme'),'design-2');
+                  assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'false');
+                  assert.equal(await page.locator('#profile-look-dialog').count(),0,'Appearance dialog publicly available');
+                  assert.equal(await page.locator('#ws-studio-panel').count(),0,'Studio dialog publicly available');
                   assert.equal(await page.locator('#theme-select option').count(),6);
                   assert.equal(await page.locator('#language-select option').count(),10);
                   assert.equal(await page.locator('#private-request-form').count(),1);

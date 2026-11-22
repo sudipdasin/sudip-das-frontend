@@ -245,7 +245,7 @@
       try{const response=await fetch(`${window.PUBLIC_API_BASE||''}/api/v1/private-info/request`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(values)});const result=await response.json();if(!response.ok)throw new Error(result.error==='captcha_failed'?i18n.get('captchaFailed'):result.error==='select_requested_information'?i18n.get('selectDetails'):i18n.get('requestFailed'));requestForm.reset();if(window.turnstile)window.turnstile.reset();statusNode.textContent=i18n.get('requestReceived');}catch(error){statusNode.textContent=error.message;}
     });
   </script>
-  <script src="webstudio-visual-port.js" defer></script>
+  <!-- Advanced appearance/editor code is not loaded for public visitors. -->
   <script src="webstudio-portfolio-gallery.js" defer></script>
   <script src="webstudio-visitor-hub.js" defer></script>
   <script src="webstudio-parity.js" defer></script>
