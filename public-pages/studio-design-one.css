@@ -1,0 +1,168 @@
+/* DESIGN 1 — strict reference mapping: uploaded "design 1.png" (1833×858).
+ * Teal aurora + mountain horizon, TWO menus, FIVE labeled role badges,
+ * one infinity data band and SIX compact cards. No Design 2 four-card strip.
+ */
+body[data-theme="neon-studio"]{
+ --base:#020e1d;--panel:#05202b;--ink:#f8fbff;--accent:#00ebe9;
+ --muted:#b9ccdf;--line:#21788b;
+}
+body[data-theme="neon-studio"] .banner{
+ min-height:33px;height:auto;justify-content:center;
+ background:linear-gradient(90deg,#021d2a,#004342 56%,#021629);
+ border-bottom:1px solid #13d4d668;
+}
+body[data-theme="neon-studio"] .nav-bar{
+ min-height:81px;padding:7px 0;
+ border-bottom:1px solid #136c7777;
+}
+body[data-theme="neon-studio"] .nav-bar .brand:before{
+ border-radius:12px;transform:none;
+ border-color:#1be7f0;background:#062633;
+ box-shadow:0 0 20px #00f8f54a;
+}
+body[data-theme="neon-studio"] .nav-bar .brand .muted{
+ color:#08e4e9;letter-spacing:.22em;
+}
+body[data-theme="neon-studio"] .nav-bar #edit-toggle{
+ background:linear-gradient(110deg,#09f4e5,#12e9ed);
+ box-shadow:0 0 23px #0bebe37c;
+}
+body[data-theme="neon-studio"] main>.hero{
+ min-height:470px!important;
+ grid-template-columns:minmax(0,1.06fr) minmax(400px,.94fr)!important;
+ padding:24px 0 18px!important;
+}
+body[data-theme="neon-studio"] main>.hero:before{
+ background-image:linear-gradient(90deg,#011426dd,#02172d27 55%,#0415271b),url("neon-horizon.svg")!important;
+ background-position:center bottom;background-size:cover;
+}
+body[data-theme="neon-studio"] main>.hero:after{
+ border-top:1px solid #16ece58c;
+ box-shadow:0 -13px 50px #0affd849,0 27px 65px #1f7ce74b;
+}
+body[data-theme="neon-studio"] .neon-eyebrow-pill{
+ border:1px solid #1debe7;border-right-color:#c261eb;
+ background:linear-gradient(95deg,#042b33,#132044ae);
+ color:#19eee6;padding:9px 19px;
+ margin-bottom:14px;border-radius:22px;
+ font-size:clamp(12px,.94vw,15px);
+}
+body[data-theme="neon-studio"] main>.hero h1{
+ font-weight:880;font-size:clamp(75px,7.1vw,116px);
+ letter-spacing:-.074em;margin:0 0 6px;
+}
+body[data-theme="neon-studio"] main>.hero .lead{
+ color:#edf6ff;font-size:clamp(22px,1.91vw,31px);
+ margin-bottom:17px;
+}
+body[data-theme="neon-studio"] main>.hero #tagline{
+ max-width:550px;margin-bottom:30px;
+ font-size:18px;color:#bed1e5;
+}
+body[data-theme="neon-studio"] .hero-art{
+ --orbit-badge-radius:clamp(178px,12.3vw,214px);
+ min-height:400px;
+}
+body[data-theme="neon-studio"] .hero-art .neon-reference-photo{
+ border:4px solid #4bf4ef;box-shadow:0 0 17px #02f1ff,0 0 53px #06bce787!important;
+}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge{
+ min-height:37px;padding:4px 10px 4px 4px;gap:8px;
+ border:1px solid #156a84;border-radius:999px;
+ background:#052034c5;box-shadow:0 0 10px #00e9e422;
+ transform:translate(-50%,-50%) translate(var(--orbit-x),var(--orbit-y));
+}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1){--orbit-x:calc(var(--badge-r)*.96);--orbit-y:-153px}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(2){--orbit-x:calc(var(--badge-r)*1.1);--orbit-y:-79px}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(3){--orbit-x:calc(var(--badge-r)*1.12);--orbit-y:-5px}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(4){--orbit-x:calc(var(--badge-r)*1.12);--orbit-y:69px}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){--orbit-x:calc(var(--badge-r)*1.01);--orbit-y:143px}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge .neon-orbit-bubble{
+ width:27px;height:27px;
+ background:#063146;border-color:#076681;
+ box-shadow:none;
+}
+body[data-theme="neon-studio"] .neon-role-pills svg{width:19px;height:19px}
+body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-label{
+ display:block!important;font:500 11px/1.2 Inter,system-ui,sans-serif;
+}
+body[data-theme="neon-studio"] .neon-value-section{
+ margin-top:0;min-height:113px;padding:17px 26px;
+ border:1px solid #00d5ce;background:linear-gradient(110deg,#031e2b,#052b30 76%,#051d2d);
+ border-radius:18px;grid-template-columns:1.24fr 1fr;
+}
+body[data-theme="neon-studio"] .neon-value-message .neon-infinity{
+ color:#00eee6;font-size:70px;
+}
+body[data-theme="neon-studio"] .neon-feature-grid{
+ display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr));
+ gap:19px;margin:24px 0 25px;
+}
+body[data-theme="neon-studio"] .neon-feature-card{
+ min-height:76px;padding:13px 11px;gap:10px;
+ background:#041928;border:1px solid #276a7c;border-radius:16px;
+}
+body[data-theme="neon-studio"] .neon-feature-card .neon-feature-icon{
+ width:45px;height:45px;border:0;border-radius:12px;
+ background:transparent;box-shadow:none;color:#04e6e0;
+}
+body[data-theme="neon-studio"] .neon-feature-card strong{
+ font-size:13px;color:#fff;font-weight:800;
+}
+body[data-theme="neon-studio"] .neon-feature-card small{
+ color:#b4c6d4;font-size:11px;line-height:1.3;
+}
+@media(max-width:1520px){
+ body[data-theme="neon-studio"] .neon-feature-grid{gap:9px}
+ body[data-theme="neon-studio"] .neon-feature-card{padding:12px 8px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1){--orbit-x:calc(var(--badge-r)*.91)}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(n+2){--orbit-x:calc(var(--badge-r)*1.01)}
+}
+@media(max-width:1180px){
+ body[data-theme="neon-studio"] .neon-feature-grid{grid-template-columns:repeat(3,1fr)}
+ body[data-theme="neon-studio"] .neon-value-section{grid-template-columns:1fr}
+ body[data-theme="neon-studio"] .hero-art{--orbit-badge-radius:155px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-label{font-size:9px}
+}
+@media(max-width:860px){
+ body[data-theme="neon-studio"] main>.hero{grid-template-columns:1fr!important}
+ body[data-theme="neon-studio"] .hero-art{--orbit-badge-radius:146px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge{
+  border-radius:50%;width:31px;height:31px;min-height:31px;padding:3px;
+  display:grid!important;place-items:center;
+ }
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-label{display:none!important}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-bubble{width:25px;height:25px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(1){--orbit-x:90px;--orbit-y:-145px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(2){--orbit-x:145px;--orbit-y:-75px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(3){--orbit-x:156px;--orbit-y:0px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(4){--orbit-x:145px;--orbit-y:75px}
+ body[data-theme="neon-studio"] .neon-role-pills .neon-orbit-badge:nth-child(5){--orbit-x:90px;--orbit-y:145px}
+}
+@media(max-width:600px){
+ body[data-theme="neon-studio"] .neon-feature-grid{grid-template-columns:1fr}
+ body[data-theme="neon-studio"] .neon-value-section{padding:15px}
+}
+
+
+/* Refined from the inspected native-size Chromium screenshot. */
+body[data-theme="neon-studio"] main>.hero h1 .neon-name-gradient{
+ background:linear-gradient(90deg,#f9faff,#e5ecff 60%,#9eeefb);
+ background-clip:text;-webkit-background-clip:text;color:transparent;
+}
+body[data-theme="neon-studio"] main>.hero h1::after{
+ content:"";display:inline-block;width:.18em;height:.18em;min-width:15px;min-height:15px;
+ border-radius:50%;background:#00eff0;vertical-align:.08em;margin-left:.025em;
+ box-shadow:0 0 8px #00eafa45;
+}
+
+/* Reference 1: name-only cyan-outlined capsule below the photographic orbit. */
+body[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+ display:flex!important;align-items:center;justify-content:center;
+ min-width:174px;max-width:82%;min-height:41px;
+ font-size:21px!important;line-height:1.1;font-weight:750;
+ color:#b9ffff!important;letter-spacing:-.025em;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+ border:1px solid #2ae5ed!important;background:#032b39eb!important;
+ padding:7px 19px!important;border-radius:999px!important;
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "product": "WebStudio",
+  "edition": "community-preview",
+  "freeThemeIds": [
+    "orbit",
+    "editorial",
+    "terminal"
+  ],
+  "premiumThemeIds": [
+    "aurora-peak",
+    "neon-studio",
+    "design-2"
+  ],
+  "freeModules": [
+    {
+      "id": "starter-site-export",
+      "description": "Generate a complete local static portfolio ZIP"
+    },
+    {
+      "id": "profile-editor",
+      "description": "Locally edit name, role, projects and color palette"
+    },
+    {
+      "id": "json-backup",
+      "description": "Save and restore local profile JSON"
+    },
+    {
+      "id": "guided-tour",
+      "description": "Full visual product walkthrough"
+    }
+  ],
+  "premiumModules": [
+    {
+      "id": "advanced-themes",
+      "status": "planned"
+    },
+    {
+      "id": "verified-email-accounts",
+      "status": "planned"
+    },
+    {
+      "id": "automated-hosting",
+      "status": "planned"
+    },
+    {
+      "id": "encrypted-cloud-vault",
+      "status": "planned"
+    },
+    {
+      "id": "managed-backups",
+      "status": "planned"
+    }
+  ],
+  "security": {
+    "staticExportIsPublic": true,
+    "encryptedPrivateServerCodeInClient": false,
+    "emailVerifiedByBackend": false
+  },
+  "feedback": {
+    "requiredBeforeExport": true,
+    "minimumCharacters": 60,
+    "delivery": "verified-server-receipt-or-explicit-manual-email-confirmation",
+    "endpoint": "",
+    "challengeSiteKey": "",
+    "requiresPreviewApproval": true
+  },
+  "transfers": {
+    "personal": "reviewed-theme-and-feature-port-only",
+    "fictionalData": false
+  },
+  "export": {
+    "siteType": "interactive-dynamic-client-runtime",
+    "sameModulesAsLivePreview": true,
+    "manualHosting": true,
+    "freeThemes": 3
+  }
+}

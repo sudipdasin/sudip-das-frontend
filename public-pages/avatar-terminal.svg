@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title desc">
+<title>LifeSphere WebStudio — terminal theme developer avatar</title><desc>Distinct terminal theme vector portrait of the fictional developer.</desc>
+<defs>
+<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#061914"/><stop offset=".55" stop-color="#0b302a"/><stop offset="1" stop-color="#126b36"/></linearGradient>
+<linearGradient id="hoodie" x2="1" y2="1"><stop stop-color="#152d59"/><stop offset=".55" stop-color="#223e7c"/><stop offset="1" stop-color="#0e254d"/></linearGradient>
+<linearGradient id="face" x2=".4" y2="1"><stop stop-color="#f9b984"/><stop offset="1" stop-color="#da825f"/></linearGradient>
+<linearGradient id="hair" x2="1" y2="1"><stop stop-color="#071b37"/><stop offset=".65" stop-color="#20294c"/><stop offset="1" stop-color="#3c2d4d"/></linearGradient>
+<clipPath id="mask"><circle cx="300" cy="300" r="295"/></clipPath>
+</defs>
+<g clip-path="url(#mask)">
+<path fill="url(#bg)" d="M0 0h600v600H0z"/><path d="M0 394 160 230 314 400 600 82v518H0z" fill="#114b3a" opacity=".55"/>
+<circle cx="500" cy="112" r="160" fill="#18ff71" opacity=".15"/>
+<g fill="#43ff91"><circle cx="73" cy="72" r="6"/><circle cx="113" cy="72" r="6" opacity=".7"/><circle cx="153" cy="72" r="6" opacity=".4"/><circle cx="73" cy="112" r="6" opacity=".7"/><circle cx="113" cy="112" r="6" opacity=".4"/></g>
+<rect x="366" y="166" width="192" height="170" rx="16" fill="#092848" stroke="#48ff88" stroke-width="4" opacity=".88"/><circle cx="390" cy="188" r="5" fill="#58eec8"/><circle cx="410" cy="188" r="5" fill="#f1c578"/>
+<g stroke-linecap="round" stroke-width="8"><path d="M392 218h93m-73 23h98m-107 23h129m-135 23h81" stroke="#45ef9d"/><path d="M461 218h49m-116 23h40m-8 23h52m-55 23h77" stroke="#adff6a"/></g>
+<g font-family="monospace" font-size="30" fill="#93ffb8" opacity=".55"><text x="42" y="208">&gt;_</text><text x="466" y="393">{ }</text></g><g stroke="#37fd79" stroke-width="2" opacity=".32"><path d="M0 520h600M0 548h600M0 576h600M100 480v120M200 480v120M400 480v120M500 480v120"/></g>
+<path d="M66 600q-2-116 68-165l81-30h184l82 34q58 43 63 161" fill="url(#hoodie)" stroke="#29dcb2" stroke-width="8"/>
+<path d="M211 424q30-44 89-44t93 44l-93 76z" fill="#2cbf9d"/><path d="M239 411h120l36 189H212z" fill="#e9eef9"/>
+<path d="M151 461q29 40 59 53l28-88m209 34q-30 47-64 58l-27-92" fill="none" stroke="#5af2af" stroke-width="10" stroke-linecap="round"/>
+<rect x="269" y="346" width="66" height="93" rx="22" fill="#e39a6e"/>
+<ellipse cx="300" cy="258" rx="118" ry="144" fill="url(#face)"/><ellipse cx="185" cy="275" rx="19" ry="33" fill="#ed9f77"/><ellipse cx="416" cy="275" rx="19" ry="33" fill="#ed9f77"/>
+<path d="M177 227q-27-97 31-141 55-45 108-26 78-37 121 55 21 48-5 126-30-35-43-88-76-4-112-51-28 65-100 72z" fill="url(#hair)"/>
+<path d="M187 147q49-69 105-59 23-45 93-23M207 177q32-18 56-56M319 76q72 20 87 75" stroke="#4c86bd" stroke-width="11" fill="none" stroke-linecap="round"/>
+<path d="M230 252q24-14 53-3m42 0q23-12 48 1" fill="none" stroke="#533548" stroke-width="8" stroke-linecap="round"/>
+<g fill="none" stroke="#102c50" stroke-width="9"><rect x="207" y="254" width="83" height="58" rx="16"/><rect x="310" y="254" width="83" height="58" rx="16"/><path d="M290 274q10-9 20 0m-104 0-18-5m206 5 18-5"/></g>
+<circle cx="253" cy="286" r="8" fill="#172c4d"/><circle cx="349" cy="286" r="8" fill="#172c4d"/>
+<path d="m300 287-8 32 17 3" fill="none" stroke="#b66d55" stroke-width="5" stroke-linecap="round"/>
+<path d="M271 340q29 26 60 0" fill="none" stroke="#843e43" stroke-width="6" stroke-linecap="round"/>
+<path d="M246 360q60 38 111-4" fill="none" stroke="#88524c" stroke-opacity=".6" stroke-width="4" stroke-dasharray="3 8"/>
+<g fill="#182c54" stroke="#55d5ba" stroke-width="7"><ellipse cx="190" cy="367" rx="45" ry="53"/><ellipse cx="412" cy="367" rx="45" ry="53"/></g><ellipse cx="190" cy="367" rx="20" ry="31" fill="#0c1d39"/><ellipse cx="412" cy="367" rx="20" ry="31" fill="#0c1d39"/>
+<path d="M178 343q-10-82 18-111m226 0q24 38 14 110" stroke="#182c54" stroke-width="16" fill="none" stroke-linecap="round"/>
+</g><circle cx="300" cy="300" r="292" stroke="#4aff8c" stroke-width="9" fill="none"/>
+</svg>

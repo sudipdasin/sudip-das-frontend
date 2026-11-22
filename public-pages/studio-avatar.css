@@ -1,0 +1,28 @@
+/* Avatar Studio: composable, theme-safe identities and private photo previews. */
+.avatar-studio{min-width:0;grid-column:1/-1;border:1px solid var(--line, #607089);border-radius:16px;padding:16px;margin:10px 0;background:rgba(80,120,140,.08)}
+.avatar-studio legend{font-weight:750;padding:0 8px}
+.avatar-studio .hint{margin:7px 0 12px}
+.avatar-studio-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.avatar-studio-options label{display:flex;align-items:center;gap:9px;min-width:0;padding:10px;border:1px solid var(--line, #607089);border-radius:12px;cursor:pointer;font-size:.9rem}
+.avatar-studio-options input{width:17px;height:17px;flex:0 0 auto;accent-color:var(--accent, #57dac9)}
+.avatar-studio-options label:has(input:checked){border-color:var(--accent, #57dac9);background:rgba(65,194,171,.1)}
+.avatar-studio-options label:has(input:disabled){opacity:.56;cursor:not-allowed}
+.avatar-studio-upload,.avatar-studio-position{display:block;margin:14px 0 0;font-size:.9rem}
+.avatar-studio-upload input{display:block;width:min(100%,440px);margin:8px 0 0;max-width:100%}
+.avatar-studio-position input{display:block;width:min(100%,420px);margin:8px 0}
+.avatar-studio button{margin:10px 0 0}
+.avatar-studio :is(input,button):focus-visible{outline:3px solid var(--accent, #57dac9);outline-offset:3px}
+.avatar-studio-active .hero-art .avatar{overflow:hidden}
+.avatar-studio-active .hero-art .avatar .avatar-studio-image{display:block!important;width:100%!important;height:100%!important;max-width:100%;object-fit:cover;transform:none!important;animation:none!important;border-radius:inherit}
+/* Screenshot-specific themes reuse the positioning element but show the currently selected SVG.
+   User photo preview always hides the positioned duplicate. */
+body.avatar-studio-active[data-avatar-preset="photo"] .hero-art > .neon-reference-photo,
+body.avatar-studio-active[data-avatar-preset="photo"][data-theme="design-2"] .hero-art > .neon-reference-photo,
+body.avatar-studio-active[data-avatar-preset="photo"][data-theme="neon-studio"] .hero-art > .neon-reference-photo{display:none!important;visibility:hidden!important}
+body.avatar-studio-active[data-theme="editorial"] .hero-art .avatar{box-shadow:0 14px 32px #0004,0 0 0 4px #d9cba4!important}
+body.avatar-studio-active[data-theme="terminal"] .hero-art .avatar{box-shadow:0 0 0 4px #4cf18f,0 0 26px #20ed7166!important}
+body.avatar-studio-active[data-theme="aurora-peak"] .hero-art .avatar{box-shadow:0 0 0 4px #52ecce,0 0 35px #52ecce88!important}
+body.avatar-studio-active[data-theme="neon-studio"] .hero-art .avatar{box-shadow:0 0 0 4px #45dfff,0 0 40px #9b57edaa!important}
+body.avatar-studio-active[data-theme="design-2"] .hero-art .avatar{box-shadow:0 0 0 4px #63dafa,0 0 35px #4ab8ef88!important}
+@media(max-width:650px){.avatar-studio-options{grid-template-columns:1fr}.avatar-studio{padding:12px}}
+@media(prefers-reduced-motion:reduce){.avatar-studio-active .hero-art .avatar .avatar-studio-image{transition:none!important}}

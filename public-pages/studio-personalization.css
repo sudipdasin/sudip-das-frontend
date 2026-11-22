@@ -1,0 +1,76 @@
+/* Original-site visual DNA with independent fictional Dev Das branding.
+   Three deliberately distinct color modes share one stable responsive geometry. */
+body{background:var(--base)!important;color:var(--ink);transition:none}
+body[data-background=original]::before{
+ content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:
+ radial-gradient(ellipse at 82% 10%,color-mix(in srgb,var(--accent),transparent 87%),transparent 39%),
+ radial-gradient(ellipse at 12% 62%,rgba(36,123,157,.18),transparent 42%),
+ radial-gradient(ellipse at 66% 89%,rgba(108,65,170,.16),transparent 47%),
+ linear-gradient(145deg,transparent 28%,rgba(32,109,138,.08) 60%,transparent 82%);
+ background-attachment:fixed;
+}
+body[data-background=studio]::before{background:radial-gradient(ellipse at 75% 12%,color-mix(in srgb,var(--accent),transparent 84%),transparent 45%),radial-gradient(ellipse at 8% 90%,rgba(109,134,224,.11),transparent 50%)}
+body[data-background=solid]::before{background:none!important}
+body[data-theme=orbit]{
+ --panel:#162b32;--ink:#f5fcff;--muted:#aebfc9;--line:#365468;
+ --theme-surface:linear-gradient(145deg,#142c3a,#12202e);color-scheme:dark;
+}
+body[data-theme=editorial]{
+ --panel:#fffaf1;--base:#f8f2e9;--ink:#24362c;--muted:#5c7066;--line:#d8d5ca;
+ --theme-surface:linear-gradient(130deg,#fffefa,#f7eadb);color-scheme:light;
+}
+body[data-theme=terminal]{
+ --panel:#101e19;--base:#07110e;--ink:#d9ffea;--muted:#a6c6b3;--line:#315746;
+ --theme-surface:linear-gradient(140deg,#101e19,#0b1915);color-scheme:dark;
+}
+body[data-theme=editorial]::before{
+ background:radial-gradient(ellipse at 80% 7%,rgba(202,166,113,.19),transparent 44%),radial-gradient(ellipse at 8% 70%,rgba(83,137,131,.12),transparent 45%)!important;
+}
+body[data-theme=editorial][data-background=solid]::before{background:none!important}
+body[data-theme=terminal]::before{
+ background:radial-gradient(ellipse at 82% 15%,rgba(63,190,133,.13),transparent 39%),repeating-linear-gradient(0deg,rgba(83,174,123,.025) 0 1px,transparent 1px 26px),repeating-linear-gradient(90deg,rgba(83,174,123,.018) 0 1px,transparent 1px 26px)!important;
+}
+body[data-theme=terminal][data-background=solid]::before{background:none!important}
+.hero-art .avatar{
+ border-radius:50%!important;overflow:hidden!important;
+ box-shadow:0 21px 65px #0006,0 0 0 4px color-mix(in srgb,var(--accent),transparent 70%),0 0 48px color-mix(in srgb,var(--accent),transparent 77%)!important;
+}
+.hero-art .avatar .demo-portrait{object-fit:cover!important;object-position:center!important;border-radius:50%!important}
+body[data-theme=editorial] .hero-art .avatar{box-shadow:0 20px 50px #4633293d,0 0 0 5px #cda67e!important}
+body[data-theme=terminal] .hero-art .avatar{box-shadow:0 16px 60px #0009,0 0 0 4px var(--accent)!important}
+.hero-art .orbit{border-color:color-mix(in srgb,var(--accent),transparent 68%)!important}
+.hero-art .orbit.second{border-color:color-mix(in srgb,var(--accent),transparent 78%)!important}
+.studio-product-strip,.usp-section,.resilience-panel,.pricing-panel,.panel{background:var(--theme-surface, var(--panel));color:var(--ink)}
+body[data-theme=editorial] .studio-product-strip,body[data-theme=editorial] .usp-section{background:var(--theme-surface)}
+body[data-theme=terminal] .usp-section,body[data-theme=terminal] .studio-product-strip{border-radius:5px}
+body[data-theme=editorial] .nav-links a,body[data-theme=editorial] header button{color:var(--ink)}
+body[data-theme=editorial] .system-menu-panel{background:var(--panel)}
+body[data-theme=editorial] .button.secondary{color:var(--ink)}
+body[data-theme=editorial] .hero .lead{color:var(--ink)}
+body[data-theme=terminal] .hero h1{font-family:var(--mono);font-size:clamp(2.25rem,6.2vw,5rem);letter-spacing:-.06em}
+body[data-theme=terminal] .hero .lead{color:var(--ink)}
+body[data-theme=editorial] :is(input,textarea,select){color:var(--ink);background:var(--panel);border-color:var(--line)}
+body[data-theme=editorial] .tour-card{background:#fef9ee;color:#24362c;border-color:#cba884}
+body[data-theme=editorial] .tour-card .secondary{color:#24362c;border-color:#b3ab9e}
+body[data-theme=editorial] .tour-card #tour-description{color:#465b50}
+body[data-theme=terminal] .tour-card{background:#0b1e15;border-color:#48a974}
+#portrait-upload{width:100%;padding:11px}
+#portrait-upload::file-selector-button{border:1px solid var(--line);border-radius:7px;padding:9px 12px;background:var(--panel);color:var(--ink);margin-right:14px;cursor:pointer}
+#profile-form label small{display:block;margin-top:6px;font-size:.75rem;line-height:1.5;color:var(--muted)}
+#proposal-submit{min-height:46px}
+#proposal-status{line-height:1.5;max-width:630px}
+@media(max-width:860px){
+ main>.hero,body[data-theme=editorial] main>.hero,body[data-theme=terminal] main>.hero{grid-template-columns:minmax(0,1fr)!important;gap:30px!important}
+ .hero-art{max-width:min(400px,100%)}
+}
+@media(max-width:600px){
+ #profile-form .fields{grid-template-columns:1fr!important}
+ .hero-art{max-width:calc(100% - 10px);margin:16px auto 15px}
+ .hero-art .portrait-caption{max-width:78%!important}
+ .system-menu-panel{max-height:min(70dvh,610px)}
+}
+@media(prefers-reduced-motion:reduce){body{transition:none}}
+
+body[data-custom-background=true]{background:var(--customer-background)!important}
+body[data-custom-background=true][data-background=solid]::before{background:none!important}

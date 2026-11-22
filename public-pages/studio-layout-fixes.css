@@ -1,0 +1,134 @@
+/* rc.11 — single responsive layout authority; loaded after all theme layers. */
+*,*::before,*::after{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:clip}
+body{min-width:0}
+.wrap{width:min(1180px,calc(100% - 40px));margin-inline:auto}
+.wrap > *,main > *{min-width:0}
+button,a.button,.ghost{font-family:var(--sans);font-weight:650;line-height:1.35}
+button{max-width:100%;overflow-wrap:anywhere}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.nav-bar{display:grid;grid-template-columns:minmax(120px,auto) minmax(0,1fr) minmax(210px,auto) auto;align-items:center;column-gap:16px;row-gap:12px;min-height:76px;padding:12px 0}
+.nav-bar .brand{grid-column:1;min-width:0;max-width:none;white-space:normal;line-height:1.25}
+.nav-bar .nav-links{grid-column:2;display:flex;flex-wrap:wrap;gap:12px 17px;align-items:center;justify-content:center;min-width:0;width:auto;margin:0;order:initial}
+.nav-bar .nav-links a{white-space:nowrap}
+.nav-bar .studio-controls{grid-column:3;display:flex;align-items:end;gap:8px;margin:0;min-width:0;width:auto;order:initial}
+.nav-bar .control-caption{min-width:0}
+.nav-bar .control-caption select{min-width:0;width:100%;max-width:130px}
+.nav-bar #edit-toggle{grid-column:4;min-width:max-content;max-width:190px;margin:0;order:initial;padding:10px 14px;white-space:normal;text-align:center}
+.nav-bar #mobile-menu{display:none}
+.studio-product-strip{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,auto);align-items:center;gap:18px 24px;margin:24px 0 20px;padding:22px 25px}
+.studio-product-strip > div{min-width:0}
+.studio-product-strip strong{display:block;line-height:1.3}
+.studio-product-strip p{margin:5px 0 0}
+.studio-product-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:9px;max-width:450px;width:auto;min-width:0}
+.studio-product-actions button,.ownership-actions button{min-height:44px;flex:0 1 auto;min-width:0;max-width:100%;white-space:normal;text-align:center;line-height:1.3;overflow-wrap:anywhere}
+.studio-product-actions button{padding:11px 13px}
+main{padding-top:0}
+main>.hero{padding-block:64px 58px;min-height:480px;align-items:center;gap:40px}
+main>.hero>div:first-child{min-width:0}
+main>.hero h1{overflow-wrap:anywhere}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.hero-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;gap:7px;white-space:normal;text-align:center;max-width:100%;padding:12px 18px}
+.hero-art{min-width:0}.hero-art .float-tag{max-width:85%;font-size:.62rem;overflow-wrap:anywhere;bottom:8%!important;right:1%!important;left:auto!important;line-height:1.3}
+.hero-art .portrait-caption{max-width:75%;padding:7px 10px;line-height:1.35}
+.usp-section{margin:36px 0 40px;padding:clamp(24px,4vw,50px);min-width:0}
+.usp-intro>*{max-width:100%}
+.usp-intro h2{overflow-wrap:anywhere;text-wrap:balance}
+.ownership-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:18px 0 21px}
+.ownership-actions button{flex:0 1 auto}
+.ownership-actions p{flex-basis:100%;max-width:760px}
+.usp-badges{align-items:stretch;gap:9px}
+.usp-badges span{overflow-wrap:anywhere}
+.usp-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.usp-grid article{min-width:0}
+.usp-roadmap{grid-template-columns:minmax(140px,max-content) minmax(0,1fr);overflow-wrap:anywhere}
+.resilience-flow>div{min-width:0}
+.resilience-panel{min-width:0}
+.editor,.panel.editor{scroll-margin-top:96px}
+#profile-form .fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+#profile-form .fields>label{min-width:0}
+#profile-form :is(input,select,textarea){min-width:0;max-width:100%}
+#profile-form .actions{display:flex;flex-wrap:wrap;gap:9px;align-items:stretch}
+#profile-form .actions>*{flex:0 1 auto;min-width:0;white-space:normal}
+#profile-form .actions label{max-width:100%}
+#profile-form .actions label input{width:100%}
+.edit-row{min-width:0;overflow-wrap:anywhere}
+.project-tools{display:flex;flex-wrap:wrap;align-items:end;gap:12px}
+.project-tools label{flex:1 1 210px;min-width:0}
+.project-tools input,.project-tools select{width:100%!important;min-width:0!important}
+.proposal-actions{align-items:flex-start}
+.proposal-actions button{min-height:44px}
+.pricing-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.price-card{min-width:0;overflow-wrap:anywhere}
+.price-card button{max-width:100%;min-height:44px;white-space:normal}
+.tour-card{max-height:min(90dvh,720px);overflow-y:auto}
+.tour-actions button{min-height:42px}
+@media(max-width:1190px){
+ .nav-bar{grid-template-columns:minmax(140px,1fr) minmax(220px,auto) auto;gap:11px}
+ .nav-bar .brand{grid-column:1}
+ .nav-bar .studio-controls{grid-column:2}
+ .nav-bar #edit-toggle{grid-column:3}
+ .nav-bar .nav-links{grid-column:1/-1;grid-row:2;justify-content:center;gap:12px 23px;padding:7px 0 3px;border-top:1px solid var(--line)}
+ .studio-product-strip{grid-template-columns:1fr}
+ .studio-product-actions{justify-content:flex-start;max-width:none}
+}
+@media(max-width:860px){
+ .nav-bar{grid-template-columns:minmax(0,1fr) auto auto;gap:10px;padding:12px 0}
+ .nav-bar .brand{grid-column:1;max-width:100%}
+ .nav-bar #mobile-menu{display:inline-flex;align-items:center;justify-content:center;grid-column:2;grid-row:1;margin:0;min-height:43px}
+ .nav-bar #edit-toggle{grid-column:3;grid-row:1;min-width:0;max-width:145px}
+ .nav-bar .studio-controls{grid-column:1/-1;grid-row:2;justify-content:flex-start;gap:12px}
+ .nav-bar .control-caption{width:min(45%,195px)}
+ .nav-bar .control-caption select{max-width:none}
+ .nav-bar .nav-links{display:none;grid-column:1/-1;grid-row:3;border-top:1px solid var(--line);width:100%;padding:8px 0;margin:0;order:initial}
+ .nav-bar .nav-links.open{display:flex;flex-direction:column;align-items:stretch;gap:0}
+ .nav-bar .nav-links.open a{display:block;padding:10px 12px;white-space:normal}
+ main>.hero,body[data-theme=editorial] main>.hero,body[data-theme=terminal] main>.hero{grid-template-columns:1fr;gap:10px;padding:48px 0 34px}
+ main>.hero>div:first-child{max-width:680px}
+ .hero-art{margin-inline:auto}
+ .usp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .resilience-flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ .wrap{width:calc(100% - 28px)}
+ .nav-bar{gap:8px}
+ .nav-bar .brand{font-size:.7rem;overflow-wrap:anywhere}
+ .nav-bar #edit-toggle,.nav-bar #mobile-menu{font-size:.75rem;padding:9px 10px}
+ .nav-bar .studio-controls{gap:8px;justify-content:space-between}
+ .nav-bar .control-caption{width:calc(50% - 4px);min-width:0}
+ .studio-product-strip{gap:15px;padding:18px 16px;margin:15px 0 7px}
+ .studio-product-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;width:100%}
+ .studio-product-actions button{width:100%;min-height:46px;max-width:none}
+ .studio-product-actions button:first-child{grid-column:1/-1}
+ main>.hero{padding:35px 0 30px}
+ main>.hero h1{font-size:clamp(2.7rem,13vw,4rem)}
+ .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .hero-actions a{min-width:0}
+ .hero-art .float-tag{right:0!important;bottom:2%!important;max-width:45%;font-size:.52rem}
+ .hero-art .portrait-caption{max-width:62%;left:37%!important;bottom:0!important;font-size:.55rem}
+ .usp-section{margin:18px 0 30px;padding:25px 17px;border-radius:16px}
+ .usp-intro h2{font-size:clamp(2rem,9vw,3rem)}
+ .ownership-actions{display:grid;grid-template-columns:1fr}
+ .ownership-actions button{width:100%}
+ .ownership-actions p{grid-column:1}
+ .usp-grid,.resilience-flow,.pricing-cards,.capability-grid{grid-template-columns:1fr}
+ .usp-roadmap{grid-template-columns:1fr;gap:7px}
+ .usp-roadmap strong:not(:first-child){margin-top:12px}
+ #profile-form .fields{grid-template-columns:1fr}
+ #profile-form .actions>*{flex:1 1 100%;width:100%;text-align:center}
+ #profile-form .actions label{display:block}
+ #profile-form .actions label input{display:block}
+ .tour-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .tour-actions button{width:100%;padding:10px}
+ .price-card,.card{padding:21px}
+}
+@media(max-width:360px){
+ .nav-bar{grid-template-columns:1fr auto}
+ .nav-bar .brand{grid-column:1/-1}
+ .nav-bar #mobile-menu{grid-column:1;grid-row:2;justify-self:start}
+ .nav-bar #edit-toggle{grid-column:2;grid-row:2}
+ .nav-bar .studio-controls{grid-row:3}
+ .nav-bar .nav-links{grid-row:4}
+ .studio-product-actions{grid-template-columns:1fr}
+ .studio-product-actions button:first-child{grid-column:auto}
+}
