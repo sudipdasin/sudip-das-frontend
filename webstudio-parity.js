@@ -82,15 +82,35 @@
   document.addEventListener('click', event => {
     if (!quickPanel.hidden && !quick.contains(event.target)) closeQuick();
   });
+  // Theme-specific orbit treatments follow WebStudio's actual reference
+  // compositions. Labels refer ONLY to existing approved portfolio skill areas.
+  // Aurora Studio: five compact role badges; Cosmic: four circular satellites;
+  // remaining four themes: three restrained labels. No fictional/demo content.
   const art = document.querySelector('.hero-art');
   if (art) {
-    for (const [name, position] of [['CRM & SQL', 'a'], ['Linux tools', 'b'], ['Systems', 'c']]) {
-      const chip = node('span', 'ws-orbit-chip', name);
-      chip.dataset.pos = position;
-      chip.setAttribute('aria-hidden', 'true');
-      chip.prepend(node('i'));
-      art.append(chip);
-    }
+    const skills = [
+      ['CRM & SQL', 'a', '◈'],
+      ['Linux tools', 'b', '⌘'],
+      ['Systems', 'c', '▣'],
+      ['Creative technology', 'd', '✦'],
+      ['Technical support', 'e', '◎']
+    ];
+    const updateOrbitBadges = () => {
+      art.querySelectorAll('.ws-orbit-chip').forEach(chip => chip.remove());
+      const theme = document.body.dataset.theme || themeSelect.value;
+      const isCosmic = theme === 'design-2';
+      const list = theme === 'neon-studio' ? skills : isCosmic ? skills.slice(0, 4) : skills.slice(0, 3);
+      for (const [name, position, glyph] of list) {
+        const chip = node('span', 'ws-orbit-chip', isCosmic ? glyph : name);
+        chip.dataset.pos = position;
+        chip.setAttribute('aria-label', name);
+        chip.setAttribute('aria-hidden', 'true');
+        if (!isCosmic) chip.prepend(node('i'));
+        art.append(chip);
+      }
+    };
+    themeSelect.addEventListener('change', updateOrbitBadges);
+    updateOrbitBadges();
   }
   const ticker = document.querySelector('main>.ticker');
   if (ticker) {
