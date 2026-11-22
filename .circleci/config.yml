@@ -1,39 +1,111 @@
-
+# Public artifact-only validation. Development source remains PRIVATE.
+# CircleCI is the primary CI provider; no deployment or paid action is invoked.
 version: 2.1
 
 jobs:
-  validate-frontend:
+  public-artifact-integrity:
     docker:
       - image: cimg/node:22.14
     resource_class: small
     steps:
       - checkout
       - run:
-          name: Validate required frontend files
+          name: Check approved personal portfolio and prohibit development source
           command: |
+            set -eu
             test -s index.html
             test -s languages.js
-            test -s data/site.json
-            test -s data/site.xml
-            test -s scripts/repo-discovery.js
-            test -s _headers
-            test -s 404.html
-            test -s examples/customer-demo/index.html
-            test -s examples/customer-demo/profile.json
-      - run:
-          name: Check JavaScript syntax
-          command: |
+            test -s webstudio-visual-port.css
+            test -s webstudio-visual-port.js
+            test -s webstudio-portfolio-gallery.js
+            test -s webstudio-visitor-hub.js
+            test -s sudip-das-portrait.jpg
+            test -s data/profile.json
+            test -s site-release.json
             node --check languages.js
-            node --check scripts/site-readiness.mjs
+            node --check webstudio-visual-port.js
+            node --check webstudio-portfolio-gallery.js
+            node --check webstudio-visitor-hub.js
             node --check scripts/repo-discovery.js
-            node --check examples/customer-demo/app.js
-            node --test tests/*.test.mjs
+            node <<'JS'
+            const fs=require('node:fs');
+            const assert=require('node:assert/strict');
+            for(const path of ['examples','tests','browser-tests','services','workers','backups','contracts','migration','content','site','dist']){
+              assert.equal(fs.existsSync(path),false,'Development/private source in public artifact: '+path);
+            }
+            const html=fs.readFileSync('index.html','utf8');
+            for(const key of ['Sudip Das','id="private-request-form"','webstudio-visual-port.js','webstudio-portfolio-gallery.js','webstudio-visitor-hub.js']){
+              assert.ok(html.includes(key),'Missing personal site feature: '+key);
+            }
+            assert.ok(!html.includes('__PUBLIC_')&&!html.includes('__TURNSTILE_SITE_KEY__'),'Unresolved build placeholder');
+            assert.ok(!html.includes('Dev Das portrait'),'Fictional buyer identity leaked into real portfolio');
+            assert.ok(html.includes('https://sudip-das-profile-api.sudipdasin.workers.dev'),'Public request API endpoint missing');
+            const release=JSON.parse(fs.readFileSync('site-release.json','utf8'));
+            assert.equal(release.privateBackendBundled,false);
+            const profile=JSON.parse(fs.readFileSync('data/profile.json','utf8'));
+            assert.equal(profile.schemaVersion,1);
+            assert.deepEqual(profile.identity,{});
+            assert.deepEqual(profile.contact,{});
+            assert.deepEqual(profile.experience,[]);
+            const sensitive=/-----BEGIN (?:RSA |OPENSSH )?PRIVATE KEY-----|\b(?:ghp_|github_pat_)[A-Za-z0-9_]{20,}|\bsk_live_[A-Za-z0-9]{16,}/;
+            const fswalk=(dir)=>{for(const entry of fs.readdirSync(dir,{withFileTypes:true})){
+              const p=require('node:path').join(dir,entry.name);
+              if(entry.isSymbolicLink())throw Error('Symlink in public artifact '+p);
+              if(entry.isDirectory())fswalk(p);
+              else if(/\.(html|js|json|css|svg|yml|yaml|xml|txt)$/i.test(p)){
+                assert.equal(sensitive.test(fs.readFileSync(p,'utf8')),false,'Potential secret '+p);
+              }
+            }};
+            fswalk('.');
+            console.log('PASS: Personal site public-only artifact, approved identity and backend isolation');
+            JS
+
+  browser-smoke:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.56.1-noble
+    resource_class: medium
+    steps:
+      - checkout
       - run:
-          name: Check HTML structure
+          name: Install pinned browser client
           command: |
-            python3 -c 'from html.parser import HTMLParser; from pathlib import Path; parser = HTMLParser(); parser.feed(Path("index.html").read_text(encoding="utf-8")); parser.close(); print("HTML parsing completed")'
+            npm install --no-save --no-package-lock playwright@1.56.1
+      - run:
+          name: Real Chromium personal portfolio smoke across desktop and mobile
+          no_output_timeout: 8m
+          command: |
+            set -eu
+            python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/public-personal-http.log 2>&1 &
+            node --input-type=module <<'JS'
+            import assert from 'node:assert/strict';
+            import {chromium} from 'playwright';
+            const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+            try{
+              for(const width of [1440,820,390]){
+                const page=await browser.newPage({viewport:{width,height:900}});
+                try{
+                  const r=await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
+                  assert.ok(r?.ok(),'Local static root unavailable');
+                  await page.locator('#profile-look-open').waitFor({timeout:15000});
+                  assert.equal(await page.locator('#theme-select option').count(),6);
+                  assert.equal(await page.locator('#language-select option').count(),10);
+                  assert.equal(await page.locator('#private-request-form').count(),1);
+                  assert.equal(await page.locator('#profile-showcase').count(),1);
+                  assert.equal(await page.locator('#ws-visitor-hub').count(),1);
+                  await page.locator('#theme-select').selectOption('design-2');
+                  assert.equal(await page.locator('body').getAttribute('data-theme'),'design-2');
+                  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+                  assert.ok(overflow<=2,'Horizontal overflow '+width+': '+overflow);
+                  console.log('PASS Chromium personal portal '+width+'px');
+                }finally{await page.close();}
+              }
+            }finally{await browser.close();}
+            JS
 
 workflows:
-  frontend-checks:
+  validate-deployment-only-personal-portfolio:
     jobs:
-      - validate-frontend
+      - public-artifact-integrity
+      - browser-smoke:
+          requires:
+            - public-artifact-integrity

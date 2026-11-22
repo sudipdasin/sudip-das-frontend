@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "site": "personal-professional-portfolio",
+  "release": "webstudio-personal-port-v0.9",
+  "publicOrigin": "https://sudipdas.is-a.dev",
+  "alternateOrigin": "https://sudip-das-frontend.pages.dev",
+  "features": [
+    "six-themes",
+    "portfolio-gallery",
+    "visitor-hub",
+    "local-appearance",
+    "private-request-consent"
+  ],
+  "source": "approved-public-artifact-only",
+  "privateBackendBundled": false
+}
