@@ -66,10 +66,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: webstudio-public-publish
-    env:
-      PUBLIC_DEPLOY_TOKEN: ${{ secrets.PUBLIC_DEPLOY_TOKEN }}
     steps:
       - name: Verify release token is available
+        env:
+          PUBLIC_DEPLOY_TOKEN: ${{ secrets.PUBLIC_DEPLOY_TOKEN }}
         run: |
           test -n "$PUBLIC_DEPLOY_TOKEN" || {
             echo "Missing private secret PUBLIC_DEPLOY_TOKEN" >&2; exit 1;
