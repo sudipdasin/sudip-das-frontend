@@ -509,3 +509,28 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:focus-visible{
     transition:none;
   }
 }
+
+
+/* Keep five Desktop 1 icon + label callouts fully within smaller laptops. */
+@media(min-width:981px) and (max-width:1450px){
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip{max-width:148px}
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip .ws-orbit-label{max-width:92px}
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="b"]{--aurora-x:calc(var(--r) * .82)}
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="c"]{--aurora-x:calc(var(--r) * .89)}
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="d"]{--aurora-x:calc(var(--r) * .81)}
+}
+/* On mobile the orbit stays legible with five compact decorative medallions;
+ * the existing public skills/tile links carry the accessible visible labels. */
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip{
+    gap:0!important;
+    width:29px!important;
+    min-width:29px!important;
+    max-width:29px!important;
+    min-height:29px!important;
+    transform:translate(-50%,-50%) translate(var(--aurora-x),var(--aurora-y))!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip .ws-orbit-label{
+    display:none!important;
+  }
+}
