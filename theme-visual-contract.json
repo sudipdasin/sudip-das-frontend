@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "title": "Personal portfolio six-theme visual contracts and Editorial gold-master",
+  "baseSource": "sudipdasin/webstudio-private/examples/customer-demo",
+  "currentPreview": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
+  "previewOnly": true,
+  "editorialFreeze": {
+    "status": "owner-approved-source-baseline; visual CI pending",
+    "immutableCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
+    "archivedBranch": "archive/editorial-favorite-2026-11-23-c5383df",
+    "stylesheetIntegrity": "Compare rendered pages, including shared selectors; not a CSS-file hash lock",
+    "allowedDifferenceRatio": 0.001,
+    "viewport": [
+      {
+        "width": 1440,
+        "height": 900
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "rule": "Never change personal Editorial appearance to match WebStudio; compare archived snapshot vs candidate and require explicit owner approval for any visual change"
+  },
+  "demoExportNote": "WebStudio Free ZIP exports Orbit, Editorial, Terminal; Aurora Peak, Aurora Studio, Cosmic are premium preview themes in the demo. This does NOT restrict visitor theme availability on this personal preview.",
+  "themes": [
+    {
+      "id": "orbit",
+      "personalLabel": "Orbit · Portfolio",
+      "webstudioLabel": "Orbit",
+      "demoExport": "free",
+      "personalPreviewAvailable": true,
+      "orbitBadges": 3,
+      "distinctive": "ocean teal, circular portrait and read-only portfolio"
+    },
+    {
+      "id": "editorial",
+      "personalLabel": "Editorial · Profile",
+      "webstudioLabel": "Editorial",
+      "demoExport": "free",
+      "personalPreviewAvailable": true,
+      "orbitBadges": 3,
+      "distinctive": "PRESERVE archived personal warm paper/serif layout; not WebStudio demo skin",
+      "ownerFavorite": true
+    },
+    {
+      "id": "terminal",
+      "personalLabel": "Terminal · Explorer",
+      "webstudioLabel": "Terminal",
+      "demoExport": "free",
+      "personalPreviewAvailable": true,
+      "orbitBadges": 3,
+      "distinctive": "monospace, grid backdrop, sharp corners and CLI-like blocks"
+    },
+    {
+      "id": "aurora-peak",
+      "personalLabel": "Aurora Peak",
+      "webstudioLabel": "Aurora Peak",
+      "demoExport": "premium-preview",
+      "personalPreviewAvailable": true,
+      "orbitBadges": 3,
+      "distinctive": "mountain/emerald atmospheric style, not Design 1 icon badges"
+    },
+    {
+      "id": "neon-studio",
+      "personalLabel": "Neon Studio",
+      "webstudioLabel": "Aurora / Design 1",
+      "demoExport": "premium-preview",
+      "personalPreviewAvailable": true,
+      "orbitBadges": 5,
+      "distinctive": "teal mountain-ribbon, five labeled medallions, infinity band and six compact cards",
+      "exclusiveElements": [
+        ".ws-aurora-reference",
+        ".ws-aurora-feature-grid"
+      ]
+    },
+    {
+      "id": "design-2",
+      "personalLabel": "Cosmic",
+      "webstudioLabel": "Cosmic / Design 2",
+      "demoExport": "premium-preview",
+      "personalPreviewAvailable": true,
+      "orbitBadges": 4,
+      "distinctive": "blue-purple waves, four circular satellites and four multicolor glass cards; no Aurora strip"
+    }
+  ],
+  "visualAudit": {
+    "expectedScreenshots": 24,
+    "screenshotViewports": [
+      {
+        "width": 1833,
+        "height": 858
+      },
+      {
+        "width": 1672,
+        "height": 941
+      },
+      {
+        "width": 820,
+        "height": 900
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "qualityGate": "Pixel compare Editorial to archive and log per-theme geometry; screenshot gallery still requires human WebStudio side-by-side assessment",
+    "browserChecksNeeded": true,
+    "privateBackendBundled": false,
+    "visitorsCanChangeGlobalSettings": false
+  }
+}

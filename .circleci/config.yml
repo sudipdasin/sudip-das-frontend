@@ -31,6 +31,9 @@ jobs:
             node --check scripts/verify-six-theme-fidelity.mjs
             node scripts/verify-six-theme-fidelity.mjs
             node --check scripts/verify-aurora-reference-v2.mjs
+            node --check scripts/verify-editorial-visual.mjs
+            node --check scripts/verify-theme-contract.mjs
+            node scripts/verify-theme-contract.mjs
             node scripts/verify-aurora-reference-v2.mjs
             # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
@@ -208,10 +211,35 @@ jobs:
             }finally{await browser.close();}
             JS
 
+
+  browser-visual-regression:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.56.1-noble
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Install pinned screenshot comparison dependencies
+          command: |
+            npm install --no-save --no-package-lock playwright@1.56.1 pngjs@7.0.0 pixelmatch@6.0.0
+      - run:
+          name: Editorial archived gold-master and 6-theme gallery in real Chromium
+          no_output_timeout: 12m
+          command: |
+            set -eu
+            node --check scripts/verify-editorial-visual.mjs
+            node scripts/verify-editorial-visual.mjs
+      - store_artifacts:
+          path: visual-audit
+          destination: editorial-gold-master-and-six-theme-gallery
+
 workflows:
   validate-deployment-only-personal-portfolio:
     jobs:
       - public-artifact-integrity
       - browser-smoke:
+          requires:
+            - public-artifact-integrity
+      - browser-visual-regression:
           requires:
             - public-artifact-integrity
