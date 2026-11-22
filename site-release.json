@@ -21,11 +21,12 @@
   "ciProvider": "CircleCI",
   "preview": {
     "role": "CURRENT_PERSONAL_PREVIEW",
-    "branch": "preview/current-personal-site",
+    "branch": "preview-personalweb",
     "productionSourceCommit": "ff4a3b4260d9b770972013928b0865bfc196de60",
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Single designated current personal-site preview. Historical immutable deployments remain archived; this is not the newer private PR #15 redesign."
+    "notes": "Canonical current personal-site preview on preview-personalweb. Historical branches and hash snapshots are archived; no production promotion approved and no private PR #15 redesign claimed.",
+    "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev"
   }
 }
