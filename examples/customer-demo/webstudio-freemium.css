@@ -49,3 +49,13 @@
 .ws-free-preview .checkline input{flex:none;accent-color:var(--accent);width:18px;height:18px;margin-top:4px}
 #ws-free-export:disabled{opacity:.48;cursor:not-allowed}
 @media(max-width:600px){#ws-free-preview-frame{height:70vh;min-height:480px}.ws-free-preview{padding:8px}}
+
+
+/* Owner archive encryption: visible opt-in, privacy limits and password entry. */
+.ws-free-archive{border:1px solid color-mix(in srgb,var(--accent),transparent 42%);background:color-mix(in srgb,var(--accent),transparent 93%);border-radius:15px;padding:18px;margin:22px 0;max-width:100%}
+.ws-free-archive .checkline{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;font-weight:700;line-height:1.55;margin:9px 0}
+.ws-free-archive .checkline input{flex:none;width:18px;height:18px;accent-color:var(--accent);margin-top:4px}
+.ws-free-archive-password{display:flex;flex-direction:column;gap:8px;font-size:.82rem;font-weight:750;margin:12px 0}
+.ws-free-archive-password input{display:block;box-sizing:border-box;max-width:500px;width:100%;min-height:44px;padding:10px 13px;font:inherit;background:var(--base);color:var(--ink);border:1px solid var(--line);border-radius:10px}
+.ws-free-archive-password input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.ws-free-archive-password[hidden]{display:none!important}

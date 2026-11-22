@@ -16,7 +16,10 @@ test('Exposure Watch explicitly distinguishes manual reports from verified breac
   assert.match(js,/localStorage/);
   assert.doesNotMatch(js,/fetch\s*\(|XMLHttpRequest|sendBeacon|FormData/);
   assert.doesNotMatch(js,/innerHTML\s*=/);
-  assert.doesNotMatch(html,/<input[^>]+type="password"/);
+  // Exposure Watch must not collect account passwords. Owner-only archive
+  // encryption has a separate password field and is intentionally allowed.
+  assert.doesNotMatch(js,/\b(?:type\s*=\s*['"]password['"]|createElement\(['"]input['"]\))/i);
+  assert.doesNotMatch(html,/<input(?=[^>]*\bid="exposure-[^"]+")[^>]*\btype="password"/i);
 });
 test('Exposure Watch includes safe local incident controls and remediation',async()=>{
   const js=await source('studio-exposure.js');

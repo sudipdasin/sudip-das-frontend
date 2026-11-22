@@ -220,6 +220,17 @@
         </div>
         <p class="ws-free-hint">Changing your saved profile or Free theme invalidates this approval. Review the refreshed preview again before generation.</p>
       </div>
+      <div class="ws-free-archive" aria-labelledby="ws-free-encryption-title">
+        <p class="ws-free-label" id="ws-free-encryption-title">OWNER FILE PROTECTION · OPTIONAL</p>
+        <label class="checkline">
+          <input type="checkbox" id="ws-free-encrypt-archive" checked>
+          Encrypt the entire generated site ZIP with an owner password (AES-256-GCM).
+        </label>
+        <label class="ws-free-archive-password" for="ws-free-archive-password">Owner passphrase, 12–256 characters
+          <input type="password" id="ws-free-archive-password" minlength="12" maxlength="256" autocomplete="new-password" placeholder="Use a strong, unique password" aria-describedby="ws-free-archive-description">
+        </label>
+        <p class="ws-free-hint" id="ws-free-archive-description">An encrypted owner package protects files while stored or transferred. It includes an offline decryption utility; decrypt before manual hosting. Anyone with access to the decrypted site, including site visitors, can still inspect its HTML, JavaScript, CSS and images. This is not copy prevention or a DRM system. Your password is not sent, saved or added to the download.</p>
+      </div>
       <div id="ws-free-turnstile" aria-label="Feedback anti-spam challenge" hidden></div>
       <div class="ws-free-row">
         <button type="button" class="ws-free-btn secondary" id="ws-free-feedback">3 · Submit detailed feedback</button>
@@ -404,6 +415,7 @@
   <script src="studio-creative-lab.js" defer></script>
   <script src="studio-launch-audit.js" defer></script>
   <script src="webstudio-starter.js" defer></script>
+  <script src="webstudio-package-crypto.js" defer></script>
   <script src="webstudio-freemium.js" defer></script>
 </body>
 </html>

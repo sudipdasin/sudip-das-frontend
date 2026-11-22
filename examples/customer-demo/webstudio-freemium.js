@@ -22,6 +22,17 @@
  const theme=$('ws-free-theme'),reply=$('ws-free-reply'),terms=$('ws-free-terms');
  const notes=$('ws-free-feedback-text'),feedbackButton=$('ws-free-feedback');
  const exportButton=$('ws-free-export'),status=$('ws-free-status');
+ const encryptChoice=$('ws-free-encrypt-archive'),passwordInput=$('ws-free-archive-password');
+ const protectionLabel=passwordInput.closest('label');
+ const updateProtection=()=>{
+  protectionLabel.hidden=!encryptChoice.checked;
+  exportButton.textContent=encryptChoice.checked
+   ?'4 · Generate password-encrypted owner ZIP'
+   :'4 · Generate normal deployable website ZIP';
+ };
+ encryptChoice.addEventListener('change',updateProtection);
+ updateProtection();
+
  const previewButton=$('ws-free-preview'),panel=$('ws-free-preview-panel'),
   frame=$('ws-free-preview-frame'),approveButton=$('ws-free-approve');
  const approveCheckbox=$('ws-free-accept-preview');
@@ -174,11 +185,56 @@
    notice('Collecting the exact interactive WebStudio runtime for your ZIP…');
    const files=await api.buildInteractive(current(),theme.value);
    if(receipt.approved!==signature())throw Error('Your profile changed during packaging. Please approve again.');
-   const blob=api.zip(files),href=URL.createObjectURL(blob),link=document.createElement('a');
-   link.href=href;link.download='WebStudio-Free-'+theme.value+'-interactive-website.zip';
+   const siteZip=api.zip(files);
+   let finalArchive=siteZip;
+   let filename='WebStudio-Free-'+theme.value+'-interactive-website.zip';
+   let protectedDownload=false;
+   if(encryptChoice.checked){
+    if(!window.WebStudioPackageCrypto)
+     throw Error('Archive encryption engine is unavailable. No unencrypted fallback was downloaded.');
+    const ownerPassphrase=passwordInput.value;
+    if(ownerPassphrase.length<12||ownerPassphrase.length>256)
+     throw Error('Enter a unique owner passphrase with 12–256 characters before encrypted export.');
+    notice('Encrypting all generated website files for owner storage…');
+    const encrypted=await window.WebStudioPackageCrypto.encrypt(
+     await siteZip.arrayBuffer(),ownerPassphrase);
+    const loadHelper=async name=>{
+     const result=await fetch(name,{credentials:'omit',cache:'no-store'});
+     if(!result.ok)throw Error('Missing offline decryption helper: '+name);
+     const text=await result.text();
+     if(text.length>35000)throw Error('Unexpected decryption helper size');
+     return text;
+    };
+    const [cryptoSource,decryptSource]=await Promise.all([
+     loadHelper('webstudio-package-crypto.js'),loadHelper('webstudio-decrypt.mjs')
+    ]);
+    finalArchive=api.zip({
+     'encrypted-site.wsenc':encrypted,
+     'webstudio-package-crypto.cjs':cryptoSource,
+     'decrypt.mjs':decryptSource,
+     'HOW-TO-DECRYPT.txt':'WEBSTUDIO ENCRYPTED OWNER WEBSITE BACKUP\n\n'+
+      'Step 1: Extract this outer ZIP into a folder.\n'+
+      'Step 2: Run: node site/decrypt.mjs site/encrypted-site.wsenc website.zip\n'+
+      'Step 3: Enter the owner passphrase interactively (it is NOT contained in the files).\n'+
+      'Step 4: Extract website.zip; manually host the site/ folder inside that ZIP.\n\n'+
+      'AES-256-GCM encryption protects this portable bundle at rest, NOT website code after decryption or hosting.\n'+
+      'All publicly served HTML, JS, CSS and images remain inspectable and copyable.\n'+
+      'No password or server credentials are embedded in this export.\n'
+    });
+    filename='WebStudio-Free-'+theme.value+'-protected-owner-export.zip';
+    protectedDownload=true;
+   }
+   if(receipt.approved!==signature())throw Error('The approved profile changed before download.');
+   const href=URL.createObjectURL(finalArchive),link=document.createElement('a');
+   link.href=href;link.download=filename;
    document.body.append(link);link.click();link.remove();
    setTimeout(()=>URL.revokeObjectURL(href),5000);
-   notice('Full interactive ZIP generated. The same WebStudio modules are included; host the site/ folder manually.');
+   if(protectedDownload){
+    passwordInput.value='';
+    notice('Encrypted owner package created. Save your passphrase! Extract it and decrypt before manual hosting. Decrypted website source remains readable.');
+   }else{
+    notice('Full interactive ZIP generated. The same WebStudio modules are included; host the site/ folder manually.');
+   }
   }catch(error){notice('ZIP generation failed: '+error.message);}
   finally{exportButton.disabled=false;}
  });
