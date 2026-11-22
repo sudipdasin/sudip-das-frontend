@@ -32,6 +32,8 @@ jobs:
             node scripts/verify-six-theme-fidelity.mjs
             node --check scripts/verify-aurora-reference-v2.mjs
             node --check scripts/verify-editorial-visual.mjs
+            node --check scripts/verify-theme-contract.mjs
+            node scripts/verify-theme-contract.mjs
             node scripts/verify-aurora-reference-v2.mjs
             # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
