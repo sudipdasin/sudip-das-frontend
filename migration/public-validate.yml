@@ -21,6 +21,7 @@ jobs:
           set -Eeuo pipefail
           test -s index.html
           test -s languages.js
+          test -s scripts/repo-discovery.js
           test -s sudip-das-portrait.jpg
           test -s data/site.json
           test -s data/site.xml
@@ -37,6 +38,7 @@ jobs:
           test ! -e migration
           test ! -e .circleci
           node --check languages.js
+          node --check scripts/repo-discovery.js
           node --check public-pages/app.js
           node <<'NODE'
           const fs=require('node:fs');
