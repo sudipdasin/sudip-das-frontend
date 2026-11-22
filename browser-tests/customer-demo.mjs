@@ -1607,6 +1607,19 @@ try {
      await p.waitForFunction(()=>!document.getElementById('ws-free-export').disabled,undefined,{timeout:20000})
        .catch(async error=>{throw Error('Feedback receipt did not unlock ZIP: '+await p.locator('#ws-free-status').innerText()+'; '+error.message)});
      assert.equal(await p.locator('#ws-free-export').isEnabled(),true,'Server receipt must unlock');
+     // Default: password-encrypted owner archive containing the whole runtime.
+     await p.locator('#ws-free-archive-password').fill('example-owner-encryption-passphrase-2026');
+     const encryptedEvent=p.waitForEvent('download');
+     await p.locator('#ws-free-export').click();
+     const encryptedDownload=await encryptedEvent;
+     assert.equal(encryptedDownload.suggestedFilename(),'WebStudio-Free-terminal-protected-owner-export.zip');
+     assert.match(await p.locator('#ws-free-status').innerText(),/Encrypted owner package created/i);
+     const binary=await readFile(await encryptedDownload.path());
+     assert.equal(binary.readUInt32LE(0),0x04034b50,'Protected owner envelope must be a ZIP');
+     assert.ok(binary.includes(Buffer.from('WSENC001')),'Outer package must contain authenticated encrypted payload');
+     assert.equal(await p.locator('#ws-free-archive-password').inputValue(),'','Owner passphrase must be cleared after export');
+     // Opt out when the owner needs immediately deployable, browser-readable files.
+     await p.locator('#ws-free-encrypt-archive').uncheck();
      const downloadEvent=p.waitForEvent('download');
      await p.locator('#ws-free-export').click();
      const download=await downloadEvent;
