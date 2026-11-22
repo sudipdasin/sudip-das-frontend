@@ -53,8 +53,12 @@ git -C "$ROOT" rm -r --ignore-unmatch -- \
   .circleci migration RELEASE.md VERSION \
   .github/workflows/webstudio-demo-package.yml
 
+# This browser module is required by the REAL Cloudflare portfolio root.
+# It must remain publicly readable even after private source migration.
+git -C "$ROOT" restore --source HEAD --staged --worktree -- scripts/repo-discovery.js
+
 for file in index.html languages.js sudip-das-portrait.jpg data/site.json \
-  data/site.xml 404.html _headers favicon.svg; do
+  data/site.xml 404.html _headers favicon.svg scripts/repo-discovery.js; do
   test -s "$ROOT/$file" || fail "Protected Cloudflare site file was removed: $file"
   git -C "$ROOT" diff --quiet HEAD -- "$file" ||
     fail "Protected Cloudflare site file changed: $file"
