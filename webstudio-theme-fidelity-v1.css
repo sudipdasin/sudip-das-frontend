@@ -630,3 +630,123 @@ body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="d"]{bot
   body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip[data-pos="e"]{top:83%;right:0;left:auto}
   body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip{width:39px;height:39px;font-size:1rem}
 }
+
+
+/* Screen-evidence correction 2026-11-23:
+ * Canonical Cosmic preview at ~1700px had edge-flush navigation, cardinal
+ * satellites overlapping the photograph and a floating Quick Actions launcher
+ * covering the orange information tile.
+ * Reuse WebStudio's studio-cosmic-orbit-fidelity.css radial angle design.
+ * Only visitor-facing geometry changes, never profile data or permissions. */
+
+/* The WebStudio reference-wide .nav width:100% overrides the profile gutters;
+ * bring the brand/controls back into the centered shell at all resolutions. */
+body.ws-parity[data-theme="design-2"] .topbar .nav,
+body.ws-parity[data-theme="neon-studio"] .topbar .nav {
+  width:calc(100% - var(--wf-gutter) - var(--wf-gutter))!important;
+  max-width:var(--wf-page-max)!important;
+  margin-inline:auto!important;
+  padding-inline:0!important;
+}
+
+/* A persistent floating launcher obscures cards and content at small heights.
+ * The navigation bar is sticky already: keep Quick Actions there instead. */
+body.ws-parity .topbar .ws-visitor-quick {
+  position:relative!important;
+  right:auto!important;
+  left:auto!important;
+  bottom:auto!important;
+  top:auto!important;
+  flex:0 0 auto;
+  margin:0!important;
+  z-index:55;
+}
+body.ws-parity .topbar .ws-visitor-quick-toggle{
+  min-height:42px;
+  padding:9px 12px;
+  white-space:nowrap;
+  font-size:clamp(.68rem,.74vw,.8rem);
+}
+body.ws-parity .topbar .ws-visitor-quick-panel{
+  position:absolute!important;
+  right:0!important;
+  left:auto!important;
+  top:calc(100% + 8px)!important;
+  bottom:auto!important;
+  max-height:min(560px,calc(100dvh - 126px));
+  overflow:auto;
+  z-index:60;
+}
+@media(max-width:1300px){
+  body.ws-parity .topbar .ws-visitor-quick{order:4}
+}
+@media(max-width:600px){
+  body.ws-parity .topbar .ws-visitor-quick{order:7}
+  body.ws-parity .topbar .ws-visitor-quick-toggle{
+    min-height:38px;
+    padding:7px 10px;
+    font-size:.68rem;
+  }
+  body.ws-parity .topbar .ws-visitor-quick-panel{
+    width:min(320px,calc(100vw - 32px));
+    right:-10px!important;
+    max-height:calc(100dvh - 160px);
+  }
+}
+
+/* WebStudio Design 2 reference: four orbit satellites at angles -68°, 9°,
+ * 145°, 57° on the SAME ring radius. Cardinal placement was an approximation
+ * and placed the top and bottom symbols on the portrait. */
+body.ws-parity[data-theme="design-2"] .hero-art{
+  --cosmic-orbit-radius:calc(var(--wf-orbit-size) / 2);
+  min-height:clamp(470px,34vw,575px);
+}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip{
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:translate(-50%,-50%) translate(
+    calc(cos(var(--cosmic-angle)) * var(--cosmic-orbit-radius)),
+    calc(sin(var(--cosmic-angle)) * var(--cosmic-orbit-radius))
+  )!important;
+}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="a"]{--cosmic-angle:-68deg}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="b"]{--cosmic-angle:9deg}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="c"]{--cosmic-angle:145deg}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="d"]{--cosmic-angle:57deg}
+
+/* Move the caption below the outer ring, not across the lower satellite. */
+body.ws-parity[data-theme="design-2"] .hero-art .portrait-caption{
+  left:50%!important;
+  top:calc(50% + var(--cosmic-orbit-radius) + 12px)!important;
+  bottom:auto!important;
+  right:auto!important;
+  transform:translateX(-50%)!important;
+  max-width:calc(100% - 28px);
+  z-index:8;
+}
+body.ws-parity[data-theme="design-2"] .hero{
+  padding-bottom:clamp(65px,5.5vw,90px)!important;
+}
+/* Keep the luminous arc visible over the portrait side but fade it beneath
+ * paragraphs and CTAs on the left for accessible text contrast. */
+body.ws-parity[data-theme="design-2"] .hero::after{
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 33%,#000 62%);
+  mask-image:linear-gradient(90deg,transparent 0%,transparent 33%,#000 62%);
+}
+@media(max-width:980px){
+  body.ws-parity[data-theme="design-2"] .hero-art{
+    min-height:clamp(370px,62vw,510px);
+    --cosmic-orbit-radius:calc(var(--wf-orbit-size) / 2);
+  }
+}
+@media(max-width:600px){
+  body.ws-parity[data-theme="design-2"] .hero{
+    padding-bottom:55px!important;
+  }
+  body.ws-parity[data-theme="design-2"] .hero-art .portrait-caption{
+    font-size:.63rem;
+    top:calc(50% + var(--cosmic-orbit-radius) + 8px)!important;
+  }
+}
