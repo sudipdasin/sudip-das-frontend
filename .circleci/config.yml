@@ -56,6 +56,13 @@ jobs:
                 assert.ok(!parity.includes(forbidden),'Forbidden visitor mutation/editor control in parity runtime: '+forbidden);
               }
               assert.ok(!parity.includes('Studio & system'),'Unauthorized public studio UI reintroduced');
+              assert.ok(parity.includes('ws-visitor-quick-open'),'Safe visitor Quick Actions missing');
+              assert.ok(parity.includes('ws-visitor-quick-panel'),'Safe visitor section/theme panel missing');
+              assert.ok(parity.includes("themeSelect.dispatchEvent(new Event('change'"),'Quick theme change missing');
+              for(const section of ['about','projects','experience','capabilities','contact']){
+                assert.ok(parity.includes("'"+section+"'"),'Quick link missing: '+section);
+              }
+
 
               assert.ok(!parity.includes('Real projects · Six design experiences · No account required'),'Demo banner reappeared');
             } else {
@@ -109,7 +116,14 @@ jobs:
                   await page.locator('.ws-utility-right').waitFor({timeout:15000});
                   assert.equal(await page.locator('#ws-studio-open').count(),0,'Studio button publicly visible');
                   assert.equal(await page.locator('#profile-look-open').count(),0,'Appearance button publicly visible');
-                  assert.equal(await page.locator('#profile-shortcuts-open').count(),0,'Quick actions button publicly visible');
+                  assert.equal(await page.locator('#profile-shortcuts-open').count(),0,'Advanced quick editor must not be visible');
+                  assert.equal(await page.locator('#ws-visitor-quick-open').count(),1,'Visitor quick actions missing');
+                  await page.locator('#ws-visitor-quick-open').click();
+                  assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'true');
+                  assert.equal(await page.locator('#ws-visitor-quick-panel a[href="#projects"]').count(),1);
+                  await page.locator('#ws-visitor-quick-panel button[data-theme="design-2"]').click();
+                  assert.equal(await page.locator('body').getAttribute('data-theme'),'design-2');
+                  assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'false');
                   assert.equal(await page.locator('#profile-look-dialog').count(),0,'Appearance dialog publicly available');
                   assert.equal(await page.locator('#ws-studio-panel').count(),0,'Studio dialog publicly available');
                   assert.equal(await page.locator('#theme-select option').count(),6);
