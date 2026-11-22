@@ -1,8 +1,18 @@
 # Install in PRIVATE sudipdasin/webstudio-private at
 # .github/workflows/webstudio-release-to-public.yml.
-# Manual-only, until the public artifact-only cutover is verified.
+# Automatic publishing is OFF until WEBSTUDIO_AUTO_PUBLISH=true is set
+# in the private repository after cutover. Manual dispatch is explicit.
 name: Verify and publish WebStudio artifact
 on:
+  push:
+    branches: [main]
+    paths:
+      - "examples/customer-demo/**"
+      - "scripts/build-customer-demo.mjs"
+      - "scripts/verify-customer-demo.mjs"
+      - "tests/**"
+      - "browser-tests/**"
+      - ".github/workflows/webstudio-release-to-public.yml"
   workflow_dispatch:
     inputs:
       publish:
@@ -17,7 +27,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   validate:
-    if: inputs.publish == true
+    if: (github.event_name == 'workflow_dispatch' && inputs.publish == true) || (github.event_name == 'push' && vars.WEBSTUDIO_AUTO_PUBLISH == 'true')
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
@@ -51,7 +61,7 @@ jobs:
           if-no-files-found: error
           retention-days: 7
   publish:
-    if: inputs.publish == true
+    if: (github.event_name == 'workflow_dispatch' && inputs.publish == true) || (github.event_name == 'push' && vars.WEBSTUDIO_AUTO_PUBLISH == 'true')
     needs: validate
     runs-on: ubuntu-24.04
     timeout-minutes: 10
