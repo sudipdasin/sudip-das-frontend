@@ -150,8 +150,8 @@ jobs:
                     const expectedBadges=theme==='neon-studio'?5:theme==='design-2'?4:3;
                     assert.equal(await page.locator('.hero-art .ws-orbit-chip').count(),expectedBadges,'Orbit badges '+theme+'/'+width);
                     const aurora=page.locator('.ws-aurora-reference');
-                    assert.equal(await aurora.count(),1,'Aurora reference section absent '+theme+'/'+width);
                     if(theme==='neon-studio'){
+                      assert.equal(await aurora.count(),1,'Aurora reference must mount on Design 1');
                       assert.ok(await aurora.isVisible(),'Aurora reference section not visible');
                       assert.equal(await page.locator('.ws-aurora-info-band').count(),1,'Design 1 information band missing');
                       assert.equal(await page.locator('.ws-aurora-band-details .ws-aurora-mini-detail').count(),4,'Four detail items expected');
@@ -164,7 +164,7 @@ jobs:
                       const heroBox=await page.locator('.hero').boundingBox();
                       assert.ok(bandBox&&heroBox&&bandBox.y>=heroBox.y+heroBox.height-4,'Aurora information band must follow hero');
                     } else {
-                      assert.equal(await aurora.isVisible(),false,'Aurora reference must not leak into '+theme);
+                      assert.equal(await aurora.count(),0,'Aurora-only component must be UNMOUNTED outside Design 1: '+theme);
                     }
 
                     assert.equal(await page.locator('#ws-studio-open').count(),0,'Studio leak '+theme);
