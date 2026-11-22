@@ -1,7 +1,7 @@
 /* WebStudio Free 3-theme interactive release flow.
-   Preview -> approve exact profile/theme -> submit feedback -> export.
-   Server receipts are real only if a configured feedback endpoint acknowledges.
-   Without a deployed receiver, export stays locked rather than faking proof. */
+   Preview -> approve exact profile/theme -> export. Optional feedback is separate.
+   Feedback only claims delivery when a configured receiver acknowledges it.
+   A missing feedback receiver must never prevent approved local site exports. */
 (()=>{
  'use strict';
  const api=window.WebStudioStarter,$=id=>document.getElementById(id);
@@ -16,7 +16,7 @@
   ['Personalize real website content','Edit and save your name, role, SEO, skills, projects, contact fields and links in the live local editor.','02','Create'],
   ['Inspect the real live preview','See the exact selected theme with your saved data in an interactive browser frame, then explicitly approve it.','03','Review'],
   ['Protect your private records','HTML, CSS, JavaScript and JSON used in a browser are readable. Never include secrets in files you publish.','04','Protect'],
-  ['Feedback unlocks the export','After approval, submit detailed feedback. A real server acknowledgment is required before ZIP generation.','05','Feedback']
+  ['Export your finished website','Once you approve the preview, download your own deployable or encrypted site. Detailed feedback is always optional.','05','Export']
  ];
  const intro=$('ws-free-onboard'),begin=$('ws-free-begin'),next=$('ws-free-next'),back=$('ws-free-back');
  const theme=$('ws-free-theme'),reply=$('ws-free-reply'),terms=$('ws-free-terms');
@@ -110,7 +110,6 @@
   };
  }
  previewButton.addEventListener('click',()=>{
-  if(!completed){notice('Complete all five chapters first.');begin.focus();return;}
   if(!terms.checked){notice('Accept the export terms before inspecting the final build.');terms.focus();return;}
   try{
    api.validate(current(),theme.value);
@@ -127,8 +126,8 @@
   if(!approveCheckbox.checked){notice('Check the preview approval box first.');approveCheckbox.focus();return;}
   try{
    api.validate(current(),theme.value);
-   approved=signature();receipt=null;exportButton.disabled=true;
-   notice('Preview approved. Submit detailed feedback to unlock ZIP generation.');
+   approved=signature();receipt=null;exportButton.disabled=false;
+   notice('Preview approved. You may export your website now; optional feedback helps improve WebStudio.');
   }catch(error){notice('Approval rejected: '+error.message);}
  });
  const feedbackReady=()=>{
@@ -169,22 +168,22 @@
      throw Error('Feedback service did not acknowledge delivery.');
     allowExport('server-confirmed');
    }else{
-    throw Error('Verified feedback delivery is not configured yet; website generation remains locked.');
+    throw Error('Verified feedback delivery is not configured. Approved site export remains available.');
 
    }
-  }catch(e){notice('Feedback not acknowledged: '+e.message+' ZIP remains locked.');}
+  }catch(e){notice('Feedback not acknowledged: '+e.message+' Optional feedback failure never blocks approved site exports.');}
   finally{feedbackButton.disabled=false;}
  });
  exportButton.addEventListener('click',async()=>{
-  if(!receipt||!approved||receipt.approved!==signature()){
-   revokeApproval('Export locked: approve the current profile and submit feedback first.');
+  if(!approved||approved!==signature()){
+   revokeApproval('Export requires approval of your current saved profile and theme.');
    return;
   }
   exportButton.disabled=true;
   try{
    notice('Collecting the exact interactive WebStudio runtime for your ZIP…');
    const files=await api.buildInteractive(current(),theme.value);
-   if(receipt.approved!==signature())throw Error('Your profile changed during packaging. Please approve again.');
+   if(approved!==signature())throw Error('Your profile changed during packaging. Please approve again.');
    const siteZip=api.zip(files);
    let finalArchive=siteZip;
    let filename='WebStudio-Free-'+theme.value+'-interactive-website.zip';
@@ -224,7 +223,7 @@
     filename='WebStudio-Free-'+theme.value+'-protected-owner-export.zip';
     protectedDownload=true;
    }
-   if(receipt.approved!==signature())throw Error('The approved profile changed before download.');
+   if(approved!==signature())throw Error('The approved profile changed before download.');
    const href=URL.createObjectURL(finalArchive),link=document.createElement('a');
    link.href=href;link.download=filename;
    document.body.append(link);link.click();link.remove();
@@ -236,7 +235,7 @@
     notice('Full interactive ZIP generated. The same WebStudio modules are included; host the site/ folder manually.');
    }
   }catch(error){notice('ZIP generation failed: '+error.message);}
-  finally{exportButton.disabled=false;}
+  finally{exportButton.disabled=!(approved&&approved===signature());}
  });
  $('ws-free-reminder-dismiss').addEventListener('click',()=>{
   $('ws-free-reminder').hidden=true;storage.write(reminderKey,'1');
@@ -248,7 +247,7 @@
   if(feedbackEndpoint&& !challengeSiteKey){
    feedbackEndpoint=''; // Don't claim server verification without a configured challenge.
   }
-  if(!feedbackEndpoint)notice('Feedback submission service is not configured. Preview and approval work, but ZIP export remains locked until verified feedback delivery is available.');
+  if(!feedbackEndpoint&&!approved)notice('Feedback service is not configured; you can still preview, approve and export your website. Sending feedback is optional.');
   if(feedbackEndpoint&&challengeSiteKey){
    $('ws-free-turnstile').hidden=false;
    const script=document.createElement('script');

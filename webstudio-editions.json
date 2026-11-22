@@ -58,9 +58,9 @@
     "emailVerifiedByBackend": false
   },
   "feedback": {
-    "requiredBeforeExport": true,
+    "requiredBeforeExport": false,
     "minimumCharacters": 60,
-    "delivery": "verified-server-receipt-or-explicit-manual-email-confirmation",
+    "delivery": "verified-server-receipt-only",
     "endpoint": "",
     "challengeSiteKey": "",
     "requiresPreviewApproval": true

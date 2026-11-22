@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
-  <title id="title">Sudip Das</title>
-  <rect x="3" y="3" width="58" height="58" rx="15" fill="#101713" stroke="#60f0b2" stroke-width="3"/>
-  <path d="M28 18h-9c-5 0-8 2.4-8 6s3 5.7 8 6.8l5 1.1c5.2 1.2 8 3.3 8 7.2 0 4.5-3.9 7-10 7-4.4 0-8.5-1.4-11-4" fill="none" stroke="#60f0b2" stroke-linecap="round" stroke-width="4.5"/>
-  <path d="M37 16h4c8.5 0 13 6 13 16s-4.5 16-13 16h-4V16Z" fill="none" stroke="#d9f6ea" stroke-linejoin="round" stroke-width="4.5"/>
-</svg>

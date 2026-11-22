@@ -90,10 +90,13 @@
   }
 }
 
-/* Cosmic reference image is 1672px wide: align Studio panel with x≈920.
-   At wider viewport sizes the panel needs a different offset. */
+/* Cosmic reference image is 1672px wide: the open Studio panel must
+   remain to the LEFT of the portrait. CircleCI measured 23.53px overlap
+   (menuRight=1255.78, photoLeft=1232.25) with the prior -28px offset.
+   A 32px left correction leaves ~8.47px clearance at 1672px, while
+   preserving the menu's x=800..1000 screenshot placement and other themes. */
 @media(min-width:1570px) and (max-width:1799px) and (pointer:fine){
  body.desktop-reference-preview[data-theme="design-2"] .studio-nav-panel{
-   left:-28px!important;
+   left:-60px!important;
  }
 }
