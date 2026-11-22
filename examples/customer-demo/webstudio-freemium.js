@@ -212,14 +212,14 @@
      'encrypted-site.wsenc':encrypted,
      'webstudio-package-crypto.js':cryptoSource,
      'decrypt.mjs':decryptSource,
-     'HOW-TO-DECRYPT.txt':'WEBSTUDIO ENCRYPTED OWNER WEBSITE BACKUP\\n\\n'+
-      'Step 1: Extract this outer ZIP into a folder.\\n'+
-      'Step 2: Run: node site/decrypt.mjs site/encrypted-site.wsenc website.zip\\n'+
-      'Step 3: Enter the owner passphrase interactively (it is NOT contained in the files).\\n'+
-      'Step 4: Extract website.zip; manually host the site/ folder inside that ZIP.\\n\\n'+
-      'AES-256-GCM encryption protects this portable bundle at rest, NOT website code after decryption or hosting.\\n'+
-      'All publicly served HTML, JS, CSS and images remain inspectable and copyable.\\n'+
-      'No password or server credentials are embedded in this export.\\n'
+     'HOW-TO-DECRYPT.txt':'WEBSTUDIO ENCRYPTED OWNER WEBSITE BACKUP\n\n'+
+      'Step 1: Extract this outer ZIP into a folder.\n'+
+      'Step 2: Run: node site/decrypt.mjs site/encrypted-site.wsenc website.zip\n'+
+      'Step 3: Enter the owner passphrase interactively (it is NOT contained in the files).\n'+
+      'Step 4: Extract website.zip; manually host the site/ folder inside that ZIP.\n\n'+
+      'AES-256-GCM encryption protects this portable bundle at rest, NOT website code after decryption or hosting.\n'+
+      'All publicly served HTML, JS, CSS and images remain inspectable and copyable.\n'+
+      'No password or server credentials are embedded in this export.\n'
     });
     filename='WebStudio-Free-'+theme.value+'-protected-owner-export.zip';
     protectedDownload=true;
