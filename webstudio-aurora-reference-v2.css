@@ -1,0 +1,511 @@
+/*
+ * Design 1 / Aurora Studio visual adaptation for PERSONAL portfolio preview.
+ * Reference: PRIVATE WebStudio examples/customer-demo/REFERENCE_THEMES.md
+ * and studio-design-one-highlight-fixes.css, studio-orbit-fidelity.css,
+ * screenshot WebStudio Aurora 1710-ish browser viewport (2026-11-23).
+ *
+ * Deliberately preserve real Sudip Das portrait and site content.
+ * Do not port fictional profile claims, admin/editor controls, live request API,
+ * or WebStudio demonstration services.
+ */
+
+/* No Aurora-only elements are displayed in Orbit, Editorial, Terminal,
+   Aurora Peak or Cosmic. Never conflate Design 1 and Design 2. */
+body.ws-parity .ws-aurora-reference{display:none}
+body.ws-parity[data-theme="neon-studio"]{
+  --wf-page-max:1620px;
+  --wf-gutter:clamp(22px,4.8vw,76px);
+  --wf-orbit-size:clamp(360px,26vw,450px);
+  --wf-panel-fill:#061e30f2;
+}
+body.ws-parity[data-theme="neon-studio"] .topbar{
+  background:#031629f5;
+  min-height:79px;
+  border-bottom:1px solid #16d0e870;
+  box-shadow:0 8px 25px #0002;
+}
+body.ws-parity[data-theme="neon-studio"] .topbar .nav{
+  min-height:79px;
+  flex-wrap:nowrap;
+  justify-content:space-between;
+  gap:clamp(8px,.8vw,17px);
+}
+body.ws-parity[data-theme="neon-studio"] .brand{
+  min-width:190px;
+  font-weight:800;
+  font-size:clamp(.98rem,1.05vw,1.24rem);
+}
+body.ws-parity[data-theme="neon-studio"] .brand-mark{
+  width:50px;height:50px;
+  border-radius:12px;
+  border:2px solid #00e7eb;
+  box-shadow:0 0 25px #00e6f73b;
+}
+body.ws-parity[data-theme="neon-studio"] .navlinks{
+  flex:1 1 auto;
+  min-width:0;
+  justify-content:center;
+}
+body.ws-parity[data-theme="neon-studio"] .navlinks a{
+  font-size:clamp(.72rem,.74vw,.85rem);
+  padding:10px clamp(6px,.65vw,12px);
+}
+body.ws-parity[data-theme="neon-studio"] :is(.language-control select,.theme-control select){
+  background:#071e32;
+  color:#e8fbff;
+  border-color:#347da8;
+  border-radius:11px;
+  box-shadow:inset 0 0 14px #013f642a;
+}
+body.ws-parity[data-theme="neon-studio"] .topbar .ws-visitor-quick-toggle{
+  border:1px solid #24aed2;
+  background:linear-gradient(128deg,#062f48,#091a37);
+  color:#dffcff;
+  box-shadow:inset 0 0 14px #0eb6ff2b;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-utility{
+  background:linear-gradient(90deg,#021e30,#003f45 53%,#041c30);
+  border-color:#10dbdc74;
+  min-height:34px;
+}
+body.ws-parity[data-theme="neon-studio"] .hero{
+  min-height:clamp(465px,31vw,565px)!important;
+  grid-template-columns:minmax(0,1.12fr) minmax(400px,.88fr)!important;
+  align-items:center;
+  gap:clamp(22px,2.6vw,54px)!important;
+  padding:clamp(22px,2.5vw,38px) 8px clamp(30px,3vw,44px)!important;
+}
+body.ws-parity[data-theme="neon-studio"] .hero::before{
+  background:
+    linear-gradient(90deg,#011426d9 0%,#021b2ba6 35%,#02152a2d 68%,#04152730),
+    url('neon-horizon.svg') center bottom / cover no-repeat,
+    radial-gradient(ellipse at 68% 37%,#04b0b354,transparent 50%),
+    linear-gradient(110deg,#00152a,#003a43);
+}
+body.ws-parity[data-theme="neon-studio"] .hero::after{
+  top:37%;
+  left:-4%;
+  right:-7%;
+  height:43%;
+  border-top:2px solid #00ebedb5;
+  border-radius:55% 40% 50% 45%;
+  transform:rotate(-10deg);
+  box-shadow:0 -11px 34px #0acdf17a,0 -25px 86px #007de363,0 18px 40px #8846ff43;
+  mask-image:linear-gradient(90deg,transparent 0%,#000 29%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 29%);
+}
+body.ws-parity[data-theme="neon-studio"] .hero .hero-text{
+  position:relative;
+  z-index:3;
+  padding:1px 0 10px;
+}
+body.ws-parity[data-theme="neon-studio"] .hero .eyebrow{
+  border-color:#08e9e7;
+  border-right-color:#b967ed;
+  background:#061b31d5;
+  font-size:clamp(.73rem,.84vw,.93rem);
+  padding:9px 17px;
+  margin-bottom:20px;
+  box-shadow:0 0 19px #02d3e33f;
+}
+body.ws-parity[data-theme="neon-studio"] .hero h1{
+  font:900 clamp(4.4rem,6.9vw,7.1rem)/1.05 var(--display,system-ui);
+  letter-spacing:-.082em;
+  margin:0 0 12px;
+  white-space:nowrap;
+  text-shadow:0 0 24px #dcf3ff28;
+}
+body.ws-parity[data-theme="neon-studio"] .hero .neon-name-gradient{
+  background:linear-gradient(100deg,#f2fcff 5%,#f6fcff 64%,#29ecf6);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+body.ws-parity[data-theme="neon-studio"] .hero .hero-role{
+  font:750 clamp(1.55rem,2.03vw,2.15rem)/1.33 var(--display,system-ui);
+  max-width:720px;
+  margin-bottom:15px;
+}
+body.ws-parity[data-theme="neon-studio"] .hero .hero-copy{
+  max-width:590px;
+  border-left:3px solid #00e9e6;
+  padding-left:17px;
+  font-size:clamp(.91rem,1vw,1.07rem);
+  line-height:1.64;
+  margin-bottom:22px;
+}
+body.ws-parity[data-theme="neon-studio"] .hero .actions{
+  gap:14px;
+  margin-top:18px;
+}
+body.ws-parity[data-theme="neon-studio"] .hero .actions .button{
+  min-height:50px;
+  padding:12px 19px;
+  border-radius:25px;
+}
+body.ws-parity[data-theme="neon-studio"] .hero .actions .button.primary{
+  background:linear-gradient(100deg,#04f4e8,#15c4ee);
+  border-color:#17eafa;
+  color:#001c27;
+  box-shadow:0 0 20px #00eafd61;
+}
+body.ws-parity[data-theme="neon-studio"] .hero-art{
+  max-width:565px;
+  min-height:420px;
+  --wf-orbit-size:clamp(345px,25vw,438px);
+}
+body.ws-parity[data-theme="neon-studio"] .hero-art .orbit{
+  width:var(--wf-orbit-size)!important;
+  height:var(--wf-orbit-size)!important;
+  border-color:#14c5f9;
+  box-shadow:0 0 25px #00aefc62;
+}
+body.ws-parity[data-theme="neon-studio"] .hero-art .orbit.two{
+  width:calc(var(--wf-orbit-size) * .84)!important;
+  height:calc(var(--wf-orbit-size) * .84)!important;
+  border-color:#ad62ef;
+}
+body.ws-parity[data-theme="neon-studio"] .hero-art .core{
+  width:calc(var(--wf-orbit-size) * .73)!important;
+  height:calc(var(--wf-orbit-size) * .73)!important;
+  border-color:#11e9f7!important;
+  box-shadow:0 0 26px #00ddffdc,0 0 52px #008bff7d,0 24px 55px #0008;
+}
+body.ws-parity[data-theme="neon-studio"] .hero-art .portrait-caption{
+  bottom:-2px;
+  max-width:76%;
+  font-size:.71rem;
+  padding:8px 15px;
+  border-color:#12c5f4;
+  box-shadow:0 0 16px #00c9fa4d;
+  background:#061d32e8;
+}
+/* Reference 1 five icon medallions with white bare labels, not bordered
+ * cyan text pills. Keep each skill correct for the real personal profile. */
+body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip{
+  --r:calc(var(--wf-orbit-size) / 2);
+  position:absolute!important;
+  z-index:7;
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  display:flex!important;
+  align-items:center;
+  gap:9px;
+  padding:0!important;
+  min-height:41px;
+  width:max-content;
+  max-width:180px;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  transform:translate(-18px,-50%) translate(var(--aurora-x),var(--aurora-y));
+  font-size:clamp(.63rem,.72vw,.79rem);
+  color:#eefcff;
+  line-height:1.25;
+  text-shadow:0 1px 8px #0009;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip .ws-orbit-glyph{
+  flex:0 0 35px;
+  width:35px;height:35px;
+  display:grid;place-items:center;
+  border:1px solid #06d6e9;
+  border-radius:50%;
+  background:#04273dcf;
+  box-shadow:0 0 12px #00dbfb70,inset 0 0 11px #00bff32b;
+  color:#49efff;
+  text-shadow:none;
+  font-size:1.15rem;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip .ws-orbit-label{
+  display:block;
+  max-width:112px;
+  font-weight:750;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="a"]{--aurora-x:calc(var(--r) * .30);--aurora-y:calc(var(--r) * -.76)}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="b"]{--aurora-x:calc(var(--r) * .95);--aurora-y:calc(var(--r) * -.65)}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="c"]{--aurora-x:calc(var(--r) * 1.03);--aurora-y:calc(var(--r) * -.07)}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="d"]{--aurora-x:calc(var(--r) * .93);--aurora-y:calc(var(--r) * .54)}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="e"]{--aurora-x:calc(var(--r) * .70);--aurora-y:calc(var(--r) * .89)}
+
+/* WebStudio Design 1 has a single horizontal infinity band, followed by SIX
+ * compact theme-matched feature tiles, not Design 2's four large colored cards. */
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-reference{
+  display:block;
+  width:100%;
+  margin:0!important;
+  padding:0 0 28px!important;
+  position:relative;
+  isolation:isolate;
+  background:linear-gradient(180deg,#071a2b,#03152a 76%);
+  border-top:1px solid #13bcda36;
+}
+body.ws-parity[data-theme="neon-studio"] main>.ticker,
+body.ws-parity[data-theme="neon-studio"] main>.ws-value-bar{display:none!important}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-reference-inner{
+  display:flex;
+  flex-direction:column;
+  gap:17px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  min-height:93px;
+  padding:15px 21px;
+  border-radius:16px;
+  border:1px solid #05dddb;
+  background:linear-gradient(100deg,#042a33,#062b38 54%,#06303a);
+  box-shadow:0 0 20px #04b4d524;
+  align-items:center;
+  gap:14px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-intro{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding-right:15px;
+  border-right:1px solid #1bced4a2;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-infinity{
+  flex:0 0 44px;
+  color:#02f1eb;
+  text-shadow:0 0 16px #00eafa75;
+  font-size:3.5rem;
+  line-height:1;
+  font-weight:900;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-copy{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  min-width:0;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-copy strong{
+  font-size:clamp(.95rem,1.2vw,1.28rem);
+  line-height:1.2;
+  color:#f4fcff;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-copy small,
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-copy small{
+  font-size:clamp(.66rem,.7vw,.79rem);
+  color:#a8c7d4;
+  line-height:1.35;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-details{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  text-align:center;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-detail{
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  font-size:clamp(.57rem,.62vw,.69rem);
+  color:#e0f7ff;
+  line-height:1.2;
+  font-weight:650;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-icon{
+  color:#00d9ef;
+  font-size:1.3rem;
+  text-shadow:0 0 11px #03bffb4a;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:14px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
+  min-width:0;
+  min-height:75px;
+  padding:12px 11px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border:1px solid #1f7793;
+  border-radius:12px;
+  background:linear-gradient(135deg,#092336,#051c31);
+  box-shadow:inset 0 1px 0 #7ce5ff12,0 6px 20px #0002;
+  text-decoration:none;
+  color:#f3fbff;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature:hover,
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature:focus-visible{
+  transform:translateY(-3px);
+  border-color:#03e3f7;
+  box-shadow:0 0 21px #00bdfc3c;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon{
+  flex:0 0 35px;
+  width:35px;height:35px;
+  display:grid;place-items:center;
+  border-radius:9px;
+  border:1px solid #1e7797;
+  background:#0b3347;
+  font-size:1.5rem;
+  color:#31eafa;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature strong{
+  font-size:clamp(.66rem,.71vw,.82rem);
+  line-height:1.2;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature small{
+  font-size:clamp(.59rem,.62vw,.72rem);
+  color:#a0bfcd;
+  line-height:1.2;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:20px;
+  padding:16px 22px;
+  margin-top:2px;
+  border-radius:14px;
+  border:1px solid #177c9e;
+  background:linear-gradient(100deg,#061c32,#09243b);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-copy{
+  display:flex;flex-direction:column;gap:6px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-copy strong{
+  font-size:clamp(.86rem,.95vw,1.02rem);
+  color:#f4f9ff;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:8px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:9px 14px;
+  min-height:40px;
+  border:1px solid #187ca4;
+  border-radius:8px;
+  background:#09253c;
+  font-size:clamp(.7rem,.74vw,.83rem);
+  font-weight:750;
+  color:#eafaff;
+  white-space:nowrap;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a.ws-aurora-cta-primary{
+  color:#05202a;background:#04ece7;border-color:#08edeb;
+  box-shadow:0 0 18px #00edf258;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:focus-visible{
+  outline:3px solid #eaffff;outline-offset:3px;
+}
+@media(max-width:1250px){
+  body.ws-parity[data-theme="neon-studio"] .hero{
+    grid-template-columns:minmax(0,1fr) minmax(350px,.9fr)!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
+    grid-template-columns:1fr;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-intro{
+    padding-right:0;
+    border-right:0;
+    padding-bottom:10px;
+    border-bottom:1px solid #1bced463;
+  }
+}
+@media(max-width:980px){
+  body.ws-parity[data-theme="neon-studio"] .hero{
+    grid-template-columns:1fr!important;
+    min-height:0!important;
+    padding:30px 0 34px!important;
+    gap:8px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .hero h1{
+    font-size:clamp(3.4rem,9.5vw,5.6rem);
+  }
+  body.ws-parity[data-theme="neon-studio"] .hero-art{
+    min-height:450px;
+    max-width:520px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta{
+    grid-template-columns:1fr;
+    gap:13px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions{
+    justify-content:flex-start;
+  }
+}
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"]{
+    --wf-orbit-size:clamp(250px,72vw,328px);
+  }
+  body.ws-parity[data-theme="neon-studio"] .hero h1{
+    white-space:normal;
+    font-size:clamp(2.9rem,12vw,4rem);
+  }
+  body.ws-parity[data-theme="neon-studio"] .hero-art{
+    --wf-orbit-size:clamp(245px,72vw,320px);
+    min-height:390px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip{
+    font-size:.58rem;
+    max-width:116px;
+    gap:5px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip .ws-orbit-glyph{
+    width:27px;height:27px;flex-basis:27px;font-size:.9rem;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip .ws-orbit-label{
+    max-width:78px;
+    overflow-wrap:break-word;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-reference-inner{gap:13px}
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
+    padding:13px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-details{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    row-gap:12px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
+    padding:10px;
+    min-height:68px;
+    gap:7px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon{
+    flex-basis:29px;width:29px;height:29px;font-size:1.1rem;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta{
+    padding:13px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a{
+    white-space:normal;flex:1 1 auto;min-width:112px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
+    transition:none;
+  }
+}
