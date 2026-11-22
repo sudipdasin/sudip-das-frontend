@@ -7,7 +7,7 @@ must keep the existing GitHub Pages address accessible without upgrading.
 
 | Website | Public URL | Files in this repository |
 | --- | --- | --- |
-| Personal portfolio | https://sudipdas.is-a.dev/ and https://sudip-das-frontend.pages.dev/ | Root `index.html`, `languages.js`, public portrait and `data/` |
+| Personal portfolio | https://sudipdas.is-a.dev/ and https://sudip-das-frontend.pages.dev/ | Root `index.html`, `languages.js`, public portrait, `data/` and `scripts/repo-discovery.js` |
 | Fictional WebStudio | https://sudipdasin.github.io/sudip-das-frontend/ | Prebuilt website in `public-pages/` |
 
 **These are separate websites.** The Cloudflare Pages hostname and custom
