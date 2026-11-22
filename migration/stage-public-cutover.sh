@@ -27,7 +27,7 @@ for file in public-pages/app.js public-pages/profile.json \
   languages.js sudip-das-portrait.jpg data/site.json data/site.xml;do
   [[ -s "$ROOT/$file" ]] || fail "Required deployment asset missing: $file"
 done
-node -e "let p=require('./public-pages/profile.json');if(p.demo!==true||p.identity.displayName!=='Dev Das')process.exit(1)" ||
+node -e "let p=require(process.argv[1]);if(p.demo!==true||p.identity.displayName!=='Dev Das')process.exit(1)" "$ROOT/public-pages/profile.json" ||
   fail "Public preview identity did not pass verification."
 [[ ! -L "$ROOT/public-pages" ]] || fail "Refusing symlinked public-pages directory."
 
