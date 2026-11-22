@@ -10,7 +10,8 @@
  */
 
 /* No Aurora-only elements are displayed in Orbit, Editorial, Terminal,
-   Aurora Peak or Cosmic. Never conflate Design 1 and Design 2. */
+   Aurora Peak or Cosmic. The unchanged body[data-theme="design-2"] is
+   a SEPARATE Cosmic composition. Never conflate Design 1 and Design 2. */
 body.ws-parity .ws-aurora-reference{display:none}
 body.ws-parity[data-theme="neon-studio"]{
   --wf-page-max:1620px;
