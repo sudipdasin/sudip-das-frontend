@@ -144,6 +144,7 @@ async function screenshot(browser,origin,vp,theme,filename,fullPage=true) {
         documentHeight:document.documentElement.scrollHeight,
         hero:rect(hero),portrait:rect(portrait),
         orbitBadgeCount:document.querySelectorAll('.hero-art .ws-orbit-chip').length,
+        auroraSectionPresent:!!document.querySelector('.ws-aurora-reference'),
         auroraSectionVisible:!!document.querySelector('.ws-aurora-reference') &&
           getComputedStyle(document.querySelector('.ws-aurora-reference')).display!=='none',
         quickActionsPresent:!!quick,
@@ -198,8 +199,9 @@ async function main(){
           report.problems.push(theme+' '+id+' badge count differs');
         if(metrics.documentWidth>metrics.viewportWidth+3)
           report.problems.push(theme+' '+id+' horizontal overflow '+(metrics.documentWidth-metrics.viewportWidth));
-        if(metrics.auroraSectionVisible!==(theme==='neon-studio'))
-          report.problems.push(theme+' '+id+' cross-theme Aurora section leak');
+        if(metrics.auroraSectionVisible!==(theme==='neon-studio') ||
+           metrics.auroraSectionPresent!==(theme==='neon-studio'))
+          report.problems.push(theme+' '+id+' cross-theme Aurora section mounting/leak');
         report.gallery.push({theme,viewport:id,file,metrics});
       }
       console.log('GALLERY COMPLETE '+theme);
