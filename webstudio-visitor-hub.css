@@ -1,0 +1,34 @@
+/* Interactive Portfolio Visitor Hub — six-theme responsive treatment */
+body[data-theme] .ws-visitor-hub{margin:14px 0 30px;padding:clamp(18px,3vw,27px);border-radius:var(--ws-radius,16px);border:1px solid color-mix(in srgb,var(--ws-accent),transparent 55%);background:linear-gradient(140deg,var(--panel),color-mix(in srgb,var(--ws-accent),var(--panel) 8%));}
+body[data-theme] .ws-visitor-hub h3{font:600 clamp(1.3rem,2.4vw,1.65rem) var(--display);margin:0 0 7px;color:var(--ink)}
+body[data-theme] .ws-hub-intro{color:var(--muted);font-size:.9rem;max-width:65ch}
+body[data-theme] .ws-hub-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:18px 0}
+body[data-theme] .ws-hub-actions button,body[data-theme] .ws-shortlist-toggle{border:1px solid var(--line);border-radius:10px;padding:10px 13px;min-height:43px;color:var(--ink);background:var(--panel2);font:650 .82rem var(--sans);cursor:pointer}
+body[data-theme] .ws-hub-actions button:first-child{background:color-mix(in srgb,var(--ws-accent),transparent 85%);border-color:var(--ws-accent)}
+body[data-theme] .ws-hub-actions button:hover:not(:disabled),body[data-theme] .ws-shortlist-toggle:hover{border-color:var(--ws-accent)}
+body[data-theme] .ws-hub-actions button:disabled{opacity:.47;cursor:not-allowed}
+body[data-theme] .ws-hub-selected{font:650 .84rem var(--sans);color:var(--ws-accent)}
+body[data-theme] .ws-hub-privacy{font-size:.78rem;color:var(--muted);margin:0}
+body[data-theme] .ws-shortlist-toggle{display:inline-flex;margin:11px 0 0;min-height:39px;padding:7px 11px;position:relative;z-index:2}
+body[data-theme] .ws-shortlist-toggle[aria-pressed=true]{background:color-mix(in srgb,var(--ws-accent),transparent 85%);border-color:var(--ws-accent)}
+body[data-theme] .ws-shortlist-text{display:block;width:100%;min-height:130px;max-width:100%;padding:12px;margin:15px 0;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;font:.83rem/1.5 var(--mono)}
+body[data-theme] .ws-shortlist-text[hidden]{display:none!important}
+.ws-tour[hidden]{display:none!important}
+.ws-tour{position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:12px}
+.ws-tour-shade{position:absolute;inset:0;background:#020817dc;backdrop-filter:blur(8px)}
+.ws-tour-panel{position:relative;width:min(100%,650px);max-height:90vh;overflow-y:auto;background:linear-gradient(140deg,var(--panel),var(--panel2));border:1px solid var(--ws-accent);border-radius:20px;padding:clamp(18px,4vw,34px);color:var(--ink);box-shadow:0 24px 90px #000a}
+.ws-tour-top{display:flex;align-items:start;justify-content:space-between;gap:15px}
+.ws-tour-top h2{font:650 clamp(1.3rem,3vw,1.75rem) var(--display);margin:0}
+.ws-tour-close{width:44px;height:44px;flex:none;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:1.7rem;cursor:pointer}
+.ws-tour-progress{margin:24px 0 10px;font:700 .73rem var(--mono);letter-spacing:.1em;color:var(--ws-accent);text-transform:uppercase}
+.ws-tour-step-heading{font:650 clamp(1.7rem,4vw,2.4rem) var(--display);letter-spacing:-.04em;line-height:1.2;margin:0 0 15px}
+.ws-tour-body{font-size:.96rem;line-height:1.7;color:var(--muted);margin-bottom:28px}
+.ws-tour-navigation{display:flex;flex-wrap:wrap;gap:10px}
+.ws-tour-navigation button{min-height:43px;flex:1 1 100px;border:1px solid var(--line);border-radius:9px;color:var(--ink);background:var(--panel);font:650 .83rem var(--sans);cursor:pointer}
+.ws-tour-navigation button.ws-tour-visit{border-color:var(--ws-accent);background:color-mix(in srgb,var(--ws-accent),transparent 85%)}
+.ws-tour-navigation button:disabled{opacity:.4;cursor:not-allowed}
+.ws-tour-hint{font-size:.77rem;margin:22px 0 0;color:var(--muted)}
+body[data-theme] .ws-visitor-hub :is(button,textarea):focus-visible,.ws-tour :is(button):focus-visible{outline:3px solid var(--ws-accent);outline-offset:3px}
+@media(max-width:520px){body[data-theme] .ws-hub-actions button{flex:1 1 145px}.ws-tour-navigation button{flex:1 1 44%}}
+@media print{.ws-visitor-hub,.ws-shortlist-toggle,.ws-tour{display:none!important}}
+@media(prefers-reduced-motion:reduce){.ws-tour-shade{backdrop-filter:none}}
