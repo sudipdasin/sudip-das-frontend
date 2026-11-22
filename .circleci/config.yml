@@ -39,8 +39,21 @@ jobs:
             }
             assert.ok(!html.includes('__PUBLIC_')&&!html.includes('__TURNSTILE_SITE_KEY__'),'Unresolved build placeholder');
             assert.ok(!html.includes('Dev Das portrait'),'Fictional buyer identity leaked into real portfolio');
-            assert.ok(html.includes('https://sudip-das-profile-api.sudipdasin.workers.dev'),'Public request API endpoint missing');
             const release=JSON.parse(fs.readFileSync('site-release.json','utf8'));
+            if(release.stage==='preview'){
+              assert.equal(release.preview?.branch,'preview/current-personal-site');
+              assert.equal(release.preview?.privateRequestsEnabled,false);
+              assert.equal(release.preview?.productionApiConnected,false);
+              assert.ok(html.includes('window.PORTFOLIO_PREVIEW_MODE=true'),'Preview guard missing');
+              assert.ok(html.includes('window.PUBLIC_API_BASE=""'),'Preview must not configure the live Worker');
+              assert.ok(html.includes('type="submit" disabled aria-disabled="true"'),'Preview request submit must be disabled');
+              assert.doesNotMatch(html,/sudip-das-profile-api\.sudipdasin\.workers\.dev/,'Preview leaks production API URL');
+              const parity=fs.readFileSync('webstudio-parity.js','utf8');
+              assert.ok(parity.includes('CURRENT PERSONAL PREVIEW'),'Preview visual label missing');
+              assert.ok(!parity.includes('Real projects · Six design experiences · No account required'),'Demo banner reappeared');
+            } else {
+              assert.ok(html.includes('https://sudip-das-profile-api.sudipdasin.workers.dev'),'Production request API endpoint missing');
+            }
             assert.equal(release.privateBackendBundled,false);
             const profile=JSON.parse(fs.readFileSync('data/profile.json','utf8'));
             assert.equal(profile.schemaVersion,1);
