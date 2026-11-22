@@ -14,7 +14,7 @@ const mime={'.html':'text/html;charset=utf-8','.js':'application/javascript;char
 const server=createServer(async (request,response)=>{
  try {
   const path=decodeURIComponent(new URL(request.url,'http://localhost').pathname);
-  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-about.css','/studio-about.js','/studio-creative-lab.css','/studio-creative-lab.js','/studio-launch-audit.css','/studio-launch-audit.js','/webstudio-freemium.css','/webstudio-starter.js','/webstudio-freemium.js','/studio-theme-controls.css','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt'].includes(path)){response.writeHead(404);response.end('Not found');return;}
+  if(!['/','/index.html','/app.js','/premium.css','/premium.js','/studio-features.css','/studio-features.js','/illustrated-developer.svg','/dev-das-portrait.svg','/studio-avatar.css','/studio-avatar.js','/studio-creative-avatar.svg','/avatar-orbit.svg','/avatar-editorial.svg','/avatar-terminal.svg','/avatar-aurora-peak.svg','/avatar-neon-studio.svg','/avatar-design-2.svg','/studio-about.css','/studio-about.js','/studio-creative-lab.css','/studio-creative-lab.js','/studio-launch-audit.css','/studio-launch-audit.js','/webstudio-freemium.css','/webstudio-starter.js','/webstudio-freemium.js','/studio-theme-controls.css','/studio-email.js','/studio-personalization.css','/studio-new-themes.css','/studio-reference-layout.css','/studio-orbit-fidelity.css','/studio-design-one.css','/studio-design-one-highlight-fixes.css','/studio-dual-fidelity.css','/studio-desktop-reference.css','/studio-native-reference-geometry.css','/studio-reference-portrait-placement.css','/studio-utility-unified.css','/studio-cosmic-orbit-fidelity.css','/studio-social.css','/studio-social.js','/studio-desktop-reference.js','/cosmic-reference-wave.svg','/aurora-reference-horizon.svg','/studio-design-two.css','/studio-design-two.js','/studio-reference-layout.js','/neon-horizon.svg','/neon-reference-portrait.svg','/design-two-reference-portrait.svg','/studio-polish.css','/studio-tour.js','/commerce.js','/commerce.json','/studio-product.css','/studio-layout-fixes.css','/studio-visual-final.css','/studio-i18n.js','/studio-ownership.js','/studio-system-menu.css','/studio-system-menu.js','/i18n-product.json','/i18n-ui.json','/i18n-copy.json','/i18n-profile.json','/i18n-dynamic.json','/i18n-theme.json','/profile.json','/robots.txt','/webstudio-editions.json','/webstudio-runtime-manifest.json'].includes(path)){response.writeHead(404);response.end('Not found');return;}
   const file=join(output,path==='/'?'index.html':path.slice(1));
   const bytes=await readFile(file);
   response.writeHead(200,{'content-type':mime[extname(file)]||'text/plain'});response.end(bytes);
@@ -1543,29 +1543,75 @@ try {
       'Focus must return to the visible system menu trigger');
   }finally{await p.close();}
  })();
- await check('Free setup completes five chapters and exports a real ZIP with free-theme isolation',async()=>{
+ await check('Free three-theme dynamic preview requires approval and real feedback receipt',async()=>{
    const p=await browser.newPage({viewport:{width:1280,height:900},acceptDownloads:true});
    try{
      await p.goto(url,{waitUntil:'load'});
-     const section=p.locator('#ws-free-starter');
-     assert.equal(await section.isVisible(),true);
-     assert.equal(await p.locator('#ws-free-theme option').count(),2);
-     await p.locator('#ws-free-export').click();
-     assert.match(await p.locator('#ws-free-status').innerText(),/complete all five/i);
+     assert.equal(await p.locator('#ws-free-theme option').count(),3);
+     assert.equal(await p.locator('#ws-free-export').isDisabled(),true);
      await p.locator('#ws-free-begin').click();
-     assert.equal(await p.locator('#ws-free-onboard').isVisible(),true);
      for(let i=0;i<5;i++)await p.locator('#ws-free-next').click();
-     assert.equal(await p.locator('#ws-free-onboard').isVisible(),false);
-     await p.locator('#ws-free-export').click();
-     assert.match(await p.locator('#ws-free-status').innerText(),/terms/i);
      await p.locator('#ws-free-terms').check();
+     await p.locator('#ws-free-theme').selectOption('terminal');
+     await p.locator('#ws-free-preview').click();
+     const iframe=p.frameLocator('#ws-free-preview-frame');
+     await iframe.locator('#studio-theme').waitFor();
+     assert.equal(await iframe.locator('#projects-section').count(),1,'Must preview the real working site');
+     await p.locator('#ws-free-accept-preview').check();
+     await p.locator('#ws-free-approve').click();
+     assert.match(await p.locator('#ws-free-status').innerText(),/feedback/i);
+     await p.locator('#ws-free-feedback-text').fill('I tested the Terminal theme, personalization, preview rendering, and the project editing system. I would like better mobile navigation and more configurable layouts for a personal site.');
+     await p.locator('#ws-free-feedback').click();
+     assert.match(await p.locator('#ws-free-status').innerText(),/not configured|not acknowledged|remains locked/i);
+     assert.equal(await p.locator('#ws-free-export').isDisabled(),true,'Unverified feedback must never unlock');
      await p.locator('#ws-free-theme').selectOption('editorial');
-     const event=p.waitForEvent('download');
+     assert.equal(await p.locator('#ws-free-export').isDisabled(),true,'Changing theme revokes approval');
+   }finally{await p.close();}
+ })();
+ await check('Free export unlocks only after mocked server receipt and ZIP mirrors runtime',async()=>{
+   const p=await browser.newPage({viewport:{width:1280,height:900},acceptDownloads:true});
+   try{
+     await p.route('**/webstudio-editions.json',route=>{
+       route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({
+         schemaVersion:1,feedback:{endpoint:'https://feedback.test/submit',
+           challengeSiteKey:'test-site-key',requiresPreviewApproval:true}
+       })});
+     });
+     await p.route('**/turnstile/v0/api.js?render=explicit',route=>
+       route.fulfill({status:200,contentType:'application/javascript',
+         body:"window.turnstile={render:function(selector,config){config.callback('valid-test-token');return 1;}};"}));
+     await p.route('https://feedback.test/submit',route=>{
+       if(route.request().method()==='OPTIONS')return route.fulfill({status:204,
+         headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'POST, OPTIONS',
+           'Access-Control-Allow-Headers':'content-type'}});
+       if(route.request().method()!=='POST')return route.fulfill({status:405});
+       const body=JSON.parse(route.request().postData());
+       assert.equal(body.theme,'terminal');
+       assert.ok(body.feedback.length>=60);
+       assert.equal(body.turnstileToken,'valid-test-token');
+       route.fulfill({status:200,headers:{'Access-Control-Allow-Origin':'*','Content-Type':'application/json'},
+         body:JSON.stringify({accepted:true,receiptId:'mail_1234567890abc'})});
+     });
+     await p.goto(url,{waitUntil:'load'});
+     await p.locator('#ws-free-begin').click();
+     for(let i=0;i<5;i++)await p.locator('#ws-free-next').click();
+     await p.locator('#ws-free-terms').check();
+     await p.locator('#ws-free-theme').selectOption('terminal');
+     await p.locator('#ws-free-preview').click();
+     await p.frameLocator('#ws-free-preview-frame').locator('#studio-theme').waitFor();
+     await p.locator('#ws-free-accept-preview').check();
+     await p.locator('#ws-free-approve').click();
+     await p.locator('#ws-free-feedback-text').fill('I reviewed the live Terminal interactive website, saved personal project information, tested responsive navigation and editing, and suggest better animation preferences and a more compact mobile menu.');
+     await p.locator('#ws-free-turnstile[data-verified="true"]').waitFor({state:'attached',timeout:15000});
+     await p.locator('#ws-free-feedback').click();
+     await p.waitForFunction(()=>!document.getElementById('ws-free-export').disabled,undefined,{timeout:20000})
+       .catch(async error=>{throw Error('Feedback receipt did not unlock ZIP: '+await p.locator('#ws-free-status').innerText()+'; '+error.message)});
+     assert.equal(await p.locator('#ws-free-export').isEnabled(),true,'Server receipt must unlock');
+     const downloadEvent=p.waitForEvent('download');
      await p.locator('#ws-free-export').click();
-     const download=await event;
-     assert.equal(download.suggestedFilename(),'WebStudio-Free-editorial-website.zip');
-     assert.match(await p.locator('#ws-free-status').innerText(),/ZIP is ready/i);
-     assert.equal(await p.locator('#studio-theme option').count(),6,'Premium theme previews remain browsable');
+     const download=await downloadEvent;
+     assert.equal(download.suggestedFilename(),'WebStudio-Free-terminal-interactive-website.zip');
+     assert.match(await p.locator('#ws-free-status').innerText(),/Full interactive ZIP generated/i);
    }finally{await p.close();}
  })();
  await page.close();
@@ -1573,5 +1619,5 @@ try {
  await browser.close();
  await new Promise(resolve=>server.close(resolve));
 }
-assert.equal(passed,74);
+assert.equal(passed,75);
 console.log('Browser checks passed: '+passed);

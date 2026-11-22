@@ -37,3 +37,15 @@
 .ws-free-reminder p{margin:0 0 11px;font-size:.85rem}
 @media(max-width:650px){.ws-free-grid,.ws-free-config,.ws-free-chapter{grid-template-columns:1fr}.ws-free-chapter{padding:18px}.ws-free-chapter-art{font-size:4.5rem}.ws-free-config .wide{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){#ws-free-meter{transition:none}}
+
+/* Exact-runtime user preview; any style from the source app is preserved in iframe. */
+#ws-free-preview-panel[hidden],body.ws-embedded-preview #ws-free-starter{display:none!important}
+.ws-free-preview{border:1px solid var(--line);border-radius:18px;padding:14px;margin:22px 0;background:color-mix(in srgb,var(--panel),var(--base) 36%)}
+.ws-free-preview-heading{display:flex;gap:8px;flex-direction:column;padding:10px 6px 15px}
+.ws-free-preview-heading strong{font-size:1.04rem}
+.ws-free-preview-heading span{font-size:.79rem;color:var(--muted)}
+#ws-free-preview-frame{display:block;width:100%;min-height:560px;height:min(80vh,780px);background:#081627;border:1px solid var(--line);border-radius:12px}
+.ws-free-preview .checkline{display:flex;gap:11px;align-items:start;font-size:.84rem;line-height:1.6;max-width:610px}
+.ws-free-preview .checkline input{flex:none;accent-color:var(--accent);width:18px;height:18px;margin-top:4px}
+#ws-free-export:disabled{opacity:.48;cursor:not-allowed}
+@media(max-width:600px){#ws-free-preview-frame{height:70vh;min-height:480px}.ws-free-preview{padding:8px}}

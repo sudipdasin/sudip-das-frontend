@@ -17,6 +17,7 @@ for(const expression of [/sudipdasin/i,/sudipdas\.is-a\.dev/i,/workers\.dev/i,/V
 await rm(output,{recursive:true,force:true});
 await mkdir(output,{recursive:true});
 for(const file of allowlist)await copyFile(join(source,file),join(output,file));
+await writeFile(join(output,'webstudio-runtime-manifest.json'),JSON.stringify({schemaVersion:1,files:allowlist,source:'isolated-webstudio-preview'},null,2)+'\n');
 await writeFile(join(output,'.nojekyll'),'');
 await writeFile(join(output,'robots.txt'),'User-agent: *\nDisallow: /\n');
 console.log('Created isolated demo preview with '+allowlist.join(', '));

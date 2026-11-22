@@ -55,7 +55,7 @@
   }
   const status = message => text('editor-status',message);
   function save() {
-    try {localStorage.setItem(STORAGE_KEY,JSON.stringify(profile));return true;}
+    try {localStorage.setItem(STORAGE_KEY,JSON.stringify(profile));document.dispatchEvent(new Event('studio:profile-saved'));return true;}
     catch {status('Preview updated, but browser storage is unavailable. Export JSON to retain changes.');return false;}
   }
   function draw() {
@@ -247,7 +247,15 @@
     }catch(error){status('Import rejected: '+error.message);}
   });
   // Expose only validated, local recipient configuration to the email composer.
-  window.StudioDemo=Object.freeze({getRecipient:()=>profile?.contact?.email||'',getProfile:()=>profile?structuredClone(profile):null});
+  window.StudioDemo=Object.freeze({getRecipient:()=>profile?.contact?.email||'',
+    getProfile:()=>profile?structuredClone(profile):null,
+    syncFromStorage:()=>{
+      try{
+        const stored=localStorage.getItem(STORAGE_KEY);
+        if(!stored)return false;
+        profile=validateProfile(JSON.parse(stored));populateForm();draw();return true;
+      }catch{return false;}
+    }});
   document.addEventListener('studio:language',()=>{if(profile)draw();});
   fetch('./profile.json',{cache:'no-store'}).then(response=>{
     if(!response.ok)throw Error('Profile sample unavailable');

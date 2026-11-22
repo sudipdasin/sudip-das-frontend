@@ -162,22 +162,22 @@
       <div class="ws-free-head">
         <div><p class="ws-free-label">WEBSTUDIO · FREE COMMUNITY EDITION</p>
           <h2 id="ws-free-heading">Build something worth sharing.</h2>
-          <p>Try the full visual showcase, follow five illustrated chapters, then export a complete manual-deployment website with one of two free themes. No hosting, payment, or sign-up required.</p>
+          <p>Try the full visual showcase, follow five illustrated chapters, then export a complete manual-deployment website with one of three free themes. No hosting, payment, or sign-up required.</p>
         </div>
         <button type="button" class="ws-free-btn" id="ws-free-begin">Start full guided walkthrough</button>
       </div>
       <div class="ws-free-grid" aria-label="Free versus upcoming Pro edition">
         <article class="ws-free-card"><div class="ws-free-tags"><span class="ws-free-tag free">FREE · AVAILABLE NOW</span><span class="ws-free-tag">No payment</span></div>
           <div class="ws-free-candy" role="img" aria-label="Cyan orbital graphic showing the Orbit theme"><span></span></div>
-          <h3>Orbit + Editorial</h3>
-          <p>Two production-ready starter layouts to export, profile editor, editable projects, local JSON and ZIP, responsive navigation, portable HTML/CSS and manual installation instructions.</p>
-          <div class="ws-free-tags"><span class="ws-free-tag">2 exportable themes</span><span class="ws-free-tag">Manual deployment</span><span class="ws-free-tag">Editable project cards</span></div>
+          <h3>Orbit + Editorial + Terminal</h3>
+          <p>Three complete interactive layouts to export, profile editor, editable projects, local JSON and ZIP, responsive navigation, portable HTML/CSS and manual installation instructions.</p>
+          <div class="ws-free-tags"><span class="ws-free-tag">3 exportable themes</span><span class="ws-free-tag">Manual deployment</span><span class="ws-free-tag">Editable project cards</span></div>
         </article>
         <article class="ws-free-card"><div class="ws-free-tags"><span class="ws-free-tag">PRO · COMING SOON</span><span class="ws-free-tag">Not for sale</span></div>
           <div class="ws-free-candy editorial" role="img" aria-label="Warm editorial graphic showing premium design variety"><span></span></div>
           <h3>Expanded creative studio</h3>
-          <p>Terminal, Aurora Peak, Neon Studio and Cosmic premium themes, future hosted publishing, verified accounts, managed backups, advanced plugins and protected server features.</p>
-          <div class="ws-free-tags"><span class="ws-free-tag">4 theme previews</span><span class="ws-free-tag">Planned plugins</span><span class="ws-free-tag">No checkout yet</span></div>
+          <p>Aurora Peak, Neon Studio and Cosmic premium themes, future hosted publishing, verified accounts, managed backups, advanced plugins and protected server features.</p>
+          <div class="ws-free-tags"><span class="ws-free-tag">3 theme previews</span><span class="ws-free-tag">Planned plugins</span><span class="ws-free-tag">No checkout yet</span></div>
         </article>
       </div>
       <div class="ws-free-chapter" id="ws-free-onboard" hidden aria-labelledby="ws-free-tour-title">
@@ -195,29 +195,43 @@
       </div>
       <div class="ws-free-config">
         <label>Free export theme
-          <select id="ws-free-theme" aria-label="Choose one of two exportable free themes"><option value="orbit">Orbit · Free</option><option value="editorial">Editorial · Free</option></select>
+          <select id="ws-free-theme" aria-label="Choose one of three exportable free themes"><option value="orbit">Orbit · Free</option><option value="editorial">Editorial · Free</option><option value="terminal">Terminal · Free</option></select>
         </label>
         <label>Feedback reply email (optional)
           <input id="ws-free-reply" type="email" maxlength="180" autocomplete="email" placeholder="you@example.com" aria-describedby="ws-free-email-note">
         </label>
-        <p class="ws-free-hint wide" id="ws-free-email-note">Email format is checked locally. Email ownership is NOT verified; accounts and verification links require a future secure backend. This address is not uploaded to WebStudio.</p>
+        <p class="ws-free-hint wide" id="ws-free-email-note">Optional reply address. Format is checked locally; email ownership is not verified. Your feedback and optional reply email are shared only when you choose to send feedback.</p>
         <label class="wide checkline"><input id="ws-free-terms" type="checkbox" required>
-          I understand that this is a local, static Free export; public HTML/CSS/JavaScript are readable, sensitive secrets must never be included, and I must set up my own hosting. No automatic deployment or encrypted server vault is supplied.</label>
-        <label class="wide">Detailed product feedback (20–1800 characters)
+          I understand that this is a locally generated interactive Free website; public HTML/CSS/JavaScript are readable, sensitive secrets must never be included, and I must set up my own hosting. No automatic deployment or encrypted server vault is supplied. Feedback is required before ZIP export.</label>
+        <label class="wide">Required detailed product feedback (60–1800 characters)
           <textarea id="ws-free-feedback-text" maxlength="1800" rows="3" placeholder="What worked well? What should be improved? Which theme or feature would help most?"></textarea>
         </label>
       </div>
       <div class="ws-free-row">
-        <button type="button" class="ws-free-btn" id="ws-free-export">Export my complete Free website ZIP</button>
-        <button type="button" class="ws-free-btn secondary" id="ws-free-feedback">Compose developer feedback</button>
-        <button type="button" class="ws-free-btn secondary" id="ws-free-edit">Open demo editor</button>
+        <button type="button" class="ws-free-btn" id="ws-free-preview">1 · Open exact interactive preview</button>
+        <button type="button" class="ws-free-btn secondary" id="ws-free-edit">Edit personal details</button>
+      </div>
+      <div class="ws-free-preview" id="ws-free-preview-panel" hidden>
+        <div class="ws-free-preview-heading"><strong>Live, interactive site preview — selected Free theme</strong><span>Actual WebStudio runtime, not a screenshot or static mockup</span></div>
+        <iframe id="ws-free-preview-frame" title="Interactive personalized website approval preview" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-downloads"></iframe>
+        <div class="ws-free-row">
+          <label class="checkline"><input type="checkbox" id="ws-free-accept-preview"> I have inspected this preview and approve this exact theme and saved profile.</label>
+          <button type="button" class="ws-free-btn secondary" id="ws-free-approve">2 · Approve preview</button>
+        </div>
+        <p class="ws-free-hint">Changing your saved profile or Free theme invalidates this approval. Review the refreshed preview again before generation.</p>
+      </div>
+      <div id="ws-free-turnstile" aria-label="Feedback anti-spam challenge" hidden></div>
+      <div class="ws-free-row">
+        <button type="button" class="ws-free-btn secondary" id="ws-free-feedback">3 · Submit detailed feedback</button>
+        
+        <button type="button" class="ws-free-btn" id="ws-free-export" disabled>4 · Generate and download interactive website ZIP</button>
       </div>
       <div id="ws-free-status" class="ws-free-status" role="status" aria-live="polite"></div>
       <div class="ws-free-reminder" id="ws-free-reminder" hidden>
         <p>It's been around 48 hours since you started the Free edition. Your detailed feedback would help improve the next release. Features and previously exported websites remain usable.</p>
         <button type="button" class="ws-free-btn secondary" id="ws-free-reminder-dismiss">Dismiss reminder</button>
       </div>
-      <p class="ws-free-hint">Free is fully usable without telemetry or verified accounts. Premium previews are illustrative and not licensed for Free export. Feedback opens your own mail app; delivery is not tracked.</p>
+      <p class="ws-free-hint">Only the approved Free preview can be exported after verified feedback delivery. Feedback requires confirmed receipt from the configured server before ZIP generation. The website never treats opening an email draft as proof of submission. Premium previews are not included in the Free license.</p>
     </section>
       <div class="studio-ticker" aria-label="Skills and interests"><div class="ticker-track" aria-hidden="true"><span>CREATIVE ENGINEERING <b>✦</b></span><span>WEB EXPERIENCES <b>✦</b></span><span>ACCESSIBLE DESIGN <b>✦</b></span><span>IDEAS INTO PRODUCTS <b>✦</b></span><span>CREATIVE ENGINEERING <b>✦</b></span><span>WEB EXPERIENCES <b>✦</b></span><span>ACCESSIBLE DESIGN <b>✦</b></span><span>IDEAS INTO PRODUCTS <b>✦</b></span></div></div>
       <section class="usp-section" id="studio-platform" aria-labelledby="usp-heading">
