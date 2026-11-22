@@ -577,3 +577,56 @@ body.ws-parity[data-theme="design-2"] .project:nth-child(4n){
 }
 html[dir="rtl"] body.ws-parity .hero .hero-copy{border-left:0;border-right:3px solid var(--ws-accent);padding-left:0;padding-right:20px}
 html[dir="rtl"] body.ws-parity .ws-visitor-quick{left:16px;right:auto}
+
+
+/* Exact compositional distinction: five labeled Aurora orbit chips. */
+@media(min-width:981px){
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip{
+    left:auto!important;right:-2%!important;
+    min-width:102px;max-width:160px;justify-content:flex-start;
+    font-size:.64rem;white-space:nowrap;padding:7px 11px;
+    border-radius:8px;box-shadow:0 0 16px #02dafb2e;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="a"]{top:6%!important}
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="b"]{top:24%!important}
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="c"]{top:42%!important;bottom:auto!important}
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="d"]{top:60%!important}
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="e"]{top:78%!important}
+}
+/* Cosmic satellite orbit differs from Aurora's labeled callouts:
+ * four equal radial icon bubbles, not a vertical text list. */
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip{
+  width:clamp(43px,3.7vw,59px);
+  height:clamp(43px,3.7vw,59px);
+  min-width:0;min-height:0;
+  display:grid;place-items:center;
+  padding:0;border-radius:50%;
+  font-size:clamp(1.1rem,1.3vw,1.5rem);font-weight:800;
+  color:#d6faff;background:linear-gradient(145deg,#0c3066,#140f3f);
+  border:1px solid #33c9ffb5;
+  box-shadow:0 0 20px #1b8cfb65,inset 0 0 10px #6553e638;
+}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="a"]{top:8%;left:50%;right:auto;transform:translateX(-50%)}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="b"]{top:43%;left:3%;right:auto}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="c"]{top:43%;right:3%;left:auto;bottom:auto}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="d"]{bottom:6%;left:50%;right:auto;top:auto;transform:translateX(-50%)}
+@media(max-width:980px){
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip{
+    font-size:.6rem;max-width:140px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip[data-pos="d"]{top:62%;left:0;right:auto}
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip[data-pos="e"]{top:76%;right:0;left:auto}
+  body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="a"]{top:3%;left:50%;right:auto;transform:translateX(-50%)}
+  body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="b"]{top:37%;left:0;right:auto}
+  body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="c"]{top:37%;right:0;left:auto;bottom:auto}
+  body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip[data-pos="d"]{bottom:0;left:50%;right:auto;top:auto;transform:translateX(-50%)}
+}
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip{max-width:105px;font-size:.55rem;padding:4px 6px;min-height:25px}
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip[data-pos="a"]{top:6%;right:0;left:auto}
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip[data-pos="b"]{top:26%;left:0;right:auto}
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip[data-pos="c"]{top:47%;right:0;left:auto;bottom:auto}
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip[data-pos="d"]{top:65%;left:0;right:auto}
+  body.ws-parity[data-theme="neon-studio"] .hero-art .ws-orbit-chip[data-pos="e"]{top:83%;right:0;left:auto}
+  body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip{width:39px;height:39px;font-size:1rem}
+}
