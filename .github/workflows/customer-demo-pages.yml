@@ -13,6 +13,7 @@ on:
       - 'browser-tests/customer-demo.mjs'
       - 'tests/webstudio-freemium.test.mjs'
       - 'tests/webstudio-dynamic-export.test.mjs'
+      - 'tests/webstudio-archive-encryption.test.mjs'
       - 'tests/webstudio-feedback-worker.test.mjs'
       - 'services/webstudio-feedback/**'
       - '.github/workflows/customer-demo-pages.yml'
@@ -27,6 +28,7 @@ on:
       - 'browser-tests/customer-demo.mjs'
       - 'tests/webstudio-freemium.test.mjs'
       - 'tests/webstudio-dynamic-export.test.mjs'
+      - 'tests/webstudio-archive-encryption.test.mjs'
       - 'tests/webstudio-feedback-worker.test.mjs'
       - 'services/webstudio-feedback/**'
       - '.github/workflows/customer-demo-pages.yml'
@@ -63,8 +65,10 @@ jobs:
           node --check examples/customer-demo/studio-desktop-reference.js
           node --check examples/customer-demo/studio-email.js
           node --check examples/customer-demo/commerce.js
+          node --check examples/customer-demo/webstudio-package-crypto.js
+          node --check examples/customer-demo/webstudio-decrypt.mjs
           node --check scripts/build-customer-demo.mjs
-          node --test tests/customer-demo.test.mjs tests/customer-demo-build.test.mjs tests/demo-i18n.test.mjs tests/avatar-studio.test.mjs tests/personal-port-contract.test.mjs tests/webstudio-freemium.test.mjs tests/webstudio-dynamic-export.test.mjs tests/webstudio-feedback-worker.test.mjs
+          node --test tests/customer-demo.test.mjs tests/customer-demo-build.test.mjs tests/demo-i18n.test.mjs tests/avatar-studio.test.mjs tests/personal-port-contract.test.mjs tests/webstudio-freemium.test.mjs tests/webstudio-dynamic-export.test.mjs tests/webstudio-archive-encryption.test.mjs tests/webstudio-feedback-worker.test.mjs
       - name: Install headless Chromium for real browser tests
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
