@@ -1,102 +1,72 @@
-name: Publish fictional customer demo preview
+# Only activate AFTER private-source build has populated public-pages/
+# and a backup of the existing public Pages workflow is verified.
+# Replace .github/workflows/customer-demo-pages.yml with this file.
+name: Deploy reviewed WebStudio public build
 on:
   push:
     branches: [main]
     paths:
-      - 'examples/customer-demo/**'
-      - 'scripts/build-customer-demo.mjs'
-      - 'scripts/verify-customer-demo.mjs'
-      - 'contracts/personal-port-v1.json'
-      - 'tests/personal-port-contract.test.mjs'
-      - 'tests/customer-demo*.test.mjs'
-      - 'tests/avatar-studio.test.mjs'
-      - 'browser-tests/customer-demo.mjs'
-      - 'tests/webstudio-freemium.test.mjs'
-      - 'tests/webstudio-dynamic-export.test.mjs'
-      - 'tests/webstudio-archive-encryption.test.mjs'
-      - 'tests/webstudio-feedback-worker.test.mjs'
-      - 'services/webstudio-feedback/**'
-      - '.github/workflows/customer-demo-pages.yml'
-  pull_request:
-    paths:
-      - 'examples/customer-demo/**'
-      - 'scripts/build-customer-demo.mjs'
-      - 'scripts/verify-customer-demo.mjs'
-      - 'contracts/personal-port-v1.json'
-      - 'tests/personal-port-contract.test.mjs'
-      - 'tests/customer-demo*.test.mjs'
-      - 'browser-tests/customer-demo.mjs'
-      - 'tests/webstudio-freemium.test.mjs'
-      - 'tests/webstudio-dynamic-export.test.mjs'
-      - 'tests/webstudio-archive-encryption.test.mjs'
-      - 'tests/webstudio-feedback-worker.test.mjs'
-      - 'services/webstudio-feedback/**'
-      - '.github/workflows/customer-demo-pages.yml'
+      - "public-pages/**"
+      - ".github/workflows/customer-demo-pages.yml"
   workflow_dispatch:
-
 permissions:
   contents: read
-
 concurrency:
-  group: customer-demo-github-pages-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
+  group: webstudio-public-artifact-deploy
   cancel-in-progress: false
-
 jobs:
-  build:
-    name: Build and validate isolated preview
+  verify:
+    name: Verify public-only WebStudio Pages artifact
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - name: Test fictional customer demo
+          node-version: "22"
+      - name: Check artifact and preserve personal Cloudflare site
+        shell: bash
         run: |
-          node --check examples/customer-demo/app.js
-          node --check examples/customer-demo/studio-avatar.js
-          node --check examples/customer-demo/premium.js
-          node --check examples/customer-demo/studio-features.js
-          node --check examples/customer-demo/studio-tour.js
-          node --check examples/customer-demo/studio-i18n.js
-          node --check examples/customer-demo/studio-ownership.js
-          node --check examples/customer-demo/studio-system-menu.js
-          node --check examples/customer-demo/studio-reference-layout.js
-          node --check examples/customer-demo/studio-design-two.js
-          node --check examples/customer-demo/studio-desktop-reference.js
-          node --check examples/customer-demo/studio-email.js
-          node --check examples/customer-demo/commerce.js
-          node --check examples/customer-demo/webstudio-package-crypto.js
-          node --check examples/customer-demo/webstudio-decrypt.mjs
-          node --check scripts/build-customer-demo.mjs
-          node --test tests/customer-demo.test.mjs tests/customer-demo-build.test.mjs tests/demo-i18n.test.mjs tests/avatar-studio.test.mjs tests/personal-port-contract.test.mjs tests/webstudio-freemium.test.mjs tests/webstudio-dynamic-export.test.mjs tests/webstudio-archive-encryption.test.mjs tests/webstudio-feedback-worker.test.mjs
-      - name: Install headless Chromium for real browser tests
-        run: |
-          npm install --no-save --no-package-lock playwright@1.56.1
-          npx playwright install --with-deps chromium
-      - name: Verify wizard in Chromium
-        run: node browser-tests/customer-demo.mjs
-      - name: Upload desktop and mobile visual audit
-        if: always()
-        uses: actions/upload-artifact@v4
+          set -Eeuo pipefail
+          test -s public-pages/index.html
+          test -s public-pages/app.js
+          test -s public-pages/profile.json
+          test -s public-pages/webstudio-runtime-manifest.json
+          test -s index.html
+          test -s languages.js
+          test -s scripts/repo-discovery.js
+          test -s sudip-das-portrait.jpg
+          test ! -L public-pages
+          node --check public-pages/app.js
+          node --check scripts/repo-discovery.js
+          node <<'NODE'
+          const fs=require('node:fs'),path=require('node:path');
+          const dir='public-pages';
+          const manifest=JSON.parse(fs.readFileSync(path.join(dir,'webstudio-runtime-manifest.json'),'utf8'));
+          const profile=JSON.parse(fs.readFileSync(path.join(dir,'profile.json'),'utf8'));
+          if(manifest.schemaVersion!==1||!Array.isArray(manifest.files)||manifest.files.length<40||
+             profile.demo!==true||profile.identity?.displayName!=='Dev Das')
+            throw Error('Invalid isolated fictional WebStudio artifact');
+          const reserved=/(^|\/)(private|secrets|node_modules|backups)(\/|$)|\.map$|\.(env|pem|key|p12|db|sqlite)$/i;
+          for(const name of manifest.files){
+            if(!/^[a-z0-9][a-z0-9._-]*$/i.test(name)||reserved.test(name)||
+               !fs.statSync(path.join(dir,name)).isFile())
+              throw Error('Missing/unsafe published WebStudio asset: '+name);
+          }
+          const files=fs.readdirSync(dir);
+          for(const name of files){
+            if(reserved.test(name)||fs.lstatSync(path.join(dir,name)).isSymbolicLink())
+              throw Error('Unexpected file in Pages deployment: '+name);
+          }
+          console.log('Public-only WebStudio build accepted: '+manifest.files.length+' client files');
+          NODE
+      - uses: actions/upload-pages-artifact@v4
         with:
-          name: neon-visual-audit-${{ github.run_id }}
-          path: dist/visual-audit/
-          if-no-files-found: ignore
-          retention-days: 14
-      - name: Produce isolated Pages artifact
-        run: node scripts/build-customer-demo.mjs
-      - name: Verify built preview and inspect for accidental secrets
-        run: node scripts/verify-customer-demo.mjs
-      - name: Upload deployment artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: dist/customer-demo-preview
-
+          path: public-pages
   deploy:
-    name: Deploy GitHub Pages preview
+    name: Deploy existing GitHub Pages destination
+    needs: verify
     if: github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       pages: write
       id-token: write
@@ -105,8 +75,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Prepare GitHub Pages
-        uses: actions/configure-pages@v5
-      - name: Deploy isolated demo
+      - uses: actions/configure-pages@v5
+      - uses: actions/deploy-pages@v4
         id: deployment
-        uses: actions/deploy-pages@v4

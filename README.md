@@ -1,53 +1,56 @@
-# Sudip Das — Public Portfolio Frontend
+# Public website deployment artifacts
 
-This public repository is the **authoritative frontend** for Profile Website Project V2.
+This repository remains **public** because the owner uses GitHub Free and
+must keep the existing GitHub Pages address accessible without upgrading.
 
-The backend is developed separately in the **private** `sudipdasin/sudip-das-backend` repository. The earlier private `sudipdasin/sudip-das-profile` repository is retained as migration history until its Worker and encrypted-profile workflows have been safely transferred and independently verified.
+## Two independent live websites
 
-## Files
+| Website | Public URL | Files in this repository |
+| --- | --- | --- |
+| Personal portfolio | https://sudipdas.is-a.dev/ and https://sudip-das-frontend.pages.dev/ | Root `index.html`, `languages.js`, public portrait, `data/` and `scripts/repo-discovery.js` |
+| Fictional WebStudio | https://sudipdasin.github.io/sudip-das-frontend/ | Prebuilt website in `public-pages/` |
 
-- `index.html` — website page and styles
-- `languages.js` — translations and multilingual content
-- `sudip-das-portrait.jpg` — public portfolio portrait
+**These are separate websites.** The Cloudflare Pages hostname and custom
+domain are two ways to access the personal site, and the GitHub Pages URL is
+WebStudio's interactive fictional demo. Neither project should overwrite the
+other.
 
-## Deployment and portability
+## Release model
 
-This is a plain static website. Deploy the same HTML, JavaScript, and public assets to Cloudflare Pages, GitHub Pages, Netlify, Vercel, or any compatible static host. The preferred domain is `sudipdas.is-a.dev`, **subject to actual DNS registration and TLS verification**. Do not assume the domain is active merely because it is named in configuration.
+Development source, tests, generator, private services and future Pro code
+are maintained in a **separate private source repository**. Approved
+WebStudio output is built and tested there. A credential scoped solely to
+this public repository allows the private release workflow to update only
+`public-pages/` on the public `main` branch.
 
-Before changing providers:
+GitHub Pages' repository-side workflow **deploys** that prebuilt directory;
+it does not rebuild from private source. Public frontend code (HTML, CSS,
+JavaScript, image assets and any embedded data) is necessarily inspectable
+by users of the website and must contain no private logic or credentials.
 
-1. Create a preview deployment on the new host.
-2. Check desktop and mobile layouts, language switching, project links, and contact form behavior.
-3. Confirm the backend permits the new origin and the CAPTCHA provider allows the new hostname.
-4. Verify HTTPS, API health, form delivery and response handling.
-5. Change DNS only after the target is proven working; keep the old host available for rollback.
+## Security boundaries
 
-## Security boundary
+- Never commit backend code, API credentials, encryption keys, customer data,
+  private release tokens, or proprietary Pro algorithms.
+- The personal Cloudflare homepage at the root is a distinct deployment
+  target and must not be changed by WebStudio releases.
+- The private CI pipeline must reject deployment artifacts containing
+  sensitive files before copying them here.
+- Preserving a private source repository **does not retract previously
+  published Git history, forks, cached files or downloaded code**.
+- GitHub Pages remains publicly accessible; the source repository may be
+  private, but compiled/distributed browser assets remain public.
 
-Do not commit passwords, API tokens, private profile records, D1 database exports, OAuth secrets, encrypted-vault private keys, or restricted personal data here. Static deployment files are **publicly accessible**, even if a host interface labels them private. Backend application code and migrations remain in the private repository.
+## Recovery
 
-Changes must be validated through preview deployment before promotion. Production publication and DNS changes are intentionally separate operations.
+The owner retains protected pre-migration backup branches on this public
+repository and the original history is mirrored to the private source.
+A deployment rollback should restore the last known-good `public-pages/`
+artifact, not force-rewrite the public repository history.
 
-## Dev Das Web Studio — primary GitHub Pages destination
+## Release prerequisites
 
-The owner-designated public URL for the **fictional Dev Das Web Studio demo** is:
-
-https://sudipdasin.github.io/sudip-das-frontend/
-
-To update that URL, change the authoritative files under `examples/customer-demo/`, include regression tests, and merge the verified changes into `main`. The existing `.github/workflows/customer-demo-pages.yml` builds the isolated allowlisted demo, tests it in Chromium, and deploys `dist/customer-demo-preview/` to GitHub Pages.
-
-Do **not** assume that changes to the portfolio-root `index.html` or the separate `preview/neon-studio/` page will appear at that GitHub Pages address. Keep personal-portfolio and fictional-demo identities separate. Do not include confidential credentials, live profile data, or a real portrait in the fictional sample.
-
-Features without working implementations must be visibly disabled and not simulate success. Preserve the working local editor, backup import/export, language picker, theme switcher and email-composition flow.
-
-## Fictional customer web preview
-
-A separate fictional buyer demo resides in [`examples/customer-demo/`](examples/customer-demo/README.md). The GitHub Pages workflow publishes an allowlisted copy of that demo rather than the personal website. The live preview address should only be used after a successful `Publish fictional customer demo preview` Actions deployment.
-
-Preview locally:
-
-```sh
-python3 -m http.server 8000
-```
-
-Open `http://localhost:8000/examples/customer-demo/`.
+A new private-source build must pass unit tests, browser acceptance,
+artifact inspection and manual or explicitly enabled automatic publishing.
+Do not turn on the private publisher until the public deployment-only
+cutover is complete and both URLs have been independently verified.
