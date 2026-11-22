@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-port-v0.9",
+  "release": "webstudio-personal-parity-PREVIEW-20261122",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -9,8 +9,12 @@
     "portfolio-gallery",
     "visitor-hub",
     "local-appearance",
-    "private-request-consent"
+    "private-request-consent",
+    "webstudio-reference-compositions",
+    "studio-system-menu",
+    "six-visual-layouts"
   ],
-  "source": "approved-public-artifact-only",
-  "privateBackendBundled": false
+  "source": "reviewed-private-source-public-only-preview",
+  "privateBackendBundled": false,
+  "stage": "preview-not-production"
 }
