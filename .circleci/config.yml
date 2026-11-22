@@ -30,6 +30,7 @@ jobs:
             node --check webstudio-parity.js
             node --check scripts/verify-six-theme-fidelity.mjs
             node scripts/verify-six-theme-fidelity.mjs
+            # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
             const fs=require('node:fs');
             const assert=require('node:assert/strict');
@@ -111,7 +112,7 @@ jobs:
             import {chromium} from 'playwright';
             const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
             try{
-              for(const width of [1440,820,390]){
+              for(const width of [1833,1777,1672,1440,820,390]){
                 const page=await browser.newPage({viewport:{width,height:900}});
                 try{
                   const r=await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
@@ -153,6 +154,29 @@ jobs:
                       return {hero:rect(hero),title:rect(title),portrait:rect(portrait),overflow:document.documentElement.scrollWidth-innerWidth};
                     });
                     assert.ok(snapshot.hero.width>200&&snapshot.portrait.width>100,'Missing theme composition '+theme);
+                    if(theme==='design-2'){
+                      const orbit=await page.evaluate(()=>{
+                        const a=document.querySelector('.hero-art').getBoundingClientRect();
+                        const chips=[...document.querySelectorAll('.hero-art .ws-orbit-chip')];
+                        const css=getComputedStyle(document.querySelector('.hero-art'));
+                        const radius=parseFloat(css.getPropertyValue('--wf-orbit-size'))||0;
+                        const centers=chips.map(el=>{
+                          const r=el.getBoundingClientRect();
+                          return {x:r.x+r.width/2-a.x-a.width/2,y:r.y+r.height/2-a.y-a.height/2};
+                        });
+                        const quick=document.querySelector('#ws-visitor-quick-open');
+                        return {chips:centers,quickDocked:quick?.parentElement?.parentElement?.matches('.topbar .nav'),navX:document.querySelector('.topbar .nav').getBoundingClientRect().left,position:getComputedStyle(quick?.parentElement).position};
+                      });
+                      assert.equal(orbit.chips.length,4,'Cosmic needs four satellites');
+                      assert.ok(orbit.quickDocked,'Quick Actions must be docked in header');
+                      assert.notEqual(orbit.position,'fixed','Quick Actions must not obscure content');
+                      assert.ok(orbit.navX>=10,'Brand is flush against viewport edge');
+                      assert.ok(orbit.chips[0].x>0&&orbit.chips[0].y<0,'Top satellite angle incorrect');
+                      assert.ok(orbit.chips[1].x>0&&orbit.chips[1].y>=0,'Right satellite angle incorrect');
+                      assert.ok(orbit.chips[2].x<0&&orbit.chips[2].y>0,'Lower-left satellite angle incorrect');
+                      assert.ok(orbit.chips[3].x>0&&orbit.chips[3].y>0,'Lower-right satellite angle incorrect');
+                    }
+
                     assert.ok(snapshot.overflow<=3,'Horizontal overflow '+theme+'/'+width+': '+snapshot.overflow);
                     console.log('PASS visual geometry '+theme+' at '+width+'px',JSON.stringify(snapshot));
                   }
