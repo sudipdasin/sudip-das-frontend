@@ -1,0 +1,69 @@
+# Install as .github/workflows/validate.yml ONLY after verified private
+# migration and after public-pages/ contains the tested WebStudio build.
+name: Public deployment-only repository validation
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate separate personal Cloudflare and fictional WebStudio artifacts
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          test -s index.html
+          test -s languages.js
+          test -s sudip-das-portrait.jpg
+          test -s data/site.json
+          test -s data/site.xml
+          test -s _headers
+          test -s 404.html
+          test -s public-pages/index.html
+          test -s public-pages/app.js
+          test -s public-pages/profile.json
+          test -s public-pages/webstudio-runtime-manifest.json
+          test ! -e examples/customer-demo
+          test ! -e services/webstudio-feedback
+          test ! -e browser-tests
+          test ! -e tests
+          test ! -e migration
+          test ! -e .circleci
+          node --check languages.js
+          node --check public-pages/app.js
+          node <<'NODE'
+          const fs=require('node:fs');
+          const path=require('node:path');
+          const root=JSON.parse(fs.readFileSync('data/site.json','utf8'));
+          const profile=JSON.parse(fs.readFileSync('public-pages/profile.json','utf8'));
+          const manifest=JSON.parse(fs.readFileSync('public-pages/webstudio-runtime-manifest.json','utf8'));
+          if(profile.schemaVersion!==1||profile.demo!==true||
+             profile.identity?.displayName!=='Dev Das')
+            throw Error('Public demo contains unexpected profile identity');
+          if(!Array.isArray(manifest.files)||manifest.files.length<40||
+             manifest.files.length>120)throw Error('Invalid Pages artifact manifest');
+          const publicRoot=fs.readFileSync('index.html','utf8');
+          if(!/<html\b/i.test(publicRoot))throw Error('Personal Cloudflare HTML missing');
+          const seen=new Set();
+          for(const name of manifest.files){
+            if(seen.has(name)||!/^[a-z0-9][a-z0-9._-]*$/i.test(name))
+              throw Error('Duplicate/unsafe asset name: '+name);
+            seen.add(name);
+            const location=path.join('public-pages',name);
+            if(!fs.existsSync(location)||!fs.statSync(location).isFile())
+              throw Error('Missing public asset: '+name);
+          }
+          const names=fs.readdirSync('public-pages');
+          for(const name of names){
+            if(/(^\.|\.map$|\.(?:env|pem|key|sqlite|db)$)/i.test(name) && name!=='.nojekyll')
+              throw Error('Unexpected sensitive artifact: '+name);
+          }
+          console.log('Deployment-only repo and separated identities verified.');
+          NODE
