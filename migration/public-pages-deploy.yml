@@ -33,9 +33,11 @@ jobs:
           test -s public-pages/webstudio-runtime-manifest.json
           test -s index.html
           test -s languages.js
+          test -s scripts/repo-discovery.js
           test -s sudip-das-portrait.jpg
           test ! -L public-pages
           node --check public-pages/app.js
+          node --check scripts/repo-discovery.js
           node <<'NODE'
           const fs=require('node:fs'),path=require('node:path');
           const dir='public-pages';
