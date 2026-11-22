@@ -31,7 +31,7 @@
   banner.setAttribute('role','region');
   banner.setAttribute('aria-label','Personal portfolio information');
   const brand=node('strong','','SUDIP DAS / INTERACTIVE PORTFOLIO');
-  const rhs=node('span','ws-utility-right','Real projects · Six design experiences · No account required');
+  const rhs=node('span','ws-utility-right','CURRENT PERSONAL PREVIEW · Private requests disabled');
   banner.append(brand,rhs);
   document.querySelector('.topbar')?.before(banner);
   const opener=node('button','ws-studio-toggle','✦ Studio & system');
