@@ -22,6 +22,39 @@ jobs:
             test -s sudip-das-portrait.jpg
             test -s data/profile.json
             test -s site-release.json
+            node --check functions/_middleware.js
+            node --input-type=module <<'SECURITY_TEST'
+            import assert from 'node:assert/strict';
+            import {createHash} from 'node:crypto';
+            import {onRequest} from './functions/_middleware.js';
+            const pass = 'temporary-long-random-test-password-2026-not-a-secret';
+            const hash = createHash('sha256').update(pass).digest('hex');
+            const origin = 'https://preview-personalweb.sudip-das-frontend.pages.dev/';
+            const make = (auth,hostname=origin) => {
+              let forwarded=0;
+              return {
+                context: {
+                  request:new Request(hostname,{headers:auth?{authorization:'Basic '+Buffer.from('owner:'+auth).toString('base64')}: {}}),
+                  env:{PREVIEW_GATE_PASSWORD_SHA256:hash},
+                  next:async()=>{forwarded++;return new Response('ok')},
+                },
+                count:()=>forwarded,
+              };
+            };
+            for(const bad of ['', 'wrong-password-not-authorized']){
+              const x=make(bad);const response=await onRequest(x.context);
+              assert.equal(response.status,401);assert.equal(x.count(),0);
+              assert.match(response.headers.get('WWW-Authenticate'),/^Basic /);
+            }
+            const a=make(pass);const good=await onRequest(a.context);
+            assert.equal(good.status,200);assert.equal(a.count(),1);
+            assert.equal(good.headers.get('Cache-Control'),'private, no-store, max-age=0');
+            const b=make(pass,'https://sudipdas.is-a.dev/');const invalidHost=await onRequest(b.context);
+            assert.equal(invalidHost.status,503);assert.equal(b.count(),0);
+            const c=make(pass);delete c.context.env.PREVIEW_GATE_PASSWORD_SHA256;
+            const missing=await onRequest(c.context);assert.equal(missing.status,503);assert.equal(c.count(),0);
+            console.log('PASS: preview auth gate rejects bad, missing and wrong host; permits valid secret only');
+            SECURITY_TEST
             node --check languages.js
             node --check webstudio-visual-port.js
             node --check webstudio-portfolio-gallery.js
