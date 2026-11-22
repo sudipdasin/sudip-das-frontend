@@ -15,7 +15,7 @@ This checkbox defaults to on and requires an owner-only passphrase of
    passphrase via PBKDF2-HMAC-SHA-256 with **310,000 iterations**.
 4. Authenticates the entire archive plus its encrypted-header metadata.
 5. Saves an outer ZIP containing `site/encrypted-site.wsenc`, a separate
-   `site/webstudio-package-crypto.js` decryption library,
+   `site/webstudio-package-crypto.cjs` decryption library,
    `site/decrypt.mjs` (offline Node.js utility), and
    `site/HOW-TO-DECRYPT.txt`. The plaintext site is **not** added to the
    outer ZIP, and the passphrase is neither transmitted, logged nor stored.
