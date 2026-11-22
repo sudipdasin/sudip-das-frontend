@@ -88,7 +88,10 @@ footer{border-top:1px solid var(--line);padding:24px 0 48px;color:var(--muted)}
   const chunks=[],central=[];let offset=0;
   for(const [path,content] of entries){
    if(!/^[a-zA-Z0-9._/-]+$/.test(path)||path.startsWith('/')||path.split('/').includes('..'))throw Error('Unsafe export path');
-   const data=utf8.encode(String(content)),name=utf8.encode('site/'+path);
+   const data=ArrayBuffer.isView(content)
+    ?new Uint8Array(content.buffer,content.byteOffset,content.byteLength)
+    :utf8.encode(String(content));
+   const name=utf8.encode('site/'+path);
    if(data.length>1024*1024)throw Error('Export file exceeds size limit');
    const sum=crc32(data),local=new Uint8Array(30),l=new DataView(local.buffer);
    l.setUint32(0,0x04034b50,true);l.setUint16(4,20,true);l.setUint16(6,0x800,true);
