@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-parity-v1.0.0",
+  "release": "webstudio-personal-current-preview-v1.0.0",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -16,7 +16,16 @@
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
-  "stage": "production",
+  "stage": "preview",
   "verifiedPrivateSourceCommit": "4b2b49ee6670e3c0a4bdceb22a80274f2abf679f",
-  "ciProvider": "CircleCI"
+  "ciProvider": "CircleCI",
+  "preview": {
+    "role": "CURRENT_PERSONAL_PREVIEW",
+    "branch": "preview/current-personal-site",
+    "productionSourceCommit": "ff4a3b4260d9b770972013928b0865bfc196de60",
+    "privateRequestsEnabled": false,
+    "productionApiConnected": false,
+    "productionPromotionApproved": false,
+    "notes": "Single designated current personal-site preview. Historical immutable deployments remain archived; this is not the newer private PR #15 redesign."
+  }
 }
