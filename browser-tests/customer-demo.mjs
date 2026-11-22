@@ -1602,7 +1602,7 @@ try {
      await p.locator('#ws-free-accept-preview').check();
      await p.locator('#ws-free-approve').click();
      await p.locator('#ws-free-feedback-text').fill('I reviewed the live Terminal interactive website, saved personal project information, tested responsive navigation and editing, and suggest better animation preferences and a more compact mobile menu.');
-     await p.locator('#ws-free-turnstile[data-verified="true"]').waitFor({timeout:15000});
+     await p.locator('#ws-free-turnstile[data-verified="true"]').waitFor({state:'attached',timeout:15000});
      await p.locator('#ws-free-feedback').click();
      await p.waitForFunction(()=>!document.getElementById('ws-free-export').disabled,undefined,{timeout:20000})
        .catch(async error=>{throw Error('Feedback receipt did not unlock ZIP: '+await p.locator('#ws-free-status').innerText()+'; '+error.message)});
