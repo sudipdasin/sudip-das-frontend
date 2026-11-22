@@ -27,6 +27,9 @@ jobs:
             node --check webstudio-portfolio-gallery.js
             node --check webstudio-visitor-hub.js
             node --check scripts/repo-discovery.js
+            node --check webstudio-parity.js
+            node --check scripts/verify-six-theme-fidelity.mjs
+            node scripts/verify-six-theme-fidelity.mjs
             node <<'JS'
             const fs=require('node:fs');
             const assert=require('node:assert/strict');
@@ -133,6 +136,26 @@ jobs:
                   assert.equal(await page.locator('#ws-visitor-hub').count(),1);
                   await page.locator('#theme-select').selectOption('design-2');
                   assert.equal(await page.locator('body').getAttribute('data-theme'),'design-2');
+                  // 6-theme × 3-width geometry and permission matrix
+                  for(const theme of ['orbit','editorial','terminal','aurora-peak','neon-studio','design-2']){
+                    await page.locator('#theme-select').selectOption(theme);
+                    assert.equal(await page.locator('body').getAttribute('data-theme'),theme);
+                    await page.locator('.hero-art .ws-orbit-chip').first().waitFor();
+                    const expectedBadges=theme==='neon-studio'?5:theme==='design-2'?4:3;
+                    assert.equal(await page.locator('.hero-art .ws-orbit-chip').count(),expectedBadges,'Orbit badges '+theme+'/'+width);
+                    assert.equal(await page.locator('#ws-studio-open').count(),0,'Studio leak '+theme);
+                    assert.equal(await page.locator('#profile-look-open').count(),0,'Appearance leak '+theme);
+                    const snapshot=await page.evaluate(()=>{
+                      const hero=document.querySelector('.hero');
+                      const title=document.querySelector('.hero h1');
+                      const portrait=document.querySelector('.hero-art .core');
+                      const rect=node=>{const r=node.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}};
+                      return {hero:rect(hero),title:rect(title),portrait:rect(portrait),overflow:document.documentElement.scrollWidth-innerWidth};
+                    });
+                    assert.ok(snapshot.hero.width>200&&snapshot.portrait.width>100,'Missing theme composition '+theme);
+                    assert.ok(snapshot.overflow<=3,'Horizontal overflow '+theme+'/'+width+': '+snapshot.overflow);
+                    console.log('PASS visual geometry '+theme+' at '+width+'px',JSON.stringify(snapshot));
+                  }
                   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
                   assert.ok(overflow<=2,'Horizontal overflow '+width+': '+overflow);
                   console.log('PASS Chromium personal portal '+width+'px');
