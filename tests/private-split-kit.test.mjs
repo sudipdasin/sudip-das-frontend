@@ -44,6 +44,9 @@ test('public-only cutover preserves Cloudflare root and GitHub Pages path',async
  assert.match(validate,/sudip-das-portrait\.jpg/);
  assert.match(validate,/test -s public-pages\/index\.html/);
  assert.match(cutover,/git -C "\$ROOT" diff --quiet HEAD -- "\$file"/);
+ assert.match(cutover,/restore --source HEAD --staged --worktree -- scripts\\/repo-discovery\\.js/);
+ assert.match(validate,/node --check scripts\\/repo-discovery\\.js/);
+ assert.match(deploy,/test -s scripts\\/repo-discovery\\.js/);
  assert.match(readme,/sudipdasin\.github\.io\/sudip-das-frontend/);
  assert.match(readme,/sudipdas\.is-a\.dev/);
  assert.match(readme,/sudip-das-frontend\.pages\.dev/);
