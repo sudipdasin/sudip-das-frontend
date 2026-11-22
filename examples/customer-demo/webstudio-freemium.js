@@ -210,7 +210,7 @@
     ]);
     finalArchive=api.zip({
      'encrypted-site.wsenc':encrypted,
-     'webstudio-package-crypto.js':cryptoSource,
+     'webstudio-package-crypto.cjs':cryptoSource,
      'decrypt.mjs':decryptSource,
      'HOW-TO-DECRYPT.txt':'WEBSTUDIO ENCRYPTED OWNER WEBSITE BACKUP\n\n'+
       'Step 1: Extract this outer ZIP into a folder.\n'+
