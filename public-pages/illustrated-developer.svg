@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title desc">
+<title id="title">Illustrated fictional software developer</title><desc id="desc">Stylized friendly developer character with glasses and blue-green jacket against an abstract coding interface.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#123e66"/><stop offset=".6" stop-color="#1a7183"/><stop offset="1" stop-color="#68d6a4"/></linearGradient>
+  <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#13283e"/><stop offset="1" stop-color="#275e70"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="0.85" y2="1"><stop stop-color="#ffc39d"/><stop offset="1" stop-color="#ca7c66"/></linearGradient>
+  <radialGradient id="glow"><stop stop-color="#83ffdb" stop-opacity=".45"/><stop offset="1" stop-color="#83ffdb" stop-opacity="0"/></radialGradient>
+  <clipPath id="clip"><circle cx="300" cy="300" r="300"/></clipPath>
+</defs>
+<g clip-path="url(#clip)">
+<rect width="600" height="600" fill="url(#bg)"/><circle cx="525" cy="90" r="270" fill="url(#glow)"/>
+<path d="M-10 185Q170 85 380 155T625 125" fill="none" stroke="#72ffd2" stroke-opacity=".36" stroke-width="3"/>
+<path d="M-10 495Q135 375 295 475T635 395" fill="none" stroke="#b3f4ff" stroke-opacity=".27" stroke-width="3"/>
+<g opacity=".53" transform="translate(350 120) rotate(-7)"><rect width="230" height="170" rx="14" fill="#0d2740" stroke="#8adbe7" stroke-width="2"/><circle cx="18" cy="17" r="5" fill="#ffbc80"/><circle cx="35" cy="17" r="5" fill="#8bf0c0"/><circle cx="52" cy="17" r="5" fill="#6bbdff"/><path d="M23 52h78M23 75h130M49 99h118M23 123h145M49 147h70" stroke="#71eec9" stroke-width="8" stroke-linecap="round" stroke-dasharray="63 10 40"/></g>
+<ellipse cx="295" cy="581" rx="236" ry="230" fill="#101e31"/><path d="M84 610Q98 439 174 398L243 373Q296 394 353 374L419 406Q508 458 522 610Z" fill="url(#shirt)" stroke="#7ad6c5" stroke-opacity=".65" stroke-width="3"/>
+<path d="M252 379L294 422L347 380L335 490L278 478Z" fill="#f4efe2"/><path d="M183 397Q206 448 242 494L277 459L263 425Z" fill="#234661"/><path d="M410 407Q375 448 351 499L314 455L335 425Z" fill="#234661"/>
+<rect x="274" y="320" width="65" height="92" rx="26" fill="url(#skin)"/>
+<ellipse cx="302" cy="242" rx="110" ry="137" fill="url(#skin)"/>
+<path d="M188 232Q168 160 203 122Q214 76 271 75Q333 52 369 96Q412 104 420 155Q440 192 412 230L399 217Q410 157 380 153Q342 174 292 143Q264 194 204 182L202 235Z" fill="#182137"/>
+<path d="M205 164Q241 156 256 118Q300 149 367 139Q345 119 321 100" fill="none" stroke="#34465e" stroke-width="14" stroke-linecap="round"/>
+<path d="M197 250Q178 233 185 255Q190 288 206 291M408 250Q432 235 421 266Q416 294 403 293" fill="#d99076"/>
+<g fill="none" stroke="#213447" stroke-width="10"><rect x="219" y="219" width="71" height="45" rx="15"/><rect x="313" y="219" width="71" height="45" rx="15"/><path d="M291 234q11-7 20 0M216 232l-22-10M387 234l19-10"/></g>
+<path d="M236 226h33M330 226h34" stroke="#d9fbff" stroke-opacity=".45" stroke-width="4" stroke-linecap="round"/>
+<path d="M246 241q12-9 22 0M335 241q13-9 23 0" fill="none" stroke="#162b40" stroke-width="5" stroke-linecap="round"/>
+<path d="M301 243q-9 31-3 39l14 3" fill="none" stroke="#bd725f" stroke-width="5" stroke-linecap="round"/>
+<path d="M272 307q30 20 62-2" fill="none" stroke="#853c44" stroke-width="6" stroke-linecap="round"/>
+<path d="M252 322q51 22 99 0" fill="none" stroke="#834d4a" stroke-opacity=".38" stroke-width="4" stroke-linecap="round"/>
+<path d="M173 452Q250 456 325 513Q378 477 429 460" fill="none" stroke="#4eb7a4" stroke-width="9" stroke-linecap="round"/>
+<g opacity=".77"><circle cx="75" cy="78" r="7" fill="#79ffd9"/><circle cx="108" cy="78" r="7" fill="#79ffd9" opacity=".5"/><circle cx="141" cy="78" r="7" fill="#79ffd9" opacity=".3"/><circle cx="75" cy="111" r="7" fill="#79ffd9" opacity=".5"/><circle cx="108" cy="111" r="7" fill="#79ffd9" opacity=".3"/></g>
+</g></svg>

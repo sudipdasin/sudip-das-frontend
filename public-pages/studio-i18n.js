@@ -1,0 +1,127 @@
+/* Standalone, privacy-preserving and reversible demo translation engine.
+   Ships dictionaries locally; never sends profile data to translation services. */
+(() => {
+  'use strict';
+  const locales = ['en','hi','bn','es','fr','de','pt','ar','zh-CN','ja'];
+  const language = document.getElementById('studio-language');
+  const originals = new WeakMap();
+  const lastRendered = new WeakMap();
+  const originalAttributes = new WeakMap();
+  let product = null;
+  let labels = null;
+  let dictionaryCoverage = {};
+  let active = 'en';
+  let scheduled = false;
+  let applying = false;
+  const normalize = value => String(value||'').trim();
+  const translate = (text,lang) => labels?.translations?.[lang]?.[text] || text;
+  // Map known localized UI labels back to their original English keys.
+  // Dynamic widgets sometimes replace a translated node after first render.
+  let canonicalLabels = new Map();
+  const canonical = text => canonicalLabels.get(text) || text;
+  const knownUI = text => canonicalLabels.has(text);
+  const excluded = 'script,style,[data-i18n],input,textarea,[contenteditable],#name,#role,#tagline,#about,#skills,#projects,#social,#email,#demo-brand,#portrait-caption';
+  
+  function apply() {
+    if(!product || !labels)return;
+    applying = true;
+    const dict = product.locales[active] || product.locales.en;
+    document.documentElement.lang = active;
+    document.documentElement.dir = active === 'ar' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(node=>{
+      const key = node.dataset.i18n;
+      const replacement = dict[key] || product.locales.en[key];
+      if(replacement && node.textContent !== replacement)node.textContent = replacement;
+    });
+    const walker = document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while(walker.nextNode())nodes.push(walker.currentNode);
+    for(const node of nodes) {
+      if(node.parentElement?.closest(excluded))continue;
+      const existing = originals.get(node);
+      const current = normalize(node.nodeValue);
+      let original = existing || canonical(current);
+      if(existing && current !== original && current !== lastRendered.get(node)) {
+        // New stock UI content can already be localized by another widget.
+        // Preserve customer-authored fields outside the translation tree.
+        original = canonical(current);
+        originals.set(node,original);
+      }
+      if(!existing && !knownUI(original))continue;
+      if(!existing)originals.set(node,original);
+      const desired = translate(original,active);
+      if(current !== desired)node.nodeValue = node.nodeValue.replace(current,desired);
+      lastRendered.set(node,desired);
+    }
+    const attrs=['aria-label','placeholder','title'];
+    document.querySelectorAll('[aria-label],[placeholder],[title]').forEach(element=>{
+      if(element.closest('input[data-user-content],textarea[data-user-content],[contenteditable]'))return;
+      let saved=originalAttributes.get(element);
+      if(!saved){saved={};originalAttributes.set(element,saved);}
+      for(const name of attrs){
+        const value=element.getAttribute(name);
+        if(!value)continue;
+        const previous=saved[name];
+        if(previous && value!==previous.source && value!==previous.rendered){
+          // React to new tooltip/accessible labels added after first render.
+          saved[name]={source:canonical(value),rendered:value};
+        }else if(!previous && knownUI(canonical(value))){
+          saved[name]={source:canonical(value),rendered:value};
+        }
+        if(!saved[name] || !knownUI(saved[name].source))continue;
+        const next=translate(saved[name].source,active);
+        if(value!==next)element.setAttribute(name,next);
+        saved[name].rendered=next;
+      }
+    });
+    applying = false;
+  }
+  function schedule(){
+    if(scheduled || applying)return;
+    scheduled = true;
+    queueMicrotask(()=>{scheduled=false;apply();});
+  }
+  function select(lang){
+    active = locales.includes(lang) ? lang : 'en';
+    language.value=active;
+    apply();
+    document.dispatchEvent(new CustomEvent('studio:language',{detail:{language:active}}));
+  }
+  const data = Promise.all([
+    fetch('./i18n-product.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Product translations missing');return r.json();}),
+    fetch('./i18n-ui.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('UI translations missing');return r.json();}),
+    fetch('./i18n-copy.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Page translations missing');return r.json();}),
+    fetch('./i18n-profile.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Profile translations missing');return r.json();}),
+    fetch('./i18n-dynamic.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Dynamic translations missing');return r.json();}),
+    fetch('./i18n-theme.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Theme translations missing');return r.json();})
+  ]).then(([productData,uiData,copyData,profileData,dynamicData,themeData])=>{
+    for(const lang of locales){
+      if(!productData.locales[lang])throw Error('Missing product language: '+lang);
+      if(lang!=='en'&&!uiData.translations[lang])throw Error('Missing UI language: '+lang);
+    }
+    product=productData;
+    labels={translations:{}};
+    for(const lang of locales){
+      labels.translations[lang]={...(uiData.translations[lang]||{}),...(copyData.translations[lang]||{}),...(profileData.translations[lang]||{}),...(dynamicData.translations[lang]||{}),...(themeData.translations[lang]||{})};
+      dictionaryCoverage[lang]=Object.keys(labels.translations[lang]).length;
+    }
+    canonicalLabels=new Map();
+    for(const dictionary of Object.values(labels.translations)){
+      for(const [source,localized] of Object.entries(dictionary)){
+        canonicalLabels.set(source,source);
+        if(localized)canonicalLabels.set(localized,source);
+      }
+    }
+    const current=language.value;
+    select(current);
+    language.addEventListener('change',()=>select(language.value));
+    new MutationObserver(schedule).observe(document.body,{subtree:true,childList:true,characterData:true});
+    window.StudioI18n=Object.freeze({select,get language(){return active;},translate:(text,lang=active)=>translate(text,lang),coverage:dictionaryCoverage,ready:Promise.resolve(true)});
+    return true;
+  }).catch(error=>{
+    console.error('Local translations could not initialize:',error);
+    document.documentElement.lang='en';document.documentElement.dir='ltr';
+    return false;
+  });
+  window.StudioI18nReady=data;
+})();

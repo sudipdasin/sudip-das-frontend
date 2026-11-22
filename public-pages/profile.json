@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "demo": true,
+  "identity": {
+    "displayName": "Dev Das",
+    "role": "Creative Developer & Interface Engineer",
+    "tagline": "Designing expressive, high-performance and user-friendly experiences that just work — from idea to real world.",
+    "location": "Harbor City (fictional)",
+    "initials": "DD"
+  },
+  "about": "Dev Das is a fully fictional developer, designer and product builder. This demo showcases a customer-owned portfolio with flexible themes, a distinct profile image, local editing, and portable content. Future releases aim to bring modular hosting, automated backup, and recovery controls.",
+  "skills": [
+    "Web applications",
+    "Accessibility",
+    "UI prototyping",
+    "APIs",
+    "Automation",
+    "Technical writing"
+  ],
+  "projects": [
+    {
+      "name": "Project Atlas",
+      "category": "Web application",
+      "description": "A fictional planning dashboard demonstrating reusable interface components.",
+      "url": "https://example.com/atlas",
+      "caseStudy": "Problem: make a large fictional work queue approachable. Approach: reusable dashboard components, accessible filters and clear summaries. Example outcome: a documented prototype."
+    },
+    {
+      "name": "Greenline",
+      "category": "Community project",
+      "description": "A sample accessibility-first community directory with clear navigation.",
+      "url": "https://example.com/greenline",
+      "caseStudy": "Problem: present sample community information accessibly. Approach: plain-language navigation, keyboard-friendly interaction and inclusive layouts. Example outcome: an illustrative directory concept."
+    },
+    {
+      "name": "Signal Notes",
+      "category": "Developer tool",
+      "description": "A dummy note-taking concept that illustrates how portfolio entries can be edited.",
+      "url": "https://example.com/signal",
+      "caseStudy": "Problem: turn scattered notes into a manageable workflow. Approach: quick capture, structured tags and transparent export. Example outcome: a fictional developer productivity experiment."
+    }
+  ],
+  "social": [
+    {
+      "label": "Portfolio example",
+      "url": "https://example.com"
+    },
+    {
+      "label": "GitHub example",
+      "url": "https://github.com/example"
+    }
+  ],
+  "contact": {
+    "label": "Contact (example only)",
+    "email": "demo@example.com"
+  },
+  "appearance": {
+    "accent": "#8de4b3",
+    "background": "#091426",
+    "backgroundStyle": "original",
+    "portrait": ""
+  },
+  "seo": {
+    "title": "Dev Das | Creative Developer & Interface Engineer",
+    "description": "A fully fictional developer portfolio for testing modular Personal Profile Web Studio."
+  }
+}

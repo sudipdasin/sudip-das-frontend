@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "enabled": false,
+  "provider": "none",
+  "checkoutUrl": "",
+  "currency": "",
+  "planLabel": "Commercial edition",
+  "notes": "Hosted checkout intentionally disabled until merchant verification, commercial hosting, legal terms, fulfillment and signed webhooks are configured."
+}
