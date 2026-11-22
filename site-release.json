@@ -1,18 +1,19 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-current-preview-v1.0.0",
+  "release": "webstudio-personal-visual-parity-v1.1.0-preview",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
     "six-themes",
     "portfolio-gallery",
     "visitor-hub",
-    "local-appearance",
-    "private-request-consent",
+    "visitor-quick-actions",
+    "preview-private-requests-disabled",
     "webstudio-reference-compositions",
-    "studio-system-menu",
-    "six-visual-layouts"
+    "six-visual-layouts",
+    "aurora-five-role-six-card-reference",
+    "cosmic-four-satellite-reference"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -26,7 +27,7 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Canonical current personal-site preview on preview-personalweb. Historical branches and hash snapshots are archived; no production promotion approved and no private PR #15 redesign claimed.",
+    "notes": "Single owner-authenticated personal-site preview. The public visitor UI is read-only except local theme changes, section navigation and approved portfolio interactions. Aurora reference is a visual adaptation of private WebStudio; personal data unchanged. Production promotion not approved.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev"
   }
 }
