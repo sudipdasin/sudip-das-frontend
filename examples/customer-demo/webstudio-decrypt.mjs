@@ -9,7 +9,7 @@ import {createRequire} from 'node:module';
 import {webcrypto} from 'node:crypto';
 const require=createRequire(import.meta.url);
 globalThis.crypto ||=webcrypto;
-const {decrypt}=require('./webstudio-package-crypto.js');
+const {decrypt}=require('./webstudio-package-crypto.cjs');
 
 function secretPrompt(){
  return new Promise((resolveSecret,reject)=>{
