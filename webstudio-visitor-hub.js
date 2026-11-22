@@ -144,15 +144,26 @@
    position++;showStep();
  });
  visit.addEventListener('click',goToSection);
- modal.addEventListener('keydown',event=>{
+ const handleTourKeydown=event=>{
+   if(modal.hidden)return;
    if(event.key==='Escape'){event.preventDefault();closeTour();return;}
    if(event.key==='ArrowRight'){event.preventDefault();position=Math.min(position+1,sections.length-1);showStep();return;}
    if(event.key==='ArrowLeft'){event.preventDefault();position=Math.max(position-1,0);showStep();return;}
    if(event.key!=='Tab')return;
+   if(!modal.contains(document.activeElement)){event.preventDefault();close.focus();return;}
    const controls=[close,previous,visit,next].filter(x=>!x.disabled);
    const first=controls[0],last=controls.at(-1);
    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+ };
+ modal.addEventListener('keydown',handleTourKeydown);
+ // A focus move caused by an external widget must not break guided-tour
+ // Arrow/Escape controls. Events originating inside the dialog are handled
+ // once by its own listener; document-level fallback handles only outside focus.
+ document.addEventListener('keydown',event=>{
+   if(modal.hidden||modal.contains(event.target))return;
+   if(!['Escape','ArrowRight','ArrowLeft','Tab'].includes(event.key))return;
+   handleTourKeydown(event);
  });
  // Honor user's reduced-motion and browser privacy choices, no analytics.
 })();
