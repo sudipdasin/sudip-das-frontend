@@ -33,7 +33,7 @@ body[data-theme="neon-studio"] main>.hero{
  padding:24px 0 18px!important;
 }
 body[data-theme="neon-studio"] main>.hero:before{
- background-image:linear-gradient(90deg,#011426dd,#02172d27 55%,#0415271b),url("neon-horizon.svg")!important;
+ background-image:linear-gradient(90deg,#011426dd 0%,#02172d55 42%,#0415272b 100%),radial-gradient(ellipse 43% 29% at 59% 82%,#08f4d94a 0%,#06c9e51c 45%,transparent 100%),url("neon-horizon.svg")!important;
  background-position:center bottom;background-size:cover;
 }
 body[data-theme="neon-studio"] main>.hero:after{
