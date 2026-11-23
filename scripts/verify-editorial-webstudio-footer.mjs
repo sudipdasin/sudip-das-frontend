@@ -87,6 +87,8 @@ assert.match(footerCSS,/\.ws-inline-demo\[data-open="true"\][\s\S]*?grid-templat
 assert.match(footerCSS,/\.ws-demo-expand-inner\{/);
 assert.match(footerCSS,/translateY\(-15px\) scale\(\.98\)/);
 assert.match(footerCSS,/\.ws-demo-close\{/);
+assert.match(footerCSS,/\.ws-inline-demo > \.ws-demo-expand-inner\{[\s\S]*?padding:0;[\s\S]*?border:0;/);
+assert.match(footerCSS,/\.ws-demo-topbar\{\s*padding-top:23px;\s*border-top:1px solid var\(--wsf-border\)/);
 assert.match(footerCSS,/@media\(prefers-reduced-motion:reduce\)/);
 assert.match(footerCSS,/@media\(max-width:720px\)/);
 assert.match(footerJS,/const showcase=document\.getElementById\('ws-inline-demo'\)/);
