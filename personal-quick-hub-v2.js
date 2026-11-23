@@ -212,7 +212,7 @@
   {title:'Direct · Email',nodes:['.pv-connect-email']},
   {title:'Professional · LinkedIn, GitHub, Teams',nodes:['.pv-connect-social[data-social="linkedin"]','.pv-connect-social[data-social="github"]','.pv-connect-social[data-social="teams"]']},
   {title:'Social & creative · YouTube, Facebook, Instagram, X',nodes:['.pv-connect-social[data-social="youtube"]','.pv-connect-social[data-social="facebook"]','.pv-connect-social[data-social="instagram"]','.pv-connect-social[data-social="x"]']},
-  {title:'Messaging · Google Chat & Discord',nodes:['.pv-connect-social[data-social="googlechat"]','.pv-connect-social[data-social="discord"]']}
+  {title:'Messaging · WhatsApp, Telegram, Google Chat & Discord',nodes:['.pv-connect-social[data-social="whatsapp"]','.pv-connect-social[data-social="telegram"]','.pv-connect-social[data-social="googlechat"]','.pv-connect-social[data-social="discord"]']}
  ];
  const connectCards=create('div','pv-hub-connect-cards');
  const valid=(url,kind)=>{
@@ -228,7 +228,9 @@
     'https://x.com/sudipdasin',
     'https://teams.microsoft.com/l/chat/0/0?users=sudipdasin%40gmail.com',
     'https://chat.google.com/',
-    'https://discord.com/channels/@me'
+    'https://discord.com/channels/@me',
+    'https://wa.me/919007625506',
+    'https://t.me/sudipdasin'
    ]);
    return target.protocol==='https:' &&
     target.username===''&&target.password==='' &&
@@ -271,7 +273,7 @@
  // private chats, or automatic messages are created.
  document.querySelectorAll('.pv-connect-identity-copy[data-copy-contact]').forEach(button=>{
   button.addEventListener('click',async()=>{
-   const approved=new Set(['sudipdasin@gmail.com','sudipdasin','super_gamer26']);
+   const approved=new Set(['sudipdasin@gmail.com','sudipdasin','super_gamer26','+919007625506','@sudipdasin']);
    const value=button.dataset.copyContact;
    if(!approved.has(value))return;
    const status=byId('pv-connect-status');

@@ -449,3 +449,13 @@ body.ws-parity[data-theme="terminal"] .pv-freelance-link{border-radius:4px;}
  body.ws-parity .pv-freelancer-chevron{transition:none!important;}
  body.ws-parity .pv-freelance-link:hover{transform:none!important;}
 }
+
+/* v1.3 — owner-provided direct WhatsApp and Telegram contact destinations. */
+body.ws-parity .pv-connect-social[data-social="whatsapp"]>svg{color:#31d58a;}
+body.ws-parity .pv-connect-social[data-social="telegram"]>svg{color:#59baff;}
+body.ws-parity .pv-connect-social:is([data-social="whatsapp"],[data-social="telegram"]){
+  border-color:color-mix(in srgb,var(--ws-accent) 39%,var(--line));
+}
+body.ws-parity .pv-connect-social:is([data-social="whatsapp"],[data-social="telegram"]):hover{
+  background:color-mix(in srgb,var(--ws-accent) 12%,var(--panel));
+}
