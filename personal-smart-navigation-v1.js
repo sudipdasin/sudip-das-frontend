@@ -156,6 +156,7 @@
   const motionReduced=window.matchMedia('(prefers-reduced-motion: reduce)');
   const hoverSource='media/sudip-das-intro-hover-preview.webm';
   let previewActive=false;
+  let suppressPreviewFocus=false;
   const closePreview=()=>{
    if(!previewActive)return;
    previewActive=false;
@@ -165,7 +166,7 @@
    previewClip.load();
   };
   const openPreview=()=>{
-   if(previewActive||motionReduced.matches||!modal.hidden)return;
+   if(previewActive||suppressPreviewFocus||motionReduced.matches||!modal.hidden)return;
    previewActive=true;
    preview.dataset.active='true';
    previewClip.src=hoverSource;
@@ -273,8 +274,11 @@
    modal.inert=true;
    document.body.classList.remove('pv-intro-open');
    button.setAttribute('aria-expanded','false');
+   // Focus restoration after closing the full film is not a new hover intent.
+   suppressPreviewFocus=true;
    if(previousFocus?.isConnected)previousFocus.focus({preventScroll:true});
    else button.focus({preventScroll:true});
+   requestAnimationFrame(()=>{suppressPreviewFocus=false;});
   };
   button.addEventListener('click',open);
   close.addEventListener('click',dismiss);
