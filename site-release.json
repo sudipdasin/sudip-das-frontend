@@ -52,7 +52,7 @@
     "productionPromotionApproved": false,
     "notes": "Current portfolio preview only. WebStudio image-rich walkthrough is initially collapsed; Explore animates an inline pop-out and Close/Escape reverses the animation, restoring keyboard focus. No external WebStudio links or site write actions. Foundation cards, Editorial contrast and other portfolio content preserved. Preview private requests remain disabled; automated email still needs secure preview setup and real delivery verification.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "Source and contract checks in progress; CircleCI Chromium animation tests added but not independently executed; current Pages deployment and email receipt not verified.",
+    "testStatus": "PASS: 16/16 connector source checks, JS syntax, CSS balance, and isolated Chromium reveal/collapse tests at 1280px normal, 390px normal and 1280px reduced-motion, including 0px closed height/focus return. Full portfolio browser tests, Cloudflare deployment and inbox delivery remain UNVERIFIED.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -92,7 +92,11 @@
         "Explore the inline demo toggle",
         "Escape"
       ],
-      "accessibility": "aria-expanded, aria-hidden, inert and focus restoration; reduced-motion support"
+      "accessibility": "aria-expanded, aria-hidden, inert and focus restoration; reduced-motion support",
+      "verifiedIsolatedBrowser": true,
+      "fullSiteBrowserVerified": false,
+      "isolatedBrowserNote": "Actual 24px collapsed gap found and corrected before final commit; closed 0px in all three isolated Chromium modes.",
+      "qaEvidence": "docs/WEBSTUDIO_DEMO_ANIMATED_REVEAL_V1_6_0_2026-11-23.md"
     },
     "foundationSection": {
       "reason": "Owner screenshot showed visually unbalanced sticky career card plus plain Address text",
