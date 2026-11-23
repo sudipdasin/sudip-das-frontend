@@ -170,6 +170,10 @@
     art.prepend(ringLayer);
     const rings=[...art.querySelectorAll('.orbit')];
     const core=art.querySelector('.core');
+    const portraitLayer=node('div','ws-neon-precision-portrait');
+    const existingPortrait=core?.querySelector('img');
+    if(existingPortrait)portraitLayer.append(existingPortrait.cloneNode(true));
+    art.append(portraitLayer);
     const nameplate=art.querySelector('.portrait-caption');
     const managed=new Map();
     const setLocked=(el,prop,val)=>{
@@ -212,18 +216,8 @@
         }))setLocked(ring,prop,val);
       });
       const portrait=diameter*.73;
-      setLocked(core,'width',portrait+'px');
-      setLocked(core,'height',portrait+'px');
-      // Older responsive CSS still imposes an effective rendered size on
-      // the portrait at 1440px and below. Precisely correct the rendered
-      // size with the independent scale property, without moving its center.
-      // Remove legacy transforms before measuring; old bundles may apply
-      // a transform to .core independently of its CSS width.
-      setLocked(core,'transform','none');
-      setLocked(core,'scale','none');
-      const naturalPortraitWidth=core.getBoundingClientRect().width||portrait;
-      const correction=portrait/naturalPortraitWidth;
-      setLocked(core,'transform','scale('+correction+')');
+      setLocked(portraitLayer,'width',portrait+'px');
+      setLocked(portraitLayer,'height',portrait+'px');
       setLocked(nameplate,'left','50%');
       setLocked(nameplate,'top','calc(50% + '+(diameter*(vw<=600?.40:.395))+'px)');
       setLocked(nameplate,'bottom','auto');
