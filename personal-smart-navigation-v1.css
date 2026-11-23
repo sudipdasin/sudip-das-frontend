@@ -383,7 +383,12 @@ body.ws-parity > .pv-smart-float .ws-visitor-quick-toggle::before {
     rgb(255 255 255 / 47%) 194deg,
     transparent 270deg);
   filter:blur(3px);
-  animation:pv-orb-rim 7.5s linear infinite;
+  animation:none;
+}
+/* Animate only as a reaction to hover, keyboard focus or a click-open.
+ * One finite sweep, never a perpetual idle motion. */
+body.ws-parity > .pv-smart-float .ws-visitor-quick-toggle:is(:hover,:focus-visible,[aria-expanded="true"])::before {
+  animation:pv-orb-rim 1.15s cubic-bezier(.22,.75,.24,1) 1 both;
 }
 body.ws-parity > .pv-smart-float .ws-visitor-quick-toggle::after {
   content:"";
