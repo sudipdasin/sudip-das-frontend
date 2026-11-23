@@ -176,6 +176,12 @@
     video.muted=true; // Muted autoplay is browser-compatible.
     video.preload='metadata';
     if(safePoster)video.poster=safePoster;
+    const captions=document.createElement('track');
+    captions.kind='captions';
+    captions.label='English — chapter descriptions';
+    captions.srclang='en';
+    captions.src='media/sudip-das-professional-introduction.en.vtt';
+    video.append(captions);
     video.src=safeIntro;
     empty.hidden=false;
     empty.querySelector('strong').textContent='Preparing the introduction…';
