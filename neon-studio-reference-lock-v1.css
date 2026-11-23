@@ -410,7 +410,8 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
   body.ws-parity[data-theme="neon-studio"] main>.hero{
     grid-template-columns:minmax(0,1fr)!important;
     gap:4px!important;
-    padding:28px 0 15px!important;
+    /* Give the newly lowered nameplate real space above the infinity band. */
+    padding:28px 0 55px!important;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(290px,50vw,415px)!important;
@@ -602,13 +603,14 @@ body.ws-parity[data-theme="neon-studio"] .ws-neon-precise-inner::before{
   box-shadow:0 0 12px #b279ff;
 }
 body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
-  /* The original WebStudio nameplate floats immediately below the photo,
-   * inside the lower arc; not beneath all the orbital layers. */
-  top:calc(50% + 153px)!important;
+  /* Owner's 644px reference crop places the plate roughly 14px beneath
+   * the outer 434px orbit, separate from the lower-right satellites.
+   * JS maintains the exact viewport-calculated offset. */
+  top:calc(50% + 231px)!important;
 }
 @media(max-width:600px){
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
-    top:calc(50% + 114px)!important;
+    top:calc(50% + 149px)!important;
   }
 }
 
