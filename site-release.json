@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v1.4.0-inline-showcase",
+  "release": "webstudio-personal-preview-v1.5.0-foundation-layout-repair",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -28,7 +28,11 @@
     "webstudio-inline-image-rich-demo",
     "webstudio-inline-three-chapter-tabs",
     "webstudio-inline-keyboard-navigation",
-    "webstudio-no-external-demo-link"
+    "webstudio-no-external-demo-link",
+    "balanced-foundation-experience-cards",
+    "experience-public-highlight-panel",
+    "no-misleading-address-heading",
+    "editorial-foundation-mobile-layout-contrast"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -42,9 +46,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Personal preview only. Editorial capabilities and private form contrast patched without altering original hero. WebStudio footer now contains a fully local three-chapter illustrated walkthrough (Canvas, Visual Styles, Journey) with keyboard-accessible tabs; no external WebStudio demo links or live editor permissions. Email-only interest action remains mailto compose, NOT automated notification. The staged Pages Function remains fail-closed and disabled until preview-only Turnstile, dedicated D1 rate-limits, HMAC bridge secrets and genuine delivery tests. Preview private requests stay disabled and production API disconnected. CircleCI and browser verification remain pending.",
+    "notes": "Personal preview only. The Foundation/Experience section now uses a balanced two-card presentation, public career themes and country-only location footer, fixing the unstyled Address column reported in the user screenshot. Original Editorial hero, owner profile controls, WebStudio inline demo, private-request lockout and production API isolation preserved. Browser and Cloudflare deployment verification pending. WebStudio email notification remains fail-closed/unverified.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "Source contracts and new browser test assertions committed; CI execution/browser artifact and auto-email inbox delivery unverified",
+    "testStatus": "Foundation source audit to be run; scripted real Chromium and CircleCI checks committed, results pending. Preview backend remains disconnected.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -75,6 +79,16 @@
       ],
       "presentation": "original concept illustrations, not live editor screenshots",
       "interactiveControls": "local read-only, keyboard tabs and pager"
+    },
+    "foundationSection": {
+      "reason": "Owner screenshot showed visually unbalanced sticky career card plus plain Address text",
+      "status": "source_patch_committed",
+      "content": "two balanced professional cards with three grounded public experience pillars; country-only footer",
+      "privateAddressExposed": false,
+      "productionMutation": false,
+      "css": "personal-foundation-v1.css?v=1.0.0",
+      "qa": "scripts/verify-foundation-redesign.mjs; CircleCI Chromium geometry and computed-contrast checks",
+      "browserRuntimeVerified": false
     }
   }
 }
