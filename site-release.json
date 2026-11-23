@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.9.7-reference-aligned-header-brand",
+  "release": "personal-preview-v3.9.8-aligned-header-gutter",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -101,7 +101,8 @@
     "wider-concentric-neon-orbit-owner-requested-preview-only",
     "neon-studio-mathematically-in-ring-responsive-nameplate",
     "neon-reference-intersecting-orbit-nameplate",
-    "neon-studio-two-line-webstudio-reference-brand"
+    "neon-studio-two-line-webstudio-reference-brand",
+    "neon-header-and-hero-share-left-alignment"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -377,12 +378,15 @@
         "originalPreviewCommit": "9bc882935586c21e5f83bed825c334411cacdaf1",
         "backupBranch": "backup/neon-v3.9.6-before-header-alignment-2026-11-24",
         "asset": "personal-neon-header-reference-v1.css",
-        "blobSha": "7d8ebb20a2528fc610c76d1b2fb983dde34398d0",
+        "blobSha": "236e3193f79708e94b0426c158c6f378b55ee635",
         "previewOnly": true,
         "productionApproved": false,
         "scope": "Neon Studio header wordmark and monogram only. Existing hero eyebrow remains its own badge beneath header.",
         "referenceCaption": "Dev Das + WEB STUDIO; real owner identity remains Sudip Das + SD.",
-        "status": "Source-level geometry/safety checked; independent browser screenshot verification pending"
+        "status": "Owner screenshot feedback: navigation left edge matched to hero shell on >=1200px; source width validation across 16 viewports; browser screenshot pending",
+        "previousBlobSha": "7d8ebb20a2528fc610c76d1b2fb983dde34398d0",
+        "release": "personal-preview-v3.9.8-aligned-header-gutter",
+        "backupBeforeAlignment": "backup/neon-v3.9.7-before-header-gutter-alignment-2026-11-24"
       }
     }
   }

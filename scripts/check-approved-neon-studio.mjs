@@ -50,7 +50,7 @@ for(const required of [
   'personal-neon-portrait-refinement-v1.css?v=1.4.0',
   'webstudio-parity.js?v=neon-1.4.3',
   'personal-neon-nameplate-fit-v1.css?v=1.1.0',
-  'personal-neon-header-reference-v1.css?v=1.0.0',
+  'personal-neon-header-reference-v1.css?v=1.1.0',
   '<span class="brand-name">Sudip Das</span>',
   'window.PORTFOLIO_PREVIEW_MODE=true'
 ]){

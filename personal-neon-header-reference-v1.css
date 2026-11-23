@@ -157,3 +157,25 @@ body.ws-parity[data-theme="neon-studio"] .topbar .nav > .brand:focus-visible{
     transition:none!important;
   }
 }
+
+/*
+ * v3.9.8 — align header, divider and hero badge on a shared DESKTOP
+ * left edge. Original screenshot shows SD monogram inset about 40px
+ * farther right than the Technology · Systems badge. Underlying styles
+ * cap .nav at 1640px while .hero uses 1715px and a 112px gutter.
+ * Match the actual hero shell, moving the ENTIRE nav (not just the
+ * monogram), so both its border and wordmark share the same origin.
+ *
+ * At 1100–1199px the existing nav width is retained to avoid squeezing
+ * language, theme, Quick Hub and the responsive menu controls.
+ * Small-screen navigation remains exactly as before.
+ */
+@media (min-width:1200px){
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav{
+    width:min(1715px, calc(100% - 112px))!important;
+    max-width:none!important;
+    margin-inline:auto!important;
+    padding-inline:0!important;
+    box-sizing:border-box!important;
+  }
+}
