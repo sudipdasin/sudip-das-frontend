@@ -655,3 +655,39 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
     max-width:43px!important;
   }
 }
+
+/* A dedicated precision portrait replaces the CSS-transitioned legacy .core
+ * ONLY inside Neon Studio. It reuses the exact public portrait already in
+ * the DOM. This gives the cyan photo border reliable 0.73x ring geometry,
+ * independent of the preceding themes' .core animation/width rules. */
+body.ws-parity .ws-neon-precision-portrait{display:none}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art > .core{
+  display:none!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art > .ws-neon-precision-portrait{
+  position:absolute!important;
+  left:50%!important;top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  display:block!important;
+  width:315px;height:315px;
+  z-index:4;
+  box-sizing:border-box;
+  padding:0;
+  margin:0!important;
+  border:3px solid #23e9ff!important;
+  border-radius:50%!important;
+  overflow:hidden;
+  background:#081e32;
+  box-shadow:0 0 20px #05d5ffa9,0 0 48px #0b83ff55,0 17px 35px #0009!important;
+  animation:none!important;
+  pointer-events:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-neon-precision-portrait img{
+  display:block;
+  width:100%;height:100%;
+  max-width:none;max-height:none;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center 32%;
+  filter:contrast(1.03) saturate(1.03);
+}
