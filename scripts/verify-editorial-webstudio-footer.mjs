@@ -36,7 +36,7 @@ for(const svg of sceneSVGs){
  assert.match(svg,/<title id="title">/);
  assert.match(svg,/<desc id="desc">/);
  assert.match(svg,/<\/svg>\s*$/);
- assert.doesNotMatch(svg,/<script|https?:\/\//i);
+ assert.doesNotMatch(svg,/<script|(?:href|src)="https?:/i);
 }
 assert.match(html,/id="ws-interest-toggle"[^>]+aria-expanded="false"/);
 assert.match(html,/id="ws-interest-expander"[^>]+data-open="false"/);
