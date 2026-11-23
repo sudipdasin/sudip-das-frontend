@@ -137,6 +137,11 @@
   banner.insertBefore(button,banner.querySelector('.ws-utility-right'));
   const videoId=parseVideoId(document.querySelector('meta[name="portfolio-intro-youtube-url"]')?.content?.trim()||'');
   const footnote=byId('pv-intro-footnote');
+  const localIntro=document.querySelector('meta[name="portfolio-intro-mp4"]')?.content?.trim()||'';
+  const poster=document.querySelector('meta[name="portfolio-intro-poster"]')?.content?.trim()||'';
+  // Only same-origin media paths; no arbitrary user-controlled network endpoints.
+  const safeIntro=/^media\/[a-z0-9-]+\.mp4$/.test(localIntro)?localIntro:null;
+  const safePoster=/^media\/[a-z0-9-]+\.svg$/.test(poster)?poster:null;
   const initialFocus=()=>close.focus({preventScroll:true});
   let previousFocus=null;
   const open=()=>{
@@ -160,15 +165,54 @@
       '?autoplay=1&mute=1&playsinline=1&controls=1&rel=0';
     screen.append(iframe);
     footnote.textContent='Autoplay starts muted where supported; unmute using the YouTube controls.';
+   }else if(safeIntro){
+    const video=document.createElement('video');
+    video.className='pv-intro-frame';
+    video.id='pv-intro-native';
+    video.setAttribute('aria-label','Sudip Das — 44-second professional introduction');
+    video.setAttribute('playsinline','');
+    video.controls=true;
+    video.autoplay=true;
+    video.muted=true; // Muted autoplay is browser-compatible.
+    video.preload='metadata';
+    if(safePoster)video.poster=safePoster;
+    video.src=safeIntro;
+    empty.hidden=false;
+    empty.querySelector('strong').textContent='Preparing the introduction…';
+    empty.querySelector('p').textContent='Loading the high-definition video with original music.';
+    video.addEventListener('loadedmetadata',()=>{
+     if(modal.hidden)return;
+     empty.hidden=true;
+     video.style.visibility='visible';
+     video.play().catch(()=>{}); // If blocked, native controls remain usable.
+    },{once:true});
+    video.addEventListener('error',()=>{
+     if(modal.hidden)return;
+     video.remove();
+     empty.hidden=false;
+     empty.querySelector('strong').textContent='Video awaiting preview publication.';
+     empty.querySelector('p').textContent='The finished 720p MP4 has been created. This preview will play it after its asset is published.';
+     footnote.textContent='Video file not yet available on the preview hosting origin.';
+    },{once:true});
+    video.style.visibility='hidden';
+    screen.append(video);
+    footnote.textContent='44 seconds · 720p · Original soundtrack · Muted autoplay; use the player controls to enable sound.';
    }else{
     empty.hidden=false;
-    footnote.textContent='An approved individual YouTube video is required before playback can start.';
+    footnote.textContent='No approved video source is configured.';
    }
    initialFocus();
   };
   const dismiss=()=>{
    if(modal.hidden)return;
-   // Detach iframe entirely to stop sound and network playback immediately.
+   // Unload first-party video and any YouTube embed to stop audio immediately.
+   const native=byId('pv-intro-native');
+   if(native){
+    native.pause();
+    native.removeAttribute('src');
+    native.load();
+    native.remove();
+   }
    byId('pv-intro-frame')?.remove();
    modal.hidden=true;
    modal.inert=true;
@@ -184,7 +228,7 @@
    if(modal.hidden)return;
    if(event.key==='Escape'){event.preventDefault();dismiss();return;}
    if(event.key==='Tab'){
-    const focusables=[...modal.querySelectorAll('button,[href],iframe,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.hidden);
+    const focusables=[...modal.querySelectorAll('button,[href],iframe,video,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.hidden);
     const first=focusables[0],last=focusables.at(-1);
     if(!first)return;
     if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
