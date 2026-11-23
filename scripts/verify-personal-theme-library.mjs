@@ -26,8 +26,8 @@ assert.match(html,/<script>window.PUBLIC_API_BASE="";window.PORTFOLIO_PREVIEW_MO
 assert.match(html,/type="submit" disabled aria-disabled="true"/);
 assert.doesNotMatch(html,/<script[^>]+src="webstudio-visual-port\.js"/);
 assert.doesNotMatch(html,/<script[^>]+src="studio-theme-library\.js"/);
-assert.match(html,/src="personal-theme-library\.js" defer/);
-assert.match(html,/href="personal-theme-library\.css"/);
+assert.match(html,/src="personal-theme-library\.js\?v=1\.2\.1" defer/);
+assert.match(html,/href="personal-theme-library\.css\?v=1\.2\.1"/);
 assert.ok(html.indexOf('src="personal-theme-library.js"') >
  html.indexOf('src="webstudio-parity.js"'));
 assert.ok(html.includes('id="contact"')&&html.includes('id="theme-select"'));
