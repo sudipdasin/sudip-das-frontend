@@ -1,3 +1,73 @@
+/* Visibility repair 2026-11-23:
+ * The first gallery launch control was buried INSIDE a hidden Quick Actions
+ * menu. Keep a prominent visitor-only launcher in the sticky header, next to
+ * Quick Actions. Does not change any original Editorial hero or visual skin.
+ * The gallery itself is still closed by default.
+ */
+body.ws-parity .topbar .ws-visitor-quick{
+ display:flex!important;align-items:center;gap:8px;
+}
+body.ws-parity .topbar .pv-theme-launch{
+ display:inline-flex;align-items:center;justify-content:center;gap:7px;
+ position:relative;flex:0 0 auto;white-space:nowrap;
+ padding:9px 13px;min-height:42px;
+ border:1px solid var(--ws-accent,#4be2d2)!important;
+ border-radius:11px;
+ color:#031d2a!important;
+ background:linear-gradient(110deg,#62ece1,#80c7ff)!important;
+ box-shadow:0 5px 23px #00cfdf33!important;
+ font:750 .78rem/1.15 var(--sans,system-ui,sans-serif)!important;
+ letter-spacing:.005em;cursor:pointer;
+}
+body.ws-parity .topbar .pv-theme-launch:is(:hover,:focus-visible){
+ border-color:#ffffff!important;
+ filter:brightness(1.07);
+ transform:translateY(-1px);
+ outline-offset:2px;
+}
+body.ws-parity .topbar .pv-theme-launch:disabled{
+ opacity:.7;cursor:default;
+}
+body.ws-parity .pv-theme-launch-glyph{
+ font-size:1rem;font-weight:700;
+}
+body.ws-parity .pv-theme-launch-counter{
+ display:inline-flex;align-items:center;justify-content:center;
+ min-width:21px;height:21px;border-radius:999px;padding-inline:5px;
+ background:#06293b2b;color:inherit;font-size:.68rem;
+}
+/* The owner's saved Editorial theme keeps its warm paper and copper design. */
+body.ws-parity[data-theme="editorial"] .topbar .pv-theme-launch{
+ background:#fffaf3!important;
+ color:#704631!important;
+ border-color:#b79b80!important;
+ box-shadow:none!important;
+ border-radius:3px;
+ font-family:Georgia,serif!important;
+}
+body.ws-parity[data-theme="terminal"] .topbar .pv-theme-launch{
+ background:#0b2519!important;color:#78f5b4!important;
+ border-color:#4fc691!important;border-radius:2px;
+ font-family:var(--mono,monospace)!important;
+ box-shadow:none!important;
+}
+@media(max-width:1250px){
+ body.ws-parity .pv-theme-launch-counter{display:none!important}
+ body.ws-parity .topbar .pv-theme-launch{padding:8px 11px}
+}
+@media(max-width:920px){
+ body.ws-parity .pv-theme-launch-label{display:none!important}
+ body.ws-parity .topbar .pv-theme-launch{
+  padding:7px 11px;min-width:39px;min-height:39px;
+ }
+}
+@media(max-width:600px){
+ body.ws-parity .topbar .ws-visitor-quick{gap:5px}
+ body.ws-parity .topbar .pv-theme-launch{
+  padding:6px 9px;min-width:36px;min-height:36px;
+ }
+}
+
 /* Visitor-safe six-theme chooser for the single personal preview.
  * This stylesheet modifies ONLY .pv-theme-* elements, which are hidden by
  * default until the visitor opens the gallery from Quick Actions.
