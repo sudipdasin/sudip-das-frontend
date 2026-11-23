@@ -1,0 +1,86 @@
+name: Deploy verified Neon Studio to protected Cloudflare preview
+on:
+  push:
+    branches: [preview-personalweb]
+    paths:
+      - neon-studio-reference-lock-v1.css
+      - webstudio-parity.js
+      - index.html
+      - scripts/build-neon-preview-artifacts.mjs
+      - .github/workflows/deploy-neon-preview-cloudflare.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-neon-preview-only
+  cancel-in-progress: true
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/preview-personalweb'
+    name: Verify and deploy ONLY preview-personalweb (not main)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || secrets.CF_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.CF_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preview-personalweb
+          persist-credentials: false
+      - name: Safety gate — owner-authorized account credentials required
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "preview-personalweb"
+          if [[ -z "$CLOUDFLARE_ACCOUNT_ID" || -z "$CLOUDFLARE_API_TOKEN" ]];then
+            echo "::error::Direct preview publishing is blocked: GitHub Actions is missing CLOUDFLARE_ACCOUNT_ID and/or CLOUDFLARE_API_TOKEN (or CF_ACCOUNT_ID/CF_API_TOKEN). Existing Cloudflare dashboard secrets are not automatically available to GitHub."
+            exit 1
+          fi
+          if [[ ! "$CLOUDFLARE_ACCOUNT_ID" =~ ^[a-fA-F0-9]{32}$ ]];then
+            echo "::error::Cloudflare account ID format is invalid; refusing deploy."
+            exit 1
+          fi
+          echo 'Cloudflare credentials exist; token values are not displayed.'
+      - name: Verify remote Pages project production branch is main
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsS --retry 2 --max-time 25 \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/sudip-das-frontend" \
+            -o /tmp/neon-pages-project.json
+          python3 - <<'PY'
+          import json
+          payload=json.load(open('/tmp/neon-pages-project.json',encoding='utf8'))
+          obj=payload.get('result') or {}
+          branch=obj.get('production_branch')
+          name=obj.get('name')
+          print('Pages project:',name,'production branch:',branch)
+          assert payload.get('success'), 'Cloudflare API failed'
+          assert name=='sudip-das-frontend', 'Unexpected target Pages project'
+          assert branch=='main', 'Production branch not confirmed as main: abort before any upload'
+          print('Verified project target and nonproduction preview branch boundary')
+          PY
+      - name: Stage only approved public files
+        run: |
+          set -euo pipefail
+          node scripts/build-neon-preview-artifacts.mjs
+          node --check webstudio-parity.js
+      - name: Publish the verified preview branch only
+        run: |
+          set -euo pipefail
+          npx --yes wrangler@4 pages deploy .pages-neon-preview \
+            --project-name=sudip-das-frontend \
+            --branch=preview-personalweb \
+            --commit-hash="$GITHUB_SHA" \
+            --commit-message="Neon Studio screenshot-aligned preview only"
+      - name: Deployment summary
+        run: |
+          {
+            echo "### Neon Studio Cloudflare Pages preview"
+            echo "Published branch: `preview-personalweb`"
+            echo "GitHub commit: `$GITHUB_SHA`"
+            echo 'No production branch was targeted.'
+            echo 'Cloudflare Access remains enabled; public unauthenticated checks will show its sign-in page.'
+          } >> "$GITHUB_STEP_SUMMARY"
