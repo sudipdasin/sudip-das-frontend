@@ -289,3 +289,115 @@ body.ws-parity[data-theme="editorial"] .ws-inline-demo button:focus-visible{
  .ws-demo-panel{animation:none!important}
  .ws-demo-tabs button{transition:none!important}
 }
+
+/* v1.2: WebStudio visual demo now behaves like an animated disclosure.
+ * The preview never navigates off-site or exposes owner/editor actions.
+ * Grid-track interpolation expands the footer naturally, then contracts
+ * back into the same position when Close / Escape is pressed.
+ */
+.ws-powered-demo{cursor:pointer}
+.ws-powered-demo .ws-demo-jump-icon{
+  display:inline-block;
+  transition:transform .28s cubic-bezier(.2,.75,.3,1);
+}
+.ws-powered-demo[aria-expanded="true"] .ws-demo-jump-icon{
+  transform:rotate(135deg);
+}
+.ws-powered-band > .ws-inline-demo{
+  display:grid;
+  grid-column:1/-1;
+  grid-template-rows:0fr;
+  min-width:0;
+  margin:0;
+  padding:0;
+  gap:0;
+  border:0;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:
+    grid-template-rows .55s cubic-bezier(.2,.8,.2,1),
+    opacity .32s ease,
+    visibility 0s linear .55s;
+}
+.ws-powered-band > .ws-inline-demo[data-open="true"]{
+  grid-template-rows:1fr;
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition:
+    grid-template-rows .55s cubic-bezier(.2,.8,.2,1),
+    opacity .36s ease .07s,
+    visibility 0s;
+}
+.ws-powered-band > .ws-inline-demo > .ws-demo-expand-inner{
+  min-height:0;
+  min-width:0;
+  overflow:hidden;
+  display:grid;
+  gap:21px;
+  padding-top:23px;
+  border-top:1px solid var(--wsf-border);
+  opacity:0;
+  transform:translateY(-15px) scale(.98);
+  transform-origin:top center;
+  transition:transform .5s cubic-bezier(.18,.85,.3,1),opacity .28s ease;
+}
+.ws-powered-band > .ws-inline-demo[data-open="true"] > .ws-demo-expand-inner{
+  transform:translateY(0) scale(1);
+  opacity:1;
+  transition:transform .55s cubic-bezier(.16,.95,.27,1),opacity .34s ease .09s;
+}
+.ws-demo-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  color:var(--wsf-accent);
+  font:700 .66rem/1.6 var(--mono,monospace);
+  letter-spacing:.11em;
+}
+.ws-demo-close{
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  min-height:42px;
+  padding:9px 14px;
+  background:#153348!important;
+  color:#efffff!important;
+  border:1px solid #78cad0!important;
+  border-radius:10px;
+  font:700 .81rem/1.2 var(--sans,system-ui,sans-serif);
+  transition:background .18s ease,transform .18s ease;
+}
+.ws-demo-close span{font-size:1.4rem;line-height:1}
+.ws-demo-close:hover{background:#1b5362!important;transform:translateY(-1px)}
+body.ws-parity[data-theme="editorial"] .ws-demo-close{
+  background:#fffaf3!important;
+  border-color:#a58e75!important;
+  color:#26352e!important;
+  border-radius:4px;
+}
+body.ws-parity[data-theme="editorial"] .ws-demo-close:hover{
+  background:#efe3d1!important;
+}
+body.ws-parity[data-theme="editorial"] .ws-demo-topbar{
+  color:#704c36;
+}
+@media(max-width:720px){
+  .ws-demo-topbar{align-items:flex-start}
+  .ws-demo-topbar > span{max-width:48ch}
+}
+@media(prefers-reduced-motion:reduce){
+  .ws-powered-demo .ws-demo-jump-icon,
+  .ws-powered-band > .ws-inline-demo,
+  .ws-powered-band > .ws-inline-demo > .ws-demo-expand-inner,
+  .ws-demo-close{
+    transition:none!important;
+    transform:none!important;
+    animation:none!important;
+  }
+}
