@@ -14,12 +14,22 @@ assert.equal(release.stage,'preview');
 assert.equal(release.preview.productionApiConnected,false);
 assert.equal(release.preview.privateRequestsEnabled,false);
 assert.equal(release.preview.productionPromotionApproved,false);
-assert.match(html,/personal-smart-navigation-v1\.css\?v=1\.1\.0/);
-assert.match(html,/personal-smart-navigation-v1\.js\?v=1\.1\.0/);
+assert.match(html,/personal-smart-navigation-v1\.css\?v=1\.1\.2/);
+assert.match(html,/personal-smart-navigation-v1\.js\?v=1\.2\.0/);
 assert.match(html,/<meta name="portfolio-intro-youtube-url" content="">/);
+assert.ok(html.includes('name="portfolio-intro-mp4" content="media/sudip-das-professional-introduction-720p.mp4"'));
+assert.ok(html.includes('name="portfolio-intro-poster" content="media/sudip-das-intro-poster.svg"'));
+assert.ok(script.includes("video.controls=true"));
+assert.ok(script.includes("video.autoplay=true"));
+assert.ok(script.includes("video.muted=true"));
+assert.ok(script.includes("video.preload='metadata'"));
+assert.ok(script.includes("video.play().catch"));
+assert.ok(script.includes("byId('pv-intro-native')"));
+assert.ok(script.includes("native.pause()"));
+assert.ok(script.includes("native.load()"));
 assert.match(html,/id="pv-intro-modal" role="dialog" aria-modal="true"[^>]*hidden inert/);
 assert.match(html,/id="pv-intro-close" aria-label="Close intro video"/);
-assert.match(html,/Intro video is not published here yet/);
+assert.match(html,/Your professional introduction video/);
 assert.doesNotMatch(html,/src="https:\/\/www\.youtube.*embed/);
 assert.match(script,/banner\.insertBefore\(button,banner\.querySelector\('\.ws-utility-right'\)\)/);
 assert.match(script,/button\.id='pv-intro-launch'/);
@@ -64,6 +74,10 @@ assert.match(css,/\.pv-intro-modal\[hidden\]\{display:none!important\}/);
 assert.match(css,/\.pv-intro-screen\{/);
 assert.match(css,/aspect-ratio:16\/9/);
 assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
+assert.ok(css.includes('animation:pv-orb-rim 1.15s cubic-bezier(.22,.75,.24,1) 1 both'));
+assert.ok(css.includes('animation:none;'));
+assert.doesNotMatch(css,/pv-orb-rim 7\.5s linear infinite/);
+assert.ok(css.includes('.ws-visitor-quick-toggle:is(:hover,:focus-visible,[aria-expanded="true"])::before'));
 assert.match(css,/#experience \.work-grid/);
 assert.match(html,/window\.PUBLIC_API_BASE="";window\.PORTFOLIO_PREVIEW_MODE=true/);
 let braces=0;for(const char of css){
@@ -73,4 +87,4 @@ let braces=0;for(const char of css){
 assert.equal(braces,0,'CSS brace mismatch');
 console.log(JSON.stringify({result:'PASS_SOURCE_ONLY',floatingQuick:true,
  contextualSuggestions:true, introDialog:true,autoplayOnApprovedVideo:true,
- videoConfigured:false,previewIsolated:true},null,2));
+ videoConfigured:true,previewIsolated:true},null,2));
