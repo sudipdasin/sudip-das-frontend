@@ -1,0 +1,65 @@
+name: Validate personal portfolio intro (preview)
+on:
+  push:
+    branches: [preview-personalweb]
+    paths:
+      - index.html
+      - personal-smart-navigation-v1.js
+      - personal-smart-navigation-v1.css
+      - scripts/verify-smart-navigation.mjs
+      - scripts/verify-personal-theme-library.mjs
+      - media/sudip-das-professional-introduction-720p.mp4
+      - media/sudip-das-professional-introduction.en.vtt
+      - media/sudip-das-intro-poster.svg
+      - .github/workflows/validate-personal-intro-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/preview-personalweb'
+    name: Verify public story, video and visitor interaction
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preview-personalweb
+      - name: Check source safety and visitor interactions
+        run: |
+          set -euo pipefail
+          node --version
+          node --check personal-smart-navigation-v1.js
+          node --check personal-theme-library.js
+          node --check webstudio-parity.js
+          node scripts/verify-smart-navigation.mjs
+          node scripts/verify-personal-theme-library.mjs
+          node scripts/verify-layout-flow.mjs
+          node scripts/verify-foundation-redesign.mjs
+          node scripts/verify-editorial-finish.mjs
+          node scripts/verify-editorial-webstudio-footer.mjs
+          python -m py_compile scripts/render-portfolio-intro.py
+      - name: Check source media assets, runtime playback metadata and captions
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s media/sudip-das-professional-introduction-720p.mp4
+          test -s media/sudip-das-intro-poster.svg
+          grep -q '^WEBVTT' media/sudip-das-professional-introduction.en.vtt
+          grep -q '00:00:39.800 --> 00:00:44.000' media/sudip-das-professional-introduction.en.vtt
+          command -v ffprobe
+          python - <<'PY'
+          import subprocess,json
+          video='media/sudip-das-professional-introduction-720p.mp4'
+          obj=json.loads(subprocess.check_output(['ffprobe','-v','error',
+            '-show_entries','format=duration,size:stream=codec_name,codec_type,width,height,channels',
+            '-of','json',video],text=True))
+          v=next(x for x in obj['streams'] if x.get('codec_type')=='video')
+          a=next(x for x in obj['streams'] if x.get('codec_type')=='audio')
+          assert (v['codec_name'],v['width'],v['height'])==('h264',1280,720),v
+          assert (a['codec_name'],a['channels'])==('aac',2),a
+          assert abs(float(obj['format']['duration'])-44)<.2
+          print('PASS preview media source: 720p H.264 / AAC stereo / 44 sec')
+          PY
