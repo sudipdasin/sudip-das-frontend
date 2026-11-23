@@ -74,7 +74,7 @@ try{
         cx:r.x+r.width/2,cy:r.y+r.height/2
       }};
       const art=selector('.hero-art'),core=selector('.hero-art .core'),
-        outer=selector('.hero-art .orbit'),inner=selector('.hero-art .orbit.two'),
+        outer=selector('.hero-art .ws-neon-precise-outer'),inner=selector('.hero-art .ws-neon-precise-inner'),
         caption=selector('.hero-art .portrait-caption');
       const labels=[...document.querySelectorAll('.hero-art .ws-orbit-chip')];
       const features=[...document.querySelectorAll('#ws-aurora-reference .ws-aurora-feature')];
@@ -129,10 +129,12 @@ try{
       'Portrait and outer ring are not concentric');
     assert.ok(Math.abs(report.inner.cx-report.core.cx)<3&&Math.abs(report.inner.cy-report.core.cy)<3,
       'Inner ring and portrait are not concentric');
+    assert.ok(report.outer.width>250 && report.outer.width<470,'Independent ring diameter unexpected');
     assert.ok(report.outer.width>report.inner.width&&report.inner.width>report.core.width,
       'Ring scale order must be outer > inner > portrait');
-    assert.ok(report.caption.y>=report.outer.bottom+2,
-      'Portrait nameplate must sit BELOW the outer ring; current '+JSON.stringify(report));
+    assert.ok(report.caption.y>=report.core.bottom-16 &&
+      report.caption.bottom<=report.outer.bottom+24,
+      'Portrait nameplate should be directly under the photo within the lower orbit; current '+JSON.stringify(report));
     assert.ok(report.badges.every(x=>(
       report.caption.x>=x.rect.right+3 || report.caption.right<=x.rect.x-3 ||
       report.caption.y>=x.rect.bottom+3 || report.caption.bottom<=x.rect.y-3)),
