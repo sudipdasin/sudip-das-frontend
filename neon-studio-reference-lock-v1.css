@@ -839,3 +839,95 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precision-portrait 
     max-width:105px!important;
   }
 }
+
+/* Desktop Neon Studio v1.3.1 — frost-white personal heading and animated
+   concentric orbital nodes. Scoped to Neon; keeps five labels stationary.
+   The precise ring transform is inline-locked by JS, therefore animate
+   the independent CSS rotate longhand, not transform (which would be
+   overridden and displace the rings). */
+@keyframes personalNeonOrbitClockwise {
+  from { rotate:0deg; }
+  to { rotate:360deg; }
+}
+@keyframes personalNeonOrbitCounterclockwise {
+  from { rotate:0deg; }
+  to { rotate:-360deg; }
+}
+@keyframes personalNeonOrbitAura {
+  0%,100% { opacity:.83; filter:drop-shadow(0 0 2px #08c8ff55); }
+  50% { opacity:1; filter:drop-shadow(0 0 8px #19e6ff7a); }
+}
+@media (min-width:1100px) {
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text h1 {
+    font-weight:800!important;
+    font-size:clamp(4.45rem,6.2vw,7rem)!important;
+    line-height:1.04!important;
+    letter-spacing:-.073em!important;
+    margin:0 0 14px!important;
+    white-space:nowrap;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text .neon-name-gradient {
+    color:transparent!important;
+    background:linear-gradient(108deg,#ffffff 0%,#f5f9ff 43%,#d4e6f1 76%,#b7e0eb 100%)!important;
+    -webkit-background-clip:text!important;
+    background-clip:text!important;
+    -webkit-text-fill-color:transparent!important;
+    text-shadow:none!important;
+    filter:drop-shadow(0 3px 15px rgba(97,195,230,.12));
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text .neon-name-dot {
+    color:#00e7eb!important;
+    -webkit-text-fill-color:#00e7eb!important;
+    background:none!important;
+    text-shadow:0 0 11px #00edff80,0 0 27px #00f0ff3d!important;
+  }
+  /* Spin the separate precision rings (and their attached particle dots)
+     WITHOUT rotating or moving the portrait or any badge labels. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer {
+    animation:personalNeonOrbitClockwise 26s linear infinite!important;
+    transform-origin:center center!important;
+    will-change:rotate;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner {
+    animation:personalNeonOrbitCounterclockwise 20s linear infinite!important;
+    transform-origin:center center!important;
+    will-change:rotate;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer::after {
+    width:8px;
+    height:8px;
+    left:17%;
+    top:10%;
+    background:#70faff;
+    box-shadow:0 0 9px #7cf9ff,0 0 23px #0ab9ff,0 0 37px #176bff;
+    animation:personalNeonOrbitAura 3.2s ease-in-out infinite;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner::before {
+    width:7px;
+    height:7px;
+    right:4%;
+    top:28%;
+    background:#c78bff;
+    box-shadow:0 0 10px #cd83ff,0 0 23px #9a69ff;
+    animation:personalNeonOrbitAura 4s ease-in-out infinite reverse;
+  }
+}
+@media (min-width:1100px) and (max-width:1240px) {
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text h1 {
+    font-size:clamp(3.8rem,5.7vw,5.4rem)!important;
+  }
+}
+/* Keep explicit motion-off and OS accessibility preferences effective. */
+@media (prefers-reduced-motion:reduce) {
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art :is(.ws-neon-precise-outer,.ws-neon-precise-inner),
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art :is(.ws-neon-precise-outer::after,.ws-neon-precise-inner::before) {
+    animation:none!important;
+    rotate:0deg!important;
+    filter:none!important;
+  }
+}
+body.ws-parity[data-ws-motion="off"][data-theme="neon-studio"] main>.hero .hero-art :is(.ws-neon-precise-outer,.ws-neon-precise-inner) {
+  animation:none!important;
+  rotate:0deg!important;
+  will-change:auto;
+}
