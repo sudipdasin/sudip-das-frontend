@@ -103,6 +103,13 @@ try{
         innerBorder:getComputedStyle(inner).borderTopColor,
         pageWidth:document.documentElement.scrollWidth,
         clientWidth:document.documentElement.clientWidth,
+        overflowCandidates:[...document.querySelectorAll('body *')].map(el=>{
+          const r=el.getBoundingClientRect();
+          return {selector:el.tagName.toLowerCase()+(el.id?'#'+el.id:'')+
+            (el.className&&typeof el.className==='string'?'.'+el.className.trim().replaceAll(' ','.'):''),
+            left:r.left,right:r.right,width:r.width}
+        }).filter(x=>x.right>window.innerWidth+4||x.left< -4)
+          .sort((a,b)=>b.right-a.right).slice(0,15),
         otherThemeSections:document.querySelectorAll('.ws-aurora-reference').length
       };
     });
@@ -114,7 +121,8 @@ try{
       inner:report.inner,caption:report.caption,
       badges:report.badges.map(x=>({name:x.name,rect:x.rect})),
       band:report.band,hero:report.hero,section:report.section,
-      featureCount:report.featureCount,pageWidth:report.pageWidth,clientWidth:report.clientWidth
+      featureCount:report.featureCount,pageWidth:report.pageWidth,
+      overflowCandidates:report.overflowCandidates,clientWidth:report.clientWidth
     }));
     assert.equal(report.statusStripHidden,true,'Redundant preview strip should be hidden in Neon Studio');
     assert.equal(report.actualNavVisible,true,'Real navigation must remain visible');
