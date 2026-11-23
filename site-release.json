@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.9.2-neon-studio-owner-approved-locked",
+  "release": "personal-preview-v3.9.3-neon-studio-approved-lock-guard",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -96,7 +96,8 @@
     "neon-studio-no-layout-transition-race",
     "neon-studio-animated-motion-reference-verified",
     "approved-neon-studio-default-on-reload",
-    "neon-visual-baseline-backup-2026-11-24"
+    "neon-visual-baseline-backup-2026-11-24",
+    "approved-neon-git-blob-integrity-guard"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,

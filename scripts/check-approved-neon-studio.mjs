@@ -18,7 +18,7 @@ let failures=0;
 for(const asset of freeze.protectedFiles){
   const bytes=readFileSync(join(root,asset.path));
   const shasum=createHash('sha1')
-    .update(Buffer.from('blob '+bytes.length+'\\0')).update(bytes).digest('hex');
+    .update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex');
   if(shasum!==asset.blobSha){
     console.error('CHANGED APPROVED ASSET: '+asset.path+' expected '+asset.blobSha+' got '+shasum);
     failures++;
