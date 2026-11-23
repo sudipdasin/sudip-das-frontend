@@ -270,9 +270,30 @@
       // Anchor capsule immediately below the real photo, but guarantee
       // that its entire height is contained by the circular outer ring.
       // Width/height constraints are verified for 390..1920px viewports.
-      const captionOffset=vw>=1100?
-        Math.max(portrait/2+portraitGap,diameter/2-capsuleHeight-9):
+      // The wider circle curves inward at the bottom. Anchoring the pill
+      // only 9px above its lowest point made its rectangular corners cross
+      // the circle, despite its center being inside. Fit the WHOLE capsule
+      // using the circle's horizontal chord at the capsule's bottom edge.
+      // This is a desktop Neon-only refinement; other themes and <=1099px
+      // retain their previously approved caption behavior.
+      const captionOffset=vw>=1100?portrait/2+6:
         portrait/2+portraitGap;
+      if(vw>=1100){
+        const pillHeight=clampValue(34,diameter*.085,40);
+        const preferredWidth=clampValue(132,diameter*.37,184);
+        const insetRadius=diameter/2-2;
+        const bottomY=captionOffset+pillHeight;
+        const chordWidth=2*Math.sqrt(Math.max(0,insetRadius*insetRadius-bottomY*bottomY));
+        const pillWidth=Math.min(preferredWidth,chordWidth-8);
+        const pillFontSize=clampValue(16.2,diameter*.041,19.2);
+        // Fails closed to a compact capsule if later geometry ever changes.
+        const safePillWidth=Math.max(105,pillWidth);
+        setLocked(nameplate,'width',safePillWidth+'px');
+        setLocked(nameplate,'max-width',safePillWidth+'px');
+        setLocked(nameplate,'height',pillHeight+'px');
+        setLocked(nameplate,'min-height',pillHeight+'px');
+        setLocked(nameplate,'font-size',pillFontSize+'px');
+      }
       setLocked(nameplate,'top','calc(50% + '+captionOffset+'px)');
       setLocked(nameplate,'bottom','auto');
       setLocked(nameplate,'transform','translateX(-50%)');

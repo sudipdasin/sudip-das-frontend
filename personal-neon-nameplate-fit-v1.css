@@ -1,0 +1,55 @@
+/* Neon Studio approved preview variation v3.9.5 — circle-fitting nameplate.
+   The ORIGINAL approved stylesheet remains unchanged and frozen.
+   Applies ONLY to Neon Studio on the desktop. Inline geometry is managed
+   by webstudio-parity.js and mathematically fits the pill's two lower
+   corners entirely inside the widened outer orbit.
+*/
+@media (min-width:1100px) {
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+    position:absolute!important;
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box!important;
+    white-space:nowrap!important;
+    overflow:hidden;
+    margin:0!important;
+    padding:5px 11px!important;
+    border:1.3px solid #2be9f5!important;
+    border-radius:999px!important;
+    outline:1px solid #24e2f41a;
+    outline-offset:1px;
+    background:linear-gradient(180deg,#06374bea 0%,#06253beb 54%,#04192ff5 100%)!important;
+    color:#d9fdff!important;
+    box-shadow:inset 0 1px 0 #ffffff24,inset 0 -1px 0 #04cce619,
+               0 0 0 1px #12d2ed17,0 0 13px #00e4ee40!important;
+    text-shadow:0 1px 6px #47f7ff29!important;
+    font-family:Inter,"Segoe UI",system-ui,sans-serif!important;
+    font-weight:800!important;
+    letter-spacing:-.028em!important;
+    line-height:1!important;
+    z-index:9!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption .pulse{
+    display:none!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption span:last-child{
+    position:relative;z-index:1;
+    display:block!important;
+    flex:0 1 auto;
+    max-width:100%;
+    overflow:hidden;
+    text-align:center;
+    white-space:nowrap;
+    text-overflow:clip;
+    line-height:1.05!important;
+  }
+}
+/* Reduced-motion: no extra motion or automatic expansion added. */
+@media (prefers-reduced-motion:reduce){
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+    animation:none!important;
+    transition:none!important;
+  }
+}
