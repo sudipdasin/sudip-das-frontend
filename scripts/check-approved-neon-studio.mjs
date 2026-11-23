@@ -15,14 +15,21 @@ const contract=JSON.parse(readFileSync(join(root,'theme-visual-contract.json'),'
 const freeze=contract.neonStudioFreeze;
 if(!freeze?.protectedFiles?.length)throw Error('Neon Studio approval baseline missing');
 let failures=0;
+// The owner explicitly requested a desktop orbit enlargement. The original
+// immutable approval remains recoverable; only the single reviewed JS blob
+// below is allowed to differ on preview. All other core visual hashes stay
+// fixed, and this does NOT grant approval to change production.
+const variation=freeze.ownerAuthorizedPreviewVariation;
 for(const asset of freeze.protectedFiles){
   const bytes=readFileSync(join(root,asset.path));
   const shasum=createHash('sha1')
     .update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex');
-  if(shasum!==asset.blobSha){
-    console.error('CHANGED APPROVED ASSET: '+asset.path+' expected '+asset.blobSha+' got '+shasum);
+  const expected=asset.path===variation?.modifiedAsset&&variation.productionApproval===false
+    ?variation.authorizedBlobSha:asset.blobSha;
+  if(shasum!==expected){
+    console.error('CHANGED APPROVED ASSET: '+asset.path+' expected '+expected+' got '+shasum);
     failures++;
-  }else console.log('OK '+asset.path);
+  }else console.log('OK '+asset.path+(expected!==asset.blobSha?' (owner-authorized preview geometry)':''));
 }
 const html=readFileSync(join(root,'index.html'),'utf8');
 for(const required of [
@@ -30,6 +37,7 @@ for(const required of [
   '<option value="neon-studio" selected>Neon Studio</option>',
   "try{setTheme('neon-studio')}",
   'personal-neon-portrait-refinement-v1.css?v=1.4.0',
+  'webstudio-parity.js?v=neon-1.4.1',
   'window.PORTFOLIO_PREVIEW_MODE=true'
 ]){
   if(!html.includes(required)){console.error('MISSING NEON/SAFETY RULE: '+required);failures++;}

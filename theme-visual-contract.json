@@ -141,6 +141,21 @@
     "startupRule": "Set data-theme=neon-studio before paint and ignore stale persisted theme on new page load, while retaining on-page comparison switcher",
     "changePolicy": "Do not modify approved Neon Studio visuals or asset blobs without a NEW explicit owner request. Preserve the backup branch and compare changes against immutableCommit. Do not silently change original portrait, ring geometry, color treatment, nameplate or satellite positions.",
     "otherThemes": "Editorial and the other four themes remain available, unchanged and independently protected",
-    "productionRule": "Preview approval does not authorize production deployment. Test staging and production-specific integrations before promoting any release."
+    "productionRule": "Preview approval does not authorize production deployment. Test staging and production-specific integrations before promoting any release.",
+    "ownerAuthorizedPreviewVariation": {
+      "requestedDate": "2026-11-24",
+      "request": "Make the circular Neon Studio orbit wider on the preview while preserving the original photo size, concentric satellites and 10px gap",
+      "scope": "preview-personalweb ONLY, desktop 1100px and up. Other themes/mobile/production untouched",
+      "baselinePreviewCommit": "c9bbc2c4b7eba2af0c9b35c9f3b2dd71dfcaef97",
+      "prechangeBackupBranch": "backup/neon-v3.9.3-before-wider-orbit-2026-11-24",
+      "modifiedAsset": "webstudio-parity.js",
+      "authorizedBlobSha": "04dc9d05090d24a4647435d7fda8b89045cbda81",
+      "desktopOuterDiameterScale": 1.14,
+      "photoScale": "unchanged relative to the approved source geometry, except smoothing a pre-existing 1380px breakpoint discontinuity",
+      "release": "personal-preview-v3.9.4-wider-concentric-orbit",
+      "status": "Explicit owner-requested variation; source/geometry checked, live visual review pending",
+      "productionApproval": false,
+      "changePolicy": "This permits only the exact updated JS blob above on the PREVIEW branch. Original immutable visual snapshot and backup remain untouched."
+    }
   }
 }

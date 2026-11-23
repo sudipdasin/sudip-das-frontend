@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.9.3-neon-studio-approved-lock-guard",
+  "release": "personal-preview-v3.9.4-wider-concentric-orbit",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -97,7 +97,8 @@
     "neon-studio-animated-motion-reference-verified",
     "approved-neon-studio-default-on-reload",
     "neon-visual-baseline-backup-2026-11-24",
-    "approved-neon-git-blob-integrity-guard"
+    "approved-neon-git-blob-integrity-guard",
+    "wider-concentric-neon-orbit-owner-requested-preview-only"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -357,6 +358,14 @@
     "snapshotCommit": "d8f97f3b7219007ca55f4793e3c9ec4bb03f4d7e",
     "backupBranch": "backup/neon-studio-approved-v3.9.1-2026-11-24",
     "lockedSourceAssets": 5,
-    "status": "owner-approved visual baseline; backup verified; visual regression still requires browser capture"
+    "status": "owner-approved visual baseline; backup verified; visual regression still requires browser capture",
+    "ownerAuthorizedPreviewVariation": {
+      "sourceAsset": "webstudio-parity.js",
+      "blobSha": "04dc9d05090d24a4647435d7fda8b89045cbda81",
+      "prechangeBackup": "backup/neon-v3.9.3-before-wider-orbit-2026-11-24",
+      "desktopCircleScale": 1.14,
+      "status": "Owner-requested change staged; browser screenshot still needs validation",
+      "productionUnaffected": true
+    }
   }
 }

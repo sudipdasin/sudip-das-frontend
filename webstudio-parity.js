@@ -200,12 +200,16 @@
       if(captionLabel&&captionLabel.textContent!=='Sudip Das')
         captionLabel.textContent='Sudip Das';
       const vw=window.innerWidth;
-      const diameter=vw<=600?clampValue(250,.70*vw,330):
+      // Explicit owner request: widen the round outer circle on desktop.
+      // Separate orbit and portrait diameters so the real photo keeps its
+      // reference scale, rather than stretching its facial proportions.
+      const referenceDiameter=vw<=600?clampValue(250,.70*vw,330):
         vw<=980?clampValue(290,.50*vw,415):
         vw<=1380?clampValue(300,.27*vw,395):
-        clampValue(340,.25*vw,434);
+        clampValue(373,.25*vw,434);
+      const diameter=vw>=1100?referenceDiameter*1.14:referenceDiameter;
       const artHeight=vw<=600?425:vw<=980?Math.max(390,diameter+40):
-        vw<=1380?525:clampValue(545,.34*vw,580);
+        vw<=1380?525:Math.max(clampValue(545,.34*vw,580),diameter+65);
       // In the stacked tablet layout, the nameplate extends beyond the
       // photo/orbit card. Reserve bottom room in the actual hero so it
       // cannot overlap the succeeding infinity/skills band.
@@ -218,9 +222,19 @@
         }
       }
       setLocked(art,'min-height',artHeight+'px');
+      // The right arc follows the wider ring. Preserve its former onscreen
+      // clearance at laptop widths by shifting the WHOLE art, not its rings.
+      if(vw>=1100&&vw<=1380)setLocked(art,'translate','-47px 0');
+      else{
+        art.style.removeProperty('translate');
+        managed.get(art)?.delete('translate');
+      }
       setLocked(art,'--wf-orbit-size',diameter+'px');
+      setLocked(art,'--neon-ring-size',diameter+'px');
       setLocked(ringLayer,'--neon-ring-px',diameter+'px');
-      for(const [ring,size] of [[outerPrecision,diameter],[innerPrecision,diameter*.91]]){
+      // Reference violet ring is about 84% of the enlarged azure ring.
+      const violetDiameter=vw>=1100?referenceDiameter*.96:diameter*.91;
+      for(const [ring,size] of [[outerPrecision,diameter],[innerPrecision,violetDiameter]]){
         setLocked(ring,'width',size+'px');
         setLocked(ring,'height',size+'px');
         setLocked(ring,'left','50%');
@@ -247,16 +261,19 @@
       const portraitGap=vw<=600?4:vw<=980?3:5;
       const capsuleFootOverhang=vw<=600?4:7;
       const targetPhotoRatio=vw<=600?.76:.86;
-      const maxRatioForCapsule=1-(capsuleHeight+portraitGap-capsuleFootOverhang)/(diameter/2);
+      const maxRatioForCapsule=1-(capsuleHeight+portraitGap-capsuleFootOverhang)/(referenceDiameter/2);
       const portraitRatio=Math.min(targetPhotoRatio,maxRatioForCapsule);
-      const portrait=diameter*portraitRatio;
+      const portrait=referenceDiameter*portraitRatio;
       setLocked(portraitLayer,'width',portrait+'px');
       setLocked(portraitLayer,'height',portrait+'px');
       setLocked(nameplate,'left','50%');
       // Anchor capsule immediately below the real photo, but guarantee
       // that its entire height is contained by the circular outer ring.
       // Width/height constraints are verified for 390..1920px viewports.
-      setLocked(nameplate,'top','calc(50% + '+(portrait/2+portraitGap)+'px)');
+      const captionOffset=vw>=1100?
+        Math.max(portrait/2+portraitGap,diameter/2-capsuleHeight-9):
+        portrait/2+portraitGap;
+      setLocked(nameplate,'top','calc(50% + '+captionOffset+'px)');
       setLocked(nameplate,'bottom','auto');
       setLocked(nameplate,'transform','translateX(-50%)');
     };
