@@ -1,0 +1,130 @@
+/* Credit-free source QA: Editorial contrast and WebStudio preview footer.
+ * Does not imply Cloudflare mail bindings, real inbox delivery or Chromium pass.
+ */
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+const read=path=>readFile(new URL('../'+path,import.meta.url),'utf8');
+const [html,contrast,footerCSS,footerJS,api,release,...sceneSVGs]=await Promise.all([
+ read('index.html'),read('personal-editorial-contrast.css'),
+ read('webstudio-footer.css'),read('webstudio-footer.js'),
+ read('functions/api/webstudio-interest.js'),read('site-release.json'),
+ read('webstudio-inline-layout.svg'),read('webstudio-inline-themes.svg'),
+ read('webstudio-inline-workflow.svg')
+]);
+const config=JSON.parse(release);
+assert.equal(config.stage,'preview');
+assert.equal(config.preview.privateRequestsEnabled,false);
+assert.equal(config.preview.productionApiConnected,false);
+assert.equal(config.preview.productionPromotionApproved,false);
+assert.match(html,/id="capabilities"/);
+assert.match(html,/id="ws-powered-heading"/);
+assert.match(html,/MADE WITH WEBSTUDIO/);
+assert.doesNotMatch(html,/href="https:\/\/sudipdasin\.github\.io\/sudip-das-frontend\/"/);
+assert.match(html,/<button[^>]*id="ws-demo-jump"[^>]*aria-controls="ws-inline-demo"[^>]*aria-expanded="false"/);
+assert.match(html,/id="ws-inline-demo"[^>]*role="region"[^>]*data-open="false"[^>]*aria-hidden="true" inert/);
+assert.match(html,/class="ws-demo-expand-inner"/);
+assert.match(html,/id="ws-demo-close" type="button" aria-label="Close WebStudio demo"/);
+assert.match(html,/id="ws-demo-heading"/);
+assert.match(html,/id="ws-demo-tab-1" role="tab"[^>]*aria-selected="true"/);
+assert.match(html,/id="ws-demo-tab-2" role="tab"[^>]*aria-selected="false"/);
+assert.match(html,/id="ws-demo-tab-3" role="tab"[^>]*aria-selected="false"/);
+assert.match(html,/id="ws-demo-panel-2"[^>]*role="tabpanel"[^>]*hidden/);
+assert.match(html,/src="webstudio-inline-layout.svg"[^>]*alt=/);
+assert.match(html,/src="webstudio-inline-themes.svg"[^>]*alt=/);
+assert.match(html,/src="webstudio-inline-workflow.svg"[^>]*alt=/);
+assert.match(html,/Visuals are original concept illustrations, not screenshots/);
+for(const svg of sceneSVGs){
+ assert.match(svg,/<svg[^>]+xmlns="http:\/\/www.w3.org\/2000\/svg"/);
+ assert.match(svg,/<title id="title">/);
+ assert.match(svg,/<desc id="desc">/);
+ assert.match(svg,/<\/svg>\s*$/);
+ assert.doesNotMatch(svg,/<script|(?:href|src)="https?:/i);
+}
+assert.match(html,/id="ws-interest-toggle"[^>]+aria-expanded="false"/);
+assert.match(html,/id="ws-interest-expander"[^>]+data-open="false"/);
+assert.match(html,/id="ws-interest-email" type="email" name="email" required/);
+assert.match(html,/id="ws-interest-status"[^>]+role="status"/);
+assert.match(html,/type="submit" disabled aria-disabled="true"/);
+assert.match(html,/window\.PUBLIC_API_BASE="";window\.PORTFOLIO_PREVIEW_MODE=true/);
+assert.match(html,/webstudio-footer\.js\?v=1\.2\.0/);
+assert.match(html,/webstudio-footer\.css\?v=1\.2\.0/);
+assert.match(html,/personal-editorial-contrast\.css\?v=1\.0\.1/);
+assert.match(contrast,/body\.ws-parity\[data-theme="editorial"\] section\.capabilities/);
+assert.match(contrast,/background:linear-gradient\(155deg,#f7f2e9/);
+assert.match(contrast,/\.capabilities \.cap\.reveal/);
+assert.doesNotMatch(contrast,/body\.ws-parity\[data-theme="(orbit|terminal|neon-studio|design-2|aurora-peak)"\]/);
+assert.doesNotMatch(contrast,/\.hero-art|\.core\s*\{/);
+function rgb(hex){return [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255)}
+function lum(hex){const a=rgb(hex).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);return .2126*a[0]+.7152*a[1]+.0722*a[2]}
+function ratio(a,b){const v=[lum(a),lum(b)].sort((x,y)=>y-x);return (v[0]+.05)/(v[1]+.05)}
+// WCAG text-background checks for actual CSS constants, including opaque cards.
+assert.ok(ratio('#23352c','#f7f2e9')>=7,'Editorial heading contrast on warm paper too low');
+assert.ok(ratio('#48584f','#ebe2d5')>=4.5,'Editorial body text contrast too low');
+assert.ok(ratio('#25342d','#fffaf3')>=7,'Editorial card title contrast too low');
+// Visitor-request visual contract: same scoped Editorial theme, no production
+// request endpoint is enabled, and every visible input remains readable.
+assert.match(contrast,/\.private-access\.request-grid input|\.private-access \.request-grid input/);
+assert.match(contrast,/background:#fffefa!important/);
+assert.match(contrast,/color:#172b22!important/);
+assert.match(contrast,/\.private-access \.request-grid label/);
+assert.match(contrast,/\.private-access :is\(\.radio-option input,\.request-consent input\)/);
+assert.match(contrast,/\.private-access \.vault-accordion/);
+assert.match(contrast,/\.private-access \.request-preview/);
+assert.ok(ratio('#172b22','#fffefa')>=7,'Editorial input text contrast too low');
+assert.ok(ratio('#304239','#fffaf3')>=7,'Editorial form labels contrast too low');
+assert.ok(ratio('#506056','#fffaf3')>=4.5,'Editorial descriptive labels contrast too low');
+assert.ok(ratio('#293b33','#fffdf8')>=7,'Editorial selection labels contrast too low');
+assert.match(footerCSS,/body\.ws-parity\[data-theme="editorial"\] \.ws-powered-band/);
+assert.match(footerCSS,/prefers-reduced-motion:reduce/);
+assert.match(footerCSS,/grid-template-rows:0fr/);
+assert.match(footerCSS,/grid-template-rows:1fr/);
+assert.match(footerCSS,/\.ws-demo-panel\[hidden\]\{display:none!important\}/);
+assert.match(footerCSS,/\.ws-inline-demo\{grid-column:1\/-1/);
+assert.match(footerCSS,/\.ws-powered-band > \.ws-inline-demo\{/);
+assert.match(footerCSS,/grid-template-rows:0fr/);
+assert.match(footerCSS,/\.ws-inline-demo\[data-open="true"\]\{/);
+assert.match(footerCSS,/\.ws-inline-demo\[data-open="true"\][\s\S]*?grid-template-rows:1fr/);
+assert.match(footerCSS,/\.ws-demo-expand-inner\{/);
+assert.match(footerCSS,/translateY\(-15px\) scale\(\.98\)/);
+assert.match(footerCSS,/\.ws-demo-close\{/);
+assert.match(footerCSS,/\.ws-inline-demo > \.ws-demo-expand-inner\{[\s\S]*?padding:0;[\s\S]*?border:0;/);
+assert.match(footerCSS,/\.ws-demo-topbar\{\s*padding-top:23px;\s*border-top:1px solid var\(--wsf-border\)/);
+assert.match(footerCSS,/@media\(prefers-reduced-motion:reduce\)/);
+assert.match(footerCSS,/@media\(max-width:720px\)/);
+assert.match(footerJS,/const showcase=document\.getElementById\('ws-inline-demo'\)/);
+assert.match(footerJS,/panels\.forEach\(\(panel,i\)=>/);
+assert.match(footerJS,/event\.key/);
+assert.match(footerJS,/show\(active\+1\)/);
+assert.match(footerJS,/const setDemoOpen=\(value\)=>/);
+assert.match(footerJS,/showcase\.dataset\.open=String\(expanded\)/);
+assert.match(footerJS,/showcase\.setAttribute\('aria-hidden',String\(!expanded\)\)/);
+assert.match(footerJS,/showcase\.inert=!expanded/);
+assert.match(footerJS,/jump\.setAttribute\('aria-expanded',String\(expanded\)\)/);
+assert.match(footerJS,/jump\.focus\(\{preventScroll:true\}\)/);
+assert.match(footerJS,/closeDemo\.addEventListener\('click',\(\)=>setDemoOpen\(false\)\)/);
+assert.match(footerJS,/if\(event\.key==='Escape'&&showcase\.dataset\.open==='true'\)/);
+assert.match(footerJS,/showcase\.inert=true/);
+assert.match(footerJS,/setStatus\('Opening your email application\. The message is not sent until you choose Send there\.'/);
+assert.match(footerJS,/window\.location\.href=mailtoLink\(email\)/);
+assert.match(footerJS,/const serverEnabled=configuration\?\.content==='enabled'/);
+assert.doesNotMatch(html,/name="webstudio-interest-backend" content="enabled"/);
+assert.match(api,/WEBSTUDIO_INTEREST_ENABLED==='true'/);
+assert.match(api,/WEBSTUDIO_INTEREST_APPROVED_HOST===PREVIEW_HOST/);
+assert.match(api,/env\.INTEREST_DB\?\.prepare/);
+assert.match(api,/verifyTurnstile/);
+assert.match(api,/result\.hostname===PREVIEW_HOST/);
+assert.match(api,/result\.action==='webstudio-interest'/);
+assert.match(api,/ON CONFLICT\(subject_hash,bucket\) DO UPDATE SET count=count\+1 WHERE count < \?/);
+assert.match(api,/await sendMail\(env,email\)/);
+assert.match(api,/return respond\(\{ok:true,status:'delivered'\},202\)/);
+assert.doesNotMatch(api,/MAIL_BRIDGE_SECRET\s*=(?!=)/);
+assert.doesNotMatch(api,/OWNER_EMAIL\s*=\s*['"]/);
+for(const [name,stylesheet] of [['contrast',contrast],['footer',footerCSS]]){
+ let braces=0;for(const ch of stylesheet){if(ch==='{')braces++;if(ch==='}')braces--;assert.ok(braces>=0,name+' extra closing brace')}
+ assert.equal(braces,0,name+' unbalanced CSS');
+}
+console.log(JSON.stringify({result:'PASS_SOURCE_ONLY',contrast:{
+ headings:ratio('#23352c','#f7f2e9').toFixed(2),
+ body:ratio('#48584f','#ebe2d5').toFixed(2),
+ cards:ratio('#25342d','#fffaf3').toFixed(2)
+},webstudioFooter:'present',previewBackend:'disabled',automaticEmail:'pending Cloudflare bindings'},null,2));

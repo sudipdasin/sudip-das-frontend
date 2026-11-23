@@ -1,0 +1,116 @@
+name: Validate personal portfolio intro (preview)
+on:
+  push:
+    branches: [preview-personalweb]
+    paths:
+      - index.html
+      - personal-smart-navigation-v1.js
+      - webstudio-portfolio-gallery.js
+      - webstudio-parity.js
+      - neon-studio-reference-lock-v1.css
+      - scripts/verify-neon-studio-visual.mjs
+      - portfolio-showcase-v2.css
+      - scripts/verify-portfolio-showcase-v2.mjs
+      - scripts/verify-portfolio-showcase-browser.mjs
+      - scripts/verify-hero-hover-v3.mjs
+      - scripts/render-portfolio-film-v3.py
+      - portfolio-intro-hover-v3.css
+      - media/sudip-das-intro-hover-preview.webm
+      - personal-smart-navigation-v1.css
+      - scripts/verify-smart-navigation.mjs
+      - scripts/verify-personal-theme-library.mjs
+      - media/sudip-das-professional-introduction-720p.mp4
+      - media/sudip-das-professional-introduction.en.vtt
+      - media/sudip-das-intro-poster.svg
+      - .github/workflows/validate-personal-intro-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/preview-personalweb'
+    name: Verify public story, video and visitor interaction
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preview-personalweb
+      - name: Install media inspector
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg
+      - name: Check source safety and visitor interactions
+        run: |
+          set -euo pipefail
+          node --version
+          node --check personal-smart-navigation-v1.js
+          node --check webstudio-portfolio-gallery.js
+          node --check scripts/verify-portfolio-showcase-v2.mjs
+          node scripts/verify-portfolio-showcase-v2.mjs
+          node scripts/verify-hero-hover-v3.mjs
+          node --check personal-theme-library.js
+          node --check webstudio-parity.js
+          node --check scripts/verify-neon-studio-visual.mjs
+          node scripts/verify-smart-navigation.mjs
+          node scripts/verify-personal-theme-library.mjs
+          node scripts/verify-layout-flow.mjs
+          node scripts/verify-foundation-redesign.mjs
+          node scripts/verify-editorial-finish.mjs
+          node scripts/verify-editorial-webstudio-footer.mjs
+          python -m py_compile scripts/render-portfolio-intro.py scripts/render-portfolio-film-v3.py
+      - name: Test actual hero, showcase and video popup in Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock --no-audit --no-fund playwright-core@1.57.0
+          CHROME_PATH="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$CHROME_PATH"
+          export CHROME_PATH
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/portfolio-browser-server.log 2>&1 &
+          HTTP_PID=$!
+          trap 'kill "$HTTP_PID" || true' EXIT
+          sleep 2
+          node scripts/verify-portfolio-showcase-browser.mjs
+          node scripts/verify-neon-studio-visual.mjs
+      - name: Keep Neon Studio visual screenshots for reference review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neon-studio-reference-geometry
+          path: test-artifacts/neon-studio-*.png
+          retention-days: 14
+          if-no-files-found: ignore
+      - name: Check source media assets, runtime playback metadata and captions
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s media/sudip-das-professional-introduction-720p.mp4
+          test -s media/sudip-das-intro-poster.svg
+          grep -q '^WEBVTT' media/sudip-das-professional-introduction.en.vtt
+          grep -q '00:00:55.800 --> 00:01:00.000' media/sudip-das-professional-introduction.en.vtt
+          test -s media/sudip-das-intro-hover-preview.webm
+          command -v ffprobe
+          python - <<'PY'
+          import subprocess,json
+          video='media/sudip-das-professional-introduction-720p.mp4'
+          obj=json.loads(subprocess.check_output(['ffprobe','-v','error',
+            '-show_entries','format=duration,size:stream=codec_name,codec_type,width,height,channels',
+            '-of','json',video],text=True))
+          v=next(x for x in obj['streams'] if x.get('codec_type')=='video')
+          a=next(x for x in obj['streams'] if x.get('codec_type')=='audio')
+          assert (v['codec_name'],v['width'],v['height'])==('h264',1280,720),v
+          assert (a['codec_name'],a['channels'])==('aac',2),a
+          assert abs(float(obj['format']['duration'])-60)<.2
+          trailer=json.loads(subprocess.check_output(['ffprobe','-v','error',
+            '-show_entries','format=duration,size:stream=codec_name,codec_type,width,height',
+            '-of','json','media/sudip-das-intro-hover-preview.webm'],text=True))
+          tv=next(x for x in trailer['streams'] if x.get('codec_type')=='video')
+          assert (tv['codec_name'],tv['width'],tv['height'])==('vp9',480,270)
+          assert 5.9<float(trailer['format']['duration'])<6.2
+          assert not any(x.get('codec_type')=='audio' for x in trailer['streams'])
+          print('PASS hover teaser: 6-second silent VP9 / 480×270')
+          print('PASS preview media source: 720p H.264 / AAC stereo / 60 sec')
+          PY

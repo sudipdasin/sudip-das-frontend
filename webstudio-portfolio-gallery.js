@@ -24,22 +24,52 @@
   stage.setAttribute('aria-labelledby','portfolio-gallery-title');
   const heading=nodes('div');
   heading.className='portfolio-gallery-heading';
+  const kicker=nodes('span');kicker.className='portfolio-gallery-eyebrow';
+  kicker.textContent='REAL PROJECTS / LIVE EXPERIENCES';
   const h=nodes('h3');h.id='portfolio-gallery-title';h.textContent='Explore the portfolio';
-  const sub=nodes('p');sub.textContent='Preview a design or open a project story. All information comes from this public profile.';
+  const sub=nodes('p');sub.textContent='Discover actual projects, compare their direction, and switch between six distinctive ways to experience this site.';
   const themeField=nodes('div');themeField.className='portfolio-gallery-themes';
   themeField.setAttribute('role','group');themeField.setAttribute('aria-label','Live site themes');
   const sampler=nodes('div');sampler.className='portfolio-gallery-choices';
   const themeMeta=nodes('p');themeMeta.className='portfolio-gallery-theme-status';
   themeMeta.setAttribute('role','status');
-  const themeTitle=nodes('h4');themeTitle.textContent='Theme gallery';
-  themeField.append(themeTitle,sampler,themeMeta);
+  const themeTitle=nodes('h4');themeTitle.textContent='Choose a visual direction';
+  const themeHint=nodes('p');themeHint.className='portfolio-gallery-theme-hint';
+  themeHint.textContent='All six change the live site. The public professional information stays the same.';
+  themeField.append(themeTitle,themeHint,sampler,themeMeta);
   const spotlightAction=nodes('div');spotlightAction.className='portfolio-gallery-action';
   const openButton=nodes('button');openButton.type='button';openButton.className='portfolio-gallery-open';
   openButton.textContent='▶ Explore project stories';
   const helper=nodes('p');helper.textContent='A focused, keyboard-friendly view of the existing public projects.';
   spotlightAction.append(openButton,helper);
-  heading.append(h,sub);
-  stage.append(heading,themeField,spotlightAction);
+  heading.append(kicker,h,sub);
+  const feature=nodes('div');feature.className='portfolio-feature';
+  feature.setAttribute('aria-label','Featured public project');
+  const featureVisual=nodes('div');featureVisual.className='portfolio-feature-visual';
+  featureVisual.setAttribute('aria-hidden','true');
+  const featureVisualTag=nodes('span');featureVisualTag.className='portfolio-feature-visual-tag';
+  featureVisualTag.textContent='DESIGN / BUILD / LEARN';
+  const featureVisualSymbol=nodes('span');featureVisualSymbol.className='portfolio-feature-visual-symbol';
+  const featureVisualCaption=nodes('span');featureVisualCaption.className='portfolio-feature-visual-caption';
+  featureVisual.append(featureVisualTag,featureVisualSymbol,featureVisualCaption);
+  const featureInfo=nodes('div');featureInfo.className='portfolio-feature-info';
+  const featureEyebrow=nodes('span');featureEyebrow.className='portfolio-feature-eyebrow';
+  featureEyebrow.textContent='FEATURED PUBLIC WORK';
+  const featureTitle=nodes('h4');featureTitle.id='portfolio-feature-title';
+  const featureSummary=nodes('p');featureSummary.className='portfolio-feature-summary';
+  const featureMeta=nodes('span');featureMeta.className='portfolio-feature-meta';
+  const featureControls=nodes('div');featureControls.className='portfolio-feature-controls';
+  const featurePrev=nodes('button');featurePrev.type='button';featurePrev.className='portfolio-feature-arrow';
+  featurePrev.textContent='←';featurePrev.setAttribute('aria-label','Previous public project');
+  const featureCounter=nodes('span');featureCounter.className='portfolio-feature-counter';
+  const featureNext=nodes('button');featureNext.type='button';featureNext.className='portfolio-feature-arrow';
+  featureNext.textContent='→';featureNext.setAttribute('aria-label','Next public project');
+  const featureOpen=nodes('button');featureOpen.type='button';
+  featureOpen.className='portfolio-feature-open';featureOpen.textContent='Explore this project ↗';
+  featureControls.append(featurePrev,featureCounter,featureNext,featureOpen);
+  featureInfo.append(featureEyebrow,featureTitle,featureSummary,featureMeta,featureControls);
+  feature.append(featureVisual,featureInfo);
+  stage.append(heading,feature,themeField,spotlightAction);
   const anchor=$('.profile-project-tools',projectSection) || publicProjects;
   anchor.insertAdjacentElement('beforebegin',stage);
   // Visible from the landing hero, not hidden several sections down the page.
@@ -77,13 +107,20 @@
     const choice=nodes('button');choice.type='button';
     choice.className='portfolio-theme-choice';choice.dataset.themeChoice=option.value;
     choice.setAttribute('aria-label','Activate '+themeNames[option.value]+' theme');
-    const sample=nodes('span');sample.className='portfolio-theme-swatch';
+    const sample=nodes('span');sample.className='portfolio-theme-swatch';sample.setAttribute('aria-hidden','true');
+    const mock=nodes('span');mock.className='portfolio-theme-mock';
+    for(const type of ['bar','title','copy','figure','button']){
+      const part=nodes('span');part.className='portfolio-theme-mock-'+type;mock.append(part);
+    }
+    sample.append(mock);
     sample.style.setProperty('--sample-base',palette[0]);
     sample.style.setProperty('--sample-accent',palette[1]);
     sample.style.setProperty('--sample-second',palette[2]);
     sample.setAttribute('aria-hidden','true');
     const label=nodes('span');label.className='portfolio-theme-name';label.textContent=themeNames[option.value];
-    choice.append(sample,label);
+    const activeTag=nodes('span');activeTag.className='portfolio-theme-active-tag';
+    activeTag.textContent='SELECTED';activeTag.setAttribute('aria-hidden','true');
+    choice.append(sample,label,activeTag);
     choice.addEventListener('click',()=>{
       themeSelect.value=option.value;
       themeSelect.dispatchEvent(new Event('change',{bubbles:true}));
@@ -143,6 +180,23 @@
       action:anchor?.textContent?.trim()||'Explore public project'
     };
   });
+  // Featured carousel is derived entirely from the same public project DOM.
+  let featured=0;
+  const showFeatured=(index)=>{
+    featured=(index+projectData.length)%projectData.length;
+    const item=projectData[featured];
+    featureTitle.textContent=item.name;
+    featureSummary.textContent=item.description;
+    featureMeta.textContent=item.category+' · '+item.state;
+    featureVisual.dataset.project=String(featured);
+    featureVisualCaption.textContent=item.name.toUpperCase();
+    featureVisualSymbol.textContent=['⌘','✧','◈','✳'][featured%4];
+    featureCounter.textContent=String(featured+1).padStart(2,'0')+' / '+String(projectData.length).padStart(2,'0');
+  };
+  featurePrev.addEventListener('click',()=>showFeatured(featured-1));
+  featureNext.addEventListener('click',()=>showFeatured(featured+1));
+  featureOpen.addEventListener('click',()=>show(featured,featureOpen));
+  showFeatured(0);
   let current=0,opener=null;
   const isOpen=()=>!overlay.hidden;
   function display(index){
@@ -224,7 +278,14 @@
   compareStatus.className='portfolio-compare-status';
   compareActions.append(compareButton,clearCompare);
   compare.append(compareHeading,compareHint,compareSlots,compareActions,compareStatus);
-  stage.append(compare);
+  const compareDisclosure=nodes('details');compareDisclosure.className='portfolio-compare-disclosure';
+  const compareSummary=nodes('summary');
+  compareSummary.textContent='Compare two public projects';
+  const compareDetail=nodes('span');compareDetail.textContent='Open comparison workspace';
+  compareDetail.className='portfolio-compare-disclosure-hint';
+  compareSummary.append(compareDetail);
+  compareDisclosure.append(compareSummary,compare);
+  stage.append(compareDisclosure);
   const selected=new Set();
   function renderSelection(){
     compareSlots.replaceChildren();

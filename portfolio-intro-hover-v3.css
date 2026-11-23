@@ -1,0 +1,187 @@
+/* v3.0 — Hero action console & hover-only cinematic teaser.
+ * Deliberate 2x2 arrangement replaces unpredictable flex wrapping.
+ * Preview video is muted/decorative, loaded only on interaction by JS.
+ */
+body.ws-parity .hero .hero-text{min-width:0}
+body.ws-parity .hero .actions {
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+  align-items:stretch;
+  position:relative;
+  isolation:isolate;
+  width:min(100%,580px);
+  max-width:100%;
+}
+body.ws-parity .hero .actions > a,
+body.ws-parity .hero .actions > button {
+  display:flex;
+  box-sizing:border-box!important;
+  width:100%;
+  max-width:100%;
+  min-width:0!important;
+  /* Higher specificity than legacy .hero .actions .button on phones. */
+  min-height:64px!important;
+  height:100%;
+  padding:11px 13px!important;
+  margin:0!important;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border-radius:12px;
+  text-align:center;
+  line-height:1.3;
+  white-space:normal!important;
+  font-size:clamp(.76rem,1vw,.9rem);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+body.ws-parity .hero .actions > a:first-child {order:1;}
+body.ws-parity .hero .actions > .portfolio-gallery-hero-launch {order:2;}
+body.ws-parity .hero .actions > a[href^="https://github.com/sudipdasin"] {order:3;}
+body.ws-parity .hero .actions > #pv-intro-launch {order:4;}
+body.ws-parity .hero .actions > .pv-intro-hover-preview {order:5;}
+body.ws-parity .hero .actions :is(a,button):focus-visible {
+  outline:3px solid var(--ws-accent,var(--lime));
+  outline-offset:3px;
+}
+body.ws-parity .hero .actions > a .arrow {flex:0 0 auto;}
+body.ws-parity .hero .actions .pv-intro-hero-cta {
+  min-width:0;
+  width:100%;
+  padding:9px 10px!important;
+  justify-content:flex-start;
+  border:1px solid color-mix(in srgb,var(--ws-accent,var(--lime)) 69%,var(--line))!important;
+  background:linear-gradient(120deg,
+    color-mix(in srgb,var(--ws-accent,var(--lime)) 18%,var(--panel)),
+    color-mix(in srgb,var(--panel) 87%,var(--bg)))!important;
+}
+body.ws-parity .hero .actions .pv-intro-launch-play {
+  width:39px;height:39px;flex:0 0 39px;
+  border-radius:12px;
+  box-shadow:0 0 25px color-mix(in srgb,var(--ws-accent,var(--lime)) 22%,transparent);
+}
+body.ws-parity .hero .actions .pv-intro-launch-copy {text-align:left;gap:4px;}
+body.ws-parity .hero .actions .pv-intro-launch-copy strong{
+  font:800 clamp(.8rem,1.08vw,.93rem)/1.22 var(--sans,system-ui,sans-serif);
+}
+body.ws-parity .hero .actions .pv-intro-launch-copy small{
+  font:550 clamp(.62rem,.78vw,.74rem)/1.35 var(--sans,system-ui,sans-serif);
+}
+body.ws-parity .hero .actions > a:hover,
+body.ws-parity .hero .actions > button:hover{
+  transform:translateY(-2px);
+}
+body.ws-parity .hero .actions .pv-intro-hero-cta:hover,
+body.ws-parity .hero .actions .pv-intro-hero-cta:focus-visible{
+  box-shadow:
+    0 0 0 3px color-mix(in srgb,var(--ws-accent,var(--lime)) 13%,transparent),
+    0 16px 35px color-mix(in srgb,var(--ws-accent,var(--lime)) 22%,transparent)!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions > a,
+body.ws-parity[data-theme="editorial"] .hero .actions > button {
+  border-radius:11px!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-hero-cta{
+  border-color:#a48a6d!important;
+  background:linear-gradient(130deg,#fffdf7,#eee6d8)!important;
+  color:#27372f;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-hero-cta .pv-intro-launch-play{
+  color:#fff;background:#176b50;
+}
+/* A full-motion teaser appears just outside the action console, over the
+ * hero artwork on wide screens. It NEVER causes a reflow or layout shift. */
+body.ws-parity .hero .actions > .pv-intro-hover-preview{
+  position:absolute;
+  left:calc(100% + 17px);
+  bottom:0;
+  width:min(430px,38vw);
+  aspect-ratio:16/9;
+  pointer-events:none;
+  z-index:25;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  isolation:isolate;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(12px) scale(.96);
+  transform-origin:bottom left;
+  transition:opacity .26s ease,transform .32s cubic-bezier(.19,.85,.23,1),visibility 0s linear .32s;
+  border:1px solid color-mix(in srgb,var(--ws-accent,var(--lime)) 66%,white);
+  border-radius:17px;
+  background:#0a1e2a url("media/sudip-das-intro-poster.svg") center/cover no-repeat;
+  box-shadow:0 26px 70px rgb(0 0 0 / 48%),
+    0 0 30px color-mix(in srgb,var(--ws-accent,var(--lime)) 21%,transparent);
+}
+body.ws-parity .hero .actions > .pv-intro-hover-preview[data-active="true"]{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+  transition:opacity .24s ease,transform .35s cubic-bezier(.17,.85,.22,1),visibility 0s;
+}
+body.ws-parity .pv-intro-hover-video{
+  position:absolute;inset:0;
+  width:100%;height:100%;object-fit:cover;
+  display:block;background:transparent;
+}
+body.ws-parity .pv-intro-hover-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  display:flex;flex-direction:column;gap:3px;
+  padding:36px 18px 16px;
+  color:#effffc;
+  background:linear-gradient(transparent,rgba(5,15,24,.93));
+  text-shadow:0 2px 14px #000;
+}
+body.ws-parity .pv-intro-hover-caption strong{
+  font:750 clamp(1.05rem,1.5vw,1.45rem)/1.22 var(--display,Georgia,serif);
+}
+body.ws-parity .pv-intro-hover-tag{
+  color:#9dffe1;font:700 .59rem/1.4 var(--mono,monospace);
+  letter-spacing:.12em;
+}
+body.ws-parity .pv-intro-hover-caption small{
+  color:#d6e3e2;font:500 .73rem/1.35 var(--sans,system-ui,sans-serif);
+}
+@media(max-width:1200px){
+  body.ws-parity .hero .actions > .pv-intro-hover-preview{
+    width:min(350px,35vw);left:calc(100% + 11px);
+  }
+}
+@media(max-width:920px){
+  body.ws-parity .hero .actions{width:min(100%,650px)}
+  body.ws-parity .hero .actions > .pv-intro-hover-preview{
+    left:auto;right:0;
+    bottom:calc(100% + 13px);
+    width:min(405px,100%);
+    transform-origin:bottom right;
+  }
+}
+@media(max-width:520px){
+  body.ws-parity .hero .actions{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  body.ws-parity .hero .actions > a,
+  body.ws-parity .hero .actions > button{
+    min-height:64px!important;
+    padding:10px 8px!important;
+    font-size:.77rem;
+    line-height:1.28;
+  }
+  body.ws-parity .hero .actions .pv-intro-launch-play{
+    width:29px;height:29px;flex-basis:29px;font-size:.67rem;border-radius:9px;
+  }
+  body.ws-parity .hero .actions .pv-intro-launch-copy small{display:none}
+  body.ws-parity .hero .actions .pv-intro-launch-copy strong{font-size:.78rem}
+  body.ws-parity .hero .actions .pv-intro-hero-cta{justify-content:center;gap:7px}
+}
+@media(max-width:350px){
+  body.ws-parity .hero .actions > a,
+  body.ws-parity .hero .actions > button {font-size:.7rem}
+  body.ws-parity .hero .actions .pv-intro-launch-play{flex-basis:27px;width:27px;height:27px}
+}
+@media(hover:none), (pointer:coarse){
+  body.ws-parity .hero .actions > .pv-intro-hover-preview{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity .hero .actions > .pv-intro-hover-preview{display:none!important}
+  body.ws-parity .hero .actions :is(a,button){transition:none!important}
+}

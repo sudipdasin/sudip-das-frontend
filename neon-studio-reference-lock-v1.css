@@ -1,0 +1,988 @@
+/*
+ * Neon Studio / WebStudio Design 1 visual fidelity lock.
+ * Grounded in the owner's 1892x957 reference screenshot and original
+ * WebStudio studio-design-one(-highlight-fixes).css plus studio-reference-layout.
+ * Applies to this one theme ONLY. Other five themes are not altered.
+ * This stylesheet is intentionally the LAST stylesheet in the document,
+ * resolving several older overlapping Aurora/Cosmic selector families.
+ */
+body.ws-parity[data-theme="neon-studio"]{
+  --neon-cyan:#05eff2;
+  --neon-blue:#21c5ff;
+  --neon-violet:#ad72ff;
+  --neon-ink:#eaf8ff;
+  --neon-navy:#061b32;
+  --neon-outline:#168eb6;
+  --neon-ring-size:clamp(340px,25vw,434px);
+}
+/* SOURCE-ACCURATE GLOW / CONTRAST */
+body.ws-parity[data-theme="neon-studio"] main>.hero{
+  --wf-orbit-size:var(--neon-ring-size);
+  min-height:0!important;
+  padding-top:clamp(24px,2.7vw,44px)!important;
+  padding-bottom:clamp(16px,1.6vw,26px)!important;
+  background:transparent;
+  align-items:center;
+  overflow:visible;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero::before{
+  inset:0 calc((100vw - 100%)/-2) 0;
+  background:
+    linear-gradient(90deg,#031027a0 0%,#04142b50 47%,#03142a15 100%),
+    url('neon-horizon.svg') center bottom / cover no-repeat,
+    radial-gradient(ellipse at 65% 60%,#00b8e83b,transparent 53%),
+    linear-gradient(130deg,#020d25,#0b2647);
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero::after{
+  top:36%!important;
+  height:42%!important;
+  left:-8%!important;
+  right:-7%!important;
+  border-top:1.5px solid #05e6f9db!important;
+  border-radius:58% 42% 56% 40%;
+  transform:rotate(-11deg);
+  box-shadow:0 -8px 32px #00ccff63,0 -23px 74px #057be35c,0 15px 44px #7337ff32;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 38%);
+  mask-image:linear-gradient(90deg,transparent 0%,#000 38%);
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .neon-name-gradient{
+  background:linear-gradient(106deg,#07f2ff 0%,#4da7ff 42%,#cf64fa 96%)!important;
+  background-clip:text!important;
+  -webkit-background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  color:transparent!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .neon-name-dot{
+  color:#07f7f3!important;
+  -webkit-text-fill-color:#07f7f3;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-role{color:#eaf8ff}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-copy{
+  border-left-color:#04eff1;
+  color:#c7d9f1;
+  text-wrap:pretty;
+}
+/* OUTER AZURE, MIDDLE VIOLET, INNER CYAN: true concentric
+ * geometry, not a stacked orbits/card approximation. */
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
+  --wf-orbit-size:var(--neon-ring-size)!important;
+  width:100%;
+  max-width:560px;
+  /* Reserve the full outer orbit AND the caption underneath it. */
+  min-height:clamp(545px,34vw,580px)!important;
+  margin-inline:auto;
+  overflow:visible;
+  isolation:isolate;
+  transform:none;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit{
+  position:absolute!important;
+  width:var(--neon-ring-size)!important;
+  height:var(--neon-ring-size)!important;
+  max-width:none;
+  aspect-ratio:1;
+  left:50%;top:50%;
+  /* Modern Chromium treats math multiplication in negative margins
+   * inconsistently with transformed rotating orbits. translate is an
+   * independent property: rotation cannot displace the centered ring. */
+  margin:0!important;
+  translate:-50% -50%!important;
+  border:1.5px solid #18c8fc!important;
+  border-radius:50%!important;
+  box-shadow:0 0 22px #09b6ff4f,inset 0 0 17px #0574ca12!important;
+  background:transparent;
+  animation:rotate 42s linear infinite!important;
+  z-index:1;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit.two{
+  width:84%!important;
+  height:84%!important;
+  width:calc(var(--neon-ring-size) * .84)!important;
+  height:calc(var(--neon-ring-size) * .84)!important;
+  margin:0!important;
+  translate:-50% -50%!important;
+  border-color:#aa6df5!important;
+  box-shadow:0 0 24px #9a51fa4d!important;
+  animation-direction:reverse!important;
+  animation-duration:34s!important;
+  z-index:1;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art::before{
+  content:"";
+  position:absolute;
+  left:50%;top:50%;
+  width:calc(var(--neon-ring-size) * .94);
+  height:calc(var(--neon-ring-size) * .94);
+  transform:translate(-50%,-50%);
+  border:1px solid #30bcfa4a;
+  border-radius:50%;
+  box-shadow:0 0 44px #00b7ff22;
+  pointer-events:none;
+  z-index:0;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art::after{
+  content:"";
+  position:absolute;
+  left:calc(50% - var(--neon-ring-size) * .43);
+  top:calc(50% + var(--neon-ring-size) * .38);
+  width:12px;height:12px;
+  border-radius:50%;
+  border:0;
+  background:#06f8e8;
+  box-shadow:0 0 19px #04ffe7,0 0 40px #04aefa9a;
+  z-index:4;
+  pointer-events:none;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .core{
+  position:relative;
+  z-index:3;
+  display:grid;
+  place-items:center;
+  width:calc(var(--neon-ring-size) * .73)!important;
+  height:calc(var(--neon-ring-size) * .73)!important;
+  max-width:none;
+  min-width:0;
+  aspect-ratio:1;
+  overflow:hidden;
+  border:3px solid #24e9ff!important;
+  border-radius:50%!important;
+  background:#031c31;
+  box-shadow:0 0 19px #08ddffb0,0 0 54px #088aff73,0 26px 58px #000a!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .core img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 32%;
+  border-radius:50%;
+  filter:contrast(1.03) saturate(1.02);
+  image-rendering:auto;
+}
+/* Five standalone orbital icons and unboxed labels, at the precise five
+ * WebStudio radial offsets seen in the owner screenshot; do not turn into
+ * vertically stacked pill badges or overlay the portrait. */
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip{
+  --r:calc(var(--wf-orbit-size)*.5);
+  position:absolute!important;
+  z-index:7!important;
+  left:50%!important;top:50%!important;
+  right:auto!important;bottom:auto!important;
+  width:max-content!important;
+  height:auto;
+  max-width:205px!important;
+  min-height:40px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start;
+  gap:9px;
+  margin:0!important;
+  padding:0!important;
+  background:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  opacity:1;
+  color:#f3fbff!important;
+  text-shadow:0 2px 9px #000d;
+  transform:translate(-18px,-50%) translate(var(--aurora-x),var(--aurora-y))!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="a"]{
+  --aurora-x:calc(var(--r) * .30);--aurora-y:calc(var(--r) * -.76);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="b"]{
+  --aurora-x:calc(var(--r) * .95);--aurora-y:calc(var(--r) * -.65);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="c"]{
+  --aurora-x:calc(var(--r) * 1.03);--aurora-y:calc(var(--r) * -.07);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="d"]{
+  --aurora-x:calc(var(--r) * .93);--aurora-y:calc(var(--r) * .54);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="e"]{
+  /* Fifth badge stays on the lower-right tangent, above the nameplate. */
+  --aurora-x:calc(var(--r) * .85);--aurora-y:calc(var(--r) * .76);
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-glyph{
+  width:40px!important;
+  height:40px!important;
+  flex:0 0 40px!important;
+  display:grid!important;
+  place-items:center;
+  padding:0;
+  border:1px solid #1bafce!important;
+  border-radius:50%!important;
+  background:linear-gradient(145deg,#072d46,#051b31)!important;
+  color:#34f2f5!important;
+  box-shadow:0 0 17px #00cdf252,inset 0 0 12px #12acdb29!important;
+  text-shadow:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-glyph svg{
+  width:21px;height:21px;display:block;stroke:currentColor;fill:none;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-label{
+  display:inline!important;
+  font:700 clamp(11px,.76vw,13px)/1.3 var(--sans,system-ui,sans-serif);
+  white-space:nowrap!important;
+  color:#effaff!important;
+  background:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+  overflow:visible;
+}
+/* Align the identity plate under the circle, OUTSIDE its photographic
+ * center. Its height is part of the art, not an absolute page overlay. */
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+  position:absolute!important;
+  z-index:8;
+  /* Directly BELOW the ring: never overlap the lower-right satellite. */
+  top:calc(50% + var(--neon-ring-size) * .5 + 14px)!important;
+  bottom:auto!important;
+  left:50%!important;right:auto!important;
+  transform:translateX(-50%)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  min-width:245px!important;
+  width:max-content!important;
+  max-width:min(92%,290px)!important;
+  min-height:39px;
+  padding:7px 15px!important;
+  background:#061e36ef!important;
+  border:1px solid #22bce8!important;
+  border-radius:999px!important;
+  box-shadow:0 0 18px #01cdfb3d!important;
+  color:#e4faff!important;
+  font:500 clamp(10px,.75vw,13px)/1.25 var(--sans,system-ui,sans-serif)!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .portrait-caption .pulse{
+  width:7px;height:7px;flex:0 0 7px;
+  background:#05e9f1!important;box-shadow:0 0 0 4px #04edf527,0 0 10px #04e8ff;
+}
+/* EXACT AURORA INFORMATION RHYTHM:
+ * Hero leads directly to the infinity band, six live skill links, and
+ * the 3-action strip. No empty ticker gap or duplicated value bar. */
+body.ws-parity[data-theme="neon-studio"] main>.ticker,
+body.ws-parity[data-theme="neon-studio"] main>.ws-value-bar{
+  display:none!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.ws-aurora-reference{
+  display:block!important;
+  position:relative;
+  z-index:2;
+  margin:0!important;
+  padding:0 0 25px!important;
+  border-top:1px solid #0ba9bd4d;
+  background:linear-gradient(180deg,#051829,#031628 80%);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-reference-inner{
+  max-width:1620px;
+  width:min(1620px,calc(100% - 2*clamp(18px,4.5vw,76px)));
+  margin:0 auto;
+  padding:0!important;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:13px!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
+  display:grid;
+  grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr);
+  gap:12px;
+  min-height:90px;
+  padding:14px 20px;
+  margin:0!important;
+  border:1px solid #04deda!important;
+  border-radius:15px!important;
+  background:linear-gradient(100deg,#042936,#062934 58%,#052f38)!important;
+  box-shadow:0 0 21px #00d8dd25,inset 0 1px 0 #8cfcff0c;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-intro{
+  border-right:1px solid #20c9d180;
+  padding-right:18px;
+  gap:18px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-infinity{
+  color:#0bf7e9;
+  text-shadow:0 0 19px #00ffff69;
+  line-height:1;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-detail{
+  min-width:0;
+  color:#e6f9ff;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-icon{
+  display:grid;place-items:center;
+  width:26px;height:26px;
+  color:#12e5f4;
+  text-shadow:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-icon svg{
+  width:21px;height:21px;display:block;stroke:currentColor;fill:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:11px!important;
+  padding:0!important;
+  margin:0!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
+  min-height:79px!important;
+  padding:11px 10px!important;
+  gap:10px!important;
+  border:1px solid #216e92!important;
+  border-radius:12px!important;
+  background:linear-gradient(125deg,#071e33,#09283a)!important;
+  box-shadow:inset 0 1px 0 #98efff12,0 7px 19px #0004;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature:hover,
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature:focus-visible{
+  border-color:#03eaf0!important;
+  box-shadow:0 0 23px #00eaff52,0 8px 22px #0004;
+  transform:translateY(-2px);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon{
+  flex:0 0 38px!important;
+  width:38px!important;height:38px!important;
+  display:grid;place-items:center;
+  background:#092e43;
+  border:1px solid #229db8;
+  border-radius:11px;
+  color:#2be8f1;
+  box-shadow:inset 0 0 12px #00dbe42b;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon svg{
+  width:22px;height:22px;display:block;stroke:currentColor;fill:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-copy{
+  min-width:0;
+  display:flex;flex-direction:column;gap:3px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature strong{
+  display:block;
+  color:#f1fbff;
+  font:700 clamp(.64rem,.7vw,.82rem)/1.3 var(--sans,system-ui,sans-serif);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature small{
+  color:#adc9d8;
+  font-size:clamp(.56rem,.6vw,.72rem);
+  line-height:1.3;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta{
+  margin:0!important;
+  border:1px solid #1883a4;
+  border-radius:14px;
+  background:linear-gradient(115deg,#062239,#082c3d);
+  padding:15px 20px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a{
+  min-height:41px;
+  border-radius:10px;
+  background:#06283c;
+  border-color:#2992b4;
+  transition:background .16s,border-color .16s,box-shadow .16s;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
+  border-color:#03e9ee;
+  background:#0b3e54;
+  box-shadow:0 0 18px #08deff3e;
+}
+/* Small screens: preserve five orbit points, but show icon-only satellites
+ * around a smaller ring, as the original WebStudio responsive reference did.
+ * The six feature links remain visible, arranged in 3/2 columns. */
+@media(max-width:1380px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
+    --wf-orbit-size:clamp(300px,27vw,395px)!important;
+    --neon-ring-size:clamp(300px,27vw,395px);
+    min-height:525px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip .ws-orbit-label{
+    font-size:.66rem!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:980px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:4px!important;
+    /* Give the newly lowered nameplate real space above the infinity band. */
+    /* Reserve the portrait nameplate's full height, not just the ring.
+       Desktop retains the reference's edge-to-edge hero→band join. */
+    padding:28px 0 64px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
+    --wf-orbit-size:clamp(290px,50vw,415px)!important;
+    --neon-ring-size:clamp(290px,50vw,415px);
+    width:min(100%,540px);
+    min-height:clamp(390px,52vw,455px)!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
+    grid-template-columns:minmax(0,1fr);
+    gap:9px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-intro{
+    border-right:0;
+    border-bottom:1px solid #16a9b875;
+    padding-right:0;padding-bottom:9px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero{
+    padding:22px 0 10px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
+    --wf-orbit-size:clamp(250px,70vw,330px)!important;
+    --neon-ring-size:clamp(250px,70vw,330px);
+    width:100%;
+    min-height:425px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip{
+    width:29px!important;min-width:29px!important;
+    max-width:29px!important;min-height:29px!important;
+    gap:0!important;
+    transform:translate(-14px,-50%) translate(var(--aurora-x),var(--aurora-y))!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-glyph{
+    width:29px!important;height:29px!important;flex:0 0 29px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-glyph svg{width:16px;height:16px}
+  body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-label{
+    display:none!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+    min-width:0!important;
+    width:max-content!important;
+    max-width:90%!important;
+    font-size:10px!important;
+    padding:7px 10px!important;
+    top:calc(50% + var(--wf-orbit-size)*.5 + 12px)!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-reference-inner{
+    width:calc(100% - 30px);
+    gap:11px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
+    padding:12px;
+    gap:10px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-details{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    row-gap:9px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
+    min-height:75px!important;
+    padding:9px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon{
+    flex-basis:32px!important;width:32px!important;height:32px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon svg{
+    width:19px;height:19px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit,
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit.two{
+    animation:none!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
+    transition:none!important;
+  }
+}
+
+/* Owner request: remove the tiny redundant preview/status header above the
+ * actual navigation ONLY in Neon Studio. Nav brand, theme switch, and public
+ * links remain. The live page's privacy protections are not changed. */
+body.ws-parity[data-theme="neon-studio"] .ws-utility{
+  display:none!important;
+}
+
+/* A predictable landing point: the first WebStudio infinity/skills band
+ * starts immediately after the hero, with no phantom marquee or second strip.
+ * These targets are only visible in the Neon Studio theme. */
+body.ws-parity[data-theme="neon-studio"] main>.hero + .ws-aurora-reference{
+  margin-top:0!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon,
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-glyph,
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-icon{
+  line-height:1;
+}
+
+/* Tight laptop handling: decorative badges use icon-only orbit where labels
+ * cannot fit beside the ring without clipping or covering the portrait. */
+@media (min-width:601px) and (max-width:1199px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-label{
+    max-width:94px;
+    white-space:normal!important;
+    overflow-wrap:normal;
+  }
+}
+
+/* New independent ring layer. The 2019-era .orbit rules from the original
+ * design and the later theme packages fight over width/margins and produce
+ * off-center circles. Do not depend on those legacy elements in Neon Studio.
+ * Both circles share the exact same geometric center as the portrait. */
+body.ws-parity .ws-neon-precise-orbits{display:none}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art > .orbit,
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art > .orbit.two{
+  display:none!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art > .ws-neon-precise-orbits{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block!important;
+  pointer-events:none;
+  z-index:2;
+  overflow:visible;
+  background:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-neon-precise-orbits .ws-neon-precise-ring{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:translate(-50%,-50%)!important;
+  display:block;
+  box-sizing:border-box;
+  border-radius:50%;
+  pointer-events:none;
+  background:transparent;
+  margin:0!important;
+  will-change:auto;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-neon-precise-outer{
+  width:434px;height:434px;
+  border:1.8px solid #15bcf7;
+  box-shadow:0 0 25px #04c7ff40,inset 0 0 12px #04a9ff19;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-neon-precise-inner{
+  width:365px;height:365px;
+  border:1.8px solid #a268ed;
+  box-shadow:0 0 23px #9757fa61,inset 0 0 12px #8b47ed16;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-neon-precise-outer::before{
+  content:"";
+  position:absolute;
+  left:11%;
+  top:11%;
+  right:11%;
+  bottom:11%;
+  border:1px solid #3bafff14;
+  border-radius:50%;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-neon-precise-outer::after{
+  content:"";
+  position:absolute;
+  left:17%;top:10%;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:#5bfaff;
+  box-shadow:0 0 13px #24cfff,0 0 29px #6e8eff;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-neon-precise-inner::before{
+  content:"";
+  position:absolute;
+  right:4%;top:28%;
+  width:5px;height:5px;
+  border-radius:50%;
+  background:#c578ff;
+  box-shadow:0 0 12px #b279ff;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+  /* Owner's 644px reference crop places the plate roughly 14px beneath
+   * the outer 434px orbit, separate from the lower-right satellites.
+   * JS maintains the exact viewport-calculated offset. */
+  top:calc(50% + 231px)!important;
+}
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+    top:calc(50% + 149px)!important;
+  }
+}
+
+/* Neon-only compact mobile header. The legacy native language/theme <select>
+ * controls previously sat at x=294..446 on 390px screens, creating a 56px
+ * horizontal scroll and clipping "Explore themes". Keep the actual nav
+ * usable with both controls available when Menu is expanded. */
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav{
+    max-width:100%;
+    min-width:0;
+    column-gap:8px;
+    row-gap:9px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .language-control,
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .theme-control{
+    display:none!important;
+    min-width:0!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > .language-control,
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > .theme-control{
+    display:flex!important;
+    order:12!important;
+    flex:1 1 calc(50% - 8px)!important;
+    width:auto!important;
+    max-width:calc(50% - 8px)!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > .language-control select,
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > .theme-control select{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .pv-theme-launch{
+    flex:0 0 43px!important;
+    margin-inline-start:auto;
+    width:43px!important;
+    max-width:43px!important;
+  }
+}
+
+/* A dedicated precision portrait replaces the CSS-transitioned legacy .core
+ * ONLY inside Neon Studio. It reuses the exact public portrait already in
+ * the DOM. This gives the cyan photo border reliable 0.73x ring geometry,
+ * independent of the preceding themes' .core animation/width rules. */
+body.ws-parity .ws-neon-precision-portrait{display:none}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art > .core{
+  display:none!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art > .ws-neon-precision-portrait{
+  position:absolute!important;
+  left:50%!important;top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  display:block!important;
+  width:315px;height:315px;
+  z-index:4;
+  box-sizing:border-box;
+  padding:0;
+  margin:0!important;
+  border:3px solid #23e9ff!important;
+  border-radius:50%!important;
+  overflow:hidden;
+  background:#081e32;
+  box-shadow:0 0 20px #05d5ffa9,0 0 48px #0b83ff55,0 17px 35px #0009!important;
+  animation:none!important;
+  pointer-events:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-neon-precision-portrait img{
+  display:block;
+  width:100%;height:100%;
+  max-width:none;max-height:none;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center 32%;
+  filter:contrast(1.03) saturate(1.03);
+}
+
+/* Expanded phone menu: native settings must be positioned in the menu flow,
+ * not in the old absolute-positioned header slots (formerly x=381..429 at
+ * viewport width 390). Preserve both language and theme selectors. */
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open){
+    display:flex!important;
+    flex-wrap:wrap!important;
+    align-items:center;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > :is(.language-control,.theme-control){
+    position:static!important;
+    inset:auto!important;
+    transform:none!important;
+    float:none!important;
+    flex:0 0 calc(50% - 6px)!important;
+    order:13!important;
+    display:flex!important;
+    align-items:stretch!important;
+    justify-content:stretch!important;
+    width:calc(50% - 6px)!important;
+    min-width:0!important;
+    max-width:calc(50% - 6px)!important;
+    height:auto!important;
+    margin:0!important;
+    padding:0!important;
+    box-sizing:border-box;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > :is(.language-control,.theme-control) select{
+    display:block!important;
+    position:static!important;
+    transform:none!important;
+    float:none!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+    min-height:43px!important;
+    margin:0!important;
+  }
+}
+
+/* Layout changes must snap to the verified geometry immediately.
+ * Legacy theme-change transitions briefly trumped even inline !important
+ * rules and caused the nameplate to overlap the band on tablets.
+ * Preserve gentle ring rotation, but never interpolate layout measurements.
+ */
+body.ws-parity[data-theme="neon-studio"] main>.hero,
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art,
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .core,
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption,
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precise-orbits,
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precise-ring,
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precision-portrait {
+  transition:none!important;
+}
+
+/* Orbit geometry 1.3.0 — owner-directed RIGHT PORTRAIT correction.
+   Five icon CENTERS sit on the OUTER ring at five distinct polar angles.
+   Use the ring diameter maintained by syncNeonRing() in webstudio-parity.js.
+   Desktop only: no changes to Editorial or the smaller breakpoints. */
+@media (min-width:1100px) {
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art {
+    --orbit-r:calc(var(--wf-orbit-size) * .5);
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip {
+    --r:var(--orbit-r);
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    right:auto!important;
+    bottom:auto!important;
+    min-height:40px!important;
+    display:flex!important;
+    align-items:center!important;
+    flex-wrap:nowrap!important;
+    gap:9px!important;
+    z-index:9!important;
+    pointer-events:none;
+    /* The first glyph center (20px) is precisely on the circle. */
+    transform:translate(-20px,-50%) translate(var(--aurora-x),var(--aurora-y))!important;
+  }
+  /* True polar offsets (each hypot(x,y) = ~1 outer ring radius).
+     Left-hand labels extend OUTWARD instead of crossing the photo. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="a"] {
+    --aurora-x:calc(var(--r) * -.82)!important;
+    --aurora-y:calc(var(--r) * -.572)!important;
+    flex-direction:row-reverse!important;
+    transform:translate(calc(-100% + 20px),-50%) translate(var(--aurora-x),var(--aurora-y))!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="b"] {
+    --aurora-x:calc(var(--r) * .36)!important;
+    --aurora-y:calc(var(--r) * -.933)!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="c"] {
+    --aurora-x:var(--r)!important;
+    --aurora-y:0px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="d"] {
+    --aurora-x:calc(var(--r) * .74)!important;
+    --aurora-y:calc(var(--r) * .673)!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="e"] {
+    --aurora-x:calc(var(--r) * -.82)!important;
+    --aurora-y:calc(var(--r) * .572)!important;
+    flex-direction:row-reverse!important;
+    transform:translate(calc(-100% + 20px),-50%) translate(var(--aurora-x),var(--aurora-y))!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip .ws-orbit-glyph {
+    flex:0 0 40px!important;
+    width:40px!important;
+    height:40px!important;
+    border:1.5px solid #1ce2f7!important;
+    background:linear-gradient(150deg,#062f48,#04172e)!important;
+    box-shadow:0 0 0 4px #02aadd16,0 0 20px #04cdfc60!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip .ws-orbit-label {
+    white-space:nowrap!important;
+    max-width:132px!important;
+    font-size:clamp(11px,.73vw,13px)!important;
+    line-height:1.3!important;
+    color:#effbff!important;
+    text-shadow:0 2px 8px #001022!important;
+  }
+  /* The existing concentric outlines and photo are positioned by the same
+     50%/50% center. Add only subtle glass separation around the actual image. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precision-portrait {
+    outline:1px solid #18d2fe70;
+    outline-offset:5px;
+    box-shadow:0 0 20px #05d5ffa9,0 0 48px #0b83ff55,0 17px 35px #0009!important;
+  }
+}
+@media (min-width:1100px) and (max-width:1299px) {
+  /* Keep all five ring glyphs; compact names at narrow desktop sizes. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip {
+    gap:6px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip .ws-orbit-label {
+    font-size:10px!important;
+    max-width:105px!important;
+  }
+}
+
+/* Neon desktop 1.3.3 — screenshot-reported displaced-orbit regression.
+   Original WebStudio orbit fidelity uses STATIC concentric geometry.
+   Previous animate:rotate on the whole precision ring was combined with
+   JS inline translate(-50%,-50%) and caused the rings to travel across
+   the screen. Keep both full rings and the five labels stationary, and
+   rotate ONLY concentric glow arcs and orbiting light nodes. */
+@keyframes personalOrbitArcCW { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes personalOrbitArcCCW { from{transform:rotate(0deg)} to{transform:rotate(-360deg)} }
+@keyframes personalOrbitDotCW {
+  from{transform:translate(-50%,-50%) rotate(0deg) translateX(calc(var(--neon-ring-px) * .5 - 3px))}
+  to{transform:translate(-50%,-50%) rotate(360deg) translateX(calc(var(--neon-ring-px) * .5 - 3px))}
+}
+@keyframes personalOrbitDotCCW {
+  from{transform:translate(-50%,-50%) rotate(0deg) translateX(calc(var(--neon-ring-px) * .42 - 3px))}
+  to{transform:translate(-50%,-50%) rotate(-360deg) translateX(calc(var(--neon-ring-px) * .42 - 3px))}
+}
+@media (min-width:1100px) {
+  /* Preserve owner's frost-white name treatment from 1.3.2. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text h1 {
+    font-weight:800!important;
+    font-size:clamp(4.45rem,6.2vw,7rem)!important;
+    line-height:1.04!important;
+    letter-spacing:-.073em!important;
+    margin:0 0 14px!important;
+    white-space:nowrap;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text .neon-name-gradient {
+    color:transparent!important;
+    background:linear-gradient(108deg,#ffffff 0%,#f5f9ff 43%,#d4e6f1 76%,#b7e0eb 100%)!important;
+    -webkit-background-clip:text!important;
+    background-clip:text!important;
+    -webkit-text-fill-color:transparent!important;
+    text-shadow:none!important;
+    filter:drop-shadow(0 3px 15px rgba(97,195,230,.12));
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text .neon-name-dot {
+    color:#00e7eb!important;
+    -webkit-text-fill-color:#00e7eb!important;
+    background:none!important;
+    text-shadow:0 0 11px #00edff80,0 0 27px #00f0ff3d!important;
+  }
+  /* Structural circles stay perfectly centered at CSS/JS 50%/50%.
+     Never apply whole-element rotation here again. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-orbits .ws-neon-precise-ring {
+    rotate:none!important;
+    animation:none!important;
+    transform:translate(-50%,-50%)!important;
+    transform-origin:center center!important;
+    will-change:auto!important;
+  }
+  /* Outer cyan arc spins ABOUT ITS OWN CENTER, not the ring element. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer::before {
+    content:"";
+    display:block;
+    position:absolute;
+    inset:0!important;
+    left:0!important;
+    top:0!important;
+    right:0!important;
+    bottom:0!important;
+    width:100%;
+    height:100%;
+    box-sizing:border-box;
+    border:2px solid transparent;
+    border-top-color:#50eeffce;
+    border-right-color:#189cf51f;
+    border-radius:50%;
+    box-shadow:inset 0 0 8px #10c9f414;
+    transform-origin:50% 50%;
+    animation:personalOrbitArcCW 30s linear infinite!important;
+    pointer-events:none;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer::after {
+    content:"";
+    display:block;
+    position:absolute;
+    left:50%!important;
+    top:50%!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:8px!important;
+    height:8px!important;
+    border-radius:50%;
+    background:#75fbff!important;
+    box-shadow:0 0 9px #75fbff,0 0 24px #07d2ff,0 0 38px #127af9!important;
+    animation:personalOrbitDotCW 30s linear infinite!important;
+    pointer-events:none;
+  }
+  /* Inner violet ring highlight and its independent light node. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner::after {
+    content:"";
+    display:block;
+    position:absolute;
+    inset:0!important;
+    left:0!important;
+    top:0!important;
+    right:0!important;
+    bottom:0!important;
+    width:100%;
+    height:100%;
+    box-sizing:border-box;
+    border:2px solid transparent;
+    border-top-color:#ca83ffcf;
+    border-left-color:#ad76f91b;
+    border-radius:50%;
+    transform-origin:50% 50%;
+    animation:personalOrbitArcCCW 24s linear infinite!important;
+    pointer-events:none;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner::before {
+    content:"";
+    display:block;
+    position:absolute;
+    left:50%!important;
+    top:50%!important;
+    right:auto!important;
+    bottom:auto!important;
+    width:7px!important;
+    height:7px!important;
+    border-radius:50%;
+    background:#d290ff!important;
+    box-shadow:0 0 10px #df97ff,0 0 24px #aa64ff!important;
+    animation:personalOrbitDotCCW 24s linear infinite!important;
+    pointer-events:none;
+  }
+}
+@media (min-width:1100px) and (max-width:1240px) {
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text h1 {
+    font-size:clamp(3.8rem,5.7vw,5.4rem)!important;
+  }
+}
+/* Reduced motion and the website's existing manual motion-off switch. */
+@media (prefers-reduced-motion:reduce) {
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer::before,
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer::after,
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner::before,
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner::after {
+    animation:none!important;
+  }
+}
+body.ws-parity[data-ws-motion="off"][data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer::before,
+body.ws-parity[data-ws-motion="off"][data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer::after,
+body.ws-parity[data-ws-motion="off"][data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner::before,
+body.ws-parity[data-ws-motion="off"][data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner::after {
+  animation:none!important;
+}

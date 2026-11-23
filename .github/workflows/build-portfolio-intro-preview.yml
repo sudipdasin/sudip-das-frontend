@@ -1,0 +1,133 @@
+name: Build 60s cinematic portfolio intro & hover teaser (preview only)
+on:
+  push:
+    branches:
+      - preview-personalweb
+    paths:
+      - scripts/render-portfolio-intro.py
+      - scripts/render-portfolio-film-v3.py
+      - .github/workflows/build-portfolio-intro-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: personal-portfolio-intro-preview
+  cancel-in-progress: false
+
+jobs:
+  build-intro:
+    name: Render and publish 60s 720p film and lightweight hover teaser
+    if: github.ref == 'refs/heads/preview-personalweb'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout requested preview branch only
+        uses: actions/checkout@v4
+        with:
+          ref: preview-personalweb
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Install media renderer and open fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg fonts-inter fonts-dejavu-core
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install rendering dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "numpy>=1.26,<3" "Pillow>=10,<13" "scipy>=1.12,<2"
+
+      - name: Render owner-approved public professional story
+        run: |
+          mkdir -p media
+          python scripts/render-portfolio-intro.py --seconds 44 --fps 24 --out /tmp/portfolio-base-44s.mp4
+      - name: Enhance the film and create a lightweight hover teaser
+        run: |
+          python scripts/render-portfolio-film-v3.py \
+            --base /tmp/portfolio-base-44s.mp4 \
+            --out media/sudip-das-professional-introduction-720p.mp4 \
+            --teaser media/sudip-das-intro-hover-preview.webm
+          rm -f /tmp/portfolio-base-44s.mp4
+
+      - name: Verify video, audio and playback metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s media/sudip-das-professional-introduction-720p.mp4
+          python - <<'PY'
+          import json,subprocess
+          file='media/sudip-das-professional-introduction-720p.mp4'
+          value=json.loads(subprocess.check_output(['ffprobe','-v','error',
+            '-show_entries','format=duration,size:stream=codec_name,codec_type,width,height,channels',
+            '-of','json',file],text=True))
+          streams=value['streams']
+          vids=[s for s in streams if s.get('codec_type')=='video']
+          auds=[s for s in streams if s.get('codec_type')=='audio']
+          assert len(vids)==1 and vids[0]['codec_name']=='h264'
+          assert (vids[0]['width'],vids[0]['height'])==(1280,720)
+          assert len(auds)==1 and auds[0]['codec_name']=='aac' and auds[0]['channels']==2
+          assert 59.9<float(value['format']['duration'])<60.1
+          assert 100000<int(value['format']['size'])<50000000
+          print('VERIFIED_PREVIEW_VIDEO',value)
+          PY
+          ffmpeg -v error -xerror -i media/sudip-das-professional-introduction-720p.mp4 -f null -
+          python - <<'PY'
+          import json,subprocess
+          path='media/sudip-das-intro-hover-preview.webm'
+          info=json.loads(subprocess.check_output(['ffprobe','-v','error',
+            '-show_entries','format=duration:stream=codec_name,codec_type,width,height',
+            '-of','json',path],text=True))
+          v=next(s for s in info['streams'] if s.get('codec_type')=='video')
+          assert (v['codec_name'],v['width'],v['height'])==('vp9',480,270)
+          assert 5.9<float(info['format']['duration'])<6.2
+          assert not any(s.get('codec_type')=='audio' for s in info['streams'])
+          print('VERIFIED_HOVER_TEASER',info)
+          PY
+          ffmpeg -v error -xerror -i media/sudip-das-intro-hover-preview.webm -f null -
+
+      - name: Preserve downloadable preview build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sudip-das-professional-introduction-720p-preview
+          path: |
+            media/sudip-das-professional-introduction-720p.mp4
+            media/sudip-das-intro-hover-preview.webm
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Commit the finished MP4 to preview branch only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git branch --show-current)" = "preview-personalweb"
+          git config user.name "portfolio-video-preview-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- media/sudip-das-professional-introduction-720p.mp4 media/sudip-das-intro-hover-preview.webm
+          if git diff --cached --quiet; then
+            echo "Video asset already matches branch"
+            exit 0
+          fi
+          git commit -m "build(preview): publish verified 720p personal introduction video"
+          # GitHub API commits can land during the media render. Rebase and
+          # retry a fast-forward push rather than failing on a stale branch head.
+          # Never force-push and never write to main.
+          for attempt in 1 2 3 4 5 6 7 8; do
+            git fetch origin preview-personalweb
+            git rebase origin/preview-personalweb
+            if git push origin HEAD:preview-personalweb; then
+              echo "VERIFIED: preview-only MP4 uploaded successfully"
+              exit 0
+            fi
+            echo "Preview branch moved during push; retry ${attempt}/8"
+            sleep $((attempt * 2))
+          done
+          echo "::error::Unable to publish verified MP4 after bounded retries"
+          exit 1

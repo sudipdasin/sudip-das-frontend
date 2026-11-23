@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" role="img" aria-labelledby="title desc">
+<title id="title">WebStudio illustrative interface</title>
+<desc id="desc">Concept illustration of a website design experience. Not a live editor or screenshot.</desc>
+<defs>
+ <linearGradient id="shell" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#182b42"/><stop offset="1" stop-color="#0c1728"/></linearGradient>
+ <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff9ec"/><stop offset="1" stop-color="#e9dfd5"/></linearGradient>
+ <linearGradient id="sunset" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2b17b"/><stop offset=".58" stop-color="#d8827d"/><stop offset="1" stop-color="#774e8d"/></linearGradient>
+ <linearGradient id="aqua" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#55f2de"/><stop offset="1" stop-color="#468af1"/></linearGradient>
+ <linearGradient id="horizon" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0f2847"/><stop offset=".6" stop-color="#3b4b79"/><stop offset="1" stop-color="#df8294"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#020617" flood-opacity=".42"/></filter>
+ 
+</defs>
+<rect width="1200" height="720" fill="#081623"/>
+<circle cx="1030" cy="80" r="380" fill="#2e7190" opacity=".14"/>
+<rect x="28" y="28" width="1144" height="664" rx="25" fill="url(#shell)" stroke="#476378"/>
+<rect x="28" y="28" width="1144" height="59" rx="25" fill="#203449"/>
+<rect x="28" y="66" width="1144" height="21" fill="#203449"/>
+<circle cx="65" cy="58" r="7" fill="#f38492"/><circle cx="90" cy="58" r="7" fill="#f3c877"/><circle cx="115" cy="58" r="7" fill="#57d6b9"/>
+<text x="154" y="64" fill="#d6ebf5" font-family="Arial, sans-serif" font-size="17" font-weight="700">WEBSTUDIO</text>
+<text x="1062" y="64" fill="#85a9bd" font-family="Arial, sans-serif" font-size="13">VISUAL CONCEPT</text>
+
+<text x="79" y="146" font-family="Arial,sans-serif" letter-spacing="3" font-size="15" fill="#83e9dc">DESIGN EXPLORER</text>
+<text x="79" y="196" font-family="Georgia,serif" font-size="39" fill="#f0f9fc">One story, many expressions.</text>
+<text x="79" y="231" font-family="Arial,sans-serif" font-size="16" fill="#adcedd">Switch the look. Compare the mood. Keep the story.</text>
+<g filter="url(#shadow)">
+ <rect x="77" y="272" width="332" height="325" rx="15" fill="#f8f3ea"/>
+ <rect x="88" y="285" width="310" height="189" rx="9" fill="url(#sunset)"/>
+ <circle cx="350" cy="335" r="31" fill="#f5ddae" opacity=".85"/>
+ <path d="M88 440L174 346L247 432L304 361L398 427V474H88Z" fill="#504568" opacity=".75"/>
+ <text x="106" y="324" font-family="Georgia,serif" font-size="19" font-weight="700" fill="#fff">EDITORIAL</text>
+ <text x="103" y="513" font-family="Georgia,serif" font-size="26" fill="#26352f">Quiet confidence.</text>
+ <text x="103" y="542" font-family="Arial,sans-serif" font-size="13" fill="#718078">Warmth · story · clarity</text>
+ <circle cx="110" cy="572" r="10" fill="#bc8f6a"/><circle cx="137" cy="572" r="10" fill="#e1cfb8"/><circle cx="164" cy="572" r="10" fill="#384f49"/>
+ <rect x="432" y="272" width="332" height="325" rx="15" fill="#071d2f"/>
+ <rect x="443" y="285" width="310" height="189" rx="9" fill="#0d273e"/>
+ <circle cx="604" cy="371" r="73" fill="none" stroke="#52e8dd" stroke-width="3"/><circle cx="604" cy="371" r="53" fill="none" stroke="#ff77ba" stroke-width="2" stroke-dasharray="8 8"/>
+ <rect x="578" y="343" width="52" height="54" rx="13" fill="url(#aqua)"/>
+ <path d="M462 438H732" stroke="#3dbbd5" stroke-opacity=".6" stroke-width="2"/>
+ <text x="460" y="324" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#79fff0">NEON</text>
+ <text x="458" y="513" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#e5faff">Bright ambition.</text>
+ <text x="458" y="542" font-family="Arial,sans-serif" font-size="13" fill="#9cc2d4">Energy · contrast · motion</text>
+ <circle cx="463" cy="572" r="10" fill="#52e8dd"/><circle cx="490" cy="572" r="10" fill="#f67bc0"/><circle cx="517" cy="572" r="10" fill="#173e62"/>
+ <rect x="788" y="272" width="332" height="325" rx="15" fill="#0c2e38"/>
+ <rect x="800" y="285" width="307" height="189" rx="9" fill="url(#horizon)"/>
+ <path d="M800 459L863 373L916 443L995 338L1050 422L1107 365V474H800Z" fill="#1b3950"/>
+ <path d="M800 470L904 422L957 448L1076 393L1107 435V474H800Z" fill="#102d43"/>
+ <path d="M814 315Q888 265 954 327T1094 304" fill="none" stroke="#61f6ce" stroke-width="12" opacity=".50"/>
+ <text x="817" y="324" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#baffd4">AURORA</text>
+ <text x="814" y="513" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#e5faff">Room to imagine.</text>
+ <text x="814" y="542" font-family="Arial,sans-serif" font-size="13" fill="#a1c9cf">Depth · calm · atmosphere</text>
+ <circle cx="821" cy="572" r="10" fill="#63ecc7"/><circle cx="848" cy="572" r="10" fill="#8a99f1"/><circle cx="875" cy="572" r="10" fill="#284d63"/>
+</g>
+<rect x="78" y="626" width="1043" height="37" rx="12" fill="#1c364a" stroke="#365a6d"/>
+<text x="103" y="650" font-family="Arial,sans-serif" font-size="15" fill="#c0dce7">These are illustrated presentation directions, not live editing controls.</text>
+
+</svg>

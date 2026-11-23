@@ -1,0 +1,283 @@
+/* Personal Quick Hub v2 — acrylic layers, theme-aware accent, readable tabs. */
+body.ws-parity > .pv-hub-v2 {
+  --pv-hub-accent:var(--ws-accent,#12e7e9);
+  z-index:240!important;
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-toggle{
+  position:relative;
+  min-width:0;
+  overflow:hidden;
+  border:1px solid color-mix(in srgb,var(--pv-hub-accent) 65%,#809da5)!important;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--panel) 86%,transparent),color-mix(in srgb,var(--pv-hub-accent) 22%,var(--panel)))!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.4);
+  backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 12px 36px #0008,0 0 26px color-mix(in srgb,var(--pv-hub-accent) 25%,transparent)!important;
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-toggle::after{
+  content:"";position:absolute;inset:-80% auto -80% -60%;width:50%;
+  pointer-events:none;transform:rotate(25deg);
+  background:linear-gradient(90deg,transparent,#ffffff2b,transparent);
+  opacity:0;transition:left .6s ease,opacity .3s ease;
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-toggle:is(:hover,:focus-visible)::after{
+  opacity:1;left:130%;
+}
+body.ws-parity > .pv-hub-v2 .pv-smart-icon{
+  background:radial-gradient(circle at 30% 28%,#c8ffff,var(--pv-hub-accent) 60%,#1579a4);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--pv-hub-accent) 12%,transparent),0 0 24px color-mix(in srgb,var(--pv-hub-accent) 48%,transparent);
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2{
+  box-sizing:border-box;
+  width:min(425px,calc(100vw - 32px))!important;
+  max-height:min(680px,calc(100dvh - 110px))!important;
+  padding:17px!important;
+  border:1px solid color-mix(in srgb,var(--pv-hub-accent) 45%,#adcdd1)!important;
+  border-radius:22px!important;
+  color:var(--ink)!important;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--panel) 88%,transparent),color-mix(in srgb,var(--bg) 84%,transparent))!important;
+  -webkit-backdrop-filter:blur(26px) saturate(1.5);
+  backdrop-filter:blur(26px) saturate(1.5);
+  box-shadow:0 30px 85px #000b,inset 0 1px 0 #ffffff28,0 0 27px color-mix(in srgb,var(--pv-hub-accent) 19%,transparent)!important;
+  isolation:isolate;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2::before{
+  content:"";position:absolute;inset:0 0 auto;height:135px;z-index:-1;
+  background:radial-gradient(ellipse at 88% 0,color-mix(in srgb,var(--pv-hub-accent) 22%,transparent),transparent 68%);
+  pointer-events:none;border-radius:inherit;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+body.ws-parity > .pv-hub-v2 .pv-hub-brand{display:flex;align-items:center;gap:11px;min-width:0;}
+body.ws-parity > .pv-hub-v2 .pv-hub-mark{
+  display:grid;place-items:center;width:38px;height:38px;flex:0 0 38px;border-radius:12px;
+  color:var(--pv-hub-accent);border:1px solid color-mix(in srgb,var(--pv-hub-accent) 60%,transparent);
+  background:color-mix(in srgb,var(--pv-hub-accent) 12%,transparent);font-size:1.25rem;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-titles{display:flex;flex-direction:column;gap:3px;}
+body.ws-parity > .pv-hub-v2 .pv-hub-titles strong{font:800 1.07rem/1.25 var(--sans,system-ui)!important;color:var(--ink);}
+body.ws-parity > .pv-hub-v2 .pv-hub-titles small{color:var(--muted);font:600 .7rem/1.2 var(--sans,system-ui);}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-close{
+  width:32px;height:32px;min-height:32px;padding:0!important;flex:0 0 32px;
+  border-radius:9px;background:color-mix(in srgb,var(--panel2) 60%,transparent);
+  font-size:1.3rem;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-context{
+  display:flex;justify-content:space-between;gap:12px;margin-top:16px;font:650 .74rem/1.35 var(--sans,system-ui);
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-current{color:var(--ink);}
+body.ws-parity > .pv-hub-v2 .pv-hub-progress-label{color:var(--pv-hub-accent);font-variant-numeric:tabular-nums;}
+body.ws-parity > .pv-hub-v2 .pv-hub-progress{
+  height:4px;margin:10px 0 17px;border-radius:50px;overflow:hidden;
+  background:color-mix(in srgb,var(--pv-hub-accent) 15%,var(--panel2));
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-progress-bar{
+  display:block;width:0;height:100%;border-radius:inherit;
+  background:linear-gradient(90deg,var(--pv-hub-accent),#9b9bff);
+  box-shadow:0 0 12px var(--pv-hub-accent);transition:width .2s ease;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tabs{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;
+  padding:5px;margin:0 0 14px;border-radius:13px;
+  background:color-mix(in srgb,var(--bg) 55%,transparent);
+  border:1px solid color-mix(in srgb,var(--pv-hub-accent) 19%,transparent);
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-tab{
+  box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:5px;
+  min-width:0;min-height:41px!important;border-radius:10px;
+  border:1px solid transparent;font:750 .76rem/1.2 var(--sans,system-ui)!important;
+  background:transparent;cursor:pointer;
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-tab[aria-selected="true"]{
+  color:var(--ink)!important;border-color:color-mix(in srgb,var(--pv-hub-accent) 45%,transparent)!important;
+  background:color-mix(in srgb,var(--pv-hub-accent) 18%,var(--panel))!important;
+  box-shadow:inset 0 1px 0 #ffffff13,0 0 14px color-mix(in srgb,var(--pv-hub-accent) 13%,transparent);
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-pane[hidden]{display:none!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-pane{min-width:0;outline:none;}
+body.ws-parity > .pv-hub-v2 .pv-hub-pane:focus-visible{outline:2px solid var(--pv-hub-accent);outline-offset:4px;}
+body.ws-parity > .pv-hub-v2 .pv-hub-group-title{
+  color:var(--pv-hub-accent);margin:13px 0 9px;
+  font:750 .65rem/1.4 var(--mono,monospace);letter-spacing:.1em;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-description{
+  color:var(--muted);margin:1px 0 12px;font:.76rem/1.5 var(--sans,system-ui);
+}
+body.ws-parity > .pv-hub-v2 .pv-smart-recommendation{
+  padding:14px!important;margin:0 0 13px!important;border-radius:13px;
+  background:linear-gradient(125deg,color-mix(in srgb,var(--pv-hub-accent) 17%,var(--panel)),color-mix(in srgb,var(--panel) 92%,transparent))!important;
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-links{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-links a{
+  display:flex;align-items:center;min-height:42px;padding:9px 11px;border-radius:10px;
+  font-size:.78rem;line-height:1.2;
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-themes{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-themes button{
+  box-sizing:border-box;min-width:0;text-align:left;font-size:.77rem;border-radius:10px;padding:11px 10px;
+}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-themes button[aria-pressed="true"]{
+  border-color:var(--pv-hub-accent)!important;
+  box-shadow:inset 0 0 0 1px var(--pv-hub-accent),0 0 13px color-mix(in srgb,var(--pv-hub-accent) 15%,transparent);
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tools{display:grid;gap:8px;}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-tool{
+  display:flex;gap:11px;align-items:center;width:100%;padding:10px 12px;border-radius:12px;text-align:left;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tool-icon{
+  display:grid;place-items:center;width:35px;height:35px;flex:0 0 35px;
+  border:1px solid color-mix(in srgb,var(--pv-hub-accent) 38%,transparent);border-radius:10px;
+  color:var(--pv-hub-accent);font-size:1.05rem;background:color-mix(in srgb,var(--pv-hub-accent) 10%,transparent);
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tool-copy{display:flex;flex:1;flex-direction:column;min-width:0;gap:3px;}
+body.ws-parity > .pv-hub-v2 .pv-hub-tool-copy strong{color:var(--ink);font:750 .83rem/1.2 var(--sans,system-ui);}
+body.ws-parity > .pv-hub-v2 .pv-hub-tool-copy small{color:var(--muted);font:500 .7rem/1.3 var(--sans,system-ui);}
+body.ws-parity > .pv-hub-v2 .pv-hub-tool-arrow{color:var(--pv-hub-accent);font-size:1rem;}
+body.ws-parity > .pv-hub-v2 .pv-hub-privacy{
+  color:var(--muted);margin:14px 0 0;padding-top:12px;border-top:1px solid var(--ws-edge,var(--line));
+  font:600 .68rem/1.4 var(--sans,system-ui);
+}
+body.ws-parity[data-theme="editorial"] > .pv-hub-v2 .pv-hub-panel-v2{
+  background:linear-gradient(145deg,rgba(255,251,244,.96),rgba(240,234,224,.93))!important;
+  border-color:#bca48b!important;
+  backdrop-filter:blur(25px);
+}
+body.ws-parity[data-theme="terminal"] > .pv-hub-v2 .pv-hub-panel-v2,
+body.ws-parity[data-theme="terminal"] > .pv-hub-v2 .pv-hub-tabs{border-radius:4px!important;}
+@media(max-width:520px){
+ body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2{width:min(390px,calc(100vw - 24px))!important;padding:12px!important;}
+ body.ws-parity > .pv-hub-v2 .pv-hub-tabs{gap:3px;}
+ body.ws-parity > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-tab{font-size:.69rem!important;}
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity > .pv-hub-v2 .ws-visitor-quick-toggle::after{display:none!important;}
+ body.ws-parity > .pv-hub-v2 *{animation:none!important;transition:none!important;}
+}
+
+/* v2.5 — Quick Hub four-tab responsive geometry and wasted-space fix.
+   The earlier three-column template wrapped the fourth Connect tab into a
+   second row, leaving two empty cells. All tabs must remain on ONE line.
+   Existing panes retain their native content height; only the panel scrolls. */
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2{
+  display:block!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(690px,calc(100dvh - 108px))!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  padding:14px!important;
+  box-sizing:border-box!important;
+  width:min(426px,calc(100vw - 28px))!important;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2[hidden]{display:none!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-tabs{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-template-rows:minmax(39px,auto)!important;
+  grid-auto-flow:row!important;
+  gap:5px!important;
+  width:100%;
+  min-width:0;
+  margin:10px 0 12px!important;
+  padding:4px!important;
+  box-sizing:border-box;
+  align-items:stretch;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tab{
+  display:flex!important;
+  flex-flow:row nowrap!important;
+  justify-content:center!important;
+  align-items:center!important;
+  gap:4px!important;
+  min-width:0!important;
+  width:100%!important;
+  min-height:39px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:7px 3px!important;
+  white-space:nowrap!important;
+  overflow:hidden;
+  text-overflow:clip;
+  font-size:clamp(.65rem,.8vw,.75rem)!important;
+  line-height:1.15!important;
+  letter-spacing:-.015em;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tab>span{
+  display:inline!important;
+  flex:0 0 auto;
+  font-size:.88em;
+  line-height:1;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-body,
+body.ws-parity > .pv-hub-v2 .pv-hub-pane{
+  display:block;
+  box-sizing:border-box;
+  width:100%;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-pane[hidden]{display:none!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-heading{margin:0!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-context{margin:11px 0 0!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-progress{margin:8px 0 10px!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-group-title{margin:9px 0 7px!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-description{margin:0 0 10px!important;}
+body.ws-parity > .pv-hub-v2 .pv-smart-recommendation{margin:0 0 9px!important;padding:12px!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-privacy{margin:11px 0 0!important;padding-top:10px!important;}
+/* Legacy WebStudio .ws-visitor-quick-panel strong adds 10px below each
+   inline heading. Reset only under this visitor hub to remove phantom gaps. */
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2 strong{
+  margin-bottom:0!important;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-connect-group{
+  gap:4px;
+  padding:7px;
+  margin:0;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-connect-cards{gap:8px;}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-connect-link{
+  justify-content:flex-start;
+  min-height:38px;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tool{
+  min-height:43px;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-mini-previews{margin-top:8px!important;}
+/* Tighter controls and a genuinely single-row tab strip on narrow phones. */
+@media (max-width:520px){
+ body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2{
+  width:min(410px,calc(100vw - 20px))!important;
+  max-height:calc(100dvh - 90px)!important;
+  padding:11px!important;
+ }
+ body.ws-parity > .pv-hub-v2 .pv-hub-tabs{
+  gap:2px!important;
+  padding:3px!important;
+  margin:8px 0 10px!important;
+ }
+ body.ws-parity > .pv-hub-v2 .pv-hub-tab{
+  gap:3px!important;
+  min-height:41px!important;
+  padding:6px 1px!important;
+  font-size:clamp(.6rem,2.6vw,.71rem)!important;
+ }
+ body.ws-parity > .pv-hub-v2 .pv-hub-tab>span{font-size:.78em;}
+}
+@media (max-width:345px){
+ body.ws-parity > .pv-hub-v2 .pv-hub-tab{
+  font-size:.6rem!important;
+  gap:2px!important;
+  letter-spacing:-.035em;
+ }
+}
+/* All appearances retain their palette, but geometry is consistent. */
+@media (prefers-reduced-motion:reduce){
+ body.ws-parity > .pv-hub-v2 .pv-hub-tabs{scroll-behavior:auto!important;}
+}

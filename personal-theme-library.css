@@ -1,0 +1,224 @@
+/* Visibility repair 2026-11-23:
+ * The first gallery launch control was buried INSIDE a hidden Quick Actions
+ * menu. Keep a prominent visitor-only launcher in the sticky header, next to
+ * Quick Actions. Does not change any original Editorial hero or visual skin.
+ * The gallery itself is still closed by default.
+ */
+body.ws-parity .topbar .ws-visitor-quick{
+ display:flex!important;align-items:center;gap:8px;
+}
+body.ws-parity .topbar .pv-theme-launch{
+ display:inline-flex;align-items:center;justify-content:center;gap:7px;
+ position:relative;flex:0 0 auto;white-space:nowrap;
+ padding:9px 13px;min-height:42px;
+ border:1px solid var(--ws-accent,#4be2d2)!important;
+ border-radius:11px;
+ color:#031d2a!important;
+ background:linear-gradient(110deg,#62ece1,#80c7ff)!important;
+ box-shadow:0 5px 23px #00cfdf33!important;
+ font:750 .78rem/1.15 var(--sans,system-ui,sans-serif)!important;
+ letter-spacing:.005em;cursor:pointer;
+}
+body.ws-parity .topbar .pv-theme-launch:is(:hover,:focus-visible){
+ border-color:#ffffff!important;
+ filter:brightness(1.07);
+ transform:translateY(-1px);
+ outline-offset:2px;
+}
+body.ws-parity .topbar .pv-theme-launch:disabled{
+ opacity:.7;cursor:default;
+}
+body.ws-parity .pv-theme-launch-glyph{
+ font-size:1rem;font-weight:700;
+}
+body.ws-parity .pv-theme-launch-counter{
+ display:inline-flex;align-items:center;justify-content:center;
+ min-width:21px;height:21px;border-radius:999px;padding-inline:5px;
+ background:#06293b2b;color:inherit;font-size:.68rem;
+}
+/* The owner's saved Editorial theme keeps its warm paper and copper design. */
+body.ws-parity[data-theme="editorial"] .topbar .pv-theme-launch{
+ background:#fffaf3!important;
+ color:#704631!important;
+ border-color:#b79b80!important;
+ box-shadow:none!important;
+ border-radius:3px;
+ font-family:Georgia,serif!important;
+}
+body.ws-parity[data-theme="terminal"] .topbar .pv-theme-launch{
+ background:#0b2519!important;color:#78f5b4!important;
+ border-color:#4fc691!important;border-radius:2px;
+ font-family:var(--mono,monospace)!important;
+ box-shadow:none!important;
+}
+@media(max-width:1250px){
+ body.ws-parity .pv-theme-launch-counter{display:none!important}
+ body.ws-parity .topbar .pv-theme-launch{padding:8px 11px}
+}
+@media(max-width:920px){
+ body.ws-parity .pv-theme-launch-label{display:none!important}
+ body.ws-parity .topbar .pv-theme-launch{
+  padding:7px 11px;min-width:39px;min-height:39px;
+ }
+}
+@media(max-width:600px){
+ body.ws-parity .topbar .ws-visitor-quick{gap:5px}
+ body.ws-parity .topbar .pv-theme-launch{
+  padding:6px 9px;min-width:36px;min-height:36px;
+ }
+ /* Keep two clear icon-sized actions, without pushing existing mobile
+    language/theme controls off the viewport. Original accessible text remains. */
+ body.ws-parity .topbar .ws-visitor-quick-toggle{
+  font-size:0!important;min-width:36px;width:36px;
+  padding:6px!important;
+ }
+ body.ws-parity .topbar .ws-visitor-quick-toggle::after{
+  content:"⌘";font-size:1rem;line-height:1;
+ }
+}
+
+/* Visitor-safe six-theme chooser for the single personal preview.
+ * This stylesheet modifies ONLY .pv-theme-* elements, which are hidden by
+ * default until the visitor opens the gallery from Quick Actions.
+ * Intentionally does not change any global theme, Editorial source rules,
+ * the static portfolio hero, projects, footer or owner access controls. */
+body.ws-parity .ws-visitor-quick-panel .pv-theme-launch{
+ display:block;width:100%;margin:11px 0 8px;
+ padding:10px 12px;min-height:42px;
+ border:1px solid #69e6d8!important;
+ color:#061d29!important;background:#62dcd4!important;
+ font:700 .85rem/1.3 var(--sans,system-ui,sans-serif)!important;
+ text-align:center!important;cursor:pointer
+}
+body.ws-parity .ws-visitor-quick-panel .pv-theme-launch:disabled{
+ cursor:wait;opacity:.6
+}
+.pv-theme-overlay[hidden]{display:none!important}
+.pv-theme-overlay{
+ --pv-ink:#edfaff;--pv-muted:#b9d5dd;
+ position:fixed;inset:0;z-index:2147483000;
+ display:flex;align-items:center;justify-content:center;
+ padding:clamp(8px,2.6vw,36px);
+ background:#06101de0;color:var(--pv-ink);
+ backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+ overflow:auto;overscroll-behavior:contain
+}
+.pv-theme-panel{
+ width:min(1040px,100%);max-height:min(91dvh,1000px);
+ overflow-y:auto;padding:clamp(16px,2.5vw,30px);
+ border:1px solid #3d697b;border-radius:18px;
+ color:var(--pv-ink);
+ background:linear-gradient(145deg,#0a1b2a,#0c273a 66%,#131e3b);
+ box-shadow:0 28px 100px #000b;
+ font:400 1rem/1.5 system-ui,sans-serif
+}
+.pv-theme-head,.pv-theme-tools,.pv-theme-footer{
+ display:flex;align-items:start;justify-content:space-between;gap:15px
+}
+.pv-theme-head h2{
+ color:#f6ffff;font:750 clamp(1.35rem,2.4vw,2rem)/1.15 system-ui,sans-serif!important;
+ letter-spacing:-.04em;margin:0 0 7px
+}
+.pv-theme-head p{
+ max-width:730px;margin:0;color:#c0d8e1!important;font:.91rem/1.5 system-ui,sans-serif
+}
+.pv-theme-close,.pv-theme-restore{
+ appearance:none;flex:none;padding:10px 13px;
+ min-height:43px;border:1px solid #65899b;border-radius:9px;
+ background:#123044;color:#eaf7ff;
+ cursor:pointer;font:600 .81rem system-ui,sans-serif
+}
+.pv-theme-tools{margin:18px 0 10px;align-items:center}
+.pv-theme-search,.pv-theme-filter{
+ min-height:45px;min-width:0;
+ border-radius:9px!important;border:1px solid #527b8e!important;
+ background:#071e31!important;color:#eaf7ff!important;
+ box-shadow:none!important;padding:10px 12px!important;
+ font:500 .9rem system-ui,sans-serif!important;color-scheme:dark
+}
+.pv-theme-search{flex:1}
+.pv-theme-filter{width:185px;max-width:42%}
+.pv-theme-status{
+ min-height:1.4em;font:.81rem/1.4 system-ui,sans-serif!important;
+ color:#a7cbd2!important;margin:8px 0 12px
+}
+.pv-theme-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:12px
+}
+.pv-theme-card{
+ min-width:0;display:flex;flex-direction:column;gap:8px;
+ padding:12px;border-radius:13px;
+ border:1px solid #3c6578;color:var(--pv-ink);
+ background:#143143;
+}
+.pv-theme-card[data-selected=true]{
+ border-color:#69eee4;box-shadow:inset 0 0 0 1px #69eee455
+}
+.pv-theme-swatch{
+ position:relative;min-height:85px;overflow:hidden;
+ border:1px solid #ffffff26;border-radius:9px;
+ background:radial-gradient(ellipse at 70% 35%,var(--pv-chip-highlight),transparent 41%),
+            linear-gradient(125deg,var(--pv-chip-base),#17283d)
+}
+.pv-theme-swatch:after{
+ content:"";position:absolute;width:64px;height:64px;
+ border:2px solid var(--pv-chip-highlight);border-radius:50%;
+ left:50%;top:50%;transform:translate(-50%,-50%);
+ box-shadow:0 0 0 9px #ffffff10,0 0 35px var(--pv-chip-highlight);
+}
+.pv-theme-card[data-theme-id=editorial] .pv-theme-swatch:after{
+ border-radius:3px;width:59px;height:70px;background:#fffaf0;
+ box-shadow:7px 8px 0 #8d583d55
+}
+.pv-theme-card h3{
+ font:700 .99rem/1.28 system-ui,sans-serif!important;
+ color:#f6ffff!important;margin:0
+}
+.pv-theme-meta{
+ align-self:flex-start;padding:5px 9px;border-radius:100px;
+ border:1px solid #538397;background:#164557;color:#b9f7e9;
+ font:600 .71rem/1.2 system-ui,sans-serif
+}
+.pv-theme-card p{
+ color:#c8dce5!important;margin:0;flex:1;
+ font:.83rem/1.46 system-ui,sans-serif!important
+}
+.pv-theme-choose{
+ min-height:40px;padding:8px 12px;
+ border:1px solid #66e2d6!important;border-radius:8px!important;
+ background:#5ee1d6!important;color:#06212d!important;
+ font:700 .83rem/1.25 system-ui,sans-serif!important;
+ cursor:pointer;
+}
+.pv-theme-choose:disabled{
+ opacity:.7;background:#1a4657!important;color:#d5e9f0!important;
+ cursor:default
+}
+.pv-theme-footer{
+ align-items:center;margin-top:20px;
+ padding-top:15px;border-top:1px solid #315d70
+}
+.pv-theme-footer p{
+ max-width:670px;margin:0;color:#bdd3dd!important;
+ font:.79rem/1.5 system-ui,sans-serif
+}
+.pv-theme-empty{color:#d3e3ea!important}
+.pv-theme-overlay :is(button,input,select):focus-visible{
+ outline:3px solid #9af4e9!important;outline-offset:3px
+}
+@media(max-width:840px){
+ .pv-theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:650px){
+ .pv-theme-overlay{align-items:flex-start;padding:8px}
+ .pv-theme-panel{max-height:calc(100dvh - 16px);padding:14px;border-radius:12px}
+ .pv-theme-grid{grid-template-columns:1fr}
+ .pv-theme-tools,.pv-theme-footer{flex-direction:column;align-items:stretch}
+ .pv-theme-filter{width:100%;max-width:none}
+ .pv-theme-restore{align-self:flex-start}
+ .pv-theme-swatch{min-height:57px}
+}
+@media(prefers-reduced-motion:reduce){
+ .pv-theme-overlay *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}

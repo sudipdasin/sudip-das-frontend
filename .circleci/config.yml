@@ -27,6 +27,32 @@ jobs:
             node --check webstudio-portfolio-gallery.js
             node --check webstudio-visitor-hub.js
             node --check scripts/repo-discovery.js
+            node --check webstudio-parity.js
+            node --check scripts/verify-six-theme-fidelity.mjs
+            node scripts/verify-six-theme-fidelity.mjs
+            node --check scripts/verify-aurora-reference-v2.mjs
+            node --check scripts/verify-editorial-visual.mjs
+            node --check scripts/verify-theme-contract.mjs
+            node scripts/verify-theme-contract.mjs
+            node --check personal-theme-library.js
+            node --check scripts/verify-personal-theme-library.mjs
+            node scripts/verify-personal-theme-library.mjs
+            node --check webstudio-footer.js
+            node --check functions/api/webstudio-interest.js
+            node --check scripts/verify-editorial-webstudio-footer.mjs
+            node scripts/verify-editorial-webstudio-footer.mjs
+            node --check scripts/verify-foundation-redesign.mjs
+            node scripts/verify-foundation-redesign.mjs
+            node --check languages.js
+            node --check scripts/verify-layout-flow.mjs
+            node scripts/verify-layout-flow.mjs
+            node --check scripts/verify-editorial-finish.mjs
+            node scripts/verify-editorial-finish.mjs
+            node --check personal-smart-navigation-v1.js
+            node --check scripts/verify-smart-navigation.mjs
+            node scripts/verify-smart-navigation.mjs
+            node scripts/verify-aurora-reference-v2.mjs
+            # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
             const fs=require('node:fs');
             const assert=require('node:assert/strict');
@@ -34,13 +60,40 @@ jobs:
               assert.equal(fs.existsSync(path),false,'Development/private source in public artifact: '+path);
             }
             const html=fs.readFileSync('index.html','utf8');
-            for(const key of ['Sudip Das','id="private-request-form"','webstudio-visual-port.js','webstudio-portfolio-gallery.js','webstudio-visitor-hub.js']){
+            for(const key of ['Sudip Das','id="private-request-form"','webstudio-parity.js','webstudio-portfolio-gallery.js','webstudio-visitor-hub.js']){
               assert.ok(html.includes(key),'Missing personal site feature: '+key);
             }
             assert.ok(!html.includes('__PUBLIC_')&&!html.includes('__TURNSTILE_SITE_KEY__'),'Unresolved build placeholder');
             assert.ok(!html.includes('Dev Das portrait'),'Fictional buyer identity leaked into real portfolio');
-            assert.ok(html.includes('https://sudip-das-profile-api.sudipdasin.workers.dev'),'Public request API endpoint missing');
             const release=JSON.parse(fs.readFileSync('site-release.json','utf8'));
+            if(release.stage==='preview'){
+              assert.equal(release.preview?.branch,'preview-personalweb');
+              assert.equal(release.preview?.privateRequestsEnabled,false);
+              assert.equal(release.preview?.productionApiConnected,false);
+              assert.ok(html.includes('window.PORTFOLIO_PREVIEW_MODE=true'),'Preview guard missing');
+              assert.ok(html.includes('window.PUBLIC_API_BASE=""'),'Preview must not configure the live Worker');
+              assert.ok(html.includes('type="submit" disabled aria-disabled="true"'),'Preview request submit must be disabled');
+              assert.doesNotMatch(html,/sudip-das-profile-api\.sudipdasin\.workers\.dev/,'Preview leaks production API URL');
+              const parity=fs.readFileSync('webstudio-parity.js','utf8');
+              assert.ok(parity.includes('CURRENT PERSONAL PREVIEW'),'Preview visual label missing');
+              assert.ok(!html.includes('src="webstudio-visual-port.js"'),'Visitor must not load advanced appearance editor');
+              assert.ok(html.includes('src="webstudio-parity.js"'),'Visitor visual runtime must be loaded');
+              for(const forbidden of ['ws-studio-open','ws-studio-panel','profile-look-open','profile-shortcuts-open','data-import-look','data-export-look','localStorage','fetch(']){
+                assert.ok(!parity.includes(forbidden),'Forbidden visitor mutation/editor control in parity runtime: '+forbidden);
+              }
+              assert.ok(!parity.includes('Studio & system'),'Unauthorized public studio UI reintroduced');
+              assert.ok(parity.includes('ws-visitor-quick-open'),'Safe visitor Quick Actions missing');
+              assert.ok(parity.includes('ws-visitor-quick-panel'),'Safe visitor section/theme panel missing');
+              assert.ok(parity.includes("themeSelect.dispatchEvent(new Event('change'"),'Quick theme change missing');
+              for(const section of ['about','projects','experience','capabilities','contact']){
+                assert.ok(parity.includes("'"+section+"'"),'Quick link missing: '+section);
+              }
+
+
+              assert.ok(!parity.includes('Real projects · Six design experiences · No account required'),'Demo banner reappeared');
+            } else {
+              assert.ok(html.includes('https://sudip-das-profile-api.sudipdasin.workers.dev'),'Production request API endpoint missing');
+            }
             assert.equal(release.privateBackendBundled,false);
             const profile=JSON.parse(fs.readFileSync('data/profile.json','utf8'));
             assert.equal(profile.schemaVersion,1);
@@ -81,12 +134,89 @@ jobs:
             import {chromium} from 'playwright';
             const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
             try{
-              for(const width of [1440,820,390]){
+              for(const width of [1833,1777,1672,1440,820,390]){
                 const page=await browser.newPage({viewport:{width,height:900}});
                 try{
                   const r=await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
                   assert.ok(r?.ok(),'Local static root unavailable');
-                  await page.locator('#profile-look-open').waitFor({timeout:15000});
+                  await page.locator('.ws-utility-right').waitFor({timeout:15000});
+                  assert.equal(await page.locator('#ws-studio-open').count(),0,'Studio button publicly visible');
+                  assert.equal(await page.locator('#profile-look-open').count(),0,'Appearance button publicly visible');
+                  assert.equal(await page.locator('#profile-shortcuts-open').count(),0,'Advanced quick editor must not be visible');
+                  assert.equal(await page.locator('#ws-visitor-quick-open').count(),1,'Visitor quick actions missing');
+                  assert.equal(await page.locator('body > .pv-smart-float').count(),1,'Quick actions must float outside header');
+                  assert.equal(await page.locator('body > .pv-smart-float').evaluate(el=>getComputedStyle(el).position),'fixed');
+                  assert.equal(await page.locator('#ws-visitor-quick-open').evaluate(el=>getComputedStyle(el,'::before').animationName),
+                    'none','Quick Actions must never animate while idle');
+                  await page.locator('#ws-visitor-quick-open').hover();
+                  assert.equal(await page.locator('#ws-visitor-quick-open').evaluate(el=>getComputedStyle(el,'::before').animationName),
+                    'pv-orb-rim','Quick Actions animation should run only on hover/focus/click');
+                  assert.equal(await page.locator('.topbar .nav > #pv-theme-launch').count(),1,
+                    'Explore themes must be attached to the top navigation, not floating with Quick Actions');
+                  assert.equal(await page.locator('.pv-smart-float #pv-theme-launch').count(),0,
+                    'Theme Library launcher must not be nested in the floating button');
+                  const actionGeometry=await page.evaluate(()=>{
+                    const button=document.querySelector('#ws-visitor-quick-open');
+                    const theme=document.querySelector('#pv-theme-launch');
+                    const header=document.querySelector('.topbar .nav');
+                    const orb=button.getBoundingClientRect();
+                    const head=theme.getBoundingClientRect();
+                    const nav=header.getBoundingClientRect();
+                    return {size:[orb.width,orb.height],radius:getComputedStyle(button).borderRadius,
+                      buttonPosition:getComputedStyle(button.closest('.pv-smart-float')).position,
+                      backdrop:getComputedStyle(button).backdropFilter,
+                      head:{x:head.x,y:head.y,width:head.width,right:head.right},
+                      nav:{left:nav.left,right:nav.right},
+                      themeParent:theme.parentElement===header};
+                  });
+                  assert.ok(actionGeometry.size[0]>=50&&actionGeometry.size[0]<=59,
+                    'Quick Actions must be compact circular orb: '+JSON.stringify(actionGeometry));
+                  assert.ok(actionGeometry.size[0]-actionGeometry.size[1]<2&&actionGeometry.size[1]-actionGeometry.size[0]<2,
+                    'Quick Actions button must be round: '+JSON.stringify(actionGeometry));
+                  assert.equal(actionGeometry.radius,'50%','Quick Actions must have round shape');
+                  assert.match(actionGeometry.backdrop,/blur/,'Floating Quick Actions should use glass blur');
+                  assert.ok(actionGeometry.themeParent,'Explore themes launcher parent must be header');
+                  assert.ok(actionGeometry.head.right<=actionGeometry.nav.right+3,
+                    'Explore themes extends beyond top-right header boundary: '+JSON.stringify(actionGeometry));
+                  assert.equal(await page.locator('#pv-intro-launch').count(),1,'Intro video button missing beside Interactive Portfolio');
+                  assert.equal(await page.locator('#pv-intro-modal').isVisible(),false,'Intro popup must start hidden');
+                  await page.locator('#pv-intro-launch').click();
+                  assert.equal(await page.locator('#pv-intro-modal').isVisible(),true,'Intro popup must open');
+                  assert.equal(await page.locator('#pv-intro-frame').count(),0,'No unapproved YouTube iframe should load');
+                  await page.waitForFunction(()=>{
+                    const v=document.querySelector('#pv-intro-native');
+                    return (v&&v.readyState>=1)||!v;
+                  },null,{timeout:8000});
+                  const native=page.locator('#pv-intro-native');
+                  if(await native.count()){
+                    assert.equal(await native.evaluate(v=>v.controls),true,'Native video controls must be enabled');
+                    assert.equal(await native.evaluate(v=>v.muted),true,'Autoplay should initially be muted');
+                    assert.ok(await native.evaluate(v=>v.duration)>59&&await native.evaluate(v=>v.duration)<61,'Native video duration should be 60 seconds');
+                  }else{
+                    assert.ok((await page.locator('#pv-intro-empty').innerText()).includes('awaiting preview publication'),
+                      'Missing-file fallback must identify unpublished MP4 without a false success');
+                  }
+                  await page.locator('#pv-intro-close').click();
+                  assert.equal(await page.locator('#pv-intro-modal').isVisible(),false,'Intro close failed');
+                  assert.equal(await page.evaluate(()=>document.activeElement.id),'pv-intro-launch','Intro must restore focus');
+                  await page.locator('#pv-intro-launch').click();
+                  await page.locator('#pv-intro-close').press('Escape');
+                  assert.equal(await page.locator('#pv-intro-modal').isVisible(),false,'Intro Escape failed');
+                  await page.locator('#ws-visitor-quick-open').click();
+                  assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'true');
+                  assert.equal(await page.locator('#ws-visitor-quick-panel a[href="#projects"]').count(),1);
+                  await page.locator('#ws-visitor-quick-panel button[data-theme="design-2"]').click();
+                  assert.equal(await page.locator('body').getAttribute('data-theme'),'design-2');
+                  assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'false');
+                  await page.locator('#projects').scrollIntoViewIfNeeded();
+                  await page.waitForFunction(()=>document.querySelector('.pv-smart-recommend-link')?.getAttribute('href')==='#capabilities',null,{timeout:3000});
+                  assert.equal(await page.locator('.pv-smart-recommend-link').getAttribute('href'),'#capabilities','Guide should suggest strengths when browsing projects');
+                  await page.locator('#ws-visitor-quick-open').click();
+                  assert.equal(await page.locator('#ws-visitor-quick-panel').isVisible(),true);
+                  await page.locator('.pv-smart-recommend-link').click();
+                  assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'false','Recommendation click should close guide');
+                  assert.equal(await page.locator('#profile-look-dialog').count(),0,'Appearance dialog publicly available');
+                  assert.equal(await page.locator('#ws-studio-panel').count(),0,'Studio dialog publicly available');
                   assert.equal(await page.locator('#theme-select option').count(),6);
                   assert.equal(await page.locator('#language-select option').count(),10);
                   assert.equal(await page.locator('#private-request-form').count(),1);
@@ -94,6 +224,294 @@ jobs:
                   assert.equal(await page.locator('#ws-visitor-hub').count(),1);
                   await page.locator('#theme-select').selectOption('design-2');
                   assert.equal(await page.locator('body').getAttribute('data-theme'),'design-2');
+                  // 6-theme × 3-width geometry and permission matrix
+                  for(const theme of ['orbit','editorial','terminal','aurora-peak','neon-studio','design-2']){
+                    await page.locator('#theme-select').selectOption(theme);
+                    assert.equal(await page.locator('body').getAttribute('data-theme'),theme);
+                    await page.locator('.hero-art .ws-orbit-chip').first().waitFor();
+                    const expectedBadges=theme==='neon-studio'?5:theme==='design-2'?4:3;
+                    assert.equal(await page.locator('.hero-art .ws-orbit-chip').count(),expectedBadges,'Orbit badges '+theme+'/'+width);
+                    const aurora=page.locator('.ws-aurora-reference');
+                    if(theme==='neon-studio'){
+                      assert.equal(await aurora.count(),1,'Aurora section must exist in Neon Studio');
+                      assert.ok(await aurora.isVisible(),'Aurora reference section not visible');
+                      assert.equal(await page.locator('.ws-aurora-info-band').count(),1,'Design 1 information band missing');
+                      assert.equal(await page.locator('.ws-aurora-band-details .ws-aurora-mini-detail').count(),4,'Four detail items expected');
+                      assert.equal(await page.locator('.ws-aurora-feature-grid .ws-aurora-feature').count(),6,'Design 1 requires six compact cards');
+                      assert.equal(await page.locator('.ws-aurora-cta-actions a').count(),3,'Aurora visitor CTA group missing');
+                      assert.equal(await page.locator('.hero-art .ws-orbit-chip .ws-orbit-glyph').count(),5,'Five icon medallions expected');
+                      assert.equal(await page.locator('.hero-art .ws-orbit-chip .ws-orbit-label').count(),5,'Five skill labels expected');
+                      assert.equal(await page.locator('main>.ticker').isVisible(),false,'Old ticker should not duplicate Aurora section');
+                      const bandBox=await page.locator('.ws-aurora-info-band').boundingBox();
+                      const heroBox=await page.locator('.hero').boundingBox();
+                      assert.ok(bandBox&&heroBox&&bandBox.y>=heroBox.y+heroBox.height-4,'Aurora information band must follow hero');
+                    } else {
+                      assert.equal(await aurora.count(),0,'Aurora must not be in other five theme DOMs: '+theme);
+                    }
+
+                    assert.equal(await page.locator('#ws-studio-open').count(),0,'Studio leak '+theme);
+                    assert.equal(await page.locator('#profile-look-open').count(),0,'Appearance leak '+theme);
+                    assert.equal(await page.locator('#pv-theme-library').count(),1,'Visitor Theme Library missing '+theme);
+                    assert.equal(await page.locator('#pv-theme-library').isVisible(),false,'Theme dialog must be hidden by default '+theme);
+                    assert.equal(await page.locator('#pv-theme-launch').count(),1,'Theme Library launch action missing '+theme);
+                    assert.equal(await page.locator('.topbar .nav > #pv-theme-launch').count(),1,
+                      'Explore themes must stay in top navigation across all themes: '+theme);
+                    assert.equal(await page.locator('#ws-interest-toggle').count(),1,'WebStudio footer interest action missing '+theme);
+                    assert.equal(await page.locator('#ws-interest-expander').getAttribute('data-open'),'false','Footer interest form must start collapsed '+theme);
+                    assert.equal(await page.locator('#ws-interest-email').getAttribute('type'),'email','Only an email address is requested '+theme);
+                    assert.equal(await page.locator('a[href*="sudipdasin.github.io/sudip-das-frontend"]').count(),0,'No external WebStudio demo link allowed '+theme);
+                    assert.equal(await page.locator('#ws-inline-demo').count(),1,'In-page WebStudio demo missing '+theme);
+                    assert.equal(await page.locator('[data-demo-tab]').count(),3,'Three demonstration chapters expected '+theme);
+                    assert.equal(await page.locator('#ws-demo-jump').getAttribute('aria-expanded'),'false','WebStudio demo must start closed '+theme);
+                    assert.equal(await page.locator('#ws-inline-demo').getAttribute('data-open'),'false','WebStudio showcase should start collapsed '+theme);
+                    assert.equal(await page.locator('#ws-inline-demo').getAttribute('aria-hidden'),'true','Collapsed demo must be hidden from assistive tech '+theme);
+                    assert.equal(await page.locator('#ws-inline-demo').evaluate(el=>el.inert),true,'Collapsed demo must not be keyboard-focusable '+theme);
+                    assert.equal(await page.locator('.ws-demo-panel:visible').count(),0,'Collapsed WebStudio images must be hidden '+theme);
+                    assert.equal(await page.locator('#experience .foundation-summary').count(),1,'Foundation right panel not present '+theme);
+                    assert.equal(await page.locator('#experience .foundation-pillar-list li').count(),3,'Three grounded experience pillars expected '+theme);
+                    assert.equal(await page.locator('#experience .foundation-country').innerText(),'Based in India','Only public country should appear '+theme);
+                    assert.equal(await page.locator('#experience .work-grid h3').filter({hasText:'Address'}).count(),0,'Misleading Address heading persists '+theme);
+                    // Layout flow: preserve all three summaries without clipping.
+                    // The terminal theme intentionally hides non-active sections
+                    // and the ticker, so only its markup/translation is asserted.
+                    const flow=await page.evaluate(()=>{
+                      const summaries=['about','projects','experience'].map(id=>{
+                        const section=document.getElementById(id);
+                        const wrap=section.querySelector('.wrap').getBoundingClientRect();
+                        const p=section.querySelector('.section-head > p');
+                        const b=p.getBoundingClientRect();
+                        return {id,visible:b.width>0,
+                          left:b.left,right:b.right,
+                          wrapLeft:wrap.left,wrapRight:wrap.right,
+                          scroll:p.scrollWidth,client:p.clientWidth,
+                          whiteSpace:getComputedStyle(p).whiteSpace};
+                      });
+                      const ticker=document.querySelector('.ticker');
+                      const view=ticker.querySelector('.ticker-window');
+                      const groups=[...ticker.querySelectorAll('.ticker-group')];
+                      const wrap=document.querySelector('#about .wrap').getBoundingClientRect();
+                      const rect=view.getBoundingClientRect();
+                      return {summaries,ticker:{
+                        isDisplayed:getComputedStyle(ticker).display!=='none',
+                        groups:groups.length,
+                        count:groups.map(g=>g.querySelectorAll('span').length),
+                        widths:groups.map(g=>g.getBoundingClientRect().width),
+                        copies:groups.map(g=>g.textContent.replace(/\s+/g,' ').trim()),
+                        left:rect.left,right:rect.right,
+                        wrapLeft:wrap.left,wrapRight:wrap.right,
+                        scroll:view.scrollWidth,client:view.clientWidth,
+                        clipping:getComputedStyle(view).overflowX,
+                        animation:getComputedStyle(ticker.querySelector('.ticker-in')).animationName
+                      }};
+                    });
+                    assert.equal(flow.ticker.groups,2,'Marquee needs two exact groups '+theme+'/'+width);
+                    assert.deepEqual(flow.ticker.count,[6,6],'Six labels expected per repeat '+theme+'/'+width);
+                    assert.equal(flow.ticker.copies[0],flow.ticker.copies[1],'Translated loops must remain identical '+theme+'/'+width);
+                    if(theme!=='terminal'){
+                      for(const p of flow.summaries){
+                        assert.ok(p.visible,'Summary not laid out '+p.id+'/'+theme+'/'+width);
+                        assert.ok(p.left>=p.wrapLeft-2&&p.right<=p.wrapRight+2,
+                          'Summary leaves layout: '+JSON.stringify(p)+' '+theme+'/'+width);
+                        assert.ok(p.scroll<=p.client+2,'Text overflows summary: '+JSON.stringify(p)+' '+theme+'/'+width);
+                      }
+                      assert.ok(flow.ticker.isDisplayed,'Marquee must display '+theme+'/'+width);
+                      assert.ok(flow.ticker.widths[0]>0&&Math.abs(flow.ticker.widths[0]-flow.ticker.widths[1])<1,
+                        'Marquee groups not geometrically identical: '+JSON.stringify(flow.ticker));
+                      assert.ok(flow.ticker.left>=flow.ticker.wrapLeft-2&&flow.ticker.right<=flow.ticker.wrapRight+2,
+                        'Ticker viewport outside content bounds: '+JSON.stringify(flow.ticker));
+                      assert.equal(flow.ticker.clipping,'hidden','Marquee viewport must clip wide track '+theme);
+                      assert.equal(flow.ticker.animation,'ws-marquee-seamless');
+                    }else assert.equal(flow.ticker.isDisplayed,false,'Terminal ticker should remain hidden');
+                    // The three screenshot targets: section-copy card, 4 Strengths,
+                    // and private-request controls must remain coherent in every theme.
+                    assert.equal(await page.locator('#capabilities .cap').count(),4,'Four Strengths cards must remain '+theme);
+                    assert.equal(await page.locator('#private-request-form .request-grid input').count(),8,'Form fields lost '+theme);
+                    assert.equal(await page.locator('#private-request-form .request-submit').isDisabled(),true,'Preview request submission must remain disabled');
+                    assert.equal(await page.locator('#private-request-form .cf-turnstile').getAttribute('data-theme'),'light','The provider widget must use its supported light appearance');
+                    assert.equal(await page.locator('#private-request-form .cf-turnstile').getAttribute('data-size'),'flexible','The provider widget must use responsive sizing');
+                    assert.ok(await page.locator('.captcha-hint').innerText().then(v=>v.includes('preview is offline')),'Preview must explain that CAPTCHA success does not enable requests');
+                    if(theme!=='terminal'){
+                      const strengths=await page.evaluate(()=>{
+                        const grid=document.querySelector('#capabilities .cap-grid');
+                        const cards=[...grid.querySelectorAll('.cap')];
+                        const wrap=grid.closest('.wrap').getBoundingClientRect();
+                        return {columns:getComputedStyle(grid).gridTemplateColumns.split(' ').length,
+                          wrap:{left:wrap.left,right:wrap.right},
+                          cards:cards.map(el=>{
+                            const b=el.getBoundingClientRect();
+                            return {left:b.left,right:b.right,width:b.width,height:b.height};
+                          })};
+                      });
+                      assert.equal(strengths.columns,width<=580?1:width<=1100?2:4,'Strengths card columns '+theme+'/'+width);
+                      for(const card of strengths.cards){
+                        assert.ok(card.width>100&&card.height>=140,'Strengths cards too small '+JSON.stringify(card));
+                        assert.ok(card.left>=strengths.wrap.left-2&&card.right<=strengths.wrap.right+2,
+                          'Strengths card breaks wrapper '+JSON.stringify(card)+' '+theme+'/'+width);
+                      }
+                    }
+                    if(theme==='editorial'){
+                      const editorialSurface=await page.evaluate(()=>{
+                        const quote=document.querySelector('#about .section-head > p');
+                        const cap=document.querySelector('#capabilities .cap');
+                        const get=(element)=>({color:getComputedStyle(element).color,
+                          background:getComputedStyle(element).backgroundColor,
+                          border:getComputedStyle(element).borderLeftWidth});
+                        return {quote:get(quote),cap:get(cap),
+                          capBackground:getComputedStyle(cap).backgroundImage};
+                      });
+                      assert.equal(editorialSurface.quote.border,'3px','Editorial summary must retain accent rail');
+                      assert.match(editorialSurface.cap.background,/255,\s*250,\s*243/,'Strengths card must have opaque paper color');
+                      assert.match(editorialSurface.capBackground,/linear-gradient/,'Strengths subtle paper texture absent');
+                      await page.locator('#private-details').evaluate(el=>{
+                        el.open=true;el.dataset.pinned='true';
+                      });
+                      await page.locator('#private-request-form .request-grid input').first().waitFor({state:'visible',timeout:3000});
+                      const formStyling=await page.evaluate(()=>{
+                        const form=document.querySelector('#private-request-form');
+                        const grid=form.querySelector('.request-grid');
+                        const inputs=[...grid.querySelectorAll('input')];
+                        const frame=form.querySelector('.captcha-slot');
+                        const orb=form.querySelector('.request-orb');
+                        const button=form.querySelector('.request-submit');
+                        const bounds=x=>{const r=x.getBoundingClientRect();return {left:r.left,right:r.right,width:r.width}};
+                        const wrap=bounds(form);
+                        return {cols:getComputedStyle(grid).gridTemplateColumns.split(' ').length,
+                          form:wrap,inputs:inputs.map(bounds),captcha:bounds(frame),
+                          orbAnimation:getComputedStyle(orb).animationName,
+                          orbIcon:getComputedStyle(orb,'::before').content,
+                          disabled:button.disabled,cursor:getComputedStyle(button).cursor,
+                          buttonOpacity:getComputedStyle(button).opacity};
+                      });
+                      assert.equal(formStyling.cols,width<=900?1:2,'Private-request responsive grid columns '+width);
+                      assert.equal(formStyling.orbAnimation,'none','Request preview icon must not use flashing blue orb animation');
+                      assert.ok(formStyling.orbIcon.includes('✦'),'Request preview icon must be coherent');
+                      assert.ok(formStyling.inputs.every(x=>x.width>100&&x.left>=formStyling.form.left-2&&x.right<=formStyling.form.right+2),
+                        'Private-request fields break their container '+JSON.stringify(formStyling));
+                      assert.ok(formStyling.captcha.left>=formStyling.form.left-2&&formStyling.captcha.right<=formStyling.form.right+2,
+                        'Security panel overflows form '+JSON.stringify(formStyling));
+                      assert.equal(formStyling.disabled,true);
+                      assert.equal(formStyling.cursor,'not-allowed');
+                      assert.equal(formStyling.buttonOpacity,'1');
+                      // RTL translations must update BOTH ticker copies identically.
+                      await page.locator('#language-select').selectOption('ar');
+                      const arabicTicker=await page.evaluate(()=>{
+                        const copies=[...document.querySelectorAll('.ticker-group')]
+                          .map(x=>x.textContent.replace(/\s+/g,' ').trim());
+                        return {copies,accessible:document.querySelector('.ticker-screenreader').textContent};
+                      });
+                      assert.equal(arabicTicker.copies[0],arabicTicker.copies[1],'RTL marquee groups must match');
+                      assert.ok(arabicTicker.accessible.trim().length>40,'Accessible ticker translation absent');
+                      await page.locator('#language-select').selectOption('en');
+                      await page.locator('#experience').scrollIntoViewIfNeeded();
+                      const foundation=await page.evaluate(()=>{
+                        const [left,right]=document.querySelectorAll('#experience .work-grid > *');
+                        const a=left.getBoundingClientRect(),b=right.getBoundingClientRect();
+                        const paper=getComputedStyle(right).backgroundColor;
+                        const fg=getComputedStyle(right.querySelector('h3')).color;
+                        const luminance=css=>{
+                          const rgb=css.match(/\d+(?:\.\d+)?/g).slice(0,3).map(x=>Number(x)/255);
+                          const linear=rgb.map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);
+                          return .2126*linear[0]+.7152*linear[1]+.0722*linear[2];
+                        };
+                        return {left:{x:a.x,y:a.y,w:a.width,h:a.height},right:{x:b.x,y:b.y,w:b.width,h:b.height},
+                          contrast:(Math.max(luminance(paper),luminance(fg))+.05)/(Math.min(luminance(paper),luminance(fg))+.05),
+                          position:getComputedStyle(left).position,
+                          background:paper,
+                          scrollWidth:document.querySelector('#experience').scrollWidth,
+                          clientWidth:document.querySelector('#experience').clientWidth};
+                      });
+                      assert.ok(foundation.contrast>=7,'Editorial foundation panel heading contrast: '+JSON.stringify(foundation));
+                      assert.equal(foundation.position,'relative','Foundation left card must not be sticky');
+                      assert.ok(foundation.left.w>0&&foundation.right.w>0,'Foundation cards must have nonzero width');
+                      if(width>900){
+                        assert.ok(Math.abs(foundation.left.w-foundation.right.w)<3,'Editorial Foundation cards must be balanced on desktop: '+JSON.stringify(foundation));
+                        assert.ok(foundation.right.x>=foundation.left.x+foundation.left.w-2,'Foundation panels overlap on desktop: '+JSON.stringify(foundation));
+                      }else{
+                        assert.ok(foundation.right.y>=foundation.left.y+foundation.left.h-2,'Foundation panels must stack on mobile: '+JSON.stringify(foundation));
+                      }
+                      assert.ok(foundation.scrollWidth<=foundation.clientWidth+2,'Horizontal overflow within Foundation: '+JSON.stringify(foundation));
+
+                      await page.locator('#ws-demo-jump').scrollIntoViewIfNeeded();
+                      const collapsedHeight=await page.locator('#ws-inline-demo').evaluate(el=>el.getBoundingClientRect().height);
+                      assert.ok(collapsedHeight<4,'Demo must occupy no height while closed: '+collapsedHeight);
+                      await page.locator('#ws-demo-jump').click();
+                      assert.equal(await page.locator('#ws-demo-jump').getAttribute('aria-expanded'),'true','Demo opener did not expand');
+                      assert.equal(await page.locator('#ws-inline-demo').getAttribute('aria-hidden'),'false','Demo must become available to assistive tech');
+                      assert.equal(await page.locator('#ws-inline-demo').evaluate(el=>el.inert),false,'Open demo must allow keyboard access');
+                      await page.locator('#ws-demo-panel-1').waitFor({state:'visible'});
+                      await page.waitForFunction(()=>document.querySelector('#ws-inline-demo').getBoundingClientRect().height>150,null,{timeout:1800});
+                      const firstImage=page.locator('#ws-demo-panel-1 img');
+                      await firstImage.evaluate(img=>img.decode());
+                      assert.ok(await firstImage.evaluate(img=>img.naturalWidth>0),'Inline SVG image did not load');
+                      await page.locator('#ws-demo-tab-2').click();
+                      assert.equal(await page.locator('#ws-demo-panel-2').isVisible(),true,'Theme comparison chapter did not open');
+                      await page.locator('#ws-demo-next').click();
+                      assert.equal(await page.locator('#ws-demo-panel-3').isVisible(),true,'Walkthrough next button failed');
+                      await page.locator('#ws-demo-previous').click();
+                      assert.equal(await page.locator('#ws-demo-panel-2').isVisible(),true,'Walkthrough previous button failed');
+                      await page.locator('#ws-demo-tab-1').click();
+
+                      await page.locator('#ws-demo-close').click();
+                      assert.equal(await page.locator('#ws-inline-demo').getAttribute('data-open'),'false','Close button must collapse demo');
+                      assert.equal(await page.locator('#ws-demo-jump').getAttribute('aria-expanded'),'false');
+                      assert.equal(await page.evaluate(()=>document.activeElement.id),'ws-demo-jump','Focus must return to opener');
+                      await page.waitForFunction(()=>document.querySelector('#ws-inline-demo').getBoundingClientRect().height<4,null,{timeout:1800});
+                      await page.locator('#ws-demo-jump').click();
+                      await page.locator('#ws-demo-close').press('Escape');
+                      assert.equal(await page.locator('#ws-inline-demo').getAttribute('data-open'),'false','Escape must collapse demo');
+                      assert.equal(await page.evaluate(()=>document.activeElement.id),'ws-demo-jump','Escape must restore focus to opener');
+
+                      const contrast=await page.evaluate(()=>{
+                        const section=document.querySelector('section.capabilities');
+                        const card=section.querySelector('.cap');
+                        const heading=card.querySelector('h3');
+                        const bg=getComputedStyle(card).backgroundColor;
+                        const fg=getComputedStyle(heading).color;
+                        const luminance=css=>{
+                          const nums=css.match(/\d+(?:\.\d+)?/g).slice(0,3).map(Number).map(x=>x/255);
+                          const a=nums.map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);
+                          return .2126*a[0]+.7152*a[1]+.0722*a[2];
+                        };
+                        const a=luminance(bg),b=luminance(fg);
+                        return {ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05),background:getComputedStyle(section).backgroundImage};
+                      });
+                      assert.ok(contrast.ratio>=7,'Editorial capabilities card text lacks contrast: '+JSON.stringify(contrast));
+                      assert.match(contrast.background,/247,\s*242,\s*233/,'Editorial section must use warm light paper, not inherited dark green');
+                    }
+                    const snapshot=await page.evaluate(()=>{
+                      const hero=document.querySelector('.hero');
+                      const title=document.querySelector('.hero h1');
+                      const portrait=document.querySelector('.hero-art .core');
+                      const rect=node=>{const r=node.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}};
+                      return {hero:rect(hero),title:rect(title),portrait:rect(portrait),overflow:document.documentElement.scrollWidth-innerWidth};
+                    });
+                    assert.ok(snapshot.hero.width>200&&snapshot.portrait.width>100,'Missing theme composition '+theme);
+                    if(theme==='design-2'){
+                      const orbit=await page.evaluate(()=>{
+                        const a=document.querySelector('.hero-art').getBoundingClientRect();
+                        const chips=[...document.querySelectorAll('.hero-art .ws-orbit-chip')];
+                        const css=getComputedStyle(document.querySelector('.hero-art'));
+                        const radius=parseFloat(css.getPropertyValue('--wf-orbit-size'))||0;
+                        const centers=chips.map(el=>{
+                          const r=el.getBoundingClientRect();
+                          return {x:r.x+r.width/2-a.x-a.width/2,y:r.y+r.height/2-a.y-a.height/2};
+                        });
+                        const quick=document.querySelector('#ws-visitor-quick-open');
+                        return {chips:centers,quickFloating:quick?.closest('.pv-smart-float')?.parentElement===document.body,navX:document.querySelector('.topbar .nav').getBoundingClientRect().left,position:getComputedStyle(quick?.closest('.pv-smart-float')).position};
+                      });
+                      assert.equal(orbit.chips.length,4,'Cosmic needs four satellites');
+                      assert.ok(orbit.quickFloating,'Quick Actions must be attached directly to body');
+                      assert.equal(orbit.position,'fixed','Quick Actions should stay near the viewport corner');
+                      assert.ok(orbit.navX>=10,'Brand is flush against viewport edge');
+                      assert.ok(orbit.chips[0].x>0&&orbit.chips[0].y<0,'Top satellite angle incorrect');
+                      assert.ok(orbit.chips[1].x>0&&orbit.chips[1].y>=0,'Right satellite angle incorrect');
+                      assert.ok(orbit.chips[2].x<0&&orbit.chips[2].y>0,'Lower-left satellite angle incorrect');
+                      assert.ok(orbit.chips[3].x>0&&orbit.chips[3].y>0,'Lower-right satellite angle incorrect');
+                    }
+
+                    assert.ok(snapshot.overflow<=3,'Horizontal overflow '+theme+'/'+width+': '+snapshot.overflow);
+                    console.log('PASS visual geometry '+theme+' at '+width+'px',JSON.stringify(snapshot));
+                  }
                   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
                   assert.ok(overflow<=2,'Horizontal overflow '+width+': '+overflow);
                   console.log('PASS Chromium personal portal '+width+'px');
@@ -102,10 +520,50 @@ jobs:
             }finally{await browser.close();}
             JS
 
+
+  browser-visual-regression:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.56.1-noble
+    resource_class: medium
+    steps:
+      - checkout
+      - run:
+          name: Install pinned screenshot comparison dependencies
+          command: |
+            npm install --no-save --no-package-lock playwright@1.56.1 pngjs@7.0.0 pixelmatch@6.0.0
+      - run:
+          name: Editorial archived gold-master and 6-theme gallery in real Chromium
+          no_output_timeout: 12m
+          command: |
+            set -eu
+            node --check scripts/verify-editorial-visual.mjs
+            node scripts/verify-editorial-visual.mjs
+      - store_artifacts:
+          path: visual-audit
+          destination: editorial-gold-master-and-six-theme-gallery
+
+# The owner has suspended GitHub/CircleCI CI testing for preview-personalweb.
+# Prevent all paid CircleCI jobs on this specific Cloudflare Pages preview branch.
+# Cloudflare Pages deploys via its separate GitHub integration (not CircleCI).
 workflows:
   validate-deployment-only-personal-portfolio:
     jobs:
-      - public-artifact-integrity
+      - public-artifact-integrity:
+          filters:
+            branches:
+              ignore:
+                - preview-personalweb
       - browser-smoke:
           requires:
             - public-artifact-integrity
+          filters:
+            branches:
+              ignore:
+                - preview-personalweb
+      - browser-visual-regression:
+          requires:
+            - public-artifact-integrity
+          filters:
+            branches:
+              ignore:
+                - preview-personalweb
