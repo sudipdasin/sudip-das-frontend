@@ -69,7 +69,7 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
   width:100%;
   max-width:560px;
   /* Reserve the full outer orbit AND the caption underneath it. */
-  min-height:clamp(545px,34vw,580px);
+  min-height:clamp(545px,34vw,580px)!important;
   margin-inline:auto;
   overflow:visible;
   isolation:isolate;
@@ -77,12 +77,16 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
 }
 body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit{
   position:absolute!important;
-  width:var(--wf-orbit-size)!important;
-  height:var(--wf-orbit-size)!important;
+  width:var(--neon-ring-size)!important;
+  height:var(--neon-ring-size)!important;
   max-width:none;
   aspect-ratio:1;
   left:50%;top:50%;
-  margin:calc(var(--wf-orbit-size) * -.5) 0 0 calc(var(--wf-orbit-size) * -.5);
+  /* Modern Chromium treats math multiplication in negative margins
+   * inconsistently with transformed rotating orbits. translate is an
+   * independent property: rotation cannot displace the centered ring. */
+  margin:0!important;
+  translate:-50% -50%!important;
   border:1.5px solid #18c8fc!important;
   border-radius:50%!important;
   box-shadow:0 0 22px #09b6ff4f,inset 0 0 17px #0574ca12!important;
@@ -91,9 +95,12 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit{
   z-index:1;
 }
 body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit.two{
-  width:calc(var(--wf-orbit-size) * .84)!important;
-  height:calc(var(--wf-orbit-size) * .84)!important;
-  margin:calc(var(--wf-orbit-size) * -.42) 0 0 calc(var(--wf-orbit-size) * -.42);
+  width:84%!important;
+  height:84%!important;
+  width:calc(var(--neon-ring-size) * .84)!important;
+  height:calc(var(--neon-ring-size) * .84)!important;
+  margin:0!important;
+  translate:-50% -50%!important;
   border-color:#aa6df5!important;
   box-shadow:0 0 24px #9a51fa4d!important;
   animation-direction:reverse!important;
@@ -104,8 +111,8 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art::before{
   content:"";
   position:absolute;
   left:50%;top:50%;
-  width:calc(var(--wf-orbit-size) * .94);
-  height:calc(var(--wf-orbit-size) * .94);
+  width:calc(var(--neon-ring-size) * .94);
+  height:calc(var(--neon-ring-size) * .94);
   transform:translate(-50%,-50%);
   border:1px solid #30bcfa4a;
   border-radius:50%;
@@ -116,8 +123,8 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art::before{
 body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art::after{
   content:"";
   position:absolute;
-  left:calc(50% - var(--wf-orbit-size)*.43);
-  top:calc(50% + var(--wf-orbit-size)*.38);
+  left:calc(50% - var(--neon-ring-size) * .43);
+  top:calc(50% + var(--neon-ring-size) * .38);
   width:12px;height:12px;
   border-radius:50%;
   border:0;
@@ -131,8 +138,8 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .core{
   z-index:3;
   display:grid;
   place-items:center;
-  width:calc(var(--wf-orbit-size)*.73)!important;
-  height:calc(var(--wf-orbit-size)*.73)!important;
+  width:calc(var(--neon-ring-size) * .73)!important;
+  height:calc(var(--neon-ring-size) * .73)!important;
   max-width:none;
   min-width:0;
   aspect-ratio:1;
@@ -228,7 +235,7 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
   position:absolute!important;
   z-index:8;
   /* Directly BELOW the ring: never overlap the lower-right satellite. */
-  top:calc(50% + var(--wf-orbit-size)*.5 + 14px)!important;
+  top:calc(50% + var(--neon-ring-size) * .5 + 14px)!important;
   bottom:auto!important;
   left:50%!important;right:auto!important;
   transform:translateX(-50%)!important;
@@ -389,7 +396,8 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
 @media(max-width:1380px){
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(300px,27vw,395px)!important;
-    min-height:525px;
+    --neon-ring-size:clamp(300px,27vw,395px);
+    min-height:525px!important;
   }
   body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip .ws-orbit-label{
     font-size:.66rem!important;
@@ -406,8 +414,9 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(290px,50vw,415px)!important;
+    --neon-ring-size:clamp(290px,50vw,415px);
     width:min(100%,540px);
-    min-height:490px;
+    min-height:clamp(490px,68vw,555px)!important;
   }
   body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
     grid-template-columns:minmax(0,1fr);
@@ -428,8 +437,9 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(250px,70vw,330px)!important;
+    --neon-ring-size:clamp(250px,70vw,330px);
     width:100%;
-    min-height:415px;
+    min-height:425px!important;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip{
     width:29px!important;min-width:29px!important;
