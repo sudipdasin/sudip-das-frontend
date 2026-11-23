@@ -176,6 +176,32 @@
         "previousBlobSha": "7d8ebb20a2528fc610c76d1b2fb983dde34398d0",
         "release": "personal-preview-v3.9.8-aligned-header-gutter",
         "backupBeforeAlignment": "backup/neon-v3.9.7-before-header-gutter-alignment-2026-11-24"
+      },
+      "mobileAudit": {
+        "request": "Thoroughly check mobile view",
+        "auditAt": "2026-11-24",
+        "scope": "Neon Studio preview only",
+        "asset": "personal-neon-mobile-hardening-v1.css",
+        "blobSha": "7f2331b91b458d2b1594f4f46a584ecab625274d",
+        "prechangeBackup": "backup/neon-v3.9.8-before-mobile-audit-fixes-2026-11-24",
+        "status": "Source-level mobile audit with targeted fixes; no direct live browser render due network DNS restriction",
+        "responsiveWidths": [
+          280,
+          320,
+          344,
+          350,
+          360,
+          375,
+          390,
+          414,
+          430,
+          600,
+          601,
+          768,
+          1024
+        ],
+        "touchTargetPx": 44,
+        "productionApproved": false
       }
     }
   }

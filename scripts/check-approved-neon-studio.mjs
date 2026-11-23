@@ -42,6 +42,15 @@ if(header?.asset&&header.productionApproved===false){
     failures++;
   }else console.log('OK approved header alignment '+header.asset);
 }
+const mobile=variation?.mobileAudit;
+if(mobile?.asset&&mobile.productionApproved===false){
+  const bytes=readFileSync(join(root,mobile.asset));
+  const sha=createHash('sha1').update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex');
+  if(sha!==mobile.blobSha){
+    console.error('CHANGED APPROVED MOBILE ASSET: '+mobile.asset+' expected '+mobile.blobSha+' got '+sha);
+    failures++;
+  }else console.log('OK approved mobile hardening '+mobile.asset);
+}
 const html=readFileSync(join(root,'index.html'),'utf8');
 for(const required of [
   '<body class="ws-parity" data-theme="neon-studio" data-approved-theme="neon-studio">',
@@ -51,6 +60,7 @@ for(const required of [
   'webstudio-parity.js?v=neon-1.4.3',
   'personal-neon-nameplate-fit-v1.css?v=1.1.0',
   'personal-neon-header-reference-v1.css?v=1.1.0',
+  'personal-neon-mobile-hardening-v1.css?v=1.0.0',
   '<span class="brand-name">Sudip Das</span>',
   'window.PORTFOLIO_PREVIEW_MODE=true'
 ]){
