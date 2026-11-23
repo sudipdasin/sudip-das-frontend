@@ -1,0 +1,7 @@
+# Professional Introduction — inline CTA player v4.0 (preview only)
+
+Date: 2026-11-23. Target: sudipdasin/sudip-das-frontend@preview-personalweb. The first-party 60-second 720p MP4 and English captions remain unchanged. WebStudio demo, public production main, backend and owner/admin features are untouched.
+
+The hero button now reads **Professional Introduction** / **60 sec · Play video here**. A short muted 6-second teaser runs *within the button* only on hover/focus for fine-pointer, non-reduced-motion visitors. It is not loaded until interaction, and is unloaded on exit. Clicking the button replaces the same hero grid tile with a 16:9 inline video player with native sound, pause, seek, captions, fullscreen, and a **Close video** control. Closing or page exit unloads the media. Escape closes the inline panel, focus returns to the original button, and no modal or separate browser window is opened. Touch users can click directly; reduced-motion users get no hover animation. A user-configured allowlisted YouTube source is available as fallback only if the first-party MP4 is not configured.
+
+Source: personal-smart-navigation-v1.js and portfolio-intro-inline-v4.css. The old cinematic modal element is removed from the preview HTML; historical audit notes are retained. CI was not run because the owner has instructed that GitHub Actions and CircleCI credits are exhausted. Source syntax and explicit safety checks are the only checks claimed; rendered browser acceptance is for the owner's live preview validation.

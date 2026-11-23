@@ -3,7 +3,7 @@
 <head>
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="portfolio-environment" content="current-preview">
-  <meta name="portfolio-visual-build" content="webstudio-aurora-source-parity-v3.3.0">
+  <meta name="portfolio-visual-build" content="professional-inline-intro-v3.4.0">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101713">
@@ -68,6 +68,7 @@
   <link rel="stylesheet" href="personal-smart-navigation-v1.css?v=1.1.2">
   <link rel="stylesheet" href="portfolio-showcase-v2.css?v=2.1.0">
   <link rel="stylesheet" href="portfolio-intro-hover-v3.css?v=3.0.1">
+  <link rel="stylesheet" href="portfolio-intro-inline-v4.css?v=4.0.0">
   <link rel="stylesheet" href="neon-studio-reference-lock-v1.css?v=1.3.3">
   <link rel="stylesheet" href="personal-aurora-webstudio-parity-v1.css?v=1.0.0">
   <meta name="portfolio-intro-youtube-url" content="">
@@ -363,30 +364,13 @@
       try{const response=await fetch(`${window.PUBLIC_API_BASE||''}/api/v1/private-info/request`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(values)});const result=await response.json();if(!response.ok)throw new Error(result.error==='captcha_failed'?i18n.get('captchaFailed'):result.error==='select_requested_information'?i18n.get('selectDetails'):i18n.get('requestFailed'));requestForm.reset();if(window.turnstile)window.turnstile.reset();statusNode.textContent=i18n.get('requestReceived');}catch(error){statusNode.textContent=error.message;}
     });
   </script>
-  <div class="pv-intro-modal" id="pv-intro-modal" role="dialog" aria-modal="true" aria-labelledby="pv-intro-heading" hidden inert>
-    <div class="pv-intro-backdrop" data-intro-close="true"></div>
-    <div class="pv-intro-dialog" role="document">
-      <div class="pv-intro-header">
-        <div><span class="pv-intro-kicker">PERSONAL INTRODUCTION / VIDEO</span><h2 id="pv-intro-heading">Meet the person behind the projects.</h2></div>
-        <button type="button" class="pv-intro-close" id="pv-intro-close" aria-label="Close intro video">Close <span aria-hidden="true">×</span></button>
-      </div>
-      <div class="pv-intro-screen" id="pv-intro-screen">
-        <div class="pv-intro-empty" id="pv-intro-empty" role="status">
-          <span class="pv-intro-playmark" aria-hidden="true">▶</span>
-          <strong>Your professional introduction video.</strong>
-          <p>A 60-second cinematic introduction in 720p, with original music, richer project visuals and layered sound effects. Playback begins when the video asset is available on this preview.</p>
-        </div>
-      </div>
-      <div class="pv-intro-foot"><span id="pv-intro-footnote">A first-person introduction, presented right on this page.</span><span class="pv-intro-tip">Esc to close · Player controls: pause, sound and fullscreen</span></div>
-    </div>
-  </div>
   <!-- Advanced appearance/editor code is not loaded for public visitors. -->
   <script src="webstudio-portfolio-gallery.js?v=2.1.0" defer></script>
   <script src="webstudio-visitor-hub.js" defer></script>
   <script src="webstudio-parity.js?v=neon-1.2.0" defer></script>
   <script src="personal-theme-library.js?v=1.2.2" defer></script>
   <script src="webstudio-footer.js?v=1.2.0" defer></script>
-  <script src="personal-smart-navigation-v1.js?v=1.4.1" defer></script>
+  <script src="personal-smart-navigation-v1.js?v=2.0.0" defer></script>
   <script>window.PUBLIC_API_BASE="";window.PORTFOLIO_PREVIEW_MODE=true;</script>
 </body>
 </html>

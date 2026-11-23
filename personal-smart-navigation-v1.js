@@ -103,12 +103,10 @@
   update();
  }
 
- // Video is configured by a reviewed owner-controlled meta tag. A channel
- // URL, unknown host, arbitrary script URL or invalid video ID never embeds.
- const modal=byId('pv-intro-modal');
- const screen=byId('pv-intro-screen');
- const empty=byId('pv-intro-empty');
- const close=byId('pv-intro-close');
+
+ // Professional Introduction v4 — a genuine in-place video tile, never a
+ // modal/new window. Hover motion previews inside the CTA without preloading.
+ // The playable panel is a sibling of the button (no nested media controls).
  const heroActions=document.querySelector('.hero .actions');
  function parseVideoId(raw){
   if(!raw)return null;
@@ -125,175 +123,180 @@
   }else return null;
   return /^[a-zA-Z0-9_-]{11}$/.test(id)?id:null;
  }
- if(modal&&screen&&empty&&close&&heroActions){
+ if(heroActions){
+  const tile=document.createElement('div');
+  tile.className='pv-intro-tile';
+  tile.dataset.state='collapsed';
   const button=document.createElement('button');
   button.type='button';
   button.id='pv-intro-launch';
   button.className='button pv-intro-launch pv-intro-hero-cta';
-  button.innerHTML='<span class="pv-intro-launch-play" aria-hidden="true">▶</span><span class="pv-intro-launch-copy"><strong>Watch my story</strong><small>60 sec · Cinematic introduction</small></span>';
-  button.setAttribute('aria-haspopup','dialog');
-  button.setAttribute('aria-controls','pv-intro-modal');
+  button.setAttribute('aria-controls','pv-intro-inline-player');
   button.setAttribute('aria-expanded','false');
-  // Script runs after the gallery launcher: place the intro beside it.
-   heroActions.append(button);
-  // Hover teaser is a decorative sibling, not a video nested within button.
-  // It never requests bytes before hover/focus and never plays at idle.
-  const preview=document.createElement('div');
-  preview.className='pv-intro-hover-preview';
-  preview.id='pv-intro-hover-preview';
-  preview.setAttribute('aria-hidden','true');
-  const previewClip=document.createElement('video');
-  previewClip.className='pv-intro-hover-video';
-  previewClip.muted=true;previewClip.loop=true;
-  previewClip.playsInline=true;previewClip.preload='none';
-  previewClip.poster='media/sudip-das-intro-poster.svg';
-  previewClip.setAttribute('tabindex','-1');
-  const caption=document.createElement('div');
-  caption.className='pv-intro-hover-caption';
-  caption.innerHTML='<span class="pv-intro-hover-tag">A LIFE IN TECHNOLOGY</span><strong>Building useful things.</strong><small>Muted motion preview · Click for the full film</small>';
-  preview.append(previewClip,caption);
-  heroActions.append(preview);
-  const motionReduced=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const canPreview=window.matchMedia('(hover: hover) and (pointer: fine)');
+  button.setAttribute('aria-label','Play Professional Introduction in this page');
+  button.innerHTML='<span class="pv-intro-launch-play" aria-hidden="true">▶</span><span class="pv-intro-launch-copy"><strong>Professional Introduction</strong><small>60 sec · Play video here</small></span>';
+  const teaser=document.createElement('video');
+  teaser.className='pv-intro-cta-motion';
+  teaser.muted=true;teaser.loop=true;teaser.playsInline=true;
+  teaser.preload='none';teaser.poster='media/sudip-das-intro-poster.svg';
+  teaser.setAttribute('aria-hidden','true');
+  teaser.tabIndex=-1;
+  button.prepend(teaser);
+  const panel=document.createElement('section');
+  panel.id='pv-intro-inline-player';
+  panel.className='pv-intro-inline-player';
+  panel.setAttribute('aria-label','Professional Introduction video player');
+  panel.hidden=true;
+  const header=document.createElement('div');
+  header.className='pv-intro-inline-header';
+  const heading=document.createElement('div');
+  heading.className='pv-intro-inline-heading';
+  heading.innerHTML='<span>PROFESSIONAL INTRODUCTION</span><strong>Meet Sudip Das</strong>';
+  const closeButton=document.createElement('button');
+  closeButton.type='button';
+  closeButton.className='pv-intro-inline-close';
+  closeButton.textContent='✕ Close video';
+  closeButton.setAttribute('aria-label','Close Professional Introduction video');
+  header.append(heading,closeButton);
+  const mediaBox=document.createElement('div');
+  mediaBox.className='pv-intro-inline-media';
+  const status=document.createElement('p');
+  status.className='pv-intro-inline-status';
+  status.setAttribute('role','status');
+  status.textContent='Opening your professional introduction…';
+  mediaBox.append(status);
+  const foot=document.createElement('p');
+  foot.className='pv-intro-inline-foot';
+  foot.textContent='60 sec · 720p · Player controls include captions, sound and fullscreen.';
+  panel.append(header,mediaBox,foot);
+  tile.append(button,panel);
+  heroActions.append(tile);
+
   const hoverSource='media/sudip-das-intro-hover-preview.webm';
-  let previewActive=false;
-  let suppressPreviewFocus=false;
-  const closePreview=()=>{
-   if(!previewActive)return;
-   previewActive=false;
-   preview.dataset.active='false';
-   previewClip.pause();
-   previewClip.removeAttribute('src');
-   previewClip.load();
-  };
-  const openPreview=()=>{
-   if(previewActive||suppressPreviewFocus||motionReduced.matches||!canPreview.matches||!modal.hidden)return;
-   previewActive=true;
-   preview.dataset.active='true';
-   previewClip.src=hoverSource;
-   previewClip.play().catch(()=>{});
-  };
-  button.addEventListener('pointerenter',event=>{
-   if(event.pointerType!=='touch')openPreview();
-  });
-  button.addEventListener('pointerleave',closePreview);
-  button.addEventListener('focus',openPreview);
-  button.addEventListener('blur',closePreview);
-  button.addEventListener('pointerdown',event=>{
-   if(event.pointerType==='touch')closePreview();
-  });
-  document.addEventListener('visibilitychange',()=>{
-   if(document.hidden)closePreview();
-  });
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const hoverAllowed=window.matchMedia('(hover: hover) and (pointer: fine)');
   const videoId=parseVideoId(document.querySelector('meta[name="portfolio-intro-youtube-url"]')?.content?.trim()||'');
-  const footnote=byId('pv-intro-footnote');
   const localIntro=document.querySelector('meta[name="portfolio-intro-mp4"]')?.content?.trim()||'';
-  const poster=document.querySelector('meta[name="portfolio-intro-poster"]')?.content?.trim()||'';
-  // Only same-origin media paths; no arbitrary user-controlled network endpoints.
+  const localPoster=document.querySelector('meta[name="portfolio-intro-poster"]')?.content?.trim()||'';
   const safeIntro=/^media\/[a-z0-9-]+\.mp4$/.test(localIntro)?localIntro:null;
-  const safePoster=/^media\/[a-z0-9-]+\.svg$/.test(poster)?poster:null;
-  const initialFocus=()=>close.focus({preventScroll:true});
-  let previousFocus=null;
-  const open=()=>{
-   if(!modal.hidden)return;
-   closePreview();
-   previousFocus=document.activeElement;
-   modal.hidden=false;
-   modal.inert=false;
-   document.body.classList.add('pv-intro-open');
+  const safePoster=/^media\/[a-z0-9-]+\.svg$/.test(localPoster)?localPoster:null;
+  let open=false;
+  let hoverPlaying=false;
+  let suppressHover=false;
+  const stopTeaser=()=>{
+   if(!hoverPlaying&&!teaser.hasAttribute('src'))return;
+   hoverPlaying=false;
+   teaser.dataset.ready='false';
+   teaser.pause();
+   teaser.removeAttribute('src');
+   teaser.load();
+  };
+  const startTeaser=()=>{
+   if(open||hoverPlaying||suppressHover||reduced.matches||!hoverAllowed.matches)return;
+   hoverPlaying=true;
+   teaser.src=hoverSource;
+   teaser.dataset.ready='true';
+   teaser.play().catch(()=>{teaser.dataset.ready='false';});
+  };
+  button.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch')startTeaser();});
+  button.addEventListener('pointerleave',stopTeaser);
+  button.addEventListener('focus',startTeaser);
+  button.addEventListener('blur',stopTeaser);
+  button.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')stopTeaser();});
+  const clearMedia=()=>{
+   for(const video of mediaBox.querySelectorAll('video')){
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+    video.remove();
+   }
+   for(const frame of mediaBox.querySelectorAll('iframe'))frame.remove();
+  };
+  const dismiss=()=>{
+   if(!open)return;
+   open=false;
+   clearMedia();
+   panel.hidden=true;
+   tile.dataset.state='collapsed';
+   button.hidden=false;
+   button.setAttribute('aria-expanded','false');
+   status.hidden=false;
+   suppressHover=true;
+   button.focus({preventScroll:true});
+   requestAnimationFrame(()=>{suppressHover=false;});
+  };
+  const launch=()=>{
+   if(open)return;
+   stopTeaser();
+   open=true;
+   tile.dataset.state='open';
    button.setAttribute('aria-expanded','true');
-   if(videoId){
-    empty.hidden=true;
-    const iframe=document.createElement('iframe');
-    iframe.className='pv-intro-frame';
-    iframe.id='pv-intro-frame';
-    iframe.title='Sudip Das — video introduction';
-    iframe.loading='eager';
-    iframe.referrerPolicy='strict-origin-when-cross-origin';
-    iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-    iframe.allowFullscreen=true;
-    iframe.src='https://www.youtube-nocookie.com/embed/'+videoId+
-      '?autoplay=1&mute=1&playsinline=1&controls=1&rel=0';
-    screen.append(iframe);
-    footnote.textContent='Autoplay starts muted where supported; unmute using the YouTube controls.';
-   }else if(safeIntro){
+   button.hidden=true;
+   panel.hidden=false;
+   status.hidden=false;
+   status.textContent='Opening your professional introduction…';
+   closeButton.focus({preventScroll:true});
+   if(safeIntro){
     const video=document.createElement('video');
-    video.className='pv-intro-frame';
+    video.className='pv-intro-inline-video';
     video.id='pv-intro-native';
-    video.setAttribute('aria-label','Sudip Das — 60-second cinematic professional introduction');
-    video.setAttribute('playsinline','');
+    video.setAttribute('aria-label','Sudip Das — Professional Introduction');
     video.controls=true;
+    video.playsInline=true;
+    video.muted=true;
     video.autoplay=true;
-    video.muted=true; // Muted autoplay is browser-compatible.
     video.preload='metadata';
     if(safePoster)video.poster=safePoster;
     const captions=document.createElement('track');
     captions.kind='captions';
-    captions.label='English — chapter descriptions';
+    captions.label='English captions';
     captions.srclang='en';
     captions.src='media/sudip-das-professional-introduction.en.vtt';
     video.append(captions);
-    video.src=safeIntro;
-    empty.hidden=false;
-    empty.querySelector('strong').textContent='Preparing the introduction…';
-    empty.querySelector('p').textContent='Loading the high-definition video with original music.';
     video.addEventListener('loadedmetadata',()=>{
-     if(modal.hidden)return;
-     empty.hidden=true;
-     video.style.visibility='visible';
-     video.play().catch(()=>{}); // If blocked, native controls remain usable.
+     if(!open)return;
+     status.hidden=true;
+     video.play().catch(()=>{});
     },{once:true});
     video.addEventListener('error',()=>{
-     if(modal.hidden)return;
-     video.remove();
-     empty.hidden=false;
-     empty.querySelector('strong').textContent='Video awaiting preview publication.';
-     empty.querySelector('p').textContent='The finished cinematic 720p film will play here after the hosting asset is published.';
-     footnote.textContent='Video file not yet available on the preview hosting origin.';
+     if(!open)return;
+     clearMedia();
+     status.hidden=false;
+     status.textContent='The video could not load on this preview. Please try again later.';
     },{once:true});
-    video.style.visibility='hidden';
-    screen.append(video);
-    footnote.textContent='60 seconds · 720p · Original soundtrack & effects · Muted autoplay; use the player controls to enable sound.';
+    mediaBox.prepend(video);
+    video.src=safeIntro;
+    video.load();
+   }else if(videoId){
+    const frame=document.createElement('iframe');
+    frame.className='pv-intro-inline-video';
+    frame.id='pv-intro-frame';
+    frame.title='Sudip Das — Professional Introduction';
+    frame.loading='eager';
+    frame.referrerPolicy='strict-origin-when-cross-origin';
+    frame.allow='autoplay; encrypted-media; picture-in-picture';
+    frame.allowFullscreen=true;
+    frame.src='https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&mute=1&playsinline=1&controls=1&rel=0';
+    mediaBox.prepend(frame);
+    status.hidden=true;
    }else{
-    empty.hidden=false;
-    footnote.textContent='No approved video source is configured.';
+    status.textContent='Professional Introduction video is not configured.';
    }
-   initialFocus();
   };
-  const dismiss=()=>{
-   if(modal.hidden)return;
-   // Unload first-party video and any YouTube embed to stop audio immediately.
-   const native=byId('pv-intro-native');
-   if(native){
-    native.pause();
-    native.removeAttribute('src');
-    native.load();
-    native.remove();
-   }
-   byId('pv-intro-frame')?.remove();
-   modal.hidden=true;
-   modal.inert=true;
-   document.body.classList.remove('pv-intro-open');
-   button.setAttribute('aria-expanded','false');
-   // Focus restoration after closing the full film is not a new hover intent.
-   suppressPreviewFocus=true;
-   if(previousFocus?.isConnected)previousFocus.focus({preventScroll:true});
-   else button.focus({preventScroll:true});
-   requestAnimationFrame(()=>{suppressPreviewFocus=false;});
-  };
-  button.addEventListener('click',open);
-  close.addEventListener('click',dismiss);
-  modal.querySelector('[data-intro-close]')?.addEventListener('click',dismiss);
-  document.addEventListener('keydown',event=>{
-   if(modal.hidden)return;
-   if(event.key==='Escape'){event.preventDefault();dismiss();return;}
-   if(event.key==='Tab'){
-    const focusables=[...modal.querySelectorAll('button,[href],iframe,video,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.hidden);
-    const first=focusables[0],last=focusables.at(-1);
-    if(!first)return;
-    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
-    else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+  button.addEventListener('click',launch);
+  closeButton.addEventListener('click',dismiss);
+  document.addEventListener('keydown',e=>{
+   if(!open||e.key!=='Escape'||document.fullscreenElement)return;
+   e.preventDefault();
+   dismiss();
+  });
+  document.addEventListener('visibilitychange',()=>{
+   if(document.hidden){
+    stopTeaser();
+    if(open)mediaBox.querySelector('video')?.pause();
    }
   });
+  window.addEventListener('pagehide',()=>{stopTeaser();clearMedia();});
  }
+
 })();
