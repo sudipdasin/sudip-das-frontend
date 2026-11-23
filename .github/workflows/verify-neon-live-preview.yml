@@ -1,0 +1,55 @@
+name: Verify deployed Neon Studio preview
+on:
+  push:
+    branches: [preview-personalweb]
+    paths:
+      - index.html
+      - webstudio-parity.js
+      - neon-studio-reference-lock-v1.css
+      - .github/workflows/verify-neon-live-preview.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  deployment-parity:
+    name: Verify Cloudflare preview serves current Neon design
+    if: github.ref == 'refs/heads/preview-personalweb'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check actual preview host and its exact shipped assets
+        shell: bash
+        env:
+          SITE: https://preview-personalweb.sudip-das-frontend.pages.dev
+        run: |
+          set -euo pipefail
+          stamp="${GITHUB_SHA:0:12}"
+          html="$(mktemp)"
+          css="$(mktemp)"
+          js="$(mktemp)"
+          trap 'rm -f "$html" "$css" "$js"' EXIT
+          for attempt in 1 2 3 4 5 6 7 8; do
+            echo "Checking Cloudflare Pages actual preview host: attempt $attempt / 8"
+            if curl --fail --location --silent --show-error --max-time 15 \
+                --header 'Cache-Control: no-cache' \
+                "$SITE/?neon_verify=$stamp" -o "$html" \
+              && grep -Fq 'neon-studio-reference-lock-v1.css?v=1.2.0' "$html" \
+              && grep -Fq 'webstudio-parity.js?v=neon-1.2.0' "$html" \
+              && grep -Fq 'PORTFOLIO_PREVIEW_MODE=true' "$html" \
+              && curl --fail --location --silent --show-error --max-time 15 \
+                "$SITE/neon-studio-reference-lock-v1.css?v=1.2.0&verify=$stamp" -o "$css" \
+              && curl --fail --location --silent --show-error --max-time 15 \
+                "$SITE/webstudio-parity.js?v=neon-1.2.0&verify=$stamp" -o "$js" \
+              && grep -Fq 'body.ws-parity[data-theme="neon-studio"] .ws-utility' "$css" \
+              && grep -Fq 'syncNeonRing' "$js"; then
+              echo 'PASS: Live Cloudflare branch preview is delivering the current Neon Studio styles and script.'
+              printf 'Preview URL: %s/\nCommit: %s\n' "$SITE" "$GITHUB_SHA"
+              exit 0
+            fi
+            echo 'Preview not yet aligned with GitHub source; checking for deployment lag.'
+            if [ "$attempt" -lt 8 ]; then sleep 12; fi
+          done
+          echo '::error::The Cloudflare preview is unreachable or NOT serving the current Neon Studio assets from this branch.'
+          echo 'Inspect Cloudflare Pages Git connection and preview-branch deployment logs. Never promote this check to production.'
+          exit 1
