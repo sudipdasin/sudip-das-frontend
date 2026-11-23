@@ -80,7 +80,7 @@ try{
         x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom,
         cx:r.x+r.width/2,cy:r.y+r.height/2
       }};
-      const art=selector('.hero-art'),core=selector('.hero-art .core'),
+      const art=selector('.hero-art'),core=selector('.hero-art .ws-neon-precision-portrait'),
         outer=selector('.hero-art .ws-neon-precise-outer'),inner=selector('.hero-art .ws-neon-precise-inner'),
         caption=selector('.hero-art .portrait-caption');
       const labels=[...document.querySelectorAll('.hero-art .ws-orbit-chip')];
@@ -134,6 +134,7 @@ try{
     assert.equal(report.statusStripHidden,true,'Redundant preview strip should be hidden in Neon Studio');
     assert.equal(report.actualNavVisible,true,'Real navigation must remain visible');
     assert.equal(report.featureCount,6,'All six WebStudio lower feature tabs must render');
+    assert.ok(report.core.width>150,'Independent portrait frame did not render');
     assert.equal(report.miniIcons,4,'Infinity strip contains four real SVG details');
     assert.equal(report.badges.length,5,'Five orbital badges are required');
     assert.ok(report.badges.every(x=>x.svg===1),'Each orbit icon must be true vector');
