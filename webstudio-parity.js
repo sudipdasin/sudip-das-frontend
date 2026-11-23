@@ -197,6 +197,17 @@
         clampValue(340,.25*vw,434);
       const artHeight=vw<=600?425:vw<=980?clampValue(490,.68*vw,555):
         vw<=1380?525:clampValue(545,.34*vw,580);
+      // In the stacked tablet layout, the nameplate extends beyond the
+      // photo/orbit card. Reserve bottom room in the actual hero so it
+      // cannot overlap the succeeding infinity/skills band.
+      const hero=art.closest('main>.hero');
+      if(hero){
+        if(vw>600&&vw<=980)setLocked(hero,'padding-bottom','90px');
+        else{
+          hero.style.removeProperty('padding-bottom');
+          managed.get(hero)?.delete('padding-bottom');
+        }
+      }
       setLocked(art,'min-height',artHeight+'px');
       setLocked(art,'--wf-orbit-size',diameter+'px');
       setLocked(ringLayer,'--neon-ring-px',diameter+'px');
