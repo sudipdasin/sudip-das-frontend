@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v2.1.0-cinematic-showcase",
+  "release": "webstudio-personal-preview-v3.0.0-interactive-cinematic-intro",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -73,7 +73,15 @@
     "collapsible-project-comparison",
     "personal-portrait-enhanced-720p-intro",
     "cinematic-proof-chapter-indicators",
-    "intro-720p-high-quality-h264"
+    "intro-720p-high-quality-h264",
+    "hero-balanced-two-by-two-action-console",
+    "intro-video-live-thumbnail-on-hover-only",
+    "low-bandwidth-muted-looping-vp9-teaser",
+    "intro-preview-no-idle-media-requests",
+    "original-60s-cinematic-pro-film",
+    "four-new-source-grounded-illustrated-scenes",
+    "13-chapter-accessible-film-captions",
+    "original-layered-music-and-sound-effects"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -87,9 +95,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Preview v2.1 delivered: cinematic first-party Intro Video button beside Interactive Portfolio, responsive accessible 6-theme portfolio gallery with real public featured project and compact comparison. 720p 44-sec original music film updated using publicly shown portrait and grounded CRM/team/MIS facts; original sounds and animated proof chapters. GitHub real Chromium desktop/mobile tests and actual muted playback pass. Main production, private profile request backend, DNS and secrets untouched; Cloudflare Pages rollout unverified.",
+    "notes": "Preview v3.0: deliberate 2×2 hero actions, 'Watch my story' hover/focus-only live video teaser with no idle playback or network load, reduced-motion safety, original 60s 720p cinematic introduction including published portrait from source, source-grounded enterprise/CRM/MIS/Linux/creative chapters, 13-caption VTT, new concept diagrams and layered original soundtrack. GitHub build and publication verified; browser QA and Cloudflare deploy pending. Production and private profile backend untouched.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "VERIFIED PASS: GitHub original video render+MP4 publication 45142369163; source safety + 1440x900/390x844 Chromium geometry, six unique theme preview cards, real public carousel, comparison, modal controls, actual 44s first-party video metadata, muted autoplay, captions, teardown and FFprobe video/audio validation in run 45143363433. NOT VERIFIED: Cloudflare Pages deployment.",
+    "testStatus": "PASS: locally generated + full-decoded 60s H.264/AAC film with 4 newly illustrated chapters and original audio; 6s silent 480x270 VP9 hover clip; GitHub Actions 45145789099 successfully rendered, probed, decoded and committed both preview assets. PENDING: updated desktop/mobile Chromium and live Cloudflare Pages deployment.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -187,38 +195,42 @@
       "interactionAnimation": "single nonrepeating rim sweep on hover/focus/click; reduced-motion disables"
     },
     "introVideo": {
-      "source": "personal-smart-navigation-v1.js?v=1.0.0",
+      "source": "personal-smart-navigation-v1.js?v=1.4.0",
       "configuration": "<meta name=\"portfolio-intro-youtube-url\" content=\"\">",
       "ownerApprovedYouTubeUrlProvided": false,
-      "playbackStatus": "Finished MP4 verified on GitHub preview branch; popup wired to same-origin asset path, Cloudflare deployment and browser playback remain unconfirmed",
+      "playbackStatus": "60-second film and 6-second VP9 teaser produced/decoded/published in successful GitHub Actions 45145789099; Cloudflare live deploy and latest browser test not verified.",
       "autoplayWhenConfigured": "same-origin HTML5 MP4 auto-muted with controls; validated YouTube embed remains optional",
       "safety": "strictly allow HTTPS YouTube video IDs; no channel URLs; iframe only created on opening, removed on close; popup traps focus",
       "browserVerified": false,
       "firstPartyMp4": "media/sudip-das-professional-introduction-720p.mp4",
       "poster": "media/sudip-das-intro-poster.svg",
       "script": "scripts/render-portfolio-intro.py",
-      "chapters": 9,
-      "seconds": 44,
+      "chapters": 13,
+      "seconds": 60,
       "resolution": "1280x720",
       "fps": 24,
       "codecs": "H.264 / stereo AAC",
       "originalMusicAndSoundEffects": true,
       "localOutputVerified": true,
-      "githubActionsRunId": 45111608800,
+      "githubActionsRunId": 45145789099,
       "githubActionsVideoDecodeVerified": true,
       "githubActionsArtifactPublished": true,
       "githubPreviewBranchMp4Verified": true,
       "cloudflareDeploymentVerified": false,
-      "browserPopupPlaybackVerified": true,
+      "browserPopupPlaybackVerified": false,
       "captions": "media/sudip-das-professional-introduction.en.vtt",
       "githubActionsValidationRunId": 45112058111,
       "githubActionsSourceAndMediaValidationPassed": true,
-      "enhancedRenderer": "scripts/render-portfolio-intro.py",
+      "enhancedRenderer": "scripts/render-portfolio-film-v3.py",
       "approvedPublicPortraitUsed": true,
       "verifiedPublicProofPoints": true,
       "sourceGroundedChapterProgress": true,
-      "quality": "H.264 CRF 18 1280x720 24fps 44 seconds",
-      "browserPopupPlaybackVerifiedScope": "actual Chromium playback on GitHub Actions local preview server; both desktop and mobile, asset loaded and begins playing muted; Cloudflare live hosting not verified."
+      "quality": "1280×720 / 24 fps / H.264 CRF 18 / 192-kbps stereo AAC / 60 seconds",
+      "browserPopupPlaybackVerifiedScope": "60-second updated film pending full Chromium follow-up; 44-second earlier version did pass the older run",
+      "upstreamRenderer": "scripts/render-portfolio-intro.py",
+      "previewClip": "media/sudip-das-intro-hover-preview.webm",
+      "previewClipCodec": "VP9 480×270 · 6 seconds · no audio; lazy-loaded only during hover/focus",
+      "storyboard": "13 captioned chapters combining 44-second original film with four original 4s illustrations of CRM, MIS, Linux apps, creative tooling"
     },
     "layoutRepair": {
       "scope": "foundation title and matching two-card experience, quick launcher no longer crowds sticky header",
@@ -236,7 +248,7 @@
       "css": "portfolio-showcase-v2.css?v=2.1.0",
       "gallery": "webstudio-portfolio-gallery.js?v=2.1.0",
       "location": "Projects section and hero launcher",
-      "heroIntroPlacement": "after Interactive Portfolio in same hero action group, wraps at small widths",
+      "heroIntroPlacement": "intentional 2×2 balanced hero action console, with video directly paired visually with the other actions",
       "featuredCarousel": "real approved public project cards only, previous/next and project story",
       "themePreviewCount": 6,
       "themePreviews": [
@@ -248,10 +260,20 @@
         "Cosmic"
       ],
       "comparison": "collapsed by default; retains existing two-project source-grounded comparison",
-      "verification": "PASS: actual Chromium at 1440×900 and 390×844, project feature carousel, six different themes, comparisons, hero action order, first-party video loaded/44s metadata/muted playback/captions/teardown/focus return, no horizontal overflow.",
+      "verification": "Earlier Chromium v2.1 succeeded; v3 hero layout, 60-second film and hover source require new independent run",
       "liveCloudflareDeploymentVerified": false,
       "browserVerified": true,
       "browserTestRunId": 45143363433
+    },
+    "heroCinematicV3": {
+      "layout": "intentional 2×2 action grid: Explore my work / Interactive portfolio; GitHub profile / Watch my story",
+      "desktopMobile": "balanced rows on wide viewports and 2×2 compact touch-friendly tiles at 390px",
+      "hover": "decorative framed mini-player and poster overlay, lazy silent VP9 teaser only on hover or focus",
+      "keyboard": "focus previews where reduced-motion is off; button still opens modal with video controls",
+      "privacy": "no new analytics, permissions or arbitrary external media",
+      "resources": "portfolio-intro-hover-v3.css?v=3.0.0; personal-smart-navigation-v1.js?v=1.4.0",
+      "browserVerified": false,
+      "sourceVerified": true
     }
   }
 }
