@@ -146,6 +146,11 @@ jobs:
                   assert.equal(await page.locator('#ws-visitor-quick-open').count(),1,'Visitor quick actions missing');
                   assert.equal(await page.locator('body > .pv-smart-float').count(),1,'Quick actions must float outside header');
                   assert.equal(await page.locator('body > .pv-smart-float').evaluate(el=>getComputedStyle(el).position),'fixed');
+                  assert.equal(await page.locator('#ws-visitor-quick-open').evaluate(el=>getComputedStyle(el,'::before').animationName),
+                    'none','Quick Actions must never animate while idle');
+                  await page.locator('#ws-visitor-quick-open').hover();
+                  assert.equal(await page.locator('#ws-visitor-quick-open').evaluate(el=>getComputedStyle(el,'::before').animationName),
+                    'pv-orb-rim','Quick Actions animation should run only on hover/focus/click');
                   assert.equal(await page.locator('.topbar .nav > #pv-theme-launch').count(),1,
                     'Explore themes must be attached to the top navigation, not floating with Quick Actions');
                   assert.equal(await page.locator('.pv-smart-float #pv-theme-launch').count(),0,
@@ -177,8 +182,20 @@ jobs:
                   assert.equal(await page.locator('#pv-intro-modal').isVisible(),false,'Intro popup must start hidden');
                   await page.locator('#pv-intro-launch').click();
                   assert.equal(await page.locator('#pv-intro-modal').isVisible(),true,'Intro popup must open');
-                  assert.equal(await page.locator('#pv-intro-frame').count(),0,'No approved URL: do not load unrelated YouTube content');
-                  assert.ok((await page.locator('#pv-intro-empty').innerText()).includes('not published'),'Missing unconfigured-player explanation');
+                  assert.equal(await page.locator('#pv-intro-frame').count(),0,'No unapproved YouTube iframe should load');
+                  await page.waitForFunction(()=>{
+                    const v=document.querySelector('#pv-intro-native');
+                    return (v&&v.readyState>=1)||!v;
+                  },null,{timeout:8000});
+                  const native=page.locator('#pv-intro-native');
+                  if(await native.count()){
+                    assert.equal(await native.evaluate(v=>v.controls),true,'Native video controls must be enabled');
+                    assert.equal(await native.evaluate(v=>v.muted),true,'Autoplay should initially be muted');
+                    assert.ok(await native.evaluate(v=>v.duration)>43,'Native video duration should be 44 seconds');
+                  }else{
+                    assert.ok((await page.locator('#pv-intro-empty').innerText()).includes('awaiting preview publication'),
+                      'Missing-file fallback must identify unpublished MP4 without a false success');
+                  }
                   await page.locator('#pv-intro-close').click();
                   assert.equal(await page.locator('#pv-intro-modal').isVisible(),false,'Intro close failed');
                   assert.equal(await page.evaluate(()=>document.activeElement.id),'pv-intro-launch','Intro must restore focus');
