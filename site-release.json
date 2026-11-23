@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v1.3.0-footer-contrast",
+  "release": "webstudio-personal-preview-v1.3.1-editorial-form-contrast",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -24,7 +24,8 @@
     "webstudio-powered-footer-showcase",
     "webstudio-interactive-demo-link",
     "webstudio-email-interest-expandable",
-    "webstudio-interest-secure-api-staged-disabled"
+    "webstudio-interest-secure-api-staged-disabled",
+    "editorial-private-request-field-contrast"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -38,9 +39,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Personal preview only. Editorial capabilities contrast fixed with a separately scoped CSS override; original favorite Editorial hero/saved source untouched. WebStudio-made footer now showcases approved public WebStudio demo and expanding email-only interest CTA. Current CTA opens mail client to compose, does NOT send automatically. Dedicated Pages Function endpoint is staged fail-closed, disabled by default until preview Turnstile, isolated D1 limits, HMAC Gmail bridge secrets and live delivery are configured and tested. Public production API remains disconnected, private requests disabled, no owner settings exposed. CircleCI full browser tests pending credits.",
+    "notes": "Personal preview only. Editorial capabilities and form input contrast patched with a separately scoped CSS override; original favorite Editorial hero/saved source untouched. WebStudio-made footer now showcases approved public WebStudio demo and expanding email-only interest CTA. Current CTA opens mail client to compose, does NOT send automatically. Dedicated Pages Function endpoint is staged fail-closed, disabled by default until preview Turnstile, isolated D1 limits, HMAC Gmail bridge secrets and live delivery are configured and tested. Public production API remains disconnected, private requests disabled, no owner settings exposed. CircleCI full browser tests pending credits.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "Source inspections, syntax/contract checks and Cloudflare build check required; CircleCI and authenticated browser pending credits",
+    "testStatus": "Source validation added; CircleCI, real Chromium visual and inbox delivery remain unverified",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -60,6 +61,6 @@
         "INTEREST_DB"
       ]
     },
-    "contrastAudit": "scoped Editorial capabilities patch; source WCAG contrast verified only; full Chromium pending"
+    "contrastAudit": "Source-scoped Editorial strengths and private-access/form light-surface contrast patched; WCAG static color checks in QA, Chromium interaction and real visual pass not yet recorded"
   }
 }
