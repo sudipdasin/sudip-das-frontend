@@ -98,5 +98,6 @@ jobs:
           assert (tv['codec_name'],tv['width'],tv['height'])==('vp9',480,270)
           assert 5.9<float(trailer['format']['duration'])<6.2
           assert not any(x.get('codec_type')=='audio' for x in trailer['streams'])
-          print('PASS hover teaser: 6-second silent VP9 / 480×270')          print('PASS preview media source: 720p H.264 / AAC stereo / 60 sec')
+          print('PASS hover teaser: 6-second silent VP9 / 480×270')
+          print('PASS preview media source: 720p H.264 / AAC stereo / 60 sec')
           PY
