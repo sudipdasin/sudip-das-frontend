@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v1.7.0-copy-flow-marquee",
+  "release": "webstudio-personal-preview-v1.8.0-editorial-polish",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -41,7 +41,13 @@
     "theme-aware-text-panels",
     "seamless-equal-group-marquee",
     "marquee-container-boundary",
-    "marquee-translated-rtl-and-reduced-motion"
+    "marquee-translated-rtl-and-reduced-motion",
+    "editorial-summary-paper-finish",
+    "strengths-card-visual-hierarchy",
+    "form-smart-preview-glyph-harmonized",
+    "responsive-private-request-grid",
+    "light-responsive-turnstile-styling",
+    "explicit-disabled-request-cta"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -55,9 +61,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Personal preview only. Restored reliable wrapping and theme-matched description panels for the three exact introductory paragraphs in About/Projects/Experience. Rebuilt ticker with identical loop groups, a clipped wrap-aligned viewport, translated group parity, RTL and reduced-motion behavior. Founder/Editorial fixes, original hero and WebStudio animated inline demo preserved. Preview private requests remain disabled and production API disconnected. Full-site live browser and provider deploy verification pending.",
+    "notes": "Personal preview only. Owner screenshot-driven polish: Editorial quote cards, four Strengths cards and preview-only private request form use coordinated color, typography, spacing and subtle effects. Replace artificial blue orb with static theme-accent icon, responsive field grid and native Cloudflare light/flexible widget in a framed security panel. Submit remains disabled with explanatory notice; no data transmitted. Original public profile, 3 text summaries, WebStudio animated demo, marquee and production boundaries preserved.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "PASS: 48 isolated Chromium fixture scenarios across 6 theme palettes/8 widths, plus reduced-motion; source readback and CI assertions available. NOT YET VERIFIED: full Cloudflare-served portfolio browser render, CircleCI execution, production promotion, automatic email receipt.",
+    "testStatus": "Source/contrast regression script and CircleCI browser checks committed; executing independent source validation. Full Cloudflare deployment, full-site Chromium, real Turnstile challenge and mail delivery NOT verified.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -128,6 +134,19 @@
       "isolatedChromiumFixture": "48 scenarios (6 themes × 8 widths 320–1833px) passed; reduced motion passed",
       "fullSiteChromiumVerified": false,
       "providerDeploymentVerified": false
+    },
+    "editorialFinish": {
+      "date": "2026-11-23",
+      "origin": "owner annotated screenshots of quote, Building strength card, smart request preview, Turnstile and disabled submit",
+      "stylesheet": "personal-editorial-finish-v1.css?v=1.0.0",
+      "integration": "theme-scoped warm Editorial surfaces, token-aware treatments in other themes",
+      "securityVerification": "Cloudflare Turnstile supported light/flexible appearance, no iframe masking or token bypass",
+      "formAvailability": "preview remains disabled, successful challenge cannot submit data",
+      "privateRequestsEnabled": false,
+      "browserRuntimeVerified": false,
+      "deploymentVerified": false,
+      "regressionScript": "scripts/verify-editorial-finish.mjs",
+      "fullBrowserTests": "CircleCI geometric, computed-style and preview guards (scheduled by CI, not yet executed)"
     }
   }
 }
