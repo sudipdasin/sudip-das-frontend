@@ -7,7 +7,7 @@ Usage: python portfolio_intro_render.py [--seconds 44] [--fps 24]
 import math, os, random, argparse, subprocess, time, json, wave
 from pathlib import Path
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps
 from scipy.signal import butter, sosfilt
 
 ap=argparse.ArgumentParser();ap.add_argument('--seconds',type=float,default=44.0);ap.add_argument('--fps',type=int,default=24);ap.add_argument('--out',default='/mnt/data/sudip-das-professional-introduction-720p.mp4');args=ap.parse_args()
@@ -62,6 +62,22 @@ for s in range(9):
  light=np.exp(-((xx**2)*8+(yy**2)*7))[...,0]
  x=np.clip(x+light[...,None]*np.array([7.,17.,22.]),0,255).astype(np.uint8)
  backgrounds.append(Image.fromarray(x,'RGB').convert('RGBA'))
+
+# The same approved portrait shown on the public website makes the film
+# recognisably personal. Optional for reproducing outside this repository.
+public_portrait=Path(__file__).resolve().parent.parent/'sudip-das-portrait.jpg'
+PORTRAIT_MEDALLION=None
+if public_portrait.is_file():
+ try:
+  portrait=Image.open(public_portrait).convert('RGB')
+  portrait=ImageOps.fit(portrait,(214,214),method=Image.Resampling.LANCZOS,centering=(.5,.31))
+  mask=Image.new('L',(214,214),0)
+  md=ImageDraw.Draw(mask);md.ellipse((3,3,210,210),fill=255)
+  edge=Image.new('RGBA',(214,214),(0,0,0,0))
+  edge.paste(portrait,(0,0),mask)
+  PORTRAIT_MEDALLION=edge
+ except (OSError,ValueError) as exc:
+  print('Portrait unavailable for optional first-scene montage:',str(exc),flush=True)
 
 rng=random.Random(2309)
 particles=[(rng.randrange(W),rng.randrange(H),rng.choice([1,1,1,2]),rng.uniform(.18,.95),rng.uniform(.05,.36)) for _ in range(88)]
@@ -290,6 +306,12 @@ def draw_frame(n):
  im=backgrounds[si].copy();layer=Image.new('RGBA',(W,H),(0,0,0,0));d=ImageDraw.Draw(layer)
  bg_scene(im,d,si,t)
  art(d,t,p)
+ if si==0 and PORTRAIT_MEDALLION is not None:
+  # Orbit lines remain legible around the photograph; portrait appears
+  # only in chapter one and is not a generated or impersonated face.
+  d.ellipse((875,220,1110,455),fill=(8,35,46,220),outline=(113,233,209,186),width=4)
+  layer.alpha_composite(PORTRAIT_MEDALLION,(886,232))
+  d.ellipse((883,229,1104,450),outline=(130,236,216,190),width=3)
  # animated luminous scanning marker along top section bar
  draw_top=d
  draw_top.rectangle((0,0,W,5),fill=(39,85,104,135))
