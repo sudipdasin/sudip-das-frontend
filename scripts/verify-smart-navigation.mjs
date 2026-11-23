@@ -20,7 +20,7 @@ assert.match(html,/<meta name="portfolio-intro-youtube-url" content="">/);
 assert.match(html,/portfolio-showcase-v2\.css\?v=2\.1\.0/);
 assert.match(html,/webstudio-portfolio-gallery\.js\?v=2\.1\.0/);
 assert.ok(script.includes("pv-intro-hero-cta"));
-assert.match(html,/portfolio-intro-hover-v3\.css\?v=3\.0\.0/);
+assert.match(html,/portfolio-intro-hover-v3\.css\?v=3\.0\.1/);
 assert.ok(script.includes("60 sec · Cinematic introduction"));
 assert.ok(script.includes("const hoverSource='media/sudip-das-intro-hover-preview.webm'"));
 assert.ok(script.includes("previewClip.preload='none'"));
