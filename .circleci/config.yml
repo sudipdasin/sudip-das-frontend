@@ -187,6 +187,7 @@ jobs:
                     assert.equal(await page.locator('[data-demo-tab]').count(),3,'Three demonstration chapters expected '+theme);
                     assert.equal(await page.locator('.ws-demo-panel:visible').count(),1,'Exactly one illustration should be visible '+theme);
                     if(theme==='editorial'){
+                      await page.locator('#ws-inline-demo').scrollIntoViewIfNeeded();
                       const firstImage=page.locator('#ws-demo-panel-1 img');
                       await firstImage.evaluate(img=>img.decode());
                       assert.ok(await firstImage.evaluate(img=>img.naturalWidth>0),'Inline SVG image did not load');
