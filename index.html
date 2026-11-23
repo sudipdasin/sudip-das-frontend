@@ -59,7 +59,7 @@
   <link rel="stylesheet" href="webstudio-theme-fidelity-v1.css">
   <link rel="stylesheet" href="webstudio-aurora-reference-v2.css">
   <link rel="stylesheet" href="personal-theme-library.css?v=1.2.1">
-  <link rel="stylesheet" href="webstudio-footer.css?v=1.0.0">
+  <link rel="stylesheet" href="webstudio-footer.css?v=1.1.0">
   <link rel="stylesheet" href="personal-editorial-contrast.css?v=1.0.1">
   <link rel="preload" as="image" href="neon-horizon.svg">
   <link rel="preload" as="image" href="aurora-reference-horizon.svg">
@@ -222,27 +222,66 @@
         <div class="ws-powered-content">
           <p class="ws-powered-eyebrow">MADE WITH WEBSTUDIO <span aria-hidden="true">✦</span> DESIGN WITH PURPOSE</p>
           <h2 id="ws-powered-heading">A portfolio is just the beginning.</h2>
-          <p>Discover the WebStudio experience behind this site's interactive themes. Explore the demo, try different designs, and imagine how a memorable web presence could work for you.</p>
+          <p>WebStudio brings together visual presentation, thoughtful content, and an easier path to a distinctive personal website. Discover the approach through the illustrated walkthrough below — right here, without leaving this page.</p>
           <div class="ws-powered-features" aria-label="WebStudio design highlights">
-            <span>Six visual experiences</span><span>Responsive layouts</span><span>Visitor-friendly controls</span>
+            <span>Visual design directions</span><span>Mobile-aware presentation</span><span>Guided website journey</span>
           </div>
           <div class="ws-powered-actions">
-            <a class="ws-powered-demo" href="https://sudipdasin.github.io/sudip-das-frontend/" target="_blank" rel="noopener noreferrer" aria-label="Explore the WebStudio interactive demo in a new tab">Explore WebStudio demo <span aria-hidden="true">↗</span></a>
+            <button class="ws-powered-demo" type="button" id="ws-demo-jump" aria-controls="ws-inline-demo">Explore the inline demo <span aria-hidden="true">↓</span></button>
             <button class="ws-powered-interest-toggle" type="button" id="ws-interest-toggle" aria-controls="ws-interest-expander" aria-expanded="false">Interested? Get in touch <span aria-hidden="true">+</span></button>
           </div>
-          <div id="ws-interest-expander" class="ws-interest-expander" data-open="false" aria-hidden="true">
-            <div class="ws-interest-inner">
-              <form id="ws-interest-form" class="ws-interest-form" novalidate>
-                <label for="ws-interest-email">Your email address</label>
-                <div class="ws-interest-input-row">
-                  <input id="ws-interest-email" type="email" name="email" required autocomplete="email" inputmode="email" maxlength="254" placeholder="you@example.com" aria-describedby="ws-interest-explain">
-                  <button type="submit" id="ws-interest-submit">Compose email <span aria-hidden="true">↗</span></button>
-                </div>
-                <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="ws-interest-honeypot">
-                <p id="ws-interest-explain" class="ws-interest-helper">Only your email is requested. For now this opens your email app with a prepared message; you choose Send. Direct automatic notifications require a securely configured mail service.</p>
-                <p id="ws-interest-status" class="ws-interest-status" role="status" aria-live="polite"></p>
-              </form>
+        </div>
+        <div class="ws-inline-demo" id="ws-inline-demo" role="region" aria-labelledby="ws-demo-heading">
+          <div class="ws-demo-heading">
+            <div><p class="ws-demo-overline">A VISUAL WALKTHROUGH · INTERACTIVE · ON THIS PAGE</p>
+              <h3 id="ws-demo-heading">See how a website takes shape.</h3>
             </div>
+            <p>Three illustrated views, one clear idea. Select a chapter to explore the design experience.</p>
+          </div>
+          <div class="ws-demo-grid">
+            <div class="ws-demo-gallery">
+              <figure class="ws-demo-panel" id="ws-demo-panel-1" role="tabpanel" aria-labelledby="ws-demo-tab-1" data-demo-panel="0" tabindex="0">
+                <img src="webstudio-inline-layout.svg" width="1200" height="720" loading="lazy" decoding="async" alt="Illustrated WebStudio canvas with page structure, design palette, and a responsive personal-site preview.">
+                <figcaption>01 · Start with a clear visual direction.</figcaption>
+              </figure>
+              <figure class="ws-demo-panel" id="ws-demo-panel-2" role="tabpanel" aria-labelledby="ws-demo-tab-2" data-demo-panel="1" tabindex="0" hidden>
+                <img src="webstudio-inline-themes.svg" width="1200" height="720" loading="lazy" decoding="async" alt="Three illustrated website styles side by side: warm Editorial, vibrant Neon, and atmospheric Aurora.">
+                <figcaption>02 · Compare the feeling of different designs.</figcaption>
+              </figure>
+              <figure class="ws-demo-panel" id="ws-demo-panel-3" role="tabpanel" aria-labelledby="ws-demo-tab-3" data-demo-panel="2" tabindex="0" hidden>
+                <img src="webstudio-inline-workflow.svg" width="1200" height="720" loading="lazy" decoding="async" alt="Illustrated three-step journey: choose a direction, shape your story, and review desktop and mobile views.">
+                <figcaption>03 · Understand the website journey at a glance.</figcaption>
+              </figure>
+            </div>
+            <div class="ws-demo-sidebar">
+              <p class="ws-demo-overline">YOUR THREE-CHAPTER TOUR</p>
+              <div class="ws-demo-tabs" role="tablist" aria-label="WebStudio visual walkthrough">
+                <button type="button" id="ws-demo-tab-1" role="tab" data-demo-tab="0" aria-controls="ws-demo-panel-1" aria-selected="true" tabindex="0"><span class="ws-demo-num">01</span><span><strong>The canvas</strong><small>Find the right starting point</small></span></button>
+                <button type="button" id="ws-demo-tab-2" role="tab" data-demo-tab="1" aria-controls="ws-demo-panel-2" aria-selected="false" tabindex="-1"><span class="ws-demo-num">02</span><span><strong>Visual styles</strong><small>Explore a different mood</small></span></button>
+                <button type="button" id="ws-demo-tab-3" role="tab" data-demo-tab="2" aria-controls="ws-demo-panel-3" aria-selected="false" tabindex="-1"><span class="ws-demo-num">03</span><span><strong>The journey</strong><small>From concept to review</small></span></button>
+              </div>
+              <p class="ws-demo-description" id="ws-demo-description" aria-live="polite">Bring structure, typography, imagery, and a consistent visual identity together in one considered presentation.</p>
+              <div class="ws-demo-controls">
+                <button type="button" id="ws-demo-previous" aria-label="Previous showcase view">←</button>
+                <output id="ws-demo-count" aria-live="polite">01 / 03</output>
+                <button type="button" id="ws-demo-next" aria-label="Next showcase view">→</button>
+              </div>
+            </div>
+          </div>
+          <p class="ws-demo-disclaimer">Visuals are original concept illustrations, not screenshots of a live site editor. You can try this portfolio's six public display themes using the theme selector above.</p>
+        </div>
+        <div id="ws-interest-expander" class="ws-interest-expander" data-open="false" aria-hidden="true">
+          <div class="ws-interest-inner">
+            <form id="ws-interest-form" class="ws-interest-form" novalidate>
+              <label for="ws-interest-email">Your email address</label>
+              <div class="ws-interest-input-row">
+                <input id="ws-interest-email" type="email" name="email" required autocomplete="email" inputmode="email" maxlength="254" placeholder="you@example.com" aria-describedby="ws-interest-explain">
+                <button type="submit" id="ws-interest-submit">Compose email <span aria-hidden="true">↗</span></button>
+              </div>
+              <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="ws-interest-honeypot">
+              <p id="ws-interest-explain" class="ws-interest-helper">Only your email is requested. For now this opens your email app with a prepared message; you choose Send. Direct automatic notifications require a securely configured mail service.</p>
+              <p id="ws-interest-status" class="ws-interest-status" role="status" aria-live="polite"></p>
+            </form>
           </div>
         </div>
       </aside>
@@ -290,7 +329,7 @@
   <script src="webstudio-visitor-hub.js" defer></script>
   <script src="webstudio-parity.js" defer></script>
   <script src="personal-theme-library.js?v=1.2.1" defer></script>
-  <script src="webstudio-footer.js?v=1.0.0" defer></script>
+  <script src="webstudio-footer.js?v=1.1.0" defer></script>
   <script>window.PUBLIC_API_BASE="";window.PORTFOLIO_PREVIEW_MODE=true;</script>
 </body>
 </html>
