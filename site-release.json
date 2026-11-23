@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v1.5.0-foundation-layout-repair",
+  "release": "webstudio-personal-preview-v1.6.0-animated-inline-demo",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -32,7 +32,11 @@
     "balanced-foundation-experience-cards",
     "experience-public-highlight-panel",
     "no-misleading-address-heading",
-    "editorial-foundation-mobile-layout-contrast"
+    "editorial-foundation-mobile-layout-contrast",
+    "webstudio-animated-inline-demo-disclosure",
+    "webstudio-animated-close-collapse",
+    "webstudio-demo-focus-return-escape",
+    "webstudio-demo-reduced-motion"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -46,9 +50,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Personal preview only. The Foundation/Experience section now uses a balanced two-card presentation, public career themes and country-only location footer, fixing the unstyled Address column reported in the user screenshot. Original Editorial hero, owner profile controls, WebStudio inline demo, private-request lockout and production API isolation preserved. Browser and Cloudflare deployment verification pending. WebStudio email notification remains fail-closed/unverified.",
+    "notes": "Current portfolio preview only. WebStudio image-rich walkthrough is initially collapsed; Explore animates an inline pop-out and Close/Escape reverses the animation, restoring keyboard focus. No external WebStudio links or site write actions. Foundation cards, Editorial contrast and other portfolio content preserved. Preview private requests remain disabled; automated email still needs secure preview setup and real delivery verification.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "Foundation source audit to be run; scripted real Chromium and CircleCI checks committed, results pending. Preview backend remains disconnected.",
+    "testStatus": "Source and contract checks in progress; CircleCI Chromium animation tests added but not independently executed; current Pages deployment and email receipt not verified.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -78,7 +82,17 @@
         "webstudio-inline-workflow.svg"
       ],
       "presentation": "original concept illustrations, not live editor screenshots",
-      "interactiveControls": "local read-only, keyboard tabs and pager"
+      "interactiveControls": "local read-only, keyboard tabs and pager",
+      "initiallyExpanded": false,
+      "state": "collapsed_by_default",
+      "openBehavior": "animated grid reveal + subtle scale/opacity pop-out",
+      "closeBehavior": "reverse animated grid collapse to footer",
+      "closeControls": [
+        "Close demo",
+        "Explore the inline demo toggle",
+        "Escape"
+      ],
+      "accessibility": "aria-expanded, aria-hidden, inert and focus restoration; reduced-motion support"
     },
     "foundationSection": {
       "reason": "Owner screenshot showed visually unbalanced sticky career card plus plain Address text",
