@@ -271,9 +271,10 @@
       "hover": "decorative framed mini-player and poster overlay, lazy silent VP9 teaser only on hover or focus",
       "keyboard": "focus previews where reduced-motion is off; button still opens modal with video controls",
       "privacy": "no new analytics, permissions or arbitrary external media",
-      "resources": "portfolio-intro-hover-v3.css?v=3.0.0; personal-smart-navigation-v1.js?v=1.4.0",
+      "resources": "portfolio-intro-hover-v3.css?v=3.0.1; personal-smart-navigation-v1.js?v=1.4.0",
       "browserVerified": false,
-      "sourceVerified": true
+      "sourceVerified": true,
+      "qaNote": "Actual 390px Chromium detected legacy .button specificity forcing 45px CTA; 64px !important min-height fix committed for responsive cards"
     }
   }
 }
