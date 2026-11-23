@@ -15,7 +15,7 @@ assert.equal(release.preview.productionApiConnected,false);
 assert.equal(release.preview.privateRequestsEnabled,false);
 assert.equal(release.preview.productionPromotionApproved,false);
 assert.match(html,/personal-smart-navigation-v1\.css\?v=1\.1\.0/);
-assert.match(html,/personal-smart-navigation-v1\.js\?v=1\.0\.0/);
+assert.match(html,/personal-smart-navigation-v1\.js\?v=1\.1\.0/);
 assert.match(html,/<meta name="portfolio-intro-youtube-url" content="">/);
 assert.match(html,/id="pv-intro-modal" role="dialog" aria-modal="true"[^>]*hidden inert/);
 assert.match(html,/id="pv-intro-close" aria-label="Close intro video"/);
