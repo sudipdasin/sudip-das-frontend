@@ -187,7 +187,11 @@ jobs:
                     assert.equal(await page.locator('a[href*="sudipdasin.github.io/sudip-das-frontend"]').count(),0,'No external WebStudio demo link allowed '+theme);
                     assert.equal(await page.locator('#ws-inline-demo').count(),1,'In-page WebStudio demo missing '+theme);
                     assert.equal(await page.locator('[data-demo-tab]').count(),3,'Three demonstration chapters expected '+theme);
-                    assert.equal(await page.locator('.ws-demo-panel:visible').count(),1,'Exactly one illustration should be visible '+theme);
+                    assert.equal(await page.locator('#ws-demo-jump').getAttribute('aria-expanded'),'false','WebStudio demo must start closed '+theme);
+                    assert.equal(await page.locator('#ws-inline-demo').getAttribute('data-open'),'false','WebStudio showcase should start collapsed '+theme);
+                    assert.equal(await page.locator('#ws-inline-demo').getAttribute('aria-hidden'),'true','Collapsed demo must be hidden from assistive tech '+theme);
+                    assert.equal(await page.locator('#ws-inline-demo').evaluate(el=>el.inert),true,'Collapsed demo must not be keyboard-focusable '+theme);
+                    assert.equal(await page.locator('.ws-demo-panel:visible').count(),0,'Collapsed WebStudio images must be hidden '+theme);
                     assert.equal(await page.locator('#experience .foundation-summary').count(),1,'Foundation right panel not present '+theme);
                     assert.equal(await page.locator('#experience .foundation-pillar-list li').count(),3,'Three grounded experience pillars expected '+theme);
                     assert.equal(await page.locator('#experience .foundation-country').innerText(),'Based in India','Only public country should appear '+theme);
@@ -222,7 +226,15 @@ jobs:
                       }
                       assert.ok(foundation.scrollWidth<=foundation.clientWidth+2,'Horizontal overflow within Foundation: '+JSON.stringify(foundation));
 
-                      await page.locator('#ws-inline-demo').scrollIntoViewIfNeeded();
+                      await page.locator('#ws-demo-jump').scrollIntoViewIfNeeded();
+                      const collapsedHeight=await page.locator('#ws-inline-demo').evaluate(el=>el.getBoundingClientRect().height);
+                      assert.ok(collapsedHeight<4,'Demo must occupy no height while closed: '+collapsedHeight);
+                      await page.locator('#ws-demo-jump').click();
+                      assert.equal(await page.locator('#ws-demo-jump').getAttribute('aria-expanded'),'true','Demo opener did not expand');
+                      assert.equal(await page.locator('#ws-inline-demo').getAttribute('aria-hidden'),'false','Demo must become available to assistive tech');
+                      assert.equal(await page.locator('#ws-inline-demo').evaluate(el=>el.inert),false,'Open demo must allow keyboard access');
+                      await page.locator('#ws-demo-panel-1').waitFor({state:'visible'});
+                      await page.waitForFunction(()=>document.querySelector('#ws-inline-demo').getBoundingClientRect().height>150,null,{timeout:1800});
                       const firstImage=page.locator('#ws-demo-panel-1 img');
                       await firstImage.evaluate(img=>img.decode());
                       assert.ok(await firstImage.evaluate(img=>img.naturalWidth>0),'Inline SVG image did not load');
@@ -233,6 +245,16 @@ jobs:
                       await page.locator('#ws-demo-previous').click();
                       assert.equal(await page.locator('#ws-demo-panel-2').isVisible(),true,'Walkthrough previous button failed');
                       await page.locator('#ws-demo-tab-1').click();
+
+                      await page.locator('#ws-demo-close').click();
+                      assert.equal(await page.locator('#ws-inline-demo').getAttribute('data-open'),'false','Close button must collapse demo');
+                      assert.equal(await page.locator('#ws-demo-jump').getAttribute('aria-expanded'),'false');
+                      assert.equal(await page.evaluate(()=>document.activeElement.id),'ws-demo-jump','Focus must return to opener');
+                      await page.waitForFunction(()=>document.querySelector('#ws-inline-demo').getBoundingClientRect().height<4,null,{timeout:1800});
+                      await page.locator('#ws-demo-jump').click();
+                      await page.locator('#ws-demo-close').press('Escape');
+                      assert.equal(await page.locator('#ws-inline-demo').getAttribute('data-open'),'false','Escape must collapse demo');
+                      assert.equal(await page.evaluate(()=>document.activeElement.id),'ws-demo-jump','Escape must restore focus to opener');
 
                       const contrast=await page.evaluate(()=>{
                         const section=document.querySelector('section.capabilities');
