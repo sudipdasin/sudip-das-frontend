@@ -104,9 +104,8 @@
  }
 
 
- // Professional Introduction v4 — a genuine in-place video tile, never a
- // modal/new window. Hover motion previews inside the CTA without preloading.
- // The playable panel is a sibling of the button (no nested media controls).
+ // Professional Introduction v4.1 — video always previews inside visible CTA;
+ // only a dedicated expand icon opens the larger inline player.
  const heroActions=document.querySelector('.hero .actions');
  function parseVideoId(raw){
   if(!raw)return null;
@@ -127,14 +126,24 @@
   const tile=document.createElement('div');
   tile.className='pv-intro-tile';
   tile.dataset.state='collapsed';
-  const button=document.createElement('button');
-  button.type='button';
+  // The preview is a visual tile: only the explicit expand icon opens film.
+  // A real button is never nested inside another button.
+  const button=document.createElement('div');
   button.id='pv-intro-launch';
   button.className='button pv-intro-launch pv-intro-hero-cta';
-  button.setAttribute('aria-controls','pv-intro-inline-player');
-  button.setAttribute('aria-expanded','false');
-  button.setAttribute('aria-label','Play Professional Introduction in this page');
-  button.innerHTML='<span class="pv-intro-launch-play" aria-hidden="true">▶</span><span class="pv-intro-launch-copy"><strong>Professional Introduction</strong><small>60 sec · Play video here</small></span>';
+  button.setAttribute('role','group');
+  button.setAttribute('aria-label','Muted Professional Introduction video preview');
+  button.innerHTML='<span class="pv-intro-launch-copy"><strong>Professional Introduction</strong><small>Muted preview · 60-second film</small></span>';
+  const expand=document.createElement('button');
+  expand.type='button';
+  expand.id='pv-intro-expand';
+  expand.className='pv-intro-expand';
+  expand.setAttribute('aria-label','Expand Professional Introduction full video here');
+  expand.setAttribute('aria-controls','pv-intro-inline-player');
+  expand.setAttribute('aria-expanded','false');
+  expand.title='Expand 60-second professional introduction';
+  expand.textContent='⛶';
+  button.append(expand);
   const teaser=document.createElement('video');
   teaser.className='pv-intro-cta-motion';
   teaser.muted=true;teaser.loop=true;teaser.playsInline=true;
@@ -172,17 +181,17 @@
   tile.append(button,panel);
   heroActions.append(tile);
 
+  // Only the lightweight original 6-second silent clip loops inside the tile.
+  // Defer its request until the actual tile enters the viewport.
   const hoverSource='media/sudip-das-intro-hover-preview.webm';
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const hoverAllowed=window.matchMedia('(hover: hover) and (pointer: fine)');
+  const saveData=Boolean(navigator.connection?.saveData);
   const videoId=parseVideoId(document.querySelector('meta[name="portfolio-intro-youtube-url"]')?.content?.trim()||'');
   const localIntro=document.querySelector('meta[name="portfolio-intro-mp4"]')?.content?.trim()||'';
   const localPoster=document.querySelector('meta[name="portfolio-intro-poster"]')?.content?.trim()||'';
   const safeIntro=/^media\/[a-z0-9-]+\.mp4$/.test(localIntro)?localIntro:null;
   const safePoster=/^media\/[a-z0-9-]+\.svg$/.test(localPoster)?localPoster:null;
-  let open=false;
-  let hoverPlaying=false;
-  let suppressHover=false;
+  let open=false,previewVisible=false,hoverPlaying=false;
   const stopTeaser=()=>{
    if(!hoverPlaying&&!teaser.hasAttribute('src'))return;
    hoverPlaying=false;
@@ -192,17 +201,24 @@
    teaser.load();
   };
   const startTeaser=()=>{
-   if(open||hoverPlaying||suppressHover||reduced.matches||!hoverAllowed.matches)return;
+   if(open||hoverPlaying||!previewVisible||document.hidden||reduced.matches||saveData)return;
    hoverPlaying=true;
    teaser.src=hoverSource;
-   teaser.dataset.ready='true';
    teaser.play().catch(()=>{teaser.dataset.ready='false';});
   };
-  button.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch')startTeaser();});
-  button.addEventListener('pointerleave',stopTeaser);
-  button.addEventListener('focus',startTeaser);
-  button.addEventListener('blur',stopTeaser);
-  button.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')stopTeaser();});
+  teaser.addEventListener('playing',()=>{teaser.dataset.ready='true';});
+  teaser.addEventListener('error',stopTeaser);
+  if('IntersectionObserver' in window){
+   const observer=new IntersectionObserver(entries=>{
+    previewVisible=entries.some(entry=>entry.isIntersecting&&entry.intersectionRatio>=.3);
+    if(previewVisible)startTeaser();else stopTeaser();
+   },{threshold:[0,.3,.6]});
+   observer.observe(tile);
+  }else{
+   previewVisible=true;
+   startTeaser();
+  }
+  reduced.addEventListener?.('change',()=>{if(reduced.matches)stopTeaser();else startTeaser();});
   const clearMedia=()=>{
    for(const video of mediaBox.querySelectorAll('video')){
     video.pause();
@@ -219,18 +235,17 @@
    panel.hidden=true;
    tile.dataset.state='collapsed';
    button.hidden=false;
-   button.setAttribute('aria-expanded','false');
+   expand.setAttribute('aria-expanded','false');
    status.hidden=false;
-   suppressHover=true;
-   button.focus({preventScroll:true});
-   requestAnimationFrame(()=>{suppressHover=false;});
+   expand.focus({preventScroll:true});
+   startTeaser();
   };
   const launch=()=>{
    if(open)return;
    stopTeaser();
    open=true;
    tile.dataset.state='open';
-   button.setAttribute('aria-expanded','true');
+   expand.setAttribute('aria-expanded','true');
    button.hidden=true;
    panel.hidden=false;
    status.hidden=false;
@@ -283,7 +298,7 @@
     status.textContent='Professional Introduction video is not configured.';
    }
   };
-  button.addEventListener('click',launch);
+  expand.addEventListener('click',launch);
   closeButton.addEventListener('click',dismiss);
   document.addEventListener('keydown',e=>{
    if(!open||e.key!=='Escape'||document.fullscreenElement)return;
@@ -294,7 +309,7 @@
    if(document.hidden){
     stopTeaser();
     if(open)mediaBox.querySelector('video')?.pause();
-   }
+   }else if(!open){startTeaser();}
   });
   window.addEventListener('pagehide',()=>{stopTeaser();clearMedia();});
  }

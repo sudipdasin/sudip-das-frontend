@@ -1,0 +1,93 @@
+/* 4.1 — the video itself is the Professional Introduction button's face.
+   Only a clearly labeled independent control opens the full inline player. */
+body.ws-parity .hero .actions .pv-intro-tile > .pv-intro-hero-cta {
+  min-height:88px!important;
+  height:100%!important;
+  padding:9px 56px 9px 12px!important;
+  background:#031a2b url("media/sudip-das-intro-poster.svg") center/cover no-repeat!important;
+  border:1px solid color-mix(in srgb,var(--ws-accent,#05eaea) 72%,#1b5267)!important;
+  border-radius:14px!important;
+  box-shadow:inset 0 0 22px #05bee42a,0 0 24px #02eaf226!important;
+  cursor:default!important;
+  isolation:isolate;
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-cta-motion {
+  opacity:0;
+  object-fit:cover;
+  filter:brightness(.74) saturate(1.12);
+  transition:opacity .3s ease;
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-cta-motion[data-ready="true"] {
+  opacity:1!important;
+}
+body.ws-parity .hero .actions .pv-intro-tile > .pv-intro-hero-cta::after {
+  opacity:1!important;
+  background:linear-gradient(90deg,rgba(1,12,26,.9) 0%,rgba(3,17,31,.5) 65%,rgba(3,15,28,.18))!important;
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-launch-copy {
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  align-items:flex-start;
+  text-align:left;
+  color:#f9ffff!important;
+  text-shadow:0 2px 9px #010a16,0 0 14px #010b1e;
+  pointer-events:none;
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-launch-copy strong{
+  font:800 clamp(.74rem,.88vw,.9rem)/1.25 var(--sans,system-ui,sans-serif)!important;
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-launch-copy small{
+  color:#bdf5fa!important;font-size:clamp(.62rem,.7vw,.74rem)!important;
+  font-weight:650!important;
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-expand{
+  position:absolute;
+  z-index:5;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+  min-height:40px;
+  display:grid;
+  place-items:center;
+  padding:0!important;
+  border:1px solid #29e8ff!important;
+  border-radius:11px!important;
+  color:#05182a!important;
+  background:linear-gradient(140deg,#2af4ee,#18baf3)!important;
+  box-shadow:0 0 0 3px #0bcaff22,0 0 22px #01c7ff4b!important;
+  font:750 1.45rem/1 system-ui!important;
+  cursor:zoom-in;
+  transition:transform .18s,filter .18s;
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-expand:hover{
+  transform:translateY(-50%) scale(1.08);
+  filter:brightness(1.14);
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-expand:focus-visible{
+  outline:3px solid #fff!important;outline-offset:3px!important;
+}
+body.ws-parity .hero .actions .pv-intro-tile > .pv-intro-hero-cta[hidden]{
+  display:none!important;
+}
+body.ws-parity .hero .actions .pv-intro-tile[data-state="open"]{
+  grid-column:1/-1;
+}
+@media(max-width:520px){
+ body.ws-parity .hero .actions .pv-intro-tile > .pv-intro-hero-cta{
+  min-height:78px!important;padding:8px 39px 8px 7px!important;
+ }
+ body.ws-parity .hero .actions .pv-intro-tile .pv-intro-expand{
+  right:5px;width:33px;height:33px;min-height:33px;font-size:1.15rem!important;
+ }
+ body.ws-parity .hero .actions .pv-intro-tile .pv-intro-launch-copy small{
+  font-size:.57rem!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity .hero .actions .pv-intro-tile .pv-intro-cta-motion{
+  display:none!important;
+ }
+}
