@@ -216,6 +216,43 @@ try{
       badges:report.badges.map(x=>x.name),
       featureTabs:report.features.map(x=>x.text),
       overflow:report.pageWidth-report.clientWidth});
+    // Previous checks used reduced motion; real visitors generally do not.
+    // Verify that animated orbital effects NEVER change core geometry or
+    // overlap the nameplate at several frames in normal-motion mode.
+    if([1892,820,390].includes(width)){
+      await page.emulateMedia({reducedMotion:'no-preference'});
+      for(const sample of [0,180,420]){
+        if(sample)await page.waitForTimeout(sample);
+        const live=await page.evaluate(()=>{
+          const box=q=>{
+            const r=document.querySelector(q).getBoundingClientRect();
+            return {x:r.x,y:r.y,w:r.width,h:r.height,
+              cx:r.x+r.width/2,cy:r.y+r.height/2,bottom:r.bottom};
+          };
+          return {core:box('.ws-neon-precision-portrait'),
+            outer:box('.ws-neon-precise-outer'),
+            inner:box('.ws-neon-precise-inner'),
+            caption:box('.hero-art .portrait-caption'),
+            band:box('#ws-aurora-reference'),
+            overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};
+        });
+        for(const ring of [live.outer,live.inner]){
+          assert.ok(Math.abs(ring.cx-live.core.cx)<5&&Math.abs(ring.cy-live.core.cy)<5,
+            'Animated rings shifted away from portrait: '+JSON.stringify({width,sample,live}));
+        }
+        assert.ok(live.caption.y-live.outer.bottom>=8&&live.caption.y-live.outer.bottom<=22,
+          'Nameplate drift with live motion: '+JSON.stringify({width,sample,live}));
+        assert.ok(live.caption.bottom<=live.band.y-8,
+          'Feature band collision during live animation: '+JSON.stringify({width,sample,live}));
+        assert.ok(live.overflow<=3,
+          'Horizontal overflow during live animation: '+JSON.stringify({width,sample,live}));
+        if(width===1892&&sample===420){
+          await page.screenshot({path:'test-artifacts/neon-studio-1892-normal-motion.png',
+            fullPage:false});
+        }
+      }
+      await page.emulateMedia({reducedMotion:'reduce'});
+    }
     if(width<=600){
       // Native controls were previously hanging off the right edge of the
       // mobile header. They should appear in the expandable menu, not vanish.
