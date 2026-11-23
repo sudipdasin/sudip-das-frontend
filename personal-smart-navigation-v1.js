@@ -130,12 +130,59 @@
   button.type='button';
   button.id='pv-intro-launch';
   button.className='button pv-intro-launch pv-intro-hero-cta';
-  button.innerHTML='<span class="pv-intro-launch-play" aria-hidden="true">▶</span><span class="pv-intro-launch-copy"><strong>Watch my story</strong><small>44 sec · Original soundtrack</small></span>';
+  button.innerHTML='<span class="pv-intro-launch-play" aria-hidden="true">▶</span><span class="pv-intro-launch-copy"><strong>Watch my story</strong><small>60 sec · Cinematic introduction</small></span>';
   button.setAttribute('aria-haspopup','dialog');
   button.setAttribute('aria-controls','pv-intro-modal');
   button.setAttribute('aria-expanded','false');
   // Script runs after the gallery launcher: place the intro beside it.
    heroActions.append(button);
+  // Hover teaser is a decorative sibling, not a video nested within button.
+  // It never requests bytes before hover/focus and never plays at idle.
+  const preview=document.createElement('div');
+  preview.className='pv-intro-hover-preview';
+  preview.id='pv-intro-hover-preview';
+  preview.setAttribute('aria-hidden','true');
+  const previewClip=document.createElement('video');
+  previewClip.className='pv-intro-hover-video';
+  previewClip.muted=true;previewClip.loop=true;
+  previewClip.playsInline=true;previewClip.preload='none';
+  previewClip.poster='media/sudip-das-intro-poster.svg';
+  previewClip.setAttribute('tabindex','-1');
+  const caption=document.createElement('div');
+  caption.className='pv-intro-hover-caption';
+  caption.innerHTML='<span class="pv-intro-hover-tag">A LIFE IN TECHNOLOGY</span><strong>Building useful things.</strong><small>Muted motion preview · Click for the full film</small>';
+  preview.append(previewClip,caption);
+  heroActions.append(preview);
+  const motionReduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const hoverSource='media/sudip-das-intro-hover-preview.webm';
+  let previewActive=false;
+  const closePreview=()=>{
+   if(!previewActive)return;
+   previewActive=false;
+   preview.dataset.active='false';
+   previewClip.pause();
+   previewClip.removeAttribute('src');
+   previewClip.load();
+  };
+  const openPreview=()=>{
+   if(previewActive||motionReduced.matches||!modal.hidden)return;
+   previewActive=true;
+   preview.dataset.active='true';
+   previewClip.src=hoverSource;
+   previewClip.play().catch(()=>{});
+  };
+  button.addEventListener('pointerenter',event=>{
+   if(event.pointerType!=='touch')openPreview();
+  });
+  button.addEventListener('pointerleave',closePreview);
+  button.addEventListener('focus',openPreview);
+  button.addEventListener('blur',closePreview);
+  button.addEventListener('pointerdown',event=>{
+   if(event.pointerType==='touch')closePreview();
+  });
+  document.addEventListener('visibilitychange',()=>{
+   if(document.hidden)closePreview();
+  });
   const videoId=parseVideoId(document.querySelector('meta[name="portfolio-intro-youtube-url"]')?.content?.trim()||'');
   const footnote=byId('pv-intro-footnote');
   const localIntro=document.querySelector('meta[name="portfolio-intro-mp4"]')?.content?.trim()||'';
@@ -147,6 +194,7 @@
   let previousFocus=null;
   const open=()=>{
    if(!modal.hidden)return;
+   closePreview();
    previousFocus=document.activeElement;
    modal.hidden=false;
    modal.inert=false;
@@ -170,7 +218,7 @@
     const video=document.createElement('video');
     video.className='pv-intro-frame';
     video.id='pv-intro-native';
-    video.setAttribute('aria-label','Sudip Das — 44-second professional introduction');
+    video.setAttribute('aria-label','Sudip Das — 60-second cinematic professional introduction');
     video.setAttribute('playsinline','');
     video.controls=true;
     video.autoplay=true;
@@ -198,12 +246,12 @@
      video.remove();
      empty.hidden=false;
      empty.querySelector('strong').textContent='Video awaiting preview publication.';
-     empty.querySelector('p').textContent='The finished 720p MP4 has been created. This preview will play it after its asset is published.';
+     empty.querySelector('p').textContent='The finished cinematic 720p film will play here after the hosting asset is published.';
      footnote.textContent='Video file not yet available on the preview hosting origin.';
     },{once:true});
     video.style.visibility='hidden';
     screen.append(video);
-    footnote.textContent='44 seconds · 720p · Original soundtrack · Muted autoplay; use the player controls to enable sound.';
+    footnote.textContent='60 seconds · 720p · Original soundtrack & effects · Muted autoplay; use the player controls to enable sound.';
    }else{
     empty.hidden=false;
     footnote.textContent='No approved video source is configured.';
