@@ -211,16 +211,24 @@
  const groups=[
   {title:'Direct · Email',nodes:['.pv-connect-email']},
   {title:'Professional · LinkedIn & GitHub',nodes:['.pv-connect-social[data-social="linkedin"]','.pv-connect-social[data-social="github"]']},
-  {title:'Creative & social · YouTube',nodes:['.pv-connect-social[data-social="youtube"]']}
+  {title:'Social & creative · YouTube, Facebook, Instagram, X',nodes:['.pv-connect-social[data-social="youtube"]','.pv-connect-social[data-social="facebook"]','.pv-connect-social[data-social="instagram"]','.pv-connect-social[data-social="x"]']}
  ];
  const connectCards=create('div','pv-hub-connect-cards');
  const valid=(url,kind)=>{
   if(kind==='email')return /^mailto:sudipdasin@gmail\.com(?:\?.*)?$/i.test(url);
   try{
    const target=new URL(url,location.href);
+   const approved=new Set([
+    'https://github.com/sudipdasin',
+    'https://www.linkedin.com/in/sudipdasin/',
+    'https://www.youtube.com/c/SudipDas',
+    'https://www.facebook.com/sudipdasin',
+    'https://www.instagram.com/sudipdasin/',
+    'https://x.com/sudipdasin'
+   ]);
    return target.protocol==='https:' &&
-    ['github.com','www.linkedin.com','www.youtube.com'].includes(target.hostname) &&
-    target.username===''&&target.password==='';
+    target.username===''&&target.password==='' &&
+    approved.has(target.href);
   }catch{return false;}
  };
  for(const group of groups){

@@ -295,3 +295,50 @@ body.ws-parity[data-theme="terminal"] .pv-connect-mini{
  body.ws-parity .pv-connect-group:hover,
  body.ws-parity .pv-connect-card :is(a,button):hover{transform:none!important;}
 }
+
+/* v1.1 — visitor-supplied Facebook, Instagram and X profile links.
+   Keep distinct, accessible icons while honoring all six palette systems. */
+body.ws-parity .pv-connect-social[data-social="facebook"]>svg{color:#70a4ff;}
+body.ws-parity .pv-connect-social[data-social="instagram"]>svg{color:#db81e9;}
+body.ws-parity .pv-connect-social[data-social="x"]>svg{color:#b5d2e4;}
+body.ws-parity .pv-connect-creative .pv-connect-social{
+  min-height:54px;
+}
+body.ws-parity .pv-connect-creative .pv-connect-social svg{
+  flex:0 0 26px;width:26px;height:26px;
+}
+body.ws-parity .site-footer-wrap .footer .socials{
+  display:flex;flex-wrap:wrap;gap:8px 11px;
+  justify-content:flex-end;align-items:center;
+  max-width:850px;
+}
+body.ws-parity .site-footer-wrap .footer .socials a{
+  display:inline-flex;align-items:center;gap:5px;
+  min-height:34px;padding:7px 10px;
+  border:1px solid color-mix(in srgb,var(--ws-accent) 28%,var(--line));
+  border-radius:10px;
+  background:color-mix(in srgb,var(--panel) 78%,transparent);
+  color:var(--ink);
+  text-decoration:none;
+  font:650 .72rem/1.25 var(--sans,system-ui);
+  transition:background .18s,border-color .18s,transform .18s;
+}
+body.ws-parity .site-footer-wrap .footer .socials a:hover{
+  transform:translateY(-2px);
+  border-color:var(--ws-accent);
+  background:color-mix(in srgb,var(--ws-accent) 13%,var(--panel));
+}
+body.ws-parity .site-footer-wrap .footer .socials a:focus-visible{
+  outline:3px solid var(--ws-accent);outline-offset:3px;
+}
+body.ws-parity .site-footer-wrap .footer .socials a span{color:var(--ws-accent);}
+@media(max-width:800px){
+  body.ws-parity .site-footer-wrap .footer .socials{
+    justify-content:flex-start;
+    max-width:100%;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity .site-footer-wrap .footer .socials a{transition:none;}
+  body.ws-parity .site-footer-wrap .footer .socials a:hover{transform:none;}
+}
