@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v1.3.1-editorial-form-contrast",
+  "release": "webstudio-personal-preview-v1.4.0-inline-showcase",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -22,10 +22,13 @@
     "cloudflare-access-safe-static-theme-catalog",
     "editorial-capabilities-wcag-contrast",
     "webstudio-powered-footer-showcase",
-    "webstudio-interactive-demo-link",
     "webstudio-email-interest-expandable",
     "webstudio-interest-secure-api-staged-disabled",
-    "editorial-private-request-field-contrast"
+    "editorial-private-request-field-contrast",
+    "webstudio-inline-image-rich-demo",
+    "webstudio-inline-three-chapter-tabs",
+    "webstudio-inline-keyboard-navigation",
+    "webstudio-no-external-demo-link"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -39,9 +42,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Personal preview only. Editorial capabilities and form input contrast patched with a separately scoped CSS override; original favorite Editorial hero/saved source untouched. WebStudio-made footer now showcases approved public WebStudio demo and expanding email-only interest CTA. Current CTA opens mail client to compose, does NOT send automatically. Dedicated Pages Function endpoint is staged fail-closed, disabled by default until preview Turnstile, isolated D1 limits, HMAC Gmail bridge secrets and live delivery are configured and tested. Public production API remains disconnected, private requests disabled, no owner settings exposed. CircleCI full browser tests pending credits.",
+    "notes": "Personal preview only. Editorial capabilities and private form contrast patched without altering original hero. WebStudio footer now contains a fully local three-chapter illustrated walkthrough (Canvas, Visual Styles, Journey) with keyboard-accessible tabs; no external WebStudio demo links or live editor permissions. Email-only interest action remains mailto compose, NOT automated notification. The staged Pages Function remains fail-closed and disabled until preview-only Turnstile, dedicated D1 rate-limits, HMAC bridge secrets and genuine delivery tests. Preview private requests stay disabled and production API disconnected. CircleCI and browser verification remain pending.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "Source validation added; CircleCI, real Chromium visual and inbox delivery remain unverified",
+    "testStatus": "Source contracts and new browser test assertions committed; CI execution/browser artifact and auto-email inbox delivery unverified",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -61,6 +64,17 @@
         "INTEREST_DB"
       ]
     },
-    "contrastAudit": "Source-scoped Editorial strengths and private-access/form light-surface contrast patched; WCAG static color checks in QA, Chromium interaction and real visual pass not yet recorded"
+    "contrastAudit": "Source-scoped Editorial strengths and private-access/form light-surface contrast patched; WCAG static color checks in QA, Chromium interaction and real visual pass not yet recorded",
+    "webStudioInlineDemo": {
+      "enabled": true,
+      "externalLinks": 0,
+      "scenes": [
+        "webstudio-inline-layout.svg",
+        "webstudio-inline-themes.svg",
+        "webstudio-inline-workflow.svg"
+      ],
+      "presentation": "original concept illustrations, not live editor screenshots",
+      "interactiveControls": "local read-only, keyboard tabs and pager"
+    }
   }
 }
