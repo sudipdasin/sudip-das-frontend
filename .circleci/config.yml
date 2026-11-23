@@ -46,6 +46,8 @@ jobs:
             node --check languages.js
             node --check scripts/verify-layout-flow.mjs
             node scripts/verify-layout-flow.mjs
+            node --check scripts/verify-editorial-finish.mjs
+            node scripts/verify-editorial-finish.mjs
             node scripts/verify-aurora-reference-v2.mjs
             # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
@@ -250,7 +252,76 @@ jobs:
                       assert.equal(flow.ticker.clipping,'hidden','Marquee viewport must clip wide track '+theme);
                       assert.equal(flow.ticker.animation,'ws-marquee-seamless');
                     }else assert.equal(flow.ticker.isDisplayed,false,'Terminal ticker should remain hidden');
+                    // The three screenshot targets: section-copy card, 4 Strengths,
+                    // and private-request controls must remain coherent in every theme.
+                    assert.equal(await page.locator('#capabilities .cap').count(),4,'Four Strengths cards must remain '+theme);
+                    assert.equal(await page.locator('#private-request-form .request-grid input').count(),8,'Form fields lost '+theme);
+                    assert.equal(await page.locator('#private-request-form .request-submit').isDisabled(),true,'Preview request submission must remain disabled');
+                    assert.equal(await page.locator('#private-request-form .cf-turnstile').getAttribute('data-theme'),'light','The provider widget must use its supported light appearance');
+                    assert.equal(await page.locator('#private-request-form .cf-turnstile').getAttribute('data-size'),'flexible','The provider widget must use responsive sizing');
+                    assert.ok(await page.locator('.captcha-hint').innerText().then(v=>v.includes('preview is offline')),'Preview must explain that CAPTCHA success does not enable requests');
+                    if(theme!=='terminal'){
+                      const strengths=await page.evaluate(()=>{
+                        const grid=document.querySelector('#capabilities .cap-grid');
+                        const cards=[...grid.querySelectorAll('.cap')];
+                        const wrap=grid.closest('.wrap').getBoundingClientRect();
+                        return {columns:getComputedStyle(grid).gridTemplateColumns.split(' ').length,
+                          wrap:{left:wrap.left,right:wrap.right},
+                          cards:cards.map(el=>{
+                            const b=el.getBoundingClientRect();
+                            return {left:b.left,right:b.right,width:b.width,height:b.height};
+                          })};
+                      });
+                      assert.equal(strengths.columns,width<=580?1:width<=1100?2:4,'Strengths card columns '+theme+'/'+width);
+                      for(const card of strengths.cards){
+                        assert.ok(card.width>100&&card.height>=140,'Strengths cards too small '+JSON.stringify(card));
+                        assert.ok(card.left>=strengths.wrap.left-2&&card.right<=strengths.wrap.right+2,
+                          'Strengths card breaks wrapper '+JSON.stringify(card)+' '+theme+'/'+width);
+                      }
+                    }
                     if(theme==='editorial'){
+                      const editorialSurface=await page.evaluate(()=>{
+                        const quote=document.querySelector('#about .section-head > p');
+                        const cap=document.querySelector('#capabilities .cap');
+                        const get=(element)=>({color:getComputedStyle(element).color,
+                          background:getComputedStyle(element).backgroundColor,
+                          border:getComputedStyle(element).borderLeftWidth});
+                        return {quote:get(quote),cap:get(cap),
+                          capBackground:getComputedStyle(cap).backgroundImage};
+                      });
+                      assert.equal(editorialSurface.quote.border,'3px','Editorial summary must retain accent rail');
+                      assert.match(editorialSurface.cap.background,/255,\s*250,\s*243/,'Strengths card must have opaque paper color');
+                      assert.match(editorialSurface.capBackground,/linear-gradient/,'Strengths subtle paper texture absent');
+                      await page.locator('#private-details').evaluate(el=>{
+                        el.open=true;el.dataset.pinned='true';
+                      });
+                      await page.locator('#private-request-form .request-grid input').first().waitFor({state:'visible',timeout:3000});
+                      const formStyling=await page.evaluate(()=>{
+                        const form=document.querySelector('#private-request-form');
+                        const grid=form.querySelector('.request-grid');
+                        const inputs=[...grid.querySelectorAll('input')];
+                        const frame=form.querySelector('.captcha-slot');
+                        const orb=form.querySelector('.request-orb');
+                        const button=form.querySelector('.request-submit');
+                        const bounds=x=>{const r=x.getBoundingClientRect();return {left:r.left,right:r.right,width:r.width}};
+                        const wrap=bounds(form);
+                        return {cols:getComputedStyle(grid).gridTemplateColumns.split(' ').length,
+                          form:wrap,inputs:inputs.map(bounds),captcha:bounds(frame),
+                          orbAnimation:getComputedStyle(orb).animationName,
+                          orbIcon:getComputedStyle(orb,'::before').content,
+                          disabled:button.disabled,cursor:getComputedStyle(button).cursor,
+                          buttonOpacity:getComputedStyle(button).opacity};
+                      });
+                      assert.equal(formStyling.cols,width<=900?1:2,'Private-request responsive grid columns '+width);
+                      assert.equal(formStyling.orbAnimation,'none','Request preview icon must not use flashing blue orb animation');
+                      assert.ok(formStyling.orbIcon.includes('✦'),'Request preview icon must be coherent');
+                      assert.ok(formStyling.inputs.every(x=>x.width>100&&x.left>=formStyling.form.left-2&&x.right<=formStyling.form.right+2),
+                        'Private-request fields break their container '+JSON.stringify(formStyling));
+                      assert.ok(formStyling.captcha.left>=formStyling.form.left-2&&formStyling.captcha.right<=formStyling.form.right+2,
+                        'Security panel overflows form '+JSON.stringify(formStyling));
+                      assert.equal(formStyling.disabled,true);
+                      assert.equal(formStyling.cursor,'not-allowed');
+                      assert.equal(formStyling.buttonOpacity,'1');
                       // RTL translations must update BOTH ticker copies identically.
                       await page.locator('#language-select').selectOption('ar');
                       const arabicTicker=await page.evaluate(()=>{
