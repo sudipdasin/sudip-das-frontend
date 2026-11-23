@@ -215,7 +215,7 @@
       setLocked(core,'width',portrait+'px');
       setLocked(core,'height',portrait+'px');
       setLocked(nameplate,'left','50%');
-      setLocked(nameplate,'top','calc(50% + '+(diameter*(vw<=600?.38:.36))+'px)');
+      setLocked(nameplate,'top','calc(50% + '+(diameter*(vw<=600?.40:.395))+'px)');
       setLocked(nameplate,'bottom','auto');
       setLocked(nameplate,'transform','translateX(-50%)');
     };
