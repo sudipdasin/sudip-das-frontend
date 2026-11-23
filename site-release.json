@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v3.2.0-neon-reference-fidelity",
+  "release": "webstudio-personal-preview-v3.2.1-neon-reference-verified",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -93,7 +93,8 @@
     "neon-studio-reference-satellite-geometry",
     "neon-studio-lower-skill-tabs-restored",
     "neon-studio-four-breakpoint-browser-parity",
-    "neon-studio-no-layout-transition-race"
+    "neon-studio-no-layout-transition-race",
+    "neon-studio-animated-motion-reference-verified"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -107,9 +108,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "v3.2 preview Neon Studio-only visual parity: removed redundant thin utility strip, preserved navigation, restored concentric 3-ring portrait, five crisp SVG orbit medallions, relocated identity pill below ring, removed inherited layout transitions, adjusted tablet spacing, and restored six WebStudio feature tabs. Browser geometry passed across four widths; untouched other five themes and production branch. No change to private backend or requests.",
+    "notes": "v3.2.1 Neon Studio: screenshot crop matched to reference; narrow preview status strip hidden in Neon only; exact portrait/ring/callout alignment and six skills restored; active-motion browser checks confirmed no drift. Cloudflare preview alias protected by Cloudflare Access; source not externally readable without authenticated Access service token. No changes to production, preview access controls, secrets or private requests.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "PASS GitHub Actions 45199760779: Neon Studio full geometry and functionality in Chromium at 1892, 1440, 820, 390 px. Ring/caption/skill navigation and Editorial isolation pass. Full portfolio regression 45199761181 ongoing at time of record; Cloudflare live Pages deployment not yet verified.",
+    "testStatus": "PASS: Neon Studio reference geometry at 1892/1440/820/390 px and normal-motion time sampling at 1892/820/390 px, run 45203458480. Preview URL is protected by Cloudflare Access: anonymous requests show sign-in page, so live deployment freshness is UNVERIFIED, not proven stale. Other five themes and production unchanged.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -313,9 +314,9 @@
         "390×844"
       ],
       "browserRunId": 45199760779,
-      "verified": "SUCCESS: GitHub Actions 45199760779 actual Chromium checks across four widths, no overlapping identity/band, no horizontal scrolling, header strip hidden, all SVG badges/tabs, other-theme isolation",
+      "verified": "PASS GitHub Actions 45203458480: four viewport reference geometry and active-motion frames stable.",
       "cloudflareDeploymentVerified": false,
-      "version": "3.2.0",
+      "version": "3.2.1",
       "nameplate": "12–14px BELOW outer ring at all widths; clears next skills band",
       "issueRootCause": "Inherited theme-change CSS transitions temporarily overrode stable layout dimensions even when the target rules were !important; transitions disabled for Neon-only geometry, not for orbit visual accents",
       "geometry": {
@@ -325,7 +326,13 @@
         "mobileCaptionClearancePx": 35,
         "featureTabs": 6,
         "orbitalBadges": 5
-      }
+      },
+      "referenceComparison": "Actual 1892×957 Chromium screenshot directly compared with uploaded 706×537 close-up; portrait, halo rings, medallions and identity plate near-exact in crop alignment.",
+      "animatedGeometryVerified": true,
+      "animatedGeometryTestRunId": 45203458480,
+      "animatedMotionValidation": "Chromium no-preference motion sampled across time at 1892, 820 and 390 px: ring centers, caption clearance, viewport overflow stable. Reduced-motion layout also passed.",
+      "cloudflarePreviewAudit": "HTTP 200 from Cloudflare returns a Cloudflare Access login page, not portfolio HTML, to unauthenticated GitHub runner. Cannot establish live version without scoped Cloudflare Access service token or authenticated session.",
+      "cloudflareAccessEnabled": true
     }
   }
 }
