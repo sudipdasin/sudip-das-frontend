@@ -1,22 +1,50 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-parity-v1.0.0",
+  "release": "personal-live-v3.9.3-approved-neon-studio",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
     "six-themes",
+    "neon-studio-approved-default",
     "portfolio-gallery",
     "visitor-hub",
     "local-appearance",
     "private-request-consent",
-    "webstudio-reference-compositions",
-    "studio-system-menu",
-    "six-visual-layouts"
+    "verified-visitor-contact-links",
+    "whatsapp-telegram",
+    "social-connect",
+    "freelancer-connect-historical-links",
+    "professional-introduction-inline-video",
+    "responsive-read-only-theme-library",
+    "webstudio-inline-preview",
+    "smart-quick-actions",
+    "compact-lets-connect-accordions",
+    "motion-reduced-motion-support"
   ],
-  "source": "approved-private-source-public-only",
+  "source": "approved-public-frontend-preview-with-production-security-adaptations",
   "privateBackendBundled": false,
   "stage": "production",
   "verifiedPrivateSourceCommit": "4b2b49ee6670e3c0a4bdceb22a80274f2abf679f",
-  "ciProvider": "CircleCI"
+  "ciProvider": "CircleCI",
+  "approvedTheme": {
+    "id": "neon-studio",
+    "defaultTheme": "neon-studio",
+    "visualSnapshotCommit": "d8f97f3b7219007ca55f4793e3c9ec4bb03f4d7e",
+    "sourcePreviewCommit": "c9bbc2c4b7eba2af0c9b35c9f3b2dd71dfcaef97",
+    "themeBackupBranch": "backup/neon-studio-approved-v3.9.1-2026-11-24",
+    "visualAssetsUnmodified": true
+  },
+  "releaseSafety": {
+    "previousProductionCommit": "ff4a3b4260d9b770972013928b0865bfc196de60",
+    "rollbackBranch": "backup/production-before-neon-v3.9.3-2026-11-24",
+    "productionHeadersPreserved": true,
+    "robotsAllowed": true,
+    "productionWorker": "https://sudip-das-profile-api.sudipdasin.workers.dev",
+    "privateRequestReviewRequired": true,
+    "webStudioLeadIntake": "mailto-fallback-only",
+    "previewOnlyPagesFunctionExcluded": true,
+    "automationCiJobsNotTriggered": true,
+    "liveBrowserNotYetVerified": true
+  }
 }

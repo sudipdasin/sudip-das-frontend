@@ -1,0 +1,213 @@
+/*
+ * Personal portfolio — Experience/Foundation composition, preview v1.5.
+ * Replaces a mismatched sticky card + plain "Address" column with two
+ * visually balanced, theme-aware information cards.
+ * Deliberately no private career/employer/address data or editor controls.
+ * Scoped to #experience only; original Editorial hero is untouched.
+ */
+body.ws-parity #experience .work-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  align-items:stretch;
+  gap:clamp(16px,2.5vw,28px);
+}
+body.ws-parity #experience .work-grid > * {
+  min-width:0;
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:clamp(12px,1.7vw,20px);
+  background:color-mix(in srgb,var(--panel) 93%,var(--bg) 7%);
+  color:var(--ink);
+  box-shadow:0 14px 38px rgba(0,0,0,.09);
+  padding:clamp(22px,3.1vw,36px);
+}
+body.ws-parity #experience .work-aside {
+  position:relative!important;
+  top:auto!important;
+  align-self:stretch!important;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  min-height:0;
+}
+body.ws-parity #experience .work-aside h3 {
+  color:var(--ink);
+  font-size:clamp(1.5rem,2.2vw,2.05rem);
+  line-height:1.27;
+  margin:0 0 20px;
+}
+body.ws-parity #experience .work-aside p {
+  color:var(--muted);
+  line-height:1.75;
+  margin:0 0 20px;
+}
+body.ws-parity #experience .work-aside .button {
+  align-self:flex-start;
+  margin-top:auto;
+  white-space:normal;
+  min-height:45px;
+  color:var(--ink);
+}
+body.ws-parity #experience .foundation-summary {
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+body.ws-parity #experience .foundation-eyebrow {
+  color:var(--lime);
+  margin:0 0 13px;
+}
+body.ws-parity #experience .foundation-summary-head h3 {
+  font:650 clamp(1.45rem,2.25vw,2rem)/1.24 var(--display);
+  letter-spacing:-.03em;
+  margin:0 0 12px;
+  color:var(--ink);
+  max-width:23ch;
+}
+body.ws-parity #experience .foundation-summary-head > p:last-child {
+  color:var(--muted);
+  margin:0;
+  font-size:.92rem;
+  line-height:1.65;
+  max-width:58ch;
+}
+body.ws-parity #experience .foundation-pillar-list {
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:0;
+  list-style:none;
+  border-top:1px solid var(--line);
+}
+body.ws-parity #experience .foundation-pillar-list li {
+  display:grid;
+  grid-template-columns:38px minmax(0,1fr);
+  gap:12px;
+  align-items:start;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+body.ws-parity #experience .foundation-pillar-index {
+  display:grid;
+  place-items:center;
+  width:32px;
+  height:32px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:color-mix(in srgb,var(--lime) 12%,var(--panel));
+  color:var(--lime);
+  font:650 .72rem/1 var(--mono);
+}
+body.ws-parity #experience .foundation-pillar-list strong {
+  display:block;
+  font:700 .93rem/1.4 var(--sans);
+  color:var(--ink);
+}
+body.ws-parity #experience .foundation-pillar-list li span:last-child {
+  display:block;
+  margin-top:3px;
+  font-size:.82rem;
+  line-height:1.55;
+  color:var(--muted);
+}
+body.ws-parity #experience .foundation-location {
+  margin-top:auto;
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr);
+  gap:12px;
+  align-items:start;
+  background:color-mix(in srgb,var(--lime) 7%,var(--panel));
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px 16px;
+}
+body.ws-parity #experience .foundation-location-icon {
+  display:grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:var(--panel2);
+  color:var(--lime);
+  font-size:1.2rem;
+}
+body.ws-parity #experience .foundation-location-kicker {
+  display:block;
+  color:var(--lime);
+  font:600 .64rem/1.4 var(--mono);
+  letter-spacing:.12em;
+  margin:0 0 4px;
+}
+body.ws-parity #experience .foundation-country {
+  display:block;
+  color:var(--ink);
+  font:700 1.03rem/1.4 var(--sans);
+}
+body.ws-parity #experience .foundation-location-note {
+  margin:5px 0 0;
+  max-width:55ch;
+  color:var(--muted);
+  font-size:.76rem;
+  line-height:1.6;
+}
+/* Light Editorial — opaque warm paper and deep foreground, not dark-on-dark. */
+body.ws-parity[data-theme="editorial"] #experience .work-grid > * {
+  background:#fffaf3!important;
+  border-color:#c1b39e!important;
+  box-shadow:0 12px 32px rgba(65,50,35,.10)!important;
+  color:#26352e!important;
+  border-radius:13px!important;
+}
+body.ws-parity[data-theme="editorial"] #experience .work-aside h3,
+body.ws-parity[data-theme="editorial"] #experience .foundation-summary-head h3,
+body.ws-parity[data-theme="editorial"] #experience .foundation-pillar-list strong,
+body.ws-parity[data-theme="editorial"] #experience .foundation-country {
+  color:#26352e!important;
+  -webkit-text-fill-color:currentColor!important;
+}
+body.ws-parity[data-theme="editorial"] #experience .work-aside p,
+body.ws-parity[data-theme="editorial"] #experience .foundation-summary-head > p:last-child,
+body.ws-parity[data-theme="editorial"] #experience .foundation-pillar-list li span:last-child,
+body.ws-parity[data-theme="editorial"] #experience .foundation-location-note {
+  color:#4f5c54!important;
+}
+body.ws-parity[data-theme="editorial"] #experience .foundation-eyebrow,
+body.ws-parity[data-theme="editorial"] #experience .foundation-location-kicker,
+body.ws-parity[data-theme="editorial"] #experience .foundation-pillar-index {
+  color:#704c36!important;
+}
+body.ws-parity[data-theme="editorial"] #experience .foundation-pillar-index {
+  background:#f4e8d8!important;
+  border-color:#c8b59b!important;
+}
+body.ws-parity[data-theme="editorial"] #experience .foundation-location {
+  background:#f3ede2!important;
+  border-color:#c9b69d!important;
+}
+body.ws-parity[data-theme="editorial"] #experience .foundation-location-icon {
+  background:#fffaf3!important;
+  border-color:#bba68d!important;
+  color:#704c36!important;
+}
+body.ws-parity[data-theme="editorial"] #experience .work-aside .button {
+  background:#fffdf8!important;
+  color:#26352e!important;
+  border-color:#ad9d85!important;
+}
+body.ws-parity[data-theme="editorial"] #experience .work-aside .button:is(:hover,:focus-visible) {
+  border-color:#176348!important;
+}
+@media(max-width:900px) {
+  body.ws-parity #experience .work-grid {grid-template-columns:minmax(0,1fr);gap:16px}
+  body.ws-parity #experience .work-grid > * {padding:clamp(20px,4vw,30px)}
+}
+@media(max-width:520px) {
+  body.ws-parity #experience .foundation-pillar-list li {grid-template-columns:31px minmax(0,1fr);gap:9px}
+  body.ws-parity #experience .foundation-pillar-index {width:29px;height:29px}
+  body.ws-parity #experience .foundation-location {padding:12px;grid-template-columns:32px minmax(0,1fr);gap:9px}
+  body.ws-parity #experience .foundation-location-icon {width:30px;height:30px;font-size:1rem}
+}
+@media(prefers-reduced-motion:reduce) {
+  body.ws-parity #experience .work-grid > * {animation:none!important}
+}

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" role="img" aria-labelledby="title desc">
+<title id="title">WebStudio illustrative interface</title>
+<desc id="desc">Concept illustration of a website design experience. Not a live editor or screenshot.</desc>
+<defs>
+ <linearGradient id="shell" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#182b42"/><stop offset="1" stop-color="#0c1728"/></linearGradient>
+ <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff9ec"/><stop offset="1" stop-color="#e9dfd5"/></linearGradient>
+ <linearGradient id="sunset" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2b17b"/><stop offset=".58" stop-color="#d8827d"/><stop offset="1" stop-color="#774e8d"/></linearGradient>
+ <linearGradient id="aqua" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#55f2de"/><stop offset="1" stop-color="#468af1"/></linearGradient>
+ <linearGradient id="horizon" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0f2847"/><stop offset=".6" stop-color="#3b4b79"/><stop offset="1" stop-color="#df8294"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#020617" flood-opacity=".42"/></filter>
+ 
+</defs>
+<rect width="1200" height="720" fill="#081623"/>
+<circle cx="1030" cy="80" r="380" fill="#2e7190" opacity=".14"/>
+<rect x="28" y="28" width="1144" height="664" rx="25" fill="url(#shell)" stroke="#476378"/>
+<rect x="28" y="28" width="1144" height="59" rx="25" fill="#203449"/>
+<rect x="28" y="66" width="1144" height="21" fill="#203449"/>
+<circle cx="65" cy="58" r="7" fill="#f38492"/><circle cx="90" cy="58" r="7" fill="#f3c877"/><circle cx="115" cy="58" r="7" fill="#57d6b9"/>
+<text x="154" y="64" fill="#d6ebf5" font-family="Arial, sans-serif" font-size="17" font-weight="700">WEBSTUDIO</text>
+<text x="1062" y="64" fill="#85a9bd" font-family="Arial, sans-serif" font-size="13">VISUAL CONCEPT</text>
+
+<rect x="55" y="110" width="230" height="546" rx="17" fill="#12273b" stroke="#33536a"/>
+<text x="82" y="149" font-family="Arial,sans-serif" font-size="12" letter-spacing="2" fill="#65dcca">SITE BLUEPRINT</text>
+<text x="82" y="194" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#eaf8fc">Your canvas</text>
+<text x="82" y="227" font-family="Arial,sans-serif" font-size="13" fill="#b4c8d6">A visual starting point</text>
+<rect x="82" y="259" width="172" height="50" rx="10" fill="#23516a" stroke="#62d3d4"/>
+<rect x="96" y="273" width="28" height="23" rx="6" fill="#53c2d9"/>
+<text x="134" y="291" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#eefcfe">Home page</text>
+<rect x="82" y="326" width="172" height="47" rx="10" fill="#1b3449"/>
+<rect x="96" y="339" width="28" height="21" rx="5" fill="#66869c"/>
+<text x="134" y="355" font-family="Arial,sans-serif" font-size="14" fill="#d0e8f2">Projects</text>
+<rect x="82" y="387" width="172" height="47" rx="10" fill="#1b3449"/>
+<rect x="96" y="400" width="28" height="21" rx="5" fill="#66869c"/>
+<text x="134" y="416" font-family="Arial,sans-serif" font-size="14" fill="#d0e8f2">Contact</text>
+<path d="M82 464H254" stroke="#35536c"/>
+<text x="82" y="499" font-family="Arial,sans-serif" font-size="12" fill="#93b5c6">DESIGN DIRECTION</text>
+<circle cx="93" cy="533" r="12" fill="#f0ae85"/><circle cx="125" cy="533" r="12" fill="#78d3ce"/><circle cx="157" cy="533" r="12" fill="#b6a2eb"/>
+<text x="82" y="606" font-family="Arial,sans-serif" font-size="12" fill="#8eacbf">Illustrative design workspace</text>
+<rect x="311" y="111" width="834" height="544" rx="16" fill="#fffaf4" filter="url(#shadow)"/>
+<rect x="311" y="111" width="834" height="54" rx="16" fill="#fffaf4"/>
+<rect x="311" y="153" width="834" height="12" fill="#fffaf4"/>
+<text x="352" y="148" font-family="Georgia,serif" font-size="23" font-weight="700" fill="#2a3642">atelier.</text>
+<text x="838" y="146" font-family="Arial,sans-serif" font-size="13" fill="#475c6b">Stories</text><text x="915" y="146" font-family="Arial,sans-serif" font-size="13" fill="#475c6b">Work</text>
+<rect x="1003" y="124" width="105" height="30" rx="15" fill="#173f49"/>
+<text x="1024" y="144" font-family="Arial,sans-serif" font-size="11" fill="#e5fffa">Say hello ↗</text>
+<rect x="331" y="184" width="793" height="326" rx="15" fill="url(#sunset)"/>
+<circle cx="1001" cy="258" r="61" fill="#fbd9a7" opacity=".88"/>
+<path d="M331 463L501 300L633 440L781 300L921 434L1033 352L1124 415V510H331Z" fill="#614976" opacity=".60"/>
+<path d="M331 490L488 392L650 488L821 364L959 459L1124 384V510H331Z" fill="#304765" opacity=".75"/>
+<path d="M333 504L550 449L754 505L970 435L1124 482V510H333Z" fill="#213c57"/>
+<text x="376" y="276" font-family="Georgia,serif" font-size="47" font-weight="700" fill="#fff8f2">A story worth</text>
+<text x="376" y="327" font-family="Georgia,serif" font-size="47" font-weight="700" fill="#fff8f2">remembering.</text>
+<text x="378" y="364" font-family="Arial,sans-serif" font-size="15" fill="#fff6ef">Thoughtful design for your next chapter.</text>
+<rect x="376" y="391" width="137" height="39" rx="20" fill="#fff4ea"/><text x="396" y="417" font-family="Arial,sans-serif" font-size="13" font-weight="700" fill="#344654">Discover work →</text>
+<rect x="334" y="536" width="244" height="86" rx="11" fill="#f5eee4"/><rect x="595" y="536" width="244" height="86" rx="11" fill="#f5eee4"/><rect x="856" y="536" width="244" height="86" rx="11" fill="#f5eee4"/>
+<text x="351" y="561" font-family="Georgia,serif" font-size="21" fill="#35424c">01 / Identity</text><text x="351" y="589" font-family="Arial,sans-serif" font-size="12" fill="#71808b">Your voice in every detail.</text>
+<text x="612" y="561" font-family="Georgia,serif" font-size="21" fill="#35424c">02 / Story</text><text x="612" y="589" font-family="Arial,sans-serif" font-size="12" fill="#71808b">Work, passion, perspective.</text>
+<text x="873" y="561" font-family="Georgia,serif" font-size="21" fill="#35424c">03 / Contact</text><text x="873" y="589" font-family="Arial,sans-serif" font-size="12" fill="#71808b">Invite the next opportunity.</text>
+
+</svg>
