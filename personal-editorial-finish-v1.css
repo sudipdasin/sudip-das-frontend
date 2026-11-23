@@ -291,11 +291,16 @@ body.ws-parity .private-access .captcha-note{
   margin:0 0 13px;
 }
 body.ws-parity .private-access .captcha-widget-frame{
+  box-sizing:border-box;
   min-width:0;
   max-width:100%;
   overflow-x:auto;
   overflow-y:hidden;
-  padding:2px 0 5px;
+  padding:10px;
+  background:#f8faf8;
+  border:1px solid #c9d6cf;
+  border-radius:8px;
+  color-scheme:light;
 }
 body.ws-parity .private-access .cf-turnstile{
   max-width:100%;
@@ -387,6 +392,10 @@ body.ws-parity[data-theme="editorial"] .private-access .captcha-slot{
   color:#2d3c32!important;
   border:1px solid #c4b39e!important;
   border-radius:7px!important;
+}
+body.ws-parity[data-theme="editorial"] .private-access .captcha-widget-frame{
+  background:#fffdf8!important;
+  border-color:#d4c6b2!important;
 }
 body.ws-parity[data-theme="editorial"] .private-access .captcha-note{
   color:#30473a!important;
