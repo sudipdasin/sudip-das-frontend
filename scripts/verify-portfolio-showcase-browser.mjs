@@ -65,6 +65,22 @@ try{
   assert.equal(await page.locator('#pv-intro-native').count(),1,
     'First-party introduction video element should be present');
   assert.equal(await page.locator('#pv-intro-native').evaluate(v=>v.controls),true);
+  await page.waitForFunction(()=>{
+    const v=document.querySelector('#pv-intro-native');
+    return v&&v.readyState>=1&&v.duration>43&&v.duration<45;
+  },null,{timeout:12000});
+  const media=await page.locator('#pv-intro-native').evaluate(v=>({
+    duration:v.duration,source:v.currentSrc,muted:v.muted,
+    captions:v.querySelector('track[kind="captions"]')?.getAttribute('src')
+  }));
+  assert.ok(media.source.endsWith('sudip-das-professional-introduction-720p.mp4'),
+    'Popup must play the first-party MP4');
+  assert.equal(media.muted,true,'Autoplay must start muted');
+  assert.equal(media.captions,'media/sudip-das-professional-introduction.en.vtt');
+  await page.waitForFunction(()=>{
+    const v=document.querySelector('#pv-intro-native');
+    return v&&(!v.paused||v.currentTime>.05);
+  },null,{timeout:10000});
   await page.locator('#pv-intro-close').click();
   assert.equal(await page.locator('#pv-intro-modal').isVisible(),false);
   assert.equal(await page.locator('#pv-intro-native').count(),0,
