@@ -15,7 +15,7 @@ assert.equal(release.preview.productionApiConnected,false);
 assert.equal(release.preview.privateRequestsEnabled,false);
 assert.equal(release.preview.productionPromotionApproved,false);
 assert.match(html,/personal-smart-navigation-v1\.css\?v=1\.1\.2/);
-assert.match(html,/personal-smart-navigation-v1\.js\?v=1\.4\.0/);
+assert.match(html,/personal-smart-navigation-v1\.js\?v=1\.4\.1/);
 assert.match(html,/<meta name="portfolio-intro-youtube-url" content="">/);
 assert.match(html,/portfolio-showcase-v2\.css\?v=2\.1\.0/);
 assert.match(html,/webstudio-portfolio-gallery\.js\?v=2\.1\.0/);
@@ -26,7 +26,7 @@ assert.ok(script.includes("const hoverSource='media/sudip-das-intro-hover-previe
 assert.ok(script.includes("previewClip.preload='none'"));
 assert.ok(script.includes("button.addEventListener('pointerenter'"));
 assert.ok(script.includes("button.addEventListener('pointerleave',closePreview)"));
-assert.ok(script.includes("if(previewActive||suppressPreviewFocus||motionReduced.matches||!modal.hidden)return"));
+assert.ok(script.includes("if(previewActive||suppressPreviewFocus||motionReduced.matches||!canPreview.matches||!modal.hidden)return"));
 assert.ok(script.includes("closePreview();\n   previousFocus"));
 
 assert.ok(html.includes('name="portfolio-intro-mp4" content="media/sudip-das-professional-introduction-720p.mp4"'));
