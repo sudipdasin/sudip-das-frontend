@@ -86,7 +86,7 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit{
   border-radius:50%!important;
   box-shadow:0 0 22px #09b6ff4f,inset 0 0 17px #0574ca12!important;
   background:transparent;
-  animation:none!important;
+  animation:rotate 42s linear infinite!important;
   z-index:1;
 }
 body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit.two{
@@ -95,6 +95,8 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit.two{
   margin:calc(var(--wf-orbit-size) * -.42) 0 0 calc(var(--wf-orbit-size) * -.42);
   border-color:#aa6df5!important;
   box-shadow:0 0 24px #9a51fa4d!important;
+  animation-direction:reverse!important;
+  animation-duration:34s!important;
   z-index:1;
 }
 body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art::before{
@@ -424,7 +426,7 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(250px,70vw,330px)!important;
     width:100%;
-    min-height:380px;
+    min-height:430px;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip{
     width:29px!important;min-width:29px!important;
@@ -445,7 +447,7 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
     max-width:90%!important;
     font-size:10px!important;
     padding:7px 10px!important;
-    top:calc(50% + var(--wf-orbit-size)*.42)!important;
+    top:calc(50% + var(--wf-orbit-size)*.56)!important;
   }
   body.ws-parity[data-theme="neon-studio"] .ws-aurora-reference-inner{
     width:calc(100% - 30px);
