@@ -122,7 +122,8 @@ body.ws-parity .capabilities .cap:is(:hover,:focus-within){
   transform:translateY(-3px);
 }
 body.ws-parity[data-theme="editorial"] .capabilities .cap{
-  background:linear-gradient(145deg,#fffdf8,#f8f1e6)!important;
+  background:#fffaf3!important;
+  background-image:linear-gradient(145deg,#ffffff66,#f2e8da66)!important;
   border:1px solid #bda88e!important;
   border-radius:6px!important;
   box-shadow:0 12px 29px rgba(62,46,27,.075)!important;
