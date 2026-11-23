@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v1.6.0-animated-inline-demo",
+  "release": "webstudio-personal-preview-v1.7.0-copy-flow-marquee",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -36,7 +36,12 @@
     "webstudio-animated-inline-demo-disclosure",
     "webstudio-animated-close-collapse",
     "webstudio-demo-focus-return-escape",
-    "webstudio-demo-reduced-motion"
+    "webstudio-demo-reduced-motion",
+    "three-section-summary-layout-clamp",
+    "theme-aware-text-panels",
+    "seamless-equal-group-marquee",
+    "marquee-container-boundary",
+    "marquee-translated-rtl-and-reduced-motion"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -50,9 +55,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Current portfolio preview only. WebStudio image-rich walkthrough is initially collapsed; Explore animates an inline pop-out and Close/Escape reverses the animation, restoring keyboard focus. No external WebStudio links or site write actions. Foundation cards, Editorial contrast and other portfolio content preserved. Preview private requests remain disabled; automated email still needs secure preview setup and real delivery verification.",
+    "notes": "Personal preview only. Restored reliable wrapping and theme-matched description panels for the three exact introductory paragraphs in About/Projects/Experience. Rebuilt ticker with identical loop groups, a clipped wrap-aligned viewport, translated group parity, RTL and reduced-motion behavior. Founder/Editorial fixes, original hero and WebStudio animated inline demo preserved. Preview private requests remain disabled and production API disconnected. Full-site live browser and provider deploy verification pending.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "PASS: 16/16 connector source checks, JS syntax, CSS balance, and isolated Chromium reveal/collapse tests at 1280px normal, 390px normal and 1280px reduced-motion, including 0px closed height/focus return. Full portfolio browser tests, Cloudflare deployment and inbox delivery remain UNVERIFIED.",
+    "testStatus": "PASS: 48 isolated Chromium fixture scenarios across 6 theme palettes/8 widths, plus reduced-motion; source readback and CI assertions available. NOT YET VERIFIED: full Cloudflare-served portfolio browser render, CircleCI execution, production promotion, automatic email receipt.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -107,6 +112,22 @@
       "css": "personal-foundation-v1.css?v=1.0.0",
       "qa": "scripts/verify-foundation-redesign.mjs; CircleCI Chromium geometry and computed-contrast checks",
       "browserRuntimeVerified": false
+    },
+    "layoutFlow": {
+      "threeOriginalParagraphsPreserved": true,
+      "sections": [
+        "about",
+        "projects",
+        "experience"
+      ],
+      "css": "personal-layout-flow-v1.css?v=1.0.0",
+      "marquee": "2 identical 6-item groups in a clipped centered viewport; 42s seamless loop",
+      "tickerTranslations": "both visual groups plus a readable screen-reader summary",
+      "motion": "pauses on hover and supports reduced-motion/off preferences",
+      "qa": "scripts/verify-layout-flow.mjs and CircleCI six-theme/browser geometry matrix",
+      "isolatedChromiumFixture": "48 scenarios (6 themes × 8 widths 320–1833px) passed; reduced motion passed",
+      "fullSiteChromiumVerified": false,
+      "providerDeploymentVerified": false
     }
   }
 }
