@@ -26,7 +26,7 @@ assert.match(html,/type="submit" disabled aria-disabled="true"/);
 assert.match(html,/window\.PUBLIC_API_BASE="";window\.PORTFOLIO_PREVIEW_MODE=true/);
 assert.match(html,/webstudio-footer\.js\?v=1\.0\.0/);
 assert.match(html,/webstudio-footer\.css\?v=1\.0\.0/);
-assert.match(html,/personal-editorial-contrast\.css\?v=1\.0\.0/);
+assert.match(html,/personal-editorial-contrast\.css\?v=1\.0\.1/);
 assert.match(contrast,/body\.ws-parity\[data-theme="editorial"\] section\.capabilities/);
 assert.match(contrast,/background:linear-gradient\(155deg,#f7f2e9/);
 assert.match(contrast,/\.capabilities \.cap\.reveal/);
@@ -39,6 +39,19 @@ function ratio(a,b){const v=[lum(a),lum(b)].sort((x,y)=>y-x);return (v[0]+.05)/(
 assert.ok(ratio('#23352c','#f7f2e9')>=7,'Editorial heading contrast on warm paper too low');
 assert.ok(ratio('#48584f','#ebe2d5')>=4.5,'Editorial body text contrast too low');
 assert.ok(ratio('#25342d','#fffaf3')>=7,'Editorial card title contrast too low');
+// Visitor-request visual contract: same scoped Editorial theme, no production
+// request endpoint is enabled, and every visible input remains readable.
+assert.match(contrast,/\.private-access\.request-grid input|\.private-access \.request-grid input/);
+assert.match(contrast,/background:#fffefa!important/);
+assert.match(contrast,/color:#172b22!important/);
+assert.match(contrast,/\.private-access \.request-grid label/);
+assert.match(contrast,/\.private-access \.request-consent input/);
+assert.match(contrast,/\.private-access \.vault-accordion/);
+assert.match(contrast,/\.private-access \.request-preview/);
+assert.ok(ratio('#172b22','#fffefa')>=7,'Editorial input text contrast too low');
+assert.ok(ratio('#304239','#fffaf3')>=7,'Editorial form labels contrast too low');
+assert.ok(ratio('#506056','#fffaf3')>=4.5,'Editorial descriptive labels contrast too low');
+assert.ok(ratio('#293b33','#fffdf8')>=7,'Editorial selection labels contrast too low');
 assert.match(footerCSS,/body\.ws-parity\[data-theme="editorial"\] \.ws-powered-band/);
 assert.match(footerCSS,/prefers-reduced-motion:reduce/);
 assert.match(footerCSS,/grid-template-rows:0fr/);
