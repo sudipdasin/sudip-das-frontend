@@ -43,6 +43,9 @@ jobs:
             node scripts/verify-editorial-webstudio-footer.mjs
             node --check scripts/verify-foundation-redesign.mjs
             node scripts/verify-foundation-redesign.mjs
+            node --check languages.js
+            node --check scripts/verify-layout-flow.mjs
+            node scripts/verify-layout-flow.mjs
             node scripts/verify-aurora-reference-v2.mjs
             # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
@@ -196,7 +199,68 @@ jobs:
                     assert.equal(await page.locator('#experience .foundation-pillar-list li').count(),3,'Three grounded experience pillars expected '+theme);
                     assert.equal(await page.locator('#experience .foundation-country').innerText(),'Based in India','Only public country should appear '+theme);
                     assert.equal(await page.locator('#experience .work-grid h3').filter({hasText:'Address'}).count(),0,'Misleading Address heading persists '+theme);
+                    // Layout flow: preserve all three summaries without clipping.
+                    // The terminal theme intentionally hides non-active sections
+                    // and the ticker, so only its markup/translation is asserted.
+                    const flow=await page.evaluate(()=>{
+                      const summaries=['about','projects','experience'].map(id=>{
+                        const section=document.getElementById(id);
+                        const wrap=section.querySelector('.wrap').getBoundingClientRect();
+                        const p=section.querySelector('.section-head > p');
+                        const b=p.getBoundingClientRect();
+                        return {id,visible:b.width>0,
+                          left:b.left,right:b.right,
+                          wrapLeft:wrap.left,wrapRight:wrap.right,
+                          scroll:p.scrollWidth,client:p.clientWidth,
+                          whiteSpace:getComputedStyle(p).whiteSpace};
+                      });
+                      const ticker=document.querySelector('.ticker');
+                      const view=ticker.querySelector('.ticker-window');
+                      const groups=[...ticker.querySelectorAll('.ticker-group')];
+                      const wrap=document.querySelector('#about .wrap').getBoundingClientRect();
+                      const rect=view.getBoundingClientRect();
+                      return {summaries,ticker:{
+                        isDisplayed:getComputedStyle(ticker).display!=='none',
+                        groups:groups.length,
+                        count:groups.map(g=>g.querySelectorAll('span').length),
+                        widths:groups.map(g=>g.getBoundingClientRect().width),
+                        copies:groups.map(g=>g.textContent.replace(/\\s+/g,' ').trim()),
+                        left:rect.left,right:rect.right,
+                        wrapLeft:wrap.left,wrapRight:wrap.right,
+                        scroll:view.scrollWidth,client:view.clientWidth,
+                        clipping:getComputedStyle(view).overflowX,
+                        animation:getComputedStyle(ticker.querySelector('.ticker-in')).animationName
+                      }};
+                    });
+                    assert.equal(flow.ticker.groups,2,'Marquee needs two exact groups '+theme+'/'+width);
+                    assert.deepEqual(flow.ticker.count,[6,6],'Six labels expected per repeat '+theme+'/'+width);
+                    assert.equal(flow.ticker.copies[0],flow.ticker.copies[1],'Translated loops must remain identical '+theme+'/'+width);
+                    if(theme!=='terminal'){
+                      for(const p of flow.summaries){
+                        assert.ok(p.visible,'Summary not laid out '+p.id+'/'+theme+'/'+width);
+                        assert.ok(p.left>=p.wrapLeft-2&&p.right<=p.wrapRight+2,
+                          'Summary leaves layout: '+JSON.stringify(p)+' '+theme+'/'+width);
+                        assert.ok(p.scroll<=p.client+2,'Text overflows summary: '+JSON.stringify(p)+' '+theme+'/'+width);
+                      }
+                      assert.ok(flow.ticker.isDisplayed,'Marquee must display '+theme+'/'+width);
+                      assert.ok(flow.ticker.widths[0]>0&&Math.abs(flow.ticker.widths[0]-flow.ticker.widths[1])<1,
+                        'Marquee groups not geometrically identical: '+JSON.stringify(flow.ticker));
+                      assert.ok(flow.ticker.left>=flow.ticker.wrapLeft-2&&flow.ticker.right<=flow.ticker.wrapRight+2,
+                        'Ticker viewport outside content bounds: '+JSON.stringify(flow.ticker));
+                      assert.equal(flow.ticker.clipping,'hidden','Marquee viewport must clip wide track '+theme);
+                      assert.equal(flow.ticker.animation,'ws-marquee-seamless');
+                    }else assert.equal(flow.ticker.isDisplayed,false,'Terminal ticker should remain hidden');
                     if(theme==='editorial'){
+                      // RTL translations must update BOTH ticker copies identically.
+                      await page.locator('#language-select').selectOption('ar');
+                      const arabicTicker=await page.evaluate(()=>{
+                        const copies=[...document.querySelectorAll('.ticker-group')]
+                          .map(x=>x.textContent.replace(/\\s+/g,' ').trim());
+                        return {copies,accessible:document.querySelector('.ticker-screenreader').textContent};
+                      });
+                      assert.equal(arabicTicker.copies[0],arabicTicker.copies[1],'RTL marquee groups must match');
+                      assert.ok(arabicTicker.accessible.trim().length>40,'Accessible ticker translation absent');
+                      await page.locator('#language-select').selectOption('en');
                       await page.locator('#experience').scrollIntoViewIfNeeded();
                       const foundation=await page.evaluate(()=>{
                         const [left,right]=document.querySelectorAll('#experience .work-grid > *');
