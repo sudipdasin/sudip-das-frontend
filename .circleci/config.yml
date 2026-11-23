@@ -164,6 +164,13 @@ jobs:
                   await page.locator('#ws-visitor-quick-panel button[data-theme="design-2"]').click();
                   assert.equal(await page.locator('body').getAttribute('data-theme'),'design-2');
                   assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'false');
+                  await page.locator('#projects').scrollIntoViewIfNeeded();
+                  await page.waitForFunction(()=>document.querySelector('.pv-smart-recommend-link')?.getAttribute('href')==='#capabilities',null,{timeout:3000});
+                  assert.equal(await page.locator('.pv-smart-recommend-link').getAttribute('href'),'#capabilities','Guide should suggest strengths when browsing projects');
+                  await page.locator('#ws-visitor-quick-open').click();
+                  assert.equal(await page.locator('#ws-visitor-quick-panel').isVisible(),true);
+                  await page.locator('.pv-smart-recommend-link').click();
+                  assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'false','Recommendation click should close guide');
                   assert.equal(await page.locator('#profile-look-dialog').count(),0,'Appearance dialog publicly available');
                   assert.equal(await page.locator('#ws-studio-panel').count(),0,'Studio dialog publicly available');
                   assert.equal(await page.locator('#theme-select option').count(),6);
