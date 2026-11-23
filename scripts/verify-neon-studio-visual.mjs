@@ -25,6 +25,31 @@ try{
       document.querySelectorAll('.hero-art .ws-orbit-chip').length===5&&
       document.querySelectorAll('#ws-aurora-reference .ws-aurora-feature').length===6,
       null,{timeout:10000});
+    const cssDiag=await page.evaluate(()=>{
+      const art=document.querySelector('main>.hero .hero-art');
+      const outer=art.querySelector('.orbit');
+      const core=art.querySelector('.core');
+      const css=document.querySelector('link[href^="neon-studio-reference-lock-v1.css"]');
+      const sheet=css?.sheet;
+      return {
+        theme:document.body.dataset.theme,
+        bodyClass:document.body.className,
+        link:css?.href,cssLoaded:Boolean(sheet),
+        rules:sheet?.cssRules?.length,
+        selectorMatch:art.matches('body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art'),
+        artMinHeight:getComputedStyle(art).minHeight,
+        artMaxWidth:getComputedStyle(art).maxWidth,
+        artCustom:getComputedStyle(art).getPropertyValue('--wf-orbit-size'),
+        bodyRing:getComputedStyle(document.body).getPropertyValue('--neon-ring-size'),
+        outerSize:getComputedStyle(outer).width,
+        outerTranslate:getComputedStyle(outer).translate,
+        outerMargin:getComputedStyle(outer).margin,
+        outerTransform:getComputedStyle(outer).transform,
+        coreSize:getComputedStyle(core).width,
+        supportsTranslate:CSS.supports('translate','-50% -50%')
+      };
+    });
+    console.log('NEON_CSS_DIAGNOSTIC',JSON.stringify(cssDiag));
     const report=await page.evaluate(()=>{
       const selector=query=>document.querySelector(query);
       const rect=el=>{const r=el.getBoundingClientRect();return {
