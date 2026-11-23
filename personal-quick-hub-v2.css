@@ -75,7 +75,7 @@ body.ws-parity > .pv-hub-v2 .pv-hub-progress-bar{
   box-shadow:0 0 12px var(--pv-hub-accent);transition:width .2s ease;
 }
 body.ws-parity > .pv-hub-v2 .pv-hub-tabs{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;
   padding:5px;margin:0 0 14px;border-radius:13px;
   background:color-mix(in srgb,var(--bg) 55%,transparent);
   border:1px solid color-mix(in srgb,var(--pv-hub-accent) 19%,transparent);
@@ -154,4 +154,130 @@ body.ws-parity[data-theme="terminal"] > .pv-hub-v2 .pv-hub-tabs{border-radius:4p
 @media(prefers-reduced-motion:reduce){
  body.ws-parity > .pv-hub-v2 .ws-visitor-quick-toggle::after{display:none!important;}
  body.ws-parity > .pv-hub-v2 *{animation:none!important;transition:none!important;}
+}
+
+/* v2.5 — Quick Hub four-tab responsive geometry and wasted-space fix.
+   The earlier three-column template wrapped the fourth Connect tab into a
+   second row, leaving two empty cells. All tabs must remain on ONE line.
+   Existing panes retain their native content height; only the panel scrolls. */
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2{
+  display:block!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(690px,calc(100dvh - 108px))!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  padding:14px!important;
+  box-sizing:border-box!important;
+  width:min(426px,calc(100vw - 28px))!important;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2[hidden]{display:none!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-tabs{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-template-rows:minmax(39px,auto)!important;
+  grid-auto-flow:row!important;
+  gap:5px!important;
+  width:100%;
+  min-width:0;
+  margin:10px 0 12px!important;
+  padding:4px!important;
+  box-sizing:border-box;
+  align-items:stretch;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tab{
+  display:flex!important;
+  flex-flow:row nowrap!important;
+  justify-content:center!important;
+  align-items:center!important;
+  gap:4px!important;
+  min-width:0!important;
+  width:100%!important;
+  min-height:39px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:7px 3px!important;
+  white-space:nowrap!important;
+  overflow:hidden;
+  text-overflow:clip;
+  font-size:clamp(.65rem,.8vw,.75rem)!important;
+  line-height:1.15!important;
+  letter-spacing:-.015em;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tab>span{
+  display:inline!important;
+  flex:0 0 auto;
+  font-size:.88em;
+  line-height:1;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-body,
+body.ws-parity > .pv-hub-v2 .pv-hub-pane{
+  display:block;
+  box-sizing:border-box;
+  width:100%;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-pane[hidden]{display:none!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-heading{margin:0!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-context{margin:11px 0 0!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-progress{margin:8px 0 10px!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-group-title{margin:9px 0 7px!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-description{margin:0 0 10px!important;}
+body.ws-parity > .pv-hub-v2 .pv-smart-recommendation{margin:0 0 9px!important;padding:12px!important;}
+body.ws-parity > .pv-hub-v2 .pv-hub-privacy{margin:11px 0 0!important;padding-top:10px!important;}
+/* Legacy WebStudio .ws-visitor-quick-panel strong adds 10px below each
+   inline heading. Reset only under this visitor hub to remove phantom gaps. */
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2 strong{
+  margin-bottom:0!important;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-connect-group{
+  gap:4px;
+  padding:7px;
+  margin:0;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-connect-cards{gap:8px;}
+body.ws-parity > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-connect-link{
+  justify-content:flex-start;
+  min-height:38px;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-tool{
+  min-height:43px;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-mini-previews{margin-top:8px!important;}
+/* Tighter controls and a genuinely single-row tab strip on narrow phones. */
+@media (max-width:520px){
+ body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2{
+  width:min(410px,calc(100vw - 20px))!important;
+  max-height:calc(100dvh - 90px)!important;
+  padding:11px!important;
+ }
+ body.ws-parity > .pv-hub-v2 .pv-hub-tabs{
+  gap:2px!important;
+  padding:3px!important;
+  margin:8px 0 10px!important;
+ }
+ body.ws-parity > .pv-hub-v2 .pv-hub-tab{
+  gap:3px!important;
+  min-height:41px!important;
+  padding:6px 1px!important;
+  font-size:clamp(.6rem,2.6vw,.71rem)!important;
+ }
+ body.ws-parity > .pv-hub-v2 .pv-hub-tab>span{font-size:.78em;}
+}
+@media (max-width:345px){
+ body.ws-parity > .pv-hub-v2 .pv-hub-tab{
+  font-size:.6rem!important;
+  gap:2px!important;
+  letter-spacing:-.035em;
+ }
+}
+/* All appearances retain their palette, but geometry is consistent. */
+@media (prefers-reduced-motion:reduce){
+ body.ws-parity > .pv-hub-v2 .pv-hub-tabs{scroll-behavior:auto!important;}
 }
