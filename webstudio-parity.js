@@ -239,10 +239,15 @@
       // Reserve actual room for the shorter caption *inside* the outer
       // ring, even on 1100px laptops and 390px phones. Never overlap the
       // portrait and caption or displace orbit centers.
-      const capsuleHeight=vw<=600?26:diameter<335?27:30;
-      const portraitGap=vw<=600?4:diameter<335?3:5;
+      // The reference nameplate is a real 40px capsule (34px on phones).
+      // Reserve its visible height below the portrait, while allowing its
+      // bottom edge to straddle the lower orbit by only a few pixels, just
+      // as it does in the owner's image. Keep the portrait and rings centered.
+      const capsuleHeight=vw<=600?34:40;
+      const portraitGap=vw<=600?4:vw<=980?3:5;
+      const capsuleFootOverhang=vw<=600?4:7;
       const targetPhotoRatio=vw<=600?.76:.86;
-      const maxRatioForCapsule=1-(capsuleHeight+portraitGap)/(diameter/2);
+      const maxRatioForCapsule=1-(capsuleHeight+portraitGap-capsuleFootOverhang)/(diameter/2);
       const portraitRatio=Math.min(targetPhotoRatio,maxRatioForCapsule);
       const portrait=diameter*portraitRatio;
       setLocked(portraitLayer,'width',portrait+'px');

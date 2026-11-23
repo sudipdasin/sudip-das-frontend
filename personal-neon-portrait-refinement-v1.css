@@ -1,3 +1,8 @@
+/* Reference v3.9.1: compact name capsule shown by owner is roughly
+   166×40 px with a 1 px cyan outline and centered light-cyan bold text.
+   Sudip Das remains the actual name (do not copy the demo name Dev Das).
+   Geometry is owned by JS; the capsule sits below the portrait and may
+   straddle the lower orbit outline by up to 7px, as in the reference. */
 /* Neon Studio 3.8.2 — strictly concentric satellite radius and small clear gap.
  * Source: owner-supplied image comparing personal portrait to WebStudio
  * illustrated developer avatar. The real personal portrait stays intact.
@@ -69,21 +74,26 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
   right:auto!important;
   bottom:auto!important;
   transform:translateX(-50%)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
   min-width:0!important;
-  width:172px!important;
-  max-width:188px!important;
-  height:30px!important;
-  min-height:30px!important;
+  width:174px!important;
+  max-width:184px!important;
+  height:40px!important;
+  min-height:40px!important;
   margin:0!important;
-  padding:4px 12px!important;
+  padding:7px 14px!important;
   gap:0!important;
-  border:1.4px solid #19e2fb!important;
+  border:1.1px solid #00e5ed!important;
   border-radius:999px!important;
-  background:linear-gradient(110deg,#051d33f2,#073249f2)!important;
-  box-shadow:inset 0 1px 0 #ffffff21,0 0 15px #00d2f84f!important;
-  color:#bdfdff!important;
-  font:800 15px/1.1 Inter,"Segoe UI",system-ui,sans-serif!important;
-  letter-spacing:.008em!important;
+  background:linear-gradient(180deg,#06304bef 0%,#031e33f3 100%)!important;
+  box-shadow:inset 0 1px 0 #d7fcff1c,0 0 12px #06dcf63b!important;
+  color:#d2fcff!important;
+  font:750 19px/1 Inter,"Segoe UI",system-ui,sans-serif!important;
+  letter-spacing:-.025em!important;
+  text-shadow:0 0 8px #6af7ff19!important;
   text-align:center!important;
   white-space:nowrap!important;
   z-index:9!important;
@@ -197,10 +207,12 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
    the portrait lower edge and outer circular border. */
 @media(min-width:601px) and (max-width:1380px){
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
-    height:27px!important;
-    min-height:27px!important;
-    padding:4px 12px!important;
-    font-size:13px!important;
+    width:170px!important;
+    max-width:180px!important;
+    height:40px!important;
+    min-height:40px!important;
+    padding:6px 13px!important;
+    font-size:18px!important;
   }
 }
 /* Tablet and phone: retain existing icon-only responsive satellites and
@@ -208,12 +220,12 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
    inside its ring because JS uses a smaller mobile inset. */
 @media(max-width:600px){
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
-    width:146px!important;
-    max-width:180px!important;
-    height:26px!important;
-    min-height:26px!important;
-    padding:3px 10px!important;
-    font-size:12px!important;
+    width:154px!important;
+    max-width:170px!important;
+    height:34px!important;
+    min-height:34px!important;
+    padding:5px 11px!important;
+    font-size:16px!important;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precision-portrait{
     box-shadow:0 0 0 1px #3ffaff83,0 0 17px 4px #05efff89,0 0 32px 8px #26bafe3b,0 10px 25px #0008!important;
