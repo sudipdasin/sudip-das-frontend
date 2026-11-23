@@ -26,7 +26,7 @@ assert.ok(script.includes("const hoverSource='media/sudip-das-intro-hover-previe
 assert.ok(script.includes("previewClip.preload='none'"));
 assert.ok(script.includes("button.addEventListener('pointerenter'"));
 assert.ok(script.includes("button.addEventListener('pointerleave',closePreview)"));
-assert.ok(script.includes("if(previewActive||motionReduced.matches||!modal.hidden)return"));
+assert.ok(script.includes("if(previewActive||suppressPreviewFocus||motionReduced.matches||!modal.hidden)return"));
 assert.ok(script.includes("closePreview();\n   previousFocus"));
 
 assert.ok(html.includes('name="portfolio-intro-mp4" content="media/sudip-das-professional-introduction-720p.mp4"'));
