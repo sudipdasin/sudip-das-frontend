@@ -219,7 +219,10 @@
       setLocked(portraitLayer,'width',portrait+'px');
       setLocked(portraitLayer,'height',portrait+'px');
       setLocked(nameplate,'left','50%');
-      setLocked(nameplate,'top','calc(50% + '+(diameter*(vw<=600?.40:.395))+'px)');
+      // Screenshot reference: nameplate begins just BELOW the cyan outer
+      // orbit, never halfway inside the lower ring. Keep its gap constant
+      // across viewport sizes rather than scaling the offset by 0.395.
+      setLocked(nameplate,'top','calc(50% + '+(diameter/2+(vw<=600?12:14))+'px)');
       setLocked(nameplate,'bottom','auto');
       setLocked(nameplate,'transform','translateX(-50%)');
     };
