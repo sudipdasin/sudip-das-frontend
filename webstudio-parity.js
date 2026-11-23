@@ -217,9 +217,13 @@
       // Older responsive CSS still imposes an effective rendered size on
       // the portrait at 1440px and below. Precisely correct the rendered
       // size with the independent scale property, without moving its center.
-      const naturalPortraitWidth=core.offsetWidth||portrait;
+      // Remove legacy transforms before measuring; old bundles may apply
+      // a transform to .core independently of its CSS width.
+      setLocked(core,'transform','none');
+      setLocked(core,'scale','none');
+      const naturalPortraitWidth=core.getBoundingClientRect().width||portrait;
       const correction=portrait/naturalPortraitWidth;
-      setLocked(core,'scale',String(correction));
+      setLocked(core,'transform','scale('+correction+')');
       setLocked(nameplate,'left','50%');
       setLocked(nameplate,'top','calc(50% + '+(diameter*(vw<=600?.40:.395))+'px)');
       setLocked(nameplate,'bottom','auto');
