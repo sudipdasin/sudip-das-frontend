@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v3.2.1-neon-reference-verified",
+  "release": "webstudio-personal-preview-v3.2.2-deployment-ready",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -108,9 +108,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "v3.2.1 Neon Studio: screenshot crop matched to reference; narrow preview status strip hidden in Neon only; exact portrait/ring/callout alignment and six skills restored; active-motion browser checks confirmed no drift. Cloudflare preview alias protected by Cloudflare Access; source not externally readable without authenticated Access service token. No changes to production, preview access controls, secrets or private requests.",
+    "notes": "Visual reference corrected in source, responsive browser checks passed, and audited public-only Cloudflare staging bundle prepared. Actual Cloudflare Pages deploy has not occurred because GitHub Actions credentials for the Pages account are absent. Do not claim live website fixed. Preview Access protection unchanged.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "PASS: Neon Studio reference geometry at 1892/1440/820/390 px and normal-motion time sampling at 1892/820/390 px, run 45203458480. Preview URL is protected by Cloudflare Access: anonymous requests show sign-in page, so live deployment freshness is UNVERIFIED, not proven stale. Other five themes and production unchanged.",
+    "testStatus": "PASS: verified public-only deployment package + Chromium normal-motion/4 breakpoints in GitHub Actions 45208134131; FAIL SAFETY PRECHECK on 45207821788 because required CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN GitHub Actions secrets are absent. No Cloudflare deployment occurred. Production unchanged.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -316,7 +316,7 @@
       "browserRunId": 45199760779,
       "verified": "PASS GitHub Actions 45203458480: four viewport reference geometry and active-motion frames stable.",
       "cloudflareDeploymentVerified": false,
-      "version": "3.2.1",
+      "version": "3.2.2",
       "nameplate": "12–14px BELOW outer ring at all widths; clears next skills band",
       "issueRootCause": "Inherited theme-change CSS transitions temporarily overrode stable layout dimensions even when the target rules were !important; transitions disabled for Neon-only geometry, not for orbit visual accents",
       "geometry": {
@@ -332,7 +332,15 @@
       "animatedGeometryTestRunId": 45203458480,
       "animatedMotionValidation": "Chromium no-preference motion sampled across time at 1892, 820 and 390 px: ring centers, caption clearance, viewport overflow stable. Reduced-motion layout also passed.",
       "cloudflarePreviewAudit": "HTTP 200 from Cloudflare returns a Cloudflare Access login page, not portfolio HTML, to unauthenticated GitHub runner. Cannot establish live version without scoped Cloudflare Access service token or authenticated session.",
-      "cloudflareAccessEnabled": true
+      "cloudflareAccessEnabled": true,
+      "publicStagingBundle": "scripts/build-neon-preview-artifacts.mjs",
+      "publicStagingValidated": true,
+      "publicStagingRunId": 45208134131,
+      "deploymentWorkflow": ".github/workflows/deploy-neon-preview-cloudflare.yml",
+      "directCloudflareDeploymentAttempt": 45207821788,
+      "directCloudflareDeploymentStatus": "BLOCKED: GitHub Actions has neither CLOUDFLARE_ACCOUNT_ID nor CLOUDFLARE_API_TOKEN (including aliases). No file was uploaded; production untouched.",
+      "verifiedCloudflareDeployment": false,
+      "remainingOwnerDependency": "Configure GitHub Actions repository secrets CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN (Cloudflare Pages Edit scoped), then run preview-only deploy workflow. Cloudflare Access remains enabled."
     }
   }
 }
