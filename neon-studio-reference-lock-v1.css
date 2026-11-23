@@ -1,0 +1,485 @@
+/*
+ * Neon Studio / WebStudio Design 1 visual fidelity lock.
+ * Grounded in the owner's 1892x957 reference screenshot and original
+ * WebStudio studio-design-one(-highlight-fixes).css plus studio-reference-layout.
+ * Applies to this one theme ONLY. Other five themes are not altered.
+ * This stylesheet is intentionally the LAST stylesheet in the document,
+ * resolving several older overlapping Aurora/Cosmic selector families.
+ */
+body.ws-parity[data-theme="neon-studio"]{
+  --neon-cyan:#05eff2;
+  --neon-blue:#21c5ff;
+  --neon-violet:#ad72ff;
+  --neon-ink:#eaf8ff;
+  --neon-navy:#061b32;
+  --neon-outline:#168eb6;
+  --neon-ring-size:clamp(340px,25vw,434px);
+}
+/* SOURCE-ACCURATE GLOW / CONTRAST */
+body.ws-parity[data-theme="neon-studio"] main>.hero{
+  --wf-orbit-size:var(--neon-ring-size);
+  min-height:0!important;
+  padding-top:clamp(24px,2.7vw,44px)!important;
+  padding-bottom:clamp(16px,1.6vw,26px)!important;
+  background:transparent;
+  align-items:center;
+  overflow:visible;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero::before{
+  inset:0 calc((100vw - 100%)/-2) 0;
+  background:
+    linear-gradient(90deg,#031027a0 0%,#04142b50 47%,#03142a15 100%),
+    url('neon-horizon.svg') center bottom / cover no-repeat,
+    radial-gradient(ellipse at 65% 60%,#00b8e83b,transparent 53%),
+    linear-gradient(130deg,#020d25,#0b2647);
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero::after{
+  top:36%!important;
+  height:42%!important;
+  left:-8%!important;
+  right:-7%!important;
+  border-top:1.5px solid #05e6f9db!important;
+  border-radius:58% 42% 56% 40%;
+  transform:rotate(-11deg);
+  box-shadow:0 -8px 32px #00ccff63,0 -23px 74px #057be35c,0 15px 44px #7337ff32;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 38%);
+  mask-image:linear-gradient(90deg,transparent 0%,#000 38%);
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .neon-name-gradient{
+  background:linear-gradient(106deg,#07f2ff 0%,#4da7ff 42%,#cf64fa 96%)!important;
+  background-clip:text!important;
+  -webkit-background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  color:transparent!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .neon-name-dot{
+  color:#07f7f3!important;
+  -webkit-text-fill-color:#07f7f3;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-role{color:#eaf8ff}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-copy{
+  border-left-color:#04eff1;
+  color:#c7d9f1;
+  text-wrap:pretty;
+}
+/* OUTER AZURE, MIDDLE VIOLET, INNER CYAN: true concentric
+ * geometry, not a stacked orbits/card approximation. */
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
+  --wf-orbit-size:var(--neon-ring-size)!important;
+  width:100%;
+  max-width:560px;
+  min-height:clamp(455px,32vw,522px);
+  margin-inline:auto;
+  overflow:visible;
+  isolation:isolate;
+  transform:none;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit{
+  position:absolute!important;
+  width:var(--wf-orbit-size)!important;
+  height:var(--wf-orbit-size)!important;
+  max-width:none;
+  aspect-ratio:1;
+  left:50%;top:50%;
+  margin:calc(var(--wf-orbit-size) * -.5) 0 0 calc(var(--wf-orbit-size) * -.5);
+  border:1.5px solid #18c8fc!important;
+  border-radius:50%!important;
+  box-shadow:0 0 22px #09b6ff4f,inset 0 0 17px #0574ca12!important;
+  background:transparent;
+  animation:none!important;
+  z-index:1;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit.two{
+  width:calc(var(--wf-orbit-size) * .84)!important;
+  height:calc(var(--wf-orbit-size) * .84)!important;
+  margin:calc(var(--wf-orbit-size) * -.42) 0 0 calc(var(--wf-orbit-size) * -.42);
+  border-color:#aa6df5!important;
+  box-shadow:0 0 24px #9a51fa4d!important;
+  z-index:1;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art::before{
+  content:"";
+  position:absolute;
+  left:50%;top:50%;
+  width:calc(var(--wf-orbit-size) * .94);
+  height:calc(var(--wf-orbit-size) * .94);
+  transform:translate(-50%,-50%);
+  border:1px solid #30bcfa4a;
+  border-radius:50%;
+  box-shadow:0 0 44px #00b7ff22;
+  pointer-events:none;
+  z-index:0;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art::after{
+  content:"";
+  position:absolute;
+  left:calc(50% - var(--wf-orbit-size)*.43);
+  top:calc(50% + var(--wf-orbit-size)*.38);
+  width:12px;height:12px;
+  border-radius:50%;
+  border:0;
+  background:#06f8e8;
+  box-shadow:0 0 19px #04ffe7,0 0 40px #04aefa9a;
+  z-index:4;
+  pointer-events:none;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .core{
+  position:relative;
+  z-index:3;
+  display:grid;
+  place-items:center;
+  width:calc(var(--wf-orbit-size)*.73)!important;
+  height:calc(var(--wf-orbit-size)*.73)!important;
+  max-width:none;
+  min-width:0;
+  aspect-ratio:1;
+  overflow:hidden;
+  border:3px solid #24e9ff!important;
+  border-radius:50%!important;
+  background:#031c31;
+  box-shadow:0 0 19px #08ddffb0,0 0 54px #088aff73,0 26px 58px #000a!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .core img{
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 32%;
+  border-radius:50%;
+  filter:contrast(1.03) saturate(1.02);
+  image-rendering:auto;
+}
+/* Five standalone orbital icons and unboxed labels, at the precise five
+ * WebStudio radial offsets seen in the owner screenshot; do not turn into
+ * vertically stacked pill badges or overlay the portrait. */
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip{
+  --r:calc(var(--wf-orbit-size)*.5);
+  position:absolute!important;
+  z-index:7!important;
+  left:50%!important;top:50%!important;
+  right:auto!important;bottom:auto!important;
+  width:max-content!important;
+  height:auto;
+  max-width:205px!important;
+  min-height:40px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start;
+  gap:9px;
+  margin:0!important;
+  padding:0!important;
+  background:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  opacity:1;
+  color:#f3fbff!important;
+  text-shadow:0 2px 9px #000d;
+  transform:translate(-18px,-50%) translate(var(--aurora-x),var(--aurora-y))!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="a"]{
+  --aurora-x:calc(var(--r) * .30);--aurora-y:calc(var(--r) * -.76);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="b"]{
+  --aurora-x:calc(var(--r) * .95);--aurora-y:calc(var(--r) * -.65);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="c"]{
+  --aurora-x:calc(var(--r) * 1.03);--aurora-y:calc(var(--r) * -.07);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="d"]{
+  --aurora-x:calc(var(--r) * .93);--aurora-y:calc(var(--r) * .54);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="e"]{
+  --aurora-x:calc(var(--r) * .70);--aurora-y:calc(var(--r) * .89);
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-glyph{
+  width:40px!important;
+  height:40px!important;
+  flex:0 0 40px!important;
+  display:grid!important;
+  place-items:center;
+  padding:0;
+  border:1px solid #1bafce!important;
+  border-radius:50%!important;
+  background:linear-gradient(145deg,#072d46,#051b31)!important;
+  color:#34f2f5!important;
+  box-shadow:0 0 17px #00cdf252,inset 0 0 12px #12acdb29!important;
+  text-shadow:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-glyph svg{
+  width:21px;height:21px;display:block;stroke:currentColor;fill:none;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-label{
+  display:inline!important;
+  font:700 clamp(11px,.76vw,13px)/1.3 var(--sans,system-ui,sans-serif);
+  white-space:nowrap!important;
+  color:#effaff!important;
+  background:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+  overflow:visible;
+}
+/* Align the identity plate under the circle, OUTSIDE its photographic
+ * center. Its height is part of the art, not an absolute page overlay. */
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+  position:absolute!important;
+  z-index:8;
+  top:calc(50% + var(--wf-orbit-size)*.385)!important;
+  bottom:auto!important;
+  left:50%!important;right:auto!important;
+  transform:translateX(-50%)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  min-width:245px!important;
+  width:max-content!important;
+  max-width:min(92%,290px)!important;
+  min-height:39px;
+  padding:7px 15px!important;
+  background:#061e36ef!important;
+  border:1px solid #22bce8!important;
+  border-radius:999px!important;
+  box-shadow:0 0 18px #01cdfb3d!important;
+  color:#e4faff!important;
+  font:500 clamp(10px,.75vw,13px)/1.25 var(--sans,system-ui,sans-serif)!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero .portrait-caption .pulse{
+  width:7px;height:7px;flex:0 0 7px;
+  background:#05e9f1!important;box-shadow:0 0 0 4px #04edf527,0 0 10px #04e8ff;
+}
+/* EXACT AURORA INFORMATION RHYTHM:
+ * Hero leads directly to the infinity band, six live skill links, and
+ * the 3-action strip. No empty ticker gap or duplicated value bar. */
+body.ws-parity[data-theme="neon-studio"] main>.ticker,
+body.ws-parity[data-theme="neon-studio"] main>.ws-value-bar{
+  display:none!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.ws-aurora-reference{
+  display:block!important;
+  position:relative;
+  z-index:2;
+  margin:0!important;
+  padding:0 0 25px!important;
+  border-top:1px solid #0ba9bd4d;
+  background:linear-gradient(180deg,#051829,#031628 80%);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-reference-inner{
+  max-width:1620px;
+  width:min(1620px,calc(100% - 2*clamp(18px,4.5vw,76px)));
+  margin:0 auto;
+  padding:0!important;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:13px!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
+  display:grid;
+  grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr);
+  gap:12px;
+  min-height:90px;
+  padding:14px 20px;
+  margin:0!important;
+  border:1px solid #04deda!important;
+  border-radius:15px!important;
+  background:linear-gradient(100deg,#042936,#062934 58%,#052f38)!important;
+  box-shadow:0 0 21px #00d8dd25,inset 0 1px 0 #8cfcff0c;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-intro{
+  border-right:1px solid #20c9d180;
+  padding-right:18px;
+  gap:18px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-infinity{
+  color:#0bf7e9;
+  text-shadow:0 0 19px #00ffff69;
+  line-height:1;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-detail{
+  min-width:0;
+  color:#e6f9ff;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-icon{
+  display:grid;place-items:center;
+  width:26px;height:26px;
+  color:#12e5f4;
+  text-shadow:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-icon svg{
+  width:21px;height:21px;display:block;stroke:currentColor;fill:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  gap:11px!important;
+  padding:0!important;
+  margin:0!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
+  min-height:79px!important;
+  padding:11px 10px!important;
+  gap:10px!important;
+  border:1px solid #216e92!important;
+  border-radius:12px!important;
+  background:linear-gradient(125deg,#071e33,#09283a)!important;
+  box-shadow:inset 0 1px 0 #98efff12,0 7px 19px #0004;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature:hover,
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature:focus-visible{
+  border-color:#03eaf0!important;
+  box-shadow:0 0 23px #00eaff52,0 8px 22px #0004;
+  transform:translateY(-2px);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon{
+  flex:0 0 38px!important;
+  width:38px!important;height:38px!important;
+  display:grid;place-items:center;
+  background:#092e43;
+  border:1px solid #229db8;
+  border-radius:11px;
+  color:#2be8f1;
+  box-shadow:inset 0 0 12px #00dbe42b;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon svg{
+  width:22px;height:22px;display:block;stroke:currentColor;fill:none;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-copy{
+  min-width:0;
+  display:flex;flex-direction:column;gap:3px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature strong{
+  display:block;
+  color:#f1fbff;
+  font:700 clamp(.64rem,.7vw,.82rem)/1.3 var(--sans,system-ui,sans-serif);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature small{
+  color:#adc9d8;
+  font-size:clamp(.56rem,.6vw,.72rem);
+  line-height:1.3;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta{
+  margin:0!important;
+  border:1px solid #1883a4;
+  border-radius:14px;
+  background:linear-gradient(115deg,#062239,#082c3d);
+  padding:15px 20px;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a{
+  min-height:41px;
+  border-radius:10px;
+  background:#06283c;
+  border-color:#2992b4;
+  transition:background .16s,border-color .16s,box-shadow .16s;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
+  border-color:#03e9ee;
+  background:#0b3e54;
+  box-shadow:0 0 18px #08deff3e;
+}
+/* Small screens: preserve five orbit points, but show icon-only satellites
+ * around a smaller ring, as the original WebStudio responsive reference did.
+ * The six feature links remain visible, arranged in 3/2 columns. */
+@media(max-width:1380px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
+    --wf-orbit-size:clamp(300px,27vw,395px)!important;
+    min-height:460px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip .ws-orbit-label{
+    font-size:.66rem!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:980px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:4px!important;
+    padding:28px 0 15px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
+    --wf-orbit-size:clamp(290px,50vw,415px)!important;
+    width:min(100%,540px);
+    min-height:440px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
+    grid-template-columns:minmax(0,1fr);
+    gap:9px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-intro{
+    border-right:0;
+    border-bottom:1px solid #16a9b875;
+    padding-right:0;padding-bottom:9px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero{
+    padding:22px 0 10px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
+    --wf-orbit-size:clamp(250px,70vw,330px)!important;
+    width:100%;
+    min-height:380px;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip{
+    width:29px!important;min-width:29px!important;
+    max-width:29px!important;min-height:29px!important;
+    gap:0!important;
+    transform:translate(-14px,-50%) translate(var(--aurora-x),var(--aurora-y))!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-glyph{
+    width:29px!important;height:29px!important;flex:0 0 29px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-orbit-glyph svg{width:16px;height:16px}
+  body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-label{
+    display:none!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+    min-width:0!important;
+    width:max-content!important;
+    max-width:90%!important;
+    font-size:10px!important;
+    padding:7px 10px!important;
+    top:calc(50% + var(--wf-orbit-size)*.42)!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-reference-inner{
+    width:calc(100% - 30px);
+    gap:11px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
+    padding:12px;
+    gap:10px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-band-details{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    row-gap:9px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
+    min-height:75px!important;
+    padding:9px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon{
+    flex-basis:32px!important;width:32px!important;height:32px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon svg{
+    width:19px;height:19px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit,
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .orbit.two{
+    animation:none!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
+    transition:none!important;
+  }
+}
