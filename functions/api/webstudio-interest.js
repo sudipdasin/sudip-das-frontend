@@ -21,7 +21,7 @@ function respond(payload,status=200){
 }
 function ready(env){
  return env.WEBSTUDIO_INTEREST_ENABLED==='true' &&
-  env.CF_PAGES_BRANCH==='preview-personalweb' &&
+  env.WEBSTUDIO_INTEREST_APPROVED_HOST===PREVIEW_HOST &&
   typeof env.MAIL_BRIDGE_URL==='string' &&
   /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(env.MAIL_BRIDGE_URL) &&
   typeof env.MAIL_BRIDGE_SECRET==='string'&&env.MAIL_BRIDGE_SECRET.length>=24 &&
