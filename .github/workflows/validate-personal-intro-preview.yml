@@ -8,6 +8,7 @@ on:
       - webstudio-portfolio-gallery.js
       - portfolio-showcase-v2.css
       - scripts/verify-portfolio-showcase-v2.mjs
+      - scripts/verify-portfolio-showcase-browser.mjs
       - personal-smart-navigation-v1.css
       - scripts/verify-smart-navigation.mjs
       - scripts/verify-personal-theme-library.mjs
@@ -51,6 +52,19 @@ jobs:
           node scripts/verify-editorial-finish.mjs
           node scripts/verify-editorial-webstudio-footer.mjs
           python -m py_compile scripts/render-portfolio-intro.py
+      - name: Test actual hero, showcase and video popup in Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock --no-audit --no-fund playwright-core@1.57.0
+          CHROME_PATH="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$CHROME_PATH"
+          export CHROME_PATH
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/portfolio-browser-server.log 2>&1 &
+          HTTP_PID=$!
+          trap 'kill "$HTTP_PID" || true' EXIT
+          sleep 2
+          node scripts/verify-portfolio-showcase-browser.mjs
       - name: Check source media assets, runtime playback metadata and captions
         shell: bash
         run: |
