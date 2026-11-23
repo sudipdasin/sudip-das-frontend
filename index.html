@@ -59,6 +59,8 @@
   <link rel="stylesheet" href="webstudio-theme-fidelity-v1.css">
   <link rel="stylesheet" href="webstudio-aurora-reference-v2.css">
   <link rel="stylesheet" href="personal-theme-library.css?v=1.2.1">
+  <link rel="stylesheet" href="webstudio-footer.css?v=1.0.0">
+  <link rel="stylesheet" href="personal-editorial-contrast.css?v=1.0.0">
   <link rel="preload" as="image" href="neon-horizon.svg">
   <link rel="preload" as="image" href="aurora-reference-horizon.svg">
   <link rel="preload" as="image" href="cosmic-reference-wave.svg">
@@ -210,6 +212,41 @@
     <section class="contact" id="contact">
       <div class="wrap"><div class="contact-card reveal"><div><p class="kicker mono">05 / Say hello</p><h2>Let’s make something <em>useful.</em></h2><p>Open to thoughtful collaboration, remote opportunities, and conversations about practical software, Linux, systems, and creative technology.</p></div><a class="button primary" href="mailto:sudipdasin@gmail.com">Email Sudip <span class="arrow" aria-hidden="true">></span></a></div></div>
     </section>
+    <div class="wrap ws-powered-wrap">
+      <aside class="ws-powered-band" aria-labelledby="ws-powered-heading">
+        <div class="ws-powered-visual" aria-hidden="true">
+          <span class="ws-powered-glyph">W</span>
+          <span class="ws-powered-orbit ws-powered-orbit-a"></span>
+          <span class="ws-powered-orbit ws-powered-orbit-b"></span>
+        </div>
+        <div class="ws-powered-content">
+          <p class="ws-powered-eyebrow">MADE WITH WEBSTUDIO <span aria-hidden="true">✦</span> DESIGN WITH PURPOSE</p>
+          <h2 id="ws-powered-heading">A portfolio is just the beginning.</h2>
+          <p>Discover the WebStudio experience behind this site's interactive themes. Explore the demo, try different designs, and imagine how a memorable web presence could work for you.</p>
+          <div class="ws-powered-features" aria-label="WebStudio design highlights">
+            <span>Six visual experiences</span><span>Responsive layouts</span><span>Visitor-friendly controls</span>
+          </div>
+          <div class="ws-powered-actions">
+            <a class="ws-powered-demo" href="https://sudipdasin.github.io/sudip-das-frontend/" target="_blank" rel="noopener noreferrer" aria-label="Explore the WebStudio interactive demo in a new tab">Explore WebStudio demo <span aria-hidden="true">↗</span></a>
+            <button class="ws-powered-interest-toggle" type="button" id="ws-interest-toggle" aria-controls="ws-interest-expander" aria-expanded="false">Interested? Get in touch <span aria-hidden="true">+</span></button>
+          </div>
+          <div id="ws-interest-expander" class="ws-interest-expander" data-open="false" aria-hidden="true">
+            <div class="ws-interest-inner">
+              <form id="ws-interest-form" class="ws-interest-form" novalidate>
+                <label for="ws-interest-email">Your email address</label>
+                <div class="ws-interest-input-row">
+                  <input id="ws-interest-email" type="email" name="email" required autocomplete="email" inputmode="email" maxlength="254" placeholder="you@example.com" aria-describedby="ws-interest-explain">
+                  <button type="submit" id="ws-interest-submit">Compose email <span aria-hidden="true">↗</span></button>
+                </div>
+                <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="ws-interest-honeypot">
+                <p id="ws-interest-explain" class="ws-interest-helper">Only your email is requested. For now this opens your email app with a prepared message; you choose Send. Direct automatic notifications require a securely configured mail service.</p>
+                <p id="ws-interest-status" class="ws-interest-status" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
     <div class="wrap site-footer-wrap"><footer class="footer"><span>© <span id="year">2026</span> <span data-i18n="copyright">Sudip Das · India</span></span><div class="socials"><a href="https://github.com/sudipdasin" target="_blank" rel="noreferrer">GitHub ></a><a href="https://www.linkedin.com/in/sudipdasin/" target="_blank" rel="noreferrer">LinkedIn ></a><a href="https://www.youtube.com/c/SudipDas" target="_blank" rel="noreferrer">YouTube ></a></div></footer>
       <div class="footnote">Profile details are grounded in the supplied CV and linked public profiles. Project cards link to the current public repositories.</div></div>
   </main>
@@ -253,6 +290,7 @@
   <script src="webstudio-visitor-hub.js" defer></script>
   <script src="webstudio-parity.js" defer></script>
   <script src="personal-theme-library.js?v=1.2.1" defer></script>
+  <script src="webstudio-footer.js?v=1.0.0" defer></script>
   <script>window.PUBLIC_API_BASE="";window.PORTFOLIO_PREVIEW_MODE=true;</script>
 </body>
 </html>
