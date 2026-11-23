@@ -1,0 +1,47 @@
+/* Contrast accessibility patch for archived PERSONAL Editorial.
+ * Fixes the inherited #141c17 dark .capabilities section under a light theme.
+ * Scope: ONLY this section when the user selects Editorial. Never modify
+ * global editorial tokens, hero, portrait or the other five theme IDs.
+ * User evidence: 2026-11-23 011709 screenshot, near-black content on dark green.
+ */
+body.ws-parity[data-theme="editorial"] section.capabilities{
+ background:linear-gradient(155deg,#f7f2e9 0%,#ebe2d5 100%)!important;
+ border-block:1px solid #c3ad92!important;
+ color:#25342d!important;
+}
+body.ws-parity[data-theme="editorial"] .capabilities .section-head h2,
+body.ws-parity[data-theme="editorial"] .capabilities .cap h3{
+ color:#23352c!important;
+ text-shadow:none!important;
+ -webkit-text-fill-color:currentColor!important;
+ opacity:1!important;
+}
+body.ws-parity[data-theme="editorial"] .capabilities .section-head>p,
+body.ws-parity[data-theme="editorial"] .capabilities .cap p{
+ color:#48584f!important;
+ opacity:1!important;
+}
+body.ws-parity[data-theme="editorial"] .capabilities .section-head .kicker,
+body.ws-parity[data-theme="editorial"] .capabilities .cap-num{
+ color:#7c4e36!important;
+}
+body.ws-parity[data-theme="editorial"] .capabilities .cap{
+ background:#fffaf3!important;
+ border:1px solid #bba58c!important;
+ border-radius:4px!important;
+ box-shadow:0 13px 35px rgba(66,51,33,.09)!important;
+ color:#25342d!important;
+ opacity:1;
+}
+body.ws-parity[data-theme="editorial"] .capabilities .cap:is(:hover,:focus-within){
+ border-color:#8d583d!important;
+ box-shadow:0 18px 37px rgba(66,51,33,.12)!important;
+}
+body.ws-parity[data-theme="editorial"] .capabilities a{
+ color:#176d50!important;
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity[data-theme="editorial"] .capabilities .cap{
+  transition:none!important;
+ }
+}
