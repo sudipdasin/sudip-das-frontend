@@ -6,6 +6,9 @@ on:
       - index.html
       - personal-smart-navigation-v1.js
       - webstudio-portfolio-gallery.js
+      - webstudio-parity.js
+      - neon-studio-reference-lock-v1.css
+      - scripts/verify-neon-studio-visual.mjs
       - portfolio-showcase-v2.css
       - scripts/verify-portfolio-showcase-v2.mjs
       - scripts/verify-portfolio-showcase-browser.mjs
@@ -50,6 +53,7 @@ jobs:
           node scripts/verify-hero-hover-v3.mjs
           node --check personal-theme-library.js
           node --check webstudio-parity.js
+          node --check scripts/verify-neon-studio-visual.mjs
           node scripts/verify-smart-navigation.mjs
           node scripts/verify-personal-theme-library.mjs
           node scripts/verify-layout-flow.mjs
@@ -70,6 +74,15 @@ jobs:
           trap 'kill "$HTTP_PID" || true' EXIT
           sleep 2
           node scripts/verify-portfolio-showcase-browser.mjs
+          node scripts/verify-neon-studio-visual.mjs
+      - name: Keep Neon Studio visual screenshots for reference review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neon-studio-reference-geometry
+          path: test-artifacts/neon-studio-*.png
+          retention-days: 14
+          if-no-files-found: ignore
       - name: Check source media assets, runtime playback metadata and captions
         shell: bash
         run: |
