@@ -195,7 +195,7 @@
       "interactionAnimation": "single nonrepeating rim sweep on hover/focus/click; reduced-motion disables"
     },
     "introVideo": {
-      "source": "personal-smart-navigation-v1.js?v=1.4.0",
+      "source": "personal-smart-navigation-v1.js?v=1.4.1",
       "configuration": "<meta name=\"portfolio-intro-youtube-url\" content=\"\">",
       "ownerApprovedYouTubeUrlProvided": false,
       "playbackStatus": "60-second film and 6-second VP9 teaser produced/decoded/published in successful GitHub Actions 45145789099; Cloudflare live deploy and latest browser test not verified.",
@@ -271,7 +271,7 @@
       "hover": "decorative framed mini-player and poster overlay, lazy silent VP9 teaser only on hover or focus",
       "keyboard": "focus previews where reduced-motion is off; button still opens modal with video controls",
       "privacy": "no new analytics, permissions or arbitrary external media",
-      "resources": "portfolio-intro-hover-v3.css?v=3.0.1; personal-smart-navigation-v1.js?v=1.4.0",
+      "resources": "portfolio-intro-hover-v3.css?v=3.0.1; personal-smart-navigation-v1.js?v=1.4.1",
       "browserVerified": true,
       "sourceVerified": true,
       "qaNote": "Actual 390px Chromium detected legacy .button specificity forcing 45px CTA; 64px !important min-height fix committed for responsive cards",
@@ -280,7 +280,8 @@
         1440,
         390
       ],
-      "verifiedBehavior": "Two aligned responsive hero rows, no horizontal overflow, focused real button labels, silent 6s VP9 clip starts on hover and is unloaded after pointer leave; reduced-motion prevents teaser playback; full modal opens/closes with focus restoration."
+      "verifiedBehavior": "Two aligned responsive hero rows, no horizontal overflow, focused real button labels, silent 6s VP9 clip starts on hover and is unloaded after pointer leave; reduced-motion prevents teaser playback; full modal opens/closes with focus restoration.",
+      "pointerSafety": "Hover preview only on fine pointers; no touch/coarse hover loading"
     }
   }
 }
