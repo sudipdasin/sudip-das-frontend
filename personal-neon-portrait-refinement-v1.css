@@ -1,4 +1,4 @@
-/* Neon Studio 3.8.1 — reference-measured portrait & satellite fidelity.
+/* Neon Studio 3.8.2 — strictly concentric satellite radius and small clear gap.
  * Source: owner-supplied image comparing personal portrait to WebStudio
  * illustrated developer avatar. The real personal portrait stays intact.
  * CSS intentionally applies ONLY to body[data-theme="neon-studio"].
@@ -97,14 +97,16 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
   text-overflow:ellipsis;
   max-width:100%;
 }
-/* Desktop medallions: compact right-side arc close to reference's five
-   evenly spaced positions, with 20-40px *visible* circle-to-icon gap.
-   The icon centers do not touch
-   the ring. Labels start to the right with no cards obstructing the portrait. */
+/* Reference-concentric right-side medallions.
+   All five icon CENTERS lie on one exact mathematical circle, with shared
+   radius = the visible outer ring radius + 36px. The bubbles are 40px wide,
+   leaving a consistent 16px clear gap between the OUTER ring perimeter and
+   the icon bubble edge. Angles -31, -16, 0, +16, +31 degrees closely follow
+   the original WebStudio reference screenshot. No label rotation. */
 @media(min-width:1100px){
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip,
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos]{
-    --ref-r:calc(var(--wf-orbit-size) * .5);
+    --ref-orbit-radius:calc(var(--wf-orbit-size) * .5 + 36px);
     position:absolute!important;
     left:50%!important;
     top:50%!important;
@@ -132,24 +134,24 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
     pointer-events:none!important;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="a"]{
-    --ref-x:calc(var(--ref-r) * 1.16);
-    --ref-y:calc(var(--ref-r) * -.57);
+    --ref-x:calc(var(--ref-orbit-radius) * .857167);
+    --ref-y:calc(var(--ref-orbit-radius) * -.515038);
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="b"]{
-    --ref-x:calc(var(--ref-r) * 1.24);
-    --ref-y:calc(var(--ref-r) * -.29);
+    --ref-x:calc(var(--ref-orbit-radius) * .961262);
+    --ref-y:calc(var(--ref-orbit-radius) * -.275637);
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="c"]{
-    --ref-x:calc(var(--ref-r) * 1.27);
+    --ref-x:var(--ref-orbit-radius);
     --ref-y:0px;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="d"]{
-    --ref-x:calc(var(--ref-r) * 1.24);
-    --ref-y:calc(var(--ref-r) * .29);
+    --ref-x:calc(var(--ref-orbit-radius) * .961262);
+    --ref-y:calc(var(--ref-orbit-radius) * .275637);
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="e"]{
-    --ref-x:calc(var(--ref-r) * 1.16);
-    --ref-y:calc(var(--ref-r) * .57);
+    --ref-x:calc(var(--ref-orbit-radius) * .857167);
+    --ref-y:calc(var(--ref-orbit-radius) * .515038);
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip .ws-orbit-glyph{
     width:40px!important;
@@ -160,7 +162,7 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
     border:1.25px solid #25daee!important;
     border-radius:50%!important;
     background:linear-gradient(135deg,#042f49e8,#061f35e9)!important;
-    box-shadow:inset 0 0 10px #29f3ff20,0 0 13px #00d4f757!important;
+    box-shadow:inset 0 0 10px #29f3ff20,0 0 8px #00d4f742!important;
     color:#19f3f7!important;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip .ws-orbit-glyph svg{
