@@ -210,8 +210,9 @@
  panes[3].append(connectIntro);
  const groups=[
   {title:'Direct · Email',nodes:['.pv-connect-email']},
-  {title:'Professional · LinkedIn & GitHub',nodes:['.pv-connect-social[data-social="linkedin"]','.pv-connect-social[data-social="github"]']},
-  {title:'Social & creative · YouTube, Facebook, Instagram, X',nodes:['.pv-connect-social[data-social="youtube"]','.pv-connect-social[data-social="facebook"]','.pv-connect-social[data-social="instagram"]','.pv-connect-social[data-social="x"]']}
+  {title:'Professional · LinkedIn, GitHub, Teams',nodes:['.pv-connect-social[data-social="linkedin"]','.pv-connect-social[data-social="github"]','.pv-connect-social[data-social="teams"]']},
+  {title:'Social & creative · YouTube, Facebook, Instagram, X',nodes:['.pv-connect-social[data-social="youtube"]','.pv-connect-social[data-social="facebook"]','.pv-connect-social[data-social="instagram"]','.pv-connect-social[data-social="x"]']},
+  {title:'Messaging · Google Chat & Discord',nodes:['.pv-connect-social[data-social="googlechat"]','.pv-connect-social[data-social="discord"]']}
  ];
  const connectCards=create('div','pv-hub-connect-cards');
  const valid=(url,kind)=>{
@@ -224,7 +225,10 @@
     'https://www.youtube.com/c/SudipDas',
     'https://www.facebook.com/sudipdasin',
     'https://www.instagram.com/sudipdasin/',
-    'https://x.com/sudipdasin'
+    'https://x.com/sudipdasin',
+    'https://teams.microsoft.com/l/chat/0/0?users=sudipdasin%40gmail.com',
+    'https://chat.google.com/',
+    'https://discord.com/channels/@me'
    ]);
    return target.protocol==='https:' &&
     target.username===''&&target.password==='' &&
@@ -250,6 +254,41 @@
   connectCards.append(box);
  }
  panes[3].append(connectCards);
+ // The freelancer panel stays collapsed on initial render. Explicit user
+ // action from the Connect tab expands it, not a background side effect.
+ const openFreelancer=create('button','pv-hub-contact-cta','Freelancer Connect · Historical profiles ⌄');
+ openFreelancer.type='button';
+ openFreelancer.addEventListener('click',()=>{
+  if(!panel.hidden)trigger.click();
+  const accordion=byId('pv-freelancer-connect');
+  if(!accordion)return;
+  accordion.open=true;
+  accordion.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'});
+  accordion.querySelector('summary')?.focus({preventScroll:true});
+ });
+ panes[3].append(openFreelancer);
+ // Copy actions require a click. No implied WhatsApp/Discord/Microsoft login,
+ // private chats, or automatic messages are created.
+ document.querySelectorAll('.pv-connect-identity-copy[data-copy-contact]').forEach(button=>{
+  button.addEventListener('click',async()=>{
+   const approved=new Set(['sudipdasin@gmail.com','sudipdasin','super_gamer26']);
+   const value=button.dataset.copyContact;
+   if(!approved.has(value))return;
+   const status=byId('pv-connect-status');
+   try{
+    if(!navigator.clipboard?.writeText)throw Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(value);
+    if(status){status.hidden=false;status.textContent='Copied '+value+' — paste it into the corresponding chat app.';}
+   }catch{
+    if(!status)return;
+    status.hidden=false;
+    status.textContent='Copy the contact ID from the field below:';
+    let input=byId('pv-connect-id-fallback');
+    if(!input){input=create('input','pv-connect-email-fallback');input.id='pv-connect-id-fallback';input.readOnly=true;status.insertAdjacentElement('afterend',input);}
+    input.hidden=false;input.value=value;input.focus();input.select();
+   }
+  });
+ });
  const goToContact=create('button','pv-hub-contact-cta','Explore all connection options ↗');
  goToContact.type='button';
  goToContact.addEventListener('click',()=>{if(!panel.hidden)trigger.click();scrollTo(byId('contact'));});
