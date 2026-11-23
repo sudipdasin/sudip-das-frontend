@@ -37,8 +37,8 @@ for(const required of [
   '<option value="neon-studio" selected>Neon Studio</option>',
   "try{setTheme('neon-studio')}",
   'personal-neon-portrait-refinement-v1.css?v=1.4.0',
-  'webstudio-parity.js?v=neon-1.4.2',
-  'personal-neon-nameplate-fit-v1.css?v=1.0.0',
+  'webstudio-parity.js?v=neon-1.4.3',
+  'personal-neon-nameplate-fit-v1.css?v=1.1.0',
   'window.PORTFOLIO_PREVIEW_MODE=true'
 ]){
   if(!html.includes(required)){console.error('MISSING NEON/SAFETY RULE: '+required);failures++;}

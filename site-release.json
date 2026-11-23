@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.9.5-circle-fit-nameplate",
+  "release": "personal-preview-v3.9.6-reference-intersecting-nameplate",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -99,7 +99,8 @@
     "neon-visual-baseline-backup-2026-11-24",
     "approved-neon-git-blob-integrity-guard",
     "wider-concentric-neon-orbit-owner-requested-preview-only",
-    "neon-studio-mathematically-in-ring-responsive-nameplate"
+    "neon-studio-mathematically-in-ring-responsive-nameplate",
+    "neon-reference-intersecting-orbit-nameplate"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -362,12 +363,13 @@
     "status": "owner-approved visual baseline; backup verified; visual regression still requires browser capture",
     "ownerAuthorizedPreviewVariation": {
       "sourceAsset": "webstudio-parity.js",
-      "blobSha": "a34fbb59f40fe1aca48afeb86bb561fcd2d51736",
-      "prechangeBackup": "backup/neon-v3.9.3-before-wider-orbit-2026-11-24",
-      "desktopCircleScale": 1.14,
-      "status": "Explicit owner-requested preview nameplate revision, geometry/source checked; browser visual check pending",
+      "blobSha": "9f11e8d1fa0342c0b4a0a3b76d997bc149f794d1",
+      "prechangeBackup": "backup/neon-v3.9.5-before-reference-intersection-2026-11-24",
+      "desktopCircleScale": 1.08,
+      "status": "Reference-style crossing verified geometrically; browser screenshot not independently captured",
       "productionUnaffected": true,
-      "nameplateStyleAsset": "personal-neon-nameplate-fit-v1.css"
+      "nameplateStyleAsset": "personal-neon-nameplate-fit-v1.css",
+      "nameplateStyleBlobSha": "bd8bee2549913cb84faa15283fbc6dba5d3a7477"
     }
   }
 }

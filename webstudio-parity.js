@@ -200,14 +200,14 @@
       if(captionLabel&&captionLabel.textContent!=='Sudip Das')
         captionLabel.textContent='Sudip Das';
       const vw=window.innerWidth;
-      // Explicit owner request: widen the round outer circle on desktop.
+      // Owner adjustment: desktop circle only 8% wider than the golden reference.
       // Separate orbit and portrait diameters so the real photo keeps its
       // reference scale, rather than stretching its facial proportions.
       const referenceDiameter=vw<=600?clampValue(250,.70*vw,330):
         vw<=980?clampValue(290,.50*vw,415):
         vw<=1380?clampValue(300,.27*vw,395):
         clampValue(373,.25*vw,434);
-      const diameter=vw>=1100?referenceDiameter*1.14:referenceDiameter;
+      const diameter=vw>=1100?referenceDiameter*1.08:referenceDiameter;
       const artHeight=vw<=600?425:vw<=980?Math.max(390,diameter+40):
         vw<=1380?525:Math.max(clampValue(545,.34*vw,580),diameter+65);
       // In the stacked tablet layout, the nameplate extends beyond the
@@ -232,7 +232,7 @@
       setLocked(art,'--wf-orbit-size',diameter+'px');
       setLocked(art,'--neon-ring-size',diameter+'px');
       setLocked(ringLayer,'--neon-ring-px',diameter+'px');
-      // Reference violet ring is about 84% of the enlarged azure ring.
+      // Reference violet ring remains concentric (~89% of revised outer ring).
       const violetDiameter=vw>=1100?referenceDiameter*.96:diameter*.91;
       for(const [ring,size] of [[outerPrecision,diameter],[innerPrecision,violetDiameter]]){
         setLocked(ring,'width',size+'px');
@@ -267,29 +267,18 @@
       setLocked(portraitLayer,'width',portrait+'px');
       setLocked(portraitLayer,'height',portrait+'px');
       setLocked(nameplate,'left','50%');
-      // Anchor capsule immediately below the real photo, but guarantee
-      // that its entire height is contained by the circular outer ring.
-      // Width/height constraints are verified for 390..1920px viewports.
-      // The wider circle curves inward at the bottom. Anchoring the pill
-      // only 9px above its lowest point made its rectangular corners cross
-      // the circle, despite its center being inside. Fit the WHOLE capsule
-      // using the circle's horizontal chord at the capsule's bottom edge.
-      // This is a desktop Neon-only refinement; other themes and <=1099px
-      // retain their previously approved caption behavior.
-      const captionOffset=vw>=1100?portrait/2+6:
+      // Reference: cyan outer orbit runs BEHIND the foreground name pill.
+      // The top of the pill is above the ring's bottom edge, but the pill
+      // extends below it. This creates a deliberate line/capsule crossing.
+      // Portrait geometry and every theme other than Neon stay unchanged.
+      const pillHeight=38;
+      const captionOffset=vw>=1100?diameter/2-pillHeight*.64:
         portrait/2+portraitGap;
       if(vw>=1100){
-        const pillHeight=clampValue(34,diameter*.085,40);
-        const preferredWidth=clampValue(132,diameter*.37,184);
-        const insetRadius=diameter/2-2;
-        const bottomY=captionOffset+pillHeight;
-        const chordWidth=2*Math.sqrt(Math.max(0,insetRadius*insetRadius-bottomY*bottomY));
-        const pillWidth=Math.min(preferredWidth,chordWidth-8);
-        const pillFontSize=clampValue(16.2,diameter*.041,19.2);
-        // Fails closed to a compact capsule if later geometry ever changes.
-        const safePillWidth=Math.max(105,pillWidth);
-        setLocked(nameplate,'width',safePillWidth+'px');
-        setLocked(nameplate,'max-width',safePillWidth+'px');
+        const pillWidth=clampValue(154,diameter*.36,174);
+        const pillFontSize=clampValue(16,diameter*.041,18.5);
+        setLocked(nameplate,'width',pillWidth+'px');
+        setLocked(nameplate,'max-width',pillWidth+'px');
         setLocked(nameplate,'height',pillHeight+'px');
         setLocked(nameplate,'min-height',pillHeight+'px');
         setLocked(nameplate,'font-size',pillFontSize+'px');

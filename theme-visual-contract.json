@@ -144,21 +144,23 @@
     "productionRule": "Preview approval does not authorize production deployment. Test staging and production-specific integrations before promoting any release.",
     "ownerAuthorizedPreviewVariation": {
       "requestedDate": "2026-11-24",
-      "request": "Widened preview circle (v3.9.4), then owner specifically requested adjusting Sudip Das name and rounded box after enlargement",
+      "request": "Reduce desktop orbit to 8% larger than golden reference and deliberately overlap Sudip Das capsule across its lower circular edge",
       "scope": "preview-personalweb ONLY, desktop 1100px and up. Other themes/mobile/production untouched",
       "baselinePreviewCommit": "c9bbc2c4b7eba2af0c9b35c9f3b2dd71dfcaef97",
       "prechangeBackupBranch": "backup/neon-v3.9.3-before-wider-orbit-2026-11-24",
       "modifiedAsset": "webstudio-parity.js",
-      "authorizedBlobSha": "a34fbb59f40fe1aca48afeb86bb561fcd2d51736",
-      "desktopOuterDiameterScale": 1.14,
+      "authorizedBlobSha": "9f11e8d1fa0342c0b4a0a3b76d997bc149f794d1",
+      "desktopOuterDiameterScale": 1.08,
       "photoScale": "unchanged relative to the approved source geometry, except smoothing a pre-existing 1380px breakpoint discontinuity",
-      "release": "personal-preview-v3.9.5-circle-fit-nameplate",
-      "status": "Owner-authorized preview design correction; source math verified at 17 viewport sizes, visual browser testing pending",
+      "release": "personal-preview-v3.9.6-reference-intersecting-nameplate",
+      "status": "Owner approved preview-only geometry revision; source and 15-viewport math verified, browser visual QA pending",
       "productionApproval": false,
       "changePolicy": "Only this exact updated JS asset and new nameplate-specific overlay CSS are authorized on preview. Original Golden Neon snapshot + backups must remain unchanged. Production deployment is NOT approved for this variation.",
-      "previousAuthorizedBlobSha": "04dc9d05090d24a4647435d7fda8b89045cbda81",
+      "previousAuthorizedBlobSha": "a34fbb59f40fe1aca48afeb86bb561fcd2d51736",
       "nameplateStyleAsset": "personal-neon-nameplate-fit-v1.css",
-      "beforeNameplateBackup": "backup/neon-v3.9.4-before-nameplate-refine-2026-11-24"
+      "beforeNameplateBackup": "backup/neon-v3.9.4-before-nameplate-refine-2026-11-24",
+      "nameplateStyleBlobSha": "bd8bee2549913cb84faa15283fbc6dba5d3a7477",
+      "beforeReferenceOverlapBackup": "backup/neon-v3.9.5-before-reference-intersection-2026-11-24"
     }
   }
 }
