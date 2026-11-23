@@ -70,9 +70,12 @@ try{
   assert.equal(await page.locator('#pv-intro-native').count(),0,
     'Video must be detached after closing to stop sound');
   assert.equal(await page.evaluate(()=>document.activeElement.id),'pv-intro-launch');
-  // Network errors in unrelated optional services (e.g. Turnstile) are not
-  // grounds for a pass/fail; JavaScript runtime errors ARE.
-  assert.deepEqual(errors,[],'Browser runtime errors: '+errors.join('; '));
+  // The Cloudflare sitekey intentionally does not authorize 127.0.0.1.
+  // Ignore only that provider's known localhost-hostname mismatch (110200).
+  // Preserve all other application and provider script errors as test failures.
+  const unexpectedErrors=errors.filter(message=>
+    !/^\[Cloudflare Turnstile\] Error: 110200\.?$/.test(message));
+  assert.deepEqual(unexpectedErrors,[],'Unexpected browser runtime errors: '+unexpectedErrors.join('; '));
   snapshots.push({width,height,theme:'Editorial',hero:before.heroChildren,
    cards:before.cards,previews:new Set(before.distinctPreviews).size,
    startFeatured:before.featuredTitle,afterFeatured:second});
