@@ -93,6 +93,18 @@ jobs:
             exit 0
           fi
           git commit -m "build(preview): publish verified 720p personal introduction video"
-          git fetch origin preview-personalweb
-          git rebase origin/preview-personalweb
-          git push origin HEAD:preview-personalweb
+          # GitHub API commits can land during the media render. Rebase and
+          # retry a fast-forward push rather than failing on a stale branch head.
+          # Never force-push and never write to main.
+          for attempt in 1 2 3 4 5 6 7 8; do
+            git fetch origin preview-personalweb
+            git rebase origin/preview-personalweb
+            if git push origin HEAD:preview-personalweb; then
+              echo "VERIFIED: preview-only MP4 uploaded successfully"
+              exit 0
+            fi
+            echo "Preview branch moved during push; retry ${attempt}/8"
+            sleep $((attempt * 2))
+          done
+          echo "::error::Unable to publish verified MP4 after bounded retries"
+          exit 1
