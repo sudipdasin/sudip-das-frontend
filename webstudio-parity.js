@@ -152,6 +152,58 @@
     };
     themeSelect.addEventListener('change', updateOrbitBadges);
     updateOrbitBadges();
+
+    // The older theme bundles have animated !important geometry rules that
+    // continue to win at runtime on some Chromium builds. Lock only the
+    // WebStudio Design 1 portrait/ring geometry with inline-important styles.
+    // This is intentionally reversible on theme switches, with all five
+    // other themes retaining their untouched CSS geometry.
+    const rings=[...art.querySelectorAll('.orbit')];
+    const core=art.querySelector('.core');
+    const nameplate=art.querySelector('.portrait-caption');
+    const managed=new Map();
+    const setLocked=(el,prop,val)=>{
+      if(!el)return;
+      if(!managed.has(el))managed.set(el,new Set());
+      managed.get(el).add(prop);
+      el.style.setProperty(prop,val,'important');
+    };
+    const clampValue=(low,value,high)=>Math.min(high,Math.max(low,value));
+    const syncNeonRing=()=>{
+      if(document.body.dataset.theme!=='neon-studio'){
+        for(const [el,props] of managed)
+          for(const prop of props)el.style.removeProperty(prop);
+        managed.clear();
+        return;
+      }
+      const vw=window.innerWidth;
+      const diameter=vw<=600?clampValue(250,.70*vw,330):
+        vw<=980?clampValue(290,.50*vw,415):
+        vw<=1380?clampValue(300,.27*vw,395):
+        clampValue(340,.25*vw,434);
+      const artHeight=vw<=600?425:vw<=980?clampValue(490,.68*vw,555):
+        vw<=1380?525:clampValue(545,.34*vw,580);
+      setLocked(art,'min-height',artHeight+'px');
+      setLocked(art,'--wf-orbit-size',diameter+'px');
+      rings.forEach((ring,index)=>{
+        const size=diameter*(index===0?1:.84);
+        for(const [prop,val] of Object.entries({
+          left:'50%',top:'50%',right:'auto',bottom:'auto',
+          width:size+'px',height:size+'px',margin:'0px',
+          translate:'-50% -50%'
+        }))setLocked(ring,prop,val);
+      });
+      const portrait=diameter*.73;
+      setLocked(core,'width',portrait+'px');
+      setLocked(core,'height',portrait+'px');
+      setLocked(nameplate,'left','50%');
+      setLocked(nameplate,'top','calc(50% + '+(diameter/2+(vw<=600?12:14))+'px)');
+      setLocked(nameplate,'bottom','auto');
+      setLocked(nameplate,'transform','translateX(-50%)');
+    };
+    themeSelect.addEventListener('change',syncNeonRing);
+    window.addEventListener('resize',syncNeonRing,{passive:true});
+    syncNeonRing();
   }
   const ticker = document.querySelector('main>.ticker');
   if (ticker) {
