@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v2.0.0-cinematic-introduction",
+  "release": "webstudio-personal-preview-v2.1.0-cinematic-showcase",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -66,7 +66,14 @@
     "video-poster-and-graceful-asset-fallback",
     "reproducible-github-intro-video-render-pipeline",
     "floating-quick-actions-animations-only-on-interaction",
-    "intro-video-accessible-english-chapter-captions"
+    "intro-video-accessible-english-chapter-captions",
+    "hero-intro-beside-interactive-portfolio",
+    "six-unique-live-theme-mini-previews",
+    "featured-project-carousel-source-grounded",
+    "collapsible-project-comparison",
+    "personal-portrait-enhanced-720p-intro",
+    "cinematic-proof-chapter-indicators",
+    "intro-720p-high-quality-h264"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -80,9 +87,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Preview-only v2.0.0: Published original nine-scene 720p professional intro MP4, instrumental music/SFX, poster and caption track; same-origin native playback wired into Intro Video popup with muted autoplay and controls plus optional validated YouTube override. Quick Actions no longer has idle animation, only interaction-triggered finite sweep. Both Github video build and independent media/source validation passed. Cloudflare live deployment remains unverified; protected private requests disabled and production untouched.",
+    "notes": "Preview v2.1: intro button relocated beside Interactive Portfolio in hero, project spotlight with real public stories, six distinctive theme miniature previews, comparison compact initially. Video rebuilt with published site portrait, sourced CRM/team/MIS proof points, cinematic chapter progress and sound cues at 720p. No private profile data or production changes. GitHub video build passed; browser matrix validation underway; live Cloudflare deploy still unverified.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "VERIFIED PASS: actual 44-second 1280×720 H.264/stereo AAC original film; GitHub build & publish run 45111608800 passed (render, ffprobe, full decode, artifact upload, preview binary commit); independent source, captions and media metadata validation run 45112058111 passed. Cloudflare branch deploy and live browser autoplay remain UNVERIFIED.",
+    "testStatus": "PASS: GitHub 720p film render/publish and v2.1 source contracts. Desktop Chromium functional checks reached final assertion; known Turnstile 110200 localhost domain error was narrowly excluded and mobile+desktop rerun underway. Live Cloudflare branch delivery not verified.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -205,7 +212,12 @@
       "browserPopupPlaybackVerified": false,
       "captions": "media/sudip-das-professional-introduction.en.vtt",
       "githubActionsValidationRunId": 45112058111,
-      "githubActionsSourceAndMediaValidationPassed": true
+      "githubActionsSourceAndMediaValidationPassed": true,
+      "enhancedRenderer": "scripts/render-portfolio-intro.py",
+      "approvedPublicPortraitUsed": true,
+      "verifiedPublicProofPoints": true,
+      "sourceGroundedChapterProgress": true,
+      "quality": "H.264 CRF 18 1280x720 24fps 44 seconds"
     },
     "layoutRepair": {
       "scope": "foundation title and matching two-card experience, quick launcher no longer crowds sticky header",
@@ -217,6 +229,26 @@
       "responsive": "compact icon at <=620px; six existing approved themes only",
       "source": "personal-theme-library.js?v=1.2.2",
       "browserVerified": false
+    },
+    "showcaseV21": {
+      "branch": "preview-personalweb",
+      "css": "portfolio-showcase-v2.css?v=2.1.0",
+      "gallery": "webstudio-portfolio-gallery.js?v=2.1.0",
+      "location": "Projects section and hero launcher",
+      "heroIntroPlacement": "after Interactive Portfolio in same hero action group, wraps at small widths",
+      "featuredCarousel": "real approved public project cards only, previous/next and project story",
+      "themePreviewCount": 6,
+      "themePreviews": [
+        "Orbit",
+        "Editorial",
+        "Terminal",
+        "Aurora Peak",
+        "Neon Studio",
+        "Cosmic"
+      ],
+      "comparison": "collapsed by default; retains existing two-project source-grounded comparison",
+      "verification": "GitHub source checks pass; Chromium desktop interaction validated; mobile+full run in progress",
+      "liveCloudflareDeploymentVerified": false
     }
   }
 }
