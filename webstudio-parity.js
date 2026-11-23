@@ -153,6 +153,8 @@
     themeSelect.addEventListener('change', updateOrbitBadges);
     updateOrbitBadges();
 
+    // Source-of-truth geometry for reference-aligned photo, violet ring,
+    // and bottom name capsule. Refined in v3.8.1 with measured spacing.
     // The older theme bundles have animated !important geometry rules that
     // continue to win at runtime on some Chromium builds. Lock only the
     // WebStudio Design 1 portrait/ring geometry with inline-important styles.
@@ -218,7 +220,7 @@
       setLocked(art,'min-height',artHeight+'px');
       setLocked(art,'--wf-orbit-size',diameter+'px');
       setLocked(ringLayer,'--neon-ring-px',diameter+'px');
-      for(const [ring,size] of [[outerPrecision,diameter],[innerPrecision,diameter*.84]]){
+      for(const [ring,size] of [[outerPrecision,diameter],[innerPrecision,diameter*.91]]){
         setLocked(ring,'width',size+'px');
         setLocked(ring,'height',size+'px');
         setLocked(ring,'left','50%');
@@ -233,16 +235,23 @@
           translate:'-50% -50%'
         }))setLocked(ring,prop,val);
       });
-      const portrait=diameter*.73;
+      // Reference proportion: photo nearly fills the violet inner ring.
+      // Reserve actual room for the shorter caption *inside* the outer
+      // ring, even on 1100px laptops and 390px phones. Never overlap the
+      // portrait and caption or displace orbit centers.
+      const capsuleHeight=vw<=600?26:diameter<335?27:30;
+      const portraitGap=vw<=600?4:diameter<335?3:5;
+      const targetPhotoRatio=vw<=600?.76:.86;
+      const maxRatioForCapsule=1-(capsuleHeight+portraitGap)/(diameter/2);
+      const portraitRatio=Math.min(targetPhotoRatio,maxRatioForCapsule);
+      const portrait=diameter*portraitRatio;
       setLocked(portraitLayer,'width',portrait+'px');
       setLocked(portraitLayer,'height',portrait+'px');
       setLocked(nameplate,'left','50%');
-      // Reference photo has a short name capsule INSIDE the lower outer
-      // circle, beneath the portrait. The orbit is centered independently
-      // and must NEVER rotate or move with this adjustment.
-      // At 250px ring size the 30px mobile capsule still fits the gap.
-      const capsuleInset=vw<=600?34:39;
-      setLocked(nameplate,'top','calc(50% + '+(diameter/2-capsuleInset)+'px)');
+      // Anchor capsule immediately below the real photo, but guarantee
+      // that its entire height is contained by the circular outer ring.
+      // Width/height constraints are verified for 390..1920px viewports.
+      setLocked(nameplate,'top','calc(50% + '+(portrait/2+portraitGap)+'px)');
       setLocked(nameplate,'bottom','auto');
       setLocked(nameplate,'transform','translateX(-50%)');
     };

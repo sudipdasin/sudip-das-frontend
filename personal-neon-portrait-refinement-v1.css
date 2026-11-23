@@ -1,4 +1,4 @@
-/* Neon Studio 3.8.0 — photo-and-orbit user-reference fidelity.
+/* Neon Studio 3.8.1 — reference-measured portrait & satellite fidelity.
  * Source: owner-supplied image comparing personal portrait to WebStudio
  * illustrated developer avatar. The real personal portrait stays intact.
  * CSS intentionally applies ONLY to body[data-theme="neon-studio"].
@@ -13,10 +13,10 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precision
   outline-offset:7px!important;
   box-shadow:
     0 0 0 2px #00d5ed52,
-    0 0 16px 5px #06f4ffb8,
-    0 0 40px 12px #08cafe62,
-    0 0 75px 19px #2e88ff30,
-    0 0 91px 24px #a86dff20,
+    0 0 12px 4px #06f4ffbd,
+    0 0 34px 9px #08cafe62,
+    0 0 58px 15px #2e88ff31,
+    0 0 76px 19px #a86dff18,
     0 18px 40px #010516a3!important;
   filter:none!important;
   animation:none!important;
@@ -70,12 +70,12 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
   bottom:auto!important;
   transform:translateX(-50%)!important;
   min-width:0!important;
-  width:176px!important;
-  max-width:205px!important;
-  height:34px!important;
-  min-height:34px!important;
+  width:172px!important;
+  max-width:188px!important;
+  height:30px!important;
+  min-height:30px!important;
   margin:0!important;
-  padding:5px 14px!important;
+  padding:4px 12px!important;
   gap:0!important;
   border:1.4px solid #19e2fb!important;
   border-radius:999px!important;
@@ -97,8 +97,9 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
   text-overflow:ellipsis;
   max-width:100%;
 }
-/* Desktop medallions: right-side smooth vertical arc, outside the visible
-   ring by at least 10px at its widest point. The icon centers do not touch
+/* Desktop medallions: compact right-side arc close to reference's five
+   evenly spaced positions, with 20-40px *visible* circle-to-icon gap.
+   The icon centers do not touch
    the ring. Labels start to the right with no cards obstructing the portrait. */
 @media(min-width:1100px){
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip,
@@ -131,24 +132,24 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
     pointer-events:none!important;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="a"]{
-    --ref-x:calc(var(--ref-r) * .9 + 33px);
-    --ref-y:calc(var(--ref-r) * -.68);
+    --ref-x:calc(var(--ref-r) * 1.16);
+    --ref-y:calc(var(--ref-r) * -.57);
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="b"]{
-    --ref-x:calc(var(--ref-r) * .98 + 33px);
-    --ref-y:calc(var(--ref-r) * -.34);
+    --ref-x:calc(var(--ref-r) * 1.24);
+    --ref-y:calc(var(--ref-r) * -.29);
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="c"]{
-    --ref-x:calc(var(--ref-r) + 33px);
+    --ref-x:calc(var(--ref-r) * 1.27);
     --ref-y:0px;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="d"]{
-    --ref-x:calc(var(--ref-r) * .98 + 33px);
-    --ref-y:calc(var(--ref-r) * .34);
+    --ref-x:calc(var(--ref-r) * 1.24);
+    --ref-y:calc(var(--ref-r) * .29);
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="e"]{
-    --ref-x:calc(var(--ref-r) * .9 + 33px);
-    --ref-y:calc(var(--ref-r) * .68);
+    --ref-x:calc(var(--ref-r) * 1.16);
+    --ref-y:calc(var(--ref-r) * .57);
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip .ws-orbit-glyph{
     width:40px!important;
@@ -190,6 +191,16 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
     max-width:128px!important;
   }
 }
+/* Narrow 1100–1380px desktop: capsule must still fit completely between
+   the portrait lower edge and outer circular border. */
+@media(min-width:601px) and (max-width:1380px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
+    height:27px!important;
+    min-height:27px!important;
+    padding:4px 12px!important;
+    font-size:13px!important;
+  }
+}
 /* Tablet and phone: retain existing icon-only responsive satellites and
    avoid overflowing the screen with long text labels. Caption still fits
    inside its ring because JS uses a smaller mobile inset. */
@@ -197,9 +208,9 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
     width:146px!important;
     max-width:180px!important;
-    height:29px!important;
-    min-height:29px!important;
-    padding:4px 11px!important;
+    height:26px!important;
+    min-height:26px!important;
+    padding:3px 10px!important;
     font-size:12px!important;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precision-portrait{
