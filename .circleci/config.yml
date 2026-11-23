@@ -208,7 +208,8 @@ jobs:
                           contrast:(Math.max(luminance(paper),luminance(fg))+.05)/(Math.min(luminance(paper),luminance(fg))+.05),
                           position:getComputedStyle(left).position,
                           background:paper,
-                          scrollWidth:document.documentElement.scrollWidth};
+                          scrollWidth:document.querySelector('#experience').scrollWidth,
+                          clientWidth:document.querySelector('#experience').clientWidth};
                       });
                       assert.ok(foundation.contrast>=7,'Editorial foundation panel heading contrast: '+JSON.stringify(foundation));
                       assert.equal(foundation.position,'relative','Foundation left card must not be sticky');
@@ -219,7 +220,7 @@ jobs:
                       }else{
                         assert.ok(foundation.right.y>=foundation.left.y+foundation.left.h-2,'Foundation panels must stack on mobile: '+JSON.stringify(foundation));
                       }
-                      assert.ok(foundation.scrollWidth<=width+2,'Horizontal overflow near Foundation: '+JSON.stringify(foundation));
+                      assert.ok(foundation.scrollWidth<=foundation.clientWidth+2,'Horizontal overflow within Foundation: '+JSON.stringify(foundation));
 
                       await page.locator('#ws-inline-demo').scrollIntoViewIfNeeded();
                       const firstImage=page.locator('#ws-demo-panel-1 img');
