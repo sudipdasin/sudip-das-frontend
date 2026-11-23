@@ -691,3 +691,46 @@ body.ws-parity[data-theme="neon-studio"] .ws-neon-precision-portrait img{
   object-position:center 32%;
   filter:contrast(1.03) saturate(1.03);
 }
+
+/* Expanded phone menu: native settings must be positioned in the menu flow,
+ * not in the old absolute-positioned header slots (formerly x=381..429 at
+ * viewport width 390). Preserve both language and theme selectors. */
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open){
+    display:flex!important;
+    flex-wrap:wrap!important;
+    align-items:center;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > :is(.language-control,.theme-control){
+    position:static!important;
+    inset:auto!important;
+    transform:none!important;
+    float:none!important;
+    flex:0 0 calc(50% - 6px)!important;
+    order:13!important;
+    display:flex!important;
+    align-items:stretch!important;
+    justify-content:stretch!important;
+    width:calc(50% - 6px)!important;
+    min-width:0!important;
+    max-width:calc(50% - 6px)!important;
+    height:auto!important;
+    margin:0!important;
+    padding:0!important;
+    box-sizing:border-box;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > :is(.language-control,.theme-control) select{
+    display:block!important;
+    position:static!important;
+    transform:none!important;
+    float:none!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+    min-height:43px!important;
+    margin:0!important;
+  }
+}
