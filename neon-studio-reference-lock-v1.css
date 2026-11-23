@@ -611,3 +611,47 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
     top:calc(50% + 114px)!important;
   }
 }
+
+/* Neon-only compact mobile header. The legacy native language/theme <select>
+ * controls previously sat at x=294..446 on 390px screens, creating a 56px
+ * horizontal scroll and clipping "Explore themes". Keep the actual nav
+ * usable with both controls available when Menu is expanded. */
+@media(max-width:600px){
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav{
+    max-width:100%;
+    min-width:0;
+    column-gap:8px;
+    row-gap:9px;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .language-control,
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .theme-control{
+    display:none!important;
+    min-width:0!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > .language-control,
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > .theme-control{
+    display:flex!important;
+    order:12!important;
+    flex:1 1 calc(50% - 8px)!important;
+    width:auto!important;
+    max-width:calc(50% - 8px)!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > .language-control select,
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav:has(.navlinks.open)
+    > .theme-control select{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .pv-theme-launch{
+    flex:0 0 43px!important;
+    margin-inline-start:auto;
+    width:43px!important;
+    max-width:43px!important;
+  }
+}
