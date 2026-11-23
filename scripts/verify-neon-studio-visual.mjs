@@ -152,9 +152,24 @@ try{
     // breakpoint. Exact relative scale is checked after CSS diagnostics.
     assert.ok(report.core.width<report.inner.width-3,
       'Portrait must fit inside middle ring without hiding it');
-    assert.ok(report.caption.y>=report.core.bottom-16 &&
-      report.caption.bottom<=report.outer.bottom+24,
-      'Portrait nameplate should be directly under the photo within the lower orbit; current '+JSON.stringify(report));
+    // The owner's 644×557 reference shows the identity nameplate BELOW the
+    // outermost cyan ring by 12–14px. It must also clear the next section.
+    const plateGap=report.caption.y-report.outer.bottom;
+    assert.ok(plateGap>=9&&plateGap<=20,
+      'Identity plate must sit just below the outer cyan ring: '+JSON.stringify({width,plateGap,caption:report.caption,outer:report.outer}));
+    assert.ok(report.caption.bottom<report.section.y-8,
+      'Identity plate must clear the following skills band with 8px space: '+JSON.stringify({width,caption:report.caption,section:report.section}));
+    if(width===1892){
+      // Reference crop: x/y satellite offsets measured relative to center
+      // and outer-ring diameter. Preserve the exact clockwise composition.
+      const target=[[.108,-.426],[.434,-.371],[.473,-.081],[.424,.224],[.383,.334]];
+      report.badges.forEach(({rect},index)=>{
+        const dx=(rect.x-report.outer.cx)/report.outer.width;
+        const dy=(rect.y-report.outer.cy)/report.outer.width;
+        assert.ok(Math.abs(dx-target[index][0])<.025&&Math.abs(dy-target[index][1])<.025,
+          'WebStudio reference satellite displaced: '+JSON.stringify({index,dx,dy,target:target[index]}));
+      });
+    }
     assert.ok(report.badges.every(x=>(
       report.caption.x>=x.rect.right+3 || report.caption.right<=x.rect.x-3 ||
       report.caption.y>=x.rect.bottom+3 || report.caption.bottom<=x.rect.y-3)),
