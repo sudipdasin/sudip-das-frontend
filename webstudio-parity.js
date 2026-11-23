@@ -70,11 +70,10 @@
   }
   quickPanel.append(themeActions);
   quick.append(quickButton, quickPanel);
-  // Keep Quick Actions within the responsive header flow, not floating over
-  // project cards or the four WebStudio Cosmic information tiles.
-  const nav = document.querySelector('.topbar .nav');
-  if (nav) nav.insertBefore(quick, nav.querySelector('.language-control'));
-  else document.body.append(quick);
+  // A read-only floating visitor launcher lives outside the sticky header,
+  // preserving navigation width at all viewports. Positioning and contextual
+  // suggestions are provided by personal-smart-navigation-v1.js.
+  document.body.append(quick);
   quickButton.addEventListener('click', () => {
     quickPanel.hidden = !quickPanel.hidden;
     quickButton.setAttribute('aria-expanded', String(!quickPanel.hidden));
