@@ -16,6 +16,7 @@ W,H=1280,720;FPS=args.fps;DUR=args.seconds
 FONTROOT='/usr/share/fonts/opentype/inter'
 FONTB=FONTROOT+'/InterDisplay-Bold.otf';FONTR=FONTROOT+'/InterDisplay-Regular.otf';FONTL=FONTROOT+'/InterDisplay-Light.otf'
 if not Path(FONTR).exists():FONTR='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+if not Path(FONTB).exists():FONTB='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 SERIF='/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf'
 def ft(px,bold=False,serif=False):return ImageFont.truetype(SERIF if serif else (FONTB if bold else FONTR),px)
 F={n:ft(n) for n in [14,15,16,17,18,19,20,21,22,23,24,26,28,30,32,34,36,40,45,48,50,52,54,56,61,64,68,70,74,78,80,88,96,105]}
