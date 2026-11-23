@@ -68,7 +68,8 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
   --wf-orbit-size:var(--neon-ring-size)!important;
   width:100%;
   max-width:560px;
-  min-height:clamp(455px,32vw,522px);
+  /* Reserve the full outer orbit AND the caption underneath it. */
+  min-height:clamp(545px,34vw,580px);
   margin-inline:auto;
   overflow:visible;
   isolation:isolate;
@@ -190,7 +191,8 @@ body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="d"]{
   --aurora-x:calc(var(--r) * .93);--aurora-y:calc(var(--r) * .54);
 }
 body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip[data-pos="e"]{
-  --aurora-x:calc(var(--r) * .70);--aurora-y:calc(var(--r) * .89);
+  /* Fifth badge stays on the lower-right tangent, above the nameplate. */
+  --aurora-x:calc(var(--r) * .85);--aurora-y:calc(var(--r) * .76);
 }
 body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-glyph{
   width:40px!important;
@@ -225,7 +227,8 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-lab
 body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption{
   position:absolute!important;
   z-index:8;
-  top:calc(50% + var(--wf-orbit-size)*.385)!important;
+  /* Directly BELOW the ring: never overlap the lower-right satellite. */
+  top:calc(50% + var(--wf-orbit-size)*.5 + 14px)!important;
   bottom:auto!important;
   left:50%!important;right:auto!important;
   transform:translateX(-50%)!important;
@@ -386,7 +389,7 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
 @media(max-width:1380px){
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(300px,27vw,395px)!important;
-    min-height:460px;
+    min-height:525px;
   }
   body.ws-parity[data-theme="neon-studio"] .ws-orbit-chip .ws-orbit-label{
     font-size:.66rem!important;
@@ -404,7 +407,7 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(290px,50vw,415px)!important;
     width:min(100%,540px);
-    min-height:440px;
+    min-height:490px;
   }
   body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
     grid-template-columns:minmax(0,1fr);
@@ -426,7 +429,7 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(250px,70vw,330px)!important;
     width:100%;
-    min-height:430px;
+    min-height:415px;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip{
     width:29px!important;min-width:29px!important;
@@ -447,7 +450,7 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
     max-width:90%!important;
     font-size:10px!important;
     padding:7px 10px!important;
-    top:calc(50% + var(--wf-orbit-size)*.56)!important;
+    top:calc(50% + var(--wf-orbit-size)*.5 + 12px)!important;
   }
   body.ws-parity[data-theme="neon-studio"] .ws-aurora-reference-inner{
     width:calc(100% - 30px);
@@ -483,5 +486,34 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
   }
   body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature{
     transition:none!important;
+  }
+}
+
+/* Owner request: remove the tiny redundant preview/status header above the
+ * actual navigation ONLY in Neon Studio. Nav brand, theme switch, and public
+ * links remain. The live page's privacy protections are not changed. */
+body.ws-parity[data-theme="neon-studio"] .ws-utility{
+  display:none!important;
+}
+
+/* A predictable landing point: the first WebStudio infinity/skills band
+ * starts immediately after the hero, with no phantom marquee or second strip.
+ * These targets are only visible in the Neon Studio theme. */
+body.ws-parity[data-theme="neon-studio"] main>.hero + .ws-aurora-reference{
+  margin-top:0!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-feature-icon,
+body.ws-parity[data-theme="neon-studio"] .ws-orbit-glyph,
+body.ws-parity[data-theme="neon-studio"] .ws-aurora-mini-icon{
+  line-height:1;
+}
+
+/* Tight laptop handling: decorative badges use icon-only orbit where labels
+ * cannot fit beside the ring without clipping or covering the portrait. */
+@media (min-width:601px) and (max-width:1199px){
+  body.ws-parity[data-theme="neon-studio"] main>.hero .ws-orbit-chip .ws-orbit-label{
+    max-width:94px;
+    white-space:normal!important;
+    overflow-wrap:normal;
   }
 }
