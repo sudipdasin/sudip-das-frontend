@@ -104,8 +104,8 @@
  }
 
 
- // Professional Introduction v4.1 — video always previews inside visible CTA;
- // only a dedicated expand icon opens the larger inline player.
+ // Professional Introduction v4.2 — hover-only compact preview with no
+ // obstructing text while playing; expand icon opens the inline full player.
  const heroActions=document.querySelector('.hero .actions');
  function parseVideoId(raw){
   if(!raw)return null;
@@ -181,44 +181,62 @@
   tile.append(button,panel);
   heroActions.append(tile);
 
-  // Only the lightweight original 6-second silent clip loops inside the tile.
-  // Defer its request until the actual tile enters the viewport.
+  // v4.2: the silent clip is deliberately HOVER-ONLY, never on scroll,
+  // idle, page entry, or keyboard focus. The full film needs the expand icon.
   const hoverSource='media/sudip-das-intro-hover-preview.webm';
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const hoverAllowed=window.matchMedia('(hover:hover) and (pointer:fine)');
   const saveData=Boolean(navigator.connection?.saveData);
   const videoId=parseVideoId(document.querySelector('meta[name="portfolio-intro-youtube-url"]')?.content?.trim()||'');
   const localIntro=document.querySelector('meta[name="portfolio-intro-mp4"]')?.content?.trim()||'';
   const localPoster=document.querySelector('meta[name="portfolio-intro-poster"]')?.content?.trim()||'';
   const safeIntro=/^media\/[a-z0-9-]+\.mp4$/.test(localIntro)?localIntro:null;
   const safePoster=/^media\/[a-z0-9-]+\.svg$/.test(localPoster)?localPoster:null;
-  let open=false,previewVisible=false,hoverPlaying=false;
+  let open=false,previewVisible=false,hoverPlaying=false,isHovered=false;
+  tile.dataset.previewing='false';
   const stopTeaser=()=>{
+   tile.dataset.previewing='false';
+   teaser.dataset.ready='false';
    if(!hoverPlaying&&!teaser.hasAttribute('src'))return;
    hoverPlaying=false;
-   teaser.dataset.ready='false';
    teaser.pause();
    teaser.removeAttribute('src');
    teaser.load();
   };
   const startTeaser=()=>{
-   if(open||hoverPlaying||!previewVisible||document.hidden||reduced.matches||saveData)return;
+   if(open||hoverPlaying||!isHovered||!hoverAllowed.matches||!previewVisible||document.hidden||reduced.matches||saveData)return;
    hoverPlaying=true;
+   teaser.dataset.ready='false';
    teaser.src=hoverSource;
-   teaser.play().catch(()=>{teaser.dataset.ready='false';});
+   teaser.play().catch(()=>{if(hoverPlaying)stopTeaser();});
   };
-  teaser.addEventListener('playing',()=>{teaser.dataset.ready='true';});
+  teaser.addEventListener('playing',()=>{
+   if(!open&&isHovered&&previewVisible&&hoverAllowed.matches){
+    teaser.dataset.ready='true';
+    tile.dataset.previewing='true';
+   }else stopTeaser();
+  });
   teaser.addEventListener('error',stopTeaser);
+  tile.addEventListener('pointerenter',e=>{
+   if(e.pointerType==='mouse'||e.pointerType==='pen'){
+    isHovered=true;
+    startTeaser();
+   }
+  });
+  tile.addEventListener('pointerleave',()=>{
+   isHovered=false;
+   stopTeaser();
+  });
   if('IntersectionObserver' in window){
    const observer=new IntersectionObserver(entries=>{
     previewVisible=entries.some(entry=>entry.isIntersecting&&entry.intersectionRatio>=.3);
-    if(previewVisible)startTeaser();else stopTeaser();
+    if(!previewVisible)stopTeaser();
+    else if(isHovered)startTeaser();
    },{threshold:[0,.3,.6]});
    observer.observe(tile);
-  }else{
-   previewVisible=true;
-   startTeaser();
-  }
-  reduced.addEventListener?.('change',()=>{if(reduced.matches)stopTeaser();else startTeaser();});
+  }else{previewVisible=true;}
+  reduced.addEventListener?.('change',()=>{if(reduced.matches)stopTeaser();else if(isHovered)startTeaser();});
+  hoverAllowed.addEventListener?.('change',()=>{if(!hoverAllowed.matches)stopTeaser();else if(isHovered)startTeaser();});
   const clearMedia=()=>{
    for(const video of mediaBox.querySelectorAll('video')){
     video.pause();

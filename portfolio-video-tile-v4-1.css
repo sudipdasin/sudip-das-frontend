@@ -17,7 +17,7 @@ body.ws-parity .hero .actions .pv-intro-tile .pv-intro-cta-motion {
   filter:brightness(.74) saturate(1.12);
   transition:opacity .3s ease;
 }
-body.ws-parity .hero .actions .pv-intro-tile .pv-intro-cta-motion[data-ready="true"] {
+body.ws-parity .hero .actions .pv-intro-tile[data-previewing="true"] .pv-intro-cta-motion[data-ready="true"] {
   opacity:1!important;
 }
 body.ws-parity .hero .actions .pv-intro-tile > .pv-intro-hero-cta::after {
@@ -90,4 +90,46 @@ body.ws-parity .hero .actions .pv-intro-tile[data-state="open"]{
  body.ws-parity .hero .actions .pv-intro-tile .pv-intro-cta-motion{
   display:none!important;
  }
+}
+
+/* v4.2 — reveal the actual video completely on hover; leave only the expand glyph.
+   The overlay and title are hidden ONLY after the teaser emits "playing". */
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-launch-copy{
+  opacity:1;
+  visibility:visible;
+  transition:opacity .16s ease,visibility .16s ease;
+}
+body.ws-parity .hero .actions .pv-intro-tile[data-previewing="true"] .pv-intro-launch-copy{
+  opacity:0!important;
+  visibility:hidden!important;
+}
+body.ws-parity .hero .actions .pv-intro-tile[data-previewing="true"] > .pv-intro-hero-cta::after{
+  opacity:0!important;
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-expand{
+  width:31px!important;
+  height:31px!important;
+  min-height:31px!important;
+  right:8px!important;
+  border-radius:9px!important;
+  font-size:1.04rem!important;
+  box-shadow:0 0 0 2px #0bcaff1a,0 0 13px #01c7ff35!important;
+  cursor:pointer!important;
+}
+body.ws-parity .hero .actions .pv-intro-tile .pv-intro-expand::before{
+  content:"";
+  position:absolute;
+  inset:-6px;
+}
+@media(max-width:520px){
+  body.ws-parity .hero .actions .pv-intro-tile .pv-intro-expand{
+    width:29px!important;
+    height:29px!important;
+    min-height:29px!important;
+    right:6px!important;
+    font-size:1rem!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity .hero .actions .pv-intro-tile .pv-intro-launch-copy{transition:none!important;}
 }
