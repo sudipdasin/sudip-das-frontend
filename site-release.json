@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.9.1-reference-nameplate",
+  "release": "personal-preview-v3.9.2-neon-studio-owner-approved-locked",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -94,7 +94,9 @@
     "neon-studio-lower-skill-tabs-restored",
     "neon-studio-four-breakpoint-browser-parity",
     "neon-studio-no-layout-transition-race",
-    "neon-studio-animated-motion-reference-verified"
+    "neon-studio-animated-motion-reference-verified",
+    "approved-neon-studio-default-on-reload",
+    "neon-visual-baseline-backup-2026-11-24"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -347,5 +349,13 @@
       "providerPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
       "deployGate": "GitHub commit check-runs: Cloudflare Pages conclusion=success; preview URL in check output"
     }
+  },
+  "defaultTheme": "neon-studio",
+  "approvedTheme": {
+    "id": "neon-studio",
+    "snapshotCommit": "d8f97f3b7219007ca55f4793e3c9ec4bb03f4d7e",
+    "backupBranch": "backup/neon-studio-approved-v3.9.1-2026-11-24",
+    "lockedSourceAssets": 5,
+    "status": "owner-approved visual baseline; backup verified; visual regression still requires browser capture"
   }
 }

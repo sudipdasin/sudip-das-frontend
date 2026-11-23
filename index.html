@@ -3,7 +3,7 @@
 <head>
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="portfolio-environment" content="current-preview">
-  <meta name="portfolio-visual-build" content="reference-nameplate-v3.9.1">
+  <meta name="portfolio-visual-build" content="approved-neon-studio-locked-v3.9.2">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101713">
@@ -83,14 +83,14 @@
   <link rel="preload" as="image" href="aurora-reference-horizon.svg">
   <link rel="preload" as="image" href="cosmic-reference-wave.svg">
 </head>
-<body class="ws-parity" data-theme="orbit">
+<body class="ws-parity" data-theme="neon-studio" data-approved-theme="neon-studio">
   <header class="topbar">
     <nav class="nav wrap" aria-label="Main navigation">
       <a class="brand" href="#top" aria-label="Sudip Das, home"><span class="brand-mark">SD</span><span>Sudip Das</span></a>
       <button class="menu" aria-expanded="false" aria-controls="navlinks">Menu</button>
       <div class="navlinks" id="navlinks"><a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#capabilities">Strengths</a><a class="nav-cta" href="#contact">Let’s connect <span aria-hidden="true">></span></a></div>
       <label class="language-control"><span data-i18n="language">Language</span><select id="language-select" aria-label="Choose language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="bn">বাংলা</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="ar">العربية</option><option value="zh-CN">简体中文</option><option value="ja">日本語</option></select></label>
-      <label class="theme-control"><span data-i18n="themeLabel">Theme</span><select id="theme-select" aria-label="Choose site theme"><option value="orbit">Orbit · Portfolio</option><option value="editorial">Editorial · Profile</option><option value="terminal">Terminal · Explorer</option><option value="aurora-peak">Aurora Peak</option><option value="neon-studio">Neon Studio</option><option value="design-2">Cosmic</option></select></label>
+      <label class="theme-control"><span data-i18n="themeLabel">Theme</span><select id="theme-select" aria-label="Choose site theme"><option value="orbit">Orbit · Portfolio</option><option value="editorial">Editorial · Profile</option><option value="terminal">Terminal · Explorer</option><option value="aurora-peak">Aurora Peak</option><option value="neon-studio" selected>Neon Studio</option><option value="design-2">Cosmic</option></select></label>
     </nav>
   </header>
   <main id="top">
@@ -451,8 +451,12 @@
     const terminalSections=[...new Set([...nav.querySelectorAll('a[href^="#"]')].map(link=>document.querySelector(link.hash)).filter(section=>section?.matches('section[id]')))];
     const renderTerminalFlow=()=>{terminalSections.forEach((section,index)=>{let flow=section.querySelector('.terminal-flow');if(!flow){flow=document.createElement('nav');flow.className='terminal-flow';flow.setAttribute('aria-label',i18n.get('aria.terminal'));flow.innerHTML='<span class="flow-status"></span><span class="flow-actions"><button type="button" data-flow="previous"></button><button type="button" data-flow="next"></button></span>';section.append(flow);}flow.setAttribute('aria-label',i18n.get('aria.terminal'));const number=new Intl.NumberFormat(i18n.locale,{minimumIntegerDigits:2,useGrouping:false});flow.querySelector('.flow-status').textContent=i18n.format(i18n.get('section'),{current:number.format(index+1),total:number.format(terminalSections.length)});flow.querySelector('[data-flow="previous"]').textContent=`← ${i18n.get('aria.previous')}`;flow.querySelector('[data-flow="next"]').textContent=`${i18n.get('aria.next')} →`;flow.querySelector('[data-flow="previous"]').disabled=index===0;flow.querySelector('[data-flow="next"]').disabled=index===terminalSections.length-1;});};
     const setTerminalSection=(id,{scroll=true,updateUrl=true}={})=>{const section=terminalSections.find(item=>item.id===id)||terminalSections[0];if(!section)return;terminalSections.forEach(item=>{const active=item===section;item.classList.toggle('terminal-active',active);item.querySelectorAll('.reveal').forEach(node=>node.classList.toggle('in',active));});document.body.dataset.terminalSection=section.id;nav.querySelectorAll('a[href^="#"]').forEach(link=>{const active=link.hash===`#${section.id}`;link.setAttribute('aria-current',String(active));link.setAttribute('aria-selected',String(active));});if(updateUrl)history.replaceState(null,'',`#${section.id}`);if(scroll)section.scrollIntoView({behavior:'smooth',block:'start'});};
-    const setTheme=(theme)=>{const value=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'].includes(theme)?theme:'orbit';document.body.dataset.theme=value;themeSelect.value=value;try{localStorage.setItem('sudip-profile-theme',value)}catch{};if(value==='terminal'){renderTerminalFlow();nav.querySelectorAll('a[href^="#"]').forEach(link=>link.setAttribute('role','tab'));setTerminalSection(location.hash.slice(1)||document.body.dataset.terminalSection||'about',{scroll:false,updateUrl:false});}else{nav.querySelectorAll('a').forEach(link=>{link.removeAttribute('role');link.removeAttribute('aria-current');link.removeAttribute('aria-selected')});terminalSections.forEach(section=>section.classList.remove('terminal-active'));delete document.body.dataset.terminalSection;}};
-    try{setTheme(localStorage.getItem('sudip-profile-theme')||'orbit')}catch{setTheme('orbit')}themeSelect.addEventListener('change',()=>setTheme(themeSelect.value));
+    const setTheme=(theme)=>{const value=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'].includes(theme)?theme:'neon-studio';document.body.dataset.theme=value;themeSelect.value=value;try{localStorage.setItem('sudip-profile-theme',value)}catch{};if(value==='terminal'){renderTerminalFlow();nav.querySelectorAll('a[href^="#"]').forEach(link=>link.setAttribute('role','tab'));setTerminalSection(location.hash.slice(1)||document.body.dataset.terminalSection||'about',{scroll:false,updateUrl:false});}else{nav.querySelectorAll('a').forEach(link=>{link.removeAttribute('role');link.removeAttribute('aria-current');link.removeAttribute('aria-selected')});terminalSections.forEach(section=>section.classList.remove('terminal-active'));delete document.body.dataset.terminalSection;}};
+    // Approved preview lock (2026-11-24): on every new page load, launch
+    // the protected Neon Studio design, ignoring any prior theme choice.
+    // Visitors may still explore other themes during this one visit;
+    // the next page load returns to approved Neon Studio.
+    try{setTheme('neon-studio')}catch{document.body.dataset.theme='neon-studio';themeSelect.value='neon-studio';}themeSelect.addEventListener('change',()=>setTheme(themeSelect.value));
     nav.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',event=>{if(document.body.dataset.theme!=='terminal')return;event.preventDefault();setTerminalSection(link.hash.slice(1));nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}));
     document.addEventListener('click',event=>{const button=event.target.closest('.terminal-flow button[data-flow]');if(!button||document.body.dataset.theme!=='terminal')return;const current=terminalSections.findIndex(section=>section.classList.contains('terminal-active'));const next=current+(button.dataset.flow==='next'?1:-1);if(terminalSections[next])setTerminalSection(terminalSections[next].id);});
 
