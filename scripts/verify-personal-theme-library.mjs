@@ -43,7 +43,7 @@ assert.match(js,/quickButton\.parentElement\.insertBefore\(openButton,quickButto
 assert.match(css,/\.topbar \.pv-theme-launch/);
 assert.match(css,/\.pv-theme-launch-label/);
 assert.match(css,/body\.ws-parity\[data-theme="editorial"\] \.topbar \.pv-theme-launch/);
-for(const theme of catalog.themes){
+for(const theme of contract.themes){
  assert.ok(js.includes("id:'"+theme.id+"'"),'Bundled gallery theme missing '+theme.id);
  assert.ok(js.includes("personalLabel:'"+theme.personalLabel+"'"),
   'Theme label differs from canonical contract '+theme.id);
