@@ -64,6 +64,16 @@ try{
         otherThemeSections:document.querySelectorAll('.ws-aurora-reference').length
       };
     });
+    // Capture and report raw layout even if a later pixel-geometry assertion
+    // fails. This makes visual failures reproducible rather than opaque.
+    await page.screenshot({path:'test-artifacts/neon-studio-'+width+'.png',fullPage:false,animations:'disabled'});
+    console.log('NEON_GEOMETRY',JSON.stringify({
+      width,art:report.art,core:report.core,outer:report.outer,
+      inner:report.inner,caption:report.caption,
+      badges:report.badges.map(x=>({name:x.name,rect:x.rect})),
+      band:report.band,hero:report.hero,section:report.section,
+      featureCount:report.featureCount,pageWidth:report.pageWidth,clientWidth:report.clientWidth
+    }));
     assert.equal(report.statusStripHidden,true,'Redundant preview strip should be hidden in Neon Studio');
     assert.equal(report.actualNavVisible,true,'Real navigation must remain visible');
     assert.equal(report.featureCount,6,'All six WebStudio lower feature tabs must render');
