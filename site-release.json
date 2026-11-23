@@ -74,7 +74,7 @@
     "productionPromotionApproved": false,
     "notes": "Preview v1.10: Explore themes is anchored at top-right of sticky navigation on desktop and compact mobile header, no longer nested with the floating Quick Actions launcher. Quick Actions is an icon-only round glass button at bottom-right with alpha blending, soft rotating halo, blur and themed contextual overlay, reduced-motion fallback and accessible tooltip/label. Theme Gallery and read-only contextual navigation behavior retained. Production promotion, private profile requests and inbox delivery remain disabled.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "GitHub source readback and CSS/JS static checks pending; CircleCI browser regression assertions committed but no executed browser result verified. Cloudflare branch deployment still unverified.",
+    "testStatus": "26/26 readback source/style/safety assertions passed, including JavaScript syntax and CSS brace checks. Updated CI geometry tests committed; full browser run and Cloudflare preview deployment not yet verified.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -160,7 +160,7 @@
       "fullBrowserTests": "CircleCI geometric, computed-style and preview guards (scheduled by CI, not yet executed)"
     },
     "smartGuide": {
-      "source": "personal-smart-navigation-v1.js?v=1.0.0",
+      "source": "personal-smart-navigation-v1.js?v=1.1.0",
       "placement": "compact 58px circular bottom-right floating orb (52px mobile)",
       "logic": "deterministic section-in-view suggestions and visitor-only theme links; no profiling, analytics, network requests, or global changes",
       "accessibility": "aria-expanded, Escape to close, same existing visitor Quick Actions controls",
@@ -186,7 +186,7 @@
     "themeDiscovery": {
       "placement": "right-most item of sticky top navigation, independent of floating Quick Actions",
       "responsive": "compact icon at <=620px; six existing approved themes only",
-      "source": "personal-theme-library.js?v=1.2.1",
+      "source": "personal-theme-library.js?v=1.2.2",
       "browserVerified": false
     }
   }
