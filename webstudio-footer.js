@@ -37,6 +37,53 @@
  expander.addEventListener('keydown',event=>{
   if(event.key==='Escape'){event.preventDefault();setOpen(false);}
  });
+ // Read-only inline presentation. No network calls, site mutations or storage.
+ const jump=document.getElementById('ws-demo-jump');
+ const showcase=document.getElementById('ws-inline-demo');
+ const tabs=[...document.querySelectorAll('[data-demo-tab]')];
+ const panels=[...document.querySelectorAll('[data-demo-panel]')];
+ const counter=document.getElementById('ws-demo-count');
+ const description=document.getElementById('ws-demo-description');
+ const previous=document.getElementById('ws-demo-previous');
+ const next=document.getElementById('ws-demo-next');
+ const descriptions=[
+  'Bring structure, typography, imagery, and a consistent visual identity together in one considered presentation.',
+  'Explore contrasting visual directions — from warm editorial to atmospheric and bold — without changing your story.',
+  'Consider a guided journey: choose a design direction, organise approved public content, then review desktop and mobile previews.'
+ ];
+ if(jump&&showcase&&tabs.length===3&&panels.length===3&&counter&&description&&previous&&next){
+  let active=0;
+  const show=(index,focusTab=false)=>{
+   active=(index+tabs.length)%tabs.length;
+   tabs.forEach((tab,i)=>{
+    const selected=i===active;
+    tab.setAttribute('aria-selected',String(selected));
+    tab.tabIndex=selected?0:-1;
+   });
+   panels.forEach((panel,i)=>{
+    panel.hidden=i!==active;
+   });
+   counter.textContent=String(active+1).padStart(2,'0')+' / '+String(tabs.length).padStart(2,'0');
+   description.textContent=descriptions[active];
+   if(focusTab)tabs[active].focus();
+  };
+  tabs.forEach((tab,i)=>{
+   tab.addEventListener('click',()=>show(i));
+   tab.addEventListener('keydown',event=>{
+    const keys={ArrowRight:i+1,ArrowLeft:i-1,Home:0,End:tabs.length-1};
+    if(Object.hasOwn(keys,event.key)){
+     event.preventDefault();
+     show(keys[event.key],true);
+    }
+   });
+  });
+  previous.addEventListener('click',()=>show(active-1));
+  next.addEventListener('click',()=>show(active+1));
+  jump.addEventListener('click',()=>{
+   showcase.scrollIntoView({behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+  });
+  show(0);
+ }
  const emailText=email=>[
   'Hello,',
   '',
