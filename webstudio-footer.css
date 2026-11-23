@@ -336,8 +336,10 @@ body.ws-parity[data-theme="editorial"] .ws-inline-demo button:focus-visible{
   overflow:hidden;
   display:grid;
   gap:21px;
-  padding-top:23px;
-  border-top:1px solid var(--wsf-border);
+  /* Padding must NOT sit on the collapsing grid child: it leaves 24px
+   * exposed even at 0fr. Apply the divider/spacing inside the first row. */
+  padding:0;
+  border:0;
   opacity:0;
   transform:translateY(-15px) scale(.98);
   transform-origin:top center;
@@ -349,6 +351,8 @@ body.ws-parity[data-theme="editorial"] .ws-inline-demo button:focus-visible{
   transition:transform .55s cubic-bezier(.16,.95,.27,1),opacity .34s ease .09s;
 }
 .ws-demo-topbar{
+  padding-top:23px;
+  border-top:1px solid var(--wsf-border);
   display:flex;
   align-items:center;
   justify-content:space-between;
