@@ -59,7 +59,7 @@
   <link rel="stylesheet" href="webstudio-theme-fidelity-v1.css">
   <link rel="stylesheet" href="webstudio-aurora-reference-v2.css">
   <link rel="stylesheet" href="personal-theme-library.css?v=1.2.1">
-  <link rel="stylesheet" href="webstudio-footer.css?v=1.1.0">
+  <link rel="stylesheet" href="webstudio-footer.css?v=1.2.0">
   <link rel="stylesheet" href="personal-editorial-contrast.css?v=1.0.1">
   <link rel="stylesheet" href="personal-foundation-v1.css?v=1.0.0">
   <link rel="preload" as="image" href="neon-horizon.svg">
@@ -244,11 +244,16 @@
             <span>Visual design directions</span><span>Mobile-aware presentation</span><span>Guided website journey</span>
           </div>
           <div class="ws-powered-actions">
-            <button class="ws-powered-demo" type="button" id="ws-demo-jump" aria-controls="ws-inline-demo">Explore the inline demo <span aria-hidden="true">↓</span></button>
+            <button class="ws-powered-demo" type="button" id="ws-demo-jump" aria-controls="ws-inline-demo" aria-expanded="false"><span class="ws-demo-jump-label">Explore the inline demo</span> <span class="ws-demo-jump-icon" aria-hidden="true">↗</span></button>
             <button class="ws-powered-interest-toggle" type="button" id="ws-interest-toggle" aria-controls="ws-interest-expander" aria-expanded="false">Interested? Get in touch <span aria-hidden="true">+</span></button>
           </div>
         </div>
-        <div class="ws-inline-demo" id="ws-inline-demo" role="region" aria-labelledby="ws-demo-heading">
+        <div class="ws-inline-demo" id="ws-inline-demo" role="region" aria-labelledby="ws-demo-heading" data-open="false" aria-hidden="true" inert>
+          <div class="ws-demo-expand-inner">
+            <div class="ws-demo-topbar">
+              <span>WEBSTUDIO / THE VISUAL WALKTHROUGH</span>
+              <button class="ws-demo-close" id="ws-demo-close" type="button" aria-label="Close WebStudio demo">Close demo <span aria-hidden="true">×</span></button>
+            </div>
           <div class="ws-demo-heading">
             <div><p class="ws-demo-overline">A VISUAL WALKTHROUGH · INTERACTIVE · ON THIS PAGE</p>
               <h3 id="ws-demo-heading">See how a website takes shape.</h3>
@@ -286,6 +291,7 @@
             </div>
           </div>
           <p class="ws-demo-disclaimer">Visuals are original concept illustrations, not screenshots of a live site editor. You can try this portfolio's six public display themes using the theme selector above.</p>
+          </div>
         </div>
         <div id="ws-interest-expander" class="ws-interest-expander" data-open="false" aria-hidden="true">
           <div class="ws-interest-inner">
@@ -346,7 +352,7 @@
   <script src="webstudio-visitor-hub.js" defer></script>
   <script src="webstudio-parity.js" defer></script>
   <script src="personal-theme-library.js?v=1.2.1" defer></script>
-  <script src="webstudio-footer.js?v=1.1.0" defer></script>
+  <script src="webstudio-footer.js?v=1.2.0" defer></script>
   <script>window.PUBLIC_API_BASE="";window.PORTFOLIO_PREVIEW_MODE=true;</script>
 </body>
 </html>
