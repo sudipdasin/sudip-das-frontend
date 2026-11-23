@@ -754,46 +754,88 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precision-portrait 
   transition:none!important;
 }
 
-/* Personal preview — desktop Neon Studio owner visual correction, 2026-11-23.
-   Theme isolated; no mobile/tablet, Editorial or production changes.
-   The diagonal pseudo-element arc crossed the actual professional bio. */
+/* Orbit geometry 1.3.0 — owner-directed RIGHT PORTRAIT correction.
+   Five icon CENTERS sit on the OUTER ring at five distinct polar angles.
+   Use the ring diameter maintained by syncNeonRing() in webstudio-parity.js.
+   Desktop only: no changes to Editorial or the smaller breakpoints. */
 @media (min-width:1100px) {
-  body.ws-parity[data-theme="neon-studio"] main>.hero::after {
-    content:none!important;
-    display:none!important;
-    border:0!important;
-    box-shadow:none!important;
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art {
+    --orbit-r:calc(var(--wf-orbit-size) * .5);
   }
-  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text {
-    position:relative;
-    z-index:5;
-    min-width:0;
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip {
+    --r:var(--orbit-r);
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    right:auto!important;
+    bottom:auto!important;
+    min-height:40px!important;
+    display:flex!important;
+    align-items:center!important;
+    flex-wrap:nowrap!important;
+    gap:9px!important;
+    z-index:9!important;
+    pointer-events:none;
+    /* The first glyph center (20px) is precisely on the circle. */
+    transform:translate(-20px,-50%) translate(var(--aurora-x),var(--aurora-y))!important;
   }
-  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-copy {
-    position:relative;
-    z-index:5;
-    max-width:min(100%,565px);
-    color:#d5e6f5;
-    text-shadow:0 1px 7px #0113279c;
-    background:linear-gradient(90deg,#041b31b8,transparent 94%);
-    border-radius:0 10px 10px 0;
+  /* True polar offsets (each hypot(x,y) = ~1 outer ring radius).
+     Left-hand labels extend OUTWARD instead of crossing the photo. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="a"] {
+    --aurora-x:calc(var(--r) * -.82)!important;
+    --aurora-y:calc(var(--r) * -.572)!important;
+    flex-direction:row-reverse!important;
+    transform:translate(calc(-100% + 20px),-50%) translate(var(--aurora-x),var(--aurora-y))!important;
   }
-  body.ws-parity[data-theme="neon-studio"] main>.hero .actions {
-    display:grid!important;
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:10px!important;
-    width:100%;
-    max-width:545px;
-    align-items:stretch;
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="b"] {
+    --aurora-x:calc(var(--r) * .36)!important;
+    --aurora-y:calc(var(--r) * -.933)!important;
   }
-  body.ws-parity[data-theme="neon-studio"] main>.hero .actions > :is(a,button) {
-    width:100%;
-    min-width:0;
-    min-height:52px;
-    box-sizing:border-box;
-    margin:0!important;
-    justify-content:center;
-    text-align:center;
-    white-space:normal;
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="c"] {
+    --aurora-x:var(--r)!important;
+    --aurora-y:0px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="d"] {
+    --aurora-x:calc(var(--r) * .74)!important;
+    --aurora-y:calc(var(--r) * .673)!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos="e"] {
+    --aurora-x:calc(var(--r) * -.82)!important;
+    --aurora-y:calc(var(--r) * .572)!important;
+    flex-direction:row-reverse!important;
+    transform:translate(calc(-100% + 20px),-50%) translate(var(--aurora-x),var(--aurora-y))!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip .ws-orbit-glyph {
+    flex:0 0 40px!important;
+    width:40px!important;
+    height:40px!important;
+    border:1.5px solid #1ce2f7!important;
+    background:linear-gradient(150deg,#062f48,#04172e)!important;
+    box-shadow:0 0 0 4px #02aadd16,0 0 20px #04cdfc60!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip .ws-orbit-label {
+    white-space:nowrap!important;
+    max-width:132px!important;
+    font-size:clamp(11px,.73vw,13px)!important;
+    line-height:1.3!important;
+    color:#effbff!important;
+    text-shadow:0 2px 8px #001022!important;
+  }
+  /* The existing concentric outlines and photo are positioned by the same
+     50%/50% center. Add only subtle glass separation around the actual image. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precision-portrait {
+    outline:1px solid #18d2fe70;
+    outline-offset:5px;
+    box-shadow:0 0 20px #05d5ffa9,0 0 48px #0b83ff55,0 17px 35px #0009!important;
+  }
+}
+@media (min-width:1100px) and (max-width:1299px) {
+  /* Keep all five ring glyphs; compact names at narrow desktop sizes. */
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip {
+    gap:6px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip .ws-orbit-label {
+    font-size:10px!important;
+    max-width:105px!important;
   }
 }
