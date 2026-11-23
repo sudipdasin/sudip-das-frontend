@@ -154,6 +154,7 @@
   preview.append(previewClip,caption);
   heroActions.append(preview);
   const motionReduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const canPreview=window.matchMedia('(hover: hover) and (pointer: fine)');
   const hoverSource='media/sudip-das-intro-hover-preview.webm';
   let previewActive=false;
   let suppressPreviewFocus=false;
@@ -166,7 +167,7 @@
    previewClip.load();
   };
   const openPreview=()=>{
-   if(previewActive||suppressPreviewFocus||motionReduced.matches||!modal.hidden)return;
+   if(previewActive||suppressPreviewFocus||motionReduced.matches||!canPreview.matches||!modal.hidden)return;
    previewActive=true;
    preview.dataset.active='true';
    previewClip.src=hoverSource;
