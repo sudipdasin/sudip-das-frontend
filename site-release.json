@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v3.0.0-interactive-cinematic-intro",
+  "release": "webstudio-personal-preview-v3.1.0-neon-studio-fidelity",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -81,7 +81,13 @@
     "original-60s-cinematic-pro-film",
     "four-new-source-grounded-illustrated-scenes",
     "13-chapter-accessible-film-captions",
-    "original-layered-music-and-sound-effects"
+    "original-layered-music-and-sound-effects",
+    "neon-studio-reference-ring-and-portrait-geometry",
+    "neon-studio-five-svg-orbital-callouts",
+    "neon-studio-six-live-feature-tabs",
+    "neon-studio-redundant-header-hidden",
+    "neon-studio-mobile-menu-no-horizontal-overflow",
+    "neon-studio-visual-regression-four-viewports"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -95,9 +101,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "v3.0 preview release: balanced two-row hero actions, 'Watch my story' has 6s silent hover/focus-only VP9 preview that starts without page reflow and unloads when pointer leaves, no idle network/animations; reduced-motion skips preview. Original 60s 720p cinematic film extends public-portrait 44s narrative with four original illustrative project/CRM/MIS/open-source sequences, new original layered instrumental soundtrack and 13 English caption chapters. Build and Chromium desktop/mobile passed on GitHub; Cloudflare external preview alias could not be verified. No production/profile backend changes.",
+    "notes": "v3.1.0 targets only Neon Studio. Updated reference CSS/JS, verified the exact concentric portrait/ring centers, used own cloned public portrait to avoid conflicting theme transitions, resolved lower nameplate collisions, restored six icon tiles, hid redundant top status band, and corrected mobile header offscreen selectors while retaining on-menu access. Other themes' source styling and production backend unchanged.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "VERIFIED: GitHub Actions 45145789099 rendered, decoded and committed 60s 1280×720 H.264/stereo AAC and silent 6s 480×270 VP9 teaser; GitHub Actions 45147449552 passed source checks, desktop (1440×900) and mobile (390×844) Chromium 2×2 hero layout, hover teaser start/stop, reduced-motion, full media modal playback/teardown, 13-caption path, 6-theme showcase, and FFprobe metadata. NOT VERIFIED: Cloudflare Pages live preview rollout.",
+    "testStatus": "PASS: Neon Studio dedicated Chromium fidelity run 45192404272 across 1892/1440/820/390, 5 orbit badges, 6 functioning lower feature tiles, precision concentric portrait, disabled redundant status bar, accessible mobile dropdowns, no horizontal overflow, theme isolation. Cloudflare Pages hosted branch URL not independently verified.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -282,6 +288,27 @@
       ],
       "verifiedBehavior": "Two aligned responsive hero rows, no horizontal overflow, focused real button labels, silent 6s VP9 clip starts on hover and is unloaded after pointer leave; reduced-motion prevents teaser playback; full modal opens/closes with focus restoration.",
       "pointerSafety": "Hover preview only on fine pointers; no touch/coarse hover loading"
+    },
+    "neonStudioV31": {
+      "theme": "neon-studio only",
+      "css": "neon-studio-reference-lock-v1.css?v=1.1.0",
+      "js": "webstudio-parity.js?v=neon-1.1.0",
+      "sourceOfReference": "owner's annotated 1892×957 WebStudio reference and original studio-design-one files",
+      "header": "tiny redundant portfolio-status strip hidden; primary navigation retained",
+      "portrait": "existing public image re-used with a precise neon 73%-diameter photo border",
+      "rings": "independent concentric cyan and violet rings, unaffected by older CSS transforms",
+      "badges": "five radial SVG medallions and labels; technical-support callout separated from identity pill",
+      "lowerSection": "WebStudio infinity information band and six functioning vector-icon feature tabs; no empty marquee",
+      "responsive": "390px native language/theme dropdowns remain accessible inside expanded Menu with no scrolling",
+      "browsersVerified": [
+        "1892x957",
+        "1440x900",
+        "820x900",
+        "390x844"
+      ],
+      "browserRunId": 45192404272,
+      "verified": "GitHub Actions Chromium 4/4 geometries, 5 callouts, 6 feature tabs, mobile dropdowns, no horizontal overflow and Editorial theme isolation PASSED",
+      "cloudflareDeploymentVerified": false
     }
   }
 }
