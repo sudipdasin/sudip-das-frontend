@@ -4,10 +4,12 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 const read=path=>readFile(new URL('../'+path,import.meta.url),'utf8');
-const [html,contrast,footerCSS,footerJS,api,release]=await Promise.all([
+const [html,contrast,footerCSS,footerJS,api,release,...sceneSVGs]=await Promise.all([
  read('index.html'),read('personal-editorial-contrast.css'),
  read('webstudio-footer.css'),read('webstudio-footer.js'),
- read('functions/api/webstudio-interest.js'),read('site-release.json')
+ read('functions/api/webstudio-interest.js'),read('site-release.json'),
+ read('webstudio-inline-layout.svg'),read('webstudio-inline-themes.svg'),
+ read('webstudio-inline-workflow.svg')
 ]);
 const config=JSON.parse(release);
 assert.equal(config.stage,'preview');
@@ -17,15 +19,33 @@ assert.equal(config.preview.productionPromotionApproved,false);
 assert.match(html,/id="capabilities"/);
 assert.match(html,/id="ws-powered-heading"/);
 assert.match(html,/MADE WITH WEBSTUDIO/);
-assert.match(html,/href="https:\/\/sudipdasin\.github\.io\/sudip-das-frontend\/"/);
+assert.doesNotMatch(html,/href="https:\/\/sudipdasin\.github\.io\/sudip-das-frontend\/"/);
+assert.match(html,/<button[^>]*id="ws-demo-jump"[^>]*aria-controls="ws-inline-demo"/);
+assert.match(html,/id="ws-inline-demo"[^>]*role="region"/);
+assert.match(html,/id="ws-demo-heading"/);
+assert.match(html,/id="ws-demo-tab-1" role="tab"[^>]*aria-selected="true"/);
+assert.match(html,/id="ws-demo-tab-2" role="tab"[^>]*aria-selected="false"/);
+assert.match(html,/id="ws-demo-tab-3" role="tab"[^>]*aria-selected="false"/);
+assert.match(html,/id="ws-demo-panel-2"[^>]*role="tabpanel"[^>]*hidden/);
+assert.match(html,/src="webstudio-inline-layout.svg"[^>]*alt=/);
+assert.match(html,/src="webstudio-inline-themes.svg"[^>]*alt=/);
+assert.match(html,/src="webstudio-inline-workflow.svg"[^>]*alt=/);
+assert.match(html,/Visuals are original concept illustrations, not screenshots/);
+for(const svg of sceneSVGs){
+ assert.match(svg,/<svg[^>]+xmlns="http:\/\/www.w3.org\/2000\/svg"/);
+ assert.match(svg,/<title id="title">/);
+ assert.match(svg,/<desc id="desc">/);
+ assert.match(svg,/<\/svg>\s*$/);
+ assert.doesNotMatch(svg,/<script|https?:\/\//i);
+}
 assert.match(html,/id="ws-interest-toggle"[^>]+aria-expanded="false"/);
 assert.match(html,/id="ws-interest-expander"[^>]+data-open="false"/);
 assert.match(html,/id="ws-interest-email" type="email" name="email" required/);
 assert.match(html,/id="ws-interest-status"[^>]+role="status"/);
 assert.match(html,/type="submit" disabled aria-disabled="true"/);
 assert.match(html,/window\.PUBLIC_API_BASE="";window\.PORTFOLIO_PREVIEW_MODE=true/);
-assert.match(html,/webstudio-footer\.js\?v=1\.0\.0/);
-assert.match(html,/webstudio-footer\.css\?v=1\.0\.0/);
+assert.match(html,/webstudio-footer\.js\?v=1\.1\.0/);
+assert.match(html,/webstudio-footer\.css\?v=1\.1\.0/);
 assert.match(html,/personal-editorial-contrast\.css\?v=1\.0\.1/);
 assert.match(contrast,/body\.ws-parity\[data-theme="editorial"\] section\.capabilities/);
 assert.match(contrast,/background:linear-gradient\(155deg,#f7f2e9/);
@@ -56,6 +76,13 @@ assert.match(footerCSS,/body\.ws-parity\[data-theme="editorial"\] \.ws-powered-b
 assert.match(footerCSS,/prefers-reduced-motion:reduce/);
 assert.match(footerCSS,/grid-template-rows:0fr/);
 assert.match(footerCSS,/grid-template-rows:1fr/);
+assert.match(footerCSS,/\.ws-demo-panel\[hidden\]\{display:none!important\}/);
+assert.match(footerCSS,/\.ws-inline-demo\{grid-column:1\/-1/);
+assert.match(footerCSS,/@media\(max-width:720px\)/);
+assert.match(footerJS,/const showcase=document\.getElementById\('ws-inline-demo'\)/);
+assert.match(footerJS,/panels\.forEach\(\(panel,i\)=>/);
+assert.match(footerJS,/event\.key/);
+assert.match(footerJS,/show\(active\+1\)/);
 assert.match(footerJS,/setStatus\('Opening your email application\. The message is not sent until you choose Send there\.'/);
 assert.match(footerJS,/window\.location\.href=mailtoLink\(email\)/);
 assert.match(footerJS,/const serverEnabled=configuration\?\.content==='enabled'/);
