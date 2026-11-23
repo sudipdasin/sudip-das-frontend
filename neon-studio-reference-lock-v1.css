@@ -411,7 +411,9 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
     grid-template-columns:minmax(0,1fr)!important;
     gap:4px!important;
     /* Give the newly lowered nameplate real space above the infinity band. */
-    padding:28px 0 55px!important;
+    /* Reserve the portrait nameplate's full height, not just the ring.
+       Desktop retains the reference's edge-to-edge hero→band join. */
+    padding:28px 0 124px!important;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(290px,50vw,415px)!important;
