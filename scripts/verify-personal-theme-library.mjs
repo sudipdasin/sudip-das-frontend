@@ -28,8 +28,8 @@ assert.doesNotMatch(html,/<script[^>]+src="webstudio-visual-port\.js"/);
 assert.doesNotMatch(html,/<script[^>]+src="studio-theme-library\.js"/);
 assert.match(html,/src="personal-theme-library\.js\?v=1\.2\.2" defer/);
 assert.match(html,/href="personal-theme-library\.css\?v=1\.2\.1"/);
-assert.ok(html.indexOf('src="personal-theme-library.js"') >
- html.indexOf('src="webstudio-parity.js"'));
+assert.ok(html.indexOf('src="personal-theme-library.js?v=1.2.2"') >
+ html.indexOf('src="webstudio-parity.js"'), 'Gallery script must execute after visitor parity');
 assert.ok(html.includes('id="contact"')&&html.includes('id="theme-select"'));
 assert.match(js,/const quick=document\.getElementById\('ws-visitor-quick-panel'\)/);
 assert.match(js,/const EXPECTED_SOURCE='c5383df1ebda7a0e5f05d9f59048a136dc99dac5'/);
