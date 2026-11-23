@@ -105,8 +105,8 @@ const restore=el('button','pv-theme-restore','Restore previous theme');
 restore.type='button';footer.append(notice,restore);
 panel.append(head,tools,statusLine,grid,footer);root.append(panel);
 document.body.append(root);
-// Place the launcher in the STICKY HEADER, not inside a hidden Quick Actions
-// panel. It must be discoverable even at #contact after scrolling.
+// Keep the six-theme gallery visibly anchored at the TOP-RIGHT of the
+// sticky navigation. The separate Quick Actions launcher floats by itself.
 const openButton=el('button','pv-theme-launch');
 openButton.append(
  el('span','pv-theme-launch-glyph','◈'),
@@ -118,8 +118,12 @@ openButton.type='button';openButton.id='pv-theme-launch';
 openButton.setAttribute('aria-haspopup','dialog');
 openButton.setAttribute('aria-controls',root.id);
 openButton.setAttribute('aria-expanded','false');
-// Keep it beside Quick Actions in the sticky navigation at every scroll position.
-quickButton.parentElement.insertBefore(openButton,quickButton);
+// Append after the language/theme selectors: last item at the right edge.
+// At narrow widths the dedicated responsive rule keeps it in the header's
+// first row, independent of the floating Quick Actions container.
+const navigation=document.querySelector('.topbar .nav');
+if(navigation)navigation.append(openButton);
+else document.querySelector('.topbar')?.append(openButton);
 let lastFocus=null;
 function render(){
  const query=search.value.trim().toLowerCase(),which=filter.value;
