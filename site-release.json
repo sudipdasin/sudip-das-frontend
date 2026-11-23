@@ -95,9 +95,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Preview v3.0: deliberate 2×2 hero actions, 'Watch my story' hover/focus-only live video teaser with no idle playback or network load, reduced-motion safety, original 60s 720p cinematic introduction including published portrait from source, source-grounded enterprise/CRM/MIS/Linux/creative chapters, 13-caption VTT, new concept diagrams and layered original soundtrack. GitHub build and publication verified; browser QA and Cloudflare deploy pending. Production and private profile backend untouched.",
+    "notes": "v3.0 preview release: balanced two-row hero actions, 'Watch my story' has 6s silent hover/focus-only VP9 preview that starts without page reflow and unloads when pointer leaves, no idle network/animations; reduced-motion skips preview. Original 60s 720p cinematic film extends public-portrait 44s narrative with four original illustrative project/CRM/MIS/open-source sequences, new original layered instrumental soundtrack and 13 English caption chapters. Build and Chromium desktop/mobile passed on GitHub; Cloudflare external preview alias could not be verified. No production/profile backend changes.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "PASS: locally generated + full-decoded 60s H.264/AAC film with 4 newly illustrated chapters and original audio; 6s silent 480x270 VP9 hover clip; GitHub Actions 45145789099 successfully rendered, probed, decoded and committed both preview assets. PENDING: updated desktop/mobile Chromium and live Cloudflare Pages deployment.",
+    "testStatus": "VERIFIED: GitHub Actions 45145789099 rendered, decoded and committed 60s 1280×720 H.264/stereo AAC and silent 6s 480×270 VP9 teaser; GitHub Actions 45147449552 passed source checks, desktop (1440×900) and mobile (390×844) Chromium 2×2 hero layout, hover teaser start/stop, reduced-motion, full media modal playback/teardown, 13-caption path, 6-theme showcase, and FFprobe metadata. NOT VERIFIED: Cloudflare Pages live preview rollout.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -217,16 +217,16 @@
       "githubActionsArtifactPublished": true,
       "githubPreviewBranchMp4Verified": true,
       "cloudflareDeploymentVerified": false,
-      "browserPopupPlaybackVerified": false,
+      "browserPopupPlaybackVerified": true,
       "captions": "media/sudip-das-professional-introduction.en.vtt",
-      "githubActionsValidationRunId": 45112058111,
+      "githubActionsValidationRunId": 45147449552,
       "githubActionsSourceAndMediaValidationPassed": true,
       "enhancedRenderer": "scripts/render-portfolio-film-v3.py",
       "approvedPublicPortraitUsed": true,
       "verifiedPublicProofPoints": true,
       "sourceGroundedChapterProgress": true,
       "quality": "1280×720 / 24 fps / H.264 CRF 18 / 192-kbps stereo AAC / 60 seconds",
-      "browserPopupPlaybackVerifiedScope": "60-second updated film pending full Chromium follow-up; 44-second earlier version did pass the older run",
+      "browserPopupPlaybackVerifiedScope": "GitHub Actions Chromium local preview server at 1440x900 and 390x844; 60-second first-party MP4 metadata, muted playback, caption path, close/teardown verified; Cloudflare live deployment unverified.",
       "upstreamRenderer": "scripts/render-portfolio-intro.py",
       "previewClip": "media/sudip-das-intro-hover-preview.webm",
       "previewClipCodec": "VP9 480×270 · 6 seconds · no audio; lazy-loaded only during hover/focus",
@@ -272,9 +272,15 @@
       "keyboard": "focus previews where reduced-motion is off; button still opens modal with video controls",
       "privacy": "no new analytics, permissions or arbitrary external media",
       "resources": "portfolio-intro-hover-v3.css?v=3.0.1; personal-smart-navigation-v1.js?v=1.4.0",
-      "browserVerified": false,
+      "browserVerified": true,
       "sourceVerified": true,
-      "qaNote": "Actual 390px Chromium detected legacy .button specificity forcing 45px CTA; 64px !important min-height fix committed for responsive cards"
+      "qaNote": "Actual 390px Chromium detected legacy .button specificity forcing 45px CTA; 64px !important min-height fix committed for responsive cards",
+      "browserRunId": 45147449552,
+      "verifiedViewportWidths": [
+        1440,
+        390
+      ],
+      "verifiedBehavior": "Two aligned responsive hero rows, no horizontal overflow, focused real button labels, silent 6s VP9 clip starts on hover and is unloaded after pointer leave; reduced-motion prevents teaser playback; full modal opens/closes with focus restoration."
     }
   }
 }
