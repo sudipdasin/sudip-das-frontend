@@ -158,6 +158,16 @@
     // WebStudio Design 1 portrait/ring geometry with inline-important styles.
     // This is intentionally reversible on theme switches, with all five
     // other themes retaining their untouched CSS geometry.
+    // Independently rendered orbit outlines prevent legacy .orbit CSS
+    // animations/calc rules from displacing concentric geometry. Source
+    // rings remain available for other themes but are hidden here.
+    const ringLayer=document.createElement('div');
+    ringLayer.className='ws-neon-precise-orbits';
+    ringLayer.setAttribute('aria-hidden','true');
+    const outerPrecision=node('span','ws-neon-precise-ring ws-neon-precise-outer');
+    const innerPrecision=node('span','ws-neon-precise-ring ws-neon-precise-inner');
+    ringLayer.append(outerPrecision,innerPrecision);
+    art.prepend(ringLayer);
     const rings=[...art.querySelectorAll('.orbit')];
     const core=art.querySelector('.core');
     const nameplate=art.querySelector('.portrait-caption');
@@ -185,6 +195,14 @@
         vw<=1380?525:clampValue(545,.34*vw,580);
       setLocked(art,'min-height',artHeight+'px');
       setLocked(art,'--wf-orbit-size',diameter+'px');
+      setLocked(ringLayer,'--neon-ring-px',diameter+'px');
+      for(const [ring,size] of [[outerPrecision,diameter],[innerPrecision,diameter*.84]]){
+        setLocked(ring,'width',size+'px');
+        setLocked(ring,'height',size+'px');
+        setLocked(ring,'left','50%');
+        setLocked(ring,'top','50%');
+        setLocked(ring,'transform','translate(-50%,-50%)');
+      }
       rings.forEach((ring,index)=>{
         const size=diameter*(index===0?1:.84);
         for(const [prop,val] of Object.entries({
@@ -197,7 +215,7 @@
       setLocked(core,'width',portrait+'px');
       setLocked(core,'height',portrait+'px');
       setLocked(nameplate,'left','50%');
-      setLocked(nameplate,'top','calc(50% + '+(diameter/2+(vw<=600?12:14))+'px)');
+      setLocked(nameplate,'top','calc(50% + '+(diameter*(vw<=600?.38:.36))+'px)');
       setLocked(nameplate,'bottom','auto');
       setLocked(nameplate,'transform','translateX(-50%)');
     };
