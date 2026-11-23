@@ -37,9 +37,12 @@
  expander.addEventListener('keydown',event=>{
   if(event.key==='Escape'){event.preventDefault();setOpen(false);}
  });
- // Read-only inline presentation. No network calls, site mutations or storage.
+ // Read-only inline presentation. No site mutation, storage or network calls.
  const jump=document.getElementById('ws-demo-jump');
  const showcase=document.getElementById('ws-inline-demo');
+ const closeDemo=document.getElementById('ws-demo-close');
+ const jumpLabel=jump?.querySelector('.ws-demo-jump-label');
+ const jumpIcon=jump?.querySelector('.ws-demo-jump-icon');
  const tabs=[...document.querySelectorAll('[data-demo-tab]')];
  const panels=[...document.querySelectorAll('[data-demo-panel]')];
  const counter=document.getElementById('ws-demo-count');
@@ -51,8 +54,26 @@
   'Explore contrasting visual directions — from warm editorial to atmospheric and bold — without changing your story.',
   'Consider a guided journey: choose a design direction, organise approved public content, then review desktop and mobile previews.'
  ];
- if(jump&&showcase&&tabs.length===3&&panels.length===3&&counter&&description&&previous&&next){
+ if(jump&&jumpLabel&&jumpIcon&&showcase&&closeDemo&&tabs.length===3&&panels.length===3&&counter&&description&&previous&&next){
   let active=0;
+  const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const setDemoOpen=(value)=>{
+   const expanded=Boolean(value);
+   if(showcase.dataset.open===String(expanded))return;
+   // Return focus *before* making an open control inert or aria-hidden.
+   if(!expanded)jump.focus({preventScroll:true});
+   showcase.dataset.open=String(expanded);
+   showcase.setAttribute('aria-hidden',String(!expanded));
+   showcase.inert=!expanded;
+   jump.setAttribute('aria-expanded',String(expanded));
+   jumpLabel.textContent=expanded?'Collapse the demo':'Explore the inline demo';
+   jumpIcon.textContent=expanded?'×':'↗';
+   if(expanded)closeDemo.focus({preventScroll:true});
+   (expanded?showcase:jump).scrollIntoView({
+    behavior:motion.matches?'auto':'smooth',
+    block:'nearest'
+   });
+  };
   const show=(index,focusTab=false)=>{
    active=(index+tabs.length)%tabs.length;
    tabs.forEach((tab,i)=>{
@@ -79,9 +100,19 @@
   });
   previous.addEventListener('click',()=>show(active-1));
   next.addEventListener('click',()=>show(active+1));
-  jump.addEventListener('click',()=>{
-   showcase.scrollIntoView({behavior:window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+  jump.addEventListener('click',()=>setDemoOpen(showcase.dataset.open!=='true'));
+  closeDemo.addEventListener('click',()=>setDemoOpen(false));
+  showcase.addEventListener('keydown',event=>{
+   if(event.key==='Escape'&&showcase.dataset.open==='true'){
+    event.preventDefault();
+    event.stopPropagation();
+    setDemoOpen(false);
+   }
   });
+  // Explicit, focus-safe collapsed state on first load.
+  showcase.inert=true;
+  showcase.setAttribute('aria-hidden','true');
+  jump.setAttribute('aria-expanded','false');
   show(0);
  }
  const emailText=email=>[
