@@ -41,6 +41,8 @@ jobs:
             node --check functions/api/webstudio-interest.js
             node --check scripts/verify-editorial-webstudio-footer.mjs
             node scripts/verify-editorial-webstudio-footer.mjs
+            node --check scripts/verify-foundation-redesign.mjs
+            node scripts/verify-foundation-redesign.mjs
             node scripts/verify-aurora-reference-v2.mjs
             # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
@@ -186,7 +188,39 @@ jobs:
                     assert.equal(await page.locator('#ws-inline-demo').count(),1,'In-page WebStudio demo missing '+theme);
                     assert.equal(await page.locator('[data-demo-tab]').count(),3,'Three demonstration chapters expected '+theme);
                     assert.equal(await page.locator('.ws-demo-panel:visible').count(),1,'Exactly one illustration should be visible '+theme);
+                    assert.equal(await page.locator('#experience .foundation-summary').count(),1,'Foundation right panel not present '+theme);
+                    assert.equal(await page.locator('#experience .foundation-pillar-list li').count(),3,'Three grounded experience pillars expected '+theme);
+                    assert.equal(await page.locator('#experience .foundation-country').innerText(),'Based in India','Only public country should appear '+theme);
+                    assert.equal(await page.locator('#experience .work-grid h3').filter({hasText:'Address'}).count(),0,'Misleading Address heading persists '+theme);
                     if(theme==='editorial'){
+                      await page.locator('#experience').scrollIntoViewIfNeeded();
+                      const foundation=await page.evaluate(()=>{
+                        const [left,right]=document.querySelectorAll('#experience .work-grid > *');
+                        const a=left.getBoundingClientRect(),b=right.getBoundingClientRect();
+                        const paper=getComputedStyle(right).backgroundColor;
+                        const fg=getComputedStyle(right.querySelector('h3')).color;
+                        const luminance=css=>{
+                          const rgb=css.match(/\d+(?:\.\d+)?/g).slice(0,3).map(x=>Number(x)/255);
+                          const linear=rgb.map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);
+                          return .2126*linear[0]+.7152*linear[1]+.0722*linear[2];
+                        };
+                        return {left:{x:a.x,y:a.y,w:a.width,h:a.height},right:{x:b.x,y:b.y,w:b.width,h:b.height},
+                          contrast:(Math.max(luminance(paper),luminance(fg))+.05)/(Math.min(luminance(paper),luminance(fg))+.05),
+                          position:getComputedStyle(left).position,
+                          background:paper,
+                          scrollWidth:document.documentElement.scrollWidth};
+                      });
+                      assert.ok(foundation.contrast>=7,'Editorial foundation panel heading contrast: '+JSON.stringify(foundation));
+                      assert.equal(foundation.position,'relative','Foundation left card must not be sticky');
+                      assert.ok(foundation.left.w>0&&foundation.right.w>0,'Foundation cards must have nonzero width');
+                      if(width>900){
+                        assert.ok(Math.abs(foundation.left.w-foundation.right.w)<3,'Editorial Foundation cards must be balanced on desktop: '+JSON.stringify(foundation));
+                        assert.ok(foundation.right.x>=foundation.left.x+foundation.left.w-2,'Foundation panels overlap on desktop: '+JSON.stringify(foundation));
+                      }else{
+                        assert.ok(foundation.right.y>=foundation.left.y+foundation.left.h-2,'Foundation panels must stack on mobile: '+JSON.stringify(foundation));
+                      }
+                      assert.ok(foundation.scrollWidth<=width+2,'Horizontal overflow near Foundation: '+JSON.stringify(foundation));
+
                       await page.locator('#ws-inline-demo').scrollIntoViewIfNeeded();
                       const firstImage=page.locator('#ws-demo-panel-1 img');
                       await firstImage.evaluate(img=>img.decode());
