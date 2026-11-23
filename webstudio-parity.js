@@ -202,7 +202,7 @@
       // cannot overlap the succeeding infinity/skills band.
       const hero=art.closest('main>.hero');
       if(hero){
-        if(vw>600&&vw<=980)setLocked(hero,'padding-bottom','90px');
+        if(vw>600&&vw<=980)setLocked(hero,'padding-bottom','132px');
         else{
           hero.style.removeProperty('padding-bottom');
           managed.get(hero)?.delete('padding-bottom');
