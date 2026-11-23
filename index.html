@@ -3,6 +3,7 @@
 <head>
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="portfolio-environment" content="current-preview">
+  <meta name="portfolio-visual-build" content="neon-desktop-v3.2.4">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101713">
@@ -67,7 +68,107 @@
   <link rel="stylesheet" href="personal-smart-navigation-v1.css?v=1.1.2">
   <link rel="stylesheet" href="portfolio-showcase-v2.css?v=2.1.0">
   <link rel="stylesheet" href="portfolio-intro-hover-v3.css?v=3.0.1">
-  <link rel="stylesheet" href="neon-studio-reference-lock-v1.css?v=1.2.4">
+  <link rel="stylesheet" href="neon-studio-reference-lock-v1.css?v=1.2.5">
+<!-- Desktop-only Neon Studio correction; deliberately loaded after all reference sheets. -->
+  <style id="neon-desktop-visual-correction-v324">
+    @media (min-width:1100px) {
+      body.ws-parity[data-theme="neon-studio"] main > .hero {
+        width:min(1480px,calc(100% - 64px))!important;
+        min-height:620px!important;
+        grid-template-columns:minmax(0,1.04fr) minmax(380px,.96fr)!important;
+        gap:clamp(34px,4.3vw,80px)!important;
+        align-items:center!important;
+        padding:30px 0 46px!important;
+      }
+      /* The diagonal line must not appear above or across the biography. */
+      body.ws-parity[data-theme="neon-studio"] main > .hero::after {
+        content:none!important;
+        display:none!important;
+        border:none!important;
+        box-shadow:none!important;
+        background:none!important;
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text {
+        position:relative!important;
+        z-index:6!important;
+        width:100%!important;
+        min-width:0!important;
+        padding:clamp(22px,2.4vw,34px)!important;
+        border:1px solid rgba(24,214,240,.32)!important;
+        border-radius:23px!important;
+        background:linear-gradient(110deg,rgba(3,17,35,.96),rgba(4,26,48,.92) 70%,rgba(5,29,52,.80))!important;
+        box-shadow:0 22px 68px rgba(0,7,25,.36),inset 0 1px 0 rgba(200,239,255,.08)!important;
+        -webkit-backdrop-filter:blur(9px);
+        backdrop-filter:blur(9px);
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text .eyebrow {
+        margin:0 0 16px!important;
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text h1 {
+        font-size:clamp(3.9rem,5.65vw,6.15rem)!important;
+        line-height:1.07!important;
+        margin:0 0 14px!important;
+        max-width:100%!important;
+        white-space:nowrap!important;
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text .hero-role {
+        margin:0 0 14px!important;
+        font-size:clamp(1.4rem,1.9vw,2rem)!important;
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text .hero-copy {
+        width:100%!important;
+        max-width:100%!important;
+        padding:3px 0 3px 16px!important;
+        margin:0 0 22px!important;
+        border-left:3px solid #08e7ee!important;
+        background:none!important;
+        color:#d8e8f5!important;
+        text-shadow:none!important;
+        font-size:clamp(.91rem,1.08vw,1.08rem)!important;
+        line-height:1.67!important;
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text .actions {
+        display:grid!important;
+        grid-template-columns:repeat(2,minmax(0,1fr))!important;
+        gap:10px!important;
+        margin:8px 0 0!important;
+        width:100%!important;
+        max-width:none!important;
+        align-items:stretch!important;
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text .actions > :is(a,button) {
+        display:flex!important;
+        width:100%!important;
+        min-width:0!important;
+        min-height:50px!important;
+        box-sizing:border-box!important;
+        padding:10px 12px!important;
+        margin:0!important;
+        justify-content:center!important;
+        align-items:center!important;
+        text-align:center!important;
+        white-space:normal!important;
+        border-radius:14px!important;
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text .location {
+        margin-top:18px!important;
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-art {
+        position:relative!important;
+        z-index:2!important;
+      }
+    }
+    @media (min-width:1100px) and (max-width:1350px) {
+      body.ws-parity[data-theme="neon-studio"] main > .hero {
+        grid-template-columns:minmax(0,1fr) minmax(325px,.88fr)!important;
+        gap:22px!important;
+      }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text { padding:20px!important; }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text h1 { font-size:clamp(3.6rem,5.15vw,4.7rem)!important; }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-text .actions > :is(a,button) { font-size:.79rem!important; }
+      body.ws-parity[data-theme="neon-studio"] main > .hero .hero-art { --neon-ring-size:clamp(315px,28vw,390px)!important; }
+    }
+  </style>
   <meta name="portfolio-intro-youtube-url" content="">
   <meta name="portfolio-intro-mp4" content="media/sudip-das-professional-introduction-720p.mp4">
   <meta name="portfolio-intro-poster" content="media/sudip-das-intro-poster.svg">
