@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v3.1.0-neon-studio-fidelity",
+  "release": "webstudio-personal-preview-v3.2.0-neon-reference-fidelity",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -87,7 +87,13 @@
     "neon-studio-six-live-feature-tabs",
     "neon-studio-redundant-header-hidden",
     "neon-studio-mobile-menu-no-horizontal-overflow",
-    "neon-studio-visual-regression-four-viewports"
+    "neon-studio-visual-regression-four-viewports",
+    "neon-studio-status-header-removed",
+    "neon-studio-three-centered-rings",
+    "neon-studio-reference-satellite-geometry",
+    "neon-studio-lower-skill-tabs-restored",
+    "neon-studio-four-breakpoint-browser-parity",
+    "neon-studio-no-layout-transition-race"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -101,9 +107,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "v3.1.0 targets only Neon Studio. Updated reference CSS/JS, verified the exact concentric portrait/ring centers, used own cloned public portrait to avoid conflicting theme transitions, resolved lower nameplate collisions, restored six icon tiles, hid redundant top status band, and corrected mobile header offscreen selectors while retaining on-menu access. Other themes' source styling and production backend unchanged.",
+    "notes": "v3.2 preview Neon Studio-only visual parity: removed redundant thin utility strip, preserved navigation, restored concentric 3-ring portrait, five crisp SVG orbit medallions, relocated identity pill below ring, removed inherited layout transitions, adjusted tablet spacing, and restored six WebStudio feature tabs. Browser geometry passed across four widths; untouched other five themes and production branch. No change to private backend or requests.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "PASS: Neon Studio dedicated Chromium fidelity run 45192404272 across 1892/1440/820/390, 5 orbit badges, 6 functioning lower feature tiles, precision concentric portrait, disabled redundant status bar, accessible mobile dropdowns, no horizontal overflow, theme isolation. Cloudflare Pages hosted branch URL not independently verified.",
+    "testStatus": "PASS GitHub Actions 45199760779: Neon Studio full geometry and functionality in Chromium at 1892, 1440, 820, 390 px. Ring/caption/skill navigation and Editorial isolation pass. Full portfolio regression 45199761181 ongoing at time of record; Cloudflare live Pages deployment not yet verified.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -291,24 +297,35 @@
     },
     "neonStudioV31": {
       "theme": "neon-studio only",
-      "css": "neon-studio-reference-lock-v1.css?v=1.1.0",
-      "js": "webstudio-parity.js?v=neon-1.1.0",
-      "sourceOfReference": "owner's annotated 1892×957 WebStudio reference and original studio-design-one files",
-      "header": "tiny redundant portfolio-status strip hidden; primary navigation retained",
-      "portrait": "existing public image re-used with a precise neon 73%-diameter photo border",
-      "rings": "independent concentric cyan and violet rings, unaffected by older CSS transforms",
-      "badges": "five radial SVG medallions and labels; technical-support callout separated from identity pill",
-      "lowerSection": "WebStudio infinity information band and six functioning vector-icon feature tabs; no empty marquee",
-      "responsive": "390px native language/theme dropdowns remain accessible inside expanded Menu with no scrolling",
+      "css": "neon-studio-reference-lock-v1.css?v=1.2.0",
+      "js": "webstudio-parity.js?v=neon-1.2.0",
+      "sourceOfReference": "owner's annotated full-screen screenshot and close-up WebStudio Neon Studio composition",
+      "header": "redundant small status/preview strip hidden in Neon Studio only; sticky site navigation intact",
+      "portrait": "original public image, circular cyan glowing border, concentric at all 4 viewports",
+      "rings": "434px cyan outer / ~365px violet middle / ~317px public portrait at 1892px, centered",
+      "badges": "5 vector-icon orbital callouts, validated non-overlap, no boxed approximate labels",
+      "lowerSection": "infinity summary band plus six populated clickable skill tabs, no empty ticker/gaps",
+      "responsive": "precise viewport-specific ring sizes, tablet height/caption clearance corrected, mobile icon-first orbit and menu controls",
       "browsersVerified": [
-        "1892x957",
-        "1440x900",
-        "820x900",
-        "390x844"
+        "1892×957",
+        "1440×900",
+        "820×900",
+        "390×844"
       ],
-      "browserRunId": 45192404272,
-      "verified": "GitHub Actions Chromium 4/4 geometries, 5 callouts, 6 feature tabs, mobile dropdowns, no horizontal overflow and Editorial theme isolation PASSED",
-      "cloudflareDeploymentVerified": false
+      "browserRunId": 45199760779,
+      "verified": "SUCCESS: GitHub Actions 45199760779 actual Chromium checks across four widths, no overlapping identity/band, no horizontal scrolling, header strip hidden, all SVG badges/tabs, other-theme isolation",
+      "cloudflareDeploymentVerified": false,
+      "version": "3.2.0",
+      "nameplate": "12–14px BELOW outer ring at all widths; clears next skills band",
+      "issueRootCause": "Inherited theme-change CSS transitions temporarily overrode stable layout dimensions even when the target rules were !important; transitions disabled for Neon-only geometry, not for orbit visual accents",
+      "geometry": {
+        "referenceRingPx": 434,
+        "referenceCaptionGapPx": 14,
+        "tabletCaptionClearancePx": 31,
+        "mobileCaptionClearancePx": 35,
+        "featureTabs": 6,
+        "orbitalBadges": 5
+      }
     }
   }
 }
