@@ -190,7 +190,7 @@ jobs:
                         const bg=getComputedStyle(card).backgroundColor;
                         const fg=getComputedStyle(heading).color;
                         const luminance=css=>{
-                          const nums=css.match(/\\d+(?:\\.\\d+)?/g).slice(0,3).map(Number).map(x=>x/255);
+                          const nums=css.match(/\d+(?:\.\d+)?/g).slice(0,3).map(Number).map(x=>x/255);
                           const a=nums.map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);
                           return .2126*a[0]+.7152*a[1]+.0722*a[2];
                         };
@@ -198,7 +198,7 @@ jobs:
                         return {ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05),background:getComputedStyle(section).backgroundImage};
                       });
                       assert.ok(contrast.ratio>=7,'Editorial capabilities card text lacks contrast: '+JSON.stringify(contrast));
-                      assert.match(contrast.background,/247,\\s*242,\\s*233/,'Editorial section must use warm light paper, not inherited dark green');
+                      assert.match(contrast.background,/247,\s*242,\s*233/,'Editorial section must use warm light paper, not inherited dark green');
                     }
                     const snapshot=await page.evaluate(()=>{
                       const hero=document.querySelector('.hero');
