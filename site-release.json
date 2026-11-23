@@ -65,7 +65,8 @@
     "native-video-popup-muted-autoplay-and-controls",
     "video-poster-and-graceful-asset-fallback",
     "reproducible-github-intro-video-render-pipeline",
-    "floating-quick-actions-animations-only-on-interaction"
+    "floating-quick-actions-animations-only-on-interaction",
+    "intro-video-accessible-english-chapter-captions"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -79,9 +80,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Preview only. Added completed original nine-chapter professional introduction, locally downloadable 720p MP4, original music/SFX, reproducible Actions renderer and matching poster. Intro Video popup now supports first-party HTML5 muted autoplay with controls, YouTube override, load-failure fallback and playback stop on close. Quick Actions orb has no perpetual idle animation; glow sweep fires only on interaction. No private CV documents or production backend involved. Preview publication of the binary is gated on actual successful CI branch push and Cloudflare asset readback.",
+    "notes": "Preview only: Nine-chapter cinematic professional introduction with original music/SFX, English captions, poster and GitHub-published MP4. Intro Video popup uses same-origin native HTML5 autoplay muted with controls and can prioritize approved YouTube link if one is later configured. Quick Actions has no idle continuous animation; one-shot interaction effects only. Branch media publication verified; Cloudflare runtime not verified; no production promotion or private CV/Worker access.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "PASS: 44-second actual 720p H.264/AAC artifact decoded locally; GitHub Actions rendering, metadata, full decode and ZIP artifact upload passed. BLOCKED: committing generated MP4 to preview branch due HEAD race (retry fix underway). UI source and browser test code updated; live Pages media playback not yet confirmed.",
+    "testStatus": "PASS: Original 44-second 720p H.264/stereo AAC film decoded locally; GitHub Actions 45111608800 rendered, probed and decoded, uploaded artifact and committed MP4 to preview branch (blob size 2,479,201 B). Source assertions passed in preview CI; independent media validator rerunning with FFprobe installed. Live Cloudflare Pages and browser playback not verified.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -167,7 +168,7 @@
       "fullBrowserTests": "CircleCI geometric, computed-style and preview guards (scheduled by CI, not yet executed)"
     },
     "smartGuide": {
-      "source": "personal-smart-navigation-v1.js?v=1.2.0",
+      "source": "personal-smart-navigation-v1.js?v=1.2.1",
       "placement": "compact 58px circular bottom-right floating orb (52px mobile)",
       "logic": "deterministic section-in-view suggestions and visitor-only theme links; no profiling, analytics, network requests, or global changes",
       "accessibility": "aria-expanded, Escape to close, same existing visitor Quick Actions controls",
@@ -176,13 +177,13 @@
       "contextualSuggestions": true,
       "style": "personal-smart-navigation-v1.css?v=1.1.2",
       "idleAnimation": false,
-      "interactionAnimation": "single 1.15-second visual sweep on hover/focus or open, reduced-motion disables"
+      "interactionAnimation": "single nonrepeating rim sweep on hover/focus/click; reduced-motion disables"
     },
     "introVideo": {
       "source": "personal-smart-navigation-v1.js?v=1.0.0",
       "configuration": "<meta name=\"portfolio-intro-youtube-url\" content=\"\">",
       "ownerApprovedYouTubeUrlProvided": false,
-      "playbackStatus": "local 720p MP4 complete; preview CI successfully rendered and uploaded artifact but branch binary push collided with subsequent UI commits; workflow retry being repaired",
+      "playbackStatus": "Finished MP4 verified on GitHub preview branch; popup wired to same-origin asset path, Cloudflare deployment and browser playback remain unconfirmed",
       "autoplayWhenConfigured": "same-origin HTML5 MP4 auto-muted with controls; validated YouTube embed remains optional",
       "safety": "strictly allow HTTPS YouTube video IDs; no channel URLs; iframe only created on opening, removed on close; popup traps focus",
       "browserVerified": false,
@@ -196,12 +197,13 @@
       "codecs": "H.264 / stereo AAC",
       "originalMusicAndSoundEffects": true,
       "localOutputVerified": true,
-      "githubActionsRunId": 45111247382,
+      "githubActionsRunId": 45111608800,
       "githubActionsVideoDecodeVerified": true,
       "githubActionsArtifactPublished": true,
-      "githubPreviewBranchMp4Verified": false,
+      "githubPreviewBranchMp4Verified": true,
       "cloudflareDeploymentVerified": false,
-      "browserPopupPlaybackVerified": false
+      "browserPopupPlaybackVerified": false,
+      "captions": "media/sudip-das-professional-introduction.en.vtt"
     },
     "layoutRepair": {
       "scope": "foundation title and matching two-card experience, quick launcher no longer crowds sticky header",
