@@ -23,7 +23,7 @@ assert.match(js,/button\.addEventListener\('pointerenter'/);
 assert.match(js,/button\.addEventListener\('pointerleave',closePreview\)/);
 assert.match(js,/button\.addEventListener\('focus',openPreview\)/);
 assert.match(js,/button\.addEventListener\('blur',closePreview\)/);
-assert.match(js,/if\(previewActive\|\|motionReduced\.matches\|\|!modal\.hidden\)return/);
+assert.match(js,/if\(previewActive\|\|suppressPreviewFocus\|\|motionReduced\.matches\|\|!modal\.hidden\)return/);
 assert.match(js,/previewClip\.removeAttribute\('src'\)/);
 assert.match(js,/heroActions\.append\(preview\)/);
 assert.match(css,/grid-template-columns:repeat\(2,minmax\(0,1fr\)\)!important/);
