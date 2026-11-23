@@ -40,6 +40,13 @@ body.ws-parity[data-theme="editorial"] .capabilities .cap:is(:hover,:focus-withi
 body.ws-parity[data-theme="editorial"] .capabilities a{
  color:#176d50!important;
 }
+/* If the reveal observer has not fired while visiting #contact,
+ * Editorial still presents essential section content at full opacity. */
+body.ws-parity[data-theme="editorial"] .capabilities .section-head.reveal,
+body.ws-parity[data-theme="editorial"] .capabilities .cap.reveal{
+ opacity:1!important;
+ transform:none!important;
+}
 @media(prefers-reduced-motion:reduce){
  body.ws-parity[data-theme="editorial"] .capabilities .cap{
   transition:none!important;
