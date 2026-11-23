@@ -99,14 +99,14 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption 
 }
 /* Reference-concentric right-side medallions.
    All five icon CENTERS lie on one exact mathematical circle, with shared
-   radius = the visible outer ring radius + 36px. The bubbles are 40px wide,
-   leaving a consistent 16px clear gap between the OUTER ring perimeter and
+   radius = the visible outer ring radius + 30px. The bubbles are 40px wide,
+   leaving a consistent 10px clear gap between the OUTER ring perimeter and
    the icon bubble edge. Angles -31, -16, 0, +16, +31 degrees closely follow
    the original WebStudio reference screenshot. No label rotation. */
 @media(min-width:1100px){
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip,
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-orbit-chip[data-pos]{
-    --ref-orbit-radius:calc(var(--wf-orbit-size) * .5 + 36px);
+    --ref-orbit-radius:calc(var(--wf-orbit-size) * .5 + 30px);
     position:absolute!important;
     left:50%!important;
     top:50%!important;
