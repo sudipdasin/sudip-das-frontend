@@ -20,7 +20,8 @@ body.ws-parity .hero .actions > button {
   width:100%;
   max-width:100%;
   min-width:0!important;
-  min-height:61px;
+  /* Higher specificity than legacy .hero .actions .button on phones. */
+  min-height:64px!important;
   height:100%;
   padding:11px 13px!important;
   margin:0!important;
@@ -160,7 +161,7 @@ body.ws-parity .pv-intro-hover-caption small{
   body.ws-parity .hero .actions{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
   body.ws-parity .hero .actions > a,
   body.ws-parity .hero .actions > button{
-    min-height:63px;
+    min-height:64px!important;
     padding:10px 8px!important;
     font-size:.77rem;
     line-height:1.28;
