@@ -74,6 +74,33 @@ try{
       };
     });
     console.log('NEON_CSS_DIAGNOSTIC',JSON.stringify(cssDiag));
+    const heroComputed=await page.evaluate(()=>{
+      const hero=document.querySelector('main>.hero'),art=hero.querySelector('.hero-art');
+      return {
+        viewport:innerWidth,bodyTheme:document.body.dataset.theme,
+        paddingBottom:getComputedStyle(hero).paddingBottom,
+        paddingTop:getComputedStyle(hero).paddingTop,
+        heroHeight:getComputedStyle(hero).height,
+        heroMinHeight:getComputedStyle(hero).minHeight,
+        artHeight:getComputedStyle(art).height,
+        artMinHeight:getComputedStyle(art).minHeight,
+        heroInline:hero.getAttribute('style'),artInline:art.getAttribute('style'),
+        rules:[...document.styleSheets].flatMap(sheet=>{
+          let rules=[];try{rules=[...sheet.cssRules]}catch{}
+          return rules.flatMap(rule=>{
+            const stack=rule.cssRules?[...rule.cssRules]:[rule];
+            return stack.filter(q=>q.selectorText&&
+              (q.selectorText.includes('main>.hero')||q.selectorText.includes('main > .hero')))
+              .filter(q=>{try{return hero.matches(q.selectorText)}catch{return false}})
+              .map(q=>({sheet:sheet.href?.split('/').at(-1)||'inline',
+                media:rule.conditionText||'',rule:q.selectorText.slice(0,90),
+                pad:q.style.getPropertyValue('padding'),padBottom:q.style.getPropertyValue('padding-bottom'),
+                height:q.style.getPropertyValue('height'),minHeight:q.style.getPropertyValue('min-height')}))
+          })
+        }).filter(q=>q.pad||q.padBottom||q.height||q.minHeight).slice(-22)
+      };
+    });
+    console.log('NEON_HERO_STYLE',JSON.stringify(heroComputed));
     const report=await page.evaluate(()=>{
       const selector=query=>document.querySelector(query);
       const rect=el=>{const r=el.getBoundingClientRect();return {
