@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-visitor-themes-v1.2.0-preview",
+  "release": "webstudio-personal-visitor-themes-v1.2.1-preview",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -17,7 +17,9 @@
     "visitor-theme-library-read-only",
     "read-only-theme-card-preview",
     "editorial-archived-original-unchanged",
-    "aurora-only-component-isolation"
+    "aurora-only-component-isolation",
+    "sticky-visible-theme-launcher",
+    "cloudflare-access-safe-static-theme-catalog"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -31,9 +33,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Single owner-authenticated personal-site preview. The new visitor-only Theme Library changes local presentation only and is accessed from existing Quick Actions; no fictional demo editor, user login changes, form submission, private source, or production API. Aurora-only components mount only for Neon Studio. The preferred Editorial design remains archived and CSS source unchanged. CircleCI/Chromium visual verification is deferred due to exhausted credits; production promotion remains unauthorized.",
+    "notes": "The visitor Theme Gallery launcher is directly visible beside Quick Actions in the sticky header, including at #contact. Former gallery was buried inside a closed menu and requested its catalog with credentials omitted, which could fail on Cloudflare Access protected previews. Theme data is now strictly bundled and verified against the saved six-theme catalog; zero runtime HTTP requests are needed. Frozen Editorial hero/style and all real personal data remain unchanged; server owner management absent and private requests disabled. Browser/CI visual acceptance still pending because CircleCI credits exhausted.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "source-checks-only; CircleCI credits exhausted; Chromium visual tests not executed",
+    "testStatus": "source contracts and isolated gallery-runtime smoke; Cloudflare deployment must be checked on merged SHA; real Chromium/CircleCI acceptance pending",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5"
   }
