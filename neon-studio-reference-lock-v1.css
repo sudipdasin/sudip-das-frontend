@@ -753,3 +753,47 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precise-ring,
 body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precision-portrait {
   transition:none!important;
 }
+
+/* Personal preview — desktop Neon Studio owner visual correction, 2026-11-23.
+   Theme isolated; no mobile/tablet, Editorial or production changes.
+   The diagonal pseudo-element arc crossed the actual professional bio. */
+@media (min-width:1100px) {
+  body.ws-parity[data-theme="neon-studio"] main>.hero::after {
+    content:none!important;
+    display:none!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-text {
+    position:relative;
+    z-index:5;
+    min-width:0;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-copy {
+    position:relative;
+    z-index:5;
+    max-width:min(100%,565px);
+    color:#d5e6f5;
+    text-shadow:0 1px 7px #0113279c;
+    background:linear-gradient(90deg,#041b31b8,transparent 94%);
+    border-radius:0 10px 10px 0;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .actions {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    width:100%;
+    max-width:545px;
+    align-items:stretch;
+  }
+  body.ws-parity[data-theme="neon-studio"] main>.hero .actions > :is(a,button) {
+    width:100%;
+    min-width:0;
+    min-height:52px;
+    box-sizing:border-box;
+    margin:0!important;
+    justify-content:center;
+    text-align:center;
+    white-space:normal;
+  }
+}
