@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-visitor-themes-v1.2.1-preview",
+  "release": "webstudio-personal-preview-v1.3.0-footer-contrast",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -19,7 +19,12 @@
     "editorial-archived-original-unchanged",
     "aurora-only-component-isolation",
     "sticky-visible-theme-launcher",
-    "cloudflare-access-safe-static-theme-catalog"
+    "cloudflare-access-safe-static-theme-catalog",
+    "editorial-capabilities-wcag-contrast",
+    "webstudio-powered-footer-showcase",
+    "webstudio-interactive-demo-link",
+    "webstudio-email-interest-expandable",
+    "webstudio-interest-secure-api-staged-disabled"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -33,10 +38,28 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "The visitor Theme Gallery launcher is directly visible beside Quick Actions in the sticky header, including at #contact. Former gallery was buried inside a closed menu and requested its catalog with credentials omitted, which could fail on Cloudflare Access protected previews. Theme data is now strictly bundled and verified against the saved six-theme catalog; zero runtime HTTP requests are needed. Frozen Editorial hero/style and all real personal data remain unchanged; server owner management absent and private requests disabled. Browser/CI visual acceptance still pending because CircleCI credits exhausted.",
+    "notes": "Personal preview only. Editorial capabilities contrast fixed with a separately scoped CSS override; original favorite Editorial hero/saved source untouched. WebStudio-made footer now showcases approved public WebStudio demo and expanding email-only interest CTA. Current CTA opens mail client to compose, does NOT send automatically. Dedicated Pages Function endpoint is staged fail-closed, disabled by default until preview Turnstile, isolated D1 limits, HMAC Gmail bridge secrets and live delivery are configured and tested. Public production API remains disconnected, private requests disabled, no owner settings exposed. CircleCI full browser tests pending credits.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "source contracts and isolated gallery-runtime smoke; Cloudflare deployment must be checked on merged SHA; real Chromium/CircleCI acceptance pending",
+    "testStatus": "Source inspections, syntax/contract checks and Cloudflare build check required; CircleCI and authenticated browser pending credits",
     "themeLibrarySource": "theme-visual-contract.json",
-    "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5"
+    "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
+    "webStudioInterest": {
+      "visible": true,
+      "mode": "email_client_compose_only",
+      "automatedEmailDeliveryVerified": false,
+      "serverEndpoint": "/api/webstudio-interest",
+      "serverEnabled": false,
+      "requiredBindings": [
+        "WEBSTUDIO_INTEREST_ENABLED",
+        "WEBSTUDIO_INTEREST_APPROVED_HOST",
+        "OWNER_EMAIL",
+        "MAIL_BRIDGE_URL",
+        "MAIL_BRIDGE_SECRET",
+        "TURNSTILE_SECRET_KEY",
+        "WEBSTUDIO_RATE_SALT",
+        "INTEREST_DB"
+      ]
+    },
+    "contrastAudit": "scoped Editorial capabilities patch; source WCAG contrast verified only; full Chromium pending"
   }
 }
