@@ -89,6 +89,36 @@
   // compositions. Labels refer ONLY to existing approved portfolio skill areas.
   // Aurora Studio: five compact role badges; Cosmic: four circular satellites;
   // remaining four themes: three restrained labels. No fictional/demo content.
+
+  // Locally defined vector symbols; no external icon fonts or network.
+  const namespace='http://www.w3.org/2000/svg';
+  const shapes={
+    database:['ellipse|12 5 9 3','path|M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5','path|M3 12c0 1.7 4 3 9 3s9-1.3 9-3'],
+    terminal:['rect|3 4 18 16 2','path|m7 9 3 3-3 3','path|M12 16h5'],
+    layers:['path|m12 3 9 5-9 5-9-5 9-5Z','path|m3 12 9 5 9-5','path|m3 16 9 5 9-5'],
+    sparkle:['path|m12 3 1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6L12 3Z','path|m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z'],
+    headset:['path|M4 13v-2a8 8 0 0 1 16 0v2','rect|3 12 4 8 2','rect|17 12 4 8 2','path|M21 19c0 2-3 3-7 3h-2'],
+    chart:['rect|3 3 18 18 2','path|M7 16v-3M12 16V8M17 16v-5'],
+    refresh:['path|M20 11a8 8 0 0 0-14-5L3 9','path|M3 4v5h5','path|M4 13a8 8 0 0 0 14 5l3-3','path|M21 20v-5h-5']
+  };
+  const vectorIcon=kind=>{
+    const svg=document.createElementNS(namespace,'svg');
+    for(const [key,val] of Object.entries({'viewBox':'0 0 24 24',
+      'fill':'none','stroke':'currentColor','stroke-width':'1.7',
+      'stroke-linecap':'round','stroke-linejoin':'round','aria-hidden':'true',
+      'focusable':'false'}))svg.setAttribute(key,val);
+    for(const item of (shapes[kind]||shapes.layers)){
+      const [type,value]=item.split('|');
+      const el=document.createElementNS(namespace,type);
+      if(type==='path')el.setAttribute('d',value);
+      else{
+        const keys=type==='rect'?['x','y','width','height','rx']:['cx','cy','rx','ry'];
+        value.split(' ').forEach((v,i)=>el.setAttribute(keys[i],v));
+      }
+      svg.append(el);
+    }
+    return svg;
+  };
   const art = document.querySelector('.hero-art');
   if (art) {
     const skills = [
@@ -110,7 +140,10 @@
         chip.setAttribute('aria-label', name);
         chip.setAttribute('aria-hidden', 'true');
         if (isAuroraReference) {
-          chip.append(node('span', 'ws-orbit-glyph', glyph), node('span', 'ws-orbit-label', name));
+          const symbol={a:'database',b:'terminal',c:'layers',d:'sparkle',e:'headset'}[position];
+          const bubble=node('span','ws-orbit-glyph');
+          bubble.append(vectorIcon(symbol));
+          chip.append(bubble,node('span','ws-orbit-label',name));
         } else if (!isCosmic) {
           chip.prepend(node('i'));
         }
@@ -154,12 +187,14 @@
     bandIntro.append(bandCopy);
     band.append(bandIntro);
     const details = node('div', 'ws-aurora-band-details');
-    for (const [icon, label] of [
-      ['⌘', 'Linux & desktop'], ['◎', 'Systems & CRM'],
-      ['◇', 'Technical support'], ['✦', 'Creative technology']
-    ]) {
-      const detail = node('span', 'ws-aurora-mini-detail');
-      detail.append(node('span', 'ws-aurora-mini-icon', icon), node('span', '', label));
+    for(const [kind,label] of [
+      ['terminal','Linux & desktop'],['database','Systems & CRM'],
+      ['headset','Technical support'],['sparkle','Creative technology']
+    ]){
+      const detail=node('span','ws-aurora-mini-detail');
+      const icon=node('span','ws-aurora-mini-icon');
+      icon.append(vectorIcon(kind));
+      detail.append(icon,node('span','',label));
       details.append(detail);
     }
     band.append(details);
@@ -167,14 +202,18 @@
 
     const featureGrid = node('nav', 'ws-aurora-feature-grid');
     featureGrid.setAttribute('aria-label', 'Portfolio areas');
-    const sixSkills = [...ticker.querySelectorAll('.ticker-in > span')].slice(0, 6);
-    const featureIcons = ['⬡', '◇', '≋', '◎', '⇄', '▦'];
+    // The live ticker groups its spans; the previous direct-child selector
+    // matched nothing and silently removed all six Aurora feature tabs.
+    const sixSkills=[...ticker.querySelectorAll('.ticker-in .ticker-group:first-child > span')].slice(0,6);
+    const featureIcons=['database','terminal','layers','headset','refresh','chart'];
     const featureLinks = ['#projects', '#capabilities', '#experience', '#experience', '#capabilities', '#projects'];
     sixSkills.forEach((skill, index) => {
       const link = node('a', 'ws-aurora-feature');
       link.href = featureLinks[index];
       const label = skill.textContent.replace(/[✳✱*]/g, '').trim();
-      link.append(node('span', 'ws-aurora-feature-icon', featureIcons[index]));
+      const icon=node('span','ws-aurora-feature-icon');
+      icon.append(vectorIcon(featureIcons[index]));
+      link.append(icon);
       const copy = node('span', 'ws-aurora-feature-copy');
       copy.append(node('strong', '', label), node('small', '', index < 2 ? 'Explore practical work' : 'View experience'));
       link.append(copy);
