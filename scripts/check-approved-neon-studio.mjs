@@ -31,6 +31,17 @@ for(const asset of freeze.protectedFiles){
     failures++;
   }else console.log('OK '+asset.path+(expected!==asset.blobSha?' (owner-authorized preview geometry)':''));
 }
+// Verify the explicitly authorized new header-only overlay by exact Git blob
+// hash; the original approved five visual assets stay protected separately.
+const header=variation?.headerBrandVariation;
+if(header?.asset&&header.productionApproved===false){
+  const bytes=readFileSync(join(root,header.asset));
+  const gitSha=createHash('sha1').update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex');
+  if(gitSha!==header.blobSha){
+    console.error('CHANGED HEADER STYLE: '+header.asset+' got '+gitSha);
+    failures++;
+  }else console.log('OK approved header alignment '+header.asset);
+}
 const html=readFileSync(join(root,'index.html'),'utf8');
 for(const required of [
   '<body class="ws-parity" data-theme="neon-studio" data-approved-theme="neon-studio">',
@@ -39,6 +50,8 @@ for(const required of [
   'personal-neon-portrait-refinement-v1.css?v=1.4.0',
   'webstudio-parity.js?v=neon-1.4.3',
   'personal-neon-nameplate-fit-v1.css?v=1.1.0',
+  'personal-neon-header-reference-v1.css?v=1.0.0',
+  '<span class="brand-name">Sudip Das</span>',
   'window.PORTFOLIO_PREVIEW_MODE=true'
 ]){
   if(!html.includes(required)){console.error('MISSING NEON/SAFETY RULE: '+required);failures++;}

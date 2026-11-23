@@ -160,7 +160,20 @@
       "nameplateStyleAsset": "personal-neon-nameplate-fit-v1.css",
       "beforeNameplateBackup": "backup/neon-v3.9.4-before-nameplate-refine-2026-11-24",
       "nameplateStyleBlobSha": "bd8bee2549913cb84faa15283fbc6dba5d3a7477",
-      "beforeReferenceOverlapBackup": "backup/neon-v3.9.5-before-reference-intersection-2026-11-24"
+      "beforeReferenceOverlapBackup": "backup/neon-v3.9.5-before-reference-intersection-2026-11-24",
+      "headerBrandVariation": {
+        "approvedAt": "2026-11-24",
+        "request": "Align preview brand with screenshot reference: bold name plus cyan WEB STUDIO second line, large SD monogram aligned left.",
+        "originalPreviewCommit": "9bc882935586c21e5f83bed825c334411cacdaf1",
+        "backupBranch": "backup/neon-v3.9.6-before-header-alignment-2026-11-24",
+        "asset": "personal-neon-header-reference-v1.css",
+        "blobSha": "7d8ebb20a2528fc610c76d1b2fb983dde34398d0",
+        "previewOnly": true,
+        "productionApproved": false,
+        "scope": "Neon Studio header wordmark and monogram only. Existing hero eyebrow remains its own badge beneath header.",
+        "referenceCaption": "Dev Das + WEB STUDIO; real owner identity remains Sudip Das + SD.",
+        "status": "Source-level geometry/safety checked; independent browser screenshot verification pending"
+      }
     }
   }
 }
