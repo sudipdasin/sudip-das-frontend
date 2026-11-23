@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="ttl desc">
+<title id="ttl">Sudip Das — professional introduction</title><desc id="desc">Cinematic teal-and-navy technology background with orbit lines and professional introduction title.</desc>
+<defs>
+ <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071322"/><stop offset=".53" stop-color="#123445"/><stop offset="1" stop-color="#101c2f"/></linearGradient>
+ <linearGradient id="line" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#70f2dc"/><stop offset=".55" stop-color="#ad9ef8"/><stop offset="1" stop-color="#f5b98c"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#3af2cd" stop-opacity=".27"/><stop offset="1" stop-color="#3af2cd" stop-opacity="0"/></radialGradient>
+ <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#8de6db" stroke-opacity=".065"/></pattern>
+</defs>
+<rect width="1280" height="720" fill="url(#g)"/><rect width="1280" height="720" fill="url(#grid)"/>
+<ellipse cx="1010" cy="338" rx="340" ry="340" fill="url(#glow)"/>
+<g transform="translate(985 338)" fill="none">
+ <circle r="130" stroke="#65e7da" stroke-opacity=".6" stroke-width="2" stroke-dasharray="360 45 155 90"/>
+ <circle r="195" stroke="#a19afa" stroke-opacity=".48" stroke-width="2" stroke-dasharray="235 60 240 90"/>
+ <circle r="260" stroke="url(#line)" stroke-width="3" stroke-opacity=".75" stroke-dasharray="380 90 75 90"/>
+ <circle r="69" stroke="#65e7da" stroke-opacity=".52"/><circle r="46" fill="#104250" stroke="#91eade" stroke-width="2"/>
+</g>
+<text x="985" y="355" text-anchor="middle" fill="#dff9f2" font-family="Arial,sans-serif" font-size="49" font-weight="800">SD</text>
+<text x="74" y="110" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="#f0b78d">PROFESSIONAL INTRODUCTION</text>
+<path d="M74 131H274" stroke="#61eed7" stroke-width="4"/>
+<text x="70" y="303" font-family="Arial,sans-serif" font-size="75" font-weight="800" letter-spacing="-3" fill="#f2fbfc">TECHNOLOGY</text>
+<text x="70" y="385" font-family="Arial,sans-serif" font-size="75" font-weight="800" letter-spacing="-3" fill="#62f0d6">WITH PURPOSE.</text>
+<path d="M74 426H155" stroke="#f5b98c" stroke-width="4"/>
+<text x="74" y="486" font-family="Arial,sans-serif" font-size="23" fill="#c0d7df">Sudip Das · Technology professional &amp; independent builder</text>
+<text x="74" y="643" font-family="Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="2" fill="#c3dae0">SYSTEMS / SERVICE / PEOPLE / BUILDING</text>
+<rect x="0" y="714" width="1280" height="6" fill="#5eecd8"/>
+</svg>
