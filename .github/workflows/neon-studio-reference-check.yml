@@ -1,0 +1,47 @@
+name: Neon Studio visual fidelity (preview only)
+on:
+  push:
+    branches: [preview-personalweb]
+    paths:
+      - webstudio-parity.js
+      - neon-studio-reference-lock-v1.css
+      - index.html
+      - scripts/verify-neon-studio-visual.mjs
+      - .github/workflows/neon-studio-reference-check.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reference-fidelity:
+    name: One-theme Chromium fidelity / screenshots
+    if: github.ref == 'refs/heads/preview-personalweb'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preview-personalweb
+      - name: Install lean browser test dependency
+        run: npm install --no-save --no-package-lock --no-audit --no-fund playwright-core@1.57.0
+      - name: Validate source JavaScript syntax
+        run: |
+          node --check webstudio-parity.js
+          node --check scripts/verify-neon-studio-visual.mjs
+      - name: Compare Neon Studio reference geometry in Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          export CHROME_PATH="$(command -v google-chrome || command -v chromium)"
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/neon-studio-server.log 2>&1 &
+          PID=$!
+          trap 'kill "$PID" || true' EXIT
+          sleep 2
+          node scripts/verify-neon-studio-visual.mjs
+      - name: Retain browser screenshots for visual review
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: neon-studio-only-reference-screenshots
+          path: test-artifacts/neon-studio-*.png
+          if-no-files-found: ignore
+          retention-days: 21
