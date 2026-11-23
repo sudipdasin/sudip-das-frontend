@@ -919,8 +919,10 @@ body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precision-portrait 
 }
 /* Keep explicit motion-off and OS accessibility preferences effective. */
 @media (prefers-reduced-motion:reduce) {
-  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art :is(.ws-neon-precise-outer,.ws-neon-precise-inner),
-  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art :is(.ws-neon-precise-outer::after,.ws-neon-precise-inner::before) {
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer,
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner,
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-outer::after,
+  body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .ws-neon-precise-inner::before {
     animation:none!important;
     rotate:0deg!important;
     filter:none!important;
