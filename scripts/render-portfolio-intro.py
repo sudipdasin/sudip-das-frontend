@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Original, self-contained, offline 1280x720 portfolio introduction.
+"""Original v2.1, self-contained, offline 1280x720 portfolio introduction.
 Content is sourced from approved public sudip-das-frontend portfolio copy.
 No private CV details, external music, proprietary logos, or network access.
 Usage: python portfolio_intro_render.py [--seconds 44] [--fps 24]
@@ -215,6 +215,41 @@ scenes=[
 
 WARM_N=(251,186,141)
 
+# V2.1: proof details sourced from the published public portfolio; no
+# fictional company claims, private history, or external media.
+PUBLIC_EVIDENCE=[
+ 'TECHNOLOGY, BUILT FOR PEOPLE',
+ '1,000+ CRM USERS SUPPORTED ACROSS REGIONS',
+ 'TEAMS OF 5 TO 20+',
+ '200+ USERS SERVED BY A CUSTOM MIS',
+ 'LINUX DESKTOP AND SYSTEM TOOLS',
+ 'CREATIVE SOFTWARE IN DEVELOPMENT',
+ 'OPEN SOURCE / COMMUNITY CONTRIBUTIONS',
+ 'TECHNICAL DEPTH + HUMAN JUDGMENT',
+ 'GITHUB.COM/SUDIPDASIN'
+]
+
+def draw_chapter_signature(draw,scene,local,dur,t):
+ visibility=out((local-.45)/.6)*ease((dur-local)/.45)
+ label=PUBLIC_EVIDENCE[scene]
+ width=draw.textbbox((0,0),label,font=FB[16])[2]
+ right=min(680,max(340,104+width))
+ endpoint=76+(right-76)*visibility
+ draw.rounded_rectangle((75,551,endpoint,590),radius=8,
+   fill=(12,42,55,int(175*visibility)),
+   outline=(80,181,186,int(105*visibility)),width=1)
+ if visibility>.34:text(draw,(92,562),label,FB[16],INK)
+ # Chapter navigation is legible without sound. The current part glows.
+ for i in range(9):
+  x=76+i*46
+  col=TEAL if i==scene else ((130,178,187) if i<scene else (75,113,127))
+  w=32 if i==scene else 21
+  draw.rounded_rectangle((x,611,x+w,615),radius=2,
+    fill=rgb(col,226 if i==scene else 115))
+ sweep=out(local/.68)
+ draw.rounded_rectangle((1150,610,1150+int(54*sweep),612),
+   radius=1,fill=rgb(WARM,172))
+
 def draw_title(draw,scene,tlocal,dur,h1,h2,subtitle,chapter):
  entrance=out((tlocal-.12)/.68)
  exitv=ease((dur-tlocal)/.64)
@@ -260,6 +295,14 @@ def draw_frame(n):
  draw_top.rectangle((0,0,W,5),fill=(39,85,104,135))
  draw_top.rounded_rectangle((0,0,int(W*((t/DUR))),5),radius=2,fill=rgb(TEAL,240))
  draw_title(d,si,local,dur,h1,h2,subtitle,eyebrow)
+ draw_chapter_signature(d,si,local,dur,t)
+ # Very brief turquoise light-travel wipe between chapters, underneath
+ # the existing charcoal crossfade and without harsh flashes.
+ if local<.52:
+  fade=1-ease(local/.52)
+  x=int(-190+(W+380)*ease(local/.52))
+  d.polygon([(x-38,0),(x+48,0),(x-76,H),(x-152,H)],
+    fill=(118,231,219,int(37*fade)))
  # crossfade scene entrance and exit with a charcoal tint, not a hard cut
  alpha=fade_window(local,dur)
  if alpha<.99:d.rectangle((0,0,W,H),fill=(4,12,22,int(255*(1-alpha)*.92)))
@@ -340,6 +383,13 @@ def make_audio(duration,filename):
   nn=int(1.1*sr);t2=np.arange(nn,dtype=np.float32)/sr
   chime=(np.sin(2*np.pi*880*t2)+.42*np.sin(2*np.pi*1320*t2))*np.exp(-t2*4.1)
   add(chime,cut+.04,pan=.35,gain=.036)
+ # Original low-frequency sonic emblems at the opening and final invitation.
+ for stamp in (0.05,39.8):
+  nn=int(1.45*sr);ts=np.arange(nn,dtype=np.float32)/sr
+  sweep_freq=55+110*np.exp(-ts*3.2)
+  phase=2*np.pi*np.cumsum(sweep_freq)/sr
+  impact=(np.sin(phase)+.2*np.sin(2*phase))*np.exp(-ts*3.1)
+  add(impact,stamp,pan=0,gain=.055 if stamp<1 else .042)
  # subtle atmospheric air, gain ramps in/out
  for ch in range(2):
   noise=rnd.normal(0,1,N).astype(np.float32)
@@ -361,7 +411,7 @@ if __name__=='__main__':
  print('RENDERING',W,'x',H,FPS,'FPS duration',DUR,flush=True)
  ff=subprocess.Popen(['ffmpeg','-hide_banner','-loglevel','error','-y','-f','rawvideo','-vcodec','rawvideo',
   '-pixel_format','rgb24','-video_size',f'{W}x{H}','-framerate',str(FPS),'-i','-','-an',
-  '-c:v','libx264','-preset','veryfast','-crf','22','-pix_fmt','yuv420p','-movflags','+faststart',str(video)],stdin=subprocess.PIPE)
+  '-c:v','libx264','-preset','veryfast','-crf','18','-pix_fmt','yuv420p','-movflags','+faststart',str(video)],stdin=subprocess.PIPE)
  try:
   for n in range(int(DUR*FPS)):
    im=draw_frame(n)
