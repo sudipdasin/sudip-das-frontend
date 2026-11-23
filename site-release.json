@@ -87,9 +87,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Preview only. v2.1 hero Intro Video is beside Interactive Portfolio, six distinct theme mini previews and a real-data project spotlight, with comparison collapsed by default. Cinematic film refined with site portrait, source-grounded CRM/team/MIS proof points, transitions, chapter progress and music/SFX. GitHub browser matrix passes desktop+mobile, source safety passes, video metadata passed. Cloudflare live deployment not independently confirmed; production/private requests unchanged.",
+    "notes": "Preview v2.1 delivered: cinematic first-party Intro Video button beside Interactive Portfolio, responsive accessible 6-theme portfolio gallery with real public featured project and compact comparison. 720p 44-sec original music film updated using publicly shown portrait and grounded CRM/team/MIS facts; original sounds and animated proof chapters. GitHub real Chromium desktop/mobile tests and actual muted playback pass. Main production, private profile request backend, DNS and secrets untouched; Cloudflare Pages rollout unverified.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "PASS: GitHub 720p video renderer/build+publication (45142369163), v2.1 source guards, independent Chromium functional tests at 1440×900 and 390×844, six differentiated themes, project carousel, comparison, intro popup, native media, captions and ffprobe metadata (45142889441). NOT VERIFIED: Cloudflare Pages branch rollout.",
+    "testStatus": "VERIFIED PASS: GitHub original video render+MP4 publication 45142369163; source safety + 1440x900/390x844 Chromium geometry, six unique theme preview cards, real public carousel, comparison, modal controls, actual 44s first-party video metadata, muted autoplay, captions, teardown and FFprobe video/audio validation in run 45143363433. NOT VERIFIED: Cloudflare Pages deployment.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -218,7 +218,7 @@
       "verifiedPublicProofPoints": true,
       "sourceGroundedChapterProgress": true,
       "quality": "H.264 CRF 18 1280x720 24fps 44 seconds",
-      "browserPopupPlaybackVerifiedScope": "local GitHub Actions preview server only: video source loaded, controls present and modal tears down; Cloudflare deployment still unverified"
+      "browserPopupPlaybackVerifiedScope": "actual Chromium playback on GitHub Actions local preview server; both desktop and mobile, asset loaded and begins playing muted; Cloudflare live hosting not verified."
     },
     "layoutRepair": {
       "scope": "foundation title and matching two-card experience, quick launcher no longer crowds sticky header",
@@ -248,10 +248,10 @@
         "Cosmic"
       ],
       "comparison": "collapsed by default; retains existing two-project source-grounded comparison",
-      "verification": "PASS: actual Chromium UI testing on 1440×900 desktop and 390×844 mobile, Editorial theme, six distinct previews, hero order, project browsing, comparison disclosure, native video modal, focus return, no horizontal overflow; GitHub Actions 45142889441",
+      "verification": "PASS: actual Chromium at 1440×900 and 390×844, project feature carousel, six different themes, comparisons, hero action order, first-party video loaded/44s metadata/muted playback/captions/teardown/focus return, no horizontal overflow.",
       "liveCloudflareDeploymentVerified": false,
       "browserVerified": true,
-      "browserTestRunId": 45142889441
+      "browserTestRunId": 45143363433
     }
   }
 }
