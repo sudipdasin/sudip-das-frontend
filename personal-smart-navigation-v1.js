@@ -109,7 +109,7 @@
  const screen=byId('pv-intro-screen');
  const empty=byId('pv-intro-empty');
  const close=byId('pv-intro-close');
- const banner=document.querySelector('.ws-utility');
+ const heroActions=document.querySelector('.hero .actions');
  function parseVideoId(raw){
   if(!raw)return null;
   let url;
@@ -125,16 +125,17 @@
   }else return null;
   return /^[a-zA-Z0-9_-]{11}$/.test(id)?id:null;
  }
- if(modal&&screen&&empty&&close&&banner){
+ if(modal&&screen&&empty&&close&&heroActions){
   const button=document.createElement('button');
   button.type='button';
   button.id='pv-intro-launch';
-  button.className='pv-intro-launch';
-  button.innerHTML='<span aria-hidden="true">▶</span> Intro video';
+  button.className='button pv-intro-launch pv-intro-hero-cta';
+  button.innerHTML='<span class="pv-intro-launch-play" aria-hidden="true">▶</span><span class="pv-intro-launch-copy"><strong>Watch my story</strong><small>44 sec · Original soundtrack</small></span>';
   button.setAttribute('aria-haspopup','dialog');
   button.setAttribute('aria-controls','pv-intro-modal');
   button.setAttribute('aria-expanded','false');
-  banner.insertBefore(button,banner.querySelector('.ws-utility-right'));
+  // Script runs after the gallery launcher: place the intro beside it.
+   heroActions.append(button);
   const videoId=parseVideoId(document.querySelector('meta[name="portfolio-intro-youtube-url"]')?.content?.trim()||'');
   const footnote=byId('pv-intro-footnote');
   const localIntro=document.querySelector('meta[name="portfolio-intro-mp4"]')?.content?.trim()||'';
