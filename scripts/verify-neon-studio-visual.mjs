@@ -46,7 +46,24 @@ try{
         outerMargin:getComputedStyle(outer).margin,
         outerTransform:getComputedStyle(outer).transform,
         coreSize:getComputedStyle(core).width,
-        supportsTranslate:CSS.supports('translate','-50% -50%')
+        supportsTranslate:CSS.supports('translate','-50% -50%'),
+        matchingRules:[...document.styleSheets].flatMap(sheet=>{
+          let rules=[];try{rules=[...sheet.cssRules]}catch{}
+          return rules.filter(x=>x.selectorText&&
+              (x.selectorText.includes('hero-art')||x.selectorText.includes('.orbit'))&&
+              (x.style?.getPropertyValue('min-height')||
+               x.style?.getPropertyValue('translate')||
+               x.style?.getPropertyValue('width')))
+           .filter(x=>{try{return art.matches(x.selectorText)||outer.matches(x.selectorText)}catch{return false}})
+           .map(x=>({
+             file:sheet.href?.split('/').at(-1)||'inline',selector:x.selectorText.slice(0,90),
+             width:x.style.getPropertyValue('width'),
+             minHeight:x.style.getPropertyValue('min-height'),
+             translate:x.style.getPropertyValue('translate'),
+             priority:x.style.getPropertyPriority('min-height')||
+               x.style.getPropertyPriority('translate')||x.style.getPropertyPriority('width')
+           }))
+        }).slice(-24)
       };
     });
     console.log('NEON_CSS_DIAGNOSTIC',JSON.stringify(cssDiag));
