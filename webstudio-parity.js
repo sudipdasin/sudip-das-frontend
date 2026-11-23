@@ -175,6 +175,10 @@
     if(existingPortrait)portraitLayer.append(existingPortrait.cloneNode(true));
     art.append(portraitLayer);
     const nameplate=art.querySelector('.portrait-caption');
+    // The standalone caption is personal content, not reference/demo copy.
+    // Only Neon Studio shortens it; all other themes retain the original.
+    const captionLabel=nameplate?.querySelector('span:last-child');
+    const originalCaption=captionLabel?.textContent||'';
     const managed=new Map();
     const setLocked=(el,prop,val)=>{
       if(!el)return;
@@ -185,11 +189,14 @@
     const clampValue=(low,value,high)=>Math.min(high,Math.max(low,value));
     const syncNeonRing=()=>{
       if(document.body.dataset.theme!=='neon-studio'){
+        if(captionLabel)captionLabel.textContent=originalCaption;
         for(const [el,props] of managed)
           for(const prop of props)el.style.removeProperty(prop);
         managed.clear();
         return;
       }
+      if(captionLabel&&captionLabel.textContent!=='Sudip Das')
+        captionLabel.textContent='Sudip Das';
       const vw=window.innerWidth;
       const diameter=vw<=600?clampValue(250,.70*vw,330):
         vw<=980?clampValue(290,.50*vw,415):
@@ -230,10 +237,12 @@
       setLocked(portraitLayer,'width',portrait+'px');
       setLocked(portraitLayer,'height',portrait+'px');
       setLocked(nameplate,'left','50%');
-      // Screenshot reference: nameplate begins just BELOW the cyan outer
-      // orbit, never halfway inside the lower ring. Keep its gap constant
-      // across viewport sizes rather than scaling the offset by 0.395.
-      setLocked(nameplate,'top','calc(50% + '+(diameter/2+(vw<=600?12:14))+'px)');
+      // Reference photo has a short name capsule INSIDE the lower outer
+      // circle, beneath the portrait. The orbit is centered independently
+      // and must NEVER rotate or move with this adjustment.
+      // At 250px ring size the 30px mobile capsule still fits the gap.
+      const capsuleInset=vw<=600?34:39;
+      setLocked(nameplate,'top','calc(50% + '+(diameter/2-capsuleInset)+'px)');
       setLocked(nameplate,'bottom','auto');
       setLocked(nameplate,'transform','translateX(-50%)');
     };
