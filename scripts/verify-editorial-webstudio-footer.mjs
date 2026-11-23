@@ -45,7 +45,7 @@ assert.match(contrast,/\.private-access\.request-grid input|\.private-access \.r
 assert.match(contrast,/background:#fffefa!important/);
 assert.match(contrast,/color:#172b22!important/);
 assert.match(contrast,/\.private-access \.request-grid label/);
-assert.match(contrast,/\.private-access \.request-consent input/);
+assert.match(contrast,/\.private-access :is\(\.radio-option input,\.request-consent input\)/);
 assert.match(contrast,/\.private-access \.vault-accordion/);
 assert.match(contrast,/\.private-access \.request-preview/);
 assert.ok(ratio('#172b22','#fffefa')>=7,'Editorial input text contrast too low');
