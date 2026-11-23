@@ -28,6 +28,7 @@
   labels.append(copy,subtitle);
   quickButton.replaceChildren(icon,labels);
   quickButton.setAttribute('aria-label','Quick actions — suggested next steps');
+  quickButton.title='Quick actions';
   const recommendation=document.createElement('div');
   recommendation.className='pv-smart-recommendation';
   recommendation.setAttribute('aria-label','Suggested next step based on the section in view');
