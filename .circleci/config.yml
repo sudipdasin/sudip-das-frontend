@@ -48,6 +48,9 @@ jobs:
             node scripts/verify-layout-flow.mjs
             node --check scripts/verify-editorial-finish.mjs
             node scripts/verify-editorial-finish.mjs
+            node --check personal-smart-navigation-v1.js
+            node --check scripts/verify-smart-navigation.mjs
+            node scripts/verify-smart-navigation.mjs
             node scripts/verify-aurora-reference-v2.mjs
             # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
@@ -141,6 +144,20 @@ jobs:
                   assert.equal(await page.locator('#profile-look-open').count(),0,'Appearance button publicly visible');
                   assert.equal(await page.locator('#profile-shortcuts-open').count(),0,'Advanced quick editor must not be visible');
                   assert.equal(await page.locator('#ws-visitor-quick-open').count(),1,'Visitor quick actions missing');
+                  assert.equal(await page.locator('body > .pv-smart-float').count(),1,'Quick actions must float outside header');
+                  assert.equal(await page.locator('body > .pv-smart-float').evaluate(el=>getComputedStyle(el).position),'fixed');
+                  assert.equal(await page.locator('#pv-intro-launch').count(),1,'Intro video button missing beside Interactive Portfolio');
+                  assert.equal(await page.locator('#pv-intro-modal').isVisible(),false,'Intro popup must start hidden');
+                  await page.locator('#pv-intro-launch').click();
+                  assert.equal(await page.locator('#pv-intro-modal').isVisible(),true,'Intro popup must open');
+                  assert.equal(await page.locator('#pv-intro-frame').count(),0,'No approved URL: do not load unrelated YouTube content');
+                  assert.ok((await page.locator('#pv-intro-empty').innerText()).includes('not published'),'Missing unconfigured-player explanation');
+                  await page.locator('#pv-intro-close').click();
+                  assert.equal(await page.locator('#pv-intro-modal').isVisible(),false,'Intro close failed');
+                  assert.equal(await page.evaluate(()=>document.activeElement.id),'pv-intro-launch','Intro must restore focus');
+                  await page.locator('#pv-intro-launch').click();
+                  await page.locator('#pv-intro-close').press('Escape');
+                  assert.equal(await page.locator('#pv-intro-modal').isVisible(),false,'Intro Escape failed');
                   await page.locator('#ws-visitor-quick-open').click();
                   assert.equal(await page.locator('#ws-visitor-quick-open').getAttribute('aria-expanded'),'true');
                   assert.equal(await page.locator('#ws-visitor-quick-panel a[href="#projects"]').count(),1);
@@ -427,11 +444,11 @@ jobs:
                           return {x:r.x+r.width/2-a.x-a.width/2,y:r.y+r.height/2-a.y-a.height/2};
                         });
                         const quick=document.querySelector('#ws-visitor-quick-open');
-                        return {chips:centers,quickDocked:quick?.parentElement?.parentElement?.matches('.topbar .nav'),navX:document.querySelector('.topbar .nav').getBoundingClientRect().left,position:getComputedStyle(quick?.parentElement).position};
+                        return {chips:centers,quickFloating:quick?.closest('.pv-smart-float')?.parentElement===document.body,navX:document.querySelector('.topbar .nav').getBoundingClientRect().left,position:getComputedStyle(quick?.closest('.pv-smart-float')).position};
                       });
                       assert.equal(orbit.chips.length,4,'Cosmic needs four satellites');
-                      assert.ok(orbit.quickDocked,'Quick Actions must be docked in header');
-                      assert.notEqual(orbit.position,'fixed','Quick Actions must not obscure content');
+                      assert.ok(orbit.quickFloating,'Quick Actions must be attached directly to body');
+                      assert.equal(orbit.position,'fixed','Quick Actions should stay near the viewport corner');
                       assert.ok(orbit.navX>=10,'Brand is flush against viewport edge');
                       assert.ok(orbit.chips[0].x>0&&orbit.chips[0].y<0,'Top satellite angle incorrect');
                       assert.ok(orbit.chips[1].x>0&&orbit.chips[1].y>=0,'Right satellite angle incorrect');
