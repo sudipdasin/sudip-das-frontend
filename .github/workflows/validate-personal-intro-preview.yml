@@ -5,6 +5,9 @@ on:
     paths:
       - index.html
       - personal-smart-navigation-v1.js
+      - webstudio-portfolio-gallery.js
+      - portfolio-showcase-v2.css
+      - scripts/verify-portfolio-showcase-v2.mjs
       - personal-smart-navigation-v1.css
       - scripts/verify-smart-navigation.mjs
       - scripts/verify-personal-theme-library.mjs
@@ -36,6 +39,9 @@ jobs:
           set -euo pipefail
           node --version
           node --check personal-smart-navigation-v1.js
+          node --check webstudio-portfolio-gallery.js
+          node --check scripts/verify-portfolio-showcase-v2.mjs
+          node scripts/verify-portfolio-showcase-v2.mjs
           node --check personal-theme-library.js
           node --check webstudio-parity.js
           node scripts/verify-smart-navigation.mjs
