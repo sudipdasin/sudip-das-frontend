@@ -542,13 +542,28 @@ jobs:
           path: visual-audit
           destination: editorial-gold-master-and-six-theme-gallery
 
+# The owner has suspended GitHub/CircleCI CI testing for preview-personalweb.
+# Prevent all paid CircleCI jobs on this specific Cloudflare Pages preview branch.
+# Cloudflare Pages deploys via its separate GitHub integration (not CircleCI).
 workflows:
   validate-deployment-only-personal-portfolio:
     jobs:
-      - public-artifact-integrity
+      - public-artifact-integrity:
+          filters:
+            branches:
+              ignore:
+                - preview-personalweb
       - browser-smoke:
           requires:
             - public-artifact-integrity
+          filters:
+            branches:
+              ignore:
+                - preview-personalweb
       - browser-visual-regression:
           requires:
             - public-artifact-integrity
+          filters:
+            branches:
+              ignore:
+                - preview-personalweb
