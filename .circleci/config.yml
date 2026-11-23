@@ -182,7 +182,22 @@ jobs:
                     assert.equal(await page.locator('#ws-interest-toggle').count(),1,'WebStudio footer interest action missing '+theme);
                     assert.equal(await page.locator('#ws-interest-expander').getAttribute('data-open'),'false','Footer interest form must start collapsed '+theme);
                     assert.equal(await page.locator('#ws-interest-email').getAttribute('type'),'email','Only an email address is requested '+theme);
+                    assert.equal(await page.locator('a[href*="sudipdasin.github.io/sudip-das-frontend"]').count(),0,'No external WebStudio demo link allowed '+theme);
+                    assert.equal(await page.locator('#ws-inline-demo').count(),1,'In-page WebStudio demo missing '+theme);
+                    assert.equal(await page.locator('[data-demo-tab]').count(),3,'Three demonstration chapters expected '+theme);
+                    assert.equal(await page.locator('.ws-demo-panel:visible').count(),1,'Exactly one illustration should be visible '+theme);
                     if(theme==='editorial'){
+                      const firstImage=page.locator('#ws-demo-panel-1 img');
+                      await firstImage.evaluate(img=>img.decode());
+                      assert.ok(await firstImage.evaluate(img=>img.naturalWidth>0),'Inline SVG image did not load');
+                      await page.locator('#ws-demo-tab-2').click();
+                      assert.equal(await page.locator('#ws-demo-panel-2').isVisible(),true,'Theme comparison chapter did not open');
+                      await page.locator('#ws-demo-next').click();
+                      assert.equal(await page.locator('#ws-demo-panel-3').isVisible(),true,'Walkthrough next button failed');
+                      await page.locator('#ws-demo-previous').click();
+                      assert.equal(await page.locator('#ws-demo-panel-2').isVisible(),true,'Walkthrough previous button failed');
+                      await page.locator('#ws-demo-tab-1').click();
+
                       const contrast=await page.evaluate(()=>{
                         const section=document.querySelector('section.capabilities');
                         const card=section.querySelector('.cap');
