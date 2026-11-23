@@ -203,6 +203,22 @@
     cta.append(ctaActions);
     inner.append(cta);
     aurora.append(inner);
-    ticker.before(aurora);
+
+    // True theme component isolation: the Aurora-only layout is not placed
+    // in the DOM for Orbit, Editorial (owner-frozen), Terminal, Aurora Peak
+    // or Cosmic. It cannot leak into other themes through CSS overrides,
+    // keyboard navigation, or future style regressions.
+    const syncAuroraComponent = () => {
+      const theme = document.body.dataset.theme || themeSelect.value;
+      const shouldMount = theme === 'neon-studio';
+      if (shouldMount && !aurora.isConnected) {
+        ticker.before(aurora);
+      } else if (!shouldMount && aurora.isConnected) {
+        aurora.remove();
+      }
+    };
+    themeSelect.addEventListener('change', syncAuroraComponent);
+    syncAuroraComponent();
   }
 })();
+
