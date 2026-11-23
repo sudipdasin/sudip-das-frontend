@@ -85,7 +85,10 @@
     }
     const optionValues=data.theme; document.querySelectorAll('#theme-select option').forEach((o,i)=>{ if(optionValues[i]!==undefined)text(o,optionValues[i]); });
     const navLinks=$('#navlinks a[href^="#"]'); navLinks.forEach((a,i)=>{if(data.nav[i]!==undefined)label(a,data.nav[i]);});
-    const ticker=$('.ticker-in > span'); ticker.forEach((el,i)=>{const v=data.ticker[i%data.ticker.length];label(el,v);});
+    const ticker=$('.ticker-group > span'); ticker.forEach((el,i)=>{const v=data.ticker[i%data.ticker.length];label(el,v);});
+    // Keep the two repeated groups identical in every language, including RTL.
+    const tickerDescription=document.querySelector('.ticker-screenreader');
+    if(tickerDescription)tickerDescription.textContent=data.ticker.join(' · ');
     const stats=[1000,20,200]; $('.proof strong').forEach((el,i)=>{el.textContent=`${new Intl.NumberFormat(locale).format(stats[i])}+`;});
     document.title=locale==='en'?'Professional portfolio':`Sudip Das · ${data.nav[0]||'Portfolio'}`;
     const meta=document.querySelector('meta[name="description"]'); if(meta)meta.content=data.heroCopy;
