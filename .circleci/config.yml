@@ -37,6 +37,10 @@ jobs:
             node --check personal-theme-library.js
             node --check scripts/verify-personal-theme-library.mjs
             node scripts/verify-personal-theme-library.mjs
+            node --check webstudio-footer.js
+            node --check functions/api/webstudio-interest.js
+            node --check scripts/verify-editorial-webstudio-footer.mjs
+            node scripts/verify-editorial-webstudio-footer.mjs
             node scripts/verify-aurora-reference-v2.mjs
             # A CSS geometry unit contract complements full Chromium checks.
             node <<'JS'
@@ -175,6 +179,27 @@ jobs:
                     assert.equal(await page.locator('#pv-theme-library').count(),1,'Visitor Theme Library missing '+theme);
                     assert.equal(await page.locator('#pv-theme-library').isVisible(),false,'Theme dialog must be hidden by default '+theme);
                     assert.equal(await page.locator('#pv-theme-launch').count(),1,'Theme Library launch action missing '+theme);
+                    assert.equal(await page.locator('#ws-interest-toggle').count(),1,'WebStudio footer interest action missing '+theme);
+                    assert.equal(await page.locator('#ws-interest-expander').getAttribute('data-open'),'false','Footer interest form must start collapsed '+theme);
+                    assert.equal(await page.locator('#ws-interest-email').getAttribute('type'),'email','Only an email address is requested '+theme);
+                    if(theme==='editorial'){
+                      const contrast=await page.evaluate(()=>{
+                        const section=document.querySelector('section.capabilities');
+                        const card=section.querySelector('.cap');
+                        const heading=card.querySelector('h3');
+                        const bg=getComputedStyle(card).backgroundColor;
+                        const fg=getComputedStyle(heading).color;
+                        const luminance=css=>{
+                          const nums=css.match(/\\d+(?:\\.\\d+)?/g).slice(0,3).map(Number).map(x=>x/255);
+                          const a=nums.map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);
+                          return .2126*a[0]+.7152*a[1]+.0722*a[2];
+                        };
+                        const a=luminance(bg),b=luminance(fg);
+                        return {ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05),background:getComputedStyle(section).backgroundImage};
+                      });
+                      assert.ok(contrast.ratio>=7,'Editorial capabilities card text lacks contrast: '+JSON.stringify(contrast));
+                      assert.match(contrast.background,/247,\\s*242,\\s*233/,'Editorial section must use warm light paper, not inherited dark green');
+                    }
                     const snapshot=await page.evaluate(()=>{
                       const hero=document.querySelector('.hero');
                       const title=document.querySelector('.hero h1');
