@@ -140,6 +140,8 @@ try{
     assert.ok(report.outer.width>250 && report.outer.width<470,'Independent ring diameter unexpected');
     assert.ok(report.outer.width>report.inner.width&&report.inner.width>report.core.width,
       'Ring scale order must be outer > inner > portrait');
+    assert.ok(Math.abs(report.core.width-report.outer.width*.73)<5,
+      'Portrait must be precisely 73% of outer ring diameter');
     assert.ok(report.caption.y>=report.core.bottom-16 &&
       report.caption.bottom<=report.outer.bottom+24,
       'Portrait nameplate should be directly under the photo within the lower orbit; current '+JSON.stringify(report));
@@ -162,6 +164,28 @@ try{
       badges:report.badges.map(x=>x.name),
       featureTabs:report.features.map(x=>x.text),
       overflow:report.pageWidth-report.clientWidth});
+    if(width<=600){
+      // Native controls were previously hanging off the right edge of the
+      // mobile header. They should appear in the expandable menu, not vanish.
+      await page.locator('.topbar .menu').click();
+      await page.waitForFunction(()=>document.querySelector('#navlinks')?.classList.contains('open'));
+      const expanded=await page.evaluate(()=>({
+        width:document.documentElement.scrollWidth,
+        client:document.documentElement.clientWidth,
+        controls:[...document.querySelectorAll('.topbar .language-control select,.topbar .theme-control select')]
+          .map(el=>{
+            const r=el.getBoundingClientRect();
+            return {visible:getComputedStyle(el).display!=='none'&&r.width>30,
+              left:r.left,right:r.right,width:r.width}
+          })
+      }));
+      assert.equal(expanded.controls.length,2,'Language and theme selectors must remain available');
+      assert.ok(expanded.controls.every(x=>x.visible&&x.left>=-2&&x.right<=width+2),
+        'Expanded mobile header clipped a setting control: '+JSON.stringify(expanded));
+      assert.ok(expanded.width<=expanded.client+3,
+        'Expanded mobile menu must not create horizontal scrolling');
+      await page.locator('.topbar .menu').click();
+    }
     // Theme isolation: switching away must restore the original banner and
     // remove Aurora-only feature components, without altering other theme CSS.
     await page.evaluate(()=>{
