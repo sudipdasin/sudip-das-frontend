@@ -26,8 +26,8 @@ assert.match(html,/<script>window.PUBLIC_API_BASE="";window.PORTFOLIO_PREVIEW_MO
 assert.match(html,/type="submit" disabled aria-disabled="true"/);
 assert.doesNotMatch(html,/<script[^>]+src="webstudio-visual-port\.js"/);
 assert.doesNotMatch(html,/<script[^>]+src="studio-theme-library\.js"/);
-assert.match(html,/src="personal-theme-library\.js" defer/);
-assert.match(html,/href="personal-theme-library\.css"/);
+assert.match(html,/src="personal-theme-library\.js\?v=1\.2\.1" defer/);
+assert.match(html,/href="personal-theme-library\.css\?v=1\.2\.1"/);
 assert.ok(html.indexOf('src="personal-theme-library.js"') >
  html.indexOf('src="webstudio-parity.js"'));
 assert.ok(html.includes('id="contact"')&&html.includes('id="theme-select"'));
@@ -36,7 +36,18 @@ assert.match(js,/const EXPECTED_SOURCE='c5383df1ebda7a0e5f05d9f59048a136dc99dac5
 assert.match(js,/picker\.dispatchEvent\(new Event\('change'/);
 assert.match(js,/status\.original=currentTheme\(\)/);
 assert.match(js,/status\.items=safeManifest/);
-assert.match(js,/if\(url\.origin!==location\.origin\)/);
+assert.match(js,/const BUNDLED_CONTRACT=Object\.freeze/);
+assert.match(js,/status\.items=safeManifest\(BUNDLED_CONTRACT\)/);
+assert.doesNotMatch(js,/fetch\s*\(/,'Visitor Theme Library must not require Cloudflare Access cookies or runtime HTTP');
+assert.match(js,/quickButton\.parentElement\.insertBefore\(openButton,quickButton\)/);
+assert.match(css,/\.topbar \.pv-theme-launch/);
+assert.match(css,/\.pv-theme-launch-label/);
+assert.match(css,/body\.ws-parity\[data-theme="editorial"\] \.topbar \.pv-theme-launch/);
+for(const theme of contract.themes){
+ assert.ok(js.includes("id:'"+theme.id+"'"),'Bundled gallery theme missing '+theme.id);
+ assert.ok(js.includes("personalLabel:'"+theme.personalLabel+"'"),
+  'Theme label differs from canonical contract '+theme.id);
+}
 assert.match(parity,/const syncAuroraComponent = \(\) =>/);
 assert.match(parity,/shouldMount = theme === 'neon-studio'/);
 assert.match(parity,/aurora\.remove\(\)/);

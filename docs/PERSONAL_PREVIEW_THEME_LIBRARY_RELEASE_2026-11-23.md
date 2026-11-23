@@ -40,3 +40,19 @@ Only the `preview-personalweb` branch may receive this candidate after the owner
 ## CircleCI credit-return acceptance
 
 Run `node scripts/verify-personal-theme-library.mjs`, existing six-theme fidelity/aurora/editorial source checks, pinned Chromium smoke, real popup interactions, 24-theme screenshot matrix including archived Editorial GOLD-vs-candidate pixel differences, keyboard/focus/RTL/mobile accessibility and zero requests to private APIs. Fix and rerun before considering any broader promotion. The personal preview stays nonindexed, protected and separate from production.
+
+## Follow-up defect repair — visible theme launcher and Access-safe catalog (v1.2.1)
+
+Owner feedback: **"so i dont see any improvements or updates in the new live view"** after Cloudflare successfully deployed v1.2.0 to named preview branch. Investigation found:
+
+1. **Discoverability defect, confirmed in source:** `personal-theme-library.js` mounted its sole launch button **inside the already-hidden Quick Actions panel**, so the otherwise unchanged page looked identical until a visitor opened that menu; this did not meet the owner's expectation for a visible upgrade.
+2. **Cloudflare Access compatibility defect, source-level risk:** the gallery fetched `theme-visual-contract.json` with `credentials:'omit'`, explicitly omitting credentials. On Access-protected previews the session cookie may be required, and fetching without it can return a login response/403, silently disabling the gallery. This failure was inferred from source and Access configuration; it was **not reproduced against live Cloudflare**, because the current environment cannot directly browse the protected preview.
+3. **Browser cache:** prior JS/CSS asset URLs were unchanged across deployments; new release references `personal-theme-library.js?v=1.2.1` and matching CSS version for a distinct browser cache key.
+
+**Repair:** dedicated test branch `fix/personal-preview-theme-launch-visibility-20261123`, based on exact deployed preview merge SHA `90b04dbe42ac09e4658a61df7d904e23545cef2c`. A prominent **◈ Explore themes [6]** button is now beside existing **⌘ Quick Actions** within the sticky navigation, so it is visible even at `#contact`. Mobile renders two compact icon controls rather than allowing them to crowd language/theme selectors. The gallery modal still starts hidden; the original Editorial hero/CSS, portrait, data, existing sections and Quick Actions remain unchanged. The gallery catalog is compiled locally from the fixed, public six-theme personal contract, validated against the immutable Editorial source SHA; **no runtime fetch, credentials, login or external dependency**. The standalone HTML references cache-busted assets. Version `webstudio-personal-visitor-themes-v1.2.1-preview`.
+
+**Checks actually performed before promotion:** GitHub source inspection for exact prior branch and current files; parser check on changed JS and source verifier; scoped CSS brace/source audit; source comparisons of 6 labels and backup SHA; **executed isolated DOM simulation** with the real updated gallery script: button attached outside hidden menu to sticky header, initially visible/enabled, modal initially hidden, 6 cards shown upon click, Cosmic selection, restore original Editorial, close. These are source-level and isolated-JS results only, **not executed Chromium, real mobile screenshot or real Access session test**; CircleCI credits still unavailable.
+
+**Deployment:** this fix is for `preview-personalweb` ONLY. Record actual merged SHA and exact Cloudflare Pages result below *after* the provider confirms. Do not modify `main`, public WebStudio `gh-pages`, private WebStudio incubator or owner/private API. Roll back to previous preview `90b04dbe42ac09e4658a61df7d904e23545cef2c` if needed; frozen Editorial backup remains `c5383df1ebda7a0e5f05d9f59048a136dc99dac5`.
+
+---

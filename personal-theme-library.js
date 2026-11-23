@@ -17,6 +17,23 @@ const PALETTES={
  terminal:['#081b17','#42d98e'],'aurora-peak':['#092037','#74d8c2'],
  'neon-studio':['#071933','#25f1e6'],'design-2':['#121e47','#b970ff']
 };
+// PREVIEW-LOCAL bundled theme list. This avoids a network fetch that would
+// lose the Cloudflare Access session when credentials were omitted.
+// Keep in sync with theme-visual-contract.json through the source verifier.
+const BUNDLED_CONTRACT=Object.freeze({
+ schemaVersion:1,
+ previewOnly:true,
+ currentPreview:'https://preview-personalweb.sudip-das-frontend.pages.dev/',
+ editorialFreeze:{immutableCommit:EXPECTED_SOURCE},
+ themes:[
+  {id:'orbit',personalLabel:'Orbit · Portfolio',personalPreviewAvailable:true,distinctive:'Ocean teal, circular portrait and read-only portfolio.'},
+  {id:'editorial',personalLabel:'Editorial · Profile',personalPreviewAvailable:true,distinctive:'Warm paper surfaces, serif typography and refined framing. The preserved favorite.'},
+  {id:'terminal',personalLabel:'Terminal · Explorer',personalPreviewAvailable:true,distinctive:'Monospaced Linux-inspired design with sharp corners and high contrast.'},
+  {id:'aurora-peak',personalLabel:'Aurora Peak',personalPreviewAvailable:true,distinctive:'Atmospheric mountain and emerald accents with layered depth.'},
+  {id:'neon-studio',personalLabel:'Neon Studio',personalPreviewAvailable:true,distinctive:'Turquoise aurora ribbon, five medallions and six compact feature tiles.'},
+  {id:'design-2',personalLabel:'Cosmic',personalPreviewAvailable:true,distinctive:'Deep cosmic blues, four satellites and four glass information cards.'}
+ ]
+});
 const safeLabel=t=>typeof t==='string'&&t.length<=100&&!/[<>]/.test(t);
 const el=(tag,cls,text)=>{
  const x=document.createElement(tag);
@@ -88,12 +105,21 @@ const restore=el('button','pv-theme-restore','Restore previous theme');
 restore.type='button';footer.append(notice,restore);
 panel.append(head,tools,statusLine,grid,footer);root.append(panel);
 document.body.append(root);
-const openButton=el('button','pv-theme-launch','◈ Explore six themes');
+// Place the launcher in the STICKY HEADER, not inside a hidden Quick Actions
+// panel. It must be discoverable even at #contact after scrolling.
+const openButton=el('button','pv-theme-launch');
+openButton.append(
+ el('span','pv-theme-launch-glyph','◈'),
+ el('span','pv-theme-launch-label','Explore themes'),
+ el('span','pv-theme-launch-counter','6')
+);
+openButton.setAttribute('aria-label','Explore six portfolio themes');
 openButton.type='button';openButton.id='pv-theme-launch';
 openButton.setAttribute('aria-haspopup','dialog');
 openButton.setAttribute('aria-controls',root.id);
 openButton.setAttribute('aria-expanded','false');
-quick.insertBefore(openButton,quick.querySelector('.ws-visitor-quick-themes')||null);
+// Keep it beside Quick Actions in the sticky navigation at every scroll position.
+quickButton.parentElement.insertBefore(openButton,quickButton);
 let lastFocus=null;
 function render(){
  const query=search.value.trim().toLowerCase(),which=filter.value;
@@ -131,12 +157,12 @@ function dismiss(){
  if(root.hidden)return;
  root.hidden=true;
  openButton.setAttribute('aria-expanded','false');
- (lastFocus?.isConnected?lastFocus:quickButton).focus();
+ (lastFocus?.isConnected?lastFocus:openButton).focus();
 }
 function show(){
  if(!status.loaded)return;
  status.original=currentTheme();
- lastFocus=quickButton;
+ lastFocus=document.activeElement||openButton;
  // Close the quick-actions menu behind the modal and return focus to the
  // original always-visible header control on dismiss.
  if(!quick.hidden)quickButton.click();
@@ -164,19 +190,15 @@ root.addEventListener('keydown',event=>{
  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
 });
-async function initialize(){
+function initialize(){
  try{
-  const url=new URL('theme-visual-contract.json',document.baseURI);
-  if(url.origin!==location.origin)throw Error('Theme manifest origin is not allowed');
-  const response=await fetch(url,{credentials:'omit',cache:'no-store'});
-  if(!response.ok)throw Error('Theme catalog unavailable');
-  status.items=safeManifest(await response.json());
+  status.items=safeManifest(BUNDLED_CONTRACT);
   status.loaded=true;
   openButton.disabled=false;
  }catch(e){
   status.error=String(e);
-  // Preserve the existing native theme picker and Quick Actions.
-  openButton.disabled=true;openButton.title='Theme gallery unavailable';
+  openButton.disabled=true;
+  openButton.title='Theme Gallery unavailable';
  }
 }
 openButton.disabled=true;
