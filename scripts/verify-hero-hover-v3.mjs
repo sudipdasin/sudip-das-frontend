@@ -11,7 +11,7 @@ assert.equal(release.stage,'preview');
 assert.equal(release.preview.productionApiConnected,false);
 assert.equal(release.preview.privateRequestsEnabled,false);
 assert.equal(release.preview.productionPromotionApproved,false);
-assert.match(html,/portfolio-intro-hover-v3\.css\?v=3\.0\.0/);
+assert.match(html,/portfolio-intro-hover-v3\.css\?v=3\.0\.1/);
 assert.match(html,/personal-smart-navigation-v1\.js\?v=1\.4\.0/);
 assert.match(js,/60 sec · Cinematic introduction/);
 assert.match(js,/preview\.className='pv-intro-hover-preview'/);
