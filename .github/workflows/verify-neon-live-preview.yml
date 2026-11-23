@@ -1,4 +1,4 @@
-name: Verify deployed Neon Studio preview
+name: Diagnose deployed Neon Studio preview
 on:
   push:
     branches: [preview-personalweb]
@@ -10,46 +10,56 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-
 jobs:
   deployment-parity:
-    name: Verify Cloudflare preview serves current Neon design
+    name: Diagnose exact live Cloudflare preview version
     if: github.ref == 'refs/heads/preview-personalweb'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 3
     steps:
-      - name: Check actual preview host and its exact shipped assets
+      - name: Read live HTML and independently request the expected two assets
         shell: bash
         env:
           SITE: https://preview-personalweb.sudip-das-frontend.pages.dev
         run: |
           set -euo pipefail
           stamp="${GITHUB_SHA:0:12}"
-          html="$(mktemp)"
-          css="$(mktemp)"
-          js="$(mktemp)"
+          html="$(mktemp)"; css="$(mktemp)"; js="$(mktemp)"
           trap 'rm -f "$html" "$css" "$js"' EXIT
-          for attempt in 1 2 3 4 5 6 7 8; do
-            echo "Checking Cloudflare Pages actual preview host: attempt $attempt / 8"
-            if curl --fail --location --silent --show-error --max-time 15 \
-                --header 'Cache-Control: no-cache' \
-                "$SITE/?neon_verify=$stamp" -o "$html" \
-              && grep -Fq 'neon-studio-reference-lock-v1.css?v=1.2.0' "$html" \
-              && grep -Fq 'webstudio-parity.js?v=neon-1.2.0' "$html" \
-              && grep -Fq 'PORTFOLIO_PREVIEW_MODE=true' "$html" \
-              && curl --fail --location --silent --show-error --max-time 15 \
-                "$SITE/neon-studio-reference-lock-v1.css?v=1.2.0&verify=$stamp" -o "$css" \
-              && curl --fail --location --silent --show-error --max-time 15 \
-                "$SITE/webstudio-parity.js?v=neon-1.2.0&verify=$stamp" -o "$js" \
-              && grep -Fq 'body.ws-parity[data-theme="neon-studio"] .ws-utility' "$css" \
-              && grep -Fq 'syncNeonRing' "$js"; then
-              echo 'PASS: Live Cloudflare branch preview is delivering the current Neon Studio styles and script.'
-              printf 'Preview URL: %s/\nCommit: %s\n' "$SITE" "$GITHUB_SHA"
-              exit 0
-            fi
-            echo 'Preview not yet aligned with GitHub source; checking for deployment lag.'
-            if [ "$attempt" -lt 8 ]; then sleep 12; fi
+          get_status() {
+            local url="$1" file="$2"
+            curl -sSL --max-time 20 --header 'Cache-Control: no-cache' \
+              --output "$file" --write-out '%{http_code}' "$url" || echo "NETWORK_ERROR"
+          }
+          html_status="$(get_status "$SITE/?neon_diag=$stamp" "$html")"
+          css_status="$(get_status "$SITE/neon-studio-reference-lock-v1.css?v=1.2.0&neon_diag=$stamp" "$css")"
+          js_status="$(get_status "$SITE/webstudio-parity.js?v=neon-1.2.0&neon_diag=$stamp" "$js")"
+          echo "Preview entry HTTP: $html_status / CSS: $css_status / JS: $js_status"
+          echo "HTML bytes: $(wc -c < "$html") / CSS bytes: $(wc -c < "$css") / JS bytes: $(wc -c < "$js")"
+          echo "Live page's currently referenced Neon and WebStudio assets:"
+          grep -oE 'neon-studio-reference-lock-v1\.css[^" ]*|webstudio-parity\.js[^" ]*' "$html" | head -8 || true
+          echo "Live document title:"
+          grep -oE '<title>[^<]+' "$html" | head -1 || true
+          pass=1
+          if [ "$html_status" != 200 ]; then
+            echo "::error::Cloudflare preview root did not respond HTTP 200"
+            pass=0
+          fi
+          for marker in \
+              'neon-studio-reference-lock-v1.css?v=1.2.0' \
+              'webstudio-parity.js?v=neon-1.2.0' \
+              'PORTFOLIO_PREVIEW_MODE=true'; do
+            if grep -Fq "$marker" "$html"; then echo "PASS HTML marker: $marker"
+            else echo "::error::MISSING in deployed HTML: $marker";pass=0;fi
           done
-          echo '::error::The Cloudflare preview is unreachable or NOT serving the current Neon Studio assets from this branch.'
-          echo 'Inspect Cloudflare Pages Git connection and preview-branch deployment logs. Never promote this check to production.'
-          exit 1
+          if [ "$css_status" = 200 ] && grep -Fq 'body.ws-parity[data-theme="neon-studio"] .ws-utility' "$css";then
+            echo 'PASS live CSS: Neon Studio top status strip is removed'
+          else echo '::error::Expected Neon CSS is missing/unavailable';pass=0;fi
+          if [ "$js_status" = 200 ] && grep -Fq 'syncNeonRing' "$js";then
+            echo 'PASS live JS: Concentric geometry implementation is present'
+          else echo '::error::Expected Neon JS is missing/unavailable';pass=0;fi
+          if [ "$pass" -ne 1 ];then
+            echo "::error::Cloudflare preview build differs from GitHub preview-personalweb. Restore/redeploy branch preview — not main."
+            exit 1
+          fi
+          echo 'PASS: Cloudflare is serving the correct Neon Studio preview'
