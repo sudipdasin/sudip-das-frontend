@@ -146,6 +146,33 @@ jobs:
                   assert.equal(await page.locator('#ws-visitor-quick-open').count(),1,'Visitor quick actions missing');
                   assert.equal(await page.locator('body > .pv-smart-float').count(),1,'Quick actions must float outside header');
                   assert.equal(await page.locator('body > .pv-smart-float').evaluate(el=>getComputedStyle(el).position),'fixed');
+                  assert.equal(await page.locator('.topbar .nav > #pv-theme-launch').count(),1,
+                    'Explore themes must be attached to the top navigation, not floating with Quick Actions');
+                  assert.equal(await page.locator('.pv-smart-float #pv-theme-launch').count(),0,
+                    'Theme Library launcher must not be nested in the floating button');
+                  const actionGeometry=await page.evaluate(()=>{
+                    const button=document.querySelector('#ws-visitor-quick-open');
+                    const theme=document.querySelector('#pv-theme-launch');
+                    const header=document.querySelector('.topbar .nav');
+                    const orb=button.getBoundingClientRect();
+                    const head=theme.getBoundingClientRect();
+                    const nav=header.getBoundingClientRect();
+                    return {size:[orb.width,orb.height],radius:getComputedStyle(button).borderRadius,
+                      buttonPosition:getComputedStyle(button.closest('.pv-smart-float')).position,
+                      backdrop:getComputedStyle(button).backdropFilter,
+                      head:{x:head.x,y:head.y,width:head.width,right:head.right},
+                      nav:{left:nav.left,right:nav.right},
+                      themeParent:theme.parentElement===header};
+                  });
+                  assert.ok(actionGeometry.size[0]>=50&&actionGeometry.size[0]<=59,
+                    'Quick Actions must be compact circular orb: '+JSON.stringify(actionGeometry));
+                  assert.ok(actionGeometry.size[0]-actionGeometry.size[1]<2&&actionGeometry.size[1]-actionGeometry.size[0]<2,
+                    'Quick Actions button must be round: '+JSON.stringify(actionGeometry));
+                  assert.equal(actionGeometry.radius,'50%','Quick Actions must have round shape');
+                  assert.match(actionGeometry.backdrop,/blur/,'Floating Quick Actions should use glass blur');
+                  assert.ok(actionGeometry.themeParent,'Explore themes launcher parent must be header');
+                  assert.ok(actionGeometry.head.right<=actionGeometry.nav.right+3,
+                    'Explore themes extends beyond top-right header boundary: '+JSON.stringify(actionGeometry));
                   assert.equal(await page.locator('#pv-intro-launch').count(),1,'Intro video button missing beside Interactive Portfolio');
                   assert.equal(await page.locator('#pv-intro-modal').isVisible(),false,'Intro popup must start hidden');
                   await page.locator('#pv-intro-launch').click();
@@ -210,6 +237,8 @@ jobs:
                     assert.equal(await page.locator('#pv-theme-library').count(),1,'Visitor Theme Library missing '+theme);
                     assert.equal(await page.locator('#pv-theme-library').isVisible(),false,'Theme dialog must be hidden by default '+theme);
                     assert.equal(await page.locator('#pv-theme-launch').count(),1,'Theme Library launch action missing '+theme);
+                    assert.equal(await page.locator('.topbar .nav > #pv-theme-launch').count(),1,
+                      'Explore themes must stay in top navigation across all themes: '+theme);
                     assert.equal(await page.locator('#ws-interest-toggle').count(),1,'WebStudio footer interest action missing '+theme);
                     assert.equal(await page.locator('#ws-interest-expander').getAttribute('data-open'),'false','Footer interest form must start collapsed '+theme);
                     assert.equal(await page.locator('#ws-interest-email').getAttribute('type'),'email','Only an email address is requested '+theme);
