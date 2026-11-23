@@ -214,6 +214,12 @@
       const portrait=diameter*.73;
       setLocked(core,'width',portrait+'px');
       setLocked(core,'height',portrait+'px');
+      // Older responsive CSS still imposes an effective rendered size on
+      // the portrait at 1440px and below. Precisely correct the rendered
+      // size with the independent scale property, without moving its center.
+      const naturalPortraitWidth=core.offsetWidth||portrait;
+      const correction=portrait/naturalPortraitWidth;
+      setLocked(core,'scale',String(correction));
       setLocked(nameplate,'left','50%');
       setLocked(nameplate,'top','calc(50% + '+(diameter*(vw<=600?.40:.395))+'px)');
       setLocked(nameplate,'bottom','auto');
