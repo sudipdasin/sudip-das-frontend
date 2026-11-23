@@ -224,7 +224,7 @@ jobs:
                         groups:groups.length,
                         count:groups.map(g=>g.querySelectorAll('span').length),
                         widths:groups.map(g=>g.getBoundingClientRect().width),
-                        copies:groups.map(g=>g.textContent.replace(/\\s+/g,' ').trim()),
+                        copies:groups.map(g=>g.textContent.replace(/\s+/g,' ').trim()),
                         left:rect.left,right:rect.right,
                         wrapLeft:wrap.left,wrapRight:wrap.right,
                         scroll:view.scrollWidth,client:view.clientWidth,
@@ -255,7 +255,7 @@ jobs:
                       await page.locator('#language-select').selectOption('ar');
                       const arabicTicker=await page.evaluate(()=>{
                         const copies=[...document.querySelectorAll('.ticker-group')]
-                          .map(x=>x.textContent.replace(/\\s+/g,' ').trim());
+                          .map(x=>x.textContent.replace(/\s+/g,' ').trim());
                         return {copies,accessible:document.querySelector('.ticker-screenreader').textContent};
                       });
                       assert.equal(arabicTicker.copies[0],arabicTicker.copies[1],'RTL marquee groups must match');
