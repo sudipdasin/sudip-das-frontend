@@ -68,7 +68,9 @@
    jump.setAttribute('aria-expanded',String(expanded));
    jumpLabel.textContent=expanded?'Collapse the demo':'Explore the inline demo';
    jumpIcon.textContent=expanded?'×':'↗';
-   if(expanded)closeDemo.focus({preventScroll:true});
+   if(expanded)window.requestAnimationFrame(()=>{
+    if(showcase.dataset.open==='true')closeDemo.focus({preventScroll:true});
+   });
    (expanded?showcase:jump).scrollIntoView({
     behavior:motion.matches?'auto':'smooth',
     block:'nearest'
