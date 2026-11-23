@@ -56,7 +56,7 @@ assert.match(api,/result\.action==='webstudio-interest'/);
 assert.match(api,/ON CONFLICT\(subject_hash,bucket\) DO UPDATE SET count=count\+1 WHERE count < \?/);
 assert.match(api,/await sendMail\(env,email\)/);
 assert.match(api,/return respond\(\{ok:true,status:'delivered'\},202\)/);
-assert.doesNotMatch(api,/MAIL_BRIDGE_SECRET\s*=/);
+assert.doesNotMatch(api,/MAIL_BRIDGE_SECRET\s*=(?!=)/);
 assert.doesNotMatch(api,/OWNER_EMAIL\s*=\s*['"]/);
 for(const [name,stylesheet] of [['contrast',contrast],['footer',footerCSS]]){
  let braces=0;for(const ch of stylesheet){if(ch==='{')braces++;if(ch==='}')braces--;assert.ok(braces>=0,name+' extra closing brace')}
