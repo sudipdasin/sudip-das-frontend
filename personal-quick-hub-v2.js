@@ -47,9 +47,9 @@
  tabs.setAttribute('role','tablist');
  tabs.setAttribute('aria-label','Quick action groups');
  const content=create('div','pv-hub-body');
- const ids=['navigate','themes','tools'];
- const names=['Explore','Themes','Tools'];
- const icons=['◇','◈','✧'];
+ const ids=['navigate','themes','tools','connect'];
+ const names=['Explore','Themes','Tools','Connect'];
+ const icons=['◇','◈','✧','♡'];
  const panes=[];
  const buttons=[];
  ids.forEach((id,i)=>{
@@ -102,6 +102,164 @@
   tools.append(action);
  });
  panes[2].append(tools);
+ // Two compact, read-only windows are available both in Tools and beneath
+ // Let's Connect. Existing vault privacy and WebStudio walkthrough are reused.
+ const miniSpecs=[
+  {title:'The canvas',caption:'Layout and visual hierarchy',src:'webstudio-inline-layout.svg'},
+  {title:'Visual styles',caption:'Editorial, Neon and Aurora concepts',src:'webstudio-inline-themes.svg'},
+  {title:'The journey',caption:'Design direction to responsive review',src:'webstudio-inline-workflow.svg'}
+ ];
+ const reducedMotion=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const scrollTo=(element)=>element?.scrollIntoView({behavior:reducedMotion()?'auto':'smooth',block:'start'});
+ function openExistingRequest(){
+  if(!panel.hidden)trigger.click();
+  const shell=byId('private-details');
+  if(!shell)return;
+  shell.dataset.pinned='true';
+  shell.open=true;
+  const summary=shell.querySelector('.request-shell-summary');
+  summary?.setAttribute('aria-expanded','true');
+  scrollTo(shell);
+  if(summary)summary.focus({preventScroll:true});
+ }
+ function openExistingWebStudio(){
+  if(!panel.hidden)trigger.click();
+  const launch=byId('ws-demo-jump');
+  if(!launch)return;
+  if(launch.getAttribute('aria-expanded')!=='true')launch.click();
+  scrollTo(byId('ws-inline-demo'));
+ }
+ function makeMiniRequest(){
+  const details=create('details','pv-connect-mini pv-connect-mini-request');
+  const summary=create('summary','pv-connect-mini-summary');
+  const glyph=create('span','pv-connect-mini-glyph','▤');glyph.setAttribute('aria-hidden','true');
+  const label=create('span','pv-connect-mini-summary-copy');
+  label.append(create('strong','','Request selected profile details'),create('small','','Owner-reviewed · 6 information categories'));
+  summary.append(glyph,label,create('span','pv-connect-mini-chevron','⌄'));
+  const body=create('div','pv-connect-mini-content');
+  body.append(create('p','pv-connect-mini-note','Select only the details you need:'));
+  const list=create('div','pv-connect-mini-chips');
+  ['Address','Career','Academic','Projects','Certifications','Documents'].forEach(t=>list.append(create('span','',t)));
+  body.append(list);
+  const safety=create('p','pv-connect-mini-privacy','Requests are disabled on this public preview. No private information is shown or sent.');
+  body.append(safety);
+  const action=create('button','pv-connect-mini-cta','Open owner-reviewed detail form ↗');
+  action.type='button';
+  action.addEventListener('click',openExistingRequest);
+  body.append(action);details.append(summary,body);
+  return details;
+ }
+ function makeMiniStudio(){
+  const details=create('details','pv-connect-mini pv-connect-mini-studio');
+  const summary=create('summary','pv-connect-mini-summary');
+  const glyph=create('span','pv-connect-mini-glyph','✧');glyph.setAttribute('aria-hidden','true');
+  const label=create('span','pv-connect-mini-summary-copy');
+  label.append(create('strong','','WebStudio · miniature preview'),create('small','','3 illustrated interactive chapters'));
+  summary.append(glyph,label,create('span','pv-connect-mini-chevron','⌄'));
+  const body=create('div','pv-connect-mini-content');
+  const visual=create('div','pv-connect-mini-visual');
+  const image=create('img','pv-connect-mini-image');
+  image.width=1200;image.height=720;
+  image.loading='lazy';image.decoding='async';
+  const buttons=create('div','pv-connect-mini-nav');
+  buttons.setAttribute('role','group');
+  buttons.setAttribute('aria-label','Choose WebStudio preview chapter');
+  const status=create('p','pv-connect-mini-caption');
+  let active=0,loaded=false;
+  const selectors=[];
+  function show(index){
+   active=index;
+   const chapter=miniSpecs[index];
+   image.src=chapter.src;
+   image.alt='Illustrated WebStudio preview: '+chapter.title;
+   status.textContent=(index+1)+' / '+miniSpecs.length+' · '+chapter.caption;
+   selectors.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===active)));
+  }
+  miniSpecs.forEach((item,i)=>{
+   const button=create('button','pv-connect-mini-chapter',String(i+1));
+   button.type='button';button.title=item.title;
+   button.setAttribute('aria-label','Preview '+item.title);
+   button.addEventListener('click',()=>show(i));
+   selectors.push(button);buttons.append(button);
+  });
+  details.addEventListener('toggle',()=>{
+   if(details.open&&!loaded){loaded=true;show(0);}
+  });
+  visual.append(image);
+  body.append(visual,buttons,status,create('p','pv-connect-mini-note','Illustrated WebStudio design walkthrough; not a live editing canvas.'));
+  const launch=create('button','pv-connect-mini-cta','Open full inline walkthrough ↗');
+  launch.type='button';launch.addEventListener('click',openExistingWebStudio);
+  body.append(launch);
+  details.append(summary,body);
+  return details;
+ }
+ function addMiniPair(mount){
+  if(!mount)return;
+  mount.append(makeMiniRequest(),makeMiniStudio());
+ }
+ const toolPreviews=create('div','pv-hub-mini-previews');
+ toolPreviews.append(create('p','pv-hub-group-title','IN-PANEL PREVIEWS'));
+ panes[2].append(toolPreviews);
+ addMiniPair(toolPreviews);
+ addMiniPair(byId('pv-connect-mini-mount'));
+
+ // Only published first-party contact destinations are cloned into Quick Hub.
+ // No invented profiles, automated DMs, account access or form submissions.
+ panes[3].append(create('p','pv-hub-group-title','CONNECT DIRECTLY'));
+ const connectIntro=create('p','pv-hub-description','Choose how to connect with Sudip Das using his published profiles.');
+ panes[3].append(connectIntro);
+ const groups=[
+  {title:'Direct · Email',nodes:['.pv-connect-email']},
+  {title:'Professional · LinkedIn & GitHub',nodes:['.pv-connect-social[data-social="linkedin"]','.pv-connect-social[data-social="github"]']},
+  {title:'Creative & social · YouTube',nodes:['.pv-connect-social[data-social="youtube"]']}
+ ];
+ const connectCards=create('div','pv-hub-connect-cards');
+ const valid=(url,kind)=>{
+  if(kind==='email')return /^mailto:sudipdasin@gmail\.com(?:\?.*)?$/i.test(url);
+  try{
+   const target=new URL(url,location.href);
+   return target.protocol==='https:' &&
+    ['github.com','www.linkedin.com','www.youtube.com'].includes(target.hostname) &&
+    target.username===''&&target.password==='';
+  }catch{return false;}
+ };
+ for(const group of groups){
+  const box=create('div','pv-hub-connect-group');
+  box.append(create('p','pv-hub-connect-category',group.title));
+  for(const selector of group.nodes){
+   const source=document.querySelector(selector);
+   const href=source?.getAttribute('href')||'';
+   if(!source||!valid(href,selector==='.pv-connect-email'?'email':'social'))continue;
+   const item=create('a','pv-hub-connect-link');
+   item.href=href;
+   item.append(source.querySelector('svg')?.cloneNode(true)||create('span','','↗'));
+   const dest=source.matches('.pv-connect-email')?'Email Sudip':
+    source.querySelector('.pv-connect-social-copy strong')?.textContent||'Open public profile';
+   item.append(create('span','',dest),create('span','pv-hub-connect-arrow','↗'));
+   if(!href.startsWith('mailto:')){item.target='_blank';item.rel='noopener noreferrer';}
+   box.append(item);
+  }
+  connectCards.append(box);
+ }
+ panes[3].append(connectCards);
+ const goToContact=create('button','pv-hub-contact-cta','Explore all connection options ↗');
+ goToContact.type='button';
+ goToContact.addEventListener('click',()=>{if(!panel.hidden)trigger.click();scrollTo(byId('contact'));});
+ panes[3].append(goToContact);
+ const copyEmail=byId('pv-connect-copy-email');
+ const copyStatus=byId('pv-connect-status');
+ copyEmail?.addEventListener('click',async()=>{
+  const address='sudipdasin@gmail.com';
+  try{
+   if(!navigator.clipboard?.writeText)throw Error('Clipboard access unavailable');
+   await navigator.clipboard.writeText(address);
+   if(copyStatus){copyStatus.hidden=false;copyStatus.textContent='Email address copied. Choose a topic or compose your message.';}
+  }catch{
+   const field=byId('pv-connect-email-fallback');
+   if(field){field.hidden=false;field.focus();field.select();}
+   if(copyStatus){copyStatus.hidden=false;copyStatus.textContent='Select and copy the email address shown above.';}
+  }
+ });
  const privacy=create('p','pv-hub-privacy','No tracking · No account access · Theme changes are local');
  panel.prepend(top,scope,progress,tabs,content);
  panel.append(privacy);
@@ -122,7 +280,7 @@
    if(e.key==='ArrowRight'){e.preventDefault();activate(i+1,true);}
    else if(e.key==='ArrowLeft'){e.preventDefault();activate(i-1,true);}
    else if(e.key==='Home'){e.preventDefault();activate(0,true);}
-   else if(e.key==='End'){e.preventDefault();activate(2,true);}
+   else if(e.key==='End'){e.preventDefault();activate(buttons.length-1,true);}
   });
  });
  activate(0);
