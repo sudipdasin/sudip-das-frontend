@@ -413,13 +413,13 @@ body.ws-parity[data-theme="neon-studio"] .ws-aurora-cta-actions a:hover{
     /* Give the newly lowered nameplate real space above the infinity band. */
     /* Reserve the portrait nameplate's full height, not just the ring.
        Desktop retains the reference's edge-to-edge hero→band join. */
-    padding:28px 0 124px!important;
+    padding:28px 0 64px!important;
   }
   body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art{
     --wf-orbit-size:clamp(290px,50vw,415px)!important;
     --neon-ring-size:clamp(290px,50vw,415px);
     width:min(100%,540px);
-    min-height:clamp(490px,68vw,555px)!important;
+    min-height:clamp(390px,52vw,455px)!important;
   }
   body.ws-parity[data-theme="neon-studio"] .ws-aurora-info-band{
     grid-template-columns:minmax(0,1fr);
@@ -737,4 +737,19 @@ body.ws-parity[data-theme="neon-studio"] .ws-neon-precision-portrait img{
     min-height:43px!important;
     margin:0!important;
   }
+}
+
+/* Layout changes must snap to the verified geometry immediately.
+ * Legacy theme-change transitions briefly trumped even inline !important
+ * rules and caused the nameplate to overlap the band on tablets.
+ * Preserve gentle ring rotation, but never interpolate layout measurements.
+ */
+body.ws-parity[data-theme="neon-studio"] main>.hero,
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art,
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .core,
+body.ws-parity[data-theme="neon-studio"] main>.hero .hero-art .portrait-caption,
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precise-orbits,
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precise-ring,
+body.ws-parity[data-theme="neon-studio"] main>.hero .ws-neon-precision-portrait {
+  transition:none!important;
 }
