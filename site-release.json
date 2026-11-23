@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v1.9.0-smart-float-intro-player",
+  "release": "webstudio-personal-preview-v1.10.0-top-right-themes-glass-orb",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -53,7 +53,12 @@
     "quick-actions-theme-aware-fab",
     "intro-video-top-banner-launcher",
     "youtube-nocookie-muted-autoplay-modal",
-    "intro-video-iframe-cleanup-and-focus"
+    "intro-video-iframe-cleanup-and-focus",
+    "theme-explorer-top-right-header",
+    "quick-actions-compact-floating-glass-orb",
+    "quick-actions-prismatic-glow",
+    "theme-aware-alpha-panel",
+    "quick-actions-reduced-motion-safe"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -67,9 +72,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Preview only, latest owner directive. Quick Actions moved to accessible theme-aware floating bottom-right button with section-aware read-only suggested navigation, unblocking sticky header. Intro Video button beside Interactive Portfolio opens a responsive in-page YouTube-nocookie modal; it autoplays muted with official controls only after an owner-approved individual YouTube video URL is configured. The existing channel URL is not embeddable and no demo/third-party personal video is substituted. Foundation section layout safeguarded. No production promotion, private request activation or owner editor exposure.",
+    "notes": "Preview v1.10: Explore themes is anchored at top-right of sticky navigation on desktop and compact mobile header, no longer nested with the floating Quick Actions launcher. Quick Actions is an icon-only round glass button at bottom-right with alpha blending, soft rotating halo, blur and themed contextual overlay, reduced-motion fallback and accessible tooltip/label. Theme Gallery and read-only contextual navigation behavior retained. Production promotion, private profile requests and inbox delivery remain disabled.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "Source contract + JS parse and CSS balanced verified; CircleCI full-browser new modal/float/quick context tests staged, execution and live Cloudflare branch deployment not yet verified",
+    "testStatus": "GitHub source readback and CSS/JS static checks pending; CircleCI browser regression assertions committed but no executed browser result verified. Cloudflare branch deployment still unverified.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -156,10 +161,13 @@
     },
     "smartGuide": {
       "source": "personal-smart-navigation-v1.js?v=1.0.0",
-      "placement": "fixed bottom-right safe-area aware, no nav-layout footprint",
+      "placement": "compact 58px circular bottom-right floating orb (52px mobile)",
       "logic": "deterministic section-in-view suggestions and visitor-only theme links; no profiling, analytics, network requests, or global changes",
       "accessibility": "aria-expanded, Escape to close, same existing visitor Quick Actions controls",
-      "browserVerified": false
+      "browserVerified": false,
+      "glassStyling": "translucent alpha-blended panel, 20px backdrop blur, softly rotating rim and glow; disabled animation on reduced motion",
+      "contextualSuggestions": true,
+      "style": "personal-smart-navigation-v1.css?v=1.1.0"
     },
     "introVideo": {
       "source": "personal-smart-navigation-v1.js?v=1.0.0",
@@ -173,6 +181,12 @@
     "layoutRepair": {
       "scope": "foundation title and matching two-card experience, quick launcher no longer crowds sticky header",
       "stylesheet": "personal-smart-navigation-v1.css?v=1.0.0",
+      "browserVerified": false
+    },
+    "themeDiscovery": {
+      "placement": "right-most item of sticky top navigation, independent of floating Quick Actions",
+      "responsive": "compact icon at <=620px; six existing approved themes only",
+      "source": "personal-theme-library.js?v=1.2.1",
       "browserVerified": false
     }
   }
