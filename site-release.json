@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-preview-v3.2.2-deployment-ready",
+  "release": "webstudio-personal-preview-v3.2.2-neon-reference-cloudflare-git",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -108,9 +108,9 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Visual reference corrected in source, responsive browser checks passed, and audited public-only Cloudflare staging bundle prepared. Actual Cloudflare Pages deploy has not occurred because GitHub Actions credentials for the Pages account are absent. Do not claim live website fixed. Preview Access protection unchanged.",
+    "notes": "Preview source and Chromium tests pass; GitHub Cloudflare Pages check-runs repeatedly confirm automatic deployment of preview-personalweb, including commit 10b1dcd. Cloudflare Access login on unauthenticated requests only prevents direct DOM inspection. Redundant manually configured Cloudflare deployment and unauthenticated preview-check workflows deleted. DO NOT ask user for new Cloudflare credentials or claim deployment blocked based on the unused manual workflow.",
     "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
-    "testStatus": "PASS: verified public-only deployment package + Chromium normal-motion/4 breakpoints in GitHub Actions 45208134131; FAIL SAFETY PRECHECK on 45207821788 because required CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN GitHub Actions secrets are absent. No Cloudflare deployment occurred. Production unchanged.",
+    "testStatus": "PASS GitHub Actions Neon Studio 4-viewports and motion checks (45203458480) and Cloudflare Pages provider deployment check for commit 10b1dcd (completed 2026-11-23 15:44:49 UTC); GitHub integration automatically publishes preview-personalweb. Authenticated live browser screenshot not independently captured due Cloudflare Access, but deployment itself is provider-confirmed. Other 5 themes and main untouched.",
     "themeLibrarySource": "theme-visual-contract.json",
     "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5",
     "webStudioInterest": {
@@ -315,7 +315,7 @@
       ],
       "browserRunId": 45199760779,
       "verified": "PASS GitHub Actions 45203458480: four viewport reference geometry and active-motion frames stable.",
-      "cloudflareDeploymentVerified": false,
+      "cloudflareDeploymentVerified": true,
       "version": "3.2.2",
       "nameplate": "12–14px BELOW outer ring at all widths; clears next skills band",
       "issueRootCause": "Inherited theme-change CSS transitions temporarily overrode stable layout dimensions even when the target rules were !important; transitions disabled for Neon-only geometry, not for orbit visual accents",
@@ -331,16 +331,21 @@
       "animatedGeometryVerified": true,
       "animatedGeometryTestRunId": 45203458480,
       "animatedMotionValidation": "Chromium no-preference motion sampled across time at 1892, 820 and 390 px: ring centers, caption clearance, viewport overflow stable. Reduced-motion layout also passed.",
-      "cloudflarePreviewAudit": "HTTP 200 from Cloudflare returns a Cloudflare Access login page, not portfolio HTML, to unauthenticated GitHub runner. Cannot establish live version without scoped Cloudflare Access service token or authenticated session.",
+      "cloudflarePreviewAudit": "Existing Cloudflare Pages Git integration automatically publishes every preview-personalweb commit. Confirmed 5 successive successful Cloudflare Pages check-runs including 10b1dcd. Cloudflare Access protects unauthenticated browser requests; that is not a deployment failure.",
       "cloudflareAccessEnabled": true,
       "publicStagingBundle": "scripts/build-neon-preview-artifacts.mjs",
       "publicStagingValidated": true,
       "publicStagingRunId": 45208134131,
-      "deploymentWorkflow": ".github/workflows/deploy-neon-preview-cloudflare.yml",
-      "directCloudflareDeploymentAttempt": 45207821788,
-      "directCloudflareDeploymentStatus": "BLOCKED: GitHub Actions has neither CLOUDFLARE_ACCOUNT_ID nor CLOUDFLARE_API_TOKEN (including aliases). No file was uploaded; production untouched.",
-      "verifiedCloudflareDeployment": false,
-      "remainingOwnerDependency": "Configure GitHub Actions repository secrets CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN (Cloudflare Pages Edit scoped), then run preview-only deploy workflow. Cloudflare Access remains enabled."
+      "deploymentWorkflow": "Existing Cloudflare Pages Git integration (GitHub Cloudflare Pages check-run)",
+      "directCloudflareDeploymentStatus": "An extra manual GitHub Actions deploy created on 2026-11-23 failed because it lacked GH Actions secrets. That separate path was unnecessary; the existing connected Cloudflare Pages Git integration was successfully publishing this same branch throughout.",
+      "verifiedCloudflareDeployment": true,
+      "remainingOwnerDependency": "None for existing Cloudflare Pages branch auto-deployment. No new GitHub Actions Cloudflare secrets required.",
+      "providerVerifiedSha": "10b1dcd08d75244fdd1dd63fac41249b5585120d",
+      "providerVerifiedAt": "2026-11-23T15:44:49Z",
+      "providerVerifiedStatus": "Cloudflare Pages check-run success; commit 10b1dcd deployed successfully to preview-personalweb branch preview URL",
+      "providerDeploymentUrl": "https://dash.cloudflare.com/?to=/40d10262a19cdae16fbd586f28dcd37a/pages/view/sudip-das-frontend/576a8908-dbf1-42c2-afd8-7aac68045a68",
+      "providerPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
+      "deployGate": "GitHub commit check-runs: Cloudflare Pages conclusion=success; preview URL in check output"
     }
   }
 }
