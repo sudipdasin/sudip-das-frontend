@@ -381,6 +381,7 @@ body.ws-parity[data-theme="editorial"] .private-access .request-grid input:focus
   box-shadow:0 0 0 4px #176d5022!important;
 }
 body.ws-parity[data-theme="editorial"] .private-access .captcha-slot{
+  padding:clamp(17px,2vw,23px)!important;
   background:linear-gradient(130deg,#fffaf1,#f5eee3)!important;
   color:#2d3c32!important;
   border:1px solid #c4b39e!important;
