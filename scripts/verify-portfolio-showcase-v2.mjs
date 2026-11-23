@@ -15,7 +15,7 @@ assert.equal(release.preview.productionApiConnected,false);
 assert.equal(release.preview.privateRequestsEnabled,false);
 assert.match(html,/portfolio-showcase-v2\.css\?v=2\.1\.0/);
 assert.match(html,/webstudio-portfolio-gallery\.js\?v=2\.1\.0/);
-assert.match(html,/personal-smart-navigation-v1\.js\?v=1\.4\.0/);
+assert.match(html,/personal-smart-navigation-v1\.js\?v=1\.4\.1/);
 assert.match(gallery,/heroActions\.append\(launch\)/);
 assert.match(smart,/heroActions\.append\(button\)/);
 assert.doesNotMatch(smart,/banner\.insertBefore\(button/);
