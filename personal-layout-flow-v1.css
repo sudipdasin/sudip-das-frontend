@@ -1,0 +1,206 @@
+/* Portfolio preview v1.7.0 — theme-aware text flow and seamless marquee.
+ * Only the 3 owner-supplied summary paragraphs and the ticker are affected.
+ * Keep all original copy and six-theme look; no public editor controls.
+ */
+
+/* Avoid flexbox's unbounded content pressure: each text cell is explicitly
+ * minmax(0) so translated/localized copy wraps inside the page container.
+ */
+body.ws-parity :is(#about,#projects,#experience) > .wrap > .section-head {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,clamp(260px,31vw,400px));
+  align-items:end;
+  gap:clamp(18px,3vw,44px);
+  min-width:0;
+  max-width:100%;
+}
+body.ws-parity :is(#about,#projects,#experience) > .wrap > .section-head > div {
+  min-width:0;
+  max-width:100%;
+}
+body.ws-parity :is(#about,#projects,#experience) > .wrap > .section-head h2 {
+  max-width:100%;
+  text-wrap:balance;
+  overflow-wrap:break-word;
+}
+body.ws-parity :is(#about,#projects,#experience) > .wrap > .section-head > p {
+  box-sizing:border-box;
+  min-width:0;
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:clamp(15px,1.6vw,22px) clamp(17px,1.8vw,24px);
+  border:1px solid var(--ws-edge,var(--line));
+  border-inline-start:3px solid var(--ws-accent,var(--lime));
+  border-radius:0 var(--ws-radius,12px) var(--ws-radius,12px) 0;
+  background:color-mix(in srgb,var(--panel) 85%,var(--bg) 15%);
+  color:var(--ink);
+  font:500 clamp(.93rem,1.04vw,1.04rem)/1.72 var(--sans,system-ui,sans-serif);
+  letter-spacing:normal;
+  text-wrap:pretty;
+  overflow-wrap:anywhere;
+  hyphens:auto;
+  box-shadow:0 10px 26px rgb(0 0 0 / 5%);
+}
+/* Editorial is a warm paper layout, not a dark glass/black text collision. */
+body.ws-parity[data-theme="editorial"] :is(#about,#projects,#experience) > .wrap > .section-head > p {
+  color:#3b4b41;
+  background:#fffbf5;
+  border-color:#c7b7a2;
+  border-inline-start-color:#176d50;
+  border-radius:0 5px 5px 0;
+  box-shadow:0 8px 22px rgb(65 49 31 / 7%);
+}
+@media(max-width:980px) {
+  body.ws-parity :is(#about,#projects,#experience) > .wrap > .section-head {
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    align-items:start;
+    gap:clamp(14px,2.3vw,24px);
+  }
+  body.ws-parity :is(#about,#projects,#experience) > .wrap > .section-head > p {
+    max-width:min(100%,70ch);
+  }
+}
+@media(max-width:600px) {
+  body.ws-parity :is(#about,#projects,#experience) > .wrap > .section-head > p {
+    padding:14px 17px;
+    font-size:.94rem;
+    line-height:1.62;
+  }
+}
+
+/* The original strip used 12 separate flex items and -50% translation,
+ * which didn't account for the gap at the repeat boundary. Both groups
+ * below are IDENTICAL and have their own terminal gap. Translating one
+ * exact group-width now gives a seamless, correctly aligned loop.
+ */
+body.ws-parity .ticker {
+  --ticker-gap:clamp(22px,3.5vw,42px);
+  position:relative;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  overflow:hidden;
+  box-sizing:border-box;
+  border-block:1px solid var(--ws-edge,var(--line));
+  background:color-mix(in srgb,var(--panel) 88%,var(--bg) 12%);
+}
+body.ws-parity .ticker-window {
+  width:min(var(--max,1160px),calc(100% - 48px));
+  max-width:100%;
+  min-width:0;
+  margin-inline:auto;
+  overflow:hidden;
+  direction:ltr;
+  isolation:isolate;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 15px,#000 calc(100% - 15px),transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 15px,#000 calc(100% - 15px),transparent);
+}
+body.ws-parity .ticker-in {
+  display:flex;
+  gap:0;
+  flex:0 0 auto;
+  align-items:center;
+  width:max-content;
+  min-width:max-content;
+  max-width:none;
+  padding:0;
+  margin:0;
+  animation:ws-marquee-seamless 42s linear infinite;
+  will-change:transform;
+}
+body.ws-parity .ticker-group {
+  display:flex;
+  flex:0 0 auto;
+  align-items:center;
+  gap:var(--ticker-gap);
+  padding:14px var(--ticker-gap) 14px 0;
+  white-space:nowrap;
+  min-width:max-content;
+}
+body.ws-parity .ticker-group > span {
+  display:inline-flex;
+  flex:0 0 auto;
+  align-items:center;
+  gap:10px;
+  margin:0;
+  min-width:max-content;
+  white-space:nowrap;
+  unicode-bidi:plaintext;
+  color:var(--muted);
+  font:650 clamp(.77rem,.92vw,.9rem)/1.35 var(--sans,system-ui,sans-serif);
+}
+body.ws-parity .ticker-group b {
+  display:inline-block;
+  margin:0!important;
+  padding:0;
+  flex:0 0 auto;
+  color:var(--ws-accent,var(--lime));
+  font-size:.9em;
+  font-weight:800;
+}
+body.ws-parity[data-theme="editorial"] .ticker {
+  background:#eee7dc;
+  border-color:#c5b49d;
+}
+body.ws-parity[data-theme="editorial"] .ticker-group > span {
+  color:#33483e;
+}
+body.ws-parity .ticker-screenreader {
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  clip-path:inset(50%)!important;
+  border:0!important;
+}
+@keyframes ws-marquee-seamless {
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-50%,0,0)}
+}
+body.ws-parity .ticker:is(:hover,:focus-within) .ticker-in {
+  animation-play-state:paused;
+}
+/* The user's explicit motion-off preference continues to win. */
+body.ws-parity[data-ws-motion="off"] .ticker-in {
+  animation:none!important;
+  transform:none!important;
+}
+body.ws-parity[data-ws-motion="off"] .ticker-group:last-child {
+  display:none;
+}
+body.ws-parity[data-ws-motion="off"] .ticker-window {
+  overflow-x:auto;
+  -webkit-mask-image:none;
+  mask-image:none;
+  scrollbar-width:thin;
+}
+@media(max-width:600px) {
+  body.ws-parity .ticker-window {
+    width:calc(100% - 34px);
+  }
+  body.ws-parity .ticker-group {
+    padding-block:12px;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  body.ws-parity .ticker-in {
+    animation:none!important;
+    transform:none!important;
+    will-change:auto;
+  }
+  body.ws-parity .ticker-group:last-child {
+    display:none;
+  }
+  body.ws-parity .ticker-window {
+    overflow-x:auto;
+    -webkit-mask-image:none;
+    mask-image:none;
+    scrollbar-width:thin;
+  }
+}
