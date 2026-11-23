@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "webstudio-personal-visual-parity-v1.1.0-preview",
+  "release": "webstudio-personal-visitor-themes-v1.2.0-preview",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -13,7 +13,11 @@
     "webstudio-reference-compositions",
     "six-visual-layouts",
     "aurora-five-role-six-card-reference",
-    "cosmic-four-satellite-reference"
+    "cosmic-four-satellite-reference",
+    "visitor-theme-library-read-only",
+    "read-only-theme-card-preview",
+    "editorial-archived-original-unchanged",
+    "aurora-only-component-isolation"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -27,7 +31,10 @@
     "privateRequestsEnabled": false,
     "productionApiConnected": false,
     "productionPromotionApproved": false,
-    "notes": "Single owner-authenticated personal-site preview. The public visitor UI is read-only except local theme changes, section navigation and approved portfolio interactions. Aurora reference is a visual adaptation of private WebStudio; personal data unchanged. Production promotion not approved.",
-    "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev"
+    "notes": "Single owner-authenticated personal-site preview. The new visitor-only Theme Library changes local presentation only and is accessed from existing Quick Actions; no fictional demo editor, user login changes, form submission, private source, or production API. Aurora-only components mount only for Neon Studio. The preferred Editorial design remains archived and CSS source unchanged. CircleCI/Chromium visual verification is deferred due to exhausted credits; production promotion remains unauthorized.",
+    "alias": "https://preview-personalweb.sudip-das-frontend.pages.dev",
+    "testStatus": "source-checks-only; CircleCI credits exhausted; Chromium visual tests not executed",
+    "themeLibrarySource": "theme-visual-contract.json",
+    "editorialFrozenCommit": "c5383df1ebda7a0e5f05d9f59048a136dc99dac5"
   }
 }
