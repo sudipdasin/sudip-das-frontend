@@ -191,7 +191,7 @@ jobs:
                   if(await native.count()){
                     assert.equal(await native.evaluate(v=>v.controls),true,'Native video controls must be enabled');
                     assert.equal(await native.evaluate(v=>v.muted),true,'Autoplay should initially be muted');
-                    assert.ok(await native.evaluate(v=>v.duration)>43,'Native video duration should be 44 seconds');
+                    assert.ok(await native.evaluate(v=>v.duration)>59&&await native.evaluate(v=>v.duration)<61,'Native video duration should be 60 seconds');
                   }else{
                     assert.ok((await page.locator('#pv-intro-empty').innerText()).includes('awaiting preview publication'),
                       'Missing-file fallback must identify unpublished MP4 without a false success');
