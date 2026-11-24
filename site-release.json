@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.14.0-human-ci-and-project-discovery",
+  "release": "personal-preview-v3.15.0-human-ci-theme-captions",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -113,7 +113,13 @@
     "preview-human-ci-json-export",
     "preview-project-search-and-filters",
     "preview-keyboard-skip-link",
-    "preview-reduced-motion-a11y"
+    "preview-reduced-motion-a11y",
+    "six-theme-shared-control-fidelity",
+    "theme-specific-introduction-video-tile",
+    "english-captions-default-enabled",
+    "on-demand-transcript-from-verified-webvtt",
+    "expanded-fifteen-point-human-ci",
+    "mobile-status-explicitly-unverified"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -459,10 +465,27 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "human-review",
-    "checks": "local-only source smoke tests",
-    "verification": "JavaScript parses; preview safety invariants checked; live browser review pending",
-    "dataPolicy": "feedback stored only in browser and exported by user; no automatic server submission",
+    "stage": "awaiting-human-browser-retest",
+    "incomingReport": {
+      "release": "v3.14-human-ci",
+      "capturedTheme": "design-2",
+      "checklistClaim": "all eight marked pass",
+      "conflicts": [
+        "mobile specifically not tested",
+        "captions not visible",
+        "non-neon themes do not match theme identity"
+      ]
+    },
+    "deliveredChanges": [
+      "6 theme-specific shared panel palettes and 5 distinct non-Neon film tiles",
+      "native English track set default and showing",
+      "same-origin WebVTT transcript on user request",
+      "15-item manual review checklist with separate mobile/captions/theme checks"
+    ],
+    "sourceVerification": "15/15 static source checks plus JS parsing passed; WebVTT 13 cues parsed",
+    "liveBrowserVerification": "not independently available in environment",
+    "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
+    "privacy": "Original feedback upload not checked into public repository",
     "productionPromotionApproved": false
   }
 }
