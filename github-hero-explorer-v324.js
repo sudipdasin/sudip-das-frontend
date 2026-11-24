@@ -265,6 +265,7 @@
     if(pin)pinned=true;
     if(!open){
       open=true;panel.hidden=false;
+      shell.closest('main > .hero')?.classList.add('gh-disclosure-visible');
       shell.dataset.open='true';
       trigger.setAttribute('aria-expanded','true');
       positionPanel();
@@ -277,6 +278,7 @@
     clearClose();pinned=false;
     if(!open)return;
     open=false;panel.hidden=true;
+    shell.closest('main > .hero')?.classList.remove('gh-disclosure-visible');
     delete shell.dataset.open;
     shell.classList.remove('gh-open-up');
     trigger.setAttribute('aria-expanded','false');
