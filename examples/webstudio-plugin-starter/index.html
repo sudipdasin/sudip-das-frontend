@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="description" content="Standalone demonstration of the WebStudio five-engine plugin system">
+<title>WebStudio Plugin Playground</title>
+<link rel="stylesheet" href="../../plugins/webstudio-plugin-engine-v331.css?v=3.31.0">
+<style>
+*{box-sizing:border-box}
+:root{color-scheme:dark}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.65 system-ui,sans-serif;background:#091923;color:#eef9fb}
+#demo-app{min-height:100vh;background:var(--wsp-surface,#092938);color:var(--wsp-ink,#edfffb);transition:background-color .2s}
+#demo-app .wrap{width:min(1180px,calc(100% - 40px));margin-inline:auto}
+#demo-app .top{padding:20px 0;display:flex;gap:15px;flex-wrap:wrap;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff35}
+#demo-app .brand{display:flex;align-items:center;gap:11px;font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+#demo-app .brand-mark{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--wsp-accent);border-radius:12px;color:var(--wsp-accent)}
+#demo-app .top-tools{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+#demo-app .top-tools :is(select,button){min-height:44px;padding:8px 12px;border:1px solid var(--wsp-accent);background:var(--wsp-surface);color:var(--wsp-ink);border-radius:8px;font:inherit;cursor:pointer}
+#demo-app .hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);align-items:center;gap:40px;padding:80px 0 75px;min-height:490px}
+#demo-app h1{font:800 clamp(2.7rem,6.6vw,5.8rem)/1.07 system-ui,sans-serif;letter-spacing:-.06em;margin:0 0 25px}
+#demo-app .kicker{color:var(--wsp-accent);font-size:.77rem;letter-spacing:.2em;font-weight:700;text-transform:uppercase}
+#demo-app .hero-copy{max-width:55ch;color:var(--wsp-ink);opacity:.86}
+#demo-app .art{position:relative;min-height:290px;display:grid;place-items:center;isolation:isolate}
+#demo-app .art:before{content:"";position:absolute;width:min(100%,330px);aspect-ratio:1;border:2px solid var(--wsp-accent);border-radius:50%;opacity:.55}
+#demo-app .art:after{content:"✧";display:grid;place-items:center;width:160px;height:160px;border-radius:35% 65% 62% 38%;border:1px solid var(--wsp-accent);background:var(--wsp-accent);color:var(--wsp-surface);font-size:5rem;box-shadow:0 0 75px #0005}
+#demo-app section[id]{padding:28px 0 70px;scroll-margin-top:30px}
+#demo-app h2{font-size:clamp(1.8rem,3vw,2.4rem);letter-spacing:-.04em;margin:0 0 12px}
+#demo-app .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+#demo-app .work-card{min-width:0;padding:25px;border:1px solid var(--wsp-accent);border-radius:var(--wsp-radius);background:color-mix(in srgb,var(--wsp-surface) 89%,var(--wsp-ink));}
+#demo-app .work-card h3{margin:0 0 10px;line-height:1.25;color:var(--wsp-accent)}
+#demo-app .work-card p{margin:0;color:var(--wsp-ink);opacity:.86}
+#demo-app .work-card[hidden]{display:none!important}
+#demo-app .tools-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+#demo-app .tools-grid>div{min-width:0}
+#demo-app .status-line{display:block;padding:12px 16px;border:1px solid var(--wsp-accent);border-radius:var(--wsp-radius);margin:18px 0;color:var(--wsp-ink);white-space:pre-wrap;overflow-wrap:anywhere}
+#demo-app .foot{margin-top:44px;padding:24px 0 44px;border-top:1px solid var(--wsp-accent);font-size:.87rem;opacity:.8}
+#demo-app :is(button,select,a):focus-visible{outline:3px solid var(--wsp-accent)!important;outline-offset:3px}
+#demo-app a{color:var(--wsp-accent)}
+#demo-app[data-wsp-theme="editorial"] h1{font-family:Georgia,serif;letter-spacing:-.055em}
+#demo-app[data-wsp-theme="terminal"] :is(h1,h2,h3,.brand){font-family:ui-monospace,monospace}
+#demo-app[data-wsp-theme="terminal"] .work-card{border-style:dashed}
+#demo-app[data-wsp-theme="aurora-peak"] .art:before{border-radius:50% 50% 20% 20%}
+#demo-app[data-wsp-theme="neon-studio"] .art:after{box-shadow:0 0 70px #61f5e444}
+#demo-app[data-wsp-theme="design-2"] .art:before{transform:rotate(28deg);border-radius:28%}
+#demo-app[data-wsp-locale="ar"]{direction:rtl}
+@media(max-width:800px){#demo-app .hero{grid-template-columns:1fr;padding:50px 0}#demo-app .grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){#demo-app .wrap{width:min(100% - 28px,1180px)}#demo-app .grid,#demo-app .tools-grid{grid-template-columns:1fr}#demo-app .top-tools{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}#demo-app{transition:none}}
+</style>
+</head>
+<body>
+<div id="demo-app">
+ <header class="wrap top">
+  <div class="brand"><span class="brand-mark" aria-hidden="true">WS</span><span>WebStudio / Plugin Lab</span></div>
+  <div class="top-tools">
+   <label for="demo-locale" data-demo-i18n="language">Language</label>
+   <select id="demo-locale" aria-label="Choose site language">
+    <option value="en">English</option><option value="hi">हिन्दी</option>
+    <option value="bn">বাংলা</option><option value="es">Español</option>
+    <option value="fr">Français</option><option value="de">Deutsch</option>
+    <option value="pt">Português</option><option value="ar">العربية</option>
+    <option value="zh-CN">简体中文</option><option value="ja">日本語</option>
+   </select>
+   <button id="demo-unmount" type="button" data-demo-i18n="unmount">Unload plugins</button>
+   <button id="demo-mount" type="button" data-demo-i18n="mount">Load plugins</button>
+  </div>
+ </header>
+ <main>
+  <section class="wrap hero" id="introduction" data-wsp-hero data-wsp-section data-wsp-label="Introduction">
+   <div><p class="kicker" data-demo-i18n="kicker">Independent modular engines</p>
+    <h1 data-demo-i18n="title">A website with five reusable engines.</h1>
+    <p class="hero-copy" data-demo-i18n="intro">Switch themes and language. Search projects. Change atmosphere. Every plugin can mount or unmount without rebuilding this page.</p>
+   </div>
+   <div class="art" aria-hidden="true"></div>
+  </section>
+  <section class="wrap" id="projects" data-wsp-section data-wsp-label="Projects">
+   <h2 data-demo-i18n="projects">Projects</h2>
+   <div id="demo-portfolio-section">
+    <div class="grid">
+     <article class="work-card" data-wsp-project data-wsp-category="linux"><h3>Linux Shell</h3><p data-demo-i18n="project1">A dependable desktop environment.</p></article>
+     <article class="work-card" data-wsp-project data-wsp-category="ai"><h3>Motion Engine</h3><p data-demo-i18n="project2">Efficient creative tools and animation.</p></article>
+     <article class="work-card" data-wsp-project data-wsp-category="web"><h3>Web Studio</h3><p data-demo-i18n="project3">Fast, flexible websites and interfaces.</p></article>
+     <article class="work-card" data-wsp-project data-wsp-category="linux,web"><h3>System Dashboard</h3><p data-demo-i18n="project4">Live system insight in the browser.</p></article>
+     <article class="work-card" data-wsp-project data-wsp-category="ai,web"><h3>Creative Lab</h3><p data-demo-i18n="project5">Visual experiments across devices.</p></article>
+     <article class="work-card" data-wsp-project data-wsp-category="linux,ai"><h3>Automation</h3><p data-demo-i18n="project6">Reusable engineering workflows.</p></article>
+    </div>
+   </div>
+  </section>
+  <section class="wrap" id="capabilities" data-wsp-section data-wsp-label="Engine Controls">
+   <h2 data-demo-i18n="engines">Engine controls</h2>
+   <p data-demo-i18n="controlsHelp">These controls are generated by the same modules used by the personal portfolio bridge.</p>
+   <div class="tools-grid"><div id="demo-plugin-tools"></div><div id="demo-plugin-other"></div></div>
+   <output id="demo-status" class="status-line" aria-live="polite">Loading…</output>
+  </section>
+ </main>
+ <footer class="wrap foot" data-demo-i18n="footer">Local demonstration. No external API calls, personal data or hosted CI.</footer>
+</div>
+<script src="../../plugins/webstudio-plugin-engine-v331.js?v=3.31.0" defer></script>
+<script src="../../plugins/modules/theme-v331.js?v=3.31.0" defer></script>
+<script src="../../plugins/modules/hero-v331.js?v=3.31.0" defer></script>
+<script src="../../plugins/modules/atmosphere-v331.js?v=3.31.0" defer></script>
+<script src="../../plugins/modules/quick-menu-v331.js?v=3.31.0" defer></script>
+<script src="../../plugins/modules/portfolio-v331.js?v=3.31.0" defer></script>
+<script src="starter.js?v=3.31.0" defer></script>
+</body>
+</html>
