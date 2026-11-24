@@ -49,6 +49,15 @@
    ctx.listen(trigger,'click',()=>popup.hidden?open():shut());
    ctx.listen(close,'click',shut);
    ctx.listen(panel,'keydown',event=>{if(event.key==='Escape'&&!popup.hidden){event.preventDefault();shut()}});
+   ctx.listen(links,'click',event=>{
+    if(event.target?.closest?.('a[href^="#"]')){
+     popup.hidden=true;trigger.setAttribute('aria-expanded','false');
+    }
+   });
+   ctx.listen(themes,'click',event=>{
+    const button=event.target?.closest?.('button[data-wsp-theme-id]');
+    if(button)ctx.host.setTheme(button.dataset.wspThemeId);
+   });
    ctx.listen(doc,'pointerdown',event=>{
     if(!popup.hidden&&!panel.contains(event.target)){
      popup.hidden=true;trigger.setAttribute('aria-expanded','false');
@@ -69,15 +78,14 @@
      const a=doc.createElement('a');a.href='#'+section.id;
      a.textContent=section.getAttribute('data-wsp-label')||
       section.querySelector('h2,h3')?.textContent?.trim()||section.id;
-     ctx.listen(a,'click',()=>{popup.hidden=true;trigger.setAttribute('aria-expanded','false')});
      links.append(a);
     }
     const themeLabels=['Orbit','Editorial','Terminal','Aurora Peak','Neon Studio','Cosmic'];
     Object.keys(global.WebStudioPluginEngine331?.themes||{}).forEach((id,i)=>{
      const b=doc.createElement('button');b.type='button';
      b.textContent=themeLabels[i]||id;
+     b.dataset.wspThemeId=id;
      b.setAttribute('aria-pressed',String(id===ctx.host.getStatus().theme));
-     ctx.listen(b,'click',()=>ctx.host.setTheme(id));
      themes.append(b);
     });
    }
