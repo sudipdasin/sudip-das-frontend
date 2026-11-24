@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.40.0-circular-hero-orbit-geometry-manual-qa-pending",
+  "release": "personal-preview-v3.41.0-aurora-terminal-geometry-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -345,7 +345,10 @@
     "v339-live-journey-miniature",
     "v340-matching-circular-portrait-frames",
     "v340-measured-outer-orbit-docking",
-    "v340-responsive-satellite-anchor-geometry"
+    "v340-responsive-satellite-anchor-geometry",
+    "v341-centered-aurora-scenic-frame",
+    "v341-remove-duplicate-hero-arches",
+    "v341-terminal-source-circle-correction"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1617,6 +1620,13 @@
       "aurora-peak"
     ],
     "geometrySimulationAssertions": 138,
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "heroGeometryV341": {
+    "sourceCommit": "85f392a819ecd90bf7c8b0dd3e4c0c77674d4b8b",
+    "sourceChecks": "native Terminal square rule removed; Aurora duplicate frame rules removed; three stylesheet blobs matched",
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
