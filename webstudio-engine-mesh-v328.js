@@ -112,7 +112,7 @@
    hero:window.__wsHeroDisplay327?.getStatus?.()||null,
    atmosphere:window.__wsAtmosphere323?.getStatus?.()||null,
    quickMenu:Boolean(document.querySelector('.pv-hub-panel-v2')),
-   portfolio:Boolean(document.querySelector('#projects .project-grid')),
+   portfolio:window.__wsPortfolio328?.getStatus?.()||null,
    locale:window.profileI18n?.locale||'en'
   }),
   chooseTheme:choose,
