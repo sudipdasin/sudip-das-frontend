@@ -9,6 +9,7 @@
   capsule:{shape:'capsule',atmosphere:'soft-bloom',motion:'edge-drift',rings:2,period:44},
   hexagon:{shape:'hexagon',atmosphere:'blueprint',motion:'node-trace',rings:3,period:36},
   diamond:{shape:'diamond',atmosphere:'prism-light',motion:'node-trace',rings:3,period:40},
+  console:{shape:'console',atmosphere:'matrix-console',motion:'edge-drift',rings:4,period:24},
   squircle:{shape:'squircle',atmosphere:'glass-haze',motion:'edge-drift',rings:3,period:40}
  }).map(([id,p])=>[id,Object.freeze(p)])));
  const themeMap=Object.freeze({orbit:'round',editorial:'rectangle',terminal:'round','aurora-peak':'arch','neon-studio':'round','design-2':'round'});
@@ -31,6 +32,10 @@
    arc(cx+rx-r,bottom-r,r,r,0,Math.PI/2);arc(cx-rx+r,bottom-r,r,r,Math.PI/2,Math.PI);
   }else if(id==='hexagon'){
    for(let i=0;i<6;i++){const t=-Math.PI/2+i*TAU/6;add(cx+rx*Math.cos(t),cy+ry*Math.sin(t))}
+  }else if(id==='console'){
+   const c=Math.min(rx,ry)*.30;
+   add(cx-rx+c,cy-ry);add(cx+rx-c,cy-ry);add(cx+rx,cy-ry+c);add(cx+rx,cy+ry-c);
+   add(cx+rx-c,cy+ry);add(cx-rx+c,cy+ry);add(cx-rx,cy+ry-c);add(cx-rx,cy-ry+c);
   }else if(id==='diamond'){add(cx,cy-ry);add(cx+rx,cy);add(cx,cy+ry);add(cx-rx,cy)}
   else {for(let i=0;i<128;i++){const t=-Math.PI/2+i*TAU/128,c=Math.cos(t),s=Math.sin(t);add(cx+rx*Math.sign(c)*Math.sqrt(Math.abs(c)),cy+ry*Math.sign(s)*Math.sqrt(Math.abs(s)))}}
   const lengths=[0];for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length];lengths.push(lengths[i]+Math.hypot(b.x-a.x,b.y-a.y))}
@@ -50,5 +55,5 @@
   return Object.freeze({animated,quality,frameRate:animated?(quality==='cinematic'?30:18):0,particleBudget:animated?(quality==='cinematic'?24:10):0});
  }
  function profileFor(theme){const id=themeMap[theme]||'round';return Object.freeze({...profiles[id],theme,locked:locked.has(theme),visualActivation:'approval-required'})}
- global.WebStudioHeroShapes352=Object.freeze({version:'3.52.0',profiles,themeMap,geometry,contours,circlePoint,profileFor,motionPolicy});
+ global.WebStudioHeroShapes352=Object.freeze({version:'3.57.0',profiles,themeMap,geometry,contours,circlePoint,profileFor,motionPolicy});
 })(typeof window!=='undefined'?window:undefined);
