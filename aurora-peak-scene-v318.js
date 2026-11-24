@@ -23,11 +23,34 @@
     const node=create('span','ap-'+name.split(' ').join(' ap-'));
     scene.append(node);
   }
+  const reducedMotion=typeof window.matchMedia==='function'
+    ?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
+  let ambient=!(reducedMotion&&reducedMotion.matches);
   const label=create('div','ap-edition');
   label.append(
     create('span','ap-edition-index','01 / FIELD NOTES'),
     create('span','ap-edition-copy','The alpine edition · Clarity by design')
   );
+  const motionControl=create('button','ap-motion-control');
+  motionControl.type='button';
+  function updateMotion(){
+    const reduced=Boolean(reducedMotion&&reducedMotion.matches);
+    motionControl.disabled=reduced;
+    motionControl.textContent=reduced?'Motion reduced':ambient?'Pause atmosphere':'Resume atmosphere';
+    motionControl.setAttribute('aria-pressed',String(!ambient||reduced));
+    motionControl.title=reduced?'Your system requests reduced motion':'Toggle subtle Alpine atmosphere animations';
+    if(art.dataset.auroraPeakMotion!==undefined)art.dataset.auroraPeakMotion=ambient&&!reduced?'ambient':'paused';
+  }
+  motionControl.addEventListener('click',()=>{
+    if(reducedMotion&&reducedMotion.matches)return;
+    ambient=!ambient;
+    updateMotion();
+  });
+  reducedMotion?.addEventListener?.('change',event=>{
+    if(event.matches)ambient=false;
+    updateMotion();
+  });
+  label.append(motionControl);updateMotion();
   const marker=create('div','ap-trail-mark');
   marker.append(
     create('span','ap-trail-glyph','⌁'),
@@ -49,11 +72,14 @@
       if(!manifest.isConnected)text.append(manifest);
       art.setAttribute('aria-label','Portrait of Sudip Das against a decorative layered alpine landscape');
       document.body.dataset.auroraPeakComposition='scenic-v318';
+      art.dataset.auroraPeakMotion='paused';
+      updateMotion();
     }else{
       scene.remove();marker.remove();label.remove();manifest.remove();
       if(originalArtLabel===null)art.removeAttribute('aria-label');
       else art.setAttribute('aria-label',originalArtLabel);
       delete document.body.dataset.auroraPeakComposition;
+      delete art.dataset.auroraPeakMotion;
     }
   }
   picker.addEventListener('change',synchronize);
