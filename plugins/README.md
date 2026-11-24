@@ -42,6 +42,7 @@ Copy the host CSS, host JavaScript and whichever module JS files you need. Load 
 
 Example my-integration.js:
 
+    (async () => {
     const root = document.getElementById('my-site');
     const host = WebStudioPluginEngine331.create({
       root, theme:'editorial', locale:'en', quality:'auto',
@@ -59,7 +60,12 @@ Example my-integration.js:
     host.setQuality('eco');
     host.getModule('portfolio')?.filter('linux');
     host.getModule('hero')?.measure();
-    await host.unmount();
+    window.myWebStudioHost = host;    // Retain for later actions.
+    })().catch(console.error);
+
+When the site owner wants to remove the modules later, invoke:
+
+    await window.myWebStudioHost.unmount();   // From an async handler.
 
 For partial integration, register only the desired modules. Each module is separately packaged and works without registering the other four.
 
