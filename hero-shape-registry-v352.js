@@ -3,6 +3,7 @@
 ((global)=>{'use strict';if(!global)return;
  const TAU=2*Math.PI,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  const profiles=Object.freeze(Object.fromEntries(Object.entries({
+  bento:{shape:'rectangle',atmosphere:'card-light',motion:'edge-drift',rings:1,period:40},
   round:{shape:'round',atmosphere:'orbital-light',motion:'orbit',rings:3,period:32},
   rectangle:{shape:'rectangle',atmosphere:'paper-ink',motion:'edge-drift',rings:3,period:48},
   arch:{shape:'arch',atmosphere:'alpine-aurora',motion:'curtain',rings:4,period:42},
@@ -12,8 +13,8 @@
   console:{shape:'console',atmosphere:'matrix-console',motion:'edge-drift',rings:4,period:24},
   squircle:{shape:'squircle',atmosphere:'glass-haze',motion:'edge-drift',rings:3,period:40}
  }).map(([id,p])=>[id,Object.freeze(p)])));
- const themeMap=Object.freeze({orbit:'round',editorial:'rectangle',terminal:'round','aurora-peak':'arch','neon-studio':'round','design-2':'round'});
- const locked=new Set(['aurora-peak','neon-studio']);
+ const themeMap=Object.freeze({bento:'bento',orbit:'round',editorial:'rectangle',terminal:'round','aurora-peak':'arch','neon-studio':'round','design-2':'round'});
+ const locked=new Set(['aurora-peak','neon-studio','bento']);
  const num=(v)=>typeof v==='number'&&Number.isFinite(v);
  function circlePoint(cx,cy,r,angle){const t=angle*Math.PI/180;return {x:cx+r*Math.cos(t),y:cy+r*Math.sin(t)}}
  function geometry(id,width,height,inset=0){
@@ -22,7 +23,7 @@
   const add=(x,y)=>points.push(Object.freeze({x,y}));
   const arc=(x,y,a,b,from,to,n=20)=>{for(let i=0;i<=n;i++){const t=from+(to-from)*i/n;add(x+a*Math.cos(t),y+b*Math.sin(t))}};
   if(id==='round'){const r=Math.min(rx,ry);arc(cx,cy,r,r,-Math.PI/2,3*Math.PI/2,128)}
-  else if(id==='rectangle'||id==='capsule'){
+  else if(id==='rectangle'||id==='capsule'||id==='bento'){
    const r=id==='capsule'?Math.min(rx,ry):Math.min(14,rx*.22,ry*.22);
    arc(cx+rx-r,cy-ry+r,r,r,-Math.PI/2,0);arc(cx+rx-r,cy+ry-r,r,r,0,Math.PI/2);
    arc(cx-rx+r,cy+ry-r,r,r,Math.PI/2,Math.PI);arc(cx-rx+r,cy-ry+r,r,r,Math.PI,3*Math.PI/2);
