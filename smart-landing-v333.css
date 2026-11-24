@@ -126,3 +126,55 @@ body.ws-parity[data-theme][data-wsp-smart-landing="active"]:is([data-wsp-landing
  body.ws-parity[data-theme][data-wsp-smart-landing="active"]:is([data-wsp-landing-fit="compact"],[data-wsp-landing-fit="tight"]) .ws-aurora-feature strong{font-size:.7rem!important;line-height:1.2}
  body.ws-parity[data-theme][data-wsp-smart-landing="active"]:is([data-wsp-landing-fit="compact"],[data-wsp-landing-fit="tight"]) .ws-aurora-feature small{font-size:.68rem!important;line-height:1.2}
 }
+
+/* v3.37: separate visual grammars for breadth (catalog) and depth (story).
+   Preserve measured landing geometry; no new rows or persistent animation. */
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>a.primary.ws-live-action{
+ background:var(--sl-material),color-mix(in srgb,var(--sl-surface) 78%,var(--sl-accent))!important;
+ border-color:var(--sl-accent)!important;
+ color:var(--sl-ink)!important;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action{
+ background:radial-gradient(ellipse at 12% 50%,color-mix(in srgb,var(--sl-accent) 19%,transparent),transparent 66%),var(--sl-material),var(--sl-surface)!important;
+ color:var(--sl-ink)!important;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.ws-live-action .ws-live-title{
+ color:var(--sl-ink)!important;grid-column:2!important;grid-row:1!important;text-align:start!important;justify-self:stretch!important;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.ws-live-action .ws-live-summary{
+ grid-column:2!important;grid-row:2!important;justify-self:stretch!important;align-items:flex-start!important;text-align:start!important;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.ws-live-action .ws-live-count{color:var(--sl-accent)!important}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.ws-live-action .ws-live-name{color:var(--sl-ink)!important;font-weight:600}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>a.primary.ws-live-action .ws-live-count{
+ border:1px solid color-mix(in srgb,var(--sl-accent) 55%,transparent);border-radius:var(--sl-icon-shape);padding:1px 5px;line-height:1.15;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>a.primary.ws-live-action .ws-live-work{
+ grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr;align-items:end;gap:2px;padding:5px;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>a.primary.ws-live-action .ws-live-work .ws-live-cell{
+ height:100%;min-width:0;transform:none;transform-origin:bottom;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>a.primary.ws-live-action .ws-live-work .ws-live-cell:nth-child(1){height:45%}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>a.primary.ws-live-action .ws-live-work .ws-live-cell:nth-child(2){height:75%}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>a.primary.ws-live-action .ws-live-work .ws-live-cell:nth-child(3){height:60%}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action .ws-live-gallery{
+ display:block;position:relative;isolation:isolate;border-radius:50%;padding:0;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action .ws-live-gallery .ws-live-cell{
+ position:absolute;inset:4px;transform:none;border-radius:50%;background:transparent;opacity:.65;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action .ws-live-gallery .ws-live-cell:nth-child(1){
+ inset:35%;border:0;background:currentColor;opacity:.25;transform:rotate(45deg);border-radius:2px;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action .ws-live-gallery .ws-live-cell:nth-child(1).is-filled{
+ opacity:1;box-shadow:0 0 8px currentColor;
+}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action .ws-live-gallery .ws-live-cell:nth-child(2){inset:2px 7px;transform:rotate(45deg)}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action .ws-live-gallery .ws-live-cell:nth-child(3){inset:7px 2px;transform:rotate(45deg)}
+body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action .ws-live-gallery .ws-live-cell:nth-child(4){inset:2px 2px auto auto;width:4px;height:4px;background:currentColor;opacity:.9}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>a.primary.ws-live-action:hover .ws-live-work .ws-live-cell.is-filled{transform:scaleY(1.12)}
+ body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action:hover .ws-live-gallery .ws-live-cell:nth-child(2){transform:rotate(80deg)}
+ body.ws-parity[data-theme][data-wsp-smart-landing="active"] main>.hero.hd-hero .hero-text.ws-signature-host>.actions.ws-signature-actions>.portfolio-gallery-hero-launch.ws-live-action:hover .ws-live-gallery .ws-live-cell:nth-child(3){transform:rotate(10deg)}
+}
