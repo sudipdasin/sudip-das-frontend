@@ -178,6 +178,14 @@ body.ws-parity[data-theme="design-2"] .ws-atmo-layer::after{
   background:repeating-radial-gradient(circle at 76% 46%,transparent 0 48px,#ae87ff1c 49px,transparent 52px);
 }
 /* Eco is strictly still imagery. Off removes *all* added visual layers. */
+/* Low-end fallback removes additive blending and animated compositor effects. */
+body.ws-parity[data-atmosphere-tier="eco"] .ws-atmo-layer{
+  opacity:.22!important;mix-blend-mode:normal!important;
+}
+body.ws-parity[data-atmosphere-tier="eco"] .ws-atmo-layer::before,
+body.ws-parity[data-atmosphere-tier="eco"] .ws-atmo-layer::after{
+  transform:none!important;filter:none!important;
+}
 body.ws-parity[data-atmosphere-tier="eco"] .ws-atmo-layer>.ws-atmo-canvas{display:none!important}
 body.ws-parity[data-atmosphere-tier="eco"] .ws-atmo-layer::after,
 body.ws-parity[data-atmosphere-tier="off"] .ws-atmo-layer::after{
@@ -228,4 +236,9 @@ body.ws-parity[data-atmosphere-tier="cinematic"] .ws-atmo-layer::after{animation
 @media(forced-colors:active){
   body.ws-parity .ws-atmo-layer{display:none!important}
   body.ws-parity .ws-atmo-control :is(summary,label){forced-color-adjust:auto}
+}
+
+@media(prefers-contrast:more){
+  body.ws-parity .ws-atmo-layer{opacity:.16!important}
+  body.ws-parity .topbar .ws-atmo-control .ws-atmo-trigger{border-width:2px!important}
 }
