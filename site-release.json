@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.11.0-multilingual-interface",
+  "release": "personal-preview-v3.12.0-smart-footer-breadcrumbs",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -106,7 +106,9 @@
     "neon-mobile-44px-touch-targets-and-floating-footer-clearance",
     "ten-language-dynamic-ui-translation-layer",
     "all-six-themes-localized",
-    "translated-accessibility-labels-and-dynamic-panels"
+    "translated-accessibility-labels-and-dynamic-panels",
+    "context-aware-accessible-footer-breadcrumbs",
+    "removed-redundant-footer-social-list"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -417,6 +419,17 @@
         ],
         "touchTargetPx": 44,
         "productionApproved": false
+      },
+      "footerBreadcrumbs": {
+        "date": "2026-11-24",
+        "ownerRequest": "Remove social links from footer and implement smart breadcrumbs",
+        "scope": "Footer only, preview and approved production; retain all social links in primary contact modules",
+        "cssSha": "6c1f5b66cedad2e038b051c6904e4a9448b10087",
+        "jsSha": "bff2f048eea4fcf2ec7ad8b87e7a400a77ff0e3e",
+        "locales": 10,
+        "backup": "backup/pre-footer-breadcrumb-preview-2026-11-24",
+        "sourceTests": "markup, language map, JS parser, preview guards, link and section presence",
+        "browserVisualQA": "not independently performed"
       }
     }
   },
