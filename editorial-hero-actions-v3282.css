@@ -1,0 +1,68 @@
+/* WebStudio Editorial CTA composition v3.28.2
+ * Scoped: Editorial hero only. Other themes, navigation and JS untouched.
+ * Keeps GitHub preview and video controls interactive.
+ */
+@media (min-width: 701px) {
+  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px!important;
+    align-items:stretch;
+    width:100%;
+    max-width:610px;
+  }
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > * {
+  min-width:0!important;
+  width:100%!important;
+  max-width:100%;
+  margin:0!important;
+  box-sizing:border-box;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > :is(a,button,.gh-hero-shell,.pv-intro-tile) {
+  border-radius:5px;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > a.button {
+  justify-content:center;
+  min-height:60px;
+  text-align:center;
+  background:#fbf7ee;
+  border:1px solid #a88b70;
+  color:#352f2b;
+  box-shadow:none;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > a.button.primary {
+  background:#865e49;
+  color:#fffaf3;
+  border-color:#865e49;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > a.button:is(:hover,:focus-visible) {
+  border-color:#6f452f;
+  box-shadow:0 4px 14px #67452b24;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .gh-hero-trigger {
+  min-height:60px;
+  width:100%;
+  border-color:#a88b70;
+  border-radius:5px;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-tile {
+  align-self:stretch;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-hero-cta {
+  min-height:60px;
+  border:1px solid #a88b70;
+  border-radius:5px;
+}
+@media(max-width:700px){
+  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr);
+    gap:10px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions *{
+   transition-duration:0.01ms!important;
+ }
+}
