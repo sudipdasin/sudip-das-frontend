@@ -81,8 +81,11 @@
     order.setAttribute('aria-label',t[10]);clear.textContent=t[6];
     lastCount=-1;update();
    }
-   scan();(ctx.slots.portfolio||parent||ctx.root).before?.(panel);
-   if(!panel.isConnected)(ctx.slots.portfolio||ctx.root).append(panel);
+   scan();
+   const target=ctx.slots.portfolio||parent||ctx.root;
+   if(ctx.slots.portfolio)target.prepend(panel);
+   else if(parent?.before)parent.before(panel);
+   else target.prepend(panel);
    ctx.listen(input,'input',update);ctx.listen(focus,'change',update);ctx.listen(order,'change',update);
    ctx.listen(clear,'click',()=>{input.value='';focus.value='all';order.value='original';update();input.focus()});
    ctx.onCleanup(()=>{
