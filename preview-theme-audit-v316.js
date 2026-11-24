@@ -31,7 +31,7 @@
       .tip{font-size:12px}
     </style>
     <details>
-      <summary>◈ Theme audit · v3.24</summary>
+      <summary>◈ Theme audit · v3.27</summary>
       <article>
         <p>Tests active CSS and layout in this browser, one theme at a time. No screenshots or data are uploaded.</p>
         <p class="tip">Repeat at desktop, tablet and mobile widths. Automated checks do not replace your visual review.</p>
@@ -132,7 +132,28 @@
       checks.push(['Reduced motion forbids animated renderer',
         Boolean(atmosphere&&['eco','off'].includes(atmosphere.effective))]);
     }
-    // GitHub hero is inspected without opening it or consuming public API quota.
+    // Hero Display v3.27 is checked without triggering animations or video playback.
+    const heroDisplay=window.__wsHeroDisplay327?.getStatus?.();
+    const heroLayout=document.querySelector('main>.hero.hd-hero');
+    const stage=heroLayout?.querySelector('.hd-stage');
+    const expectedCompositions={orbit:'orbit',editorial:'editorial',terminal:'terminal',
+      'aurora-peak':'alpine','neon-studio':'neon','design-2':'cosmic'};
+    const geometry=heroLayout?getComputedStyle(heroLayout):null;
+    const tint=geometry?.getPropertyValue('--hd-accent').trim()||'';
+    checks.push(['Hero Display Engine theme composition synchronized',
+      Boolean(heroDisplay&&heroDisplay.theme===id&&heroDisplay.composition===expectedCompositions[id]&&heroLayout?.dataset.hdLayout===heroDisplay.composition)]);
+    checks.push(['Hero has a single non-interactive stage',
+      Boolean(stage&&heroLayout.querySelectorAll('.hd-stage').length===1&&stage.getAttribute('aria-hidden')==='true'&&getComputedStyle(stage).pointerEvents==='none')]);
+    checks.push(['Theme-native hero layout and palette active',
+      Boolean(tint&&heroDisplay?.density&&geometry?.display==='grid')]);
+    checks.push(['Hero headline, portrait and actions remain',
+      Boolean(heroLayout?.querySelector('h1')&&heroLayout?.querySelector('.hero-art .core img')&&
+        heroLayout?.querySelector('.actions a[href="#projects"]')&&document.getElementById('gh-hero-trigger'))]);
+    if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){
+      checks.push(['Hero animations are disabled by reduced motion',
+        Boolean(heroDisplay?.motion==='still')]);
+    }
+        // GitHub hero is inspected without opening it or consuming public API quota.
     const ghRoot=document.getElementById('gh-hero-explorer');
     const ghButton=document.getElementById('gh-hero-trigger');
     const ghPanel=document.getElementById('gh-hero-panel');
@@ -253,7 +274,7 @@
     }
     const passed=results.reduce((a,r)=>a+r.pass,0);
     resultData={
-      release:'v3.24-theme-audit',source:'real-browser-computed-styles',
+      release:'v3.27-theme-audit',source:'real-browser-computed-styles',
       generatedAt:new Date().toISOString(),url:location.origin+location.pathname,
       viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
       userAgent:navigator.userAgent,originalTheme:previous,
@@ -263,7 +284,7 @@
     const total=results.reduce((a,r)=>a+r.total,0);
     const horizontalOverflow=document.documentElement.scrollWidth>document.documentElement.clientWidth+2;
     reportText=[
-      'WebStudio theme audit v3.24',
+      'WebStudio theme audit v3.27',
       'Viewport: '+innerWidth+' × '+innerHeight,
       'Checked '+results.length+'/6 themes; static probes '+passed+'/'+total+' passed.',
       'Horizontal overflow present: '+(horizontalOverflow?'yes - visually inspect':'not detected'),
@@ -284,7 +305,7 @@
     const file=new Blob([JSON.stringify(resultData,null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(file);
     const link=document.createElement('a');
-    link.download='webstudio-theme-audit-v3.24.json';link.href=url;
+    link.download='webstudio-theme-audit-v3.27.json';link.href=url;
     document.body.append(link);link.click();link.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
     status.textContent='Local theme audit JSON exported. Attach it to your Human CI feedback.';
