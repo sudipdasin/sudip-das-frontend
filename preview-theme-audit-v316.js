@@ -109,6 +109,9 @@
       checks.push(['Alpine edition identity visible',Boolean(edition&&edition.getBoundingClientRect().height>10)]);
       checks.push(['Mountain relief has three layers',document.querySelectorAll('.ap-landscape .ap-ridge').length===3]);
       checks.push(['Aurora mount contract active',document.body.dataset.auroraPeakComposition==='scenic-v318']);
+      const control=document.querySelector('.ap-motion-control');
+      checks.push(['Alpine motion control available',Boolean(control&&control.tagName==='BUTTON'&&control.getAttribute('aria-pressed')!==null)]);
+      checks.push(['Motion preference honored',Boolean(control&&(!window.matchMedia('(prefers-reduced-motion: reduce)').matches||control.disabled))]);
     }
     if(id==='editorial') {
       checks.push(['three editorial margin notes',chips.length===3]);
