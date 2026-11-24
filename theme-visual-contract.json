@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "title": "Personal portfolio six-theme visual contracts and Editorial gold-master",
+  "title": "Personal portfolio seven-theme visual contracts and Editorial gold-master",
   "baseSource": "sudipdasin/webstudio-private/examples/customer-demo",
   "currentPreview": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
   "previewOnly": true,
@@ -354,6 +354,23 @@
         "shape": "nebula prism",
         "motion": "orbital starfield"
       }
+    },
+    {
+      "id": "bento",
+      "personalLabel": "Obsidian Bento",
+      "webstudioLabel": "Obsidian Bento",
+      "personalPreviewAvailable": true,
+      "orbitBadges": 0,
+      "distinctive": "Freelancer-focused charcoal, cobalt and ivory modular cards.",
+      "heroDisplayV327": {
+        "composition": "asymmetric bento cards",
+        "portrait": "original photographic card"
+      },
+      "atmosphereV323": {
+        "effect": "adaptive CSS card lighting, subtle pointer response",
+        "coverage": "Hero and modular portfolio presentation"
+      },
+      "status": "source implemented; live visual verification pending"
     }
   ],
   "visualAudit": {
