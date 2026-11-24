@@ -246,27 +246,58 @@
     })();
     return loading;
   }
+  // Portaled disclosure: viewport anchored, isolated from hero/ticker layers.
+  // Theme selection drives the panel skin independently of its DOM parent.
+  const knownThemes=new Set(['orbit','editorial','terminal','aurora-peak','neon-studio','design-2']);
+  const themePicker=document.getElementById('theme-select');
+  const liveTheme=()=>{
+    const selected=themePicker?.value;
+    const applied=document.body?.dataset.theme;
+    return knownThemes.has(selected)?selected:knownThemes.has(applied)?applied:'neon-studio';
+  };
+  const syncPanelSkin=()=>{panel.dataset.ghTheme=liveTheme()};
   function positionPanel(){
     if(!open)return;
+    syncPanelSkin();
     const r=trigger.getBoundingClientRect();
-    const maxWidth=Math.max(200,window.innerWidth-24);
-    const width=Math.min(panel.getBoundingClientRect().width||440,maxWidth);
-    const targetLeft=Math.min(Math.max(r.left,12),Math.max(12,window.innerWidth-width-12));
-    shell.style.setProperty('--gh-panel-shift-x',(targetLeft-r.left)+'px');
-    const availableBottom=window.innerHeight-r.bottom-16;
-    const availableTop=r.top-16;
-    shell.classList.toggle('gh-open-up',availableBottom<Math.min(350,panel.scrollHeight)&&availableTop>availableBottom);
-    const available=shell.classList.contains('gh-open-up')?availableTop:availableBottom;
-    panel.style.maxHeight=Math.max(150,Math.floor(available-14))+'px';
+    const viewportWidth=Math.max(320,document.documentElement.clientWidth||window.innerWidth);
+    const viewportHeight=window.innerHeight||document.documentElement.clientHeight||720;
+    const width=Math.min(455,viewportWidth-24);
+    const targetLeft=Math.min(Math.max(r.left,12),Math.max(12,viewportWidth-width-12));
+    const availableBottom=Math.max(0,viewportHeight-r.bottom-16);
+    const availableTop=Math.max(0,r.top-16);
+    const up=availableBottom<Math.min(350,panel.scrollHeight||350)&&availableTop>availableBottom;
+    const available=up?availableTop:availableBottom;
+    panel.classList.toggle('gh-open-up',up);
+    panel.style.setProperty('--gh-panel-shift-x','0px');
+    panel.style.left=targetLeft+'px';
+    panel.style.top=up?'auto':Math.max(8,r.bottom+10)+'px';
+    panel.style.bottom=up?Math.max(8,viewportHeight-r.top+10)+'px':'auto';
+    panel.style.width=width+'px';
+    panel.style.maxHeight=Math.max(100,Math.floor(available-14))+'px';
   }
+  function portalPanel(){
+    syncPanelSkin();
+    panel.classList.add('gh-hero-panel-portal');
+    document.body.append(panel);
+    document.body.classList.add('gh-panel-portaled');
+  }
+  function restorePanel(){
+    panel.classList.remove('gh-hero-panel-portal','gh-open-up');
+    shell.append(panel);
+    for(const name of ['--gh-panel-shift-x','left','top','bottom','width','max-height'])
+      panel.style.removeProperty(name);
+    delete panel.dataset.ghTheme;
+    document.body.classList.remove('gh-panel-portaled');
+  }
+  const owns=node=>Boolean(node&&(shell.contains(node)||panel.contains(node)));
   function clearClose(){if(closeId){clearTimeout(closeId);closeId=0}}
   function reveal(pin=false){
     clearClose();
     if(pin)pinned=true;
     if(!open){
       open=true;panel.hidden=false;
-      shell.closest('main > .hero')?.classList.add('gh-disclosure-visible');
-      document.body?.classList.add('gh-disclosure-active');
+      portalPanel();
       shell.dataset.open='true';
       trigger.setAttribute('aria-expanded','true');
       positionPanel();
@@ -279,16 +310,14 @@
     clearClose();pinned=false;
     if(!open)return;
     open=false;panel.hidden=true;
-    shell.closest('main > .hero')?.classList.remove('gh-disclosure-visible');
-    document.body?.classList.remove('gh-disclosure-active');
+    restorePanel();
     delete shell.dataset.open;
-    shell.classList.remove('gh-open-up');
     trigger.setAttribute('aria-expanded','false');
   }
   function planClose(){
     clearClose();
     closeId=setTimeout(()=>{
-      if(!shell.matches(':hover')&&!shell.contains(document.activeElement))conceal();
+      if(!shell.matches(':hover')&&!panel.matches(':hover')&&!owns(document.activeElement))conceal();
     },180);
   }
   if(hover?.matches){
@@ -306,24 +335,33 @@
       panel.querySelector('a')?.focus();
     }
   });
-  shell.addEventListener('focusout',event=>{
-    if(event.relatedTarget&&!shell.contains(event.relatedTarget))conceal(true);
-  });
-  shell.addEventListener('keydown',event=>{
+  panel.addEventListener('pointerenter',clearClose);
+  panel.addEventListener('pointerleave',planClose);
+  const leaveFocus=event=>{if(event.relatedTarget&&!owns(event.relatedTarget))conceal(true)};
+  shell.addEventListener('focusout',leaveFocus);
+  panel.addEventListener('focusout',leaveFocus);
+  const handleEscape=event=>{
     if(event.key==='Escape'&&open){
       event.preventDefault();
       suppressFocusOpen=true;conceal(true);trigger.focus();
       Promise.resolve().then(()=>{suppressFocusOpen=false});
     }
-  });
+  };
+  shell.addEventListener('keydown',handleEscape);
+  panel.addEventListener('keydown',handleEscape);
   document.addEventListener('pointerdown',event=>{
-    if(open&&!shell.contains(event.target))conceal(true);
+    if(open&&!owns(event.target))conceal(true);
   });
+  const bodyThemeObserver=typeof MutationObserver==='function'?new MutationObserver(()=>{
+    if(open)syncPanelSkin();
+  }):null;
+  bodyThemeObserver?.observe(document.body,{attributes:true,attributeFilter:['data-theme']});
+  themePicker?.addEventListener('change',()=>{if(open)syncPanelSkin()});
   window.addEventListener('scroll',()=>conceal(true),{passive:true});
   window.addEventListener('resize',positionPanel,{passive:true});
   refresh.addEventListener('click',()=>{loaded=null;updatedAt=0;void load(true)});
   window.__wsGithubHero324=Object.freeze({
-    getStatus:()=>Object.freeze({open,pinned,loaded:!!loaded,repoCount:loaded?.repos?.length||0}),
+    getStatus:()=>Object.freeze({open,pinned,loaded:!!loaded,repoCount:loaded?.repos?.length||0,portaled:panel.classList.contains('gh-hero-panel-portal'),theme:panel.dataset.ghTheme||null}),
     refresh:()=>load(true)
   });
 })();
