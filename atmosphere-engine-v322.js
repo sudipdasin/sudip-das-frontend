@@ -93,8 +93,8 @@
     if(p.reduced||p.saveData||battery.low)return 'eco';
     if(mode!=='auto')return mode;
     if(slowDevice)return 'eco';
-    if((mem===0||mem>=4)&&(cores===0||cores>=6)&&!p.mobile&&browserGPU())return 'cinematic';
-    if((mem===0||mem>=2)&&(cores===0||cores>=3))return 'balanced';
+    if(mem>=4&&cores>=6&&!p.mobile&&browserGPU())return 'cinematic';
+    if((mem===0||mem>=2)&&cores>=4)return 'balanced';
     return 'eco';
   }
   function resolveTier(){
@@ -257,6 +257,7 @@
     raf=requestAnimationFrame(frame);
   }
   function schedule(){
+    if(typeof requestAnimationFrame!=='function')return;
     if(!raf&&eligible())raf=requestAnimationFrame(frame);
   }
   function synchronize(note=''){
