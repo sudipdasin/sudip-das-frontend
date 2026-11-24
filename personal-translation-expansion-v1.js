@@ -18,16 +18,16 @@ const githubRows=[["Explore public work","सार्वजनिक काम 
 for(const row of githubRows)if(!existing.has(row[0])){rows.push(row);existing.add(row[0]);}
 const map=new Map(rows.map(row=>[row[0],row]));
 const themes={
-'en':['Orbit · Portfolio','Editorial · Profile','Terminal · Explorer','Aurora Peak','Neon Studio','Cosmic'],
-'hi':['ऑर्बिट · पोर्टफोलियो','एडिटोरियल · प्रोफ़ाइल','टर्मिनल · एक्सप्लोरर','ऑरोरा पीक','नियॉन स्टूडियो','कॉस्मिक'],
-'bn':['অরবিট · পোর্টফোলিও','এডিটোরিয়াল · প্রোফাইল','টার্মিনাল · এক্সপ্লোরার','অরোরা পিক','নিয়ন স্টুডিও','কসমিক'],
-'es':['Órbita · Portafolio','Editorial · Perfil','Terminal · Explorador','Pico Aurora','Estudio Neón','Cósmico'],
-'fr':['Orbite · Portfolio','Éditorial · Profil','Terminal · Explorateur','Pic Aurora','Studio Néon','Cosmique'],
-'de':['Orbit · Portfolio','Editorial · Profil','Terminal · Explorer','Aurora-Gipfel','Neon-Studio','Kosmisch'],
-'pt':['Órbita · Portfólio','Editorial · Perfil','Terminal · Explorador','Pico Aurora','Estúdio Neon','Cósmico'],
-'ar':['المدار · الأعمال','تحريري · الملف','الطرفية · المستكشف','قمة الشفق','استوديو النيون','كوني'],
-'zh-CN':['轨道 · 作品集','编辑风 · 资料','终端 · 浏览器','极光之巅','霓虹工作室','宇宙'],
-'ja':['オービット · ポートフォリオ','エディトリアル · プロフィール','ターミナル · エクスプローラー','オーロラ・ピーク','ネオンスタジオ','コズミック']
+'en':['Orbit · Portfolio','Editorial · Profile','Terminal · Explorer','Aurora Peak','Neon Studio','Cosmic', 'Obsidian Bento'],
+'hi':['ऑर्बिट · पोर्टफोलियो','एडिटोरियल · प्रोफ़ाइल','टर्मिनल · एक्सप्लोरर','ऑरोरा पीक','नियॉन स्टूडियो','कॉस्मिक', 'Obsidian Bento'],
+'bn':['অরবিট · পোর্টফোলিও','এডিটোরিয়াল · প্রোফাইল','টার্মিনাল · এক্সপ্লোরার','অরোরা পিক','নিয়ন স্টুডিও','কসমিক', 'Obsidian Bento'],
+'es':['Órbita · Portafolio','Editorial · Perfil','Terminal · Explorador','Pico Aurora','Estudio Neón','Cósmico', 'Obsidian Bento'],
+'fr':['Orbite · Portfolio','Éditorial · Profil','Terminal · Explorateur','Pic Aurora','Studio Néon','Cosmique', 'Obsidian Bento'],
+'de':['Orbit · Portfolio','Editorial · Profil','Terminal · Explorer','Aurora-Gipfel','Neon-Studio','Kosmisch', 'Obsidian Bento'],
+'pt':['Órbita · Portfólio','Editorial · Perfil','Terminal · Explorador','Pico Aurora','Estúdio Neon','Cósmico', 'Obsidian Bento'],
+'ar':['المدار · الأعمال','تحريري · الملف','الطرفية · المستكشف','قمة الشفق','استوديو النيون','كوني', 'Obsidian Bento'],
+'zh-CN':['轨道 · 作品集','编辑风 · 资料','终端 · 浏览器','极光之巅','霓虹工作室','宇宙', 'Obsidian Bento'],
+'ja':['オービット · ポートフォリオ','エディトリアル · プロフィール','ターミナル · エクスプローラー','オーロラ・ピーク','ネオンスタジオ','コズミック', 'Obsidian Bento']
 };
 const originalNodes=new WeakMap(),renderedNodes=new WeakMap();
 const originalAttrs=new WeakMap(),renderedAttrs=new WeakMap();
