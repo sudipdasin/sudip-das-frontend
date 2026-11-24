@@ -34,6 +34,7 @@
  top.append(brand,close);
  const scope=create('div','pv-hub-context');
  const contextText=create('span','pv-hub-current','Viewing · Introduction');
+ contextText.setAttribute('aria-live','polite');
  const progressText=create('span','pv-hub-progress-label','0% viewed');
  scope.append(contextText,progressText);
  const progress=create('div','pv-hub-progress');
@@ -82,7 +83,10 @@
  const tools=create('div','pv-hub-tools');
  const actions=[
   ['✦','Start guided tour','Visit each public section in order',()=>byId('ws-tour-start')?.click()],
-  ['▦','Explore projects','Browse the public portfolio gallery',()=>document.querySelector('#projects')?.scrollIntoView({behavior:'smooth',block:'start'})],
+  ['▦','Explore projects','Search and filter the public portfolio',()=>{
+    if(window.__wsPortfolio328?.focusSearch)window.__wsPortfolio328.focusSearch();
+    else document.querySelector('#projects')?.scrollIntoView({behavior:'smooth',block:'start'});
+  }],
   ['☑','Build a shortlist','Select projects to compare or copy',()=>byId('ws-visitor-hub')?.scrollIntoView({behavior:'smooth',block:'start'})],
   ['▶','Professional video','Go to the introduction preview',()=>byId('pv-intro-expand')?.scrollIntoView({behavior:'smooth',block:'center'})],
   ['↑','Back to top','Return to the introduction',()=>byId('top')?.scrollIntoView({behavior:'smooth',block:'start'})]
@@ -315,6 +319,7 @@
  let active=0;
  function activate(index,focus=false){
   active=(index+buttons.length)%buttons.length;
+  panel.dataset.wsQuickActive=ids[active];
   buttons.forEach((t,i)=>{
    const selected=i===active;
    t.setAttribute('aria-selected',String(selected));
@@ -322,6 +327,7 @@
    panes[i].hidden=!selected;
   });
   if(focus)buttons[active].focus();
+  window.dispatchEvent(new CustomEvent('ws-quick-menu-tab-change',{detail:{tab:ids[active]}}));
  }
  buttons.forEach((t,i)=>{
   t.addEventListener('click',()=>activate(i));
@@ -356,7 +362,11 @@
    const box=el.getBoundingClientRect();
    if(box.top<=pos&&box.bottom>0)current=name;
   }
-  contextText.textContent='Viewing · '+current;
+  const locale=window.profileI18n;
+  const index=sections.findIndex(([,name])=>name===current);
+  const path=['','nav.0','nav.1','nav.2','nav.3',''][index];
+  const translated=path?locale?.get?.(path):null;
+  contextText.textContent='Viewing · '+(typeof translated==='string'&&translated?translated:current);
   if(themeButtons)themeButtons.querySelectorAll('button[data-theme]').forEach(b=>{
    b.setAttribute('aria-pressed',String(b.dataset.theme===document.body.dataset.theme));
   });
@@ -365,6 +375,7 @@
  window.addEventListener('scroll',schedule,{passive:true});
  window.addEventListener('resize',schedule,{passive:true});
  document.addEventListener('profile-language-change',schedule);
+ window.addEventListener('ws-engine-theme-change',schedule);
  byId('theme-select')?.addEventListener('change',schedule);
  trigger.addEventListener('click',()=>{
   if(!panel.hidden){activate(0);update();}
