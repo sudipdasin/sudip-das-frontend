@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.28.1-editorial-video-and-neon-audit-repair",
+  "release": "personal-preview-v3.28.2-editorial-hero-actions-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -282,7 +282,7 @@
   "privateBackendBundled": false,
   "stage": "preview",
   "verifiedPrivateSourceCommit": "4b2b49ee6670e3c0a4bdceb22a80274f2abf679f",
-  "ciProvider": "CircleCI",
+  "ciProvider": "paused-manual-owner-verification",
   "preview": {
     "role": "CURRENT_PERSONAL_PREVIEW",
     "branch": "preview-personalweb",
@@ -1167,5 +1167,16 @@
     "preserveApprovedNeon": true,
     "editorialScopeOnly": true,
     "productionPromotionApproved": false
+  },
+  "manualCI": {
+    "effectiveDate": "2026-11-24",
+    "githubActions": "quota-exhausted-no-runs",
+    "circleCI": "quota-exhausted-workflows-default-disabled",
+    "validationAuthority": "owner-manual-review-and-feedback",
+    "manualQAStatus": "pending",
+    "automaticHostedTestResult": "NOT_RUN",
+    "previewDeploymentIndependentOfCI": true,
+    "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md",
+    "lastKnownChange": "editorial-hero-actions-v3282.css"
   }
 }
