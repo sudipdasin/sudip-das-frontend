@@ -1,0 +1,160 @@
+/* v3.16 — Theme identity repair. Preview only.
+   Root cause: the 60s video CTA retained a Neon poster/overlay/button across themes,
+   while orbit badges remained generic floaters in the Editorial composition.
+   Intent: preserve genuinely different composition/materials, not recolor one skin.
+   Neon Studio is intentionally not selected anywhere in this stylesheet. */
+
+/* EDITORIAL: quiet publication-paper card and a typeset expertise footnote rail. */
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-tile > .pv-intro-hero-cta{
+  background:#fbf7ee!important;background-image:none!important;
+  border:1px solid #a58b76!important;border-left:4px solid #8e624b!important;
+  border-radius:2px!important;color:#302d29!important;box-shadow:0 8px 26px #6853411f!important;
+  text-shadow:none!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-tile > .pv-intro-hero-cta::after{
+  background:none!important;opacity:0!important;visibility:hidden!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-tile .pv-intro-cta-motion{
+  display:none!important;visibility:hidden!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-tile :is(.pv-intro-launch-copy,.pv-intro-launch-copy strong,.pv-intro-launch-copy small){
+  color:#3e332c!important;text-shadow:none!important;opacity:1!important;visibility:visible!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-tile .pv-intro-launch-copy strong{
+  font-family:Georgia,serif!important;font-size:clamp(.85rem,1vw,1rem)!important;font-weight:700!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-tile .pv-intro-launch-copy small{
+  color:#756051!important;font-family:Georgia,serif!important;letter-spacing:.01em;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-tile .pv-intro-expand{
+  color:#fffaf1!important;background:#8b5a43!important;border:1px solid #7a4d38!important;
+  border-radius:2px!important;box-shadow:none!important;font-family:Georgia,serif!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-tile .pv-intro-expand:focus-visible{
+  outline:3px solid #8b5a43!important;outline-offset:3px!important;
+}
+body.ws-parity[data-theme="editorial"] .hero-art{overflow:visible!important;}
+body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip{
+  position:absolute!important;top:auto!important;bottom:-25px!important;right:auto!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;
+  min-height:29px!important;width:31%!important;max-width:31%!important;white-space:normal!important;
+  margin:0!important;padding:5px 3px!important;border:0!important;border-top:1px solid #ae9480!important;
+  border-radius:0!important;box-shadow:none!important;background:none!important;color:#6e4c3b!important;
+  font:600 clamp(.62rem,.78vw,.74rem)/1.3 Georgia,serif!important;
+  text-align:center!important;transform:none!important;letter-spacing:.012em!important;
+}
+body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip i{display:none!important}
+body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip::before{
+  content:"01";font:700 .61rem/1.2 Georgia,serif;color:#a27758;letter-spacing:.08em;
+}
+body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip[data-pos="a"]{left:1%!important}
+body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip[data-pos="b"]{left:34.5%!important}
+body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip[data-pos="c"]{left:68%!important}
+body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip[data-pos="b"]::before{content:"02"}
+body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip[data-pos="c"]::before{content:"03"}
+body.ws-parity[data-theme="editorial"] .hero-art .orbit{
+  animation:none!important;border-style:solid!important;border-color:#a98d7333!important;
+  box-shadow:none!important;opacity:.2!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .button.primary{
+  background:#875e48!important;color:#fffaf0!important;border-color:#875e48!important;
+  box-shadow:0 8px 20px #714f3b1f!important;
+}
+/* TERMINAL: flat console interface, no portrait-independent neon video teaser. */
+body.ws-parity[data-theme="terminal"] .hero .actions .pv-intro-tile>.pv-intro-hero-cta{
+  background:repeating-linear-gradient(0deg,#5cffab0a 0 1px,transparent 1px 12px),#06190f!important;
+  background-image:repeating-linear-gradient(0deg,#5cffab0a 0 1px,transparent 1px 12px)!important;
+  background-color:#06190f!important;border:1px solid #4eca8e!important;
+  border-radius:0!important;box-shadow:inset 0 0 0 1px #18472c!important;color:#dfffea!important;
+}
+body.ws-parity[data-theme="terminal"] .hero .actions .pv-intro-tile>.pv-intro-hero-cta::after{opacity:0!important;background:none!important}
+body.ws-parity[data-theme="terminal"] .hero .actions .pv-intro-tile .pv-intro-cta-motion{display:none!important}
+body.ws-parity[data-theme="terminal"] .hero .actions .pv-intro-tile :is(.pv-intro-launch-copy,.pv-intro-launch-copy strong,.pv-intro-launch-copy small){
+ color:#dfffea!important;text-shadow:none!important;opacity:1!important;visibility:visible!important;font-family:var(--mono,monospace)!important;
+}
+body.ws-parity[data-theme="terminal"] .hero .actions .pv-intro-tile .pv-intro-launch-copy strong::before{content:"> ";color:#4cff9c}
+body.ws-parity[data-theme="terminal"] .hero .actions .pv-intro-tile .pv-intro-expand{
+ color:#4cff9c!important;background:#0b2619!important;border:1px dashed #4cff9c!important;
+ border-radius:0!important;box-shadow:none!important;
+}
+body.ws-parity[data-theme="terminal"] .hero-art .ws-orbit-chip{
+ border-radius:0!important;border:1px dashed #429c6a!important;box-shadow:none!important;
+ background:#092119ed!important;color:#afffd0!important;font-family:var(--mono,monospace)!important;
+}
+body.ws-parity[data-theme="terminal"] .hero-art .ws-orbit-chip i{
+ background:#4effa2!important;box-shadow:none!important;border-radius:0!important;
+}
+/* ORBIT: dark observatory / cyan-teal signal, restrained hover preview. */
+body.ws-parity[data-theme="orbit"] .hero .actions .pv-intro-tile>.pv-intro-hero-cta{
+ background:linear-gradient(115deg,#082738ee,#13545db5),url("media/sudip-das-intro-poster.svg") center/cover!important;
+ border:1px solid #49c3bf!important;border-radius:15px!important;
+ box-shadow:0 12px 32px #02213177,inset 0 0 0 1px #5be8ce18!important;
+}
+body.ws-parity[data-theme="orbit"] .hero .actions .pv-intro-tile>.pv-intro-hero-cta::after{
+ background:linear-gradient(90deg,#062532e7,#16616d42)!important;
+}
+body.ws-parity[data-theme="orbit"] .hero .actions .pv-intro-tile .pv-intro-cta-motion{filter:hue-rotate(-28deg) saturate(.68)!important}
+body.ws-parity[data-theme="orbit"] .hero .actions .pv-intro-tile .pv-intro-expand{
+ color:#06242b!important;background:#58e6d0!important;border-color:#58e6d0!important;
+ border-radius:50%!important;box-shadow:0 0 15px #51f0d65b!important;
+}
+body.ws-parity[data-theme="orbit"] .hero-art .ws-orbit-chip{border-color:#52d3c695!important;background:#092e3be6!important;color:#d8fffa!important}
+/* AURORA PEAK: frosted landscape cards and gentle airy highlights. */
+body.ws-parity[data-theme="aurora-peak"] .hero .actions .pv-intro-tile>.pv-intro-hero-cta{
+ background:linear-gradient(115deg,#092a40ec,#216b69a4),url("aurora-reference-horizon.svg") center/cover!important;
+ border:1px solid #8ceacc!important;border-radius:20px!important;
+ box-shadow:0 14px 34px #071c3690,inset 0 0 20px #89f3de16!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .hero .actions .pv-intro-tile>.pv-intro-hero-cta::after{
+ background:linear-gradient(90deg,#092b40df,#144e5d33)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .hero .actions .pv-intro-tile .pv-intro-cta-motion{filter:hue-rotate(-35deg) saturate(.6)!important}
+body.ws-parity[data-theme="aurora-peak"] .hero .actions .pv-intro-tile .pv-intro-expand{
+ color:#073042!important;background:#b1f6dd!important;border:1px solid #8de3d5!important;
+ border-radius:13px!important;box-shadow:0 0 14px #8df6e461!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .hero-art .ws-orbit-chip{
+ background:#143747c9!important;color:#e1fff8!important;border:1px solid #7fe3d989!important;
+ border-radius:13px!important;backdrop-filter:blur(13px);
+}
+/* COSMIC: retain orbital satellites, violet / midnight materials instead of blue Neon. */
+body.ws-parity[data-theme="design-2"] .hero .actions .pv-intro-tile>.pv-intro-hero-cta{
+ background:radial-gradient(circle at 80% 15%,#725ce481,transparent 52%),linear-gradient(120deg,#080d36d8,#281755c7),url("cosmic-reference-wave.svg") center/cover!important;
+ border:1px solid #9785e6!important;border-radius:24px!important;
+ box-shadow:0 13px 38px #0c0b41b8,0 0 25px #8f73ec20!important;
+}
+body.ws-parity[data-theme="design-2"] .hero .actions .pv-intro-tile>.pv-intro-hero-cta::after{
+ background:linear-gradient(95deg,#110d3ce5,#3c207038)!important;
+}
+body.ws-parity[data-theme="design-2"] .hero .actions .pv-intro-tile .pv-intro-cta-motion{filter:hue-rotate(35deg) saturate(.8)!important}
+body.ws-parity[data-theme="design-2"] .hero .actions .pv-intro-tile .pv-intro-expand{
+ color:#f9f6ff!important;background:#6d55c8!important;border:1px solid #b5a1ff!important;
+ border-radius:50%!important;box-shadow:0 0 18px #9f80fc79!important;
+}
+body.ws-parity[data-theme="design-2"] .hero-art .ws-orbit-chip{
+ background:radial-gradient(circle at 30% 20%,#3c2b70,#111637)!important;
+ border:1px solid #9f78eb!important;box-shadow:0 0 20px #9272ff70!important;
+}
+/* Ensure no video-hover overlay can inherit Neon labels or cyan CTA controls. */
+body.ws-parity:not([data-theme="neon-studio"]) .hero .actions .pv-intro-tile .pv-intro-launch-copy small{
+ color:var(--ci-ink,#e6fcff)!important;
+}
+body.ws-parity[data-theme="editorial"] .hero .actions .pv-intro-tile .pv-intro-launch-copy small{
+ color:#6d5749!important;
+}
+body.ws-parity:not([data-theme="neon-studio"]) .hero .actions .pv-intro-tile .pv-intro-expand:focus-visible{
+ outline:3px solid var(--ci-accent,#42e5d0)!important;outline-offset:3px!important;
+}
+@media(max-width:900px){
+ body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip{bottom:-13px!important}
+}
+@media(max-width:600px){
+ /* On narrow phones the editorial marginalia rail becomes duplicated/clipped. Hide ornament only. */
+ body.ws-parity[data-theme="editorial"] .hero-art .ws-orbit-chip{display:none!important}
+ body.ws-parity[data-theme="editorial"] .hero-art .orbit{animation:none!important}
+ body.ws-parity .hero .actions .pv-intro-tile .pv-intro-launch-copy{overflow-wrap:anywhere}
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity:not([data-theme="neon-studio"]) .hero-art .orbit{animation:none!important}
+ body.ws-parity:not([data-theme="neon-studio"]) .hero .actions .pv-intro-tile .pv-intro-cta-motion{display:none!important}
+}
