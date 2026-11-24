@@ -54,6 +54,14 @@
         "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
         "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
         "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
+      },
+      "githubHeroV324": {
+        "accent": "#7cf8de",
+        "material": "teal orbital instrument panel",
+        "geometry": "rounded capsule",
+        "hover": "tilted icon and luminous teal sweep",
+        "scope": "Hero GitHub button + attached accessible repo panel",
+        "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
       }
     },
     {
@@ -87,6 +95,14 @@
         "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
         "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
         "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
+      },
+      "githubHeroV324": {
+        "accent": "#794d32",
+        "material": "warm ivory folio",
+        "geometry": "square paper tile",
+        "hover": "print-like copper border emphasis",
+        "scope": "Hero GitHub button + attached accessible repo panel",
+        "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
       }
     },
     {
@@ -119,6 +135,14 @@
         "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
         "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
         "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
+      },
+      "githubHeroV324": {
+        "accent": "#70f9a6",
+        "material": "phosphor-green console",
+        "geometry": "square CLI module",
+        "hover": "subtle green scanline",
+        "scope": "Hero GitHub button + attached accessible repo panel",
+        "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
       }
     },
     {
@@ -151,6 +175,14 @@
         "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
         "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
         "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
+      },
+      "githubHeroV324": {
+        "accent": "#e2edb5",
+        "material": "forest and lichen alpine panel",
+        "geometry": "arched corner detail",
+        "hover": "lichen light sweep",
+        "scope": "Hero GitHub button + attached accessible repo panel",
+        "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
       }
     },
     {
@@ -183,6 +215,14 @@
         "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
         "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
         "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
+      },
+      "githubHeroV324": {
+        "accent": "#7cf5ed",
+        "material": "cyan-violet luminous glass",
+        "geometry": "soft rounded tech card",
+        "hover": "neon edge glow",
+        "scope": "Hero GitHub button + attached accessible repo panel",
+        "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
       }
     },
     {
@@ -215,6 +255,14 @@
         "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
         "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
         "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
+      },
+      "githubHeroV324": {
+        "accent": "#dbc2ff",
+        "material": "purple nebula prism",
+        "geometry": "wide rounded gemstone",
+        "hover": "violet glow and tilted icon",
+        "scope": "Hero GitHub button + attached accessible repo panel",
+        "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
       }
     }
   ],
@@ -419,5 +467,21 @@
     "safety": "Pointer-events none, section glows behind existing layout, no background networking, pause when page hidden, render viewport only",
     "verified": "39/39 source and simulated scroll/renderer checks; real browser rendering not independently verified",
     "productionPromotionApproved": false
+  },
+  "githubHeroV324": {
+    "version": "3.24.0",
+    "branch": "preview-personalweb",
+    "control": "Single hero GitHub trigger expands on hover/focus/tap; button links and repo summary remain accessible",
+    "sources": [
+      "github-hero-explorer-v324.css",
+      "github-hero-explorer-v324.js"
+    ],
+    "api": "Read-only unauthenticated https://api.github.com/users/sudipdasin and /repos; called only on preview open or explicit refresh",
+    "publicOnly": "No private repositories, forks or archived repos; owner verified, repository names validated, descriptions rendered as text",
+    "statistics": "Live public repo count when available; stars summed only across downloaded active owned repos; top language from same subset",
+    "caching": "Client sessionStorage sanitized data, 10 minute TTL. Safe portfolio-card fallback for API failures",
+    "accessibility": "ARIA disclosure, keyboard ArrowDown and Escape, focus restoration, touch click, contrast, reduced motion and forced colors",
+    "verified": "36/36 source and simulated interaction tests; 10/10 release integration checks",
+    "releasePromotionApproved": false
   }
 }
