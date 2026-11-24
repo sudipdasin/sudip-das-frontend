@@ -42,7 +42,7 @@
  const flags={
   isReduced:()=>Boolean(reduced?.matches||forced?.matches),
   isLowPower:()=>Boolean(navigator.connection?.saveData||hardwareWeak),
-  isAtmosphereOff:()=>document.body.dataset.atmosphereTier==='off'
+  isAtmosphereOff:()=>['off','eco'].includes(document.body.dataset.atmosphereTier)
  };
  function sizeMode(){
   const width=hero.getBoundingClientRect().width;
@@ -95,6 +95,7 @@
  navigator.connection?.addEventListener?.('change',schedule);
  const onAtmosphere=()=>schedule();
  window.addEventListener('ws-atmosphere-change',onAtmosphere);
+ window.addEventListener('ws-engine-theme-change',schedule);
  const onResize=()=>schedule();
  if(!resize)window.addEventListener('resize',onResize,{passive:true});
  if(typeof IntersectionObserver==='function'){
