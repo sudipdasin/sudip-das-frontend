@@ -2,7 +2,7 @@
    Geometry from measured original portrait. Theme locks are enforced before DOM changes. */
 ((global)=>{'use strict';if(!global)return;
  const ids=Object.freeze({native:'Theme original',round:'Celestial Precision',rectangle:'Paper & Ink Atelier',hexagon:'Technical Blueprint',squircle:'Prismatic Glass'});
- const defaults=Object.freeze({orbit:'round',editorial:'rectangle','design-2':'round',terminal:'native'});
+ const defaults=Object.freeze({orbit:'round',editorial:'rectangle','design-2':'round',terminal:'hexagon'});
  const locked=t=>t==='aurora-peak'||t==='neon-studio';
  const valid=id=>Object.hasOwn(ids,id);
  const effective=(theme,choice)=>locked(theme)?'native':valid(choice)?choice:defaults[theme]||'native';
@@ -10,7 +10,7 @@
  function mount(ctx,art,schedule){
   const doc=ctx.document,root=ctx.root,lib=global.WebStudioHeroShapes352,core=art.querySelector('.core');
   if(!lib||!core)return null;
-  let preferences={};try{const v=JSON.parse(global.localStorage?.getItem(key)||'{}');if(v&&typeof v==='object')for(const t of Object.keys(defaults))if(valid(v[t]))preferences[t]=v[t]}catch{}
+  let preferences={};try{const v=JSON.parse(global.localStorage?.getItem(key)||'{}');if(v&&typeof v==='object'){for(const t of Object.keys(defaults))if(valid(v[t]))preferences[t]=v[t];if(v.terminalBlueprintV354!==true){preferences.terminal='hexagon';preferences.terminalBlueprintV354=true;global.localStorage?.setItem(key,JSON.stringify(preferences))}else preferences.terminalBlueprintV354=true}}catch{}
   let svg=null,signature='',profile='native',theme='',geometry=null,visible=true,active=true;
   const old=art.getAttribute('data-hero-profile'),oldClip=core.style.getPropertyValue('--hp-clip');
   const oldMotion=art.getAttribute('data-hero-motion'),oldAtmos=art.getAttribute('data-hero-atmosphere');
@@ -71,5 +71,5 @@
   ctx.onCleanup(()=>{active=false;io?.disconnect();clear();control.remove()});
   return Object.freeze({render,choose,status});
  }
- global.WebStudioHeroProfiles353=Object.freeze({version:'3.53.0',ids,effective,locked,mount});
+ global.WebStudioHeroProfiles353=Object.freeze({version:'3.54.0',ids,effective,locked,mount});
 })(typeof window!=='undefined'?window:undefined);
