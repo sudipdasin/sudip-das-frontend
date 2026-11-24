@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.61.0-bento-grid-repair",
+  "release": "personal-preview-v3.62.0-bento-cohesion-aurora-seam-terminal-rain",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -401,7 +401,10 @@
     "v360-terminal-calmer-matrix",
     "v360-caption-follows-hud",
     "v361-bento-grid-placement-repair",
-    "v361-bento-action-palette"
+    "v361-bento-action-palette",
+    "v362-bento-unified-material",
+    "v362-aurora-seam-repair",
+    "v362-terminal-matrix-contrast"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1901,5 +1904,28 @@
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only",
     "terminal": "unchanged"
+  },
+  "themeRefinementV362": {
+    "sourceCommit": "50e3b1448324c9cfb0c890dd510ea6e96a994d32",
+    "matrixPlannerChecks": 68,
+    "sourceChecks": 9,
+    "assetIntegrity": "5 matched at writes",
+    "terminal": {
+      "cinematicStreams": 32,
+      "balancedStreams": 20,
+      "mobileCap": 10,
+      "ecoCap": 8,
+      "opacity": 0.77
+    },
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only",
+    "preserved": [
+      "original portrait",
+      "existing action destinations",
+      "Aurora arch",
+      "Terminal geometry",
+      "other themes"
+    ]
   }
 }
