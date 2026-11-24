@@ -415,7 +415,7 @@
     "source": "webstudio-six-theme-system-v321.css",
     "audit": "preview-theme-audit-v316.js",
     "behavior": "Every existing footer/demo control retains its functionality and uses selected-theme styling; locked Neon Studio preserved",
-    "sourceTests": "37/37 passed; real-device browser testing pending",
+    "sourceTests": "38/38 passed; real-device browser testing pending",
     "productionPromotionApproved": false
   },
   "adaptiveAtmosphereV322": {
@@ -481,7 +481,7 @@
     "statistics": "Live public repo count when available; stars summed only across downloaded active owned repos; top language from same subset",
     "caching": "Client sessionStorage sanitized data, 10 minute TTL. Safe portfolio-card fallback for API failures",
     "accessibility": "ARIA disclosure, keyboard ArrowDown and Escape, focus restoration, touch click, contrast, reduced motion and forced colors",
-    "verified": "37/37 source and simulated interaction tests; 10/10 release integration checks",
+    "verified": "38/38 source and simulated interaction tests; 10/10 release integration checks",
     "releasePromotionApproved": false
   }
 }
