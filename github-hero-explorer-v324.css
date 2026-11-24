@@ -41,6 +41,10 @@ body.ws-parity .gh-hero-icon{
   font:700 1.4rem/1 var(--mono,monospace);
   transition:transform .4s ease,border-color .25s,box-shadow .3s;
 }
+body.ws-parity .gh-hero-icon svg{
+  display:block;width:21px;height:21px;stroke:currentColor;fill:none;
+  vector-effect:non-scaling-stroke;pointer-events:none;
+}
 body.ws-parity .gh-hero-trigger:hover .gh-hero-icon,
 body.ws-parity .gh-hero-shell[data-open="true"] .gh-hero-icon{
   transform:rotate(-13deg) scale(1.12);
