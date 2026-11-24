@@ -70,6 +70,13 @@
         "motion": "slow orbit and breathing atmospheric light",
         "source": "hero-display-layout-v327.css",
         "status": "committed source; browser visual QA pending"
+      },
+      "engineMeshV328": {
+        "surface": "#092a37",
+        "accent": "#75efdb",
+        "ink": "#effffc",
+        "shape": "rounded orbital mission-control",
+        "motion": "concentric orbits"
       }
     },
     {
@@ -119,6 +126,13 @@
         "motion": "static print identity; no orbit animation",
         "source": "hero-display-layout-v327.css",
         "status": "committed source; browser visual QA pending"
+      },
+      "engineMeshV328": {
+        "surface": "#fff9f0",
+        "accent": "#805337",
+        "ink": "#292e29",
+        "shape": "warm square editorial folio",
+        "motion": "static print details"
       }
     },
     {
@@ -167,6 +181,13 @@
         "motion": "controlled static console glow",
         "source": "hero-display-layout-v327.css",
         "status": "committed source; browser visual QA pending"
+      },
+      "engineMeshV328": {
+        "surface": "#061b13",
+        "accent": "#73ffa9",
+        "ink": "#e9ffef",
+        "shape": "sharp phosphor console",
+        "motion": "restrained scanline"
       }
     },
     {
@@ -215,6 +236,13 @@
         "motion": "calm alpine atmosphere where enabled",
         "source": "hero-display-layout-v327.css",
         "status": "committed source; browser visual QA pending"
+      },
+      "engineMeshV328": {
+        "surface": "#123b39",
+        "accent": "#e1edb7",
+        "ink": "#f6f8ed",
+        "shape": "arched alpine panorama",
+        "motion": "sunrise and mist"
       }
     },
     {
@@ -263,6 +291,13 @@
         "motion": "slow breathing glow where enabled",
         "source": "hero-display-layout-v327.css",
         "status": "committed source; browser visual QA pending"
+      },
+      "engineMeshV328": {
+        "surface": "#0c2338",
+        "accent": "#61f5e4",
+        "ink": "#f0faff",
+        "shape": "approved luminous glass",
+        "motion": "cyan-violet glow"
       }
     },
     {
@@ -311,6 +346,13 @@
         "motion": "slow orbit on capable hardware",
         "source": "hero-display-layout-v327.css",
         "status": "committed source; browser visual QA pending"
+      },
+      "engineMeshV328": {
+        "surface": "#1b1e43",
+        "accent": "#d2c0ff",
+        "ink": "#f4f0ff",
+        "shape": "nebula prism",
+        "motion": "orbital starfield"
       }
     }
   ],
@@ -556,6 +598,52 @@
     "scope": "Only top hero, not full-page Atmosphere and not any new explorer dialog",
     "verification": "54/54 reproducible source and simulated DOM checks; human pixel/device acceptance outstanding",
     "experimentalPreview": true,
+    "productionPromotionApproved": false
+  },
+  "engineMeshV328": {
+    "version": "3.28.0",
+    "previewOnly": true,
+    "branch": "preview-personalweb",
+    "engines": {
+      "theme": "webstudio-engine-mesh-v328.js + webstudio-engine-mesh-v328.css: six profiles, shared tokens, event synchronization",
+      "hero": "hero-display-engine-v327.js + hero-display-layout-v327.css: unique six-theme compositions, approved Neon geometry preserved",
+      "atmosphere": "atmosphere-engine-v328.js + atmosphere-shaders-v325.js: viewport-limited GPU shader with pointer, scroll, calendar seed, fallback",
+      "quick": "personal-quick-hub-v2.js: four tabs, theme state, keyboard shortcut, link to live portfolio search",
+      "portfolio": "portfolio-discovery-v328.js: original-language search indexing, resilient focus filter, sort and reset"
+    },
+    "audio": "atmosphere-audio-v328.js + atmosphere-audio-v328.css: entirely opt-in original six-theme WebAudio tones, volume, mute, hidden-tab pause",
+    "i18n": {
+      "base": "languages.js, 10 languages",
+      "extension": "personal-translation-expansion-v1.js, 61 new phrase keys plus 3 existing coverage keys, 64 targeted mappings",
+      "dynamic": [
+        "project result totals",
+        "reading percentage",
+        "GitHub public repository count",
+        "recently listed total"
+      ],
+      "fixes": "Form input/select accessible labels and placeholder attributes no longer skipped"
+    },
+    "safety": {
+      "sourceOfTruth": "Preview branch only, production main untouched",
+      "privateAPI": "Explicitly disabled on preview",
+      "cost": "No additional server-side model, analytics, audio streaming or API calls from new mesh and audio",
+      "GPU": "Viewport capped existing rendering fallback, no claim of hardware-level path tracing",
+      "sound": "No autoplay and no AudioContext until user explicitly opts in",
+      "a11y": "Reduced motion, data saver, forced colors and keyboard navigation",
+      "visualFreeze": "Editorial gold master and Neon approved hero geometry remain reference baselines"
+    },
+    "verified": {
+      "hero": "55/55 mock/source checks",
+      "atmosphere": "43/43 mock/source checks",
+      "engineIntegration": "70/70 mock/source checks",
+      "github": "38/38 mock/source checks",
+      "realCloudflare": "UNVERIFIED",
+      "actualGPU": "NOT independently verified",
+      "browserScreenshots": "PENDING human CI",
+      "realSpeaker": "NOT independently tested"
+    },
+    "humanCI": "42 manual checks; webstudio-human-ci-v3.28.json",
+    "build": "preview-five-engine-mesh-i18n-audio-v3.28.0",
     "productionPromotionApproved": false
   }
 }
