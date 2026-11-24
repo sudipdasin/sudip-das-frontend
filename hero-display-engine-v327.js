@@ -18,7 +18,8 @@
   editorial:Object.freeze({layout:'editorial',label:'THE PROFILE / EDITION 01',detail:'IDEAS IN PRACTICE',geometry:'asymmetric print folio'}),
   terminal:Object.freeze({layout:'terminal',label:'~/portfolio $ overview',detail:'OPEN SOURCE / SYSTEMS',geometry:'console workstation'}),
   'aurora-peak':Object.freeze({layout:'alpine',label:'ALPINE / FIELD NOTES',detail:'PEOPLE · SYSTEMS · PURPOSE',geometry:'panoramic landscape'}),
-  'design-2':Object.freeze({layout:'cosmic',label:'CONSTELLATION / PROFILE',detail:'EXPLORATION × CREATION',geometry:'cosmic observatory'})
+  'design-2':Object.freeze({layout:'cosmic',label:'CONSTELLATION / PROFILE',detail:'EXPLORATION × CREATION',geometry:'cosmic observatory'}),
+  bento:Object.freeze({layout:'bento',label:'INDEPENDENT / STUDIO',detail:'SYSTEMS · SOFTWARE · COLLABORATION',geometry:'asymmetric modular cards'})
  });
  const create=(tag,cls)=>{const el=document.createElement(tag);el.className=cls;return el};
  const stage=create('div','hd-stage');
