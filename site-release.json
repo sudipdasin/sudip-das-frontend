@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.44.0-aurora-northern-lights-manual-qa-pending",
+  "release": "personal-preview-v3.45.0-aurora-background-refinement-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -357,7 +357,8 @@
     "v343-grid-integrated-portrait-caption",
     "v344-aligned-aurora-scenic-arches",
     "v344-atmosphere-managed-northern-lights",
-    "v344-aurora-sparkles-and-gpu-canvas-effects"
+    "v344-aurora-sparkles-and-gpu-canvas-effects",
+    "v345-aurora-existing-horizon-background-refinement"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1664,6 +1665,14 @@
     "syntheticAndSourceAssertions": 47,
     "realBrowser": "NOT_RUN",
     "shaderCompilation": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "auroraBackgroundV345": {
+    "sourceCommit": "ca19fd34bff260dc6f84df4d66e7337788d0f40a",
+    "scope": "background-only CSS; existing artwork reused; approved geometry unchanged",
+    "sourceChecks": "append-only, existing asset identity, no layout declarations, matching preview blob",
+    "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
   }
