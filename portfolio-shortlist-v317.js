@@ -37,7 +37,6 @@
   clear.type='button';clear.textContent='Clear selection';
   actions.append(copy,clear);
   panel.append(heading,intro,status,summary,actions);
-  const parent=grid.parentElement;
   grid.after(panel);
   const selectorByProject=new Map();
   function render(){
@@ -53,12 +52,12 @@
       const a=document.createElement('a');a.href=p.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='View source';
       row.append(title,desc,a);summary.append(row);
     });
-    selectorByProject.forEach((checkbox,url)=>{
+    selectorByProject.forEach((url,checkbox)=>{
       checkbox.checked=selected.has(url);
       checkbox.disabled=!selected.has(url)&&selected.size>=MAX;
     });
   }
-  projects.forEach((p,i)=>{
+  projects.forEach(p=>{
     const label=document.createElement('label');
     label.className='project-shortlist-choice';
     const checkbox=document.createElement('input');
