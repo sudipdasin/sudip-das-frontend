@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.20.0-aurora-screenshot-polish",
+  "release": "personal-preview-v3.21.0-six-theme-experience-and-human-ci",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -174,7 +174,19 @@
     "aurora-v320-portrait-trail-label-separation",
     "human-ci-v320-compact-progress-badge",
     "human-ci-v320-new-build-checklist-reset",
-    "aurora-v320-screenshot-regression-source-gate"
+    "aurora-v320-screenshot-regression-source-gate",
+    "five-theme-webstudio-footer-native-layouts-and-materials",
+    "approved-neon-studio-footer-reference-preserved",
+    "theme-native-webstudio-inline-demo-and-contact-controls",
+    "theme-review-direct-link-with-known-id-validation",
+    "preview-viewport-smoke-diagnostics-on-demand",
+    "preview-viewport-diagnostics-json-export",
+    "human-ci-v321-escape-to-close-and-focus-return",
+    "human-ci-v321-fresh-build-checklist",
+    "theme-audit-v321-footer-contrast-and-component-checks",
+    "theme-experience-contract-v321-six-identities",
+    "reproducible-36-point-source-verifier",
+    "small-screen-theme-footer-hardening"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -520,7 +532,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.20-aurora-screenshot-human-review",
+    "stage": "v3.21-six-theme-hiring-ux-human-review",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -537,8 +549,8 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "28/28 v3.20 Aurora screenshot assertions passed against fetched repo sources",
-    "liveBrowserVerification": "Unverified: Cloudflare site inaccessible",
+    "sourceVerification": "36/36 GitHub source assertions; 10/10 simulated browser interactions",
+    "liveBrowserVerification": "UNVERIFIED - Cloudflare preview inaccessible from environment",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
@@ -557,7 +569,7 @@
       "v3.17 responsive six-theme reviewer and shortlist interface"
     ],
     "verification": "Source/runtime mock verified; deployed site and actual responsive rendering not independently verified",
-    "currentHumanFeedbackFile": "webstudio-human-ci-v3.20.json",
+    "currentHumanFeedbackFile": "webstudio-human-ci-v3.21.json",
     "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation",
     "visualIssues": [
       "Terminal footer promotional card retained blue-violet neon visual style",
@@ -589,13 +601,13 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.20.0",
+    "version": "3.21.0",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-aurora-human-ci-polish-v3.20.0",
+    "buildFingerprint": "preview-six-theme-experience-v3.21.0",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   },
   "auroraPeakAlpineEdition": {
@@ -699,6 +711,52 @@
       "circleCI": "Intentionally excluded on preview branch"
     },
     "buildFingerprint": "preview-aurora-human-ci-polish-v3.20.0",
+    "productionPromotionApproved": false
+  },
+  "experienceV321": {
+    "version": "3.21.0",
+    "previousRelease": "personal-preview-v3.20.0-aurora-screenshot-polish",
+    "scope": "Theme-specific footer design across five non-Neon themes; diagnostic panel and review UX on preview branch",
+    "branch": "preview-personalweb",
+    "buildFingerprint": "preview-six-theme-experience-v3.21.0",
+    "changedFiles": [
+      "webstudio-six-theme-system-v321.css",
+      "preview-diagnostics-v321.js",
+      "preview-diagnostics-v321.css",
+      "human-ci-preview-v1.js",
+      "preview-theme-audit-v316.js",
+      "index.html",
+      "theme-visual-contract.json",
+      "scripts/verify-preview-experience-v321.mjs",
+      "PREVIEW-V3.21-HUMAN-CI.md"
+    ],
+    "themeMaterials": {
+      "orbit": "teal instrument panel with dashed orbit rings",
+      "editorial": "warm print folio, serif text and flat paper mark",
+      "terminal": "sharp green-on-black console and monospace text",
+      "aurora-peak": "forest and lichen alpine arch",
+      "design-2": "violet nebula portal and cosmic rings",
+      "neon-studio": "original approved design preserved"
+    },
+    "verification": {
+      "staticSourceGate": "36/36 passed by executing same assertions in isolated JS harness against latest committed GitHub sources; reproducible Node source script committed",
+      "initialIntegrationInvariants": "30/30 passed",
+      "mockedBrowserInteractions": "10/10 passed: preview flag, known/unknown theme routing, diagnostic actions and JSON export",
+      "manualPaletteContrast": "Five text/panel ratios 8.22–12.35:1; five accent/panel ratios 5.35–10.09:1 from authored hex palette",
+      "productionMain": "Not modified in this upgrade",
+      "liveCloudflare": "UNVERIFIED: preview URL unreachable from development environment",
+      "visualPixelTests": "NOT RUN",
+      "realResponsiveTouch": "NOT RUN",
+      "CI": "Existing CircleCI preview branch exclusion retained; no passing CI status claimed"
+    },
+    "rollout": {
+      "previewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
+      "exampleThemeUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?preview_theme=aurora-peak",
+      "auditUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
+      "humanFeedbackFile": "webstudio-human-ci-v3.21.json",
+      "diagnosticsFile": "webstudio-preview-diagnostics-v3.21.json",
+      "visualReview": "Awaiting owner feedback"
+    },
     "productionPromotionApproved": false
   }
 }
