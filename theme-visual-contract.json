@@ -31,7 +31,19 @@
       "demoExport": "free",
       "personalPreviewAvailable": true,
       "orbitBadges": 3,
-      "distinctive": "ocean teal, circular portrait and read-only portfolio"
+      "distinctive": "ocean teal, circular portrait and read-only portfolio",
+      "footerExperience": {
+        "composition": "technical-orbits",
+        "geometry": "rounded instrument panel",
+        "art": "dashed teal orbits",
+        "palette": {
+          "ink": "#efffff",
+          "panel": "#123d4c",
+          "accent": "#76f1df"
+        },
+        "status": "source-implemented; live browser visually pending",
+        "version": "3.21.0"
+      }
     },
     {
       "id": "editorial",
@@ -41,7 +53,19 @@
       "personalPreviewAvailable": true,
       "orbitBadges": 3,
       "distinctive": "PRESERVE archived personal warm paper/serif layout; not WebStudio demo skin",
-      "ownerFavorite": true
+      "ownerFavorite": true,
+      "footerExperience": {
+        "composition": "print-folio",
+        "geometry": "warm rectangular paper layout",
+        "art": "flat paper W, no orbits",
+        "palette": {
+          "ink": "#2c302b",
+          "panel": "#efe5d7",
+          "accent": "#805137"
+        },
+        "status": "source-implemented; live browser visually pending",
+        "version": "3.21.0"
+      }
     },
     {
       "id": "terminal",
@@ -50,7 +74,19 @@
       "demoExport": "free",
       "personalPreviewAvailable": true,
       "orbitBadges": 3,
-      "distinctive": "monospace, grid backdrop, sharp corners and CLI-like blocks"
+      "distinctive": "monospace, grid backdrop, sharp corners and CLI-like blocks",
+      "footerExperience": {
+        "composition": "console",
+        "geometry": "square terminal frame",
+        "art": "monospace command glyph, no orbits",
+        "palette": {
+          "ink": "#e9fff0",
+          "panel": "#183927",
+          "accent": "#75ffaf"
+        },
+        "status": "source-implemented; live browser visually pending",
+        "version": "3.21.0"
+      }
     },
     {
       "id": "aurora-peak",
@@ -59,7 +95,19 @@
       "demoExport": "premium-preview",
       "personalPreviewAvailable": true,
       "orbitBadges": 3,
-      "distinctive": "Alpine sunrise landscape, forest/lichen/apricot palette, arched portrait, three trail markers and field notes; no Neon orbit rings"
+      "distinctive": "Alpine sunrise landscape, forest/lichen/apricot palette, arched portrait, three trail markers and field notes; no Neon orbit rings",
+      "footerExperience": {
+        "composition": "alpine-arch",
+        "geometry": "arched forest/lichen panel",
+        "art": "arched W, no orbital rings",
+        "palette": {
+          "ink": "#f5f8e9",
+          "panel": "#235248",
+          "accent": "#dce9af"
+        },
+        "status": "source-implemented; live browser visually pending",
+        "version": "3.21.0"
+      }
     },
     {
       "id": "neon-studio",
@@ -72,7 +120,15 @@
       "exclusiveElements": [
         ".ws-aurora-reference",
         ".ws-aurora-feature-grid"
-      ]
+      ],
+      "footerExperience": {
+        "composition": "approved-reference",
+        "geometry": "existing locked Neon Studio WebStudio footer",
+        "art": "original blue/cyan/violet reference untouched",
+        "palette": null,
+        "status": "source-implemented; live browser visually pending",
+        "version": "3.21.0"
+      }
     },
     {
       "id": "design-2",
@@ -81,7 +137,19 @@
       "demoExport": "premium-preview",
       "personalPreviewAvailable": true,
       "orbitBadges": 4,
-      "distinctive": "blue-purple waves, four circular satellites and four multicolor glass cards; no Aurora strip"
+      "distinctive": "blue-purple waves, four circular satellites and four multicolor glass cards; no Aurora strip",
+      "footerExperience": {
+        "composition": "cosmic-portal",
+        "geometry": "violet rounded nebula panel",
+        "art": "purple space orbits",
+        "palette": {
+          "ink": "#f5f2ff",
+          "panel": "#302657",
+          "accent": "#cbb2ff"
+        },
+        "status": "source-implemented; live browser visually pending",
+        "version": "3.21.0"
+      }
     }
   ],
   "visualAudit": {
@@ -227,5 +295,13 @@
         "browserVisualQA": "not independently performed"
       }
     }
+  },
+  "footerExperienceV321": {
+    "version": "3.21.0",
+    "source": "webstudio-six-theme-system-v321.css",
+    "audit": "preview-theme-audit-v316.js",
+    "behavior": "Every existing footer/demo control retains its functionality and uses selected-theme styling; locked Neon Studio preserved",
+    "sourceTests": "36/36 passed; real-device browser testing pending",
+    "productionPromotionApproved": false
   }
 }
