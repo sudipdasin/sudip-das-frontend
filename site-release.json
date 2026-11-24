@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-live-v3.10.0-multilingual-interface",
+  "release": "personal-live-v3.11.0-multilingual-visitor-ui",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -64,11 +64,16 @@
       "ja"
     ],
     "sourceDictionary": "languages.js",
-    "newStrings": 50,
+    "newStrings": 350,
     "coreStringsReused": 151,
     "mode": "source-only; no external translation service",
-    "verification": "JS syntax and 5-locale synthetic switch test, external browser unverified",
-    "limitations": "Long-form newer dynamic text still requires additional authored locale copy",
-    "productionSourceCommit": "97ff4fd5dded005e6b0d55c42320fe9870624f7b"
+    "verification": "ten-locale synthetic DOM switching; JS syntax; 80 core fields per locale; no live browser screenshot",
+    "limitations": "proper nouns deliberately unchanged; third-party generated content and end-to-end browser layout not independently verified",
+    "productionSourceCommit": "97ff4fd5dded005e6b0d55c42320fe9870624f7b",
+    "originalTopLevelFields": 80,
+    "coverage": "Known audited visitor text and accessibility labels plus production privacy copy",
+    "translationBlobSha": "122d073fce55b07ef8aef9cc30559a5484e1aa7d",
+    "previousProductionCommit": "7c5241328c7e7b34d13510e80aea612d99bbe2f3",
+    "rollbackBranch": "backup/i18n-v3.10.0-before-expanded-live-2026-11-24"
   }
 }
