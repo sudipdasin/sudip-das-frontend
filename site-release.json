@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.59.0-obsidian-bento-terminal-balance",
+  "release": "personal-preview-v3.60.0-terminal-compact-hud",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -396,7 +396,10 @@
     "v358-pronounced-matrix-rain",
     "v359-obsidian-bento-freelancer",
     "v359-adaptive-card-lighting",
-    "v359-terminal-balanced-hero-rain"
+    "v359-terminal-balanced-hero-rain",
+    "v360-terminal-compact-portrait-hud",
+    "v360-terminal-calmer-matrix",
+    "v360-caption-follows-hud"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1865,6 +1868,17 @@
       "Legacy private index not switched to preview entry point",
       "Legacy six-theme visual audit not expanded"
     ],
+    "stage": "preview-only"
+  },
+  "terminalCompactV360": {
+    "sourceCommit": "16bd4905ca0d1be1a7f4f445c02042997554d8d4",
+    "checks": 59,
+    "desktopPhotoCap": 385,
+    "ringRadiusRatio": 0.65,
+    "classicCinematicStreams": 24,
+    "classicRainOpacity": 0.43,
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
   }
 }
