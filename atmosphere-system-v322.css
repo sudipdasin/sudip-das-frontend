@@ -1,0 +1,231 @@
+/* WebStudio Atmosphere v3.22 — six genuinely different responsive ambient scenes.
+   Light falls on decorative layers only, never on user content or the photograph.
+   No compositor-heavy backdrop blur in the full-screen scene. */
+body.ws-parity{
+  --atmo-ink:#edfaff;--atmo-panel:#0d283c;--atmo-edge:#3d8b9e;
+  --atmo-accent:#61f5e4;--atmo-on:#081f28;--atmo-radius:14px;
+}
+body.ws-parity[data-theme="orbit"]{
+  --atmo-ink:#e9fbfb;--atmo-panel:#0b2c3a;--atmo-edge:#53bcb7;
+  --atmo-accent:#80f6d8;--atmo-on:#0c292d;--atmo-radius:18px;
+}
+body.ws-parity[data-theme="editorial"]{
+  --atmo-ink:#302b26;--atmo-panel:#fff8ed;--atmo-edge:#947c65;
+  --atmo-accent:#805137;--atmo-on:#fff9f1;--atmo-radius:3px;
+}
+body.ws-parity[data-theme="terminal"]{
+  --atmo-ink:#e4ffee;--atmo-panel:#071e13;--atmo-edge:#4cad75;
+  --atmo-accent:#73ffa9;--atmo-on:#0c2417;--atmo-radius:0px;
+}
+body.ws-parity[data-theme="aurora-peak"]{
+  --atmo-ink:#f4f7e8;--atmo-panel:#173b35;--atmo-edge:#a4c7a9;
+  --atmo-accent:#dce8ad;--atmo-on:#1c372b;--atmo-radius:8px 19px 8px 19px;
+}
+body.ws-parity[data-theme="design-2"]{
+  --atmo-ink:#f5f2ff;--atmo-panel:#16173c;--atmo-edge:#a38fdf;
+  --atmo-accent:#d2c0ff;--atmo-on:#251b45;--atmo-radius:24px;
+}
+/* Compact header control; no hidden dependencies or content-layer interactions. */
+body.ws-parity .topbar .ws-atmo-control{
+  position:relative;display:block;flex:none;z-index:400;min-width:0;
+  color:var(--atmo-ink);font-family:var(--sans,system-ui);
+}
+body.ws-parity .topbar .ws-atmo-control .ws-atmo-trigger{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  min-height:42px;min-width:118px;max-width:190px;
+  padding:9px 12px;white-space:nowrap;cursor:pointer;user-select:none;
+  color:var(--atmo-ink);background:var(--atmo-panel);border:1px solid var(--atmo-edge);
+  border-radius:var(--atmo-radius);font:750 .78rem/1.2 var(--sans,system-ui);
+  box-shadow:0 7px 17px #001b2733;
+}
+body.ws-parity .topbar .ws-atmo-control .ws-atmo-trigger::-webkit-details-marker{display:none}
+body.ws-parity .topbar .ws-atmo-control .ws-atmo-trigger::marker{content:""}
+body.ws-parity .topbar .ws-atmo-icon{font-size:1.08rem;color:var(--atmo-accent)}
+body.ws-parity .topbar .ws-atmo-level{
+  padding:3px 6px;min-width:36px;text-align:center;
+  border:1px solid var(--atmo-edge);border-radius:var(--atmo-radius);
+  color:var(--atmo-accent);font-size:.65rem;letter-spacing:.025em;
+}
+body.ws-parity .topbar .ws-atmo-control[open] .ws-atmo-trigger{
+  border-color:var(--atmo-accent);box-shadow:0 0 0 1px var(--atmo-accent);
+}
+body.ws-parity .topbar .ws-atmo-control .ws-atmo-menu{
+  position:absolute;right:0;top:calc(100% + 10px);
+  width:min(345px,calc(100vw - 24px));max-height:min(70dvh,590px);
+  overflow-y:auto;overscroll-behavior:contain;
+  padding:17px;z-index:990;
+  border:1px solid var(--atmo-edge);border-radius:var(--atmo-radius);
+  background:var(--atmo-panel);color:var(--atmo-ink);
+  box-shadow:0 23px 52px #0009;
+}
+body.ws-parity .topbar .ws-atmo-heading{
+  font:750 1rem/1.3 var(--sans,system-ui);color:var(--atmo-ink);
+}
+body.ws-parity .topbar .ws-atmo-explain,
+body.ws-parity .topbar .ws-atmo-safety{
+  margin:8px 0 12px;color:var(--atmo-ink);
+  font-size:.78rem;line-height:1.55;opacity:.91;
+}
+body.ws-parity .topbar .ws-atmo-choices{display:grid;gap:7px}
+body.ws-parity .topbar .ws-atmo-choice{
+  display:flex;gap:10px;align-items:center;
+  min-height:52px;padding:9px 10px;cursor:pointer;
+  background:color-mix(in srgb,var(--atmo-panel) 86%,var(--atmo-accent));
+  border:1px solid var(--atmo-edge);border-radius:var(--atmo-radius);
+}
+body.ws-parity .topbar .ws-atmo-choice:has(input:checked){
+  border-color:var(--atmo-accent);
+  box-shadow:inset 3px 0 0 var(--atmo-accent);
+}
+body.ws-parity .topbar .ws-atmo-choice input{
+  flex:none;width:18px;height:18px;accent-color:var(--atmo-accent);
+}
+body.ws-parity .topbar .ws-atmo-choice-copy{
+  display:grid;gap:2px;min-width:0;color:var(--atmo-ink);
+}
+body.ws-parity .topbar .ws-atmo-choice-copy strong{
+  font:750 .86rem/1.3 var(--sans,system-ui);color:var(--atmo-ink);
+}
+body.ws-parity .topbar .ws-atmo-choice-copy small{
+  font:.74rem/1.45 var(--sans,system-ui);color:var(--atmo-ink);
+  opacity:.9;overflow-wrap:anywhere;
+}
+body.ws-parity .topbar .ws-atmo-status{
+  padding:9px 10px;margin:12px 0 0;
+  border:1px solid var(--atmo-edge);border-radius:var(--atmo-radius);
+  background:color-mix(in srgb,var(--atmo-panel) 88%,var(--atmo-accent));
+  color:var(--atmo-ink);font:700 .76rem/1.48 var(--sans,system-ui);
+}
+body.ws-parity .topbar .ws-atmo-control :is(summary,input):focus-visible,
+body.ws-parity .topbar .ws-atmo-choice:focus-within{
+  outline:3px solid var(--atmo-accent);outline-offset:3px;
+}
+body.ws-parity[data-theme="editorial"] .ws-atmo-control :is(.ws-atmo-trigger,.ws-atmo-menu,.ws-atmo-choice){
+  font-family:Georgia,serif!important;
+}
+body.ws-parity[data-theme="terminal"] .ws-atmo-control,
+body.ws-parity[data-theme="terminal"] .ws-atmo-control :is(summary,strong,small,p){
+  font-family:var(--mono,ui-monospace,monospace)!important;
+}
+/* Ambient layers live inside the hero; no event capture or changed layout geometry. */
+body.ws-parity main .hero{isolation:isolate}
+body.ws-parity main .hero>.ws-atmo-layer{
+  position:absolute!important;inset:0!important;z-index:0!important;
+  width:100%;height:100%;overflow:hidden;pointer-events:none!important;
+  contain:paint;isolation:isolate;opacity:.68;
+}
+body.ws-parity main .hero>.ws-atmo-layer[hidden]{display:none!important}
+body.ws-parity main .hero>.ws-atmo-layer>.ws-atmo-canvas{
+  display:block;position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none!important;mix-blend-mode:screen;
+  opacity:.65;
+}
+body.ws-parity main .hero>.ws-atmo-layer::before,
+body.ws-parity main .hero>.ws-atmo-layer::after{
+  content:"";position:absolute;inset:-12%;pointer-events:none;
+  opacity:.6;transform:translateZ(0);
+}
+body.ws-parity main .hero>.ws-atmo-layer::after{
+  opacity:.28;animation:atmo-drift 27s ease-in-out infinite alternate;
+}
+body.ws-parity main .hero>.ws-atmo-layer:not([hidden]) ~ :is(.hero-text,.hero-art){
+  position:relative;z-index:2;
+}
+body.ws-parity[data-theme="neon-studio"] .ws-atmo-layer::before{
+  background:radial-gradient(circle at 75% 22%,#c654ff4f,transparent 38%),
+    linear-gradient(125deg,transparent 54%,#0cf5fc30 56%,transparent 59%);
+}
+body.ws-parity[data-theme="neon-studio"] .ws-atmo-layer::after{
+  background:repeating-linear-gradient(95deg,transparent 0 40px,#24f5ef1a 41px,transparent 43px);
+}
+body.ws-parity[data-theme="orbit"] .ws-atmo-layer::before{
+  background:radial-gradient(ellipse at 75% 40%,#2feaca43,transparent 53%),
+    repeating-radial-gradient(ellipse at 75% 44%,transparent 0 56px,#86fce51b 57px,transparent 60px);
+}
+body.ws-parity[data-theme="orbit"] .ws-atmo-layer::after{
+  background:linear-gradient(130deg,transparent 20%,#49efff28 47%,transparent 54%);
+}
+body.ws-parity[data-theme="editorial"] .ws-atmo-layer{
+  opacity:.29;mix-blend-mode:multiply;
+}
+body.ws-parity[data-theme="editorial"] .ws-atmo-canvas{mix-blend-mode:multiply!important;opacity:.25!important}
+body.ws-parity[data-theme="editorial"] .ws-atmo-layer::before{
+  background:linear-gradient(119deg,#96704d24,transparent 33%,#bda17a21 75%,transparent),
+    repeating-linear-gradient(0deg,transparent 0 5px,#7f63460b 6px,transparent 7px);
+}
+body.ws-parity[data-theme="editorial"] .ws-atmo-layer::after{
+  background:radial-gradient(circle at 80% 15%,#a0774e30,transparent 62%);
+}
+body.ws-parity[data-theme="terminal"] .ws-atmo-layer::before{
+  background:repeating-linear-gradient(0deg,transparent 0 26px,#69f5aa18 27px,transparent 28px),
+    repeating-linear-gradient(90deg,transparent 0 36px,#55ee9914 37px,transparent 38px);
+}
+body.ws-parity[data-theme="terminal"] .ws-atmo-layer::after{
+  background:linear-gradient(180deg,transparent 20%,#69f3a129 44%,transparent 47%);
+}
+body.ws-parity[data-theme="aurora-peak"] .ws-atmo-layer::before{
+  background:radial-gradient(ellipse at 78% 23%,#ffce9861,transparent 35%),
+    radial-gradient(ellipse at 62% 42%,#a9efb442,transparent 53%);
+}
+body.ws-parity[data-theme="aurora-peak"] .ws-atmo-layer::after{
+  background:linear-gradient(115deg,transparent 19%,#b9e8ce2a 45%,transparent 62%);
+}
+body.ws-parity[data-theme="design-2"] .ws-atmo-layer::before{
+  background:radial-gradient(ellipse at 73% 42%,#8954e975,transparent 42%),
+    radial-gradient(circle at 24% 22%,#5445d74d,transparent 46%);
+}
+body.ws-parity[data-theme="design-2"] .ws-atmo-layer::after{
+  background:repeating-radial-gradient(circle at 76% 46%,transparent 0 48px,#ae87ff1c 49px,transparent 52px);
+}
+/* Eco is strictly still imagery. Off removes *all* added visual layers. */
+body.ws-parity[data-atmosphere-tier="eco"] .ws-atmo-layer>.ws-atmo-canvas{display:none!important}
+body.ws-parity[data-atmosphere-tier="eco"] .ws-atmo-layer::after,
+body.ws-parity[data-atmosphere-tier="off"] .ws-atmo-layer::after{
+  animation:none!important;
+}
+body.ws-parity[data-atmosphere-tier="off"] .ws-atmo-layer{display:none!important}
+body.ws-parity[data-atmosphere-tier="off"] .hero-art :is(.orbit,.ap-halo,.ap-mist,.ap-ridge),
+body.ws-parity[data-atmosphere-tier="eco"] .hero-art :is(.orbit,.ap-halo,.ap-mist,.ap-ridge){
+  animation:none!important;transition:none!important;
+}
+body.ws-parity[data-atmosphere-ready="true"][data-theme="aurora-peak"] .ap-motion-control{
+  display:none!important;
+}
+body.ws-parity[data-atmosphere-tier="balanced"] .ws-atmo-layer::after{animation-duration:43s}
+body.ws-parity[data-atmosphere-tier="cinematic"] .ws-atmo-layer::after{animation-duration:29s}
+@keyframes atmo-drift{
+  from{transform:translate3d(-1%,1%,0) rotate(-1deg)}
+  to{transform:translate3d(1%,-2%,0) rotate(1deg)}
+}
+/* Header control must stay touchable and within the viewport at all widths. */
+@media(max-width:1200px){
+  body.ws-parity .topbar .ws-atmo-name{display:none}
+  body.ws-parity .topbar .ws-atmo-control .ws-atmo-trigger{
+    min-width:75px;padding:9px 9px;gap:5px;
+  }
+}
+@media(max-width:760px){
+  body.ws-parity .topbar .ws-atmo-control .ws-atmo-menu{
+    position:fixed;top:min(110px,18dvh);
+    right:9px;left:auto;width:min(345px,calc(100vw - 18px));
+    max-height:70dvh;
+  }
+  body.ws-parity .topbar .ws-atmo-control .ws-atmo-trigger{
+    min-width:66px;min-height:42px;
+  }
+  body.ws-parity .topbar .ws-atmo-level{font-size:.62rem;padding:2px 4px}
+  body.ws-parity main .hero>.ws-atmo-layer{opacity:.43}
+  body.ws-parity[data-theme="editorial"] main .hero>.ws-atmo-layer{opacity:.20}
+}
+@media(max-width:400px){
+  body.ws-parity .topbar .ws-atmo-icon{display:none}
+  body.ws-parity .topbar .ws-atmo-control .ws-atmo-trigger{min-width:52px}
+}
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity .ws-atmo-layer::after,
+  body.ws-parity .ws-atmo-control *{animation:none!important;transition:none!important}
+}
+@media(forced-colors:active){
+  body.ws-parity .ws-atmo-layer{display:none!important}
+  body.ws-parity .ws-atmo-control :is(summary,label){forced-color-adjust:auto}
+}
