@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.32.0-signature-panel-six-theme-refinement-manual-qa-pending",
+  "release": "personal-preview-v3.33.0-smart-landing-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -320,7 +320,10 @@
     "v332-six-theme-native-signature-panel-design",
     "v332-multilingual-signature-heading-ten-locales",
     "v332-video-caption-readable-no-editorial-dark-overlay",
-    "v332-safe-nonreparenting-hero-interaction-polish"
+    "v332-safe-nonreparenting-hero-interaction-polish",
+    "v333-live-public-work-summary",
+    "v333-live-portfolio-summary",
+    "v333-height-aware-landing-candidate"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1511,5 +1514,13 @@
       "circleCI": "NOT_RUN"
     },
     "releaseGate": "MANUAL_QA_PENDING"
+  },
+  "smartLandingV333": {
+    "sourceCommit": "cd4fe3eee8dcc99966f572aa588a4fc93afb7033",
+    "stage": "preview-only",
+    "syntheticDomAssertions": 26,
+    "realBrowser": "NOT_RUN",
+    "deployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "note": "Compact layout candidate; full first-screen fit not verified"
   }
 }
