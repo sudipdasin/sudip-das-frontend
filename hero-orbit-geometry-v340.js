@@ -8,7 +8,7 @@
  const names={en:'Hero Orbit Geometry',hi:'मुख्य कक्षा ज्यामिति',bn:'প্রধান কক্ষপথ জ্যামিতি',es:'Geometría orbital principal',fr:'Géométrie orbitale principale',de:'Orbitgeometrie der Hauptansicht',pt:'Geometria orbital principal',ar:'هندسة المدار الرئيسي','zh-CN':'主视觉轨道几何',ja:'メイン軌道ジオメトリ'};
  const keys=['--orbit-dock-x','--orbit-dock-y','--orbit-dock-space','--orbit-glyph-size'];
  function point(cx,cy,r,angle){const lib=shapeLibrary();if(lib)return lib.circlePoint(cx,cy,r,angle);const t=angle*Math.PI/180;return {x:cx+r*Math.cos(t),y:cy+r*Math.sin(t)}}
- const plugin={id:'hero-orbit-geometry',version:'3.52.0',priority:10,dependsOn:['hero'],
+ const plugin={id:'hero-orbit-geometry',version:'3.53.0',priority:10,dependsOn:['hero'],
  supports:({root})=>Boolean(root.querySelector('main>.hero .hero-art')),
  mount(ctx){
   const doc=ctx.document,art=ctx.select('main>.hero .hero-art'),root=ctx.root;
@@ -22,11 +22,28 @@
   }
   function clear(){for(const [chip,prior] of owned)release(chip,prior);restoreAttr(art,'data-orbit-geometry',oldMarker)}
   function own(chip){if(!owned.has(chip))owned.set(chip,{dock:chip.getAttribute('data-orbit-dock'),css:keys.map(k=>[k,chip.style.getPropertyValue(k),chip.style.getPropertyPriority(k)])})}
+  const profileRenderer=global.WebStudioHeroProfiles353?.mount(ctx,art,schedule);
   function layout(){
    if(!active)return;
    const theme=ctx.bridge?root.dataset.theme||ctx.theme:ctx.theme;
    const chips=[...art.querySelectorAll('.ws-orbit-chip')];
    for(const [chip,prior] of owned)if(!chips.includes(chip))release(chip,prior);
+   const shape=profileRenderer?.render();
+   if(shape){
+    art.setAttribute('data-orbit-geometry','profile');let anchors=0;
+    const angles=angleSets[theme]||{a:-145,b:-35,c:145,d:35,e:90};
+    for(const chip of chips){
+     const angle=angles[chip.dataset.pos]??(anchors*360/Math.max(1,chips.length)-90),r=angle*Math.PI/180;
+     let best=null,error=Infinity;
+     for(let i=0;i<256;i++){const p=shape.anchor(i/256),a=Math.atan2(p.y-shape.cy,p.x-shape.cx);const d=1-Math.cos(a-r);if(d<error){error=d;best=p}}
+     if(!best)continue;own(chip);
+     const available=best.x<shape.cx?best.x:art.clientWidth-best.x;
+     const side=available<66?'center':best.x<shape.cx?'left':'right';
+     chip.setAttribute('data-orbit-dock',side);
+     chip.style.setProperty('--orbit-dock-x',best.x+'px');chip.style.setProperty('--orbit-dock-y',best.y+'px');chip.style.setProperty('--orbit-dock-space',Math.max(40,available-4)+'px');anchors++;
+    }
+    last={theme,mode:'profile',shape:shape.profile,radius:shape.profile==='round'?Math.min(shape.outer.width,shape.outer.height)/2:0,anchors,outlineCount:4};return;
+   }
    if(!circular.has(theme)){clear();last={theme,mode:'native',radius:0,anchors:0};return}
    const ring=art.querySelector(theme==='neon-studio'?'.ws-neon-precise-outer':'.orbit:not(.two)');
    if(!ring||!ring.getClientRects().length){clear();last={theme,mode:'waiting-for-ring',radius:0,anchors:0};return}
@@ -64,8 +81,8 @@
   ctx.listen(global,'resize',schedule,{passive:true});ctx.listen(global,'ws-engine-theme-change',schedule);
   ctx.listen(doc.getElementById('theme-select'),'change',schedule);ctx.listen(doc,'profile-language-change',schedule);
   if(doc.fonts?.ready)doc.fonts.ready.then(schedule,()=>{});
-  function shapeStatus(){const theme=ctx.bridge?root.dataset.theme||ctx.theme:ctx.theme,lib=shapeLibrary();return {shapeProfile:lib?.profileFor(theme)||null,availableShapes:Object.keys(lib?.profiles||{}),visualActivation:'approval-required'}}
-  const api=Object.freeze({refresh:schedule,shapeStatus,geometry:(...args)=>shapeLibrary()?.geometry(...args),contours:(...args)=>shapeLibrary()?.contours(...args),motionPolicy:(args)=>shapeLibrary()?.motionPolicy(args),measure:()=>{layout();return Object.freeze({...last})},getStatus:()=>Object.freeze({...last,active,...shapeStatus(),name:names[ctx.locale]||names.en,version:'3.52.0'})});
+  function shapeStatus(){const theme=ctx.bridge?root.dataset.theme||ctx.theme:ctx.theme,lib=shapeLibrary();return {shapeProfile:(()=>{const base=lib?.profileFor(theme),id=profileRenderer?.status()?.profile;return base&&!base.locked&&id&&lib?.profiles[id]?{...lib.profiles[id],theme,locked:false,visualActivation:'approved'}:base||null})(),availableShapes:Object.keys(lib?.profiles||{}),visualActivation:profileRenderer?.status()?.profile==='native'?'native':'approved',selectedProfile:profileRenderer?.status()||null}}
+  const api=Object.freeze({refresh:schedule,setProfile:id=>profileRenderer?.choose(id)||false,getProfile:()=>profileRenderer?.status()||null,shapeStatus,geometry:(...args)=>shapeLibrary()?.geometry(...args),contours:(...args)=>shapeLibrary()?.contours(...args),motionPolicy:(args)=>shapeLibrary()?.motionPolicy(args),measure:()=>{layout();return Object.freeze({...last})},getStatus:()=>Object.freeze({...last,active,...shapeStatus(),name:names[ctx.locale]||names.en,version:'3.53.0'})});
   // Preserve the diagnostic entry point without retaining a second layout engine.
   const prior=global.__wsOrbit340;
   const adapter=Object.freeze({refresh:schedule,get last(){return api.getStatus()}});
