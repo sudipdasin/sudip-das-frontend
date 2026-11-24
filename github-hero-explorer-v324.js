@@ -109,7 +109,7 @@
   shell.append(trigger,panel);
   original.replaceWith(shell);
   const hover=window.matchMedia?.('(hover: hover) and (pointer: fine)');
-  let open=false,pinned=false,closeId=0,loading=null,loaded=null,updatedAt=0;
+  let open=false,pinned=false,suppressFocusOpen=false,closeId=0,loading=null,loaded=null,updatedAt=0;
   const brief=words.querySelector('small');
   const dateLabel=date=>{
     if(!date)return '';
@@ -285,7 +285,7 @@
     shell.addEventListener('pointerenter',()=>reveal());
     shell.addEventListener('pointerleave',planClose);
   }
-  trigger.addEventListener('focus',()=>reveal());
+  trigger.addEventListener('focus',()=>{if(!suppressFocusOpen)reveal()});
   trigger.addEventListener('click',()=>{
     if(open&&pinned)conceal(true);
     else reveal(true);
@@ -301,7 +301,9 @@
   });
   shell.addEventListener('keydown',event=>{
     if(event.key==='Escape'&&open){
-      event.preventDefault();conceal(true);trigger.focus();
+      event.preventDefault();
+      suppressFocusOpen=true;conceal(true);trigger.focus();
+      Promise.resolve().then(()=>{suppressFocusOpen=false});
     }
   });
   document.addEventListener('pointerdown',event=>{
