@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.39.0-immersive-professional-journey-manual-qa-pending",
+  "release": "personal-preview-v3.40.0-circular-hero-orbit-geometry-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -342,7 +342,10 @@
     "v339-visual-map-style-selector",
     "v339-labeled-interactive-map-pins",
     "v339-responsive-explorer-sidebar",
-    "v339-live-journey-miniature"
+    "v339-live-journey-miniature",
+    "v340-matching-circular-portrait-frames",
+    "v340-measured-outer-orbit-docking",
+    "v340-responsive-satellite-anchor-geometry"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1597,6 +1600,23 @@
   "professionalJourneyV339": {
     "sourceCommit": "3d912d83ab6660536518055a57354bcf8da189a1",
     "syntheticAssertions": 145,
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "heroOrbitV340": {
+    "sourceCommit": "ed01419b8cced8b1e986bf9461449808fd80bd79",
+    "circularThemes": [
+      "terminal",
+      "orbit",
+      "design-2",
+      "neon-studio"
+    ],
+    "preservedNonCircularThemes": [
+      "editorial",
+      "aurora-peak"
+    ],
+    "geometrySimulationAssertions": 138,
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
