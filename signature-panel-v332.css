@@ -1,0 +1,437 @@
+/* WebStudio Signature Panel v3.32
+ * Shared component across six themes. Does not reparent DOM, modify native
+ * GitHub portal/video/portfolio handlers, move portrait or affect production.
+ * Opaque/high-contrast cards, controlled details and accessible interaction.
+ */
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host{
+  --sig-panel:#10283e;
+  --sig-panel-edge:#47a9b5;
+  --sig-card:#102e44;
+  --sig-ink:#efffff;
+  --sig-muted:#c1e2e8;
+  --sig-accent:#61f5e4;
+  --sig-primary:#16d6da;
+  --sig-primary-ink:#07252f;
+  --sig-label-bg:#12374b;
+  --sig-caption:#081d32;
+  --sig-caption-ink:#f7ffff;
+  --sig-radius:15px;
+  --sig-shadow:0 12px 30px #001a2e35;
+  --sig-panel-shadow:0 17px 40px #0012202b;
+  --sig-type:var(--sans,system-ui,sans-serif);
+}
+body.ws-parity[data-theme="orbit"] main>.hero.hd-hero .hero-text.ws-signature-host{
+  --sig-panel:#0b3041;
+  --sig-panel-edge:#4abfbd;
+  --sig-card:#0c3849;
+  --sig-ink:#e9fffa;
+  --sig-muted:#b7e5e2;
+  --sig-accent:#75efdb;
+  --sig-primary:#65e3cb;
+  --sig-primary-ink:#073035;
+  --sig-label-bg:#103e4b;
+  --sig-caption:#0a3040;
+  --sig-caption-ink:#effff9;
+  --sig-radius:24px;
+  --sig-shadow:0 12px 38px #061a2760;
+  --sig-type:var(--sans,system-ui,sans-serif);
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text.ws-signature-host{
+  --sig-panel:#f8f0e5;
+  --sig-panel-edge:#ad9376;
+  --sig-card:#fffaf3;
+  --sig-ink:#332e28;
+  --sig-muted:#695b4e;
+  --sig-accent:#835637;
+  --sig-primary:#855e48;
+  --sig-primary-ink:#fffaf4;
+  --sig-label-bg:#efe2d1;
+  --sig-caption:#fffaf3;
+  --sig-caption-ink:#342b25;
+  --sig-radius:5px;
+  --sig-shadow:0 6px 16px #63472d18;
+  --sig-panel-shadow:0 8px 24px #6e4c2516;
+  --sig-type:Georgia,serif;
+}
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero .hero-text.ws-signature-host{
+  --sig-panel:#081a12;
+  --sig-panel-edge:#399864;
+  --sig-card:#0b2519;
+  --sig-ink:#e0ffeb;
+  --sig-muted:#abd3b9;
+  --sig-accent:#73ffa9;
+  --sig-primary:#73ffa9;
+  --sig-primary-ink:#082016;
+  --sig-label-bg:#102a1c;
+  --sig-caption:#0a2118;
+  --sig-caption-ink:#e0ffeb;
+  --sig-radius:0px;
+  --sig-shadow:0 0 0 1px #50a87c26;
+  --sig-panel-shadow:0 0 0 1px #50a87c22;
+  --sig-type:var(--mono,ui-monospace,monospace);
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hero-text.ws-signature-host{
+  --sig-panel:#1a3a34;
+  --sig-panel-edge:#9ccab0;
+  --sig-card:#24493e;
+  --sig-ink:#f1f8e8;
+  --sig-muted:#d0e6d4;
+  --sig-accent:#dce8ad;
+  --sig-primary:#e2ebb6;
+  --sig-primary-ink:#1c3b2e;
+  --sig-label-bg:#2e5547;
+  --sig-caption:#203f35;
+  --sig-caption-ink:#f8fff0;
+  --sig-radius:19px;
+  --sig-shadow:0 13px 34px #0e2b2650;
+  --sig-type:var(--sans,system-ui,sans-serif);
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero.hd-hero .hero-text.ws-signature-host{
+  --sig-panel:#10243b;
+  --sig-panel-edge:#48c5d2;
+  --sig-card:#102a43;
+  --sig-ink:#e9fafe;
+  --sig-muted:#b5dce8;
+  --sig-accent:#63f5eb;
+  --sig-primary:#18dfe0;
+  --sig-primary-ink:#072431;
+  --sig-label-bg:#143349;
+  --sig-caption:#081a30;
+  --sig-caption-ink:#f3feff;
+  --sig-radius:17px;
+  --sig-shadow:0 12px 32px #00192f60;
+  --sig-panel-shadow:0 15px 40px #0010204d;
+  --sig-type:var(--sans,system-ui,sans-serif);
+}
+body.ws-parity[data-theme="design-2"] main>.hero.hd-hero .hero-text.ws-signature-host{
+  --sig-panel:#1b2045;
+  --sig-panel-edge:#9274cc;
+  --sig-card:#22254d;
+  --sig-ink:#f6f1ff;
+  --sig-muted:#d7c9f4;
+  --sig-accent:#d2c0ff;
+  --sig-primary:#c7a8fc;
+  --sig-primary-ink:#1f1943;
+  --sig-label-bg:#2d2c60;
+  --sig-caption:#1b1d41;
+  --sig-caption-ink:#f8f2ff;
+  --sig-radius:21px 7px 21px 7px;
+  --sig-shadow:0 14px 38px #0e0c3763;
+  --sig-type:var(--sans,system-ui,sans-serif);
+}
+/* Compact editorial-style section marker, separate from the 4 touch targets. */
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .ws-signature-heading{
+  display:flex!important;align-items:center;gap:10px;
+  width:100%;max-width:620px;min-width:0;
+  margin:clamp(17px,2vw,25px) 0 9px;
+  padding:0 3px;
+  color:var(--sig-ink);
+  font-family:var(--sig-type);
+  position:relative;z-index:41;
+}
+body.ws-parity main>.hero.hd-hero .ws-signature-heading-mark{
+  display:grid;place-items:center;flex:0 0 23px;
+  width:23px;height:23px;
+  color:var(--sig-accent);
+  background:var(--sig-label-bg);
+  border:1px solid var(--sig-panel-edge);
+  border-radius:7px;
+  font-size:.85rem;line-height:1;
+}
+body.ws-parity main>.hero.hd-hero .ws-signature-heading-title{
+  flex:none;color:var(--sig-accent);
+  font:800 .66rem/1.4 var(--sig-type);
+  letter-spacing:.115em;text-transform:uppercase;
+}
+body.ws-parity main>.hero.hd-hero .ws-signature-heading-hint{
+  margin-inline-start:auto;min-width:0;
+  color:var(--sig-muted);font:600 .65rem/1.35 var(--sig-type);
+  text-align:end;overflow-wrap:anywhere;
+}
+/* The action group becomes the panel: keep .actions as the direct hero-text child
+ * so video, portfolio, GitHub, and accessibility handlers retain their selectors.
+ */
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  grid-auto-rows:minmax(86px,auto);
+  align-items:stretch!important;
+  justify-content:stretch!important;
+  gap:11px!important;
+  box-sizing:border-box!important;
+  width:100%!important;max-width:620px!important;min-width:0!important;
+  margin:0!important;padding:11px!important;
+  background:var(--sig-panel)!important;
+  border:1px solid var(--sig-panel-edge)!important;
+  border-radius:calc(var(--sig-radius) + 7px)!important;
+  box-shadow:var(--sig-panel-shadow)!important;
+  position:relative;isolation:isolate;overflow:visible!important;
+}
+/* Native elements retain their click actions. Only paint/size/flow are customized. */
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > *{
+  min-width:0!important;max-width:100%!important;width:100%!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  align-self:stretch!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > a.button.primary{
+  order:1!important;
+  min-height:86px!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  gap:10px;padding:15px 17px!important;
+  font:800 clamp(.82rem,1vw,.96rem)/1.32 var(--sig-type)!important;
+  color:var(--sig-primary-ink)!important;
+  background:var(--sig-primary)!important;
+  border:1px solid var(--sig-primary)!important;
+  border-radius:var(--sig-radius)!important;
+  box-shadow:0 8px 20px #0002!important;
+  text-align:start;
+  text-decoration:none;
+  letter-spacing:.005em;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > a.button.primary .arrow{
+  flex:none;display:grid;place-items:center;
+  width:30px;height:30px;
+  color:inherit!important;font-size:1.4rem!important;
+  border:1px solid currentColor;border-radius:50%;
+  opacity:.85;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > .gh-hero-shell{
+  order:2!important;
+  --gh-bg:var(--sig-card);
+  --gh-surface:var(--sig-panel);
+  --gh-ink:var(--sig-ink);
+  --gh-muted:var(--sig-muted);
+  --gh-accent:var(--sig-accent);
+  --gh-edge:var(--sig-panel-edge);
+  --gh-radius:var(--sig-radius);
+  --gh-inner-radius:calc(var(--sig-radius) * .7);
+  isolation:isolate;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions .gh-hero-trigger{
+  min-height:86px!important;width:100%!important;min-width:0!important;
+  padding:12px 13px!important;
+  background:var(--sig-card)!important;
+  color:var(--sig-ink)!important;
+  border:1px solid var(--sig-panel-edge)!important;
+  border-radius:var(--sig-radius)!important;
+  box-shadow:var(--sig-shadow)!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .gh-hero-icon{
+  background:var(--sig-label-bg)!important;
+  border-color:var(--sig-panel-edge)!important;
+  color:var(--sig-accent)!important;
+  border-radius:calc(var(--sig-radius) * .6)!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .gh-hero-words :is(strong,small){
+  color:var(--sig-ink)!important;text-shadow:none!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .gh-hero-words small{
+  color:var(--sig-muted)!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > .portfolio-gallery-hero-launch{
+  order:3!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  min-height:86px!important;
+  padding:14px 13px!important;
+  font:760 clamp(.8rem,.98vw,.95rem)/1.33 var(--sig-type)!important;
+  color:var(--sig-ink)!important;
+  background:var(--sig-card)!important;
+  border:1px solid var(--sig-panel-edge)!important;
+  border-radius:var(--sig-radius)!important;
+  box-shadow:var(--sig-shadow)!important;
+  text-align:center!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > .pv-intro-tile{
+  order:4!important;min-height:86px!important;
+  border-radius:var(--sig-radius)!important;
+  overflow:visible!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions .pv-intro-tile > .pv-intro-hero-cta{
+  min-height:86px!important;height:100%!important;
+  border:1px solid var(--sig-panel-edge)!important;
+  border-radius:var(--sig-radius)!important;
+  box-shadow:var(--sig-shadow)!important;
+  overflow:hidden;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .pv-intro-launch-copy{
+  display:flex!important;align-items:flex-start!important;justify-content:center!important;
+  gap:3px!important;min-width:0;max-width:calc(100% - 2px);
+  padding:7px 9px!important;
+  background:var(--sig-caption)!important;
+  color:var(--sig-caption-ink)!important;
+  border-inline-start:2px solid var(--sig-accent);
+  border-radius:calc(var(--sig-radius) * .46);
+  text-shadow:none!important;
+  position:relative!important;z-index:4!important;
+  box-shadow:0 1px 8px #0002;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .pv-intro-launch-copy strong{
+  color:var(--sig-caption-ink)!important;
+  font:800 clamp(.76rem,.9vw,.92rem)/1.25 var(--sig-type)!important;
+  text-shadow:none!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .pv-intro-launch-copy small{
+  color:var(--sig-muted)!important;
+  font:640 clamp(.63rem,.74vw,.75rem)/1.35 var(--sig-type)!important;
+  text-shadow:none!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .pv-intro-expand{
+  color:var(--sig-primary-ink)!important;
+  background:var(--sig-primary)!important;
+  border-color:var(--sig-panel-edge)!important;
+  border-radius:calc(var(--sig-radius) * .5)!important;
+  box-shadow:0 0 0 1px #0002!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions :is(a,button):focus-visible{
+  outline:3px solid var(--sig-accent)!important;
+  outline-offset:3px!important;
+}
+@media(hover:hover) and (pointer:fine){
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > a.button.primary:hover,
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > .portfolio-gallery-hero-launch:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px #0004!important;
+ }
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions .gh-hero-trigger:hover{
+  transform:translateY(-2px)!important;
+  border-color:var(--sig-accent)!important;
+ }
+}
+/* The identity badge and availability line become the Signature Panel footer. */
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .ws29-hero-dossier.ws-signature-dossier{
+  box-sizing:border-box!important;
+  width:min(100%,620px)!important;max-width:620px!important;
+  min-height:58px;
+  margin:10px 0 0!important;padding:10px 13px!important;
+  background:var(--sig-card)!important;
+  color:var(--sig-ink)!important;
+  border:1px solid var(--sig-panel-edge)!important;
+  border-radius:var(--sig-radius)!important;
+  box-shadow:var(--sig-shadow)!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .ws-signature-dossier .ws29-hero-symbol{
+  color:var(--sig-accent)!important;
+  background:var(--sig-label-bg)!important;
+  border-color:var(--sig-panel-edge)!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .ws-signature-dossier :is(.ws29-dossier-descriptor,.ws29-dossier-kicker){
+  color:var(--sig-ink)!important;text-shadow:none!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .ws-signature-dossier .ws29-dossier-kicker{
+  color:var(--sig-accent)!important;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .location.ws-signature-availability{
+  box-sizing:border-box;max-width:620px;width:100%;
+  display:flex;align-items:center;gap:9px;
+  margin:10px 0 0!important;padding:0 3px;
+  color:var(--sig-muted)!important;
+  font:600 .8rem/1.5 var(--sig-type);
+  position:relative;z-index:2;
+}
+body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .location.ws-signature-availability .pulse{
+  background:var(--sig-accent)!important;
+  box-shadow:0 0 12px var(--sig-accent)!important;
+}
+/* Strongly individual visual identities — shape, accent, material and geometry. */
+body.ws-parity[data-theme="orbit"] main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions{
+  background:linear-gradient(150deg,#0d3a49,#092636)!important;
+  border-style:solid!important;
+}
+body.ws-parity[data-theme="orbit"] main>.hero.hd-hero .ws-signature-heading-mark{
+  border-radius:50%!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions{
+  background:#f8f0e5!important;
+  box-shadow:0 1px 0 #ad937670!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .ws-signature-heading-mark{
+  border-radius:0!important;transform:rotate(-6deg);
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .ws-signature-heading-title{
+  font-family:Georgia,serif!important;letter-spacing:.08em;
+}
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions{
+  border-style:dashed!important;box-shadow:none!important;
+}
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero .ws-signature-heading-mark{
+  border-radius:0!important;
+}
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero .ws-signature-heading-title::before{
+  content:"> ";color:var(--sig-accent);
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions{
+  background:linear-gradient(150deg,#2c5547,#16362f)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .ws-signature-heading-mark{
+  border-radius:50% 50% 8px 8px!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions{
+  background:linear-gradient(140deg,#0f2f43,#101e36)!important;
+  border-color:#5ae3e0!important;
+  box-shadow:0 14px 32px #0013268e,0 0 0 1px #4cf7ef1c!important;
+}
+body.ws-parity[data-theme="neon-studio"] main>.hero.hd-hero .ws-signature-heading-mark{
+  box-shadow:0 0 13px #59eaea34!important;
+}
+body.ws-parity[data-theme="design-2"] main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions{
+  background:radial-gradient(ellipse at 90% 0%,#51418b60,transparent 56%),#1b2045!important;
+}
+body.ws-parity[data-theme="design-2"] main>.hero.hd-hero .ws-signature-heading-mark{
+  border-radius:50% 10% 50% 10%!important;
+  transform:rotate(-14deg);
+}
+/* Video tile remains a real video preview; avoid dark overlay over Editorial. */
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text.ws-signature-host .pv-intro-tile>.pv-intro-hero-cta{
+  background:#fffbf3!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text.ws-signature-host .pv-intro-tile>.pv-intro-hero-cta::after{
+  opacity:0!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text.ws-signature-host .pv-intro-launch-copy{
+  background:#fffaf3!important;border-color:#a2846b!important;box-shadow:none!important;
+}
+/* Adapt to actual space rather than causing content overflow. */
+@media(max-width:650px){
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions{
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-auto-rows:minmax(74px,auto);
+  gap:9px!important;padding:9px!important;
+ }
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > a.button.primary,
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > .portfolio-gallery-hero-launch,
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions .gh-hero-trigger,
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions .pv-intro-tile>.pv-intro-hero-cta{
+  min-height:74px!important;
+ }
+ body.ws-parity main>.hero.hd-hero .ws-signature-heading-hint{
+  font-size:.62rem;
+ }
+}
+@media(max-width:385px){
+ body.ws-parity main>.hero.hd-hero .ws-signature-heading-hint{display:none!important}
+ body.ws-parity main>.hero.hd-hero .ws-signature-heading-title{font-size:.64rem}
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions{
+  padding:8px!important;
+ }
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .pv-intro-launch-copy small{
+  font-size:.61rem!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .ws-signature-actions *,
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .ws-signature-dossier *{
+  animation:none!important;transition:none!important;scroll-behavior:auto!important;
+ }
+}
+@media(forced-colors:active){
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions,
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions > *,
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host .ws-signature-dossier{
+  background:Canvas!important;color:CanvasText!important;
+  border:1px solid CanvasText!important;box-shadow:none!important;
+ }
+ body.ws-parity main>.hero.hd-hero .hero-text.ws-signature-host > .actions.ws-signature-actions :is(a,button):focus-visible{
+  outline:3px solid Highlight!important;
+ }
+}
