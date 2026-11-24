@@ -98,6 +98,25 @@
         checks.push(['distinct visual background available',tileStyle.backgroundImage!=='none']);
       }
     } else checks.push(['video UI initialized',false]);
+    if(id==='terminal') {
+      const footer=document.querySelector('.ws-powered-band');
+      const glyph=footer?.querySelector('.ws-powered-glyph');
+      const orbits=[...(footer?.querySelectorAll('.ws-powered-orbit')||[])];
+      const launcher=document.querySelector('#human-ci-panel>.human-ci-toggle');
+      const badge=launcher?.querySelector('.human-ci-count');
+      checks.push(['Terminal footer uses native square geometry',
+        Boolean(footer&&getComputedStyle(footer).borderTopLeftRadius==='0px')]);
+      checks.push(['Terminal footer uses mono text heading',
+        Boolean(footer&&getComputedStyle(footer.querySelector('h2')).fontFamily.toLowerCase().includes('mono'))]);
+      checks.push(['Terminal console glyph replaces Neon artwork',
+        Boolean(glyph&&getComputedStyle(glyph).fontSize==='0px')]);
+      checks.push(['Terminal footer orbital decorations hidden',
+        orbits.length>0&&orbits.every(n=>getComputedStyle(n).display==='none')]);
+      checks.push(['Human CI launcher remains compact',
+        Boolean(launcher&&launcher.getBoundingClientRect().width<=250)]);
+      checks.push(['Human CI badge stays short',
+        Boolean(badge&&badge.textContent.trim().split('/').length===2&&badge.textContent.trim().endsWith('/20'))]);
+    }
     if(id==='aurora-peak') {
       const landscape=document.querySelector('.hero-art .ap-landscape');
       const portrait=document.querySelector('.hero-art .core');
