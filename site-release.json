@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.19.0-terminal-footer-ci-visual-fix",
+  "release": "personal-preview-v3.20.0-aurora-screenshot-polish",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -161,7 +161,14 @@
     "human-ci-compact-one-line-launcher",
     "human-ci-progress-details-inside-panel",
     "human-ci-aria-progress-counts",
-    "terminal-browser-audit-footer-and-launcher-checks"
+    "terminal-browser-audit-footer-and-launcher-checks",
+    "aurora-peak-nav-cta-contrast",
+    "aurora-peak-theme-launch-sage-lichen-material",
+    "aurora-peak-portrait-trail-label-separation",
+    "aurora-peak-review-mobile-label-layout",
+    "human-ci-compact-v3.20-release-marker",
+    "human-ci-no-carryover-of-stale-passes",
+    "aurora-browser-cta-contrast-and-collision-probes"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -507,7 +514,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.19-terminal-screenshot-human-retest",
+    "stage": "v3.20-aurora-screenshot-visual-retest",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -524,8 +531,8 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "28/28 source invariants, JavaScript parsing and CSS structure checks",
-    "liveBrowserVerification": "NOT RUN / preview inaccessible",
+    "sourceVerification": "Source-level verification only; no real browser screenshot test yet",
+    "liveBrowserVerification": "NOT VERIFIED; preview unavailable from external browser",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
@@ -544,7 +551,7 @@
       "v3.17 responsive six-theme reviewer and shortlist interface"
     ],
     "verification": "Source/runtime mock verified; deployed site and actual responsive rendering not independently verified",
-    "currentHumanFeedbackFile": "webstudio-human-ci-v3.18.json",
+    "currentHumanFeedbackFile": "webstudio-human-ci-v3.20.json",
     "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation",
     "visualIssues": [
       "Terminal footer promotional card retained blue-violet neon visual style",
@@ -576,13 +583,13 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.19.0",
+    "version": "3.20.0",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-terminal-footer-human-ci-v3.19.0",
+    "buildFingerprint": "preview-aurora-human-ci-polish-v3.20.0",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   },
   "auroraPeakAlpineEdition": {
@@ -633,5 +640,27 @@
     "visualBrowser": "Needs human CI screenshot review at desktop and mobile",
     "evidenceGuide": "TERMINAL-UI-HUMAN-CI-v3.19.md",
     "productionPromoted": false
+  },
+  "auroraPeakScreenshotV320": {
+    "source": "2026-11-24 owner-provided Aurora Peak desktop screenshot",
+    "branch": "preview-personalweb",
+    "previousRelease": "personal-preview-v3.19.0-terminal-footer-ci-visual-fix",
+    "observed": [
+      "Pale Let’s connect button with nearly white text",
+      "Explore themes cyan/blue control from shared Theme Library",
+      "Trail note crowded by overlapping portrait attribution",
+      "Screenshot still contained pre-v3.19 expanded Human CI launcher wording"
+    ],
+    "fixes": [
+      "Scoped darker navigation CTA text with stronger selector",
+      "Scoped theme library trigger to alpine sage/lichen gradient",
+      "Restricted trail note to left quarter of stage with wrapped copy and adjusted caption",
+      "Updated Human CI badge to compact v3.20 marker and reset scores for new release",
+      "Browser audit measures contrast and rectangle overlap"
+    ],
+    "sourceVerification": "Final static checks required after manifest commit; new JS parsing and CSS brace balance performed before integration",
+    "deployedBrowser": "Not independently verified; Cloudflare preview URL inaccessible from available browser tool",
+    "manualReview": "Confirm Review v3.20 badge and inspect at screenshot size and narrow device widths",
+    "productionPromotionApproved": false
   }
 }
