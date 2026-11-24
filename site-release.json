@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.22.0-adaptive-six-theme-atmosphere",
+  "release": "personal-preview-v3.23.0-sitewide-six-theme-atmosphere",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -203,7 +203,20 @@
     "atmosphere-replaces-aurora-only-motion-toggle",
     "human-ci-v322-25-point-review",
     "theme-audit-v322-atmosphere-actual-renderer-verification",
-    "reproducible-v322-43-point-offline-verifier"
+    "reproducible-v322-43-point-offline-verifier",
+    "atmosphere-full-document-viewport-compositor",
+    "atmosphere-scroll-aware-section-lighting",
+    "atmosphere-eight-region-effects",
+    "atmosphere-six-theme-continuous-visual-identity",
+    "atmosphere-shader-u-section-light-modulation",
+    "atmosphere-canvas-section-aware-light-centers",
+    "atmosphere-fixed-canvas-not-document-sized",
+    "atmosphere-hero-visibility-gate-removed",
+    "atmosphere-sitewide-off-eco-css",
+    "atmosphere-section-glows-behind-content",
+    "atmosphere-gpu-shader-reference-bug-fixed",
+    "human-ci-v323-26-point-sitewide-qa",
+    "sitewide-atmosphere-34-point-regression"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -549,7 +562,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.22-atmosphere-human-browser-and-device-validation",
+    "stage": "v3.23-sitewide-atmosphere-real-browser-review",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -566,8 +579,8 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "43/43 source and simulated renderer assertions; independent tier checks 11/11; 6 palettes contrast-checked",
-    "liveBrowserVerification": "NOT VERIFIED",
+    "sourceVerification": "34/34 source+simulated scrolling and GPU recovery checks",
+    "liveBrowserVerification": "UNVERIFIED",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
@@ -575,7 +588,7 @@
     "previousRelease": "personal-preview-v3.16.0-theme-identity-repair",
     "reviewStatus": "source committed; Cloudflare deployment and true browser UX still need human verification",
     "reviewSchemaVersion": 2,
-    "reviewChecks": 25,
+    "reviewChecks": 26,
     "unverifiedResultsAreNeverInherited": true,
     "previousHumanFeedback": "Editorial screenshot showed Neon video overlay and disconnected skill labels; v3.16 theme identity fix remains in place",
     "enhancements": [
@@ -586,7 +599,7 @@
       "v3.17 responsive six-theme reviewer and shortlist interface"
     ],
     "verification": "Source/runtime mock verified; deployed site and actual responsive rendering not independently verified",
-    "currentHumanFeedbackFile": "webstudio-human-ci-v3.22.json",
+    "currentHumanFeedbackFile": "webstudio-human-ci-v3.23.json",
     "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation",
     "visualIssues": [
       "Terminal footer promotional card retained blue-violet neon visual style",
@@ -618,13 +631,13 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.22.0",
+    "version": "3.23.0",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-adaptive-atmosphere-v3.22.0",
+    "buildFingerprint": "preview-sitewide-atmosphere-v3.23.0",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   },
   "auroraPeakAlpineEdition": {
@@ -834,6 +847,49 @@
     "diagnosticsFile": "webstudio-preview-diagnostics-v3.22.json",
     "themeAuditFile": "webstudio-theme-audit-v3.22.json",
     "spec": "PREVIEW-ATMOSPHERE-V3.22-HUMAN-CI.md",
+    "productionPromotionApproved": false
+  },
+  "atmosphereV323": {
+    "version": "3.23.0",
+    "previousRelease": "personal-preview-v3.22.0-adaptive-six-theme-atmosphere",
+    "themeScope": "Entire public portfolio (all six themes), not only Introduction hero",
+    "regions": [
+      "intro",
+      "about",
+      "projects",
+      "experience",
+      "strengths",
+      "contact",
+      "showcase",
+      "footer"
+    ],
+    "architecture": {
+      "compositor": "One fixed, pointer-transparent, viewport-sized canvas appended under body",
+      "localEffects": "Eight lightweight theme-specific section glow layers with preserved DOM layout",
+      "liveSectionSelection": "Passive scrolling with requestAnimationFrame-coalesced geometry checks and current-section shader uniform",
+      "modeBehavior": "Auto/Cinematic/Balanced/Eco/Off preserved. GPU and Canvas share compositor; Eco CSS-only; Off disables all overlays",
+      "fallback": "Preserves 3.22 watchdog, GL loss, data saver, reduced motion, battery hints and capped texture sizes",
+      "privacy": "No telemetry, no new network calls, preference stored locally"
+    },
+    "assets": [
+      "atmosphere-shaders-v323.js",
+      "atmosphere-engine-v323.js",
+      "atmosphere-sitewide-v323.css"
+    ],
+    "verification": {
+      "offlineSourceAndSimulatedScroll": "34/34 checks passed against committed preview branch",
+      "rootCauseFixed": "The initial v3.23 engine referenced v3.22 shaders during WebGL initialization; corrected; demonstrated Off-to-Cinematic GPU recovery in simulator",
+      "realWebGLShaderCompile": "NOT VERIFIED",
+      "cloudflareDeployment": "NOT VERIFIED",
+      "visualDesktopMobile": "HUMAN CI PENDING",
+      "perfThermalOnDevices": "NOT MEASURED",
+      "paidCI": "Not run; preview branch intentionally filtered"
+    },
+    "humanCIFile": "webstudio-human-ci-v3.23.json",
+    "diagnosticsFile": "webstudio-preview-diagnostics-v3.23.json",
+    "auditFile": "webstudio-theme-audit-v3.23.json",
+    "documentedAt": "PREVIEW-ATMOSPHERE-V3.23-HUMAN-CI.md",
+    "buildFingerprint": "preview-sitewide-atmosphere-v3.23.0",
     "productionPromotionApproved": false
   }
 }
