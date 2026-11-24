@@ -31,7 +31,7 @@
   "privateBackendBundled": false,
   "stage": "production",
   "verifiedPrivateSourceCommit": "4b2b49ee6670e3c0a4bdceb22a80274f2abf679f",
-  "ciProvider": "CircleCI",
+  "ciProvider": "paused-manual-owner-verification",
   "approvedTheme": {
     "id": "neon-studio",
     "defaultTheme": "neon-studio",
@@ -84,5 +84,15 @@
     "jsSha": "bff2f048eea4fcf2ec7ad8b87e7a400a77ff0e3e",
     "rollback": "backup/pre-footer-breadcrumb-live-2026-11-24",
     "visualBrowserQA": "not independently tested"
+  },
+  "manualCI": {
+    "effectiveDate": "2026-11-24",
+    "githubActions": "quota-exhausted-no-runs",
+    "circleCI": "quota-exhausted-workflows-default-disabled",
+    "validationAuthority": "owner-manual-review-and-feedback",
+    "manualQAStatus": "pending",
+    "automaticHostedTestResult": "NOT_RUN",
+    "previewDeploymentIndependentOfCI": true,
+    "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md"
   }
 }
