@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+/* Local-only WebStudio v3.30 source verifier: no browser, network, CI or deployment. */
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+const read=(path)=>fs.readFileSync(new URL('../'+path,import.meta.url),'utf8');
+const html=read('index.html'),css=read('webstudio-experience-v330.css');
+const script=read('webstudio-experience-v330.js');
+const ids=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'];
+const localeNames=['en','hi','bn','es','fr','de','pt','ar','zh-CN','ja'];
+const localExpr=script.slice(script.indexOf(' const LOCAL=')+' const LOCAL='.length,script.indexOf('\n const F=')).replace(/;\s*$/,'');
+const keyExpr=script.slice(script.indexOf(' const F=')+' const F='.length,script.indexOf('\n const IDX=')).replace(/;\s*$/,'');
+const local=vm.runInNewContext('('+localExpr+')',{});
+const keys=vm.runInNewContext('('+keyExpr+')',{});
+const files=['hero-display-engine-v327.js','atmosphere-engine-v328.js','webstudio-engine-mesh-v328.js','personal-quick-hub-v2.js','portfolio-discovery-v328.js','webstudio-experience-v330.js'];
+for(const f of files)new vm.Script(read(f),{filename:f});
+let passed=0;
+const check=(name,ok)=>{console.log((ok?'PASS ':'FAIL ')+name);assert.ok(ok,name);passed++;};
+check('Preview-only DOM guard',script.includes('window.PORTFOLIO_PREVIEW_MODE!==true'));
+check('New JS linked',html.includes('src="webstudio-experience-v330.js?v=3.30.0"'));
+check('New CSS linked',html.includes('href="webstudio-experience-v330.css?v=3.30.0"'));
+check('Build marker',html.includes('preview-five-engine-experience-v3.30.0'));
+check('Six theme signatures',ids.every(id=>css.includes('data-theme="'+id+'"')&&script.includes(id)));
+check('Ten fully translated locales',localeNames.every(l=>Array.isArray(local[l])&&local[l].length===keys.length&&local[l].every(v=>typeof v==='string'&&v.trim())));
+check('42 localization keys',keys.length===42);
+check('HTML command search and focus keyboard logic',script.includes('aria-activedescendant')&&script.includes("e.key==='ArrowDown'")&&script.includes("e.key==='Enter'"));
+check('Arabic dialogue RTL',script.includes("dialog.dir=locale==='ar'?'rtl':'ltr'"));
+check('Portfolio filters and sorted-card performance',read('portfolio-discovery-v328.js').includes('if(sort.value!==lastSort)'));
+check('Quick Menu API',read('personal-quick-hub-v2.js').includes('window.__wsQuickMenu330=Object.freeze('));
+check('Hero geometry API',read('hero-display-engine-v327.js').includes('  measure,'));
+check('Atmosphere engine budget and zone monitoring',read('atmosphere-engine-v328.js').includes('expectedFrameRate:'));
+check('Theme engine health',read('webstudio-engine-mesh-v328.js').includes('  getHealth:health,'));
+check('Styles balanced',css.split('{').length===css.split('}').length);
+check('No new external calls or private APIs',!/\b(?:fetch|XMLHttpRequest|sendBeacon)\s*\(/.test(script)&&!script.includes('/api/v1/private-info'));
+check('CI disabled by default',read('.circleci/config.yml').includes('manual_ci_enabled:\n    type: boolean\n    default: false'));
+check('Preview production-request guard',html.includes('window.PUBLIC_API_BASE="";window.PORTFOLIO_PREVIEW_MODE=true;'));
+console.log('PASS '+passed+' local source checks; real-browser manual QA NOT RUN.');
