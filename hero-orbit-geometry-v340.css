@@ -39,3 +39,15 @@ body.ws-parity[data-theme="neon-studio"] main>.hero.hd-hero>.hero-art[data-orbit
 @media(max-width:600px){
  body.ws-parity[data-theme="neon-studio"] main>.hero.hd-hero>.hero-art[data-orbit-geometry="circular"]{--orbit-glyph-size:29px}
 }
+
+/* v3.40.1: Terminal's portrait contract must work even before Hero Display initializes. */
+body[data-theme="terminal"] main>.hero .hero-art>.core,
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art>.core{
+ border-radius:50%!important;aspect-ratio:1!important;overflow:hidden!important;
+ clip-path:circle(50%)!important;box-sizing:border-box!important;
+}
+body[data-theme="terminal"] main>.hero .hero-art>.core>img,
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art>.core>img{
+ width:100%!important;height:100%!important;object-fit:cover!important;
+ border-radius:50%!important;clip-path:circle(50%)!important;
+}
