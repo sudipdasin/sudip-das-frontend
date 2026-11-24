@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.50.0-aurora-far-right-manual-qa-pending",
+  "release": "personal-preview-v3.51.0-aurora-arctic-radiance-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -370,7 +370,10 @@
     "v349-continuous-alpine-panorama",
     "v349-aligned-arch-illumination",
     "v350-aurora-far-right-placement",
-    "v350-aurora-medallions-thirty-percent-smaller"
+    "v350-aurora-medallions-thirty-percent-smaller",
+    "v351-arctic-radiance-far-right-geometry",
+    "v351-stronger-emerald-violet-shader",
+    "v351-balanced-aurora-lighting"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1727,6 +1730,15 @@
     "approval": "far right, more open space, icons 30%",
     "labelFontFloor": "10px at default root size",
     "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "auroraArcticRadianceV351": {
+    "sourceCommit": "a734d1acd0f876f8723dbaeb70b62a7cd61f0c3a",
+    "approval": "option 4 Arctic Radiance",
+    "sourceModeledCanvasAssertions": 40,
+    "realBrowser": "NOT_RUN",
+    "shaderCompilation": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
   }
