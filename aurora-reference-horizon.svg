@@ -9,12 +9,16 @@
 <rect width="1777" height="540" fill="url(#sky)"/>
 <ellipse cx="1130" cy="460" rx="365" ry="135" fill="url(#sun)"/>
 <ellipse cx="850" cy="295" rx="490" ry="130" fill="#00cab9" opacity=".18" filter="url(#blur)"/>
-<path d="M-150 430 Q350 620 700 340 T1460 340 Q1640 340 1900 140" fill="none" stroke="#09eedb" stroke-width="42" opacity=".18" filter="url(#blur)"/>
-<path d="M-150 430 Q350 620 700 340 T1460 340 Q1640 340 1900 140" fill="none" stroke="#0af4d6" stroke-width="2.5" opacity=".85"/>
-<path d="M-160 445 C220 540 500 440 760 344 S1350 300 1910 170 L1910 290 C1500 430 1050 380 710 430 S120 550-160 525Z" fill="url(#wave)" opacity=".5"/>
+<!-- Soft, continuous light curtains replace the hard turquoise tracks. -->
+<path d="M-140 155 C240 280 480 105 790 158 S1280 232 1910 65" fill="none" stroke="#76f0c4" stroke-width="96" opacity=".14" filter="url(#blur)"/>
+<path d="M-140 155 C240 280 480 105 790 158 S1280 232 1910 65 L1910 175 C1280 325 1020 260 790 255 S240 365-140 265Z" fill="url(#wave)" opacity=".48"/>
+<path d="M-80 90 C300 185 570 38 890 100 S1420 170 1850 20" fill="none" stroke="#b2a8e8" stroke-width="68" opacity=".12" filter="url(#blur)"/>
+<path d="M-140 170 C240 295 480 120 790 173 S1280 247 1910 80" fill="none" stroke="#7bf0d0" stroke-width="12" opacity=".23" filter="url(#blur)"/>
 <path d="M-40 465 L32 439 68 460 95 421 135 453 204 431 247 460 293 428 347 464 411 419 474 459 530 433 580 468 652 425 702 461 772 387 830 452 902 434 953 461 1011 420 1087 453 1151 411 1207 465 1288 407 1354 445 1426 392 1504 460 1593 429 1689 451 1777 417 V540H-40Z" fill="#0b2440"/>
 <path d="M0 492 L130 455 195 481 310 451 410 502 530 455 665 492 817 389 877 448 931 477 1076 430 1200 477 1310 426 1384 475 1470 438 1576 480 1675 439 1777 478 V540H0Z" fill="url(#ridge)"/>
 <path d="M681 491 L817 389 877 448 825 414 798 421 747 462Z" fill="#7798ad" opacity=".42"/>
 <path d="M1140 490 L1310 426 1384 475 1313 441 1272 452Z" fill="#ba82bb" opacity=".32"/>
-<path d="M0 520 Q340 493 650 527 T1200 507 T1777 522" stroke="#0a72af" stroke-width="4" opacity=".25" fill="none"/>
+<path d="M0 520 Q340 493 650 527 T1200 507 T1777 522" stroke="#5d99a6" stroke-width="16" opacity=".12" fill="none" filter="url(#blur)"/>
+<path d="M95 421 L135 453 112 440 104 442 85 452Z M411 419 L474 459 432 443 420 445 392 452Z M772 387 L830 452 794 423 781 429 746 455Z M1426 392 L1504 460 1452 425 1434 431 1397 454Z" fill="#a8bec9" opacity=".19"/>
+<path d="M0 500 Q320 465 590 506 T1180 495 T1777 490 V540 H0Z" fill="#061c2c" opacity=".28"/>
 </svg>
