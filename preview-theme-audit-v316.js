@@ -31,7 +31,7 @@
       .tip{font-size:12px}
     </style>
     <details>
-      <summary>◈ Theme audit · v3.23</summary>
+      <summary>◈ Theme audit · v3.24</summary>
       <article>
         <p>Tests active CSS and layout in this browser, one theme at a time. No screenshots or data are uploaded.</p>
         <p class="tip">Repeat at desktop, tablet and mobile widths. Automated checks do not replace your visual review.</p>
@@ -132,6 +132,18 @@
       checks.push(['Reduced motion forbids animated renderer',
         Boolean(atmosphere&&['eco','off'].includes(atmosphere.effective))]);
     }
+    // GitHub hero is inspected without opening it or consuming public API quota.
+    const ghRoot=document.getElementById('gh-hero-explorer');
+    const ghButton=document.getElementById('gh-hero-trigger');
+    const ghPanel=document.getElementById('gh-hero-panel');
+    const ghSkin=ghRoot?getComputedStyle(ghRoot):null;
+    checks.push(['GitHub hero interactive preview initialized',
+      Boolean(ghRoot&&ghButton&&ghPanel&&window.__wsGithubHero324)]);
+    checks.push(['GitHub hero has native theme material',
+      Boolean(ghSkin?.getPropertyValue('--gh-surface').trim()&&ghSkin?.getPropertyValue('--gh-accent').trim())]);
+    checks.push(['GitHub disclosure accessible to keyboard and touch',
+      Boolean(ghButton?.getAttribute('aria-controls')==='gh-hero-panel'&&
+      ['true','false'].includes(ghButton?.getAttribute('aria-expanded'))&&ghPanel?.getAttribute('role')==='region')]);
     const footer=document.querySelector('.ws-powered-band');
     const footerStyle=footer?getComputedStyle(footer):null;
     if(id!=='neon-studio'){
@@ -241,7 +253,7 @@
     }
     const passed=results.reduce((a,r)=>a+r.pass,0);
     resultData={
-      release:'v3.23-theme-audit',source:'real-browser-computed-styles',
+      release:'v3.24-theme-audit',source:'real-browser-computed-styles',
       generatedAt:new Date().toISOString(),url:location.origin+location.pathname,
       viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
       userAgent:navigator.userAgent,originalTheme:previous,
@@ -251,7 +263,7 @@
     const total=results.reduce((a,r)=>a+r.total,0);
     const horizontalOverflow=document.documentElement.scrollWidth>document.documentElement.clientWidth+2;
     reportText=[
-      'WebStudio theme audit v3.23',
+      'WebStudio theme audit v3.24',
       'Viewport: '+innerWidth+' × '+innerHeight,
       'Checked '+results.length+'/6 themes; static probes '+passed+'/'+total+' passed.',
       'Horizontal overflow present: '+(horizontalOverflow?'yes - visually inspect':'not detected'),
@@ -272,7 +284,7 @@
     const file=new Blob([JSON.stringify(resultData,null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(file);
     const link=document.createElement('a');
-    link.download='webstudio-theme-audit-v3.23.json';link.href=url;
+    link.download='webstudio-theme-audit-v3.24.json';link.href=url;
     document.body.append(link);link.click();link.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
     status.textContent='Local theme audit JSON exported. Attach it to your Human CI feedback.';
