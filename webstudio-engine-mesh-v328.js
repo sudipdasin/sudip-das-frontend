@@ -103,7 +103,24 @@
    event.preventDefault();trigger.click();trigger.focus({preventScroll:true});
   }
  });
+ function health(){
+  const desired=selected();
+  const available=Object.freeze({
+   hero:Boolean(window.__wsHeroDisplay327?.getStatus?.()),
+   atmosphere:Boolean(window.__wsAtmosphere328?.getStatus?.()),
+   theme:Boolean(THEMES[desired]),
+   quickMenu:Boolean(window.__wsQuickMenu330?.getStatus?.()||document.getElementById('ws-visitor-quick-panel')),
+   portfolio:Boolean(window.__wsPortfolio328?.getStatus?.())
+  });
+  return Object.freeze({
+   theme:desired,available,
+   synchronized:body.dataset.wsxTheme===desired&&body.dataset.wsxLayout===THEMES[desired]?.layout,
+   motion:body.dataset.wsxMotion,locale:window.profileI18n?.locale||'en',
+   allAvailable:Object.values(available).every(Boolean)
+  });
+ }
  const api=Object.freeze({
+  getHealth:health,
   getTheme:()=>current,
   getProfile:()=>THEMES[current],
   getStatus:()=>Object.freeze({
