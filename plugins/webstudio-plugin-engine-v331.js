@@ -177,28 +177,56 @@
    })();
    try{return await busy}finally{busy=null}
   }
+  let updatePromise=null,queuedReason=null;
   async function update(reason='manual'){
    if(phase!=='mounted')return status();
-   for(const [id,instance]of instances){
-    const plugin=registry.get(id);
-    try{
-     if(typeof instance.update==='function')await instance.update({theme,locale,quality,reason,palette:THEME_PROFILES[theme]});
-     else if(plugin?.update)await plugin.update(instance.ctx,{theme,locale,quality,reason,palette:THEME_PROFILES[theme]});
-     metrics.updates++;
-    }catch(e){
-     errors.push({plugin:id,stage:'update',message:String(e?.message||e).slice(0,200)});
-     announce('plugin-status',{id,status:'update-error'});
+   queuedReason=reason;
+   if(updatePromise)return updatePromise;
+   updatePromise=(async()=>{
+    while(queuedReason&&phase==='mounted'){
+     const currentReason=queuedReason;queuedReason=null;
+     const snapshot={theme,locale,quality,reason:currentReason,palette:THEME_PROFILES[theme]};
+     for(const [id,instance] of instances){
+      if(phase!=='mounted')break;
+      const plugin=registry.get(id);
+      try{
+       if(typeof instance.update==='function')await instance.update(snapshot);
+       else if(plugin?.update)await plugin.update(instance.ctx,snapshot);
+       metrics.updates++;
+      }catch(e){
+       errors.push({plugin:id,stage:'update',message:String(e?.message||e).slice(0,200)});
+       announce('plugin-status',{id,status:'update-error'});
+      }
+     }
+     announce('update',snapshot);
     }
-   }
-   announce('update',{reason,theme,locale,quality});return status();
+    return status();
+   })();
+   try{return await updatePromise}finally{updatePromise=null}
   }
-  function setTheme(id){if(!THEME_PROFILES[id])return false;theme=id;paint();void update('theme');return true}
-  function setLocale(id){if(!LOCALES.includes(id))return false;locale=id;paint();void update('locale');return true}
-  function setQuality(id){if(!MODES.includes(id))return false;quality=id;paint();void update('quality');return true}
+  function setTheme(id){
+   if(!THEME_PROFILES[id])return false;theme=id;
+   if(phase==='mounted'||phase==='mounting')paint();
+   if(phase==='mounted')void update('theme');
+   return true;
+  }
+  function setLocale(id){
+   if(!LOCALES.includes(id))return false;locale=id;
+   if(phase==='mounted'||phase==='mounting')paint();
+   if(phase==='mounted')void update('locale');
+   return true;
+  }
+  function setQuality(id){
+   if(!MODES.includes(id))return false;quality=id;
+   if(phase==='mounted'||phase==='mounting')paint();
+   if(phase==='mounted')void update('quality');
+   return true;
+  }
   async function unmount(){
    if(busy)await busy;
    if(phase==='idle'||phase==='stopped')return status();
    phase='stopping';
+   if(updatePromise)await updatePromise;
    for(const id of [...instances.keys()].reverse()){
     await safeCleanup(id);state.set(id,'stopped');metrics.unmounts++;
    }
