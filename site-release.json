@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.38.0-professional-journey-hybrid-manual-qa-pending",
+  "release": "personal-preview-v3.39.0-immersive-professional-journey-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -338,7 +338,11 @@
     "v337-distinct-six-theme-tile-effects",
     "v338-professional-journey-seventh-plugin",
     "v338-four-selectable-experience-maps",
-    "v338-localized-interactive-experience-pins"
+    "v338-localized-interactive-experience-pins",
+    "v339-visual-map-style-selector",
+    "v339-labeled-interactive-map-pins",
+    "v339-responsive-explorer-sidebar",
+    "v339-live-journey-miniature"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1586,6 +1590,13 @@
       "Kolkata, India"
     ],
     "syntheticLifecycleAssertions": 85,
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "professionalJourneyV339": {
+    "sourceCommit": "3d912d83ab6660536518055a57354bcf8da189a1",
+    "syntheticAssertions": 145,
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
