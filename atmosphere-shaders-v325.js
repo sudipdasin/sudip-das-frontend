@@ -115,15 +115,16 @@ void main(){
     float sweep=exp(-12.0*abs(p.y-.24*sin(time*.27)));
     color=vec3(.025,.45,.20)*(scan*.13+matrix*.45+bars*.28+sweep*.20);
     opacity=.17+sweep*.1;
-  }else if(u_theme==4){ /* Approved hybrid: faint layered aurora, soft light and twinkle */
+  }else if(u_theme==4){ /* Arctic Radiance: luminous folded curtains with emerald and violet scattering */
     float wave=fbm(vec2(p.x*2.5+time*.012,1.7));
     float curve=.19+.10*sin(p.x*5.2+time*.095)+.06*sin(p.x*11.0-time*.055)+wave*.07;
     float d=p.y-curve;
-    float folds=.40+.60*pow(.5+.5*sin(p.x*52.0+wave*9.0+time*.10),2.0);
-    float curtain=exp(-abs(d)*12.0)*folds*smoothstep(-.19,.025,d);
-    float edge=exp(-abs(d)*53.0);
+    float folds=.28+.72*pow(.5+.5*sin(p.x*52.0+wave*9.0+time*.10),2.0);
+    float curtain=exp(-abs(d)*10.5)*folds*smoothstep(-.21,.025,d);
+    float edge=exp(-abs(d)*45.0);
     float second=exp(-abs(d-.105-.035*sin(p.x*7.0-time*.07))*17.0);
-    float violet=exp(-abs(d-.075)*11.0)*(.35+.65*wave);
+    float violet=exp(-abs(d-.12-.035*sin(p.x*6.0+time*.06))*10.0)*(.35+.65*wave);
+    float scatter=exp(-abs(d+.055)*5.2)*(.45+.55*wave);
     float sun=exp(-7.0*length(p-vec2(.36,.13)));
     vec2 cell=(uv+vec2(.7,.5))*vec2(105.,78.);
     vec2 cellId=floor(cell);
@@ -135,13 +136,14 @@ void main(){
     star=(star+glint)*(.72+.28*sin(time*.52+seed*73.0));
     float sky=smoothstep(-.13,.25,uv.y);
     float haze=exp(-abs(p.y+.30)*8.0);
-    color=vec3(.32,.78,.60)*(curtain*.40+edge*.09)
-      +vec3(.32,.65,.75)*second*.12
-      +vec3(.55,.45,.77)*violet*.14
-      +vec3(.91,.80,.52)*sun*.16
-      +vec3(.84,.96,.87)*star*sky*.68
+    color=vec3(.33,.92,.61)*(curtain*.68+edge*.20)
+      +vec3(.24,.80,.83)*second*.24
+      +vec3(.63,.47,.91)*violet*.29
+      +vec3(.30,.62,.49)*scatter*.14
+      +vec3(.94,.85,.55)*sun*.19
+      +vec3(.84,.96,.87)*star*sky*.83
       +vec3(.25,.39,.39)*haze*.12;
-    opacity=.075+min(.21,curtain*.11+edge*.065+star*.22+sun*.045);
+    opacity=.065+min(.36,curtain*.21+edge*.13+second*.07+violet*.055+star*.25+sun*.045);
   }else{ /* Cosmic: gravitational lens simulation, stars and nebula */
     float dist=length(p-vec2(.16,.02));
     vec2 warped=p+(p-vec2(.16,.02))*(.06/(dist*dist+.13));
