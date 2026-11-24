@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.56.0-matrix-atmosphere-presets",
+  "release": "personal-preview-v3.57.0-cyberpunk-console-matrix",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -387,7 +387,10 @@
     "v355-terminal-blueprint-xxl",
     "v355-terminal-hero-no-auto-shrink",
     "v356-terminal-matrix-digital-rain",
-    "v356-four-selectable-rain-presets"
+    "v356-four-selectable-rain-presets",
+    "v357-terminal-cyberpunk-console",
+    "v357-matrix-rain-default",
+    "v357-exact-chamfered-corner-nodes"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1808,6 +1811,18 @@
     "scope": "Terminal hero background",
     "policyAssertions": 640,
     "lifecycleAssertions": 44,
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "terminalConsoleV357": {
+    "sourceCommit": "32f2bbe7262ff355a681f5362026288ecd0a12df",
+    "defaultProfile": "console",
+    "defaultMatrix": "classic",
+    "geometryAssertions": 1548,
+    "profileAssertions": 8,
+    "modeledAssertions": 25,
+    "syntheticDomAssertions": 38,
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
