@@ -14,7 +14,8 @@ test('Stylesheet linked',html.includes('hero-display-layout-v327.css?v=3.28.0'))
 test('Controller linked',html.includes('hero-display-engine-v327.js?v=3.28.0'));
 test('CSS after GitHub hero',html.indexOf('hero-display-layout-v327.css')>html.indexOf('github-hero-explorer-v324.css'));
 test('JS after GitHub hero',html.indexOf('hero-display-engine-v327.js')>html.indexOf('github-hero-explorer-v324.js'));
-test('Build fingerprint',html.includes('preview-five-engine-mesh-i18n-audio-v3.28.0'));
+test('Build fingerprint',html.includes('preview-five-engine-mesh-i18n-audio-v3.28.1'));
+test('Human CI repair version marker',html.includes('name="portfolio-human-ci-repair" content="v3.28.1"'));
 const themes=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'];
 test('All six theme CSS contracts',themes.every(name=>css.includes('data-theme="'+name+'"')));
 test('All six runtime theme contracts',themes.every(name=>js.includes("'"+name+"'")));
