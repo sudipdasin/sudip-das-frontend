@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.28.0-five-engine-theme-i18n-audio",
+  "release": "personal-preview-v3.28.1-editorial-video-and-neon-audit-repair",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -271,7 +271,12 @@
     "five-engine-seventy-check-mock-source-regression",
     "hero-display-55-regressions",
     "atmosphere-43-regressions",
-    "github-hero-38-regressions"
+    "github-hero-38-regressions",
+    "human-ci-editorial-dark-video-overlay-removal",
+    "human-ci-neon-visible-precision-portrait-audit-fix",
+    "human-ci-audit-computed-geometry-and-overlay-metrics",
+    "human-ci-v3281-preview-deployment-fingerprint",
+    "human-ci-33-source-predicate-regression-tests"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -617,7 +622,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.28-five-engine-i18n-audio-human-review",
+    "stage": "v3.28.1-human-ci-theme-repair-followup",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -634,8 +639,8 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "Hero 55/55; Atmosphere 43/43; Five-engine 70/70; GitHub 38/38 — simulated/source",
-    "liveBrowserVerification": "UNVERIFIED; human CI and Cloudflare deployment confirmation pending",
+    "sourceVerification": "Hero 56/56; targeted CI 33/33; prior Atmosphere 43/43, Mesh 70/70, GitHub 38/38 mock/source",
+    "liveBrowserVerification": "v3.27 user report received; v3.28.1 live browser recheck outstanding",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
@@ -686,13 +691,13 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.28.0",
+    "version": "3.28.1",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-five-engine-mesh-i18n-audio-v3.28.0",
+    "buildFingerprint": "preview-five-engine-mesh-i18n-audio-v3.28.1",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   },
   "auroraPeakAlpineEdition": {
@@ -1071,7 +1076,7 @@
     "version": "3.28.0",
     "previousRelease": "personal-preview-v3.27.0-modular-six-theme-hero-display",
     "branch": "preview-personalweb",
-    "buildFingerprint": "preview-five-engine-mesh-i18n-audio-v3.28.0",
+    "buildFingerprint": "preview-five-engine-mesh-i18n-audio-v3.28.1",
     "engines": {
       "hero": "hero-display-engine-v327.js: six compositional profiles, theme bridge event and Eco/Off motion safety",
       "atmosphere": "atmosphere-engine-v328.js plus atmosphere-shaders-v325.js: GPU pointer, scroll, daily seeded lighting and existing fallbacks",
@@ -1120,11 +1125,11 @@
       "source": "personal-translation-expansion-v1.js"
     },
     "verification": {
-      "hero": "55/55 source and mock DOM",
+      "hero": "56/56 source and mock DOM with v3.28.1 marker",
       "atmosphere": "43/43 source and mocked GPU/scroll transitions",
       "fiveEngine": "70/70 source, i18n and mocked interaction/consent",
       "github": "38/38 existing source and simulated behavior",
-      "cloudflareDeployment": "NOT VERIFIED",
+      "cloudflareDeployment": "NOT VERIFIED — v3.27 user browser report indicates outdated served audit",
       "realWebGLShaderCompilation": "NOT INDEPENDENTLY VERIFIED",
       "physicalAudio": "NOT INDEPENDENTLY VERIFIED",
       "actualMobileScreenshots": "HUMAN CI PENDING",
@@ -1139,6 +1144,28 @@
       "themeAuditFile": "webstudio-theme-audit-v3.28.json",
       "guide": "PREVIEW-FIVE-ENGINE-V3.28-HUMAN-CI.md"
     },
+    "productionPromotionApproved": false
+  },
+  "humanCIRepairV3281": {
+    "version": "3.28.1",
+    "sourceReport": "Human CI v3.27 — 185/187, 1906×927; Editorial dark video overlay and Neon portrait/title geometry flagged",
+    "diagnosis": {
+      "editorial": "The previously authored Editorial dark overlay removal was not reflected in the v3.27 browser result; final-order CSS removes the inherited pseudo-element",
+      "neon": "False positive: original .core is intentionally display:none in Neon, while .ws-neon-precision-portrait is the visible approved image. The probe selected the wrong element."
+    },
+    "files": [
+      "human-ci-theme-repairs-v3281.css",
+      "preview-theme-audit-v316.js",
+      "scripts/verify-human-ci-theme-repairs-v3281.mjs",
+      "index.html"
+    ],
+    "testEvidence": "33/33 targeted repair predicates and 56/56 Hero Display mock/source tests passed",
+    "realBrowserRevalidation": "NOT YET VERIFIED; v3.27 report does not validate current v3.28.1 build",
+    "previewBuildFingerprint": "preview-five-engine-mesh-i18n-audio-v3.28.1",
+    "humanCIRepairMarker": "v3.28.1",
+    "expectedReport": "webstudio-theme-audit-v3.28.1.json",
+    "preserveApprovedNeon": true,
+    "editorialScopeOnly": true,
     "productionPromotionApproved": false
   }
 }
