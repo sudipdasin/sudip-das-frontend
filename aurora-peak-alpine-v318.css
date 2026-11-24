@@ -589,3 +589,99 @@ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ws-orbit-
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ws-orbit-chip{font-size:.68rem!important;padding:4px 5px!important;gap:4px!important}
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-trail-mark{font-size:.66rem!important}
 }
+
+/* v3.44 — Northern Lights: one aligned scenic stage, with opt-in engine effects. */
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{
+ --ap-frame-radius:46% 46% 7% 7% / 49% 49% 7% 7%;
+ isolation:isolate!important;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-landscape{
+ border-radius:var(--ap-frame-radius)!important;
+ background:linear-gradient(180deg,#142f40 0%,#32565c 45%,#173e3e 80%,#102d30 100%)!important;
+ border:1px solid #c8dfb981!important;
+ box-shadow:0 0 0 5px #c5e1c90a,0 0 0 11px #d4e2b510,0 24px 55px #0b222c70!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-sky{
+ background:radial-gradient(ellipse at 53% 25%,#e6ca9e38,transparent 52%),linear-gradient(180deg,#213c4c,#41676c 60%,#315f56)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-halo{
+ width:clamp(120px,28%,200px);top:8%!important;opacity:.65;
+ background:radial-gradient(circle,#fff0ba85 0%,#fbd29b24 42%,transparent 72%);
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-ridge-back{
+ height:55%;bottom:15%;opacity:.84;
+ background:linear-gradient(170deg,#b4cfc8,#476e76 68%);
+ clip-path:polygon(0 100%,0 70%,9% 64%,22% 31%,31% 51%,43% 8%,54% 55%,68% 20%,81% 57%,90% 38%,100% 65%,100% 100%);
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-ridge-mid{
+ height:42%;bottom:9%;background:linear-gradient(160deg,#6f9d94,#31585a 75%);
+ clip-path:polygon(0 100%,0 61%,13% 78%,27% 31%,39% 63%,54% 21%,67% 72%,83% 28%,100% 68%,100% 100%);
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-ridge-front{
+ height:30%;background:linear-gradient(170deg,#345f58,#102f35 85%);
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-contour{
+ inset:2.5%!important;border-color:#e6edd65e!important;opacity:.64!important;
+ box-shadow:0 0 0 6px #dbe9bd0d;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art::before{
+ inset:-7px!important;border-radius:var(--ap-frame-radius)!important;
+ background:none!important;border:1px solid #d8e6bd55!important;filter:none!important;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art::after{
+ display:block!important;content:""!important;inset:-14px!important;height:auto!important;
+ border:1px dashed #c3e1ce38;border-radius:var(--ap-frame-radius);background:none!important;
+ z-index:-1!important;pointer-events:none;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.core{
+ box-shadow:0 0 0 4px #ebebcc2a,0 0 22px #c6e7a91c,0 16px 42px #081e2aaa!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-atmosphere-fx{
+ position:absolute;inset:0;z-index:2;isolation:isolate;overflow:hidden;pointer-events:none;
+ border-radius:var(--ap-frame-radius);contain:paint;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-curtain{
+ position:absolute;left:-15%;top:5%;width:130%;height:52%;opacity:.65;
+ transform:rotate(-13deg);transform-origin:50% 50%;
+ background:linear-gradient(100deg,transparent 8%,#76ffc55c 26%,#7fe9d39c 46%,#b3a8ff48 68%,transparent 92%);
+ -webkit-mask-image:radial-gradient(ellipse 58% 43% at 50% 47%,transparent 46%,#000 58%,transparent 88%);
+ mask-image:radial-gradient(ellipse 58% 43% at 50% 47%,transparent 46%,#000 58%,transparent 88%);
+ filter:blur(5px);
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-curtain-1{
+ top:0;left:-6%;transform:rotate(12deg);opacity:.48;
+ background:linear-gradient(95deg,transparent,#6bdcab85,#a5b8ff6b,#d3a9e54a,transparent);
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-curtain-2{
+ top:13%;left:-22%;transform:rotate(-24deg);opacity:.45;
+ background:linear-gradient(90deg,transparent,#b9f2bd80,#50ddbc64,transparent);
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-star{
+ position:absolute;left:var(--ap-x);top:var(--ap-y);width:var(--ap-size);height:var(--ap-size);
+ border-radius:50%;background:#e8ffe9;opacity:.58;box-shadow:0 0 5px #acffd0;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-star[data-large="true"]::before,
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-star[data-large="true"]::after{
+ content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+ background:#f7ffed;border-radius:50%;width:1px;height:8px;opacity:.64;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-star[data-large="true"]::after{width:8px;height:1px}
+body.ws-parity[data-theme="aurora-peak"] .ap-atmosphere-fx[data-quality="eco"] .ap-fx-curtain{filter:none;opacity:.38}
+body.ws-parity[data-theme="aurora-peak"] .ap-atmosphere-fx:is([data-quality="eco"],[data-quality="balanced"]) .ap-fx-star[data-extra="true"]{display:none}
+body.ws-parity[data-theme="aurora-peak"] .ap-atmosphere-fx[data-quality="eco"] .ap-fx-curtain-2{display:none}
+@media(prefers-reduced-motion:no-preference){
+ body.ws-parity[data-theme="aurora-peak"] .hero-art:not([data-aurora-peak-motion="paused"]) .ap-atmosphere-fx[data-running="true"] .ap-fx-curtain{animation:ap-northern-flow 14s ease-in-out infinite alternate}
+ body.ws-parity[data-theme="aurora-peak"] .hero-art:not([data-aurora-peak-motion="paused"]) .ap-atmosphere-fx[data-running="true"] .ap-fx-curtain-1{animation-delay:-5s;animation-duration:19s}
+ body.ws-parity[data-theme="aurora-peak"] .hero-art:not([data-aurora-peak-motion="paused"]) .ap-atmosphere-fx[data-running="true"] .ap-fx-curtain-2{animation-delay:-8s;animation-duration:23s}
+ body.ws-parity[data-theme="aurora-peak"] .hero-art:not([data-aurora-peak-motion="paused"]) .ap-atmosphere-fx[data-running="true"] .ap-fx-star{animation:ap-star-breathe 5s ease-in-out var(--ap-delay) infinite alternate}
+}
+@keyframes ap-northern-flow{from{translate:-2% -3%;scale:.99 1;opacity:.34}to{translate:3% 7%;scale:1.04 1.1;opacity:.7}}
+@keyframes ap-star-breathe{from{opacity:.32}to{opacity:.87}}
+body[data-theme="aurora-peak"][data-atmosphere-tier="off"] .ap-atmosphere-fx{display:none!important}
+body[data-theme="aurora-peak"]:is([data-atmosphere-tier="off"],[data-atmosphere-tier="eco"]) .ap-landscape :is(.ap-halo,.ap-mist,.ap-ridge){animation:none!important}
+@media(prefers-reduced-motion:reduce){body[data-theme="aurora-peak"] .ap-atmosphere-fx *{animation:none!important}}
+@media(max-width:600px){
+ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art::before{inset:-3px!important}
+ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art::after{inset:-6px!important}
+ body.ws-parity[data-theme="aurora-peak"] .ap-landscape{box-shadow:0 0 0 3px #c5e1c90a!important}
+}
