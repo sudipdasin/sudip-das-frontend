@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.9.9-mobile-touch-audit",
+  "release": "personal-preview-v3.10.0-multilingual-visitor-ui",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -103,7 +103,10 @@
     "neon-reference-intersecting-orbit-nameplate",
     "neon-studio-two-line-webstudio-reference-brand",
     "neon-header-and-hero-share-left-alignment",
-    "neon-mobile-44px-touch-targets-and-floating-footer-clearance"
+    "neon-mobile-44px-touch-targets-and-floating-footer-clearance",
+    "ten-language-dynamic-ui-translation-layer",
+    "all-six-themes-localized",
+    "translated-accessibility-labels-and-dynamic-panels"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -416,5 +419,24 @@
         "productionApproved": false
       }
     }
+  },
+  "i18nCoverage": {
+    "locales": [
+      "en",
+      "hi",
+      "bn",
+      "es",
+      "fr",
+      "de",
+      "pt",
+      "ar",
+      "zh-CN",
+      "ja"
+    ],
+    "existingCoreKeys": 80,
+    "reusedCorePhrases": 151,
+    "supplementalTranslatedPhrases": 50,
+    "scope": "exact matches in visitor-visible text, aria-label/title/placeholder/alt; generated components included",
+    "limitation": "not all long-form/new English copy has authored translation entries; do not claim full end-to-end language parity without browser test"
   }
 }
