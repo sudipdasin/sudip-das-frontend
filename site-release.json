@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.49.0-approved-aurora-full-page-manual-qa-pending",
+  "release": "personal-preview-v3.50.0-aurora-far-right-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -368,7 +368,9 @@
     "v348-shining-apex-star-and-soft-aurora-shader",
     "v349-aurora-prominent-portrait",
     "v349-continuous-alpine-panorama",
-    "v349-aligned-arch-illumination"
+    "v349-aligned-arch-illumination",
+    "v350-aurora-far-right-placement",
+    "v350-aurora-medallions-thirty-percent-smaller"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1716,6 +1718,15 @@
     "approval": "explicit commit following full-page hybrid mockup",
     "realBrowser": "NOT_RUN",
     "shaderCompilation": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "auroraPlacementV350": {
+    "sourceCommit": "5459b899086b40536fb33311144c20bc671bed28",
+    "sourceAndModeledAssertions": 10,
+    "approval": "far right, more open space, icons 30%",
+    "labelFontFloor": "10px at default root size",
+    "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
   }
