@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.21.0-six-theme-experience-and-human-ci",
+  "release": "personal-preview-v3.22.0-adaptive-six-theme-atmosphere",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -186,7 +186,24 @@
     "theme-audit-v321-footer-contrast-and-component-checks",
     "theme-experience-contract-v321-six-identities",
     "reproducible-36-point-source-verifier",
-    "small-screen-theme-footer-hardening"
+    "small-screen-theme-footer-hardening",
+    "atmosphere-shared-control-across-six-themes",
+    "atmosphere-auto-cinematic-balanced-eco-off-modes",
+    "atmosphere-gpu-webgl2-analytic-ray-sphere-and-shadow-effects",
+    "atmosphere-theme-native-procedural-lighting-and-alpha",
+    "atmosphere-canvas2d-safety-fallback",
+    "atmosphere-static-css-low-end-eco-fallback",
+    "atmosphere-automatic-low-memory-cpu-safety",
+    "atmosphere-motion-contrast-and-data-saver-protection",
+    "atmosphere-low-battery-energy-protection-when-supported",
+    "atmosphere-frame-watchdog-and-capped-resolution",
+    "atmosphere-hidden-tab-and-offscreen-pausing",
+    "atmosphere-webgl-context-loss-fallback",
+    "atmosphere-user-selected-quality-local-only",
+    "atmosphere-replaces-aurora-only-motion-toggle",
+    "human-ci-v322-25-point-review",
+    "theme-audit-v322-atmosphere-actual-renderer-verification",
+    "reproducible-v322-43-point-offline-verifier"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -532,7 +549,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.21-six-theme-hiring-ux-human-review",
+    "stage": "v3.22-atmosphere-human-browser-and-device-validation",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -549,8 +566,8 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "36/36 GitHub source assertions; 10/10 simulated browser interactions",
-    "liveBrowserVerification": "UNVERIFIED - Cloudflare preview inaccessible from environment",
+    "sourceVerification": "43/43 source and simulated renderer assertions; independent tier checks 11/11; 6 palettes contrast-checked",
+    "liveBrowserVerification": "NOT VERIFIED",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
@@ -558,7 +575,7 @@
     "previousRelease": "personal-preview-v3.16.0-theme-identity-repair",
     "reviewStatus": "source committed; Cloudflare deployment and true browser UX still need human verification",
     "reviewSchemaVersion": 2,
-    "reviewChecks": 20,
+    "reviewChecks": 25,
     "unverifiedResultsAreNeverInherited": true,
     "previousHumanFeedback": "Editorial screenshot showed Neon video overlay and disconnected skill labels; v3.16 theme identity fix remains in place",
     "enhancements": [
@@ -569,7 +586,7 @@
       "v3.17 responsive six-theme reviewer and shortlist interface"
     ],
     "verification": "Source/runtime mock verified; deployed site and actual responsive rendering not independently verified",
-    "currentHumanFeedbackFile": "webstudio-human-ci-v3.21.json",
+    "currentHumanFeedbackFile": "webstudio-human-ci-v3.22.json",
     "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation",
     "visualIssues": [
       "Terminal footer promotional card retained blue-violet neon visual style",
@@ -601,13 +618,13 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.21.0",
+    "version": "3.22.0",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-six-theme-experience-v3.21.0",
+    "buildFingerprint": "preview-adaptive-atmosphere-v3.22.0",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   },
   "auroraPeakAlpineEdition": {
@@ -757,6 +774,66 @@
       "diagnosticsFile": "webstudio-preview-diagnostics-v3.21.json",
       "visualReview": "Awaiting owner feedback"
     },
+    "productionPromotionApproved": false
+  },
+  "atmosphereV322": {
+    "version": "3.22.0",
+    "branch": "preview-personalweb",
+    "sourceAssets": [
+      "atmosphere-shaders-v322.js",
+      "atmosphere-engine-v322.js",
+      "atmosphere-system-v322.css"
+    ],
+    "configuration": {
+      "modes": [
+        "auto",
+        "cinematic",
+        "balanced",
+        "eco",
+        "off"
+      ],
+      "default": "auto",
+      "qualityModePersistentLocally": true
+    },
+    "renderers": {
+      "cinematic": "WebGL2 procedural fragment shader, analytic ray/sphere and occlusion lighting in selected scenes",
+      "balanced": "Canvas2D gradients and particle strokes",
+      "eco": "static CSS gradients, no active canvas",
+      "off": "additional scene removed"
+    },
+    "distinctScenes": {
+      "neon-studio": "cyan and magenta photon grid, glass sphere, soft bloom",
+      "orbit": "teal orbital arcs, luminous satellite and traced sphere",
+      "editorial": "low-motion parchment sunlight, paper grain",
+      "terminal": "phosphor grid, luminous scan and terminal columns",
+      "aurora-peak": "mountain dawn, aurora band, mist and sunrise",
+      "design-2": "nebula starfield, gravitational-inspired distortion, ray-lit sphere"
+    },
+    "safeguards": {
+      "autoCinematicCriteria": "Reported >=4 GB device memory, >=6 logical CPU threads, desktop width, WebGL2",
+      "cappedResolution": "Cinematic <=1152x704, Balanced <=800x520",
+      "cappedFrameRate": "GPU <=30 fps desktop /22 mobile, Canvas2D <=24 fps desktop /18 mobile",
+      "adaptive": "Frame-time watchdog gracefully downgrades after sustained low performance",
+      "accessibility": "prefers-reduced-motion and data saver enforce Eco, forced-colors enforces Off",
+      "thermal": "No direct thermal measurements available; FPS and optional battery state are proxies",
+      "network": "No telemetry or external renderer requests",
+      "privacy": "Only selected mode stored in localStorage",
+      "lifecycle": "Visibility and intersection pause continuous rendering; WebGL2 failure falls back"
+    },
+    "verification": {
+      "sourceAndMockedRuntime": "43/43 reproducible assertions passed against committed preview sources",
+      "supplementalMockedTierCases": "11/11 separate mode/safety smoke scenarios passed",
+      "paletteContrast": "6/6 theme atmosphere text and accent palettes >= 4.5:1 by authored color comparison",
+      "realWebGL2Shaders": "NOT VERIFIED ON PHYSICAL GPU OR LIVE CHROME",
+      "liveCloudflare": "NOT VERIFIED; Cloudflare preview URL inaccessible from development environment",
+      "actualMobilePerformance": "NOT MEASURED",
+      "CI": "CircleCI preview branch still intentionally filtered; no CI status claimed"
+    },
+    "buildFingerprint": "preview-adaptive-atmosphere-v3.22.0",
+    "humanCIFile": "webstudio-human-ci-v3.22.json",
+    "diagnosticsFile": "webstudio-preview-diagnostics-v3.22.json",
+    "themeAuditFile": "webstudio-theme-audit-v3.22.json",
+    "spec": "PREVIEW-ATMOSPHERE-V3.22-HUMAN-CI.md",
     "productionPromotionApproved": false
   }
 }
