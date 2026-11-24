@@ -56,7 +56,9 @@
   trigger.setAttribute('aria-label','Preview public GitHub repositories');
   const icon=CREATE('span','gh-hero-icon');
   icon.setAttribute('aria-hidden','true');
-  icon.textContent='⌘';
+  // Match the recognizable GitHub mark already used in the site's social links.
+  // This SVG is a local fixed template, never derived from remote API data.
+  icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 19c-4.5 1.4-4.5-2.2-6-3m6 5v-3.1c-4.9-1.1-6.5-5.2-4.4-8.5-.3-1.5-.2-2.8.2-4 1.7 0 3.1.8 4.1 1.7a14 14 0 0 1 6.2 0c1-1 2.4-1.7 4.1-1.7.4 1.2.5 2.5.2 4 2.1 3.3.5 7.4-4.4 8.5V21"/></svg>';
   const words=CREATE('span','gh-hero-words');
   words.append(CREATE('strong','','GitHub'),CREATE('small','gh-hero-brief','Explore public work'));
   const chevron=CREATE('span','gh-hero-chevron','↗');
@@ -79,7 +81,7 @@
   const description=CREATE('p','gh-hero-description','Explore repository descriptions, languages and development activity.');
   const stats=CREATE('dl','gh-hero-stats');
   const statNodes={};
-  for(const [key,label] of [['repos','Public repos'],['stars','Stars (listed)'],['language','Top language']]){
+  for(const [key,label] of [['repos','Public repos'],['stars','Stars (loaded)'],['language','Top language']]){
     const stat=CREATE('div','gh-hero-stat');
     const value=CREATE('dd','gh-hero-stat-value','—');
     statNodes[key]=value;
