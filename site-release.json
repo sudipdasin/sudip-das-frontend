@@ -579,7 +579,7 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "34/34 source+simulated scrolling and GPU recovery checks",
+    "sourceVerification": "39/39 source+simulated scrolling and GPU recovery checks",
     "liveBrowserVerification": "UNVERIFIED",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
@@ -877,7 +877,7 @@
       "atmosphere-sitewide-v323.css"
     ],
     "verification": {
-      "offlineSourceAndSimulatedScroll": "34/34 checks passed against committed preview branch",
+      "offlineSourceAndSimulatedScroll": "39/39 checks passed against committed preview branch, including theme switches at Contact and GPU uniform verification",
       "rootCauseFixed": "The initial v3.23 engine referenced v3.22 shaders during WebGL initialization; corrected; demonstrated Off-to-Cinematic GPU recovery in simulator",
       "realWebGLShaderCompile": "NOT VERIFIED",
       "cloudflareDeployment": "NOT VERIFIED",
