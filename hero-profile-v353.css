@@ -88,3 +88,28 @@ body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-pro
 @media(max-width:600px){
  body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]{--hp-w:min(68%,275px,38svh);min-height:clamp(320px,49svh,405px)!important}
 }
+
+/* v3.55 — Terminal Blueprint XXL. Use the full art column and remove the
+   smart-landing zoom penalty specifically for this approved hero profile. */
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]{
+ --hp-w:min(86%,530px,62svh,calc(var(--hp-xxl-stage) * .80));
+ --hp-xxl-stage:clamp(420px,72svh,650px);
+ width:100%!important;max-width:740px!important;
+ min-height:var(--hp-xxl-stage)!important;height:var(--hp-xxl-stage)!important;
+ zoom:1!important;
+}
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]>.core{top:45%!important}
+@media(min-width:1041px){
+ body.ws-parity[data-theme="terminal"] main>.hero.hd-hero:has(>.hero-art[data-hero-profile="hexagon"]){
+  grid-template-columns:minmax(0,.93fr) minmax(0,1.07fr)!important;
+  column-gap:clamp(20px,2.7vw,48px)!important;
+ }
+ body.ws-parity[data-theme="terminal"][data-wsp-smart-landing="active"]:is([data-wsp-landing-fit="compact"],[data-wsp-landing-fit="tight"]) main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]{zoom:1!important}
+}
+@media(max-width:1040px){
+ body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]{--hp-w:min(84%,480px,58svh,calc(var(--hp-xxl-stage) * .80));--hp-xxl-stage:clamp(390px,65svh,590px);max-width:640px!important}
+}
+@media(max-width:600px){
+ body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]{--hp-w:min(82%,340px,48svh,calc(var(--hp-xxl-stage) * .80));--hp-xxl-stage:clamp(340px,58svh,460px);max-width:100%!important}
+ body.ws-parity[data-theme="terminal"][data-wsp-smart-landing="active"]:is([data-wsp-landing-fit="compact"],[data-wsp-landing-fit="tight"]) main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]{zoom:1!important}
+}
