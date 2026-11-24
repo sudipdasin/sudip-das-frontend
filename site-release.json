@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.31.2-theme-isolated-github-overlay-manual-qa-pending",
+  "release": "personal-preview-v3.31.3-six-theme-opaque-github-popup-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -312,7 +312,10 @@
     "v3312-github-viewport-portal-over-cosmic-marquee",
     "v3312-six-theme-isolated-dropdown-palettes",
     "v3312-neon-cyan-vs-cosmic-violet-theme-guard",
-    "v3312-reversible-panel-portal-and-focus-handling"
+    "v3312-reversible-panel-portal-and-focus-handling",
+    "v3313-solid-opaque-github-popover-six-theme-backing",
+    "v3313-disable-github-portal-opacity-fade",
+    "v3313-neon-cosmic-opaque-surface-regression-guard"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1213,11 +1216,11 @@
     "automaticHostedTestResult": "NOT_RUN",
     "previewDeploymentIndependentOfCI": true,
     "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md",
-    "lastKnownChange": "v3.31.2 Github dropdown portal and six theme-specific menu palettes, Neon/Cosmic regression fix",
+    "lastKnownChange": "v3.31.3 solid GitHub popup in Neon, Cosmic and all six themes",
     "lastFeedback": "Owner screenshot 2026-11-24: 2x2 geometry visible; refined theme consistency, CTA priority and video affordance",
-    "manualBrowserVerification": "NOT_RUN after v3.31.2",
-    "lastEvidence": "26/26 synthetic source/runtime assertions; not a real browser or live Cloudflare acceptance check",
-    "deploymentStatus": "GitHub preview branch committed, Cloudflare serving newest assets not independently confirmed"
+    "manualBrowserVerification": "NOT_RUN after v3.31.3",
+    "lastEvidence": "6/6 isolated headless Chromium computed-style checks; preview source readback pending",
+    "deploymentStatus": "GitHub preview committed; Cloudflare not independently verified"
   },
   "fiveEngineV329": {
     "version": "3.29.0",
@@ -1438,5 +1441,19 @@
     },
     "releaseGate": "MANUAL_QA_PENDING",
     "production": "UNCHANGED"
+  },
+  "githubOverlayV3313": {
+    "version": "3.31.3",
+    "stage": "preview-only",
+    "reportedBug": "Portaled GitHub menu looks transparent in Neon Studio and Cosmic",
+    "diagnosis": "Viewport portal no longer inherits theme surface; inherited popup animation may fade opacity",
+    "fix": "Late-loaded six-theme explicit solid background override, opacity 1, no portal fade, preserved existing portal positioning and theme appearance",
+    "file": "github-hero-opaque-v3313.css",
+    "browserSmoke": "Isolated local Chromium computed-style test: 6/6 themes opaque with opacity 1 and animation none; not deployed-site E2E",
+    "sourceVerifier": "Final source readback pending",
+    "deploymentStatus": "GitHub preview branch updated; Cloudflare live deployment not independently confirmed",
+    "ownerManualQA": "PENDING",
+    "previousGitHubPortal": "github-hero-portal-v3312.css retained",
+    "hostedCI": "NOT_RUN"
   }
 }
