@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.37.0-distinct-smart-tiles-manual-qa-pending",
+  "release": "personal-preview-v3.38.0-professional-journey-hybrid-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -335,7 +335,10 @@
     "v336-natural-scroll-fallback",
     "v337-work-catalog-live-domain-summary",
     "v337-curated-portfolio-story-spotlight",
-    "v337-distinct-six-theme-tile-effects"
+    "v337-distinct-six-theme-tile-effects",
+    "v338-professional-journey-seventh-plugin",
+    "v338-four-selectable-experience-maps",
+    "v338-localized-interactive-experience-pins"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1566,6 +1569,23 @@
   "smartLandingV337": {
     "sourceCommit": "195ea2a869a5e3ff0b0261fb4a0f16f0f24b605b",
     "sourceLogicAssertions": 72,
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "professionalJourneyV338": {
+    "sourceCommit": "d621d77ddc71d237bb6f0f4f3d8f65ff944f3fa8",
+    "styles": [
+      "metro",
+      "atlas",
+      "constellation",
+      "expedition"
+    ],
+    "experienceAreas": 5,
+    "geographicPins": [
+      "Kolkata, India"
+    ],
+    "syntheticLifecycleAssertions": 85,
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
