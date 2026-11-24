@@ -1,16 +1,16 @@
 /* v3.53 — approved, local-only Hero profile renderer. One SVG, no extra RAF.
    Geometry from measured original portrait. Theme locks are enforced before DOM changes. */
 ((global)=>{'use strict';if(!global)return;
- const ids=Object.freeze({native:'Theme original',round:'Celestial Precision',rectangle:'Paper & Ink Atelier',hexagon:'Technical Blueprint',squircle:'Prismatic Glass'});
- const defaults=Object.freeze({orbit:'round',editorial:'rectangle','design-2':'round',terminal:'hexagon'});
+ const ids=Object.freeze({native:'Theme original',round:'Celestial Precision',rectangle:'Paper & Ink Atelier',hexagon:'Technical Blueprint',squircle:'Prismatic Glass',console:'Cyberpunk Console'});
+ const defaults=Object.freeze({orbit:'round',editorial:'rectangle','design-2':'round',terminal:'console'});
  const locked=t=>t==='aurora-peak'||t==='neon-studio';
  const valid=id=>Object.hasOwn(ids,id);
- const effective=(theme,choice)=>locked(theme)?'native':valid(choice)?choice:defaults[theme]||'native';
+ const effective=(theme,choice)=>locked(theme)?'native':valid(choice)&&(choice!=='console'||theme==='terminal')?choice:defaults[theme]||'native';
  const NS='http://www.w3.org/2000/svg',key='ws-hero-profiles-v353';
  function mount(ctx,art,schedule){
   const doc=ctx.document,root=ctx.root,lib=global.WebStudioHeroShapes352,core=art.querySelector('.core');
   if(!lib||!core)return null;
-  let preferences={};try{const v=JSON.parse(global.localStorage?.getItem(key)||'{}');if(v&&typeof v==='object'){for(const t of Object.keys(defaults))if(valid(v[t]))preferences[t]=v[t];if(v.terminalBlueprintV354!==true){preferences.terminal='hexagon';preferences.terminalBlueprintV354=true;global.localStorage?.setItem(key,JSON.stringify(preferences))}else preferences.terminalBlueprintV354=true}}catch{}
+  let preferences={};try{const v=JSON.parse(global.localStorage?.getItem(key)||'{}');if(v&&typeof v==='object'){for(const t of Object.keys(defaults))if(valid(v[t]))preferences[t]=v[t];if(v.terminalConsoleV357!==true){preferences.terminal='console';preferences.terminalConsoleV357=true;global.localStorage?.setItem(key,JSON.stringify(preferences))}else preferences.terminalConsoleV357=true}}catch{}
   let svg=null,signature='',profile='native',theme='',geometry=null,visible=true,active=true;
   const old=art.getAttribute('data-hero-profile'),oldClip=core.style.getPropertyValue('--hp-clip');
   const oldMotion=art.getAttribute('data-hero-motion'),oldAtmos=art.getAttribute('data-hero-atmosphere');
@@ -30,7 +30,7 @@
   const getPolicy=()=>global.__wsAtmosphere328?.getShapeMotionPolicy?.()||lib.motionPolicy({quality:root.dataset.atmosphereTier||root.dataset.wspAtmoEffect||'off',reduced:!!global.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches,saveData:!!global.navigator?.connection?.saveData,visible:doc.visibilityState!=='hidden'});
   function motion(){if(profile==='native')return;const p=getPolicy();art.setAttribute('data-hero-motion',p.animated&&visible&&doc.visibilityState!=='hidden'?'running':'static');art.setAttribute('data-hero-atmosphere',p.quality==='off'?'off':p.quality);}
   function clear(){svg?.remove();svg=null;geometry=null;signature='';restore(art,'data-hero-profile',old);restore(art,'data-hero-motion',oldMotion);restore(art,'data-hero-atmosphere',oldAtmos);if(oldClip)core.style.setProperty('--hp-clip',oldClip);else core.style.removeProperty('--hp-clip')}
-  function choose(id){const t=getTheme();if(!valid(id)||locked(t)||!active)return false;preferences[t]=id;try{global.localStorage?.setItem(key,JSON.stringify(preferences))}catch{}schedule();return true}
+  function choose(id){const t=getTheme();if(!valid(id)||locked(t)||!active||(id==='console'&&t!=='terminal'))return false;preferences[t]=id;try{global.localStorage?.setItem(key,JSON.stringify(preferences))}catch{}schedule();return true}
   ctx.listen(select,'change',()=>choose(select.value));
   ctx.listen(global,'ws-atmosphere-change',motion);ctx.listen(doc,'visibilitychange',motion);
   ctx.listen(global.matchMedia?.('(prefers-reduced-motion: reduce)'),'change',motion);
@@ -38,7 +38,7 @@
   let io=null;if(global.IntersectionObserver){io=new global.IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting!==false;motion()});io.observe(art)}
   function render(){
    if(!active)return null;const t=getTheme(),next=effective(t,preferences[t]);
-   control.hidden=locked(t);select.value=next;localize();
+   control.hidden=locked(t);const consoleOption=[...(select.options||select.children)].find(o=>o.value==='console');if(consoleOption){consoleOption.hidden=t!=='terminal';consoleOption.disabled=t!=='terminal'}select.value=next;localize();
    if(next==='native'){if(profile!=='native')clear();profile='native';theme=t;return null}
    if(next!==profile||t!==theme){clear();profile=next;theme=t;art.setAttribute('data-hero-profile',next)}
    motion();
@@ -58,9 +58,11 @@
    contours.forEach((c,i)=>g.append(elem('path',{d:c.path,class:'hp-ring hp-ring-'+i,'vector-effect':'non-scaling-stroke'})));
    const outer=contours[0],track=contours[1];
    g.append(elem('path',{d:track.path,class:'hp-travel',pathLength:100,'vector-effect':'non-scaling-stroke'}));
-   for(let i=0;i<(next==='hexagon'?6:8);i++){const p=outer.pointAt(i/(next==='hexagon'?6:8));g.append(elem('circle',{cx:p.x,cy:p.y,r:i%2===0?2.8:1.8,class:'hp-node hp-node-'+(i%4)}))}
+   const vertexPoints=next==='console'?outer.path.match(/(?:M|L) [-\d.]+ [-\d.]+/g).map(v=>{const [,x,y]=v.split(' ');return {x:Number(x),y:Number(y)}}):null;
+   for(let i=0;i<(next==='hexagon'?6:8);i++){const p=vertexPoints?vertexPoints[i]:outer.pointAt(i/(next==='hexagon'?6:8));g.append(elem('circle',{cx:p.x,cy:p.y,r:i%2===0?2.8:1.8,class:'hp-node hp-node-'+(i%4)}))}
+   if(next==='console')g.append(elem('path',{d:track.path,class:'hp-console-pulses',pathLength:100,'vector-effect':'non-scaling-stroke'}));
    svg.append(g);art.prepend(svg);
-   if(next==='hexagon'||next==='squircle'){
+   if(next==='hexagon'||next==='squircle'||next==='console'){
     const clip=lib.geometry(next,w,h,0).path.match(/(?:M|L) [-\d.]+ [-\d.]+/g).map(p=>{const [,x,y]=p.split(' ');return (100*Number(x)/w).toFixed(3)+'% '+(100*Number(y)/h).toFixed(3)+'%'}).join(',');
     core.style.setProperty('--hp-clip','polygon('+clip+')');
    }else core.style.removeProperty('--hp-clip');
@@ -71,5 +73,5 @@
   ctx.onCleanup(()=>{active=false;io?.disconnect();clear();control.remove()});
   return Object.freeze({render,choose,status});
  }
- global.WebStudioHeroProfiles353=Object.freeze({version:'3.54.0',ids,effective,locked,mount});
+ global.WebStudioHeroProfiles353=Object.freeze({version:'3.57.0',ids,effective,locked,mount});
 })(typeof window!=='undefined'?window:undefined);
