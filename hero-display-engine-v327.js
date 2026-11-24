@@ -104,6 +104,20 @@
    schedule();
   },{rootMargin:'80px 0px',threshold:0}).observe(hero);
  }
+ function measure(){
+  const rect=node=>{const b=node?.getBoundingClientRect?.();return Object.freeze({
+   width:Math.round(b?.width||0),height:Math.round(b?.height||0),
+   visible:Boolean(b?.width>5&&b?.height>5)
+  })};
+  const title=rect(hero.querySelector('h1'));
+  const portrait=rect(art.querySelector('.core img')||art.querySelector('.core'));
+  const viewport=document.documentElement?.clientWidth||window.innerWidth||0;
+  return Object.freeze({
+   title,portrait,stageCount:hero.querySelectorAll('.hd-stage').length,
+   horizontalOverflow:Boolean(viewport&&document.documentElement.scrollWidth>viewport+3),
+   composition:variant,theme:current,density,motion
+  });
+ }
  apply();
  window.__wsHeroDisplay327=Object.freeze({
   getStatus:()=>Object.freeze({
@@ -112,6 +126,7 @@
    version:'3.27.0'
   }),
   refresh:apply,
+  measure,
   profiles:PROFILES
  });
 })();
