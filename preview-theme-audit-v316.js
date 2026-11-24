@@ -31,7 +31,7 @@
       .tip{font-size:12px}
     </style>
     <details>
-      <summary>◈ Theme audit · v3.21</summary>
+      <summary>◈ Theme audit · v3.22</summary>
       <article>
         <p>Tests active CSS and layout in this browser, one theme at a time. No screenshots or data are uploaded.</p>
         <p class="tip">Repeat at desktop, tablet and mobile widths. Automated checks do not replace your visual review.</p>
@@ -98,6 +98,31 @@
         checks.push(['distinct visual background available',tileStyle.backgroundImage!=='none']);
       }
     } else checks.push(['video UI initialized',false]);
+    // v3.22: quality-mode correctness is checked without forcing a mode change.
+    const atmosphere=window.__wsAtmosphere322?.getStatus?.();
+    const atmosphereControl=document.getElementById('ws-atmosphere-control');
+    const ambient=document.querySelector('.hero>.ws-atmo-layer');
+    const rendererCanvas=ambient?.querySelector('canvas');
+    checks.push(['Shared Atmosphere control exists in this theme',
+      Boolean(atmosphereControl&&atmosphereControl.querySelectorAll('input[name="ws-atmosphere-mode"]').length===5)]);
+    checks.push(['Atmosphere mode matches the selection',
+      Boolean(atmosphere&&atmosphere.theme===id&&document.body.dataset.atmosphereMode===atmosphere.mode)]);
+    checks.push(['Atmosphere renderer reports a valid fallback',
+      Boolean(atmosphere&&['gpu','canvas2d','css','off'].includes(atmosphere.renderer))]);
+    if(atmosphere?.effective==='off'){
+      checks.push(['Off mode removes atmosphere rendering',
+        Boolean(ambient?.hidden&&!rendererCanvas)]);
+    }else if(atmosphere?.effective==='eco'){
+      checks.push(['Eco mode does not run canvas or WebGL',
+        Boolean(!rendererCanvas&&atmosphere.renderer==='css')]);
+    }else if(atmosphere?.renderer==='gpu'||atmosphere?.renderer==='canvas2d'){
+      checks.push(['Active atmosphere has a canvas',
+        Boolean(rendererCanvas&&rendererCanvas.width>0&&rendererCanvas.height>0)]);
+    }
+    if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){
+      checks.push(['Reduced motion forbids animated renderer',
+        Boolean(atmosphere&&['eco','off'].includes(atmosphere.effective))]);
+    }
     const footer=document.querySelector('.ws-powered-band');
     const footerStyle=footer?getComputedStyle(footer):null;
     if(id!=='neon-studio'){
@@ -138,7 +163,7 @@
       checks.push(['Human CI launcher remains compact',
         Boolean(launcher&&launcher.getBoundingClientRect().width<=250)]);
       checks.push(['Human CI badge stays short',
-        Boolean(badge&&badge.textContent.trim().split('/').length===2&&badge.textContent.trim().endsWith('/20'))]);
+        Boolean(badge&&badge.textContent.trim().split('/').length===2&&badge.textContent.trim().endsWith('/25'))]);
     }
     if(id==='aurora-peak') {
       const connectLink=document.querySelector('.topbar .navlinks a.nav-cta');
@@ -207,7 +232,7 @@
     }
     const passed=results.reduce((a,r)=>a+r.pass,0);
     resultData={
-      release:'v3.21-theme-audit',source:'real-browser-computed-styles',
+      release:'v3.22-theme-audit',source:'real-browser-computed-styles',
       generatedAt:new Date().toISOString(),url:location.origin+location.pathname,
       viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
       userAgent:navigator.userAgent,originalTheme:previous,
@@ -217,7 +242,7 @@
     const total=results.reduce((a,r)=>a+r.total,0);
     const horizontalOverflow=document.documentElement.scrollWidth>document.documentElement.clientWidth+2;
     reportText=[
-      'WebStudio theme audit v3.21',
+      'WebStudio theme audit v3.22',
       'Viewport: '+innerWidth+' × '+innerHeight,
       'Checked '+results.length+'/6 themes; static probes '+passed+'/'+total+' passed.',
       'Horizontal overflow present: '+(horizontalOverflow?'yes - visually inspect':'not detected'),
@@ -238,7 +263,7 @@
     const file=new Blob([JSON.stringify(resultData,null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(file);
     const link=document.createElement('a');
-    link.download='webstudio-theme-audit-v3.21.json';link.href=url;
+    link.download='webstudio-theme-audit-v3.22.json';link.href=url;
     document.body.append(link);link.click();link.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
     status.textContent='Local theme audit JSON exported. Attach it to your Human CI feedback.';
