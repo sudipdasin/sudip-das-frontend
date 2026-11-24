@@ -6,7 +6,7 @@
   const picker = document.getElementById('theme-select');
   const supported = [
     ['orbit','Orbit','42f0d3'],['editorial','Editorial','785338'],
-    ['terminal','Terminal','55ffa4'],['aurora-peak','Aurora Peak','86f4d4'],
+    ['terminal','Terminal','55ffa4'],['aurora-peak','Aurora Peak','d8e5ae'],
     ['neon-studio','Neon Studio','05eff2'],['design-2','Cosmic','a9a0ff']
   ];
   if (!picker) return;
@@ -98,6 +98,18 @@
         checks.push(['distinct visual background available',tileStyle.backgroundImage!=='none']);
       }
     } else checks.push(['video UI initialized',false]);
+    if(id==='aurora-peak') {
+      const landscape=document.querySelector('.hero-art .ap-landscape');
+      const portrait=document.querySelector('.hero-art .core');
+      const orbit=document.querySelector('.hero-art .orbit');
+      const edition=document.querySelector('.hero-text .ap-edition');
+      checks.push(['Alpine landscape mounted',Boolean(landscape&&getComputedStyle(landscape).display!=='none')]);
+      checks.push(['Arched portrait shape',Boolean(portrait&&getComputedStyle(portrait).borderTopLeftRadius.includes('48%'))]);
+      checks.push(['Generic orbit rings hidden',Boolean(orbit&&getComputedStyle(orbit).display==='none')]);
+      checks.push(['Alpine edition identity visible',Boolean(edition&&edition.getBoundingClientRect().height>10)]);
+      checks.push(['Mountain relief has three layers',document.querySelectorAll('.ap-landscape .ap-ridge').length===3]);
+      checks.push(['Aurora mount contract active',document.body.dataset.auroraPeakComposition==='scenic-v318']);
+    }
     if(id==='editorial') {
       checks.push(['three editorial margin notes',chips.length===3]);
       if(art&&portrait&&innerWidth>900){
