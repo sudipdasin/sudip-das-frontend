@@ -10,9 +10,11 @@
  const picker=document.getElementById('theme-select');
  const hero=document.querySelector('main>.hero');
  const heading=hero?.querySelector('.hero-text');
- const quick=document.querySelector('.pv-hub-pane#pv-hub-panel-tools');
- const projectPanel=document.querySelector('#projects .project-discovery');
- if(!body||!picker||!hero||!heading||!quick||!projectPanel)return;
+ const quick=document.querySelector('.pv-hub-pane#pv-hub-panel-tools')||
+  document.getElementById('ws-visitor-quick-panel');
+ const projectPanel=document.querySelector('#projects .project-discovery')||
+  document.getElementById('projects');
+ if(!body||!picker||!hero||!heading)return;
  const THEMES=Object.freeze({
   orbit:{name:'Orbit',symbol:'◎',motif:'orbital',palette:['#75efdb','#173b49','#dbfbf5']},
   editorial:{name:'Editorial',symbol:'◇',motif:'folio',palette:['#805337','#fbf4e8','#3a312c']},
@@ -116,7 +118,7 @@
  output.setAttribute('role','status');output.setAttribute('aria-live','polite');
  const disclaimer=e('p','ws29-audit-disclaimer');
  rack.append(rackHeading,rackSub,engines,meter,auditButtons,output,disclaimer);
- quick.append(rack);
+ quick?.append(rack);
  const summary=e('div','ws29-project-summary');
  summary.setAttribute('role','status');
  const summaryText=e('span','ws29-project-counter');
@@ -128,7 +130,7 @@
   window.__wsPortfolio328?.focusSearch?.();
  });
  summary.append(summaryText,emptyButton);
- projectPanel.append(summary);
+ projectPanel?.append(summary);
  function motionSafe(){return Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)}
  function have(key){
   if(key==='hero')return Boolean(window.__wsHeroDisplay327?.getStatus&&hero.classList.contains('hd-hero'));
