@@ -104,3 +104,18 @@ body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-actions{display:grid;
 body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-actions button{width:100%!important}}
 @media(prefers-reduced-motion:reduce){
 body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band *{transition:none!important;animation:none!important}}
+
+/* Nested walkthrough text and disclosure controls must never inherit the old cyan theme. */
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-tabs :is(strong,small){
+ color:var(--xf-ink)!important;font-family:var(--xf-font)!important;
+}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-tabs small{opacity:.84}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-interest-form :is(label,.ws-interest-helper,.ws-interest-status){
+ color:var(--xf-ink)!important;font-family:var(--xf-font)!important;
+}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-tabs button:hover{
+ border-color:var(--xf-accent)!important;
+}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-panel img{
+ background:var(--xf-panel)!important;
+}
