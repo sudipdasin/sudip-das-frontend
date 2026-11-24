@@ -47,6 +47,13 @@
       "atmosphereV322": {
         "effect": "teal orbital arcs, satellites, ray-lit sphere and rotating highlights",
         "rayScene": true
+      },
+      "atmosphereV323": {
+        "effect": "teal orbital arcs, satellites, ray-lit sphere and rotating highlights",
+        "rayScene": true,
+        "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
+        "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
+        "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
       }
     },
     {
@@ -73,6 +80,13 @@
       "atmosphereV322": {
         "effect": "warm paper grain, grazing editorial sunlight and subtle diagonal highlights",
         "rayScene": false
+      },
+      "atmosphereV323": {
+        "effect": "warm paper grain, grazing editorial sunlight and subtle diagonal highlights",
+        "rayScene": false,
+        "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
+        "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
+        "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
       }
     },
     {
@@ -98,6 +112,13 @@
       "atmosphereV322": {
         "effect": "green phosphor scanlines, lattice and terminal sweep",
         "rayScene": false
+      },
+      "atmosphereV323": {
+        "effect": "green phosphor scanlines, lattice and terminal sweep",
+        "rayScene": false,
+        "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
+        "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
+        "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
       }
     },
     {
@@ -123,6 +144,13 @@
       "atmosphereV322": {
         "effect": "sunrise halo, aurora curtains, alpine silhouettes and mountain haze",
         "rayScene": false
+      },
+      "atmosphereV323": {
+        "effect": "sunrise halo, aurora curtains, alpine silhouettes and mountain haze",
+        "rayScene": false,
+        "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
+        "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
+        "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
       }
     },
     {
@@ -148,6 +176,13 @@
       "atmosphereV322": {
         "effect": "cyan/violet photonic scan lanes, procedural glass glows and lit spheres",
         "rayScene": true
+      },
+      "atmosphereV323": {
+        "effect": "cyan/violet photonic scan lanes, procedural glass glows and lit spheres",
+        "rayScene": true,
+        "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
+        "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
+        "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
       }
     },
     {
@@ -173,6 +208,13 @@
       "atmosphereV322": {
         "effect": "violet nebula, gravitational-lens distortion, starfield and ray-lit sphere",
         "rayScene": true
+      },
+      "atmosphereV323": {
+        "effect": "violet nebula, gravitational-lens distortion, starfield and ray-lit sphere",
+        "rayScene": true,
+        "coverage": "Full website including introduction, About, Projects, Experience, Strengths, Contact, WebStudio and footer",
+        "scrollAwareness": "Viewport shader receives section uniform while section-local static gradients respond to its location",
+        "viewportRenderer": "Single fixed viewport GPU/Canvas scene, not an unbounded full-document texture"
       }
     }
   ],
@@ -349,5 +391,33 @@
     "localStorage": "One mode preference only. No analytics or external requests",
     "visualReview": "Required on real browsers and devices",
     "productionApproved": false
+  },
+  "adaptiveAtmosphereV323": {
+    "version": "3.23.0",
+    "previousVersion": "3.22.0",
+    "compositor": "One fixed 100dvh viewport canvas mounted under body, theme-specific procedural shader with section uniform",
+    "regions": [
+      "intro",
+      "about",
+      "projects",
+      "experience",
+      "strengths",
+      "contact",
+      "showcase",
+      "footer"
+    ],
+    "scopes": [
+      "body fixed viewport overlay",
+      "eight lightweight local section glows"
+    ],
+    "sources": [
+      "atmosphere-engine-v323.js",
+      "atmosphere-shaders-v323.js",
+      "atmosphere-sitewide-v323.css"
+    ],
+    "oneControl": "Preserve Auto/Cinematic/Balanced/Eco/Off, previous preference, accessibility, fallback caps and user settings",
+    "safety": "Pointer-events none, section glows behind existing layout, no background networking, pause when page hidden, render viewport only",
+    "verified": "34/34 source and simulated scroll/renderer checks; real browser rendering not independently verified",
+    "productionPromotionApproved": false
   }
 }
