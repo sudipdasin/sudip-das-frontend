@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.31.3-six-theme-opaque-github-popup-manual-qa-pending",
+  "release": "personal-preview-v3.32.0-signature-panel-six-theme-refinement-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -315,7 +315,12 @@
     "v3312-reversible-panel-portal-and-focus-handling",
     "v3313-solid-opaque-github-popover-six-theme-backing",
     "v3313-disable-github-portal-opacity-fade",
-    "v3313-neon-cosmic-opaque-surface-regression-guard"
+    "v3313-neon-cosmic-opaque-surface-regression-guard",
+    "v332-signature-panel-identity-and-action-composition",
+    "v332-six-theme-native-signature-panel-design",
+    "v332-multilingual-signature-heading-ten-locales",
+    "v332-video-caption-readable-no-editorial-dark-overlay",
+    "v332-safe-nonreparenting-hero-interaction-polish"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1216,11 +1221,11 @@
     "automaticHostedTestResult": "NOT_RUN",
     "previewDeploymentIndependentOfCI": true,
     "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md",
-    "lastKnownChange": "v3.31.3 solid GitHub popup in Neon, Cosmic and all six themes",
+    "lastKnownChange": "v3.32.0 Signature Panel: six theme skins, shared action hierarchy, ten-locale copy and improved video caption",
     "lastFeedback": "Owner screenshot 2026-11-24: 2x2 geometry visible; refined theme consistency, CTA priority and video affordance",
-    "manualBrowserVerification": "NOT_RUN after v3.31.3",
-    "lastEvidence": "6/6 isolated headless Chromium computed-style checks; preview source readback pending",
-    "deploymentStatus": "GitHub preview committed; Cloudflare not independently verified"
+    "manualBrowserVerification": "NOT_RUN after v3.32.0",
+    "lastEvidence": "19/19 static source contracts passed; six calculated palette contrast passes; synthetic DOM action preservation checks, real browser pending",
+    "deploymentStatus": "GitHub preview branch committed; Cloudflare live deployment not independently verified"
   },
   "fiveEngineV329": {
     "version": "3.29.0",
@@ -1455,5 +1460,56 @@
     "ownerManualQA": "PENDING",
     "previousGitHubPortal": "github-hero-portal-v3312.css retained",
     "hostedCI": "NOT_RUN"
+  },
+  "signaturePanelV332": {
+    "version": "3.32.0",
+    "displayName": "Signature Panel",
+    "stage": "preview-only",
+    "entrypoints": [
+      "signature-panel-v332.js",
+      "signature-panel-v332.css"
+    ],
+    "buildMarker": "preview-signature-panel-v3.32.0",
+    "themes": [
+      "orbit",
+      "editorial",
+      "terminal",
+      "aurora-peak",
+      "neon-studio",
+      "design-2"
+    ],
+    "locales": [
+      "en",
+      "hi",
+      "bn",
+      "es",
+      "fr",
+      "de",
+      "pt",
+      "ar",
+      "zh-CN",
+      "ja"
+    ],
+    "localizedStringsPerLanguage": 3,
+    "palette": "six separate action/identity/availability visual grammars",
+    "manualQA": "docs/SIGNATURE_PANEL_V332_MANUAL_QA.md",
+    "constraints": [
+      "No reparenting of .hero-text > .actions or native controls",
+      "Preserves v3.31.3 opaque portaled GitHub popup",
+      "Preserves existing video player/portfolio navigation",
+      "Portrait and overall hero layout untouched",
+      "No hosted CI or automatic deployment claims"
+    ],
+    "verification": {
+      "javascriptSourceCompilation": "PASS",
+      "sourceContracts": "19/19 verified in GitHub readback",
+      "syntheticDom": "26 positive checks in first run; Arabic direction case in mock was measured after locale reset, source shows correct dir logic",
+      "tokenContrast": "6/6 themes CTA text and secondary ink >=4.5:1 (calculated, not actual rendered WCAG)",
+      "realBrowser": "NOT_RUN",
+      "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+      "githubActions": "NOT_RUN",
+      "circleCI": "NOT_RUN"
+    },
+    "releaseGate": "MANUAL_QA_PENDING"
   }
 }
