@@ -121,8 +121,9 @@
 <link rel="stylesheet" href="plugins/modules/professional-journey-v338.css?v=3.39.0">
 <link rel="stylesheet" href="hero-orbit-geometry-v340.css?v=3.41.0">
 <link rel="stylesheet" href="aurora-hybrid-v348.css?v=3.51.0">
-<link rel="stylesheet" href="hero-profile-v353.css?v=3.58.0">
-<link rel="stylesheet" href="atmosphere-matrix-v356.css?v=3.58.0">
+<link rel="stylesheet" href="hero-profile-v353.css?v=3.59.0">
+<link rel="stylesheet" href="atmosphere-matrix-v356.css?v=3.59.0">
+<link rel="stylesheet" href="bento-studio-v359.css?v=3.59.0">
 </head>
 <body class="ws-parity" data-theme="neon-studio" data-approved-theme="neon-studio">
   <a class="skip-to-content" href="#top">Skip to main content</a>
@@ -132,7 +133,7 @@
       <button class="menu" aria-expanded="false" aria-controls="navlinks">Menu</button>
       <div class="navlinks" id="navlinks"><a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#capabilities">Strengths</a><a class="nav-cta" href="#contact">Let’s connect <span aria-hidden="true">></span></a></div>
       <label class="language-control"><span data-i18n="language">Language</span><select id="language-select" aria-label="Choose language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="bn">বাংলা</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option><option value="ar">العربية</option><option value="zh-CN">简体中文</option><option value="ja">日本語</option></select></label>
-      <label class="theme-control"><span data-i18n="themeLabel">Theme</span><select id="theme-select" aria-label="Choose site theme"><option value="orbit">Orbit · Portfolio</option><option value="editorial">Editorial · Profile</option><option value="terminal">Terminal · Explorer</option><option value="aurora-peak">Aurora Peak</option><option value="neon-studio" selected>Neon Studio</option><option value="design-2">Cosmic</option></select></label>
+      <label class="theme-control"><span data-i18n="themeLabel">Theme</span><select id="theme-select" aria-label="Choose site theme"><option value="orbit">Orbit · Portfolio</option><option value="editorial">Editorial · Profile</option><option value="terminal">Terminal · Explorer</option><option value="aurora-peak">Aurora Peak</option><option value="neon-studio" selected>Neon Studio</option><option value="design-2">Cosmic</option><option value="bento">Obsidian Bento</option></select></label>
     </nav>
   </header>
   <main id="top">
@@ -484,7 +485,7 @@
     const terminalSections=[...new Set([...nav.querySelectorAll('a[href^="#"]')].map(link=>document.querySelector(link.hash)).filter(section=>section?.matches('section[id]')))];
     const renderTerminalFlow=()=>{terminalSections.forEach((section,index)=>{let flow=section.querySelector('.terminal-flow');if(!flow){flow=document.createElement('nav');flow.className='terminal-flow';flow.setAttribute('aria-label',i18n.get('aria.terminal'));flow.innerHTML='<span class="flow-status"></span><span class="flow-actions"><button type="button" data-flow="previous"></button><button type="button" data-flow="next"></button></span>';section.append(flow);}flow.setAttribute('aria-label',i18n.get('aria.terminal'));const number=new Intl.NumberFormat(i18n.locale,{minimumIntegerDigits:2,useGrouping:false});flow.querySelector('.flow-status').textContent=i18n.format(i18n.get('section'),{current:number.format(index+1),total:number.format(terminalSections.length)});flow.querySelector('[data-flow="previous"]').textContent=`← ${i18n.get('aria.previous')}`;flow.querySelector('[data-flow="next"]').textContent=`${i18n.get('aria.next')} →`;flow.querySelector('[data-flow="previous"]').disabled=index===0;flow.querySelector('[data-flow="next"]').disabled=index===terminalSections.length-1;});};
     const setTerminalSection=(id,{scroll=true,updateUrl=true}={})=>{const section=terminalSections.find(item=>item.id===id)||terminalSections[0];if(!section)return;terminalSections.forEach(item=>{const active=item===section;item.classList.toggle('terminal-active',active);item.querySelectorAll('.reveal').forEach(node=>node.classList.toggle('in',active));});document.body.dataset.terminalSection=section.id;nav.querySelectorAll('a[href^="#"]').forEach(link=>{const active=link.hash===`#${section.id}`;link.setAttribute('aria-current',String(active));link.setAttribute('aria-selected',String(active));});if(updateUrl)history.replaceState(null,'',`#${section.id}`);if(scroll)section.scrollIntoView({behavior:'smooth',block:'start'});};
-    const setTheme=(theme)=>{const value=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'].includes(theme)?theme:'neon-studio';document.body.dataset.theme=value;themeSelect.value=value;try{localStorage.setItem('sudip-profile-theme',value)}catch{};if(value==='terminal'){renderTerminalFlow();nav.querySelectorAll('a[href^="#"]').forEach(link=>link.setAttribute('role','tab'));setTerminalSection(location.hash.slice(1)||document.body.dataset.terminalSection||'about',{scroll:false,updateUrl:false});}else{nav.querySelectorAll('a').forEach(link=>{link.removeAttribute('role');link.removeAttribute('aria-current');link.removeAttribute('aria-selected')});terminalSections.forEach(section=>section.classList.remove('terminal-active'));delete document.body.dataset.terminalSection;}};
+    const setTheme=(theme)=>{const value=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2','bento'].includes(theme)?theme:'neon-studio';document.body.dataset.theme=value;themeSelect.value=value;try{localStorage.setItem('sudip-profile-theme',value)}catch{};if(value==='terminal'){renderTerminalFlow();nav.querySelectorAll('a[href^="#"]').forEach(link=>link.setAttribute('role','tab'));setTerminalSection(location.hash.slice(1)||document.body.dataset.terminalSection||'about',{scroll:false,updateUrl:false});}else{nav.querySelectorAll('a').forEach(link=>{link.removeAttribute('role');link.removeAttribute('aria-current');link.removeAttribute('aria-selected')});terminalSections.forEach(section=>section.classList.remove('terminal-active'));delete document.body.dataset.terminalSection;}};
     // Approved preview lock (2026-11-24): on every new page load, launch
     // the protected Neon Studio design, ignoring any prior theme choice.
     // Visitors may still explore other themes during this one visit;
@@ -521,39 +522,40 @@
   <script src="webstudio-portfolio-gallery.js?v=2.1.0" defer></script>
   <script src="webstudio-visitor-hub.js" defer></script>
   <script src="webstudio-parity.js?v=neon-1.4.3" defer></script>
-  <script src="personal-theme-library.js?v=3.18.0" defer></script>
+  <script src="personal-theme-library.js?v=3.59.0" defer></script>
   <script src="webstudio-footer.js?v=1.2.0" defer></script>
   <script src="personal-smart-navigation-v1.js?v=3.16.0" defer></script>
   <script src="aurora-peak-scene-v318.js?v=3.48.0" defer></script>
   <script src="personal-quick-hub-v2.js?v=3.30.0" defer></script>
   <script src="personal-connect-compact-v2.js?v=2.0.0" defer></script>
-  <script src="personal-translation-expansion-v1.js?v=3.28.0" defer></script>
+  <script src="personal-translation-expansion-v1.js?v=3.59.0" defer></script>
   <script src="personal-footer-breadcrumbs-v1.js?v=1.0.0" defer></script>
   <script>window.PUBLIC_API_BASE="";window.PORTFOLIO_PREVIEW_MODE=true;</script>
   <script src="human-ci-preview-v1.js?v=3.28.0" defer></script>
   <script src="preview-diagnostics-v321.js?v=3.28.0" defer></script>
   <script src="atmosphere-shaders-v325.js?v=3.51.0" defer></script>
-  <script src="hero-shape-registry-v352.js?v=3.57.0" defer></script>
+  <script src="hero-shape-registry-v352.js?v=3.59.0" defer></script>
   <script src="atmosphere-matrix-v356.js?v=3.58.0" defer></script>
-  <script src="atmosphere-engine-v328.js?v=3.56.0" defer></script>
+  <script src="atmosphere-engine-v328.js?v=3.59.0" defer></script>
   <script src="github-hero-explorer-v324.js?v=3.31.2" defer></script>
-  <script src="hero-display-engine-v327.js?v=3.30.0" defer></script>
+  <script src="hero-display-engine-v327.js?v=3.59.0" defer></script>
   <script src="atmosphere-audio-v328.js?v=3.28.0" defer></script>
-  <script src="webstudio-engine-mesh-v328.js?v=3.30.0" defer></script>
+  <script src="webstudio-engine-mesh-v328.js?v=3.59.0" defer></script>
   <script src="preview-theme-audit-v316.js?v=3.28.1" defer></script>
-  <script src="webstudio-five-engine-v329.js?v=3.29.0" defer></script>
+  <script src="webstudio-five-engine-v329.js?v=3.59.0" defer></script>
   <script src="webstudio-experience-v330.js?v=3.30.0" defer></script>
-  <script src="plugins/webstudio-plugin-engine-v331.js?v=3.31.0" defer></script>
-  <script src="plugins/modules/theme-v331.js?v=3.31.0" defer></script>
-  <script src="plugins/modules/hero-v331.js?v=3.31.0" defer></script>
+  <script src="plugins/webstudio-plugin-engine-v331.js?v=3.59.0" defer></script>
+  <script src="plugins/modules/theme-v331.js?v=3.59.0" defer></script>
+  <script src="plugins/modules/hero-v331.js?v=3.59.0" defer></script>
   <script src="plugins/modules/atmosphere-v331.js?v=3.56.0" defer></script>
   <script src="plugins/modules/quick-menu-v331.js?v=3.31.0" defer></script>
   <script src="plugins/modules/portfolio-v331.js?v=3.31.0" defer></script>
   <script src="smart-landing-v333.js?v=3.37.0" defer></script>
   <script src="plugins/modules/professional-journey-v338.js?v=3.39.0" defer></script>
-  <script src="hero-profile-renderer-v353.js?v=3.58.0" defer></script>
+  <script src="hero-profile-renderer-v353.js?v=3.59.0" defer></script>
   <script src="hero-orbit-geometry-v340.js?v=3.53.0" defer></script>
   <script src="plugins/webstudio-personal-bridge-v331.js?v=3.42.0" defer></script>
   <script src="signature-panel-v332.js?v=3.32.0" defer></script>
+<script src="bento-studio-v359.js?v=3.59.0" defer></script>
 </body>
 </html>
