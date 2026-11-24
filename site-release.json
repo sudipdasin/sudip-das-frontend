@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-live-v3.9.3-approved-neon-studio",
+  "release": "personal-live-v3.10.0-multilingual-interface",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -20,7 +20,10 @@
     "webstudio-inline-preview",
     "smart-quick-actions",
     "compact-lets-connect-accordions",
-    "motion-reduced-motion-support"
+    "motion-reduced-motion-support",
+    "ten-language-dynamic-ui-translations",
+    "translated-all-six-theme-choices",
+    "dynamic-aria-title-alt-localization"
   ],
   "source": "approved-public-frontend-preview-with-production-security-adaptations",
   "privateBackendBundled": false,
@@ -46,5 +49,26 @@
     "previewOnlyPagesFunctionExcluded": true,
     "automationCiJobsNotTriggered": true,
     "liveBrowserNotYetVerified": true
+  },
+  "localization": {
+    "languages": [
+      "en",
+      "hi",
+      "bn",
+      "es",
+      "fr",
+      "de",
+      "pt",
+      "ar",
+      "zh-CN",
+      "ja"
+    ],
+    "sourceDictionary": "languages.js",
+    "newStrings": 50,
+    "coreStringsReused": 151,
+    "mode": "source-only; no external translation service",
+    "verification": "JS syntax and 5-locale synthetic switch test, external browser unverified",
+    "limitations": "Long-form newer dynamic text still requires additional authored locale copy",
+    "productionSourceCommit": "97ff4fd5dded005e6b0d55c42320fe9870624f7b"
   }
 }
