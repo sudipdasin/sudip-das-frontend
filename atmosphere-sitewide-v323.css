@@ -1,0 +1,140 @@
+/* Atmosphere v3.23 — full-site, section-reactive compositions.
+ * One fixed viewport canvas; lightweight section-local highlights, no full-document canvas.
+ * Decorative only: never intercepts clicks or changes copy, links, inputs, portrait or layout.
+ * The v3.22 mode control remains the single source for Auto/Cinematic/Balanced/Eco/Off.
+ */
+body.ws-parity > .ws-atmo-layer.ws-atmo-sitewide {
+  position:fixed!important;inset:0!important;left:0!important;top:0!important;
+  width:100%!important;height:100vh!important;height:100dvh!important;
+  z-index:8!important;pointer-events:none!important;contain:paint!important;
+  isolation:isolate!important;overflow:hidden!important;opacity:.32!important;
+}
+body.ws-parity > .ws-atmo-layer.ws-atmo-sitewide[hidden],
+body.ws-parity[data-atmosphere-tier="off"] > .ws-atmo-layer.ws-atmo-sitewide{
+  display:none!important;
+}
+body.ws-parity > .ws-atmo-layer.ws-atmo-sitewide > .ws-atmo-canvas{
+  position:absolute!important;inset:0!important;display:block;
+  width:100%!important;height:100%!important;pointer-events:none!important;
+  opacity:.62!important;mix-blend-mode:screen!important;
+}
+body.ws-parity[data-theme="editorial"] > .ws-atmo-layer.ws-atmo-sitewide{
+  opacity:.14!important;mix-blend-mode:multiply!important;
+}
+body.ws-parity[data-theme="editorial"] > .ws-atmo-layer.ws-atmo-sitewide > .ws-atmo-canvas{
+  opacity:.35!important;mix-blend-mode:multiply!important;
+}
+body.ws-parity[data-theme="terminal"] > .ws-atmo-layer.ws-atmo-sitewide{opacity:.22!important}
+body.ws-parity[data-theme="aurora-peak"] > .ws-atmo-layer.ws-atmo-sitewide{opacity:.29!important}
+body.ws-parity[data-theme="neon-studio"] > .ws-atmo-layer.ws-atmo-sitewide{opacity:.33!important}
+body.ws-parity[data-theme="design-2"] > .ws-atmo-layer.ws-atmo-sitewide{opacity:.37!important}
+/* The following controls should remain above the ambient overlay without a new
+   stacking context for all of main or changing sticky menu positioning. */
+body.ws-parity .topbar{z-index:110!important}
+body.ws-parity > .human-ci-panel{z-index:900!important}
+/* Section ambience: locally composited gradient ornaments, so an opaque section
+   background does not hide all themed atmosphere. No animations run inside sections. */
+body.ws-parity {
+  --atmo-spot:#25d7ed3a;
+  --atmo-trace:#10c3d812;
+  --atmo-contrast-opacity:.37;
+}
+body.ws-parity[data-theme="orbit"]{
+  --atmo-spot:#66e9cc42;--atmo-trace:#67ead322;--atmo-contrast-opacity:.46;
+}
+body.ws-parity[data-theme="editorial"]{
+  --atmo-spot:#a57c5223;--atmo-trace:#b49b7514;--atmo-contrast-opacity:.34;
+}
+body.ws-parity[data-theme="terminal"]{
+  --atmo-spot:#4afa962b;--atmo-trace:#66f6ac15;--atmo-contrast-opacity:.37;
+}
+body.ws-parity[data-theme="aurora-peak"]{
+  --atmo-spot:#d4ca9552;--atmo-trace:#a1e9c72b;--atmo-contrast-opacity:.45;
+}
+body.ws-parity[data-theme="design-2"]{
+  --atmo-spot:#af81f55c;--atmo-trace:#9472ed20;--atmo-contrast-opacity:.43;
+}
+body.ws-parity [data-atmo-zone] {
+  position:relative;isolation:isolate;
+  --atmo-zone-x:65%;--atmo-zone-y:38%;
+  --atmo-zone-angle:128deg;
+}
+body.ws-parity [data-atmo-zone="intro"]{--atmo-zone-x:78%;--atmo-zone-y:25%}
+body.ws-parity [data-atmo-zone="about"]{--atmo-zone-x:17%;--atmo-zone-y:31%;--atmo-zone-angle:48deg}
+body.ws-parity [data-atmo-zone="projects"]{--atmo-zone-x:86%;--atmo-zone-y:62%;--atmo-zone-angle:159deg}
+body.ws-parity [data-atmo-zone="experience"]{--atmo-zone-x:8%;--atmo-zone-y:68%;--atmo-zone-angle:67deg}
+body.ws-parity [data-atmo-zone="strengths"]{--atmo-zone-x:68%;--atmo-zone-y:14%;--atmo-zone-angle:109deg}
+body.ws-parity [data-atmo-zone="contact"]{--atmo-zone-x:74%;--atmo-zone-y:74%;--atmo-zone-angle:148deg}
+body.ws-parity [data-atmo-zone="showcase"]{--atmo-zone-x:48%;--atmo-zone-y:26%;--atmo-zone-angle:91deg}
+body.ws-parity [data-atmo-zone="footer"]{--atmo-zone-x:27%;--atmo-zone-y:50%;--atmo-zone-angle:37deg}
+body.ws-parity [data-atmo-zone] > .ws-atmo-zone-glow{
+  position:absolute!important;inset:0!important;display:block;
+  width:100%;height:100%;z-index:0!important;pointer-events:none!important;
+  overflow:hidden;contain:paint;opacity:var(--atmo-contrast-opacity);
+  background:
+    radial-gradient(ellipse at var(--atmo-zone-x) var(--atmo-zone-y),
+      var(--atmo-spot),transparent 65%),
+    linear-gradient(var(--atmo-zone-angle),
+      transparent 30%,var(--atmo-trace) 50%,transparent 74%);
+  filter:none!important;transition:none!important;animation:none!important;
+}
+body.ws-parity [data-atmo-zone] > :not(.ws-atmo-zone-glow){
+  position:relative;z-index:1;
+}
+/* The hero keeps its pre-existing ornamental scene. The sitewide compositor
+   paints over the viewport, while each lower section gets its own light focus. */
+body.ws-parity[data-theme="orbit"] [data-atmo-zone="projects"] > .ws-atmo-zone-glow,
+body.ws-parity[data-theme="orbit"] [data-atmo-zone="strengths"] > .ws-atmo-zone-glow{
+  background:
+    radial-gradient(ellipse at var(--atmo-zone-x) var(--atmo-zone-y),#68f6d848,transparent 57%),
+    repeating-radial-gradient(circle at 75% 43%,transparent 0 65px,#70eedb15 66px,transparent 69px);
+}
+body.ws-parity[data-theme="editorial"] [data-atmo-zone] > .ws-atmo-zone-glow{
+  background:
+    linear-gradient(var(--atmo-zone-angle),#f0d6a11c,transparent 39%,#94663820 83%,transparent),
+    repeating-linear-gradient(0deg,transparent 0 21px,#7a64440c 22px,transparent 23px);
+}
+body.ws-parity[data-theme="terminal"] [data-atmo-zone] > .ws-atmo-zone-glow{
+  background:
+    radial-gradient(ellipse at var(--atmo-zone-x) var(--atmo-zone-y),#43e48c30,transparent 54%),
+    repeating-linear-gradient(0deg,transparent 0 29px,#53f79c10 30px,transparent 32px);
+}
+body.ws-parity[data-theme="aurora-peak"] [data-atmo-zone] > .ws-atmo-zone-glow{
+  background:
+    radial-gradient(ellipse at var(--atmo-zone-x) var(--atmo-zone-y),#edd1a653,transparent 65%),
+    linear-gradient(var(--atmo-zone-angle),transparent 15%,#8ad5c52b 50%,transparent 84%);
+}
+body.ws-parity[data-theme="design-2"] [data-atmo-zone] > .ws-atmo-zone-glow{
+  background:
+    radial-gradient(ellipse at var(--atmo-zone-x) var(--atmo-zone-y),#a879f75c,transparent 58%),
+    radial-gradient(circle at 88% 17%,#5874ee24,transparent 49%);
+}
+/* Eco remains entirely static. Off truly removes both the fixed layer
+   AND each section's decorative glow, with no canvas running anywhere. */
+body.ws-parity[data-atmosphere-tier="eco"] > .ws-atmo-layer.ws-atmo-sitewide{
+  opacity:.17!important;mix-blend-mode:normal!important;
+}
+body.ws-parity[data-atmosphere-tier="eco"] > .ws-atmo-layer.ws-atmo-sitewide > .ws-atmo-canvas{
+  display:none!important;
+}
+body.ws-parity[data-atmosphere-tier="off"] [data-atmo-zone] > .ws-atmo-zone-glow,
+body.ws-parity[data-atmosphere-tier="off"] > .ws-atmo-layer.ws-atmo-sitewide{
+  display:none!important;
+}
+@media(max-width:760px){
+  body.ws-parity > .ws-atmo-layer.ws-atmo-sitewide{opacity:.19!important}
+  body.ws-parity[data-theme="editorial"] > .ws-atmo-layer.ws-atmo-sitewide{opacity:.10!important}
+  body.ws-parity [data-atmo-zone] > .ws-atmo-zone-glow{opacity:.23}
+}
+@media(prefers-reduced-motion:reduce),(forced-colors:active){
+  body.ws-parity > .ws-atmo-layer.ws-atmo-sitewide::before,
+  body.ws-parity > .ws-atmo-layer.ws-atmo-sitewide::after{
+    animation:none!important;transition:none!important;transform:none!important;
+  }
+}
+@media(forced-colors:active){
+  body.ws-parity > .ws-atmo-layer.ws-atmo-sitewide,
+  body.ws-parity [data-atmo-zone] > .ws-atmo-zone-glow{
+    display:none!important;
+  }
+}
