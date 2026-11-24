@@ -554,7 +554,7 @@
     "accessibility": "Decorative stage pointer-transparent and aria-hidden, keyboard focus rings, reduced-motion/forced-colors/print, low-power and Atmosphere Off",
     "responsive": "Wide/stacked/compact state with separate mobile portrait/spacing safeguards; approved Neon geometry not overridden",
     "scope": "Only top hero, not full-page Atmosphere and not any new explorer dialog",
-    "verification": "52/52 reproducible source and simulated DOM checks; human pixel/device acceptance outstanding",
+    "verification": "54/54 reproducible source and simulated DOM checks; human pixel/device acceptance outstanding",
     "experimentalPreview": true,
     "productionPromotionApproved": false
   }
