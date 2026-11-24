@@ -1,14 +1,14 @@
 /* Matrix rain: bounded decorative DOM streams, no additional canvas, timer or RAF. */
 ((global)=>{'use strict';if(!global)return;
- const profiles=Object.freeze({off:{label:'Off',columns:0},subtle:{label:'Ghost Code',columns:10,speed:1.3},classic:{label:'Matrix Rain',columns:24,speed:1.15},cascade:{label:'Neon Cascade',columns:26,speed:.78},data:{label:'Binary Streams',columns:16,speed:1.15}});
+ const profiles=Object.freeze({off:{label:'Off',columns:0},subtle:{label:'Ghost Code',columns:10,speed:1.3},classic:{label:'Matrix Rain',columns:32,speed:1.08},cascade:{label:'Neon Cascade',columns:26,speed:.78},data:{label:'Binary Streams',columns:16,speed:1.15}});
  for(const p of Object.values(profiles))Object.freeze(p);
  const alphabet='01ABCDEF0123456789ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿ';
  function plan(id,{theme='terminal',quality='off',visible=true,reduced=false,forced=false,saveData=false,lowPower=false,mobile=false}={}){
   const p=profiles[id];const enabled=Boolean(p&&id!=='off'&&theme==='terminal'&&quality!=='off'&&!forced);
   const running=enabled&&visible&&!reduced&&!saveData&&!lowPower&&['balanced','cinematic'].includes(quality);
-  return Object.freeze({id:enabled?id:'off',running,columns:enabled?Math.min(p.columns,mobile?10:quality==='cinematic'?(id==='classic'?24:26):quality==='balanced'?(id==='classic'?16:16):8):0});
+  return Object.freeze({id:enabled?id:'off',running,columns:enabled?Math.min(p.columns,mobile?10:quality==='cinematic'?(id==='classic'?32:26):quality==='balanced'?(id==='classic'?20:16):8):0});
  }
- function stream(i,id){const chars=id==='data'?'0101101001100011':alphabet;return Array.from({length:(id==='classic'?22:18)+(i%7)},(_,j)=>chars[(i*17+j*13+j*j*3)%chars.length]).join('\n')}
+ function stream(i,id){const chars=id==='data'?'0101101001100011':alphabet;return Array.from({length:(id==='classic'?27:18)+(i%7)},(_,j)=>chars[(i*17+j*13+j*j*3)%chars.length]).join('\n')}
  function mount({doc,hero,menu,getPolicy}){
   const key='ws-atmo-matrix-v356';let choice='classic';try{const marker=key+'-console-v357';if(global.localStorage?.getItem(marker)==='true'){const v=global.localStorage?.getItem(key);if(Object.hasOwn(profiles,v))choice=v}else{global.localStorage?.setItem(key,'classic');global.localStorage?.setItem(marker,'true')}}catch{}
   const label=doc.createElement('label');label.className='ws-matrix-control';const title=doc.createElement('span');title.textContent='Digital rain';const select=doc.createElement('select');select.setAttribute('aria-label','Digital rain effect');
