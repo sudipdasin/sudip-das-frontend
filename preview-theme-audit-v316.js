@@ -205,7 +205,7 @@
       checks.push(['Human CI launcher remains compact',
         Boolean(launcher&&launcher.getBoundingClientRect().width<=250)]);
       checks.push(['Human CI badge stays short',
-        Boolean(badge&&badge.textContent.trim().split('/').length===2&&badge.textContent.trim().endsWith('/25'))]);
+        Boolean(badge&&badge.textContent.trim().split('/').length===2&&badge.textContent.trim().endsWith('/32'))]);
     }
     if(id==='aurora-peak') {
       const connectLink=document.querySelector('.topbar .navlinks a.nav-cta');
