@@ -456,9 +456,11 @@ body.ws-parity[data-atmosphere-tier="eco"] main>.hero.hd-hero .hd-stage *,
 body.ws-parity[data-atmosphere-tier="off"] main>.hero.hd-hero .hd-stage *{
  animation:none!important;transition:none!important;will-change:auto!important;
 }
-body.ws-parity[data-atmosphere-tier="off"] main>.hero.hd-hero .hd-haze,
-body.ws-parity[data-atmosphere-tier="off"] main>.hero.hd-hero .hd-grain{
- opacity:.11!important;
+/* Off removes new atmospheric ornaments, while the typography and framing
+   of the chosen layout stay usable. No additional animation or compositing. */
+body.ws-parity[data-atmosphere-tier="off"] main>.hero.hd-hero :is(
+ .hd-haze,.hd-grain,.hd-trace,.hd-art-frame,.hd-marker){
+ display:none!important;opacity:0!important;
 }
 @media(prefers-reduced-motion:reduce){
  body.ws-parity main>.hero.hd-hero .hd-stage *{animation:none!important;transition:none!important}
