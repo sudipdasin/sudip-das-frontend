@@ -185,3 +185,40 @@ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero::before{
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art .ap-hybrid-badge:is([data-slot="2"],[data-slot="3"]){top:60%}
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.portrait-caption{margin-top:0!important;font-size:.67rem!important}
 }
+
+/* v3.50 — approved far-right placement, 30% smaller skill medallions.
+   Keep the photo dimensions, arch proportions and full-page artwork unchanged. */
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{
+ --ap-medallion:clamp(25.2px,1.89vw,32.2px);
+ --ap-shift:0px;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art .ap-hybrid-label{
+ max-width:79px;
+ font-size:clamp(.625rem,.60vw,.69rem);
+ padding:3px 6px;
+ line-height:1.2;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art .ap-hybrid-medallion{border-width:1px;box-shadow:0 0 8px #d9f1b04d}
+@media(min-width:1041px){
+ @supports (width:1cqw) and (container-type:inline-size){
+  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{
+   container-type:inline-size;
+   /* Cap the movement by the actual stage width, arch and label clearance.
+      cqw resolves against this stage on its descendants. */
+   --ap-shift:clamp(0px,calc((100cqw - min(58cqw,calc((var(--ap-stage-h) - 108px) / 1.38)) - 68px) / 2 - 84px),160px);
+  }
+  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-landscape{
+   left:calc(50% + var(--ap-shift))!important;
+  }
+  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>:is(.core,.portrait-caption,.ap-trail-mark){
+   translate:var(--ap-shift) 0!important;
+  }
+  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-atmosphere-fx{
+   mask-image:radial-gradient(ellipse at calc(50% + var(--ap-shift)) 44%,#000 21%,transparent 76%);
+  }
+ }
+}
+@media(max-width:600px){
+ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{--ap-medallion:21px}
+ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art .ap-hybrid-label{max-width:70px;font-size:.625rem;padding:2px 4px}
+}
