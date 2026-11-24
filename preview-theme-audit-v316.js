@@ -31,12 +31,13 @@
       .tip{font-size:12px}
     </style>
     <details>
-      <summary>◈ Theme audit · v3.16</summary>
+      <summary>◈ Theme audit · v3.17</summary>
       <article>
         <p>Tests active CSS and layout in this browser, one theme at a time. No screenshots or data are uploaded.</p>
         <p class="tip">Repeat at desktop, tablet and mobile widths. Automated checks do not replace your visual review.</p>
         <button id="run" type="button">Run six-theme audit</button>
         <button id="copy" type="button">Copy report</button>
+        <button id="export" type="button">Export findings JSON</button>
         <p id="status" role="status" aria-live="polite">Not tested yet.</p>
         <pre id="report">No results.</pre>
       </article>
@@ -45,11 +46,33 @@
   const copy = shadow.getElementById('copy');
   const status = shadow.getElementById('status');
   const reportNode = shadow.getElementById('report');
+  const exportButton = shadow.getElementById('export');
+  let resultData=null;
   const pause = () => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   let reportText='';
+  const luminance=hex=>{
+    const color=hex.trim().replace('#','');
+    if(!/^[0-9a-f]{6}$/i.test(color))return null;
+    const channels=[0,2,4].map(n=>Number.parseInt(color.slice(n,n+2),16)/255).map(x=>x<=0.04045?x/12.92:Math.pow((x+0.055)/1.055,2.4));
+    return channels[0]*0.2126+channels[1]*0.7152+channels[2]*0.0722;
+  };
+  const contrast=(a,b)=>{
+    const x=luminance(a),y=luminance(b);
+    return x===null||y===null?0:(Math.max(x,y)+0.05)/(Math.min(x,y)+0.05);
+  };
+  const intersects=(a,b)=>{
+    if(!a||!b)return false;
+    return a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+  };
+  function chipsCount(id){return id==='neon-studio'?5:id==='design-2'?4:3;}
   function checksFor(id,label,expectedAccent) {
     const style=getComputedStyle(document.body);
     const chosen=style.getPropertyValue('--ci-accent').trim().replace('#','').toLowerCase();
+    const bg=style.getPropertyValue('--ci-bg').trim();
+    const ink=style.getPropertyValue('--ci-ink').trim();
+    const art=document.querySelector('.hero-art');
+    const portrait=document.querySelector('.hero-art .core');
+    const title=document.querySelector('.hero h1');
     const tile=document.querySelector('.pv-intro-tile .pv-intro-hero-cta');
     const video=document.querySelector('.pv-intro-tile .pv-intro-cta-motion');
     const expand=document.getElementById('pv-intro-expand');
@@ -58,7 +81,11 @@
       ['theme switched',document.body.dataset.theme===id],
       ['correct distinct theme accent',chosen===expectedAccent],
       ['video expand control remains operable',Boolean(expand && !expand.disabled && expand.getAttribute('aria-controls'))],
-      ['approved theme repair sheet linked',Boolean(document.querySelector('link[href*="personal-theme-identity-v316.css"]'))]
+      ['approved theme repair sheet linked',Boolean(document.querySelector('link[href*="personal-theme-identity-v316.css"]'))],
+      ['theme has readable surface contrast',contrast(bg,ink)>=4.5],
+      ['portrait and title have real geometry',Boolean(portrait?.getBoundingClientRect().width>100&&title?.getBoundingClientRect().width>150)],
+      ['no document horizontal overflow',document.documentElement.scrollWidth<=document.documentElement.clientWidth+3],
+      ['no duplicate/missing orbital skills',chipsCount(id)===document.querySelectorAll('.hero-art .ws-orbit-chip').length]
     ];
     if(tile && video) {
       const tileStyle=getComputedStyle(tile);
@@ -73,18 +100,23 @@
     } else checks.push(['video UI initialized',false]);
     if(id==='editorial') {
       checks.push(['three editorial margin notes',chips.length===3]);
+      if(art&&portrait&&innerWidth>900){
+        const p=portrait.getBoundingClientRect();
+        checks.push(['editorial labels do not cover photo',chips.every(chip=>!intersects(chip.getBoundingClientRect(),p))]);
+      }
       if(chips.length===3 && innerWidth>600) {
         const rects=chips.map(chip=>chip.getBoundingClientRect());
         checks.push(['notes form ordered footnote rail',rects[0].left<rects[1].left && rects[1].left<rects[2].left]);
       }
     }
-    const result={id,label,checks,pass:checks.filter(c=>Boolean(c[1])).length,total:checks.length};
+    const result={id,label,accent:chosen,contrastRatio:Number(contrast(bg,ink).toFixed(2)),checks,pass:checks.filter(c=>Boolean(c[1])).length,total:checks.length};
     return result;
   }
   run.addEventListener('click',async()=>{
     const previous=picker.value;
     run.disabled=true;status.textContent='Checking the real page styles…';
     const results=[];
+    resultData=null;
     try{
       for(const [id,label,accent] of supported) {
         picker.value=id;
@@ -98,14 +130,22 @@
       run.disabled=false;
     }
     const passed=results.reduce((a,r)=>a+r.pass,0);
+    resultData={
+      release:'v3.17-theme-audit',source:'real-browser-computed-styles',
+      generatedAt:new Date().toISOString(),url:location.origin+location.pathname,
+      viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
+      userAgent:navigator.userAgent,originalTheme:previous,
+      successfulThemes:results.length,totalThemes:supported.length,
+      results,verifiedByServer:false
+    };
     const total=results.reduce((a,r)=>a+r.total,0);
     const horizontalOverflow=document.documentElement.scrollWidth>document.documentElement.clientWidth+2;
     reportText=[
-      'WebStudio theme audit v3.16',
+      'WebStudio theme audit v3.17',
       'Viewport: '+innerWidth+' × '+innerHeight,
       'Checked '+results.length+'/6 themes; static probes '+passed+'/'+total+' passed.',
       'Horizontal overflow present: '+(horizontalOverflow?'yes - visually inspect':'not detected'),
-      ...results.flatMap(r=>['',r.label+': '+r.pass+'/'+r.total,...r.checks.map(([name,ok])=>(ok?'PASS':'FAIL')+' — '+name)]),
+      ...results.flatMap(r=>['',r.label+': '+r.pass+'/'+r.total+' · contrast '+r.contrastRatio+':1',...r.checks.map(([name,ok])=>(ok?'PASS':'FAIL')+' — '+name)]),
       '',
       'Manual checks still required: placement, screenshots, responsive touch, video captions and visual identity.'
     ].join('\n');
@@ -116,6 +156,16 @@
     if(!reportText){status.textContent='Run the audit first.';return;}
     try{await navigator.clipboard.writeText(reportText);status.textContent='Audit report copied. Paste it into your feedback.';}
     catch{status.textContent='Clipboard unavailable; select the report text manually.';}
+  });
+  exportButton.addEventListener('click',()=>{
+    if(!resultData){status.textContent='Run the audit before exporting.';return;}
+    const file=new Blob([JSON.stringify(resultData,null,2)+'\n'],{type:'application/json'});
+    const url=URL.createObjectURL(file);
+    const link=document.createElement('a');
+    link.download='webstudio-theme-audit-v3.17.json';link.href=url;
+    document.body.append(link);link.click();link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1500);
+    status.textContent='Local theme audit JSON exported. Attach it to your Human CI feedback.';
   });
   document.body.append(root);
 })();
