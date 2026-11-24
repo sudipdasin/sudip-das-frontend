@@ -62,6 +62,14 @@
         "hover": "tilted icon and luminous teal sweep",
         "scope": "Hero GitHub button + attached accessible repo panel",
         "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
+      },
+      "heroDisplayV327": {
+        "composition": "mission-control split",
+        "geometry": "concentric orbital aperture, coordinate rail and teal signals",
+        "layout": "left mission text; right instrument portrait",
+        "motion": "slow orbit and breathing atmospheric light",
+        "source": "hero-display-layout-v327.css",
+        "status": "committed source; browser visual QA pending"
       }
     },
     {
@@ -103,6 +111,14 @@
         "hover": "print-like copper border emphasis",
         "scope": "Hero GitHub button + attached accessible repo panel",
         "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
+      },
+      "heroDisplayV327": {
+        "composition": "asymmetric print folio",
+        "geometry": "ivory editorial panel, copper print rules and tall photographic portrait",
+        "layout": "left article lead; right magazine photograph",
+        "motion": "static print identity; no orbit animation",
+        "source": "hero-display-layout-v327.css",
+        "status": "committed source; browser visual QA pending"
       }
     },
     {
@@ -143,6 +159,14 @@
         "hover": "subtle green scanline",
         "scope": "Hero GitHub button + attached accessible repo panel",
         "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
+      },
+      "heroDisplayV327": {
+        "composition": "console workstation",
+        "geometry": "square monospace command window, phosphor grid and terminal portrait frame",
+        "layout": "left bordered CLI panel; right system portrait",
+        "motion": "controlled static console glow",
+        "source": "hero-display-layout-v327.css",
+        "status": "committed source; browser visual QA pending"
       }
     },
     {
@@ -183,6 +207,14 @@
         "hover": "lichen light sweep",
         "scope": "Hero GitHub button + attached accessible repo panel",
         "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
+      },
+      "heroDisplayV327": {
+        "composition": "panoramic alpine landscape",
+        "geometry": "original mountain scene, sunrise layers, cartographic frame and field-note markers",
+        "layout": "landscape editorial text and arched portrait",
+        "motion": "calm alpine atmosphere where enabled",
+        "source": "hero-display-layout-v327.css",
+        "status": "committed source; browser visual QA pending"
       }
     },
     {
@@ -223,6 +255,14 @@
         "hover": "neon edge glow",
         "scope": "Hero GitHub button + attached accessible repo panel",
         "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
+      },
+      "heroDisplayV327": {
+        "composition": "approved neon glass stage",
+        "geometry": "preserved Neon nameplate, turquoise/purple glow and approved portrait rings",
+        "layout": "original Neon baseline spacing and mobile portrait geometry protected",
+        "motion": "slow breathing glow where enabled",
+        "source": "hero-display-layout-v327.css",
+        "status": "committed source; browser visual QA pending"
       }
     },
     {
@@ -263,6 +303,14 @@
         "hover": "violet glow and tilted icon",
         "scope": "Hero GitHub button + attached accessible repo panel",
         "status": "Source implemented; Cloudflare deployment and human visual QA unverified"
+      },
+      "heroDisplayV327": {
+        "composition": "cosmic observatory",
+        "geometry": "nebula star field, violet trajectory rings and luminous portrait framing",
+        "layout": "left cosmic manifesto; right orbital observatory portrait",
+        "motion": "slow orbit on capable hardware",
+        "source": "hero-display-layout-v327.css",
+        "status": "committed source; browser visual QA pending"
       }
     }
   ],
@@ -483,5 +531,31 @@
     "accessibility": "ARIA disclosure, keyboard ArrowDown and Escape, focus restoration, touch click, contrast, reduced motion and forced colors",
     "verified": "38/38 source and simulated interaction tests; 10/10 release integration checks",
     "releasePromotionApproved": false
+  },
+  "heroDisplayV327": {
+    "version": "3.27.0",
+    "branch": "preview-personalweb",
+    "architecture": "One reusable preview-only engine reads six immutable theme profiles and mounts a single aria-hidden decorative stage on the existing hero",
+    "modules": [
+      "headline",
+      "introduction",
+      "actions",
+      "portrait",
+      "theme-scene",
+      "decorative-frame"
+    ],
+    "assets": [
+      "hero-display-engine-v327.js",
+      "hero-display-layout-v327.css"
+    ],
+    "contentPreservation": "Existing heading, copy, CTA, intro-video tile, GitHub explorer and portrait are not replaced",
+    "themeSync": "Existing six-theme selector and body data-theme; MutationObserver/resize/media updates",
+    "fallback": "Without JS existing hero markup remains; no new network requests or user data",
+    "accessibility": "Decorative stage pointer-transparent and aria-hidden, keyboard focus rings, reduced-motion/forced-colors/print, low-power and Atmosphere Off",
+    "responsive": "Wide/stacked/compact state with separate mobile portrait/spacing safeguards; approved Neon geometry not overridden",
+    "scope": "Only top hero, not full-page Atmosphere and not any new explorer dialog",
+    "verification": "52/52 reproducible source and simulated DOM checks; human pixel/device acceptance outstanding",
+    "experimentalPreview": true,
+    "productionPromotionApproved": false
   }
 }
