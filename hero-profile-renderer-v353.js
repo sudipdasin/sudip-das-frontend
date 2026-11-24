@@ -13,6 +13,7 @@
   let preferences={};try{const v=JSON.parse(global.localStorage?.getItem(key)||'{}');if(v&&typeof v==='object'){for(const t of Object.keys(defaults))if(valid(v[t]))preferences[t]=v[t];if(v.terminalConsoleV357!==true){preferences.terminal='console';preferences.terminalConsoleV357=true;global.localStorage?.setItem(key,JSON.stringify(preferences))}else preferences.terminalConsoleV357=true}}catch{}
   let svg=null,signature='',profile='native',theme='',geometry=null,visible=true,active=true;
   const old=art.getAttribute('data-hero-profile'),oldClip=core.style.getPropertyValue('--hp-clip');
+  const oldCaptionY=art.style.getPropertyValue('--hp-console-caption-y');
   const oldMotion=art.getAttribute('data-hero-motion'),oldAtmos=art.getAttribute('data-hero-atmosphere');
   const restore=(el,k,v)=>v===null?el.removeAttribute(k):el.setAttribute(k,v);
   const node=(tag,cls)=>{const n=doc.createElement(tag);if(cls)n.className=cls;return n};
@@ -29,7 +30,7 @@
   const getTheme=()=>ctx.bridge?root.dataset.theme||ctx.theme:ctx.theme;
   const getPolicy=()=>global.__wsAtmosphere328?.getShapeMotionPolicy?.()||lib.motionPolicy({quality:root.dataset.atmosphereTier||root.dataset.wspAtmoEffect||'off',reduced:!!global.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches,saveData:!!global.navigator?.connection?.saveData,visible:doc.visibilityState!=='hidden'});
   function motion(){if(profile==='native')return;const p=getPolicy();art.setAttribute('data-hero-motion',p.animated&&visible&&doc.visibilityState!=='hidden'?'running':'static');art.setAttribute('data-hero-atmosphere',p.quality==='off'?'off':p.quality);}
-  function clear(){svg?.remove();svg=null;geometry=null;signature='';restore(art,'data-hero-profile',old);restore(art,'data-hero-motion',oldMotion);restore(art,'data-hero-atmosphere',oldAtmos);if(oldClip)core.style.setProperty('--hp-clip',oldClip);else core.style.removeProperty('--hp-clip')}
+  function clear(){if(oldCaptionY)art.style.setProperty('--hp-console-caption-y',oldCaptionY);else art.style.removeProperty('--hp-console-caption-y');svg?.remove();svg=null;geometry=null;signature='';restore(art,'data-hero-profile',old);restore(art,'data-hero-motion',oldMotion);restore(art,'data-hero-atmosphere',oldAtmos);if(oldClip)core.style.setProperty('--hp-clip',oldClip);else core.style.removeProperty('--hp-clip')}
   function choose(id){const t=getTheme();if(!valid(id)||locked(t)||!active||(id==='console'&&t!=='terminal'))return false;preferences[t]=id;try{global.localStorage?.setItem(key,JSON.stringify(preferences))}catch{}schedule();return true}
   ctx.listen(select,'change',()=>choose(select.value));
   ctx.listen(global,'ws-atmosphere-change',motion);ctx.listen(doc,'visibilitychange',motion);
@@ -67,7 +68,7 @@
    if(next==='console'){
     // Match approved HUD reference: hexagonal portrait frames surrounded by
     // separate true circular tracks, with satellites on the outermost track.
-    hudRadius=Math.max(0,Math.min(cx-14,art.clientWidth-cx-14,cy-12,art.clientHeight-cy-46,Math.max(w,h)*.72));
+    hudRadius=Math.max(0,Math.min(cx-14,art.clientWidth-cx-14,cy-12,art.clientHeight-cy-46,Math.max(w,h)*.65));
     if(hudRadius>Math.max(w,h)*.50){
      const hud=elem('g',{class:'hp-console-hud',transform:'translate('+cx+' '+cy+')'});
      for(const [scale,cls] of [[1,'hp-hud-outer'],[.925,'hp-hud-mid'],[.86,'hp-hud-inner']]){
@@ -81,6 +82,7 @@
      anchor=i=>{const p=dock.pointAt(i);return {x:p.x+cx-hudRadius,y:p.y+cy-hudRadius}};
     }
    }
+   if(next==='console')art.style.setProperty('--hp-console-caption-y',Math.min(art.clientHeight-36,cy+Math.max(hudRadius,h/2+margin)+12)+'px');
    art.prepend(svg);
    if(next==='hexagon'||next==='squircle'||next==='console'){
     const clip=lib.geometry(frameShape,w,h,0).path.match(/(?:M|L) [-\d.]+ [-\d.]+/g).map(p=>{const [,x,y]=p.split(' ');return (100*Number(x)/w).toFixed(3)+'% '+(100*Number(y)/h).toFixed(3)+'%'}).join(',');
