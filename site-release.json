@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.60.0-terminal-compact-hud",
+  "release": "personal-preview-v3.61.0-bento-grid-repair",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -399,7 +399,9 @@
     "v359-terminal-balanced-hero-rain",
     "v360-terminal-compact-portrait-hud",
     "v360-terminal-calmer-matrix",
-    "v360-caption-follows-hud"
+    "v360-caption-follows-hud",
+    "v361-bento-grid-placement-repair",
+    "v361-bento-action-palette"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1880,5 +1882,24 @@
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
+  },
+  "bentoGridV361": {
+    "sourceCommit": "96be5dc0e8c265f10e0430899ba8e46a839d47be",
+    "cause": "important grid-area reset overrode individual grid-column and grid-row",
+    "chromium": "isolated grid declaration reproduction passed eight viewport widths; not full website",
+    "viewportWidths": [
+      1778,
+      1440,
+      1101,
+      1024,
+      768,
+      600,
+      390,
+      320
+    ],
+    "liveBrowser": "NOT_RUN: hostname could not resolve",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only",
+    "terminal": "unchanged"
   }
 }
