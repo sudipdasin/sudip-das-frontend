@@ -16,7 +16,6 @@
   const KEY='webstudio-atmosphere-preference-v322';
   const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)');
   const contrast=window.matchMedia?.('(forced-colors: active)');
-  const dataSave=Boolean(navigator.connection?.saveData);
   const mem=Number(navigator.deviceMemory)||0;
   const cores=Number(navigator.hardwareConcurrency)||0;
   const slowDevice=(mem>0&&mem<2)||(cores>0&&cores<=2);
@@ -79,7 +78,7 @@
   hero.prepend(layer);
   const power=()=>({
     mobile:window.innerWidth<740,
-    saveData:Boolean(navigator.connection?.saveData)||dataSave,
+    saveData:Boolean(navigator.connection?.saveData),
     reduced:Boolean(reduced?.matches),
     forced:Boolean(contrast?.matches)
   });
@@ -345,7 +344,7 @@
     getStatus:()=>Object.freeze({mode,effective,renderer,theme:document.body.dataset.theme,
       degraded,lowPower:slowDevice,saveData:power().saveData,reducedMotion:power().reduced}),
     setMode:choose,
-    stop:()=>{stopped=true;destroyCanvas();layer.hidden=true;document.body.dataset.atmosphereTier='off';}
+    stop:()=>choose('off')
   });
   synchronize();
 })();
