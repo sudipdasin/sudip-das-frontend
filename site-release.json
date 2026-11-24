@@ -610,7 +610,7 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "52/52 Hero Display source+mock DOM checks",
+    "sourceVerification": "54/54 Hero Display source and simulated DOM checks",
     "liveBrowserVerification": "UNVERIFIED; browser screenshots required",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
@@ -1027,7 +1027,7 @@
       "actionCompatibility": "Interactive video, GitHub, links and buttons remain unmodified"
     },
     "verification": {
-      "reproducibleOffline": "52/52 source and simulated browser checks passed",
+      "reproducibleOffline": "54/54 source and simulated DOM assertions passed, including Neon mobile lock and Atmosphere Off guards",
       "testScript": "scripts/verify-hero-display-v327.mjs",
       "browserVisualStatus": "NOT VERIFIED — Cloudflare preview inaccessible to current verification source",
       "responsiveScreenshots": "NOT RUN; human CI requested",
