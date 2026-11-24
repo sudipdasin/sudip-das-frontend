@@ -685,3 +685,67 @@ body[data-theme="aurora-peak"]:is([data-atmosphere-tier="off"],[data-atmosphere-
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art::after{inset:-6px!important}
  body.ws-parity[data-theme="aurora-peak"] .ap-landscape{box-shadow:0 0 0 3px #c5e1c90a!important}
 }
+
+/* v3.45 — background-only art direction. No layout, frame, portrait or text changes.
+   Restore the existing alpine horizon artwork beneath the current scenic layers. */
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero::before{
+ background:
+  linear-gradient(90deg,#071e29ed 0%,#102c38cc 36%,#12374648 72%,#0b273744 100%),
+  radial-gradient(ellipse at 78% 45%,#73b8a32b,transparent 58%),
+  url("aurora-reference-horizon.svg") center bottom / cover no-repeat,
+  linear-gradient(155deg,#0a2536,#234a50 62%,#102e39)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-haze{
+ background:radial-gradient(ellipse at 76% 28%,#93e6c725,transparent 53%),
+ radial-gradient(ellipse at 93% 8%,#a5b6ed24,transparent 42%),
+ linear-gradient(180deg,transparent 30%,#a7cfcb12 70%,transparent)!important;
+ opacity:.58;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-grain{
+ background:repeating-linear-gradient(174deg,transparent 0 79px,#c5e5d308 80px,transparent 81px)!important;
+ opacity:.25;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-landscape{
+ background:
+ radial-gradient(ellipse at 50% 60%,#72bea519,transparent 56%),
+ linear-gradient(180deg,#0d293b 0%,#245364 42%,#284f50 68%,#102d30 100%)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-sky{
+ background:
+ radial-gradient(ellipse at 50% 78%,#deb99036,transparent 45%),
+ linear-gradient(180deg,#0b243a80 0%,#184e5550 51%,#193e3e80 100%),
+ url("aurora-reference-horizon.svg") 58% bottom / cover no-repeat,
+ #143647!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-halo{
+ background:radial-gradient(circle,#f9dfb53c 0%,#a7e5c628 38%,transparent 73%)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-ridge-back{
+ background:linear-gradient(146deg,#b3d4d3 0%,#759fa6 22%,#456b7b 51%,#284952 83%)!important;
+ opacity:.76;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-ridge-mid{
+ background:linear-gradient(156deg,#6c9d99 0%,#426c70 39%,#20484d 83%)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-ridge-front{
+ background:linear-gradient(162deg,#426e63 0%,#214c47 43%,#102e34 85%)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-mist{
+ background:linear-gradient(180deg,transparent,#c4ded130 60%,#a4d8c10b)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-curtain{
+ background:linear-gradient(100deg,transparent 8%,#68efae78 26%,#7df6cfad 46%,#a6a6f665 68%,transparent 92%);
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-curtain-1{
+ background:linear-gradient(95deg,transparent,#5de4b177,#9cb7ff7d,#cba3e752,transparent);
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-fx-curtain-2{
+ background:linear-gradient(90deg,transparent,#b9f2bd75,#50ddbc68,transparent);
+}
+@media(max-width:900px){
+ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero::before{
+  background:linear-gradient(180deg,#071f2ce8 0%,#102e3bd9 42%,#12374644 83%,#0a2639a0),
+  url("aurora-reference-horizon.svg") 65% bottom / cover no-repeat,
+  #123746!important;
+ }
+}
