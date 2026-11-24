@@ -13,7 +13,8 @@
   terminal:Object.freeze({accent:'#73ffa9',surface:'#081d16',ink:'#e2ffe9',geometry:'square',motion:'cursor'}),
   'aurora-peak':Object.freeze({accent:'#dce8ad',surface:'#1c3c32',ink:'#f2f7e8',geometry:'arch',motion:'mist'}),
   'neon-studio':Object.freeze({accent:'#61f5e4',surface:'#0d273a',ink:'#edfbff',geometry:'glass',motion:'glow'}),
-  'design-2':Object.freeze({accent:'#d2c0ff',surface:'#1a1a42',ink:'#f7f1ff',geometry:'prism',motion:'stars'})
+  'design-2':Object.freeze({accent:'#d2c0ff',surface:'#1a1a42',ink:'#f7f1ff',geometry:'prism',motion:'stars'}),
+  bento:Object.freeze({accent:'#91b5ff',surface:'#24282d',ink:'#f4f0e9',geometry:'bento',motion:'card-light'})
  });
  const LOCALES=Object.freeze(['en','hi','bn','es','fr','de','pt','ar','zh-CN','ja']);
  const MODES=Object.freeze(['auto','cinematic','balanced','eco','off']);
