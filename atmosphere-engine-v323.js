@@ -178,7 +178,7 @@
       preserveDrawingBuffer:false,powerPreference:'high-performance'
     });
     if(!gl)throw new Error('WebGL2 not available');
-    const src=window.__wsAtmosphereShaders322;
+    const src=window.__wsAtmosphereShaders323;
     if(!src)throw new Error('shader bundle absent');
     const vs=compile(gl,gl.VERTEX_SHADER,src.vertex),fs=compile(gl,gl.FRAGMENT_SHADER,src.fragment);
     program=gl.createProgram();
