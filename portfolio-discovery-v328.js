@@ -32,7 +32,7 @@ const reset=el('button','project-filter-reset','Clear filters');reset.type='butt
 const status=el('p','project-discovery-status');status.setAttribute('role','status');
 status.setAttribute('aria-live','polite');status.setAttribute('aria-atomic','true');
 panel.append(label,input,focus,sort,reset,status);grid.id='portfolio-project-grid';grid.before(panel);
-let shown=cards.length,previous='';
+let shown=cards.length,previous='',lastSort='';
 const count=()=>({shown,total:index.length,focus:focus.value,sort:sort.value,query:input.value.trim()});
 function update(){
  const terms=norm(input.value).split(/\s+/).filter(Boolean),kind=focus.value;let visible=0;
@@ -43,7 +43,7 @@ function update(){
  }
  shown=visible;
  const ordering=sort.value==='az'?index.slice().sort((a,b)=>a.title.localeCompare(b.title)):index;
- for(const row of ordering)grid.append(row.card);
+ if(sort.value!==lastSort){for(const row of ordering)grid.append(row.card);lastSort=sort.value;}
  const message=visible===0?'No matching projects. Try a different search.':visible+' of '+index.length+' projects shown';
  if(status.textContent!==message)status.textContent=message;
  reset.disabled=!input.value&&focus.value==='all'&&sort.value==='original';
@@ -58,7 +58,12 @@ document.addEventListener('profile-language-change',()=>Promise.resolve().then(u
 window.__wsPortfolio328=Object.freeze({
  getStatus:()=>Object.freeze(count()),
  focusSearch:()=>{input.focus();input.scrollIntoView({block:'center',behavior:window.matchMedia?.('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})},
- reset:()=>{input.value='';focus.value='all';sort.value='original';update()}
+ reset:()=>{input.value='';focus.value='all';sort.value='original';update()},
+ setFocus:kind=>{if(!['all','linux','ai','web'].includes(kind))return false;focus.value=kind;update();return true},
+ setSort:order=>{if(!['original','az'].includes(order))return false;sort.value=order;update();return true},
+ search:query=>{if(typeof query!=='string')return false;input.value=query.slice(0,120);update();return true},
+ capabilities:Object.freeze(['search','focus-filter','name-sort','reset','keyboard','public-only']),
+ version:'3.30.0'
 });
 update();
 })();
