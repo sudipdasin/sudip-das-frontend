@@ -118,6 +118,25 @@
         Boolean(badge&&badge.textContent.trim().split('/').length===2&&badge.textContent.trim().endsWith('/20'))]);
     }
     if(id==='aurora-peak') {
+      const connectLink=document.querySelector('.topbar .navlinks a.nav-cta');
+      const galleryLaunch=document.querySelector('.topbar .pv-theme-launch');
+      const trail=document.querySelector('.hero-art .ap-trail-mark');
+      const caption=document.querySelector('.hero-art .portrait-caption');
+      const toHex=value=>{
+        const parts=(value||'').match(/[0-9]+(?:\\.[0-9]+)?/g);
+        if(!parts||parts.length<3)return '';
+        return '#'+parts.slice(0,3).map(n=>Math.min(255,Math.max(0,Math.round(Number(n)))).toString(16).padStart(2,'0')).join('');
+      };
+      const linkColors=connectLink?getComputedStyle(connectLink):null;
+      const galleryColors=galleryLaunch?getComputedStyle(galleryLaunch):null;
+      const navContrast=linkColors?contrast(toHex(linkColors.backgroundColor),toHex(linkColors.color)):0;
+      checks.push(['Alpine header CTA contrast 4.5:1 or better',navContrast>=4.5]);
+      checks.push(['Theme Library uses alpine material',
+        Boolean(galleryColors&&galleryColors.backgroundImage.includes('linear-gradient')&&
+          toHex(galleryColors.color)==='#18332b')]);
+      if(innerWidth>600)checks.push(['Trail note and portrait caption do not overlap',
+        Boolean(trail&&caption&&!intersects(trail.getBoundingClientRect(),caption.getBoundingClientRect()))]);
+
       const landscape=document.querySelector('.hero-art .ap-landscape');
       const portrait=document.querySelector('.hero-art .core');
       const orbit=document.querySelector('.hero-art .orbit');
