@@ -17,7 +17,7 @@
   ja:['雰囲気','自動','シネマ','バランス','省電力','オフ','軽量CSSライティング']
  };
  const plugin={
-  id:'atmosphere',version:'3.53.0',priority:0,
+  id:'atmosphere',version:'3.56.0',priority:0,
   mount(ctx){
    const native=Boolean(ctx.bridge&&global.__wsAtmosphere328?.getStatus);
    const root=ctx.root,doc=ctx.document;
@@ -54,7 +54,7 @@
     if(native){
      const info=global.__wsAtmosphere328?.getStatus?.()||{};
      return {bridge:true,quality:info.mode||'auto',effective:info.effective||'off',
-      renderer:info.renderer||'off',regionCount:info.regionCount||0,shapeProfile:shapeProfile(),shapeVisualActivation:shapeProfile()?.visualActivation||'native'};
+      renderer:info.renderer||'off',regionCount:info.regionCount||0,matrixRain:info.matrixRain||null,shapeProfile:shapeProfile(),shapeVisualActivation:shapeProfile()?.visualActivation||'native'};
     }
     const mode=ctx.host.getStatus().quality;
     const reduced=global.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -86,7 +86,7 @@
     else root.setAttribute('data-wsp-atmo-effect',old);
    });
    render();
-   return {api:Object.freeze({setMode:m=>ctx.host.setQuality(m),getStatus:status,getShapeProfile:shapeProfile,getShapeMotionPolicy:shapeMotion,getAvailableShapeProfiles:()=>global.WebStudioHeroShapes352?.profiles||null}),update:render};
+   return {api:Object.freeze({setMode:m=>ctx.host.setQuality(m),getStatus:status,setMatrixEffect:id=>native&&global.__wsAtmosphere328?.setMatrixEffect?.(id)||false,getMatrixStatus:()=>native?global.__wsAtmosphere328?.getMatrixStatus?.()||null:null,getShapeProfile:shapeProfile,getShapeMotionPolicy:shapeMotion,getAvailableShapeProfiles:()=>global.WebStudioHeroShapes352?.profiles||null}),update:render};
   }
  };
  (global.WebStudioPlugins331||(global.WebStudioPlugins331=Object.create(null))).atmosphere=Object.freeze(plugin);
