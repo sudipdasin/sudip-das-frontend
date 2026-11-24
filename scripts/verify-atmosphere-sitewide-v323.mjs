@@ -59,6 +59,8 @@ const nav={deviceMemory:8,hardwareConcurrency:8,connection:{saveData:false,addEv
 const state=new Map(),storage={getItem:k=>state.get(k)||null,setItem:(k,v)=>state.set(k,v)};
 let tasks=[],number=0;
 runInNewContext(engine,{window:win,document:doc,navigator:nav,localStorage:storage,requestAnimationFrame:f=>{tasks.push({id:++number,f});return number},cancelAnimationFrame:id=>{tasks=tasks.filter(t=>t.id!==id)},CustomEvent:class{constructor(k,o){this.type=k;this.detail=o?.detail}},ResizeObserver:class{observe(){}}},{timeout:2000});
+// Site theme manager changes body theme before the atmosphere listener observes it.
+picker.addEventListener('change',()=>{body.dataset.theme=picker.value});
 const app=win.__wsAtmosphere323;
 check('Starts on GPU',app.getStatus().renderer==='gpu');
 check('One global layer',body.children.length===1&&body.children[0].className.includes('ws-atmo-sitewide'));
@@ -80,4 +82,15 @@ check('Cinematic restarts GPU after Off',app.getStatus().renderer==='gpu');
 const q=tasks.splice(0);for(const t of q)t.f(1400);
 check('Shader receives Contact section uniform',gpu.uniforms.u_section===5);
 check('Canvas resolution remains capped',body.children[0].children[0].width<=1152&&body.children[0].children[0].height<=704);
+picker.value='aurora-peak';picker.fire('change');
+check('Theme switch works at Contact without returning to hero',app.getStatus().theme==='aurora-peak'&&app.getStatus().section==='contact');
+let afterTheme=tasks.splice(0);for(const t of afterTheme)t.f(1800);
+check('GPU fragment receives Aurora theme index',gpu.uniforms.u_theme===4);
+picker.value='terminal';picker.fire('change');
+check('Terminal switch keeps sitewide scope',app.getStatus().theme==='terminal'&&app.getStatus().scope==='sitewide');
+afterTheme=tasks.splice(0);for(const t of afterTheme)t.f(2000);
+check('GPU fragment receives Terminal theme index',gpu.uniforms.u_theme===3);
+picker.value='neon-studio';picker.fire('change');
+check('Returning to Neon preserves current section',app.getStatus().theme==='neon-studio'&&app.getStatus().section==='contact');
+
 console.log('PASS '+success.length+'/'+success.length+' Atmosphere v3.23 simulated and source checks; physical GPU/browser verification pending.');
