@@ -16,7 +16,7 @@
  };
  const layout={
   orbit:'orbital',editorial:'folio',terminal:'console','aurora-peak':'alpine',
-  'neon-studio':'atelier','design-2':'observatory'
+  'neon-studio':'atelier','design-2':'observatory',bento:'bento'
  };
  const plugin={
   id:'hero',version:'3.31.0',priority:-10,
