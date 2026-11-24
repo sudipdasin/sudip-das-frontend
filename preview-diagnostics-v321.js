@@ -76,6 +76,14 @@
      add('Atmosphere Off uses no render canvas',Boolean(ambient?.hidden&&!ambient.querySelector('canvas')));
    if(atmosphere?.effective==='eco')
      add('Eco avoids GPU and Canvas 2D',Boolean(atmosphere.renderer==='css'&&!ambient?.querySelector('canvas')));
+   // No API call is made by diagnostics; inspect only visible widget state.
+   const github=window.__wsGithubHero324?.getStatus?.();
+   const ghButton=document.getElementById('gh-hero-trigger');
+   const ghPanel=document.getElementById('gh-hero-panel');
+   add('GitHub hero explorer initialized',Boolean(github&&ghButton&&ghPanel));
+   add('GitHub hero has accessible disclosure',Boolean(ghButton?.getAttribute('aria-controls')==='gh-hero-panel'&&ghPanel?.getAttribute('role')==='region'));
+   add('GitHub preview open state synchronized',Boolean(github&&String(github.open)===ghButton?.getAttribute('aria-expanded')),
+     github?(github.loaded?'Public summaries loaded':'Public summaries not yet requested'):'No widget');
    const missing=elements('img').filter(img=>img.complete&&img.naturalWidth===0&&img.loading!=='lazy');
    add('Loaded non-lazy image elements are valid',missing.length===0,
        missing.length?missing.length+' images could not be decoded':'');
@@ -107,12 +115,12 @@
    const imageErrors=missing.length;
    const passed=checks.filter(x=>x.pass).length;
    last={
-     schemaVersion:1,release:'preview-v3.23',time:new Date().toISOString(),
+     schemaVersion:1,release:'preview-v3.24',time:new Date().toISOString(),
      site:location.origin+location.pathname,
      theme,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
      userAgent:navigator.userAgent,
      checks,passed,total:checks.length,failed:checks.length-passed,imageErrors,
-     atmosphere:atmosphere||null,
+     atmosphere:atmosphere||null, githubHero:github||null,
      note:'Browser structural diagnostics, not a pixel or end-to-end verification.'
    };
    text.textContent=checks.map(x=>(x.pass?'PASS ':'FAIL ')+x.name+(x.details?' — '+x.details:'')).join('\n');
@@ -123,7 +131,7 @@
    const blob=new Blob([JSON.stringify(last,null,2)+'\n'],{type:'application/json'});
    const url=URL.createObjectURL(blob);
    const anchor=document.createElement('a');
-   anchor.href=url;anchor.download='webstudio-preview-diagnostics-v3.23.json';
+   anchor.href=url;anchor.download='webstudio-preview-diagnostics-v3.24.json';
    document.body.append(anchor);anchor.click();anchor.remove();
    setTimeout(()=>URL.revokeObjectURL(url),1500);
    status.textContent='Local diagnostic report saved. Attach it with screenshots.';
