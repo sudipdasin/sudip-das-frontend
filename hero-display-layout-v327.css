@@ -12,7 +12,7 @@ body.ws-parity main>.hero.hd-hero{
   display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
   grid-template-areas:"hd-copy hd-art";align-items:center;
   column-gap:clamp(25px,4.2vw,79px);row-gap:24px;
-  padding-block:clamp(58px,6vw,96px)!important;
+  padding-block:clamp(58px,6vw,96px);
 }
 body.ws-parity main>.hero.hd-hero>.hero-text{
   grid-area:hd-copy;position:relative;z-index:35;min-width:0;
@@ -280,7 +280,8 @@ body.ws-parity[data-theme="neon-studio"] main>.hero.hd-hero{
   --hd-accent:#83f1ed;--hd-secondary:#b38cff;--hd-surface:#0b2c3bce;
   --hd-edge:#7fb3e76b;--hd-ink:#edf8ff;--hd-muted:#b9dcf0;
   --hd-spot:#49edf146;
-  grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  /* Preserve the existing approved Neon portrait spacing and fixed geometry. */
+  grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
   gap:clamp(28px,4vw,68px);
 }
 body.ws-parity[data-theme="neon-studio"] main>.hero.hd-hero .hd-haze{
@@ -356,7 +357,7 @@ body.ws-parity[data-theme="design-2"] main>.hero.hd-hero[data-hd-motion="ambient
 }
 /* ── Shared responsive layout: always preserve content order and touch targets ── */
 @media(max-width:1040px){
- body.ws-parity main>.hero.hd-hero{
+ body.ws-parity:not([data-theme="neon-studio"]) main>.hero.hd-hero{
   grid-template-columns:minmax(0,1fr)!important;
   grid-template-areas:"hd-copy" "hd-art"!important;
   justify-items:stretch!important;gap:clamp(15px,3vw,30px)!important;
@@ -370,7 +371,7 @@ body.ws-parity[data-theme="design-2"] main>.hero.hd-hero[data-hd-motion="ambient
  body.ws-parity main>.hero.hd-hero>.hero-text{
   width:100%;max-width:730px;margin-inline:auto;
  }
- body.ws-parity main>.hero.hd-hero>.hero-art{
+ body.ws-parity:not([data-theme="neon-studio"]) main>.hero.hd-hero>.hero-art{
   width:100%;max-width:640px;margin-inline:auto;min-height:420px;
  }
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{
@@ -388,7 +389,7 @@ body.ws-parity[data-theme="design-2"] main>.hero.hd-hero[data-hd-motion="ambient
  body.ws-parity main>.hero.hd-hero .hd-edition{top:8px}
 }
 @media(max-width:620px){
- body.ws-parity main>.hero.hd-hero{
+ body.ws-parity:not([data-theme="neon-studio"]) main>.hero.hd-hero{
   width:min(100% - 34px,var(--max,1160px))!important;
   padding:64px 0 48px!important;gap:8px!important;
  }
@@ -417,7 +418,7 @@ body.ws-parity[data-theme="design-2"] main>.hero.hd-hero[data-hd-motion="ambient
  body.ws-parity main>.hero.hd-hero .hd-trace,
  body.ws-parity main>.hero.hd-hero .hd-art-frame,
  body.ws-parity main>.hero.hd-hero .hd-marker{display:none!important}
- body.ws-parity main>.hero.hd-hero>.hero-art{
+ body.ws-parity:not([data-theme="neon-studio"]) main>.hero.hd-hero>.hero-art{
   width:100%;max-width:100%;min-height:305px!important;
  }
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{
@@ -439,8 +440,15 @@ body.ws-parity[data-theme="design-2"] main>.hero.hd-hero[data-hd-motion="ambient
 }
 @media(max-width:390px){
  body.ws-parity main>.hero.hd-hero .hd-edition-index{font-size:.52rem}
- body.ws-parity main>.hero.hd-hero>.hero-art{min-height:280px!important}
+ body.ws-parity:not([data-theme="neon-studio"]) main>.hero.hd-hero>.hero-art{min-height:280px!important}
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{min-height:305px!important;height:305px!important}
+}
+/* The locked Neon mobile reference stacks at 980px. Match its grid areas,
+   but never override its portrait/nameplate dimensions or existing padding. */
+@media(max-width:980px){
+ body.ws-parity[data-theme="neon-studio"] main>.hero.hd-hero{
+  grid-template-areas:"hd-copy" "hd-art"!important;
+ }
 }
 /* ── Accessibility, low-power & atmospheric integration ── */
 body.ws-parity main>.hero.hd-hero[data-hd-motion="still"] .hd-stage *,
