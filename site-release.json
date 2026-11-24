@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.17.0-recruiter-human-ci-breakthrough",
+  "release": "personal-preview-v3.18.1-aurora-peak-alpine-edition",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -141,7 +141,19 @@
     "real-browser-geometry-overflow-probes",
     "real-browser-editorial-note-photo-intersection-check",
     "theme-audit-json-download",
-    "responsive-six-theme-review-surfaces"
+    "responsive-six-theme-review-surfaces",
+    "aurora-peak-alpine-sunrise-unique-theme",
+    "aurora-peak-layered-mountains-and-mist",
+    "aurora-peak-arched-portrait",
+    "aurora-peak-field-notes-and-trail-labels",
+    "aurora-peak-forest-lichen-apricot-palette",
+    "aurora-peak-distinct-nav-and-cards",
+    "aurora-peak-responsive-320px-1920px-rules",
+    "aurora-peak-subtle-ambient-motion-with-pause",
+    "aurora-peak-reduced-motion-compliance",
+    "aurora-peak-safe-mount-unmount",
+    "aurora-peak-contrast-and-layout-audit",
+    "human-ci-v3.18-fresh-build-review"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -487,7 +499,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.17-human-ci-review-ready-source",
+    "stage": "v3.18-aurora-peak-human-visual-review",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -523,15 +535,9 @@
       "v3.17 computed theme contrast/overflow/geometry checks plus JSON export",
       "v3.17 responsive six-theme reviewer and shortlist interface"
     ],
-    "verification": {
-      "sourceStatic": "25/25 invariants passed against committed preview branch",
-      "simulatedRuntime": "10/10 project shortlist interaction tests passed in minimal DOM mock",
-      "jsParsing": "All three new or changed preview scripts parsed",
-      "browserChromium": "NOT RUN against deployed site",
-      "cloudflareDeployment": "NOT VERIFIED",
-      "circleci": "Intentionally suppressed for preview-personalweb; policy preserved",
-      "visualReview": "Human CI required across all six themes"
-    }
+    "verification": "Source/runtime mock verified; deployed site and actual responsive rendering not independently verified",
+    "currentHumanFeedbackFile": "webstudio-human-ci-v3.18.json",
+    "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation"
   },
   "themeIdentityRepair": {
     "version": "v3.16.0",
@@ -557,13 +563,46 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.17.0",
+    "version": "3.18.1",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-six-theme-hiring-human-ci-v3.17.0",
+    "buildFingerprint": "preview-aurora-peak-alpine-v3.18.1",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
+  },
+  "auroraPeakAlpineEdition": {
+    "version": "3.18.1",
+    "sourceBranch": "preview-personalweb",
+    "previousRelease": "personal-preview-v3.17.0-recruiter-human-ci-breakthrough",
+    "scope": "Aurora Peak only; preserve all other five themes and real personal content",
+    "palette": {
+      "forest": "#081b20",
+      "panel": "#15352f",
+      "lichen": "#d8e5ae",
+      "text": "#f5f7ed",
+      "sunrise": "#f5ba96"
+    },
+    "keyChanges": [
+      "Layered animated mountain skyline using local CSS polygons and gradients",
+      "Portrait shifted from circular orbital treatment to 4:5 alpine arch",
+      "New field-notes label, practical technology statement and alpine trail-marker badges",
+      "Georgia editorial hero heading and softened dawn palette",
+      "Alpine nav, ticker, project, connect, shortlist and discovery styling",
+      "Accessible local pause/resume atmosphere button with prefers-reduced-motion enforcement",
+      "CSS breakpoint coverage for tablet and narrow mobile"
+    ],
+    "verification": {
+      "staticChecks": "29/29 verified on committed v3.18 source before optional motion enhancements",
+      "mockRuntime": "12/12 mount/unmount and motion toggle scenarios passed with simulated DOM",
+      "cssSyntax": "Balanced brackets, parentheses, strings and comments; manual static scan",
+      "textContrast": "12.27:1 on forest surface; accent/surface 9.95:1 calculated for chosen palette",
+      "realBrowser": "NOT TESTED",
+      "cloudflare": "NOT VERIFIED: preview URL inaccessible from current environment",
+      "circleci": "Branch remains excluded from paid CircleCI jobs"
+    },
+    "humanCI": "Pending manual review at testing URL; export webstudio-human-ci-v3.18.json",
+    "approvalForProduction": false
   }
 }
