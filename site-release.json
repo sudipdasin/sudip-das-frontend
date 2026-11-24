@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.58.0-terminal-hud-reference-repair",
+  "release": "personal-preview-v3.59.0-obsidian-bento-terminal-balance",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -393,7 +393,10 @@
     "v357-exact-chamfered-corner-nodes",
     "v358-terminal-cascade-fix",
     "v358-hex-portrait-circular-hud",
-    "v358-pronounced-matrix-rain"
+    "v358-pronounced-matrix-rain",
+    "v359-obsidian-bento-freelancer",
+    "v359-adaptive-card-lighting",
+    "v359-terminal-balanced-hero-rain"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1838,6 +1841,30 @@
     "localChromium": "6 viewport isolated CSS-cascade reproductions passed; not full page",
     "liveBrowser": "NOT_RUN: DNS resolution failed",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "obsidianBentoV359": {
+    "sourceCommit": "ee49f04750f2945a382ec72ede844d9b7c1e7ec3",
+    "theme": "bento",
+    "themeCount": 7,
+    "sourceAndSyntheticAssertions": 44,
+    "originalPortrait": true,
+    "actualPortfolioRoutes": true,
+    "newArtwork": [
+      "bento-orbit-art-v359.svg",
+      "bento-work-art-v359.svg"
+    ],
+    "terminal": {
+      "desktopPhotoCapPx": 430,
+      "classicRainLayerOpacity": 0.56
+    },
+    "limitations": [
+      "Full browser visual validation not performed",
+      "Live deployment not independently confirmed",
+      "New Bento card copy English; theme name supported in ten locale selectors",
+      "Legacy private index not switched to preview entry point",
+      "Legacy six-theme visual audit not expanded"
+    ],
     "stage": "preview-only"
   }
 }
