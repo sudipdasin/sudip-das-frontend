@@ -37,7 +37,7 @@
    trigger.className='wsp-quick-trigger';
    trigger.setAttribute('aria-expanded','false');
    const popup=doc.createElement('nav');popup.className='wsp-quick-popup';
-   popup.hidden=true;popup.id='wsp-quick-popup';
+   popup.hidden=true;popup.id=ctx.uid+'-popup';
    trigger.setAttribute('aria-controls',popup.id);
    const head=doc.createElement('strong'),links=doc.createElement('div');links.className='wsp-quick-links';
    const themeTitle=doc.createElement('strong'),themes=doc.createElement('div');themes.className='wsp-quick-themes';
