@@ -84,7 +84,7 @@
  const buttons={};
  const actions=[
   ['hero','intro',()=>document.getElementById('top')?.scrollIntoView({behavior:motionSafe()?'auto':'smooth',block:'start'})],
-  ['atmosphere','settings',()=>{const control=document.getElementById('ws-atmosphere-control');const sum=control?.querySelector('summary');if(control&&sum){control.open=true;sum.focus({preventScroll:true});control.scrollIntoView({block:'nearest'});}}],
+  ['atmosphere','settings',()=>{const control=document.getElementById('ws-atmosphere-control');const sum=control?.querySelector('summary');if(control&&sum){const quickPanel=document.getElementById('ws-visitor-quick-panel');if(quickPanel&&!quickPanel.hidden)document.getElementById('ws-visitor-quick-open')?.click();control.open=true;sum.focus({preventScroll:true});control.scrollIntoView({block:'nearest'});}}],
   ['theme','browse',()=>document.getElementById('pv-theme-launch')?.click()],
   ['quick','tour',()=>document.getElementById('ws-tour-start')?.click()],
   ['portfolio','find',()=>{const trigger=document.getElementById('ws-visitor-quick-open');const panel=document.getElementById('ws-visitor-quick-panel');if(panel&&!panel.hidden)trigger?.click();window.__wsPortfolio328?.focusSearch?.();}]
@@ -199,7 +199,7 @@
    selectedTheme:body.dataset.theme===id && picker.value===id,
    themeIdentity:body.dataset.ws29Theme===id,
    heroGeometry:Boolean(headline?.width>5&&headline.height>5&&portrait?.width>5&&portrait.height>5),
-   heroEngine:window.__wsHeroDisplay327?.getStatus?.().theme===id,
+   heroEngine:window.__wsHeroDisplay327?.getStatus?.()?.theme===id,
    atmosphereTheme:atmosphere?.theme===id,
    themeEngine:mesh?.theme===id,
    quickMenu:have('quick'),
