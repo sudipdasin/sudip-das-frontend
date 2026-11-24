@@ -168,7 +168,13 @@
     "aurora-peak-review-mobile-label-layout",
     "human-ci-compact-v3.20-release-marker",
     "human-ci-no-carryover-of-stale-passes",
-    "aurora-browser-cta-contrast-and-collision-probes"
+    "aurora-browser-cta-contrast-and-collision-probes",
+    "aurora-v320-high-contrast-header-cta",
+    "aurora-v320-lichen-theme-library-trigger",
+    "aurora-v320-portrait-trail-label-separation",
+    "human-ci-v320-compact-progress-badge",
+    "human-ci-v320-new-build-checklist-reset",
+    "aurora-v320-screenshot-regression-source-gate"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -514,7 +520,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.20-aurora-screenshot-visual-retest",
+    "stage": "v3.20-aurora-screenshot-human-review",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -531,8 +537,8 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "Source-level verification only; no real browser screenshot test yet",
-    "liveBrowserVerification": "NOT VERIFIED; preview unavailable from external browser",
+    "sourceVerification": "28/28 v3.20 Aurora screenshot assertions passed against fetched repo sources",
+    "liveBrowserVerification": "Unverified: Cloudflare site inaccessible",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
@@ -661,6 +667,38 @@
     "sourceVerification": "Final static checks required after manifest commit; new JS parsing and CSS brace balance performed before integration",
     "deployedBrowser": "Not independently verified; Cloudflare preview URL inaccessible from available browser tool",
     "manualReview": "Confirm Review v3.20 badge and inspect at screenshot size and narrow device widths",
+    "productionPromotionApproved": false
+  },
+  "auroraScreenshotPolish": {
+    "version": "3.20.0",
+    "source": "User-provided Aurora Peak screenshot (1768 × 864, 2026-11-24)",
+    "reportedIssues": [
+      "Header 'Let's connect' text had insufficient contrast against pale fill",
+      "Theme Library trigger retained bright cyan from generic palette",
+      "Lower portrait caption overlapped the decorative trail legend",
+      "Human CI launcher showed a long status banner instead of the intended compact counter"
+    ],
+    "remediation": [
+      "Aurora-only dark ink/lichen header CTA and matched Theme Library trigger",
+      "Distinct left/right narrow footnote and bounded portrait caption layout, with mobile hiding ornamental label",
+      "Human CI button displays a short N/20 counter; full result details remain inside the panel",
+      "New v3.20 review key protects against inherited passing results"
+    ],
+    "sourceFiles": [
+      "aurora-peak-review-polish-v320.css",
+      "human-ci-preview-v1.js",
+      "index.html",
+      "scripts/verify-aurora-screenshot-v320.mjs"
+    ],
+    "verified": {
+      "source": "28/28 assertions passed using fetched GitHub preview source and a JS evaluation harness",
+      "nodeCLIScript": "Committed; not independently run as a Node process",
+      "realBrowser": "NOT VERIFIED",
+      "screenshotComparison": "PENDING new human CI screenshot",
+      "cloudflarePreview": "NOT DIRECTLY ACCESSIBLE FROM THIS ENVIRONMENT",
+      "circleCI": "Intentionally excluded on preview branch"
+    },
+    "buildFingerprint": "preview-aurora-human-ci-polish-v3.20.0",
     "productionPromotionApproved": false
   }
 }
