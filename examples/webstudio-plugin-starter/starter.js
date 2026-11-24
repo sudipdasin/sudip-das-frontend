@@ -35,6 +35,9 @@
   document.documentElement.lang=lang;
   document.documentElement.dir=lang==='ar'?'rtl':'ltr';
   for(const node of root.querySelectorAll('[data-demo-i18n]'))node.textContent=t(node.dataset.demoI18n);
+  for(const [id,key] of [['introduction','kicker'],['projects','projects'],['capabilities','engines']]){
+   root.querySelector('#'+id)?.setAttribute('data-wsp-label',t(key));
+  }
   output.textContent=statusMessage();
  }
  function statusMessage(){
