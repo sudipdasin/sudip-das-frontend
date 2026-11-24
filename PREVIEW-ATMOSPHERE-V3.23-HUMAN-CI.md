@@ -39,7 +39,7 @@ The new reproducible source and simulated-browser suite:
 node scripts/verify-atmosphere-sitewide-v323.mjs
 ```
 
-**34/34 checks passed** against the committed preview source, covering section selection, eight mount points, scope, capped viewport rendering, GPU shader initialization, scroll to Projects and Contact, Eco/Balanced/Off/Cinematic transitions and return to Cinematic after Off. The regression exercise also exposed and led to correction of a genuine old-shader reference that had silently degraded GPU rendering.
+**39/39 checks passed** against the committed preview source, covering section selection, eight mount points, scope, capped viewport rendering, GPU shader initialization, scroll to Projects and Contact, Eco/Balanced/Off/Cinematic transitions and return to Cinematic after Off. The regression exercise also exposed and led to correction of a genuine old-shader reference that had silently degraded GPU rendering.
 
 The six-theme browser audit now checks that all eight zones exist and the compositor is fixed. Browser diagnostics exports the active section and confirms sitewide coverage. Human CI now has **26 checks**, including a dedicated full-page Atmosphere acceptance requirement.
 
