@@ -1,14 +1,51 @@
-/* Smart Landing v3.35 — reversible WebStudio plugin, with standalone adapter for legacy hosts. */
+/* Smart Landing v3.36 — reversible WebStudio plugin, with standalone adapter for legacy hosts. */
 ((global)=>{'use strict';if(!global)return;
 const words={en:['Projects','Featured project','No matching projects'],hi:['परियोजनाएँ','चुनिंदा परियोजना','कोई मिलती परियोजना नहीं'],bn:['প্রকল্প','নির্বাচিত প্রকল্প','কোনো মিল নেই'],es:['Proyectos','Proyecto destacado','Sin coincidencias'],fr:['Projets','Projet à la une','Aucun résultat'],de:['Projekte','Projekt im Fokus','Keine Treffer'],pt:['Projetos','Projeto em destaque','Sem resultados'],ar:['المشاريع','مشروع مميز','لا توجد نتائج مطابقة'],'zh-CN':['项目','精选项目','没有匹配的项目'],ja:['プロジェクト','注目のプロジェクト','一致するプロジェクトなし']};
 
 const names={en:'Smart Landing',hi:'स्मार्ट लैंडिंग',bn:'স্মার্ট ল্যান্ডিং',es:'Inicio inteligente',fr:'Accueil intelligent',de:'Intelligente Startseite',pt:'Página inicial inteligente',ar:'الواجهة الذكية','zh-CN':'智能首页',ja:'スマートランディング'};
-const plugin={id:'smart-landing',version:'3.35.0',priority:20,dependsOn:['hero','portfolio'],
+const plugin={id:'smart-landing',version:'3.36.0',priority:20,dependsOn:['hero','portfolio'],
  supports:({root})=>Boolean(root.querySelector('#projects .project-grid')&&root.querySelector('.hero .actions')),
  mount(ctx){
  const doc=ctx.document,root=ctx.root,grid=ctx.select('#projects .project-grid'),actions=ctx.select('.hero .actions');
  const owned=new Map();let frame=null,active=true,last={total:0,shown:0,buttons:0};
  const marker='data-wsp-smart-landing',previous=root.getAttribute(marker);
+ const fitMarker='data-wsp-landing-fit',oldFit=root.getAttribute(fitMarker);
+ const hero=actions.closest('.hero'),main=hero?.parentElement;
+ let fitFrame=null,fitResult={mode:'pending',bottom:0,viewport:0};
+ function measure(){
+  const candidates=[hero,...(main?.querySelectorAll(':scope > .ticker,:scope > .ws-value-bar,:scope > .ws-aurora-reference .ws-aurora-feature-grid')||[])];
+  return Math.ceil(Math.max(0,...candidates.filter(n=>n&&n.getClientRects().length).map(n=>n.getBoundingClientRect().bottom+(global.scrollY||0))));
+ }
+ function fit(){
+  if(!active||!hero)return;
+  const viewport=Math.floor(global.visualViewport?.height||global.innerHeight||0);
+  if(!viewport)return;
+  let bottom=0,mode='fallback';
+  for(const level of ['normal','compact','tight']){
+   root.setAttribute(fitMarker,level);bottom=measure();
+   if(bottom<=viewport-8){mode=level;break}
+  }
+  // Retain tight spacing if content genuinely exceeds the viewport. Never hide text,
+  // scale interactive controls or force clipping merely to claim a fit.
+  fitResult={mode,bottom,viewport,overflow:Math.max(0,bottom-viewport)};
+ }
+ function scheduleFit(){
+  if(!active||fitFrame!==null)return;
+  fitFrame=global.requestAnimationFrame(()=>{fitFrame=null;fit()});
+ }
+ ctx.onCleanup(()=>{if(fitFrame!==null)global.cancelAnimationFrame(fitFrame);if(oldFit===null)root.removeAttribute(fitMarker);else root.setAttribute(fitMarker,oldFit)});
+ ctx.listen(global,'resize',scheduleFit,{passive:true});
+ ctx.listen(global.visualViewport,'resize',scheduleFit,{passive:true});
+ ctx.listen(doc,'profile-language-change',scheduleFit);
+ ctx.listen(global,'ws-engine-theme-change',scheduleFit);
+ ctx.listen(doc.getElementById('theme-select'),'change',scheduleFit);
+ if(doc.fonts?.ready)doc.fonts.ready.then(scheduleFit);
+ if(global.ResizeObserver&&hero){
+  const ro=new global.ResizeObserver(scheduleFit);ro.observe(hero);
+  for(const n of main?.querySelectorAll(':scope > .ticker,:scope > .ws-value-bar,:scope > .ws-aurora-reference')||[])ro.observe(n);
+  const header=doc.querySelector('.topbar');if(header)ro.observe(header);
+  ctx.onCleanup(()=>ro.disconnect());
+ }
  root.setAttribute(marker,'active');
  const make=(tag,cls)=>{const n=doc.createElement(tag);n.className=cls;return n};
  const put=(n,v)=>{if(n.textContent!==v)n.textContent=v};
@@ -46,7 +83,7 @@ const plugin={id:'smart-landing',version:'3.35.0',priority:20,dependsOn:['hero',
  put(entry.summary.lastElementChild,card?((isPortfolio?lang[1]+': ':'')+(card.querySelector('h3')?.textContent?.trim()||'')):lang[2]);
  const cells=[...entry.visual.children];cells.forEach((cell,i)=>cell.classList.toggle('is-filled',i<Math.ceil(visible.length/Math.max(cards.length,1)*cells.length)));
  }
- last={total:cards.length,shown:visible.length,buttons:owned.size};
+ last={total:cards.length,shown:visible.length,buttons:owned.size};scheduleFit();
  }
  function schedule(){if(!active||frame!==null)return;frame=global.requestAnimationFrame(()=>{frame=null;render()})}
  function cleanup(){active=false;if(frame!==null)global.cancelAnimationFrame(frame);for(const [button,entry] of owned){release(button,entry)}owned.clear();if(previous===null)root.removeAttribute(marker);else root.setAttribute(marker,previous)}
@@ -57,13 +94,13 @@ const plugin={id:'smart-landing',version:'3.35.0',priority:20,dependsOn:['hero',
  const stage=ctx.select('#profile-showcase');if(stage)observer.observe(stage,{subtree:true,childList:true,characterData:true});
  ctx.listen(doc,'profile-language-change',schedule);ctx.listen(global,'ws-portfolio-filter-change',schedule);
  render();
- return {update:render,api:Object.freeze({refresh:render,getStatus:()=>Object.freeze({...last,active,name:names[ctx.locale]||names.en,version:'3.35.0'})})};
+ return {update:render,api:Object.freeze({refresh:render,getStatus:()=>Object.freeze({...last,fit:{...fitResult},active,name:names[ctx.locale]||names.en,version:'3.36.0'})})};
  }};
 (global.WebStudioPlugins331||(global.WebStudioPlugins331=Object.create(null)))['smart-landing']=Object.freeze(plugin);
 // Legacy private portfolio has no plugin host yet. Run the same lifecycle once.
 if(!global.WebStudioPluginEngine331&&global.document?.body){
  const doc=global.document,root=doc.body,cleanups=[];
- const ctx={document:doc,root,get locale(){return global.profileI18n?.locale||doc.documentElement.lang||'en'},select:s=>root.querySelector(s),onCleanup:fn=>cleanups.push(fn),listen:(node,event,fn)=>{node.addEventListener(event,fn);cleanups.push(()=>node.removeEventListener(event,fn))}};
+ const ctx={document:doc,root,get locale(){return global.profileI18n?.locale||doc.documentElement.lang||'en'},select:s=>root.querySelector(s),onCleanup:fn=>cleanups.push(fn),listen:(node,event,fn,opts)=>{if(!node?.addEventListener)return;node.addEventListener(event,fn,opts);cleanups.push(()=>node.removeEventListener(event,fn,opts))}};
  if(plugin.supports(ctx)){try{const instance=plugin.mount(ctx);global.__wsSmartLanding=Object.freeze({...instance.api,stop:()=>{for(const fn of cleanups.splice(0).reverse())fn()}})}catch(error){for(const fn of cleanups.splice(0).reverse())fn();throw error}}
 }
 })(typeof window!=='undefined'?window:undefined);
