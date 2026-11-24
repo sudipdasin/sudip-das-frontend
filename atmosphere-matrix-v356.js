@@ -10,7 +10,7 @@
  }
  function stream(i,id){const chars=id==='data'?'0101101001100011':alphabet;return Array.from({length:18+(i%7)},(_,j)=>chars[(i*17+j*13+j*j*3)%chars.length]).join('\n')}
  function mount({doc,hero,menu,getPolicy}){
-  const key='ws-atmo-matrix-v356';let choice='off';try{const v=global.localStorage?.getItem(key);if(Object.hasOwn(profiles,v))choice=v}catch{}
+  const key='ws-atmo-matrix-v356';let choice='classic';try{const marker=key+'-console-v357';if(global.localStorage?.getItem(marker)==='true'){const v=global.localStorage?.getItem(key);if(Object.hasOwn(profiles,v))choice=v}else{global.localStorage?.setItem(key,'classic');global.localStorage?.setItem(marker,'true')}}catch{}
   const label=doc.createElement('label');label.className='ws-matrix-control';const title=doc.createElement('span');title.textContent='Digital rain';const select=doc.createElement('select');select.setAttribute('aria-label','Digital rain effect');
   for(const [id,p] of Object.entries(profiles)){const option=doc.createElement('option');option.value=id;option.textContent=p.label;select.append(option)}label.append(title,select);menu.append(label);
   let layer=null,signature='',last=plan('off');let active=true;
