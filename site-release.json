@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.28.2-editorial-hero-actions-manual-qa-pending",
+  "release": "personal-preview-v3.28.3-editorial-hero-action-hierarchy-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -1177,6 +1177,8 @@
     "automaticHostedTestResult": "NOT_RUN",
     "previewDeploymentIndependentOfCI": true,
     "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md",
-    "lastKnownChange": "editorial-hero-actions-v3282.css"
+    "lastKnownChange": "editorial-hero-actions-v3282.css?v=3.28.3",
+    "lastFeedback": "Owner screenshot 2026-11-24: 2x2 geometry visible; refined theme consistency, CTA priority and video affordance",
+    "manualBrowserVerification": "NOT_RUN after v3.28.3"
   }
 }
