@@ -14,7 +14,8 @@
   terminal:Object.freeze({id:'terminal',layout:'console',tone:'phosphor',accent:'#73ffa9',surface:'#071e13',contrast:'#e4ffee',motion:'still',shape:'square'}),
   'aurora-peak':Object.freeze({id:'aurora-peak',layout:'alpine',tone:'sunrise',accent:'#dce8ad',surface:'#173b35',contrast:'#f4f7e8',motion:'mist',shape:'arch'}),
   'neon-studio':Object.freeze({id:'neon-studio',layout:'atelier',tone:'neon',accent:'#61f5e4',surface:'#0d283c',contrast:'#edfaff',motion:'glow',shape:'glass'}),
-  'design-2':Object.freeze({id:'design-2',layout:'observatory',tone:'cosmos',accent:'#d2c0ff',surface:'#16173c',contrast:'#f5f2ff',motion:'stars',shape:'prism'})
+  'design-2':Object.freeze({id:'design-2',layout:'observatory',tone:'cosmos',accent:'#d2c0ff',surface:'#16173c',contrast:'#f5f2ff',motion:'stars',shape:'prism'}),
+  bento:Object.freeze({id:'bento',layout:'bento',tone:'obsidian',accent:'#91b5ff',surface:'#24282d',contrast:'#f4f0e9',motion:'card-light',shape:'bento'})
  });
  const KEYS=Object.keys(THEMES);
  const reduced=window.matchMedia?.('(prefers-reduced-motion:reduce)');
