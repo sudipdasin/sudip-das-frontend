@@ -10,7 +10,7 @@
   const header=document.querySelector('.topbar .theme-control');
   const hero=document.querySelector('main > .hero')||document.querySelector('main .hero');
   if(!picker||!header||!hero)return;
-  const THEMES=Object.freeze({'neon-studio':0,orbit:1,editorial:2,terminal:3,'aurora-peak':4,'design-2':5});
+  const THEMES=Object.freeze({'neon-studio':0,orbit:1,editorial:2,terminal:3,'aurora-peak':4,'design-2':5,bento:6});
   const MODES=['auto','cinematic','balanced','eco','off'];
   const LABELS={auto:'Auto',cinematic:'Cinematic',balanced:'Balanced',eco:'Eco',off:'Off'};
   const KEY='webstudio-atmosphere-preference-v322';
@@ -152,6 +152,7 @@
   }
   function resolveTier(){
     let tier=requestedTier();
+    if(document.body.dataset.theme==='bento')return tier;
     if(tier==='cinematic'&&(slowDevice||degraded>=1||!browserGPU()))tier='balanced';
     if(tier==='balanced'&&(slowDevice||degraded>=2))tier='eco';
     return tier;
@@ -376,11 +377,12 @@
     const theme=document.body.dataset.theme;
     currentSection();
     if(!(theme in THEMES))return;
-    if(effective!==tier){
+    if(effective!==tier||((theme==='bento')!==(renderer==='bento-css'))&&(tier==='cinematic'||tier==='balanced')){
       destroyCanvas();
       effective=tier;
       renderer=tier==='off'?'off':'css';
-      if(tier==='cinematic'){
+      if(theme==='bento'&&(tier==='cinematic'||tier==='balanced')){renderer='bento-css';}
+      else if(tier==='cinematic'){
         try{gpuSetup();}
         catch{glFailed=true;destroyCanvas();effective='balanced';
           try{canvasSetup();}catch{destroyCanvas();effective='eco';renderer='css';}}
@@ -407,7 +409,7 @@
     else if(slowDevice&&mode!=='off')alert='Low-power hardware safety cap';
     else if(degraded)alert='Performance watchdog downgraded quality';
     else if(mode==='cinematic'&&renderer!=='gpu')alert='GPU shaders unavailable';
-    output.textContent=LABELS[mode]+' → '+(effective==='cinematic'?'WebGL2 GPU':effective==='balanced'?'Canvas 2D':effective==='eco'?'Static CSS':'No effects')
+    output.textContent=LABELS[mode]+' → '+(renderer==='bento-css'?'Adaptive card lighting':effective==='cinematic'?'WebGL2 GPU':effective==='balanced'?'Canvas 2D':effective==='eco'?'Static CSS':'No effects')
       +(alert?' · '+alert:reason?' · '+reason:'');
     lightIntensity=theme==='editorial'?.38:theme==='terminal'?.62:.9;
     if(renderer==='gpu'||renderer==='canvas2d'){dimensions();schedule();}
