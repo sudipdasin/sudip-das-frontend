@@ -1,9 +1,10 @@
-/* Smart Landing v3.36 — reversible WebStudio plugin, with standalone adapter for legacy hosts. */
+/* Smart Landing v3.37 — reversible WebStudio plugin, with standalone adapter for legacy hosts. */
 ((global)=>{'use strict';if(!global)return;
 const words={en:['Projects','Featured project','No matching projects'],hi:['परियोजनाएँ','चुनिंदा परियोजना','कोई मिलती परियोजना नहीं'],bn:['প্রকল্প','নির্বাচিত প্রকল্প','কোনো মিল নেই'],es:['Proyectos','Proyecto destacado','Sin coincidencias'],fr:['Projets','Projet à la une','Aucun résultat'],de:['Projekte','Projekt im Fokus','Keine Treffer'],pt:['Projetos','Projeto em destaque','Sem resultados'],ar:['المشاريع','مشروع مميز','لا توجد نتائج مطابقة'],'zh-CN':['项目','精选项目','没有匹配的项目'],ja:['プロジェクト','注目のプロジェクト','一致するプロジェクトなし']};
 
+const storyLabels={"en":"Featured story","hi":"चुनिंदा कहानी","bn":"নির্বাচিত গল্প","es":"Historia destacada","fr":"Histoire à la une","de":"Projekt im Fokus","pt":"História em destaque","ar":"قصة مميزة","zh-CN":"精选故事","ja":"注目のストーリー"};
 const names={en:'Smart Landing',hi:'स्मार्ट लैंडिंग',bn:'স্মার্ট ল্যান্ডিং',es:'Inicio inteligente',fr:'Accueil intelligent',de:'Intelligente Startseite',pt:'Página inicial inteligente',ar:'الواجهة الذكية','zh-CN':'智能首页',ja:'スマートランディング'};
-const plugin={id:'smart-landing',version:'3.36.0',priority:20,dependsOn:['hero','portfolio'],
+const plugin={id:'smart-landing',version:'3.37.0',priority:20,dependsOn:['hero','portfolio'],
  supports:({root})=>Boolean(root.querySelector('#projects .project-grid')&&root.querySelector('.hero .actions')),
  mount(ctx){
  const doc=ctx.document,root=ctx.root,grid=ctx.select('#projects .project-grid'),actions=ctx.select('.hero .actions');
@@ -79,9 +80,14 @@ const plugin={id:'smart-landing',version:'3.36.0',priority:20,dependsOn:['hero',
  let entry=owned.get(button);
  if(!entry){entry=build(button,isPortfolio);owned.set(button,entry)}
  const card=isPortfolio?featured:visible[0];
- put(entry.summary.firstElementChild,fmt.format(visible.length)+(visible.length!==cards.length?' / '+fmt.format(cards.length):'')+' '+lang[0]);
- put(entry.summary.lastElementChild,card?((isPortfolio?lang[1]+': ':'')+(card.querySelector('h3')?.textContent?.trim()||'')):lang[2]);
- const cells=[...entry.visual.children];cells.forEach((cell,i)=>cell.classList.toggle('is-filled',i<Math.ceil(visible.length/Math.max(cards.length,1)*cells.length)));
+ // Work is a catalog: live breadth and actual public project domains.
+ // Portfolio is a curated story: the gallery's currently featured public project.
+ const domains=[...new Set(visible.map(c=>c.querySelector('.project-type')?.textContent?.split('·')[0]?.trim()).filter(Boolean))];
+ const count=fmt.format(visible.length)+(visible.length!==cards.length?' / '+fmt.format(cards.length):'')+' '+lang[0];
+ const title=card?.querySelector('h3')?.textContent?.trim()||'';
+ put(entry.summary.firstElementChild,isPortfolio?(storyLabels[locale]||storyLabels.en):count);
+ put(entry.summary.lastElementChild,isPortfolio?(title||lang[2]):(domains.slice(0,3).join(' · ')||visible.map(c=>c.querySelector('h3')?.textContent?.trim()).filter(Boolean).slice(0,2).join(' · ')||lang[2]));
+ const cells=[...entry.visual.children];cells.forEach((cell,i)=>cell.classList.toggle('is-filled',isPortfolio?Boolean(card)&&i===0:i<Math.ceil(visible.length/Math.max(cards.length,1)*cells.length)));
  }
  last={total:cards.length,shown:visible.length,buttons:owned.size};scheduleFit();
  }
@@ -94,7 +100,7 @@ const plugin={id:'smart-landing',version:'3.36.0',priority:20,dependsOn:['hero',
  const stage=ctx.select('#profile-showcase');if(stage)observer.observe(stage,{subtree:true,childList:true,characterData:true});
  ctx.listen(doc,'profile-language-change',schedule);ctx.listen(global,'ws-portfolio-filter-change',schedule);
  render();
- return {update:render,api:Object.freeze({refresh:render,getStatus:()=>Object.freeze({...last,fit:{...fitResult},active,name:names[ctx.locale]||names.en,version:'3.36.0'})})};
+ return {update:render,api:Object.freeze({refresh:render,getStatus:()=>Object.freeze({...last,fit:{...fitResult},active,name:names[ctx.locale]||names.en,version:'3.37.0'})})};
  }};
 (global.WebStudioPlugins331||(global.WebStudioPlugins331=Object.create(null)))['smart-landing']=Object.freeze(plugin);
 // Legacy private portfolio has no plugin host yet. Run the same lifecycle once.
