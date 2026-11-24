@@ -370,6 +370,7 @@
     auroraLayer.dataset.quality=effective;
     auroraLayer.dataset.running=String(visible&&document.visibilityState!=='hidden'&&!power().reduced&&(effective==='cinematic'||effective==='balanced'));
   }
+  const matrix=window.WebStudioMatrix356?.mount({doc:document,hero,menu,getPolicy:()=>({theme:document.body.dataset.theme,quality:effective,visible:visible&&document.visibilityState!=='hidden',reduced:power().reduced,forced:power().forced,saveData:power().saveData,lowPower:slowDevice||battery.low,mobile:power().mobile})});
   function synchronize(note=''){
     const tier=resolveTier();
     const theme=document.body.dataset.theme;
@@ -393,6 +394,7 @@
     document.body.dataset.atmosphereRenderer=renderer;
     layer.hidden=effective==='off';
     syncAuroraEffects();
+    matrix?.sync();
     pill.textContent=LABELS[mode];
     radios.forEach(input=>input.checked=input.value===mode);
     reason=note||'';
@@ -442,10 +444,11 @@
   document.addEventListener('visibilitychange',()=>{
     visible=document.visibilityState!=='hidden';
     syncAuroraEffects();
+    matrix?.sync();
     if(!visible&&raf){cancelAnimationFrame(raf);raf=0;}
     else schedule();
   });
-  window.addEventListener('resize',()=>{dimensions();schedule();},{passive:true});
+  window.addEventListener('resize',()=>{dimensions();matrix?.sync();schedule();},{passive:true});
   reduced?.addEventListener?.('change',()=>synchronize());
   contrast?.addEventListener?.('change',()=>synchronize());
   navigator.connection?.addEventListener?.('change',()=>synchronize());
@@ -474,14 +477,17 @@
       section:sectionId,scope:'sitewide',progress:scrollProgress,
       interactive:true,dailySeed,
       shapeProfile:selectedShapeProfile(),
+      matrixRain:matrix?.getStatus()||null,
       shapeVisualActivation:selectedShapeProfile()?.visualActivation||'native',
       degraded,lowPower:slowDevice,saveData:power().saveData,reducedMotion:power().reduced,
       activeCanvas:Boolean(canvas),auroraEffects:auroraLayer?{quality:auroraLayer.dataset.quality,running:auroraLayer.dataset.running==='true',stars:24}:null,regionCount:regions.length,frameBudgetMs:Math.round(frameBudget),
       expectedFrameRate:renderer==='gpu'||renderer==='canvas2d'?Math.round(1000/frameBudget):0,
-      capabilities:Object.freeze(['auto','cinematic','balanced','eco','off','adaptive-fallback','reduced-motion','sitewide','aurora-curtains','aurora-sparkles','shape-profile-registry','shape-motion-policy'])}),
+      capabilities:Object.freeze(['auto','cinematic','balanced','eco','off','adaptive-fallback','reduced-motion','sitewide','aurora-curtains','aurora-sparkles','shape-profile-registry','shape-motion-policy','matrix-digital-rain'])}),
     getShapeProfile:()=>selectedShapeProfile(),
     getShapeMotionPolicy:()=>window.WebStudioHeroShapes352?.motionPolicy({quality:effective,visible:visible&&document.visibilityState!=='hidden',reduced:power().reduced,saveData:power().saveData,lowPower:slowDevice||battery.low,forced:power().forced})||null,
     getAvailableShapeProfiles:()=>window.WebStudioHeroShapes352?.profiles||null,
+    setMatrixEffect:id=>matrix?.set(id)||false,
+    getMatrixStatus:()=>matrix?.getStatus()||null,
     setMode:choose,
     refresh:synchronize,
     stop:()=>choose('off')
