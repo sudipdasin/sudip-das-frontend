@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.23.0-sitewide-six-theme-atmosphere",
+  "release": "personal-preview-v3.24.0-dynamic-github-hero-explorer",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -216,7 +216,21 @@
     "atmosphere-section-glows-behind-content",
     "atmosphere-gpu-shader-reference-bug-fixed",
     "human-ci-v323-26-point-sitewide-qa",
-    "sitewide-atmosphere-34-point-regression"
+    "sitewide-atmosphere-34-point-regression",
+    "hero-github-trigger-dynamic-public-repo-preview",
+    "hero-github-six-theme-native-hover-animation",
+    "hero-github-keyboard-focus-touch-and-escape",
+    "hero-github-public-api-lazy-load-no-onload-request",
+    "hero-github-profile-repo-stats-language-stars",
+    "hero-github-repository-descriptions-and-direct-links",
+    "hero-github-sanitized-public-owner-only-filter",
+    "hero-github-session-cache-10-minute",
+    "hero-github-offline-rate-limit-portfolio-fallback",
+    "hero-github-no-javascript-direct-link-fallback",
+    "hero-github-viewport-collision-positioning",
+    "hero-github-reduced-motion-and-atmosphere-off",
+    "hero-github-human-ci-v324-28-item-review",
+    "hero-github-regression-36-source-and-mock-checks"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -562,7 +576,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.23-sitewide-atmosphere-real-browser-review",
+    "stage": "v3.24-github-hero-dynamic-human-review",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -579,7 +593,7 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "39/39 source+simulated scrolling and GPU recovery checks",
+    "sourceVerification": "36/36 GitHub hero source and simulated interactions; 10/10 integration checks",
     "liveBrowserVerification": "UNVERIFIED",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
@@ -588,7 +602,7 @@
     "previousRelease": "personal-preview-v3.16.0-theme-identity-repair",
     "reviewStatus": "source committed; Cloudflare deployment and true browser UX still need human verification",
     "reviewSchemaVersion": 2,
-    "reviewChecks": 26,
+    "reviewChecks": 28,
     "unverifiedResultsAreNeverInherited": true,
     "previousHumanFeedback": "Editorial screenshot showed Neon video overlay and disconnected skill labels; v3.16 theme identity fix remains in place",
     "enhancements": [
@@ -599,7 +613,7 @@
       "v3.17 responsive six-theme reviewer and shortlist interface"
     ],
     "verification": "Source/runtime mock verified; deployed site and actual responsive rendering not independently verified",
-    "currentHumanFeedbackFile": "webstudio-human-ci-v3.23.json",
+    "currentHumanFeedbackFile": "webstudio-human-ci-v3.24.json",
     "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation",
     "visualIssues": [
       "Terminal footer promotional card retained blue-violet neon visual style",
@@ -631,13 +645,13 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.23.0",
+    "version": "3.24.0",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-sitewide-atmosphere-v3.23.0",
+    "buildFingerprint": "preview-github-hero-explorer-v3.24.0",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   },
   "auroraPeakAlpineEdition": {
@@ -890,6 +904,61 @@
     "auditFile": "webstudio-theme-audit-v3.23.json",
     "documentedAt": "PREVIEW-ATMOSPHERE-V3.23-HUMAN-CI.md",
     "buildFingerprint": "preview-sitewide-atmosphere-v3.23.0",
+    "productionPromotionApproved": false
+  },
+  "githubHeroV324": {
+    "version": "3.24.0",
+    "previousRelease": "personal-preview-v3.23.0-sitewide-six-theme-atmosphere",
+    "branch": "preview-personalweb",
+    "location": "Portfolio hero Github profile action",
+    "interaction": "One animated GitHub trigger with responsive expanding detail card; mouse hover, keyboard focus/ArrowDown/Escape, tap/click toggle, outside click and scroll close",
+    "publicData": {
+      "source": "Unauthenticated public GitHub REST GET /users/sudipdasin and /users/sudipdasin/repos?type=owner&sort=pushed&per_page=100",
+      "trigger": "Only hover, keyboard focus, tap/click, explicit refresh; no request on page load",
+      "repositoryPrivacy": "Only validated public, owned, nonfork and nonarchived repositories, no private account endpoint",
+      "fields": [
+        "public repository count when available",
+        "stars summed for loaded public owned repos",
+        "most common language",
+        "up to four repository summaries",
+        "last pushed dates",
+        "safe GitHub links",
+        "public bio when present"
+      ],
+      "limitations": "Maximum 100 most recent repositories downloaded; stars refer to downloaded subset. No fabricated metrics",
+      "cache": "In-memory and sanitized public sessionStorage, 10-minute TTL",
+      "fallback": "Portfolio's existing public project cards without numeric metrics when GitHub API unavailable or rate limited",
+      "credentials": "No tokens, no authorizations, no API writes, no telemetry"
+    },
+    "visual": {
+      "themeStyles": [
+        "Neon Studio cyan/violet",
+        "Orbit ocean teal",
+        "Editorial warm ivory",
+        "Terminal mint green",
+        "Aurora Peak forest/lichen",
+        "Cosmic lavender"
+      ],
+      "hoverEffects": "Shine sweep, lift, icon motion, border and attached expanding panel",
+      "accessibility": "ARIA expanded/control relationship, Escape focus return, ArrowDown to profile link, 44px-ish controls, reduced motion and forced-colors treatments",
+      "interactionSafety": "Hero layout not shifted, collision positioning, no click interception by Atmosphere"
+    },
+    "assets": [
+      "github-hero-explorer-v324.js",
+      "github-hero-explorer-v324.css"
+    ],
+    "tests": "scripts/verify-github-hero-v324.mjs",
+    "humanGuide": "PREVIEW-GITHUB-HERO-V3.24-HUMAN-CI.md",
+    "verification": {
+      "sourceAndMockedBrowser": "36/36 reproducible checks passed against final GitHub source",
+      "releaseIntegration": "10/10 source integration checks passed",
+      "liveGitHubAPI": "NOT INDEPENDENTLY TESTED IN SITE BROWSER",
+      "realCloudflarePreview": "UNVERIFIED",
+      "screenAndMobileInteraction": "HUMAN CI PENDING",
+      "realBrowserA11y": "HUMAN CI PENDING",
+      "ciStatus": "No passing CI claimed"
+    },
+    "buildFingerprint": "preview-github-hero-explorer-v3.24.0",
     "productionPromotionApproved": false
   }
 }
