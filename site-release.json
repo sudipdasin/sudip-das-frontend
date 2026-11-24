@@ -593,7 +593,7 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "37/37 GitHub hero source and simulated interactions; 10/10 integration checks",
+    "sourceVerification": "38/38 GitHub hero source and simulated interactions; 10/10 integration checks",
     "liveBrowserVerification": "UNVERIFIED",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
@@ -783,7 +783,7 @@
       "neon-studio": "original approved design preserved"
     },
     "verification": {
-      "staticSourceGate": "37/37 passed by executing same assertions in isolated JS harness against latest committed GitHub sources; reproducible Node source script committed",
+      "staticSourceGate": "38/38 passed by executing same assertions in isolated JS harness against latest committed GitHub sources; reproducible Node source script committed",
       "initialIntegrationInvariants": "30/30 passed",
       "mockedBrowserInteractions": "10/10 passed: preview flag, known/unknown theme routing, diagnostic actions and JSON export",
       "manualPaletteContrast": "Five text/panel ratios 8.22–12.35:1; five accent/panel ratios 5.35–10.09:1 from authored hex palette",
@@ -928,7 +928,8 @@
       "limitations": "Maximum 100 most recent repositories downloaded; stars refer to downloaded subset. No fabricated metrics",
       "cache": "In-memory and sanitized public sessionStorage, 10-minute TTL",
       "fallback": "Portfolio's existing public project cards without numeric metrics when GitHub API unavailable or rate limited",
-      "credentials": "No tokens, no authorizations, no API writes, no telemetry"
+      "credentials": "No tokens, no authorizations, no API writes, no telemetry",
+      "failureTimeout": "6.5 seconds, including browsers without AbortController"
     },
     "visual": {
       "themeStyles": [
@@ -950,7 +951,7 @@
     "tests": "scripts/verify-github-hero-v324.mjs",
     "humanGuide": "PREVIEW-GITHUB-HERO-V3.24-HUMAN-CI.md",
     "verification": {
-      "sourceAndMockedBrowser": "37/37 source and simulated browser checks passed, including Escape focus-event guard",
+      "sourceAndMockedBrowser": "38/38 source and simulated browser checks passed, including Escape focus guard and stalled API timeout fallback",
       "releaseIntegration": "10/10 source integration checks passed",
       "liveGitHubAPI": "NOT INDEPENDENTLY TESTED IN SITE BROWSER",
       "realCloudflarePreview": "UNVERIFIED",
