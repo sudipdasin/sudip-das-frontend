@@ -18,18 +18,18 @@
     ['terminal','Terminal typography and controls'],
     ['aurora','Aurora Peak nav contrast, native theme button, label spacing and alpine motion'],
     ['cosmic','Cosmic space styling and controls'],
-    ['themeIsolation','No Neon styling leaks across themes'],
-    ['videoTheme','Media tile native to each selected theme'],
+    ['themeIsolation','Five distinct non-Neon WebStudio footer designs; Neon Studio unchanged'],
+    ['videoTheme','Theme-specific video tile and footer demo controls'],
     ['overflow','No horizontal scrolling at test widths'],
     ['transcript','Transcript and English captions verified'],
     ['feedback','Feedback report exported and opened successfully']
   ];
-  const key = 'webstudio-human-ci-v3.20';
+  const key = 'webstudio-human-ci-v3.21';
   const host = document.createElement('aside');
   host.id = 'human-ci-panel';
   host.className = 'human-ci-panel';
   host.setAttribute('aria-label','Human CI testing console');
-  host.innerHTML = '<button type="button" class="human-ci-toggle" aria-controls="human-ci-content" aria-expanded="false">🧪 Review v3.20 <span class="human-ci-count">0/20</span></button><div id="human-ci-content" hidden><h2>Human CI · v3.20 Aurora visual review</h2><p>Results from earlier versions are not proof for this build. Test each theme and device again. Your feedback stays local until exported; never include secrets.</p><p class="human-ci-progress" role="status" aria-live="polite">20 checks not yet completed.</p><div class="human-ci-checks"></div><label for="human-ci-notes">Bugs, screenshots to capture, suggestions</label><textarea id="human-ci-notes" rows="4" maxlength="4000" placeholder="What happened? Steps to reproduce? Expected result?"></textarea><details class="human-ci-defects"><summary>Log reproducible bugs / improvements</summary><label for="hc-issue-theme">Affected theme</label><select id="hc-issue-theme"><option value="all">General / multiple themes</option><option value="orbit">Orbit</option><option value="editorial">Editorial</option><option value="terminal">Terminal</option><option value="aurora-peak">Aurora Peak</option><option value="neon-studio">Neon Studio</option><option value="design-2">Cosmic</option></select><label for="hc-severity">Severity</label><select id="hc-severity"><option value="medium">Medium</option><option value="low">Low</option><option value="high">High</option><option value="blocker">Blocker</option></select><label for="hc-issue-description">Actual / expected behavior</label><textarea id="hc-issue-description" maxlength="1000" rows="3" placeholder="What is wrong, and what should happen?"></textarea><label for="hc-issue-steps">Reproduction steps</label><textarea id="hc-issue-steps" maxlength="1000" rows="3" placeholder="Actions, viewport, screenshot reference"></textarea><button type="button" data-action="add-issue">Add issue</button></details><div class="human-ci-issues" aria-live="polite"></div><div class="human-ci-actions"><button type="button" data-action="export">Export feedback JSON</button><button type="button" data-action="copy">Copy report</button><button type="button" data-action="reset">Clear</button></div><p class="human-ci-status" role="status" aria-live="polite"></p></div>';
+  host.innerHTML = '<button type="button" class="human-ci-toggle" aria-controls="human-ci-content" aria-expanded="false">🧪 Review v3.21 <span class="human-ci-count">0/20</span></button><div id="human-ci-content" hidden><h2>Human CI · v3.21 six-theme experience review</h2><p>Results from earlier versions are not proof for this build. Test each theme and device again. Your feedback stays local until exported; never include secrets.</p><p class="human-ci-progress" role="status" aria-live="polite">20 checks not yet completed.</p><div class="human-ci-checks"></div><label for="human-ci-notes">Bugs, screenshots to capture, suggestions</label><textarea id="human-ci-notes" rows="4" maxlength="4000" placeholder="What happened? Steps to reproduce? Expected result?"></textarea><details class="human-ci-defects"><summary>Log reproducible bugs / improvements</summary><label for="hc-issue-theme">Affected theme</label><select id="hc-issue-theme"><option value="all">General / multiple themes</option><option value="orbit">Orbit</option><option value="editorial">Editorial</option><option value="terminal">Terminal</option><option value="aurora-peak">Aurora Peak</option><option value="neon-studio">Neon Studio</option><option value="design-2">Cosmic</option></select><label for="hc-severity">Severity</label><select id="hc-severity"><option value="medium">Medium</option><option value="low">Low</option><option value="high">High</option><option value="blocker">Blocker</option></select><label for="hc-issue-description">Actual / expected behavior</label><textarea id="hc-issue-description" maxlength="1000" rows="3" placeholder="What is wrong, and what should happen?"></textarea><label for="hc-issue-steps">Reproduction steps</label><textarea id="hc-issue-steps" maxlength="1000" rows="3" placeholder="Actions, viewport, screenshot reference"></textarea><button type="button" data-action="add-issue">Add issue</button></details><div class="human-ci-issues" aria-live="polite"></div><div class="human-ci-actions"><button type="button" data-action="export">Export feedback JSON</button><button type="button" data-action="copy">Copy report</button><button type="button" data-action="reset">Clear</button></div><p class="human-ci-status" role="status" aria-live="polite"></p></div>';
   const toggle = host.querySelector('.human-ci-toggle');
   const content = host.querySelector('#human-ci-content');
   const list = host.querySelector('.human-ci-checks');
@@ -40,7 +40,7 @@
   let recoveredNotes=false;
   try {
     const raw=JSON.parse(localStorage.getItem(key)||'null');
-    const source=raw&&typeof raw==='object'?raw:JSON.parse(localStorage.getItem('webstudio-human-ci-v3.18')||localStorage.getItem('webstudio-human-ci-v3.17')||localStorage.getItem('webstudio-human-ci-v3.15')||'null');
+    const source=raw&&typeof raw==='object'?raw:JSON.parse(localStorage.getItem('webstudio-human-ci-v3.20')||localStorage.getItem('webstudio-human-ci-v3.18')||localStorage.getItem('webstudio-human-ci-v3.17')||localStorage.getItem('webstudio-human-ci-v3.15')||'null');
     if(source&&typeof source==='object'){
       state.notes=typeof source.notes==='string'?source.notes.slice(0,4000):'';
       recoveredNotes=!!state.notes && !raw;
@@ -104,7 +104,7 @@
   });
   const snapshot=()=>({
     schemaVersion:2,project:'Sudip Das portfolio',environment:'preview-personalweb',
-    url:location.origin+location.pathname,release:'v3.20-human-ci',reviewType:'manual-observation',automatedBrowserVerified:false,
+    url:location.origin+location.pathname,release:'v3.21-human-ci',reviewType:'manual-observation',automatedBrowserVerified:false,
     collectedAt:new Date().toISOString(),
     theme:document.body.dataset.theme || 'unknown',
     userAgent:navigator.userAgent,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},checks:Object.fromEntries(checks.map(([id])=>[id,state.checks[id]||'todo'])),notes:state.notes,issues:state.issues,reviewComplete:checks.every(([id])=>state.checks[id]==='pass')&&state.issues.length===0
@@ -131,6 +131,15 @@
     toggle.setAttribute('aria-expanded',String(!content.hidden));
     if(!content.hidden) notes.focus();
   });
+  // Keyboard users can close the review and return focus to its launcher.
+  host.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&!content.hidden){
+      event.preventDefault();
+      content.hidden=true;
+      toggle.setAttribute('aria-expanded','false');
+      toggle.focus();
+    }
+  });
   const reportText=()=>{
     const report=snapshot();
     return 'WebStudio human CI · '+report.release+'\nPreview: '+report.url+'\nTheme: '+report.theme+'\n'+
@@ -144,7 +153,7 @@
   host.querySelector('[data-action="export"]').addEventListener('click',()=>{
     const blob=new Blob([JSON.stringify(snapshot(),null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(blob);
-    const link=document.createElement('a');link.href=url;link.download='webstudio-human-ci-v3.20.json';link.click();
+    const link=document.createElement('a');link.href=url;link.download='webstudio-human-ci-v3.21.json';link.click();
     setTimeout(()=>URL.revokeObjectURL(url),2000);
     status.textContent='Report exported locally. Attach the file when providing feedback.';
   });
