@@ -2,8 +2,8 @@
 ((global)=>{
  'use strict';
  if(!global)return;
- const themes=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'];
- const names=['Orbit','Editorial','Terminal','Aurora Peak','Neon Studio','Cosmic'];
+ const themes=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2','bento'];
+ const names=['Orbit','Editorial','Terminal','Aurora Peak','Neon Studio','Cosmic','Obsidian Bento'];
  const copy={
   en:{title:'Theme engine',label:'Choose presentation',description:'Change the look without modifying content'},
   hi:{title:'थीम इंजन',label:'प्रस्तुति चुनें',description:'सामग्री बदले बिना रूप बदलें'},
