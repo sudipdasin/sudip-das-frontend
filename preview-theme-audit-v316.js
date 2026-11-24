@@ -31,7 +31,7 @@
       .tip{font-size:12px}
     </style>
     <details>
-      <summary>◈ Theme audit · v3.17</summary>
+      <summary>◈ Theme audit · v3.21</summary>
       <article>
         <p>Tests active CSS and layout in this browser, one theme at a time. No screenshots or data are uploaded.</p>
         <p class="tip">Repeat at desktop, tablet and mobile widths. Automated checks do not replace your visual review.</p>
@@ -98,6 +98,29 @@
         checks.push(['distinct visual background available',tileStyle.backgroundImage!=='none']);
       }
     } else checks.push(['video UI initialized',false]);
+    const footer=document.querySelector('.ws-powered-band');
+    const footerStyle=footer?getComputedStyle(footer):null;
+    if(id!=='neon-studio'){
+      const footerInk=footerStyle?.getPropertyValue('--xf-ink').trim()||'';
+      const footerSurface=footerStyle?.getPropertyValue('--xf-panel').trim()||'';
+      const footerAccent=footerStyle?.getPropertyValue('--xf-accent').trim()||'';
+      const ratio=contrast(footerInk,footerSurface);
+      const demo=document.getElementById('ws-demo-jump');
+      const contact=document.getElementById('ws-interest-toggle');
+      checks.push(['Theme-native WebStudio footer material loaded',Boolean(footerInk&&footerSurface&&footerAccent)]);
+      checks.push(['Footer ink-on-panel contrast >=4.5:1',ratio>=4.5]);
+      checks.push(['Footer demo control available',Boolean(demo&&demo.getAttribute('aria-controls')==='ws-inline-demo')]);
+      checks.push(['Footer contact disclosure available',Boolean(contact&&contact.getAttribute('aria-expanded')!==null)]);
+      const rings=[...document.querySelectorAll('.ws-powered-band .ws-powered-orbit')];
+      const hidden=rings.length&&rings.every(node=>getComputedStyle(node).display==='none');
+      if(['editorial','terminal','aurora-peak'].includes(id)){
+        checks.push(['Footer orbital rings absent in non-orbital composition',Boolean(hidden)]);
+      }else{
+        checks.push(['Footer orbit artwork visible for orbital composition',rings.length>0&&rings.some(node=>getComputedStyle(node).display!=='none')]);
+      }
+    }else{
+      checks.push(['Approved Neon footer remains independent',!footerStyle?.getPropertyValue('--xf-accent').trim()]);
+    }
     if(id==='terminal') {
       const footer=document.querySelector('.ws-powered-band');
       const glyph=footer?.querySelector('.ws-powered-glyph');
@@ -184,7 +207,7 @@
     }
     const passed=results.reduce((a,r)=>a+r.pass,0);
     resultData={
-      release:'v3.17-theme-audit',source:'real-browser-computed-styles',
+      release:'v3.21-theme-audit',source:'real-browser-computed-styles',
       generatedAt:new Date().toISOString(),url:location.origin+location.pathname,
       viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
       userAgent:navigator.userAgent,originalTheme:previous,
@@ -194,7 +217,7 @@
     const total=results.reduce((a,r)=>a+r.total,0);
     const horizontalOverflow=document.documentElement.scrollWidth>document.documentElement.clientWidth+2;
     reportText=[
-      'WebStudio theme audit v3.17',
+      'WebStudio theme audit v3.21',
       'Viewport: '+innerWidth+' × '+innerHeight,
       'Checked '+results.length+'/6 themes; static probes '+passed+'/'+total+' passed.',
       'Horizontal overflow present: '+(horizontalOverflow?'yes - visually inspect':'not detected'),
@@ -215,7 +238,7 @@
     const file=new Blob([JSON.stringify(resultData,null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(file);
     const link=document.createElement('a');
-    link.download='webstudio-theme-audit-v3.17.json';link.href=url;
+    link.download='webstudio-theme-audit-v3.21.json';link.href=url;
     document.body.append(link);link.click();link.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
     status.textContent='Local theme audit JSON exported. Attach it to your Human CI feedback.';
