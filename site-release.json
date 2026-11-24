@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.35.0-visual-smart-landing-manual-qa-pending",
+  "release": "personal-preview-v3.36.0-measured-landing-fit-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -329,7 +329,10 @@
     "v334-ten-locale-plugin-health",
     "v335-six-theme-visual-smart-tiles",
     "v335-filter-responsive-project-indicators",
-    "v335-reversible-accessible-tile-markup"
+    "v335-reversible-accessible-tile-markup",
+    "v336-measured-viewport-fit",
+    "v336-height-aware-native-theme-geometry",
+    "v336-natural-scroll-fallback"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1546,6 +1549,13 @@
     "sourceCommit": "2f3d2d5ac42bf7823b503ee226fb644744e14594",
     "syntheticAssertions": 37,
     "basePaletteContrast": "18 calculated foreground/background ratios exceed 4.5:1; rendered gradients not measured",
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "smartLandingV336": {
+    "sourceCommit": "161a5bd040bed23eb09c719c052d143d6b80e8e1",
+    "geometrySimulationAssertions": 27,
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
