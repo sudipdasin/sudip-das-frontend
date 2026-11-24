@@ -31,7 +31,7 @@
       .tip{font-size:12px}
     </style>
     <details>
-      <summary>◈ Theme audit · v3.22</summary>
+      <summary>◈ Theme audit · v3.23</summary>
       <article>
         <p>Tests active CSS and layout in this browser, one theme at a time. No screenshots or data are uploaded.</p>
         <p class="tip">Repeat at desktop, tablet and mobile widths. Automated checks do not replace your visual review.</p>
@@ -99,9 +99,9 @@
       }
     } else checks.push(['video UI initialized',false]);
     // v3.22: quality-mode correctness is checked without forcing a mode change.
-    const atmosphere=window.__wsAtmosphere322?.getStatus?.();
+    const atmosphere=window.__wsAtmosphere323?.getStatus?.();
     const atmosphereControl=document.getElementById('ws-atmosphere-control');
-    const ambient=document.querySelector('.hero>.ws-atmo-layer');
+    const ambient=document.querySelector('body > .ws-atmo-layer.ws-atmo-sitewide');
     const rendererCanvas=ambient?.querySelector('canvas');
     checks.push(['Shared Atmosphere control exists in this theme',
       Boolean(atmosphereControl&&atmosphereControl.querySelectorAll('input[name="ws-atmosphere-mode"]').length===5)]);
@@ -109,6 +109,15 @@
       Boolean(atmosphere&&atmosphere.theme===id&&document.body.dataset.atmosphereMode===atmosphere.mode)]);
     checks.push(['Atmosphere renderer reports a valid fallback',
       Boolean(atmosphere&&['gpu','canvas2d','css','off'].includes(atmosphere.renderer))]);
+    const regions=[...document.querySelectorAll('[data-atmo-zone]')];
+    const regionIDs=['intro','about','projects','experience','strengths','contact','showcase','footer'];
+    checks.push(['Atmosphere covers all eight content regions',
+      regionIDs.every(name=>regions.some(el=>el.dataset.atmoZone===name))]);
+    checks.push(['Atmosphere compositor is fixed to the viewport',
+      Boolean(ambient&&getComputedStyle(ambient).position==='fixed')]);
+    checks.push(['Renderer is independent of hero visibility',
+      Boolean(atmosphere?.scope==='sitewide'&&document.body.dataset.atmosphereSection)]);
+
     if(atmosphere?.effective==='off'){
       checks.push(['Off mode removes atmosphere rendering',
         Boolean(ambient?.hidden&&!rendererCanvas)]);
@@ -232,7 +241,7 @@
     }
     const passed=results.reduce((a,r)=>a+r.pass,0);
     resultData={
-      release:'v3.22-theme-audit',source:'real-browser-computed-styles',
+      release:'v3.23-theme-audit',source:'real-browser-computed-styles',
       generatedAt:new Date().toISOString(),url:location.origin+location.pathname,
       viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
       userAgent:navigator.userAgent,originalTheme:previous,
@@ -242,7 +251,7 @@
     const total=results.reduce((a,r)=>a+r.total,0);
     const horizontalOverflow=document.documentElement.scrollWidth>document.documentElement.clientWidth+2;
     reportText=[
-      'WebStudio theme audit v3.22',
+      'WebStudio theme audit v3.23',
       'Viewport: '+innerWidth+' × '+innerHeight,
       'Checked '+results.length+'/6 themes; static probes '+passed+'/'+total+' passed.',
       'Horizontal overflow present: '+(horizontalOverflow?'yes - visually inspect':'not detected'),
@@ -263,7 +272,7 @@
     const file=new Blob([JSON.stringify(resultData,null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(file);
     const link=document.createElement('a');
-    link.download='webstudio-theme-audit-v3.22.json';link.href=url;
+    link.download='webstudio-theme-audit-v3.23.json';link.href=url;
     document.body.append(link);link.click();link.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
     status.textContent='Local theme audit JSON exported. Attach it to your Human CI feedback.';
