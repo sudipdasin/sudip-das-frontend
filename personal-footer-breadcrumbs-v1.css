@@ -1,0 +1,16 @@
+/* Compact contextual footer breadcrumbs — common to live + preview. */
+.site-footer-wrap .footer{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px 28px!important;flex-wrap:wrap!important}
+.site-footer-wrap .footer .ws-smart-breadcrumb{flex:1 1 320px;min-width:0;display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;font:600 .79rem/1.4 Inter,system-ui,sans-serif}
+.ws-smart-breadcrumb .ws-crumbs{display:inline-flex;align-items:center;gap:8px;list-style:none;padding:0;margin:0;flex-wrap:wrap}
+.ws-smart-breadcrumb .ws-crumbs li{display:inline-flex;align-items:center;min-width:0}
+.ws-smart-breadcrumb a{display:inline-flex;align-items:center;min-height:42px;padding:7px 10px;border-radius:99px;color:inherit;text-decoration:none;transition:color .16s,background .16s}
+.ws-smart-breadcrumb .ws-crumb-current{color:var(--ink,#edfaff);font-weight:800;overflow:hidden;max-width:190px;text-overflow:ellipsis;white-space:nowrap}
+.ws-smart-breadcrumb .ws-crumb-divider{opacity:.55}
+.ws-smart-breadcrumb .ws-crumb-next{border:1px solid #42dade5e;color:#75eded;background:#05c6d31b;font-weight:750}
+.ws-smart-breadcrumb a:is(:hover,:focus-visible){color:#93ffff;background:#0bdbed28}
+.ws-smart-breadcrumb a:focus-visible{outline:2px solid #71f9ff;outline-offset:3px}
+.ws-smart-breadcrumb [hidden]{display:none!important}
+html[dir=rtl] .ws-smart-breadcrumb .ws-crumbs{direction:rtl}
+@media(max-width:760px){.site-footer-wrap .footer{flex-direction:column!important;align-items:stretch!important}.site-footer-wrap .footer .ws-smart-breadcrumb{justify-content:flex-start;flex:0 1 auto;width:100%}.ws-smart-breadcrumb a{min-height:44px}}
+@media(max-width:350px){.ws-smart-breadcrumb .ws-crumb-next{flex:1 1 100%;justify-content:center}.ws-smart-breadcrumb .ws-crumb-current{max-width:140px}}
+@media(prefers-reduced-motion:reduce){.ws-smart-breadcrumb a{transition:none}}

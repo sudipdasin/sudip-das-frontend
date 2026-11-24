@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-live-v3.11.0-multilingual-visitor-ui",
+  "release": "personal-live-v3.12.0-smart-footer-breadcrumbs",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -23,7 +23,9 @@
     "motion-reduced-motion-support",
     "ten-language-dynamic-ui-translations",
     "translated-all-six-theme-choices",
-    "dynamic-aria-title-alt-localization"
+    "dynamic-aria-title-alt-localization",
+    "removed-redundant-footer-social-links",
+    "smart-ten-language-section-breadcrumbs"
   ],
   "source": "approved-public-frontend-preview-with-production-security-adaptations",
   "privateBackendBundled": false,
@@ -75,5 +77,12 @@
     "translationBlobSha": "122d073fce55b07ef8aef9cc30559a5484e1aa7d",
     "previousProductionCommit": "7c5241328c7e7b34d13510e80aea612d99bbe2f3",
     "rollbackBranch": "backup/i18n-v3.10.0-before-expanded-live-2026-11-24"
+  },
+  "footerBreadcrumbs": {
+    "status": "Owner-approved footer-only live and preview navigation",
+    "cssSha": "6c1f5b66cedad2e038b051c6904e4a9448b10087",
+    "jsSha": "bff2f048eea4fcf2ec7ad8b87e7a400a77ff0e3e",
+    "rollback": "backup/pre-footer-breadcrumb-live-2026-11-24",
+    "visualBrowserQA": "not independently tested"
   }
 }
