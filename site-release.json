@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.53.0-approved-selectable-hero-profiles",
+  "release": "personal-preview-v3.54.0-terminal-technical-blueprint",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -381,7 +381,9 @@
     "v353-paper-ink-atelier",
     "v353-technical-blueprint-hex",
     "v353-prismatic-glass-squircle",
-    "v353-selectable-hero-profiles"
+    "v353-selectable-hero-profiles",
+    "v354-terminal-technical-blueprint-default",
+    "v354-enlarged-terminal-hexagonal-portrait"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1774,6 +1776,16 @@
       "design-2": "round",
       "terminal": "native"
     },
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "terminalBlueprintV354": {
+    "sourceCommit": "d8647e38c5ee734217a756b3c8fc664f4f6ec973",
+    "defaultProfile": "hexagon",
+    "previousChoiceMigration": "once",
+    "profileAssertions": 7,
+    "modeledViewportChecks": 7,
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
