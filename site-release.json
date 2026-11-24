@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.30.0-five-engine-experience-six-theme-native-design-manual-qa-pending",
+  "release": "personal-preview-v3.31.0-editorial-github-layer-five-engine-plugin-platform-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -294,7 +294,19 @@
     "v330-quick-menu-public-tab-api",
     "v330-portfolio-optimized-search-sort-and-api",
     "v330-css-theme-contrast-verified-base-palette",
-    "v330-manual-local-source-verifier"
+    "v330-manual-local-source-verifier",
+    "v331-editorial-github-popup-over-marquee-layer-fix",
+    "v331-independent-webstudio-plugin-host",
+    "v331-five-plugin-modules-standalone-and-native-bridge",
+    "v331-plugin-dependency-resolution-and-failure-isolation",
+    "v331-plugin-lifecycle-cleanup-and-serialized-updates",
+    "v331-plugin-ten-locale-translation",
+    "v331-plugin-six-theme-portable-styling",
+    "v331-plugin-css-atmosphere-fallback",
+    "v331-plugin-generated-site-starter-demo",
+    "v331-plugin-status-quick-menu-integration",
+    "v331-plugin-host-specific-control-ids",
+    "v331-offline-lifecycle-source-verifier"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1195,11 +1207,11 @@
     "automaticHostedTestResult": "NOT_RUN",
     "previewDeploymentIndependentOfCI": true,
     "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md",
-    "lastKnownChange": "v3.30.0 cross-theme experience, 5 engine API improvements, 10-language palette, project facets and source guard",
+    "lastKnownChange": "v3.31 Editorial menu stacking repair and independent five-engine portable plugin architecture",
     "lastFeedback": "Owner screenshot 2026-11-24: 2x2 geometry visible; refined theme consistency, CTA priority and video affordance",
-    "manualBrowserVerification": "NOT_RUN after v3.30.0",
-    "lastEvidence": "23/23 synthetic DOM interaction checks; source syntax and base palette calculations; browser acceptance not performed",
-    "deploymentStatus": "Cloudflare Pages Git-based preview not independently confirmed"
+    "manualBrowserVerification": "NOT_RUN after v3.31.0",
+    "lastEvidence": "24/24 host lifecycle and 13/13 five-real-module synthetic DOM checks passed; real browser/manual review pending",
+    "deploymentStatus": "Preview branch updated; Cloudflare Git deployment not independently confirmed"
   },
   "fiveEngineV329": {
     "version": "3.29.0",
@@ -1304,5 +1316,62 @@
       "No new network calls or private API access",
       "No production deployment"
     ]
+  },
+  "pluginsV331": {
+    "version": "3.31.0",
+    "stage": "preview-only",
+    "host": "plugins/webstudio-plugin-engine-v331.js",
+    "css": "plugins/webstudio-plugin-engine-v331.css",
+    "manifest": "plugins/webstudio-plugin-manifest-v331.json",
+    "documentation": "plugins/README.md",
+    "modules": [
+      "theme",
+      "hero",
+      "atmosphere",
+      "quick-menu",
+      "portfolio"
+    ],
+    "bridge": "plugins/webstudio-personal-bridge-v331.js",
+    "example": "examples/webstudio-plugin-starter/index.html",
+    "fix": "editorial-github-layer-v331.css",
+    "locales": [
+      "en",
+      "hi",
+      "bn",
+      "es",
+      "fr",
+      "de",
+      "pt",
+      "ar",
+      "zh-CN",
+      "ja"
+    ],
+    "themes": [
+      "orbit",
+      "editorial",
+      "terminal",
+      "aurora-peak",
+      "neon-studio",
+      "design-2"
+    ],
+    "design": "isolated, namespaced, user-triggered plugin mount, lifecycle and source-only generated-site bridge",
+    "sourceVerification": {
+      "hostLifecycleSimulation": "24/24 checks passed; synthetic runtime",
+      "fiveRealModuleStandaloneSimulation": "13/13 checks passed; synthetic DOM",
+      "languageSourceCoverage": "ten locale dictionaries in each portable UI module and starter",
+      "nodeOfflineScript": "scripts/verify-webstudio-plugins-v331.mjs (committed, not executed in Node here)",
+      "realBrowser": "NOT_RUN",
+      "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+      "hostedCI": "NOT_RUN"
+    },
+    "guardrails": [
+      "No production changes",
+      "Approved Neon theme geometry not modified",
+      "Editorial hero elevated only while GitHub disclosure is open",
+      "No network calls in portable plugin core or modules",
+      "Native site engines preserved; plugin bridge is non-intrusive",
+      "Standalone cinematic mode uses CSS fallback, not GPU ray tracing"
+    ],
+    "manualAcceptance": "PENDING"
   }
 }
