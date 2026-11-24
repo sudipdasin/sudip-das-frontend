@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.27.0-modular-six-theme-hero-display",
+  "release": "personal-preview-v3.28.0-five-engine-theme-i18n-audio",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -247,7 +247,31 @@
     "hero-display-six-theme-audit-and-diagnostics",
     "hero-display-human-ci-v327-32-checks",
     "hero-display-52-point-offline-regression",
-    "hero-explorer-popup-unlinked-poc-removed"
+    "hero-explorer-popup-unlinked-poc-removed",
+    "five-engine-theme-mesh-shared-six-theme-contract",
+    "five-engine-unique-native-palettes-geometry-materials",
+    "hero-display-synchronized-eco-off-safety",
+    "atmosphere-interactive-pointer-light-and-scroll-progression",
+    "atmosphere-same-site-viewport-gpu-canvas-css-fallback",
+    "atmosphere-daily-scene-variation-no-visitor-tracking",
+    "atmosphere-original-opt-in-six-theme-audio",
+    "atmosphere-synthesized-interface-cues",
+    "atmosphere-volume-mute-visibility-suspension",
+    "quick-menu-direct-portfolio-search-integration",
+    "quick-menu-alt-shift-q-and-escape-shortcuts",
+    "quick-menu-language-aware-section-status",
+    "portfolio-original-source-language-search-index",
+    "portfolio-six-theme-focus-filters",
+    "portfolio-stable-featured-and-alphabetical-sorting",
+    "portfolio-accessible-live-results",
+    "i18n-ten-languages-61-new-strings-plus-three-existing",
+    "i18n-dynamic-repository-counts-reading-progress",
+    "i18n-input-placeholder-select-aria-translation-fix",
+    "human-ci-v328-42-point-cross-engine-acceptance",
+    "five-engine-seventy-check-mock-source-regression",
+    "hero-display-55-regressions",
+    "atmosphere-43-regressions",
+    "github-hero-38-regressions"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -593,7 +617,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.27-six-theme-hero-display-visual-acceptance",
+    "stage": "v3.28-five-engine-i18n-audio-human-review",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -610,8 +634,8 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "54/54 Hero Display source and simulated DOM checks",
-    "liveBrowserVerification": "UNVERIFIED; browser screenshots required",
+    "sourceVerification": "Hero 55/55; Atmosphere 43/43; Five-engine 70/70; GitHub 38/38 — simulated/source",
+    "liveBrowserVerification": "UNVERIFIED; human CI and Cloudflare deployment confirmation pending",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
@@ -619,7 +643,7 @@
     "previousRelease": "personal-preview-v3.16.0-theme-identity-repair",
     "reviewStatus": "source committed; Cloudflare deployment and true browser UX still need human verification",
     "reviewSchemaVersion": 2,
-    "reviewChecks": 32,
+    "reviewChecks": 42,
     "unverifiedResultsAreNeverInherited": true,
     "previousHumanFeedback": "Editorial screenshot showed Neon video overlay and disconnected skill labels; v3.16 theme identity fix remains in place",
     "enhancements": [
@@ -630,7 +654,7 @@
       "v3.17 responsive six-theme reviewer and shortlist interface"
     ],
     "verification": "Source/runtime mock verified; deployed site and actual responsive rendering not independently verified",
-    "currentHumanFeedbackFile": "webstudio-human-ci-v3.27.json",
+    "currentHumanFeedbackFile": "webstudio-human-ci-v3.28.json",
     "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation",
     "visualIssues": [
       "Terminal footer promotional card retained blue-violet neon visual style",
@@ -662,13 +686,13 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.27.0",
+    "version": "3.28.0",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-six-theme-hero-display-v3.27.0",
+    "buildFingerprint": "preview-five-engine-mesh-i18n-audio-v3.28.0",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   },
   "auroraPeakAlpineEdition": {
@@ -1041,6 +1065,80 @@
     "auditFile": "webstudio-theme-audit-v3.27.json",
     "diagnosticsFile": "webstudio-preview-diagnostics-v3.27.json",
     "spec": "PREVIEW-HERO-DISPLAY-V3.27-HUMAN-CI.md",
+    "productionPromotionApproved": false
+  },
+  "engineMeshV328": {
+    "version": "3.28.0",
+    "previousRelease": "personal-preview-v3.27.0-modular-six-theme-hero-display",
+    "branch": "preview-personalweb",
+    "buildFingerprint": "preview-five-engine-mesh-i18n-audio-v3.28.0",
+    "engines": {
+      "hero": "hero-display-engine-v327.js: six compositional profiles, theme bridge event and Eco/Off motion safety",
+      "atmosphere": "atmosphere-engine-v328.js plus atmosphere-shaders-v325.js: GPU pointer, scroll, daily seeded lighting and existing fallbacks",
+      "theme": "webstudio-engine-mesh-v328.js and CSS: one contract for six distinct theme palettes/materials/geometries",
+      "quickMenu": "personal-quick-hub-v2.js: section awareness, menu tabs, direct project search; mesh adds Alt+Shift+Q and Escape",
+      "portfolio": "portfolio-discovery-v328.js: original-language index, stable filters, featured and alphabetic sort"
+    },
+    "audio": {
+      "asset": "atmosphere-audio-v328.js",
+      "styles": "atmosphere-audio-v328.css",
+      "modes": [
+        "opt-in interface sound",
+        "opt-in original ambient music",
+        "volume",
+        "mute/stop"
+      ],
+      "default": "Both audio options off; no AudioContext created on load",
+      "fallback": "Browser AudioContext unavailable -> remains off",
+      "music": "Original theme-specific synthesized notes; no external media or audio service",
+      "autoplay": false,
+      "tracking": false
+    },
+    "translation": {
+      "locales": [
+        "en",
+        "hi",
+        "bn",
+        "es",
+        "fr",
+        "de",
+        "pt",
+        "ar",
+        "zh-CN",
+        "ja"
+      ],
+      "phraseMappingsCovered": 64,
+      "newUniquePhraseKeys": 61,
+      "existingCoveredKeys": 3,
+      "improvements": [
+        "late-added Atmosphere/audio/GitHub/project UI",
+        "dynamic numeric summaries",
+        "input placeholder translation",
+        "select and form ARIA label translation",
+        "Quick Menu current section with locale-aware names"
+      ],
+      "source": "personal-translation-expansion-v1.js"
+    },
+    "verification": {
+      "hero": "55/55 source and mock DOM",
+      "atmosphere": "43/43 source and mocked GPU/scroll transitions",
+      "fiveEngine": "70/70 source, i18n and mocked interaction/consent",
+      "github": "38/38 existing source and simulated behavior",
+      "cloudflareDeployment": "NOT VERIFIED",
+      "realWebGLShaderCompilation": "NOT INDEPENDENTLY VERIFIED",
+      "physicalAudio": "NOT INDEPENDENTLY VERIFIED",
+      "actualMobileScreenshots": "HUMAN CI PENDING",
+      "realBrowserKeyboard": "HUMAN CI PENDING",
+      "paidCI": "Not asserted as run",
+      "security": "Preview-only noindex, private API disabled, existing headers, costs gated"
+    },
+    "humanCI": {
+      "total": 42,
+      "expectedFile": "webstudio-human-ci-v3.28.json",
+      "diagnosticFile": "webstudio-preview-diagnostics-v3.28.json",
+      "themeAuditFile": "webstudio-theme-audit-v3.28.json",
+      "guide": "PREVIEW-FIVE-ENGINE-V3.28-HUMAN-CI.md"
+    },
     "productionPromotionApproved": false
   }
 }
