@@ -37,7 +37,7 @@ The layouts use distinct background geometry and typographic/material treatments
 node scripts/verify-hero-display-v327.mjs
 ```
 
-The source and simulated-DOM gate passed **52/52 tests**, including all six theme transitions, original portrait/actions preservation, browser-free theme identity, mobile/desktop density, Atmosphere Off, reduced-motion, low-power modes and stage idempotence.
+The source and simulated-DOM gate passed **54/54 tests**, including all six theme transitions, original portrait/actions preservation, browser-free theme identity, mobile/desktop density, Atmosphere Off, reduced-motion, low-power modes and stage idempotence.
 
 **This is not real-browser screenshot validation.** The Cloudflare URL is not reachable to the current verifier, and the result does not establish that CSS stacking, portrait alignment or GPU backdrop layers are visually correct in Chrome, Safari and Firefox.
 
