@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.28.3-editorial-hero-action-hierarchy-manual-qa-pending",
+  "release": "personal-preview-v3.29.0-five-engines-six-theme-visual-identity-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -276,7 +276,13 @@
     "human-ci-neon-visible-precision-portrait-audit-fix",
     "human-ci-audit-computed-geometry-and-overlay-metrics",
     "human-ci-v3281-preview-deployment-fingerprint",
-    "human-ci-33-source-predicate-regression-tests"
+    "human-ci-33-source-predicate-regression-tests",
+    "v329-five-engine-unified-visitor-controls",
+    "v329-six-theme-native-palette-and-motif",
+    "v329-ten-locale-complete-new-control-translations",
+    "v329-portfolio-empty-recovery-and-search-shortcut",
+    "v329-cross-theme-atmosphere-quality-controller",
+    "v329-owner-triggered-six-theme-54-probe-browser-audit-json"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1177,8 +1183,54 @@
     "automaticHostedTestResult": "NOT_RUN",
     "previewDeploymentIndependentOfCI": true,
     "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md",
-    "lastKnownChange": "editorial-hero-actions-v3282.css?v=3.28.3",
+    "lastKnownChange": "v3.29.0 five-engine integration, theme design, localization and manual browser audit",
     "lastFeedback": "Owner screenshot 2026-11-24: 2x2 geometry visible; refined theme consistency, CTA priority and video affordance",
-    "manualBrowserVerification": "NOT_RUN after v3.28.3"
+    "manualBrowserVerification": "NOT_RUN after v3.29.0",
+    "lastEvidence": "18 static source contract checks passed in GitHub connector; not a browser run"
+  },
+  "fiveEngineV329": {
+    "version": "3.29.0",
+    "stage": "preview-only",
+    "enabledFor": [
+      "orbit",
+      "editorial",
+      "terminal",
+      "aurora-peak",
+      "neon-studio",
+      "design-2"
+    ],
+    "modules": [
+      "Hero Display",
+      "Atmosphere",
+      "Theme",
+      "Quick Menu",
+      "Portfolio"
+    ],
+    "js": "webstudio-five-engine-v329.js",
+    "css": "webstudio-five-engine-v329.css",
+    "manualSourceVerifier": "scripts/verify-five-engine-v329.mjs",
+    "userQA": "docs/WEBSTUDIO_FIVE_ENGINE_V329_MANUAL_QA.md",
+    "newStringsPerLocale": 34,
+    "themeDescriptionsPerLocale": 6,
+    "atmosphereModesPerLocale": 5,
+    "languages": [
+      "en",
+      "hi",
+      "bn",
+      "es",
+      "fr",
+      "de",
+      "pt",
+      "ar",
+      "zh-CN",
+      "ja"
+    ],
+    "browserAudit": "54 basic DOM/state assertions on user demand; not the 187-probe legacy audit",
+    "knownConstraints": [
+      "Browser/manual acceptance not yet performed",
+      "Cloudflare live publication not independently confirmed",
+      "Neon geometry previous audit failure not claimed fixed"
+    ],
+    "protection": "Preview-only. No private APIs, credentials, editor privileges or production release. Existing Neon geometry is unchanged."
   }
 }
