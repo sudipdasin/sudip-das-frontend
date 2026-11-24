@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.42.0-hero-orbit-geometry-plugin-manual-qa-pending",
+  "release": "personal-preview-v3.43.0-aurora-native-stage-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -351,7 +351,10 @@
     "v341-terminal-source-circle-correction",
     "v342-hero-orbit-geometry-eighth-plugin",
     "v342-reversible-docking-lifecycle",
-    "v342-orbit-geometry-health-ten-locales"
+    "v342-orbit-geometry-health-ten-locales",
+    "v343-aurora-native-height-budget",
+    "v343-full-width-scenic-stage",
+    "v343-grid-integrated-portrait-caption"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1642,6 +1645,14 @@
     ],
     "syntheticLifecycleAssertions": 138,
     "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "auroraStageV343": {
+    "sourceCommit": "49aad0b65e3070fc2837c0dbe3ec8109febeffca",
+    "sourceAssertions": 8,
+    "realBrowser": "ATTEMPTED_LOCAL_FIXTURE_TIMED_OUT",
+    "livePreview": "DNS_RESOLUTION_FAILED",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
   }
