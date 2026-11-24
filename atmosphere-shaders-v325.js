@@ -115,18 +115,29 @@ void main(){
     float sweep=exp(-12.0*abs(p.y-.24*sin(time*.27)));
     color=vec3(.025,.45,.20)*(scan*.13+matrix*.45+bars*.28+sweep*.20);
     opacity=.17+sweep*.1;
-  }else if(u_theme==4){ /* Aurora Peak: procedural lights, peaks and haze */
-    float wave=fbm(vec2(p.x*2.0+time*.026,p.y*1.3));
-    float curl=sin((p.x+wave*.45)*8.0+time*.14);
-    float curtain=exp(-9.0*pow(p.y-.15-.19*curl,2.0));
-    float sun=exp(-13.0*length(p-vec2(.36,.27)));
-    float mountain=.02+abs(sin(p.x*3.0+1.1))*.13+fbm(vec2(p.x*4.0,2.0))*.17;
-    float haze=1.0-smoothstep(-.30,-.19,p.y);
-    color=vec3(.17,.69,.53)*curtain*.45
-      +vec3(.96,.52,.25)*sun*.27
-      +vec3(.1,.26,.25)*haze*.13
-      +vec3(.2,.44,.31)*smoothstep(-mountain-.07,-mountain+.05,-p.y)*.14;
-    opacity=.19+curtain*.13+sun*.1;
+  }else if(u_theme==4){ /* Aurora Peak: layered northern lights, starfield and alpine haze */
+    float wave=fbm(vec2(p.x*2.5+time*.019,1.7));
+    float curve=.19+.10*sin(p.x*5.2+time*.14)+.06*sin(p.x*11.0-time*.09)+wave*.07;
+    float d=p.y-curve;
+    float folds=.36+.64*pow(.5+.5*sin(p.x*57.0+wave*9.0+time*.16),2.0);
+    float curtain=exp(-abs(d)*16.0)*folds*smoothstep(-.17,.02,d);
+    float edge=exp(-abs(d)*75.0);
+    float violet=exp(-abs(d-.075)*13.0)*(.35+.65*wave);
+    float sun=exp(-9.0*length(p-vec2(.36,.13)));
+    vec2 cell=(uv+vec2(.7,.5))*vec2(105.,78.);
+    vec2 cellId=floor(cell);
+    float seed=hash(cellId);
+    vec2 center=vec2(.25+.5*hash(cellId+7.0),.25+.5*hash(cellId+13.0));
+    float star=step(.982,seed)*exp(-length(fract(cell)-center)*24.0);
+    star*=.68+.32*sin(time*.65+seed*73.0);
+    float sky=smoothstep(-.13,.25,uv.y);
+    float haze=exp(-abs(p.y+.30)*8.0);
+    color=vec3(.10,.76,.49)*(curtain*.52+edge*.18)
+      +vec3(.38,.27,.76)*violet*.24
+      +vec3(.91,.65,.34)*sun*.21
+      +vec3(.72,.94,.89)*star*sky*.82
+      +vec3(.11,.29,.29)*haze*.15;
+    opacity=.11+min(.29,curtain*.15+edge*.12+star*.28+sun*.06);
   }else{ /* Cosmic: gravitational lens simulation, stars and nebula */
     float dist=length(p-vec2(.16,.02));
     vec2 warped=p+(p-vec2(.16,.02))*(.06/(dist*dist+.13));
