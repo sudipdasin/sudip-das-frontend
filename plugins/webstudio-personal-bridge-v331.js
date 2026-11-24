@@ -9,7 +9,7 @@
  if(!factory||!modules||!global.document?.body)return;
  const doc=global.document,body=doc.body;
  const pick=doc.getElementById('theme-select');
- const names=['theme','hero','atmosphere','quick-menu','portfolio','smart-landing'];
+ const names=['theme','hero','atmosphere','quick-menu','portfolio','smart-landing','professional-journey'];
  const nativeTheme=()=>body.dataset.theme||pick?.value||'neon-studio';
  const nativeLocale=()=>global.profileI18n?.locale||'en';
  const nativeQuality=()=>global.__wsAtmosphere328?.getStatus?.()?.mode||'auto';
@@ -46,19 +46,19 @@
   ja:['プラグインエンジン','準備完了','未準備','独立モジュール']
  };
  const localizedHealth={
-  en:[['Theme','Hero Display','Atmosphere','Quick Menu','Portfolio',"Smart Landing"],['Active','Failed','Blocked','Unavailable','Stopped','Registered']],
-  hi:[['थीम','मुख्य प्रदर्शन','वातावरण','त्वरित मेनू','पोर्टफोलियो',"स्मार्ट लैंडिंग"],['सक्रिय','विफल','अवरुद्ध','अनुपलब्ध','बंद','पंजीकृत']],
-  bn:[['থিম','প্রধান প্রদর্শন','আবহ','দ্রুত মেনু','পোর্টফোলিও',"স্মার্ট ল্যান্ডিং"],['সক্রিয়','ব্যর্থ','অবরুদ্ধ','অনুপলব্ধ','বন্ধ','নিবন্ধিত']],
-  es:[['Tema','Presentación','Atmósfera','Menú rápido','Portafolio',"Inicio inteligente"],['Activo','Error','Bloqueado','No disponible','Detenido','Registrado']],
-  fr:[['Thème','Présentation','Atmosphère','Menu rapide','Portfolio',"Accueil intelligent"],['Actif','Échec','Bloqué','Indisponible','Arrêté','Enregistré']],
-  de:[['Design','Hauptansicht','Atmosphäre','Schnellmenü','Portfolio',"Intelligente Startseite"],['Aktiv','Fehler','Blockiert','Nicht verfügbar','Gestoppt','Registriert']],
-  pt:[['Tema','Apresentação','Atmosfera','Menu rápido','Portfólio',"Página inicial inteligente"],['Ativo','Falhou','Bloqueado','Indisponível','Parado','Registrado']],
-  ar:[['السمة','العرض الرئيسي','الأجواء','القائمة السريعة','معرض الأعمال',"الواجهة الذكية"],['نشط','فشل','محظور','غير متاح','متوقف','مسجل']],
-  'zh-CN':[['主题','主视觉','氛围','快捷菜单','作品集',"智能首页"],['已启用','失败','已阻止','不可用','已停止','已注册']],
-  ja:[['テーマ','メイン表示','雰囲気','クイックメニュー','作品集',"スマートランディング"],['有効','失敗','ブロック済み','利用不可','停止','登録済み']]
+  en:[['Theme','Hero Display','Atmosphere','Quick Menu','Portfolio',"Smart Landing","Professional Journey"],['Active','Failed','Blocked','Unavailable','Stopped','Registered']],
+  hi:[['थीम','मुख्य प्रदर्शन','वातावरण','त्वरित मेनू','पोर्टफोलियो',"स्मार्ट लैंडिंग","पेशेवर यात्रा"],['सक्रिय','विफल','अवरुद्ध','अनुपलब्ध','बंद','पंजीकृत']],
+  bn:[['থিম','প্রধান প্রদর্শন','আবহ','দ্রুত মেনু','পোর্টফোলিও',"স্মার্ট ল্যান্ডিং","পেশাগত যাত্রা"],['সক্রিয়','ব্যর্থ','অবরুদ্ধ','অনুপলব্ধ','বন্ধ','নিবন্ধিত']],
+  es:[['Tema','Presentación','Atmósfera','Menú rápido','Portafolio',"Inicio inteligente","Trayectoria profesional"],['Activo','Error','Bloqueado','No disponible','Detenido','Registrado']],
+  fr:[['Thème','Présentation','Atmosphère','Menu rapide','Portfolio',"Accueil intelligent","Parcours professionnel"],['Actif','Échec','Bloqué','Indisponible','Arrêté','Enregistré']],
+  de:[['Design','Hauptansicht','Atmosphäre','Schnellmenü','Portfolio',"Intelligente Startseite","Beruflicher Werdegang"],['Aktiv','Fehler','Blockiert','Nicht verfügbar','Gestoppt','Registriert']],
+  pt:[['Tema','Apresentação','Atmosfera','Menu rápido','Portfólio',"Página inicial inteligente","Trajetória profissional"],['Ativo','Falhou','Bloqueado','Indisponível','Parado','Registrado']],
+  ar:[['السمة','العرض الرئيسي','الأجواء','القائمة السريعة','معرض الأعمال',"الواجهة الذكية","المسيرة المهنية"],['نشط','فشل','محظور','غير متاح','متوقف','مسجل']],
+  'zh-CN':[['主题','主视觉','氛围','快捷菜单','作品集',"智能首页","职业历程"],['已启用','失败','已阻止','不可用','已停止','已注册']],
+  ja:[['テーマ','メイン表示','雰囲気','クイックメニュー','作品集',"スマートランディング","プロフェッショナルの歩み"],['有効','失敗','ブロック済み','利用不可','停止','登録済み']]
  };
  const healthStates=['mounted','failed','blocked','skipped','stopped','registered'];
- const healthIds=['theme','hero','atmosphere','quick-menu','portfolio','smart-landing'];
+ const healthIds=['theme','hero','atmosphere','quick-menu','portfolio','smart-landing','professional-journey'];
  const tools=doc.getElementById('pv-hub-panel-tools');
  const demoLabels={
   en:'Plugin engine playground',hi:'प्लगइन इंजन प्रयोगशाला',bn:'প্লাগইন ইঞ্জিন প্রদর্শনী',
