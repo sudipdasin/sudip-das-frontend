@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.33.0-smart-landing-manual-qa-pending",
+  "release": "personal-preview-v3.34.0-smart-landing-plugin-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -323,7 +323,10 @@
     "v332-safe-nonreparenting-hero-interaction-polish",
     "v333-live-public-work-summary",
     "v333-live-portfolio-summary",
-    "v333-height-aware-landing-candidate"
+    "v333-height-aware-landing-candidate",
+    "v334-smart-landing-sixth-plugin",
+    "v334-reversible-smart-landing-lifecycle",
+    "v334-ten-locale-plugin-health"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1522,5 +1525,18 @@
     "realBrowser": "NOT_RUN",
     "deployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "note": "Compact layout candidate; full first-screen fit not verified"
+  },
+  "smartLandingV334": {
+    "sourceCommit": "db8d884e8b0f50d275c23af8722e01d09acbfdfb",
+    "id": "smart-landing",
+    "dependsOn": [
+      "hero",
+      "portfolio"
+    ],
+    "stage": "preview-only",
+    "syntheticLifecycleAssertions": 30,
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "hostedCI": "NOT_RUN"
   }
 }
