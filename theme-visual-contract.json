@@ -417,7 +417,7 @@
     ],
     "oneControl": "Preserve Auto/Cinematic/Balanced/Eco/Off, previous preference, accessibility, fallback caps and user settings",
     "safety": "Pointer-events none, section glows behind existing layout, no background networking, pause when page hidden, render viewport only",
-    "verified": "34/34 source and simulated scroll/renderer checks; real browser rendering not independently verified",
+    "verified": "39/39 source and simulated scroll/renderer checks; real browser rendering not independently verified",
     "productionPromotionApproved": false
   }
 }
