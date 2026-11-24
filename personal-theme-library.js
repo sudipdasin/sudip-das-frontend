@@ -14,7 +14,7 @@ const IDS=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'
 const EXPECTED_SOURCE='c5383df1ebda7a0e5f05d9f59048a136dc99dac5';
 const PALETTES={
  orbit:['#092431','#51d6cb'],editorial:['#efece4','#8d583d'],
- terminal:['#081b17','#42d98e'],'aurora-peak':['#092037','#74d8c2'],
+ terminal:['#081b17','#42d98e'],'aurora-peak':['#081b20','#d8e5ae'],
  'neon-studio':['#071933','#25f1e6'],'design-2':['#121e47','#b970ff']
 };
 // PREVIEW-LOCAL bundled theme list. This avoids a network fetch that would
@@ -29,7 +29,7 @@ const BUNDLED_CONTRACT=Object.freeze({
   {id:'orbit',personalLabel:'Orbit · Portfolio',personalPreviewAvailable:true,distinctive:'Ocean teal, circular portrait and read-only portfolio.'},
   {id:'editorial',personalLabel:'Editorial · Profile',personalPreviewAvailable:true,distinctive:'Warm paper surfaces, serif typography and refined framing. The preserved favorite.'},
   {id:'terminal',personalLabel:'Terminal · Explorer',personalPreviewAvailable:true,distinctive:'Monospaced Linux-inspired design with sharp corners and high contrast.'},
-  {id:'aurora-peak',personalLabel:'Aurora Peak',personalPreviewAvailable:true,distinctive:'Atmospheric mountain and emerald accents with layered depth.'},
+  {id:'aurora-peak',personalLabel:'Aurora Peak',personalPreviewAvailable:true,distinctive:'Alpine sunrise, lichen accents, arched portrait, mountain layers and field notes.'},
   {id:'neon-studio',personalLabel:'Neon Studio',personalPreviewAvailable:true,distinctive:'Turquoise aurora ribbon, five medallions and six compact feature tiles.'},
   {id:'design-2',personalLabel:'Cosmic',personalPreviewAvailable:true,distinctive:'Deep cosmic blues, four satellites and four glass information cards.'}
  ]
