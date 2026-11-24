@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.31.0-editorial-github-layer-five-engine-plugin-platform-manual-qa-pending",
+  "release": "personal-preview-v3.31.1-cross-theme-github-disclosure-marquee-layer-fix-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -306,7 +306,9 @@
     "v331-plugin-generated-site-starter-demo",
     "v331-plugin-status-quick-menu-integration",
     "v331-plugin-host-specific-control-ids",
-    "v331-offline-lifecycle-source-verifier"
+    "v331-offline-lifecycle-source-verifier",
+    "v3311-cross-theme-github-disclosure-above-marquee",
+    "v3311-reversible-open-close-stacking-marker"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1207,11 +1209,11 @@
     "automaticHostedTestResult": "NOT_RUN",
     "previewDeploymentIndependentOfCI": true,
     "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md",
-    "lastKnownChange": "v3.31 Editorial menu stacking repair and independent five-engine portable plugin architecture",
+    "lastKnownChange": "v3.31.1 GitHub hero disclosure stacking correction expanded from Editorial to all six themes",
     "lastFeedback": "Owner screenshot 2026-11-24: 2x2 geometry visible; refined theme consistency, CTA priority and video affordance",
-    "manualBrowserVerification": "NOT_RUN after v3.31.0",
-    "lastEvidence": "24/24 host lifecycle and 13/13 five-real-module synthetic DOM checks passed; real browser/manual review pending",
-    "deploymentStatus": "Preview branch updated; Cloudflare Git deployment not independently confirmed"
+    "manualBrowserVerification": "NOT_RUN after v3.31.1",
+    "lastEvidence": "17/17 source contract checks passed; owner manual browser review pending",
+    "deploymentStatus": "Preview branch committed; Cloudflare serving new assets not independently confirmed"
   },
   "fiveEngineV329": {
     "version": "3.29.0",
@@ -1373,5 +1375,33 @@
       "Standalone cinematic mode uses CSS fallback, not GPU ray tracing"
     ],
     "manualAcceptance": "PENDING"
+  },
+  "githubOverlayV3311": {
+    "version": "3.31.1",
+    "stage": "preview-only",
+    "issue": "GitHub dropdown under marquee in Neon Studio; previously fixed only for Editorial",
+    "fix": "Open-only shared hero stacking lift, marquee below hero, sticky header remains above; original hero geometry and Neon material unchanged",
+    "scope": [
+      "orbit",
+      "editorial",
+      "terminal",
+      "aurora-peak",
+      "neon-studio",
+      "design-2"
+    ],
+    "files": [
+      "github-hero-layer-v3311.css",
+      "github-hero-explorer-v324.js",
+      "index.html"
+    ],
+    "verification": {
+      "sourceContracts": "17/17 passed via GitHub readback and JavaScript compilation",
+      "liveCloudflare": "NOT_INDEPENDENTLY_CONFIRMED",
+      "realBrowserQA": "NOT_RUN",
+      "githubActions": "NOT_RUN",
+      "circleCI": "NOT_RUN"
+    },
+    "manualCheck": "Open top GitHub menu in Neon; ensure popup above marquee and below sticky header, close/reset and switch six themes",
+    "releaseGate": "MANUAL_QA_PENDING"
   }
 }
