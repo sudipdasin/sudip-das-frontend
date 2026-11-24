@@ -35,7 +35,7 @@ Run from the repository root:
 node scripts/verify-github-hero-v324.mjs
 ```
 
-**Verified against GitHub preview source:** 37/37 JavaScript, CSS, public-data normalization, privacy, hover/keyboard, cache and simulated API failure checks, plus 10/10 release integration checks. These are local/mock checks and are **not** proof that Cloudflare has deployed this revision or that current public GitHub data is reachable from the browser.
+**Verified against GitHub preview source:** 38/38 JavaScript, CSS, public-data normalization, privacy, hover/keyboard, cache and simulated API failure checks, plus 10/10 release integration checks. These are local/mock checks and are **not** proof that Cloudflare has deployed this revision or that current public GitHub data is reachable from the browser.
 
 ## Human CI steps
 
