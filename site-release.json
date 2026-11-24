@@ -639,7 +639,7 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "Hero 56/56; targeted CI 33/33; prior Atmosphere 43/43, Mesh 70/70, GitHub 38/38 mock/source",
+    "sourceVerification": "240/240 across five independent source/mock suites on v3.28.1; real Cloudflare browser still unverified",
     "liveBrowserVerification": "v3.27 user report received; v3.28.1 live browser recheck outstanding",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
@@ -1126,9 +1126,9 @@
     },
     "verification": {
       "hero": "56/56 source and mock DOM with v3.28.1 marker",
-      "atmosphere": "43/43 source and mocked GPU/scroll transitions",
-      "fiveEngine": "70/70 source, i18n and mocked interaction/consent",
-      "github": "38/38 existing source and simulated behavior",
+      "atmosphere": "43/43 simulated renderer/theme/section tests rechecked on v3.28.1",
+      "fiveEngine": "70/70 integration/translation/audio mock tests rechecked on v3.28.1",
+      "github": "38/38 public GitHub hero mock/source checks rechecked on v3.28.1",
       "cloudflareDeployment": "NOT VERIFIED — v3.27 user browser report indicates outdated served audit",
       "realWebGLShaderCompilation": "NOT INDEPENDENTLY VERIFIED",
       "physicalAudio": "NOT INDEPENDENTLY VERIFIED",
@@ -1159,7 +1159,7 @@
       "scripts/verify-human-ci-theme-repairs-v3281.mjs",
       "index.html"
     ],
-    "testEvidence": "33/33 targeted repair predicates and 56/56 Hero Display mock/source tests passed",
+    "testEvidence": "Reran all five source/mock suites on v3.28.1: Hero 56/56; Targeted 33/33; Atmosphere 43/43; Mesh 70/70; GitHub 38/38 = 240/240",
     "realBrowserRevalidation": "NOT YET VERIFIED; v3.27 report does not validate current v3.28.1 build",
     "previewBuildFingerprint": "preview-five-engine-mesh-i18n-audio-v3.28.1",
     "humanCIRepairMarker": "v3.28.1",
