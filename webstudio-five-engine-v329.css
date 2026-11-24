@@ -224,3 +224,35 @@ body.ws-parity[data-theme="design-2"] .ws29-engine-action{
  }
  body.ws-parity .ws29-engine-action small{color:LinkText!important;}
 }
+/* Theme-specific motion grammar: CSS-only, GPU-light, and opt-in via engine state.
+ * Editorial intentionally stays static like a printed folio. Motion never moves
+ * text/portrait geometry and stops in Off/Eco, data saver, or reduced motion.
+ */
+@keyframes ws29-orbit-indicator{to{transform:rotate(360deg)}}
+@keyframes ws29-terminal-blink{0%,48%{opacity:1}50%,100%{opacity:.3}}
+@keyframes ws29-alpine-glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15)}}
+@keyframes ws29-neon-breathe{0%,100%{box-shadow:0 0 8px #61f5e428}50%{box-shadow:0 0 23px #61f5e465}}
+@keyframes ws29-stellar-glint{0%,100%{opacity:.62}50%{opacity:1}}
+body.ws-parity[data-theme="orbit"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-orbit-indicator 22s linear infinite;
+}
+body.ws-parity[data-theme="terminal"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-terminal-blink 2.2s steps(2,end) infinite;
+}
+body.ws-parity[data-theme="aurora-peak"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-alpine-glow 9s ease-in-out infinite;
+}
+body.ws-parity[data-theme="neon-studio"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-neon-breathe 6s ease-in-out infinite;
+}
+body.ws-parity[data-theme="design-2"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-stellar-glint 8s ease-in-out infinite;
+}
+body.ws-parity[data-atmosphere-tier="off"] .ws29-hero-symbol,
+body.ws-parity[data-atmosphere-tier="eco"] .ws29-hero-symbol,
+body.ws-parity[data-theme="editorial"] .ws29-hero-symbol{
+ animation:none!important;
+}
+@media(prefers-reduced-motion:reduce),(prefers-contrast:more){
+ body.ws-parity .ws29-hero-symbol{animation:none!important;}
+}
