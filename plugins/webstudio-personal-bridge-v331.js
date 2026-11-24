@@ -46,10 +46,17 @@
   ja:['プラグインエンジン','準備完了','未準備','独立モジュール']
  };
  const tools=doc.getElementById('pv-hub-panel-tools');
- let button,description;
+ const demoLabels={
+  en:'Plugin engine playground',hi:'प्लगइन इंजन प्रयोगशाला',bn:'প্লাগইন ইঞ্জিন প্রদর্শনী',
+  es:'Demostración de plugins',fr:'Atelier des plugins',de:'Plugin-Demoseite',
+  pt:'Demonstração de plugins',ar:'تجربة محركات الإضافات',
+  'zh-CN':'插件引擎演示',ja:'プラグインエンジンのデモ'
+ };
+ let button,description,demo;
  function text(){
   const s=host.getStatus(),t=labels[s.locale]||labels.en;
   if(button)button.textContent=t[0]+' · '+s.mounted+'/'+s.installed;
+  if(demo)demo.textContent=demoLabels[s.locale]||demoLabels.en;
   if(description&&!description.hidden){
    description.textContent=t[3]+' — '+Object.entries(s.modules)
     .map(([id,state])=>id+': '+state).join(' · ')+(s.errors.length?' · '+t[2]:' · '+t[1]);
@@ -63,12 +70,16 @@
   description=doc.createElement('p');
   description.id='wsp-plugin-status-content';
   description.setAttribute('role','status');description.hidden=true;
-  tools.append(button,description);
+  demo=doc.createElement('a');
+  demo.className='wsp-plugin-demo-link';
+  demo.href='examples/webstudio-plugin-starter/';
+  demo.rel='nofollow';
+  tools.append(button,description,demo);
   listen(button,'click',()=>{
    description.hidden=!description.hidden;
    button.setAttribute('aria-expanded',String(!description.hidden));text();
   });
-  cleanup.push(()=>{button.remove();description.remove()});
+  cleanup.push(()=>{button.remove();description.remove();demo.remove()});
  }
  host.on('plugin-status',text);host.on('ready',text);
  listen(doc,'profile-language-change',text);
