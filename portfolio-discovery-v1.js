@@ -31,7 +31,7 @@
   panel.append(label,input,select,reset,status);
   grid.id = 'portfolio-project-grid';
   grid.before(panel);
-  const normalize = text => text.normalize('NFKD').toLocaleLowerCase().replace(/[\\u0300-\\u036f]/g,'').trim();
+  const normalize = text => text.normalize('NFKD').toLocaleLowerCase().replace(/[\u0300-\u036f]/g,'').trim();
   function update() {
     const query = normalize(input.value);
     let shown = 0;
@@ -43,7 +43,7 @@
         (focus==='linux' && /linux|desktop|system|shell/.test(type+' '+content)) ||
         (focus==='ai' && /ai|video|media|animation|image|model/.test(type+' '+content)) ||
         (focus==='web' && /web|site|portfolio|app|cloud|studio/.test(type+' '+content));
-      const matchesQuery=!query || query.split(/\\s+/).every(term=>content.includes(term));
+      const matchesQuery=!query || query.split(/\s+/).every(term=>content.includes(term));
       const visible=matchesFocus && matchesQuery;
       card.hidden=!visible;
       if(visible) shown++;
