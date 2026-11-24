@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.57.0-cyberpunk-console-matrix",
+  "release": "personal-preview-v3.58.0-terminal-hud-reference-repair",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -390,7 +390,10 @@
     "v356-four-selectable-rain-presets",
     "v357-terminal-cyberpunk-console",
     "v357-matrix-rain-default",
-    "v357-exact-chamfered-corner-nodes"
+    "v357-exact-chamfered-corner-nodes",
+    "v358-terminal-cascade-fix",
+    "v358-hex-portrait-circular-hud",
+    "v358-pronounced-matrix-rain"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1824,6 +1827,16 @@
     "modeledAssertions": 25,
     "syntheticDomAssertions": 38,
     "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "terminalReferenceRepairV358": {
+    "sourceCommit": "9134c7bbca9c54066ee9d43f096aabe483bb5fe6",
+    "reason": "owner screenshot: generic profile specificity overrode console dimensions/crop; last reference mockup depicts hexagonal portrait and circular HUD",
+    "shape": "hexagonal portrait plus circular HUD tracks",
+    "finalSyntheticAssertions": 282,
+    "localChromium": "6 viewport isolated CSS-cascade reproductions passed; not full page",
+    "liveBrowser": "NOT_RUN: DNS resolution failed",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
   }
