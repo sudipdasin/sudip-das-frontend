@@ -29,7 +29,7 @@
     root.prepend(layer);
     control=doc.createElement('div');control.className='wsp-plugin-panel wsp-atmosphere-tools';
     control.setAttribute('data-wsp-ui','atmosphere');
-    label=doc.createElement('label');label.htmlFor='wsp-atmosphere-quality';
+    label=doc.createElement('label');label.htmlFor=ctx.uid+'-quality';
     select=doc.createElement('select');select.id=label.htmlFor;
     select.setAttribute('aria-label','Atmosphere quality');
     for(const id of modes){const o=doc.createElement('option');o.value=id;select.append(o)}
