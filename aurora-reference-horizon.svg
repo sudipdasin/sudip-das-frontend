@@ -16,13 +16,13 @@
 <ellipse cx="850" cy="295" rx="490" ry="130" fill="#00cab9" opacity=".18" filter="url(#blur)"/>
 <!-- Refined continuous original panorama: soft sky curtains, mountain depth, wooded ridges and valley mist. -->
 <g fill="none" stroke-linecap="round">
-<path d="M-100 241 C160 218 300 259 507 156 S804 162 1012 86 S1460 110 1880 -18" stroke="#7ff3bb" stroke-width="75" opacity=".16" filter="url(#blur)"/>
-<path d="M-100 241 C160 218 300 259 507 156 S804 162 1012 86 S1460 110 1880 -18" stroke="url(#apRibbon)" stroke-width="41" opacity=".62" filter="url(#apSoft)"/>
-<path d="M-100 241 C160 218 300 259 507 156 S804 162 1012 86 S1460 110 1880 -18" stroke="#c4f5b7" stroke-width="2.4" opacity=".36" filter="url(#apSoft)"/>
-<path d="M-80 56 Q260 210 570 68 T1170 96 T1850 24" stroke="#5e9cbd" stroke-width="57" opacity=".12" filter="url(#blur)"/>
-<path d="M510 364 C790 245 1060 311 1300 181 S1650 202 1880 110" stroke="#9cf5bc" stroke-width="58" opacity=".20" filter="url(#blur)"/>
-<path d="M510 364 C790 245 1060 311 1300 181 S1650 202 1880 110" stroke="#87e5bd" stroke-width="18" opacity=".22" filter="url(#apSoft)"/>
-<path d="M620 374 C930 306 1070 356 1400 224 S1710 239 1860 197" stroke="#c6a7e2" stroke-width="33" opacity=".20" filter="url(#blur)"/>
+<path d="M-100 241 C160 218 300 259 507 156 S804 162 1012 86 S1460 110 1880 -18" stroke="#7ff3bb" stroke-width="93" opacity=".29" filter="url(#blur)"/>
+<path d="M-100 241 C160 218 300 259 507 156 S804 162 1012 86 S1460 110 1880 -18" stroke="url(#apRibbon)" stroke-width="47" opacity=".88" filter="url(#apSoft)"/>
+<path d="M-100 241 C160 218 300 259 507 156 S804 162 1012 86 S1460 110 1880 -18" stroke="#c4f5b7" stroke-width="3.5" opacity=".58" filter="url(#apSoft)"/>
+<path d="M-80 56 Q260 210 570 68 T1170 96 T1850 24" stroke="#83b2da" stroke-width="65" opacity=".21" filter="url(#blur)"/>
+<path d="M510 364 C790 245 1060 311 1300 181 S1650 202 1880 110" stroke="#9cf5bc" stroke-width="72" opacity=".34" filter="url(#blur)"/>
+<path d="M510 364 C790 245 1060 311 1300 181 S1650 202 1880 110" stroke="#87e5bd" stroke-width="22" opacity=".42" filter="url(#apSoft)"/>
+<path d="M620 374 C930 306 1070 356 1400 224 S1710 239 1860 197" stroke="#c6a7e2" stroke-width="46" opacity=".37" filter="url(#blur)"/>
 </g>
 <circle cx="61" cy="11" r="1.25" fill="#e5f4da" opacity="0.53"/>
 <circle cx="198" cy="82" r="0.65" fill="#e5f4da" opacity="0.29"/>
