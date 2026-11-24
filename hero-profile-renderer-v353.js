@@ -3,7 +3,7 @@
 ((global)=>{'use strict';if(!global)return;
  const ids=Object.freeze({native:'Theme original',round:'Celestial Precision',rectangle:'Paper & Ink Atelier',hexagon:'Technical Blueprint',squircle:'Prismatic Glass',console:'Cyberpunk Console'});
  const defaults=Object.freeze({orbit:'round',editorial:'rectangle','design-2':'round',terminal:'console'});
- const locked=t=>t==='aurora-peak'||t==='neon-studio';
+ const locked=t=>t==='aurora-peak'||t==='neon-studio'||t==='bento';
  const valid=id=>Object.hasOwn(ids,id);
  const effective=(theme,choice)=>locked(theme)?'native':valid(choice)&&(choice!=='console'||theme==='terminal')?choice:defaults[theme]||'native';
  const NS='http://www.w3.org/2000/svg',key='ws-hero-profiles-v353';
