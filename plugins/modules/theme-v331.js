@@ -38,7 +38,7 @@
     panel.className='wsp-plugin-panel wsp-theme-switcher';
     panel.setAttribute('data-wsp-ui','theme');
     label=ctx.document.createElement('label');
-    label.htmlFor='wsp-theme-select-'+Math.random().toString(36).slice(2,9);
+    label.htmlFor=ctx.uid+'-theme-select';
     select=ctx.document.createElement('select');select.id=label.htmlFor;
     select.setAttribute('aria-label','Choose presentation');
     themes.forEach((id,i)=>{
