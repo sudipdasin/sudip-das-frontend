@@ -1,0 +1,52 @@
+/* WebStudio v3.31.3 — GitHub popup opaque surface repair.
+ *
+ * This dropdown is portaled out of .gh-hero-shell and therefore must NOT
+ * inherit its theme background. Supply a fully opaque backdrop explicitly for
+ * every theme. Remove the original fade animation in portal mode so it cannot
+ * leave a temporarily transparent animated layer on top of the page.
+ *
+ * A late-loaded stylesheet is deliberate: prevent previous theme effects,
+ * animations or other presentation modules from overriding the solid surface.
+ */
+body.ws-parity > section.gh-hero-panel.gh-hero-panel-portal:not([hidden]) {
+  opacity:1!important;
+  animation:none!important;
+  background-image:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  mix-blend-mode:normal!important;
+  filter:none!important;
+  isolation:isolate;
+  background-color:#101e36!important; /* fallback if a theme attr is missing */
+  color:var(--gh-ink,#eafcff)!important;
+  border:1px solid var(--gh-edge,#4ebac9)!important;
+}
+body.ws-parity > section.gh-hero-panel.gh-hero-panel-portal[data-gh-theme="orbit"]:not([hidden]) {
+  background:#0c2c3d!important;
+}
+body.ws-parity > section.gh-hero-panel.gh-hero-panel-portal[data-gh-theme="editorial"]:not([hidden]) {
+  background:#fffaf1!important;
+}
+body.ws-parity > section.gh-hero-panel.gh-hero-panel-portal[data-gh-theme="terminal"]:not([hidden]) {
+  background:#061b12!important;
+}
+body.ws-parity > section.gh-hero-panel.gh-hero-panel-portal[data-gh-theme="aurora-peak"]:not([hidden]) {
+  background:#102f32!important;
+}
+body.ws-parity > section.gh-hero-panel.gh-hero-panel-portal[data-gh-theme="neon-studio"]:not([hidden]) {
+  background:#101e36!important;
+}
+body.ws-parity > section.gh-hero-panel.gh-hero-panel-portal[data-gh-theme="design-2"]:not([hidden]) {
+  background:#1c1740!important;
+}
+/* Never show the closed disclosure, including during transition cancellation. */
+body.ws-parity > section.gh-hero-panel.gh-hero-panel-portal[hidden]{
+ display:none!important;
+}
+@media(forced-colors:active){
+ body.ws-parity > section.gh-hero-panel.gh-hero-panel-portal:not([hidden]){
+  background:Canvas!important;
+  color:CanvasText!important;
+  border:1px solid CanvasText!important;
+ }
+}
