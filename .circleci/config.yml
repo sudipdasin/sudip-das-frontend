@@ -2,6 +2,13 @@
 # CircleCI is the primary CI provider; no deployment or paid action is invoked.
 version: 2.1
 
+# Manual QA mode, 2026-11-24: no automatic CircleCI jobs.
+# Only an explicit pipeline parameter can re-enable jobs if credits return.
+parameters:
+  manual_ci_enabled:
+    type: boolean
+    default: false
+
 jobs:
   public-artifact-integrity:
     docker:
@@ -104,6 +111,7 @@ jobs:
 
 workflows:
   validate-deployment-only-personal-portfolio:
+    when: << pipeline.parameters.manual_ci_enabled >>
     jobs:
       - public-artifact-integrity
       - browser-smoke:
