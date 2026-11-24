@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.48.0-owner-approved-aurora-hybrid-manual-qa-pending",
+  "release": "personal-preview-v3.49.0-approved-aurora-full-page-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -365,7 +365,10 @@
     "v347-single-continuous-hero-background",
     "v348-approved-aurora-hybrid-arch",
     "v348-four-localized-arch-medallions",
-    "v348-shining-apex-star-and-soft-aurora-shader"
+    "v348-shining-apex-star-and-soft-aurora-shader",
+    "v349-aurora-prominent-portrait",
+    "v349-continuous-alpine-panorama",
+    "v349-aligned-arch-illumination"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1702,6 +1705,15 @@
     "sourceCommit": "d53007d0b0a613e2b99477b6d35b8af52b1d78ca",
     "sourceAssertions": 60,
     "approval": "explicit commit instruction following hybrid mockup",
+    "realBrowser": "NOT_RUN",
+    "shaderCompilation": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "auroraFullPageV349": {
+    "sourceCommit": "be4366409ec03045f99f6782461f8af14163966c",
+    "sourceAndModeledGeometryAssertions": 34,
+    "approval": "explicit commit following full-page hybrid mockup",
     "realBrowser": "NOT_RUN",
     "shaderCompilation": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
