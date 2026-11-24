@@ -123,7 +123,7 @@
       const trail=document.querySelector('.hero-art .ap-trail-mark');
       const caption=document.querySelector('.hero-art .portrait-caption');
       const toHex=value=>{
-        const parts=(value||'').match(/[0-9]+(?:\\.[0-9]+)?/g);
+        const parts=(value||'').match(/[0-9]+/g);
         if(!parts||parts.length<3)return '';
         return '#'+parts.slice(0,3).map(n=>Math.min(255,Math.max(0,Math.round(Number(n)))).toString(16).padStart(2,'0')).join('');
       };
