@@ -383,5 +383,20 @@
  panel.querySelectorAll('.ws-visitor-quick-links a,.ws-visitor-quick-themes button').forEach(item=>{
   item.addEventListener('click',schedule);
  });
+ // Public, visitor-only API. No editor or private account access.
+ window.__wsQuickMenu330=Object.freeze({
+  version:'3.30.0',
+  getStatus:()=>Object.freeze({
+   open:!panel.hidden,active:ids[active],tabs:Object.freeze(ids.slice()),
+   theme:document.body.dataset.theme,locale:window.profileI18n?.locale||'en'
+  }),
+  openTab:id=>{
+   const index=ids.indexOf(id);
+   if(index<0)return false;
+   if(panel.hidden)trigger.click();
+   activate(index,true);update();return true;
+  },
+  close:()=>{if(!panel.hidden)trigger.click();return panel.hidden}
+ });
  update();
 })();
