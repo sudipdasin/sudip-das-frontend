@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.52.0-shape-engine-foundation",
+  "release": "personal-preview-v3.53.0-approved-selectable-hero-profiles",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -376,7 +376,12 @@
     "v351-balanced-aurora-lighting",
     "v352-seven-shape-geometry-registry",
     "v352-shape-aware-atmosphere-contracts",
-    "v352-approval-gated-visuals"
+    "v352-approval-gated-visuals",
+    "v353-celestial-precision-round",
+    "v353-paper-ink-atelier",
+    "v353-technical-blueprint-hex",
+    "v353-prismatic-glass-squircle",
+    "v353-selectable-hero-profiles"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1749,6 +1754,26 @@
     "sourceCommit": "ffc2767fda6685b82a2582b1b5fff4d72c6fac3f",
     "mathAndPolicyAssertions": 2511,
     "visualActivation": "not enabled; owner approval required",
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "heroProfilesV353": {
+    "sourceCommit": "bf98c9cf5ed06ce4215cc0df18043acb8dfcbb00",
+    "approval": "all four proposed Hero designs",
+    "finalSyntheticDomAssertions": 79,
+    "priorGeometryAssertions": 2511,
+    "lockedThemes": [
+      "aurora-peak",
+      "neon-studio"
+    ],
+    "control": "Atmosphere > Hero design",
+    "defaults": {
+      "orbit": "round",
+      "editorial": "rectangle",
+      "design-2": "round",
+      "terminal": "native"
+    },
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
