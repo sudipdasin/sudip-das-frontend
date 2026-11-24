@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.31.1-cross-theme-github-disclosure-marquee-layer-fix-manual-qa-pending",
+  "release": "personal-preview-v3.31.2-theme-isolated-github-overlay-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -308,7 +308,11 @@
     "v331-plugin-host-specific-control-ids",
     "v331-offline-lifecycle-source-verifier",
     "v3311-cross-theme-github-disclosure-above-marquee",
-    "v3311-reversible-open-close-stacking-marker"
+    "v3311-reversible-open-close-stacking-marker",
+    "v3312-github-viewport-portal-over-cosmic-marquee",
+    "v3312-six-theme-isolated-dropdown-palettes",
+    "v3312-neon-cyan-vs-cosmic-violet-theme-guard",
+    "v3312-reversible-panel-portal-and-focus-handling"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1209,11 +1213,11 @@
     "automaticHostedTestResult": "NOT_RUN",
     "previewDeploymentIndependentOfCI": true,
     "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md",
-    "lastKnownChange": "v3.31.1 GitHub hero disclosure stacking correction expanded from Editorial to all six themes",
+    "lastKnownChange": "v3.31.2 Github dropdown portal and six theme-specific menu palettes, Neon/Cosmic regression fix",
     "lastFeedback": "Owner screenshot 2026-11-24: 2x2 geometry visible; refined theme consistency, CTA priority and video affordance",
-    "manualBrowserVerification": "NOT_RUN after v3.31.1",
-    "lastEvidence": "17/17 source contract checks passed; owner manual browser review pending",
-    "deploymentStatus": "Preview branch committed; Cloudflare serving new assets not independently confirmed"
+    "manualBrowserVerification": "NOT_RUN after v3.31.2",
+    "lastEvidence": "26/26 synthetic source/runtime assertions; not a real browser or live Cloudflare acceptance check",
+    "deploymentStatus": "GitHub preview branch committed, Cloudflare serving newest assets not independently confirmed"
   },
   "fiveEngineV329": {
     "version": "3.29.0",
@@ -1403,5 +1407,36 @@
     },
     "manualCheck": "Open top GitHub menu in Neon; ensure popup above marquee and below sticky header, close/reset and switch six themes",
     "releaseGate": "MANUAL_QA_PENDING"
+  },
+  "githubOverlayV3312": {
+    "version": "3.31.2",
+    "stage": "preview-only",
+    "issues": [
+      "Neon GitHub dropdown displaying Cosmic-like color/layout after prior fix",
+      "Cosmic GitHub dropdown covered by marquee"
+    ],
+    "solution": "Viewport-fixed body portal only while disclosure open; six isolated native menu palettes and selected-theme binding. No hero stacking overrides or native theme layout changes.",
+    "files": [
+      "github-hero-explorer-v324.js",
+      "github-hero-portal-v3312.css",
+      "index.html"
+    ],
+    "disabledPreviousLayers": [
+      "editorial-github-layer-v331.css",
+      "github-hero-layer-v3311.css"
+    ],
+    "diagnostics": "window.__wsGithubHero324.getStatus()",
+    "manualQA": "docs/GITHUB_HERO_PORTAL_V3312_MANUAL_QA.md",
+    "offlineVerifier": "scripts/verify-github-portal-v3312.mjs",
+    "verification": {
+      "simulatedOpenCloseAndThemes": "26/26 source/runtime assertions passed in JavaScript mock DOM",
+      "offlineNodeVerifier": "Committed but not separately executed with Node",
+      "realBrowser": "NOT_RUN",
+      "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+      "githubActions": "NOT_RUN",
+      "circleCI": "NOT_RUN"
+    },
+    "releaseGate": "MANUAL_QA_PENDING",
+    "production": "UNCHANGED"
   }
 }
