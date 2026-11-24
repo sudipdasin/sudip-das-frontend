@@ -89,8 +89,9 @@
   const themeLibrary=document.getElementById('pv-theme-library');
   if(themeLibrary&&!themeLibrary.hidden)return;
   const quickPanel=document.getElementById('ws-visitor-quick-panel');
-  lastFocus=document.activeElement||launcher;
-  if(quickPanel&&!quickPanel.hidden)document.getElementById('ws-visitor-quick-open')?.click();
+  const quickTrigger=document.getElementById('ws-visitor-quick-open');
+  lastFocus=quickPanel?.contains(document.activeElement)?quickTrigger:(document.activeElement||launcher);
+  if(quickPanel&&!quickPanel.hidden)quickTrigger?.click();
   overlay.hidden=false;document.body.classList.add('ws30-dialog-open');
   input.setAttribute('aria-expanded','true');input.value='';active=0;
   updateResults();input.focus({preventScroll:true});
