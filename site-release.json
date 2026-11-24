@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.12.0-smart-footer-breadcrumbs",
+  "release": "personal-preview-v3.14.0-human-ci-and-project-discovery",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -108,7 +108,12 @@
     "all-six-themes-localized",
     "translated-accessibility-labels-and-dynamic-panels",
     "context-aware-accessible-footer-breadcrumbs",
-    "removed-redundant-footer-social-list"
+    "removed-redundant-footer-social-list",
+    "preview-human-ci-local-report",
+    "preview-human-ci-json-export",
+    "preview-project-search-and-filters",
+    "preview-keyboard-skip-link",
+    "preview-reduced-motion-a11y"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -451,5 +456,13 @@
     "supplementalPhrases": 350,
     "coverage": "all discoverable literal text/ARIA in audited visitor components, except proper names and core rich text handled by original i18n",
     "limit": "not independently visually/browser tested in every language"
+  },
+  "humanCI": {
+    "branch": "preview-personalweb",
+    "stage": "human-review",
+    "checks": "local-only source smoke tests",
+    "verification": "JavaScript parses; preview safety invariants checked; live browser review pending",
+    "dataPolicy": "feedback stored only in browser and exported by user; no automatic server submission",
+    "productionPromotionApproved": false
   }
 }
