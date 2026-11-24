@@ -25,7 +25,7 @@
   const trustedRepo=(entry)=>{
     if(!entry||entry.private===true||entry.fork===true||entry.archived===true)return null;
     const name=safeName(entry.name);
-    if(!name||entry.owner?.login?.toLowerCase()!==OWNER)return null;
+    if(!name||typeof entry.owner?.login!=='string'||entry.owner.login.toLowerCase()!==OWNER)return null;
     const language=typeof entry.language==='string'?entry.language.slice(0,35):'';
     const description=typeof entry.description==='string'?entry.description.trim().slice(0,190):'';
     const pushed=typeof entry.pushed_at==='string'&&Number.isFinite(Date.parse(entry.pushed_at))
@@ -199,7 +199,7 @@
     if(!force&&loaded&&now-updatedAt<TTL){renderPublic(loaded);return;}
     if(!force){
       const cached=loadCache();
-      if(cached&&now-cached.at<TTL){
+      if(cached&&cached.at<=now&&now-cached.at<TTL){
         loaded=cached;updatedAt=cached.at;renderPublic(cached,true);return;
       }
     }
@@ -260,6 +260,7 @@
       shell.dataset.open='true';
       trigger.setAttribute('aria-expanded','true');
       positionPanel();
+      renderFallback('Checking public GitHub activity… showing projects from this portfolio.');
       void load();
     }
   }
