@@ -27,14 +27,15 @@
     ['atmosphereModes','Auto / Cinematic / Balanced / Eco / Off modes function'],
     ['atmosphereOff','Off disables added rendering and animation'],
     ['atmosphereFallback','No-WebGL and older-device fallbacks function'],
-    ['atmosphereSafety','Reduced motion, data saver and resource safety work']
+    ['atmosphereSafety','Reduced motion, data saver and resource safety work'],
+    ['atmosphereSitewide','Atmosphere remains active and theme-native on every page section while scrolling']
   ];
-  const key = 'webstudio-human-ci-v3.22';
+  const key = 'webstudio-human-ci-v3.23';
   const host = document.createElement('aside');
   host.id = 'human-ci-panel';
   host.className = 'human-ci-panel';
   host.setAttribute('aria-label','Human CI testing console');
-  host.innerHTML = '<button type="button" class="human-ci-toggle" aria-controls="human-ci-content" aria-expanded="false">🧪 Review v3.22 <span class="human-ci-count">0/25</span></button><div id="human-ci-content" hidden><h2>Human CI · v3.22 Atmosphere and six-theme review</h2><p>Results from earlier versions are not proof for this build. Test each theme and device again. Your feedback stays local until exported; never include secrets.</p><p class="human-ci-progress" role="status" aria-live="polite">25 checks not yet completed.</p><div class="human-ci-checks"></div><label for="human-ci-notes">Bugs, screenshots to capture, suggestions</label><textarea id="human-ci-notes" rows="4" maxlength="4000" placeholder="What happened? Steps to reproduce? Expected result?"></textarea><details class="human-ci-defects"><summary>Log reproducible bugs / improvements</summary><label for="hc-issue-theme">Affected theme</label><select id="hc-issue-theme"><option value="all">General / multiple themes</option><option value="orbit">Orbit</option><option value="editorial">Editorial</option><option value="terminal">Terminal</option><option value="aurora-peak">Aurora Peak</option><option value="neon-studio">Neon Studio</option><option value="design-2">Cosmic</option></select><label for="hc-severity">Severity</label><select id="hc-severity"><option value="medium">Medium</option><option value="low">Low</option><option value="high">High</option><option value="blocker">Blocker</option></select><label for="hc-issue-description">Actual / expected behavior</label><textarea id="hc-issue-description" maxlength="1000" rows="3" placeholder="What is wrong, and what should happen?"></textarea><label for="hc-issue-steps">Reproduction steps</label><textarea id="hc-issue-steps" maxlength="1000" rows="3" placeholder="Actions, viewport, screenshot reference"></textarea><button type="button" data-action="add-issue">Add issue</button></details><div class="human-ci-issues" aria-live="polite"></div><div class="human-ci-actions"><button type="button" data-action="export">Export feedback JSON</button><button type="button" data-action="copy">Copy report</button><button type="button" data-action="reset">Clear</button></div><p class="human-ci-status" role="status" aria-live="polite"></p></div>';
+  host.innerHTML = '<button type="button" class="human-ci-toggle" aria-controls="human-ci-content" aria-expanded="false">🧪 Review v3.23 <span class="human-ci-count">0/26</span></button><div id="human-ci-content" hidden><h2>Human CI · v3.23 Full-site Atmosphere review</h2><p>Results from earlier versions are not proof for this build. Test each theme and device again. Your feedback stays local until exported; never include secrets.</p><p class="human-ci-progress" role="status" aria-live="polite">26 checks not yet completed.</p><div class="human-ci-checks"></div><label for="human-ci-notes">Bugs, screenshots to capture, suggestions</label><textarea id="human-ci-notes" rows="4" maxlength="4000" placeholder="What happened? Steps to reproduce? Expected result?"></textarea><details class="human-ci-defects"><summary>Log reproducible bugs / improvements</summary><label for="hc-issue-theme">Affected theme</label><select id="hc-issue-theme"><option value="all">General / multiple themes</option><option value="orbit">Orbit</option><option value="editorial">Editorial</option><option value="terminal">Terminal</option><option value="aurora-peak">Aurora Peak</option><option value="neon-studio">Neon Studio</option><option value="design-2">Cosmic</option></select><label for="hc-severity">Severity</label><select id="hc-severity"><option value="medium">Medium</option><option value="low">Low</option><option value="high">High</option><option value="blocker">Blocker</option></select><label for="hc-issue-description">Actual / expected behavior</label><textarea id="hc-issue-description" maxlength="1000" rows="3" placeholder="What is wrong, and what should happen?"></textarea><label for="hc-issue-steps">Reproduction steps</label><textarea id="hc-issue-steps" maxlength="1000" rows="3" placeholder="Actions, viewport, screenshot reference"></textarea><button type="button" data-action="add-issue">Add issue</button></details><div class="human-ci-issues" aria-live="polite"></div><div class="human-ci-actions"><button type="button" data-action="export">Export feedback JSON</button><button type="button" data-action="copy">Copy report</button><button type="button" data-action="reset">Clear</button></div><p class="human-ci-status" role="status" aria-live="polite"></p></div>';
   const toggle = host.querySelector('.human-ci-toggle');
   const content = host.querySelector('#human-ci-content');
   const list = host.querySelector('.human-ci-checks');
@@ -45,7 +46,7 @@
   let recoveredNotes=false;
   try {
     const raw=JSON.parse(localStorage.getItem(key)||'null');
-    const source=raw&&typeof raw==='object'?raw:JSON.parse(localStorage.getItem('webstudio-human-ci-v3.21')||localStorage.getItem('webstudio-human-ci-v3.20')||localStorage.getItem('webstudio-human-ci-v3.18')||localStorage.getItem('webstudio-human-ci-v3.17')||localStorage.getItem('webstudio-human-ci-v3.15')||'null');
+    const source=raw&&typeof raw==='object'?raw:JSON.parse(localStorage.getItem('webstudio-human-ci-v3.22')||localStorage.getItem('webstudio-human-ci-v3.21')||localStorage.getItem('webstudio-human-ci-v3.20')||localStorage.getItem('webstudio-human-ci-v3.18')||localStorage.getItem('webstudio-human-ci-v3.17')||localStorage.getItem('webstudio-human-ci-v3.15')||'null');
     if(source&&typeof source==='object'){
       state.notes=typeof source.notes==='string'?source.notes.slice(0,4000):'';
       recoveredNotes=!!state.notes && !raw;
@@ -109,7 +110,7 @@
   });
   const snapshot=()=>({
     schemaVersion:2,project:'Sudip Das portfolio',environment:'preview-personalweb',
-    url:location.origin+location.pathname,release:'v3.22-human-ci',reviewType:'manual-observation',automatedBrowserVerified:false,
+    url:location.origin+location.pathname,release:'v3.23-human-ci',reviewType:'manual-observation',automatedBrowserVerified:false,
     collectedAt:new Date().toISOString(),
     theme:document.body.dataset.theme || 'unknown',
     userAgent:navigator.userAgent,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},checks:Object.fromEntries(checks.map(([id])=>[id,state.checks[id]||'todo'])),notes:state.notes,issues:state.issues,reviewComplete:checks.every(([id])=>state.checks[id]==='pass')&&state.issues.length===0
@@ -158,7 +159,7 @@
   host.querySelector('[data-action="export"]').addEventListener('click',()=>{
     const blob=new Blob([JSON.stringify(snapshot(),null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(blob);
-    const link=document.createElement('a');link.href=url;link.download='webstudio-human-ci-v3.22.json';link.click();
+    const link=document.createElement('a');link.href=url;link.download='webstudio-human-ci-v3.23.json';link.click();
     setTimeout(()=>URL.revokeObjectURL(url),2000);
     status.textContent='Report exported locally. Attach the file when providing feedback.';
   });
