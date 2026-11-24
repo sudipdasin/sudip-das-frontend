@@ -217,6 +217,7 @@
    version:VERSION,register,use:register,mount,unmount,update,
    setTheme,setLocale,setQuality,on,getStatus:status,
    getModules:()=>Object.freeze([...registry.keys()]),
+   getModule:id=>instances.get(id)?.api||null,
    getProfile:id=>THEME_PROFILES[id||theme]||null
   });
   return api;
