@@ -463,17 +463,23 @@
       b.addEventListener('levelchange',update);update();
     }).catch(()=>{});
   }
+  function selectedShapeProfile(){
+    const lib=window.WebStudioHeroShapes352,theme=document.body.dataset.theme;
+    if(!lib)return null;
+    const base=lib.profileFor(theme),id=hero.querySelector('.hero-art')?.getAttribute('data-hero-profile');
+    return !base.locked&&id&&Object.hasOwn(lib.profiles,id)?Object.freeze({...lib.profiles[id],theme,locked:false,visualActivation:'approved'}):base;
+  }
   window.__wsAtmosphere328=Object.freeze({
     getStatus:()=>Object.freeze({mode,effective,renderer,theme:document.body.dataset.theme,
       section:sectionId,scope:'sitewide',progress:scrollProgress,
       interactive:true,dailySeed,
-      shapeProfile:window.WebStudioHeroShapes352?.profileFor(document.body.dataset.theme)||null,
-      shapeVisualActivation:'approval-required',
+      shapeProfile:selectedShapeProfile(),
+      shapeVisualActivation:selectedShapeProfile()?.visualActivation||'native',
       degraded,lowPower:slowDevice,saveData:power().saveData,reducedMotion:power().reduced,
       activeCanvas:Boolean(canvas),auroraEffects:auroraLayer?{quality:auroraLayer.dataset.quality,running:auroraLayer.dataset.running==='true',stars:24}:null,regionCount:regions.length,frameBudgetMs:Math.round(frameBudget),
       expectedFrameRate:renderer==='gpu'||renderer==='canvas2d'?Math.round(1000/frameBudget):0,
       capabilities:Object.freeze(['auto','cinematic','balanced','eco','off','adaptive-fallback','reduced-motion','sitewide','aurora-curtains','aurora-sparkles','shape-profile-registry','shape-motion-policy'])}),
-    getShapeProfile:()=>window.WebStudioHeroShapes352?.profileFor(document.body.dataset.theme)||null,
+    getShapeProfile:()=>selectedShapeProfile(),
     getShapeMotionPolicy:()=>window.WebStudioHeroShapes352?.motionPolicy({quality:effective,visible:visible&&document.visibilityState!=='hidden',reduced:power().reduced,saveData:power().saveData,lowPower:slowDevice||battery.low,forced:power().forced})||null,
     getAvailableShapeProfiles:()=>window.WebStudioHeroShapes352?.profiles||null,
     setMode:choose,
