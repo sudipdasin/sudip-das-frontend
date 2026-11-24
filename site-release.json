@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.18.1-aurora-peak-alpine-edition",
+  "release": "personal-preview-v3.19.0-terminal-footer-ci-visual-fix",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -153,7 +153,15 @@
     "aurora-peak-reduced-motion-compliance",
     "aurora-peak-safe-mount-unmount",
     "aurora-peak-contrast-and-layout-audit",
-    "human-ci-v3.18-fresh-build-review"
+    "human-ci-v3.18-fresh-build-review",
+    "terminal-webstudio-showcase-native-console",
+    "terminal-feature-card-square-aligned-green",
+    "terminal-webstudio-mono-glyph-and-no-orbits",
+    "terminal-inline-demo-controls-theme-native",
+    "human-ci-compact-one-line-launcher",
+    "human-ci-progress-details-inside-panel",
+    "human-ci-aria-progress-counts",
+    "terminal-browser-audit-footer-and-launcher-checks"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -499,7 +507,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.18-aurora-peak-human-visual-review",
+    "stage": "v3.19-terminal-screenshot-human-retest",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -516,8 +524,8 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "24/24 source checks passed with 4 JavaScript parse validations",
-    "liveBrowserVerification": "NOT RUN; browser computed-style test is available only at ?theme-audit=1",
+    "sourceVerification": "28/28 source invariants, JavaScript parsing and CSS structure checks",
+    "liveBrowserVerification": "NOT RUN / preview inaccessible",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
@@ -537,7 +545,12 @@
     ],
     "verification": "Source/runtime mock verified; deployed site and actual responsive rendering not independently verified",
     "currentHumanFeedbackFile": "webstudio-human-ci-v3.18.json",
-    "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation"
+    "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation",
+    "visualIssues": [
+      "Terminal footer promotional card retained blue-violet neon visual style",
+      "Human CI launcher was excessively wide and status text wrapped across lines"
+    ],
+    "visualFixesCommitted": true
   },
   "themeIdentityRepair": {
     "version": "v3.16.0",
@@ -563,13 +576,13 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.18.1",
+    "version": "3.19.0",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-aurora-peak-alpine-v3.18.1",
+    "buildFingerprint": "preview-terminal-footer-human-ci-v3.19.0",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   },
   "auroraPeakAlpineEdition": {
@@ -604,5 +617,21 @@
     },
     "humanCI": "Pending manual review at testing URL; export webstudio-human-ci-v3.18.json",
     "approvalForProduction": false
+  },
+  "terminalScreenshotRegression": {
+    "source": "2026-11-24 user screenshot, Terminal theme at footer",
+    "report": "WebStudio footer stayed cyan/violet instead of console green; Human CI launcher grew into an overlapping two-line banner",
+    "branch": "preview-personalweb",
+    "fixes": [
+      "Isolated green-on-dark, square and monospaced Terminal showcase including nested demo and buttons",
+      "Disabled decorative orbit marks for Terminal footer",
+      "Made Human CI launcher compact with N/20 badge, accessible detailed summary in open panel",
+      "Added browser audit for terminal-native card and badge"
+    ],
+    "staticVerification": "28/28 source invariants passed; both edited JS assets parse; CSS braces and parentheses balance",
+    "liveDeployment": "Not independently verifiable; Cloudflare preview DNS not resolvable from current environment",
+    "visualBrowser": "Needs human CI screenshot review at desktop and mobile",
+    "evidenceGuide": "TERMINAL-UI-HUMAN-CI-v3.19.md",
+    "productionPromoted": false
   }
 }
