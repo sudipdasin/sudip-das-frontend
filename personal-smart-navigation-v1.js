@@ -229,6 +229,8 @@
    teaser.load();
   };
   const startTeaser=()=>{
+   // Editorial is a print composition and Terminal a console. Neither should show Neon moving artwork.
+   if(['editorial','terminal'].includes(document.body.dataset.theme))return;
    if(open||hoverPlaying||!isHovered||!hoverAllowed.matches||!previewVisible||document.hidden||reduced.matches||saveData)return;
    hoverPlaying=true;
    teaser.dataset.ready='false';
@@ -262,6 +264,10 @@
   }else{previewVisible=true;}
   reduced.addEventListener?.('change',()=>{if(reduced.matches)stopTeaser();else if(isHovered)startTeaser();});
   hoverAllowed.addEventListener?.('change',()=>{if(!hoverAllowed.matches)stopTeaser();else if(isHovered)startTeaser();});
+  document.getElementById('theme-select')?.addEventListener('change',()=>{
+   stopTeaser();
+   if(isHovered)startTeaser();
+  });
   const clearMedia=()=>{
    for(const video of mediaBox.querySelectorAll('video')){
     video.pause();
