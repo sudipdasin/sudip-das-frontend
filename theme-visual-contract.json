@@ -208,10 +208,12 @@
         "ownerDirection": "Thoroughly fix translation of all UI elements",
         "scope": "Locale presentation and accessibility text only, no Neon geometry, colors, security settings or personal names",
         "file": "personal-translation-expansion-v1.js",
-        "blobSha": "38b33176866c7510d81f180285cd75538431f496",
+        "blobSha": "122d073fce55b07ef8aef9cc30559a5484e1aa7d",
         "sourcePreview": "5d76868972c7ba541d492d4e7983ed729d59ab60",
         "productionApproval": "Only after separate production safety and code comparison",
-        "limitations": "50 extra UI phrases plus 151 reused core phrases; remaining long-form copy must be added for full coverage"
+        "limitations": "50 extra UI phrases plus 151 reused core phrases; remaining long-form copy must be added for full coverage",
+        "release": "personal-preview-v3.11.0-multilingual-interface",
+        "supplementalPhrases": 350
       }
     }
   }

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.10.0-multilingual-visitor-ui",
+  "release": "personal-preview-v3.11.0-multilingual-interface",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -433,10 +433,10 @@
       "zh-CN",
       "ja"
     ],
-    "existingCoreKeys": 80,
-    "reusedCorePhrases": 151,
-    "supplementalTranslatedPhrases": 50,
-    "scope": "exact matches in visitor-visible text, aria-label/title/placeholder/alt; generated components included",
-    "limitation": "not all long-form/new English copy has authored translation entries; do not claim full end-to-end language parity without browser test"
+    "originalCoreFields": 80,
+    "corePlainTextPhrases": 151,
+    "supplementalPhrases": 350,
+    "coverage": "all discoverable literal text/ARIA in audited visitor components, except proper names and core rich text handled by original i18n",
+    "limit": "not independently visually/browser tested in every language"
   }
 }
