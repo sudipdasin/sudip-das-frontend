@@ -258,14 +258,19 @@
     ctx.globalAlpha=theme===2?.22:.37;
     ctx.fillStyle=bloom;ctx.fillRect(0,0,w,h);
     if(theme===4){
-      // A low-cost aurora ribbon using the existing capped Canvas2D frame.
-      ctx.globalAlpha=.38;ctx.lineWidth=Math.max(1,w*.005);
-      for(let band=0;band<3;band++){
+      // Arctic Radiance: two strokes per curtain, no extra render loop or blur.
+      const bands=power().mobile?2:3;
+      for(let band=0;band<bands;band++){
         const grad=ctx.createLinearGradient(0,0,w,0);
-        grad.addColorStop(0,'#68ffb000');grad.addColorStop(.32,'#68ffb0b0');grad.addColorStop(.7,band===1?'#b4a1f9a0':'#83f3c3a0');grad.addColorStop(1,'#83f3c300');
+        grad.addColorStop(0,'#68ffb000');grad.addColorStop(.28,'#68ffb0b0');
+        grad.addColorStop(.70,band===1?'#c9adffce':'#96fbd2d0');grad.addColorStop(1,'#83f3c300');
         ctx.strokeStyle=grad;ctx.beginPath();
-        for(let j=0;j<=36;j++){const x=w*j/36,y=h*(.18+band*.035+.065*Math.sin(j*.19+t*.00014+band)+.025*Math.cos(j*.41-t*.00009));if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}
-        ctx.stroke();
+        for(let j=0;j<=36;j++){
+          const x=w*j/36,y=h*(.18+band*.055+.08*Math.sin(j*.19+t*.00014+band)+.034*Math.cos(j*.41-t*.00009));
+          if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+        }
+        ctx.globalAlpha=.19;ctx.lineWidth=Math.max(3,w*.028);ctx.stroke();
+        ctx.globalAlpha=.57;ctx.lineWidth=Math.max(1,w*.004);ctx.stroke();
       }
       ctx.globalAlpha=1;return;
     }
