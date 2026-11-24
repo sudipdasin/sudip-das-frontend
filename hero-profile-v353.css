@@ -75,3 +75,16 @@ body.ws-parity:not([data-theme="aurora-peak"]):not([data-theme="neon-studio"]) m
 @keyframes hp-ink-wash{from{background-position:30% 38%,0 0}to{background-position:68% 57%,0 0}}
 @media(prefers-reduced-motion:reduce){body.ws-parity:not([data-theme="aurora-peak"]):not([data-theme="neon-studio"]) main>.hero.hd-hero>.hero-art[data-hero-profile]{animation:none!important}}
 @media(forced-colors:active){body.ws-parity:not([data-theme="aurora-peak"]):not([data-theme="neon-studio"]) main>.hero.hd-hero>.hero-art[data-hero-profile]>.core{outline:2px solid CanvasText!important}}
+
+/* v3.54 — owner-approved larger Terminal Blueprint; other profiles unchanged. */
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]{
+ --hp-w:min(72%,400px,48svh);
+ min-height:clamp(390px,58svh,540px)!important;
+}
+body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]>.core{width:var(--hp-w)!important}
+@media(max-width:1040px){
+ body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]{--hp-w:min(70%,370px,44svh);min-height:clamp(350px,54svh,490px)!important}
+}
+@media(max-width:600px){
+ body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art[data-hero-profile="hexagon"]{--hp-w:min(68%,275px,38svh);min-height:clamp(320px,49svh,405px)!important}
+}
