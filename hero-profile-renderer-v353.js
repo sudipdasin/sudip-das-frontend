@@ -52,26 +52,46 @@
    signature=sig;svg?.remove();
    svg=elem('svg',{class:'hp-geometry','aria-hidden':'true',focusable:'false',viewBox:'0 0 '+art.clientWidth+' '+art.clientHeight});
    const g=elem('g',{transform:'translate('+(cx-ow/2)+' '+(cy-oh/2)+')'});
-   const contours=lib.contours(next,ow,oh,4,gap);
+   const frameShape=next==='console'?'hexagon':next;
+   const contours=lib.contours(frameShape,ow,oh,4,gap);
    const toLocal=p=>({x:p.x+cx-ow/2,y:p.y+cy-oh/2});
    // All outlines, stationary nodes and moving stroke use the same path family.
    contours.forEach((c,i)=>g.append(elem('path',{d:c.path,class:'hp-ring hp-ring-'+i,'vector-effect':'non-scaling-stroke'})));
    const outer=contours[0],track=contours[1];
    g.append(elem('path',{d:track.path,class:'hp-travel',pathLength:100,'vector-effect':'non-scaling-stroke'}));
    const vertexPoints=next==='console'?outer.path.match(/(?:M|L) [-\d.]+ [-\d.]+/g).map(v=>{const [,x,y]=v.split(' ');return {x:Number(x),y:Number(y)}}):null;
-   for(let i=0;i<(next==='hexagon'?6:8);i++){const p=vertexPoints?vertexPoints[i]:outer.pointAt(i/(next==='hexagon'?6:8));g.append(elem('circle',{cx:p.x,cy:p.y,r:i%2===0?2.8:1.8,class:'hp-node hp-node-'+(i%4)}))}
+   for(let i=0;i<(frameShape==='hexagon'?6:8);i++){const p=vertexPoints?vertexPoints[i]:outer.pointAt(i/(frameShape==='hexagon'?6:8));g.append(elem('circle',{cx:p.x,cy:p.y,r:i%2===0?2.8:1.8,class:'hp-node hp-node-'+(i%4)}))}
    if(next==='console')g.append(elem('path',{d:track.path,class:'hp-console-pulses',pathLength:100,'vector-effect':'non-scaling-stroke'}));
-   svg.append(g);art.prepend(svg);
+   svg.append(g);
+   let dock=outer,anchor=i=>toLocal(outer.pointAt(i)),hudRadius=0;
+   if(next==='console'){
+    // Match approved HUD reference: hexagonal portrait frames surrounded by
+    // separate true circular tracks, with satellites on the outermost track.
+    hudRadius=Math.max(0,Math.min(cx-14,art.clientWidth-cx-14,cy-12,art.clientHeight-cy-46,Math.max(w,h)*.72));
+    if(hudRadius>Math.max(w,h)*.50){
+     const hud=elem('g',{class:'hp-console-hud',transform:'translate('+cx+' '+cy+')'});
+     for(const [scale,cls] of [[1,'hp-hud-outer'],[.925,'hp-hud-mid'],[.86,'hp-hud-inner']]){
+      hud.append(elem('circle',{cx:0,cy:0,r:hudRadius*scale,class:cls,pathLength:100,'vector-effect':'non-scaling-stroke'}));
+     }
+     for(let i=0;i<12;i++){const p=lib.circlePoint(0,0,hudRadius,i*30-90);
+      hud.append(elem('circle',{cx:p.x,cy:p.y,r:i%3===0?3.3:1.7,class:'hp-hud-dot hp-node hp-node-'+(i%4)}))}
+     hud.append(elem('circle',{cx:0,cy:0,r:hudRadius*.925,class:'hp-hud-energy',pathLength:100,'vector-effect':'non-scaling-stroke'}));
+     svg.prepend(hud);
+     dock=lib.geometry('round',hudRadius*2,hudRadius*2,0);
+     anchor=i=>{const p=dock.pointAt(i);return {x:p.x+cx-hudRadius,y:p.y+cy-hudRadius}};
+    }
+   }
+   art.prepend(svg);
    if(next==='hexagon'||next==='squircle'||next==='console'){
-    const clip=lib.geometry(next,w,h,0).path.match(/(?:M|L) [-\d.]+ [-\d.]+/g).map(p=>{const [,x,y]=p.split(' ');return (100*Number(x)/w).toFixed(3)+'% '+(100*Number(y)/h).toFixed(3)+'%'}).join(',');
+    const clip=lib.geometry(frameShape,w,h,0).path.match(/(?:M|L) [-\d.]+ [-\d.]+/g).map(p=>{const [,x,y]=p.split(' ');return (100*Number(x)/w).toFixed(3)+'% '+(100*Number(y)/h).toFixed(3)+'%'}).join(',');
     core.style.setProperty('--hp-clip','polygon('+clip+')');
    }else core.style.removeProperty('--hp-clip');
-   geometry={profile:next,cx,cy,outer,anchor:i=>toLocal(outer.pointAt(i)),width:w,height:h,margin};
+   geometry={profile:next,frameShape,cx,cy,outer:dock,anchor,width:w,height:h,margin,hudRadius};
    return geometry;
   }
   function status(){return Object.freeze({profile,theme,available:Object.keys(ids),locked:locked(getTheme()),motion:art.getAttribute('data-hero-motion')||'static',outlineCount:svg?4:0})}
   ctx.onCleanup(()=>{active=false;io?.disconnect();clear();control.remove()});
   return Object.freeze({render,choose,status});
  }
- global.WebStudioHeroProfiles353=Object.freeze({version:'3.57.0',ids,effective,locked,mount});
+ global.WebStudioHeroProfiles353=Object.freeze({version:'3.58.0',ids,effective,locked,mount});
 })(typeof window!=='undefined'?window:undefined);
