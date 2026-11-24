@@ -6,7 +6,7 @@
  function plan(id,{theme='terminal',quality='off',visible=true,reduced=false,forced=false,saveData=false,lowPower=false,mobile=false}={}){
   const p=profiles[id];const enabled=Boolean(p&&id!=='off'&&theme==='terminal'&&quality!=='off'&&!forced);
   const running=enabled&&visible&&!reduced&&!saveData&&!lowPower&&['balanced','cinematic'].includes(quality);
-  return Object.freeze({id:enabled?id:'off',running,columns:enabled?Math.min(p.columns,mobile?10:quality==='cinematic'?(id==='classic'?32:26):quality==='balanced'?(id==='classic'?20:16):8):0});
+  return Object.freeze({id:enabled?id:'off',running,columns:enabled?Math.min(p.columns,mobile?10:Infinity,quality==='cinematic'?(id==='classic'?32:26):quality==='balanced'?(id==='classic'?20:16):8):0});
  }
  function stream(i,id){const chars=id==='data'?'0101101001100011':alphabet;return Array.from({length:(id==='classic'?27:18)+(i%7)},(_,j)=>chars[(i*17+j*13+j*j*3)%chars.length]).join('\n')}
  function mount({doc,hero,menu,getPolicy}){
