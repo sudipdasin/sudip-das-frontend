@@ -58,12 +58,20 @@
    add('Six-theme footer stylesheet loaded',Boolean(document.querySelector('link[href*="webstudio-six-theme-system-v321.css"]')));
    add('Human CI launcher is compact',Boolean(reviewer&&bounding(reviewer).width<=250));
    add('Header navigation exists',Boolean(header&&bounding(header).width>100));
-   const atmosphere=window.__wsAtmosphere322?.getStatus?.();
+   const atmosphere=window.__wsAtmosphere323?.getStatus?.();
    add('Atmosphere controller initialized',Boolean(atmosphere));
    add('Atmosphere theme synchronized',Boolean(atmosphere&&atmosphere.theme===theme));
    add('Atmosphere renderer valid',Boolean(atmosphere&&['off','css','canvas2d','gpu'].includes(atmosphere.renderer)),
      atmosphere?atmosphere.mode+' → '+atmosphere.effective+' / '+atmosphere.renderer:'Not initialized');
-   const ambient=document.querySelector('.hero>.ws-atmo-layer');
+   const expectedZones=['intro','about','projects','experience','strengths','contact','showcase','footer'];
+   const zones=elements('[data-atmo-zone]');
+   add('Atmosphere is scoped to entire website',Boolean(atmosphere?.scope==='sitewide'));
+   add('Every primary site section has atmosphere',expectedZones.every(id=>zones.some(el=>el.dataset.atmoZone===id)),
+     zones.map(el=>el.dataset.atmoZone).join(', '));
+   add('Scroll-aware current section available',Boolean(atmosphere?.section&&document.body.dataset.atmosphereSection===atmosphere.section),
+     atmosphere?.section||'No current section');
+
+   const ambient=document.querySelector('body > .ws-atmo-layer.ws-atmo-sitewide');
    if(atmosphere?.effective==='off')
      add('Atmosphere Off uses no render canvas',Boolean(ambient?.hidden&&!ambient.querySelector('canvas')));
    if(atmosphere?.effective==='eco')
@@ -99,7 +107,7 @@
    const imageErrors=missing.length;
    const passed=checks.filter(x=>x.pass).length;
    last={
-     schemaVersion:1,release:'preview-v3.22',time:new Date().toISOString(),
+     schemaVersion:1,release:'preview-v3.23',time:new Date().toISOString(),
      site:location.origin+location.pathname,
      theme,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
      userAgent:navigator.userAgent,
@@ -115,7 +123,7 @@
    const blob=new Blob([JSON.stringify(last,null,2)+'\n'],{type:'application/json'});
    const url=URL.createObjectURL(blob);
    const anchor=document.createElement('a');
-   anchor.href=url;anchor.download='webstudio-preview-diagnostics-v3.22.json';
+   anchor.href=url;anchor.download='webstudio-preview-diagnostics-v3.23.json';
    document.body.append(anchor);anchor.click();anchor.remove();
    setTimeout(()=>URL.revokeObjectURL(url),1500);
    status.textContent='Local diagnostic report saved. Attach it with screenshots.';
