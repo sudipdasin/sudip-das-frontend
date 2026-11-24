@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.55.0-terminal-blueprint-xxl",
+  "release": "personal-preview-v3.56.0-matrix-atmosphere-presets",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -385,7 +385,9 @@
     "v354-terminal-technical-blueprint-default",
     "v354-enlarged-terminal-hexagonal-portrait",
     "v355-terminal-blueprint-xxl",
-    "v355-terminal-hero-no-auto-shrink"
+    "v355-terminal-hero-no-auto-shrink",
+    "v356-terminal-matrix-digital-rain",
+    "v356-four-selectable-rain-presets"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1799,5 +1801,15 @@
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only",
     "tradeoff": "larger hero may increase vertical scrolling"
+  },
+  "matrixAtmosphereV356": {
+    "sourceCommit": "9b07e3ed02dee2255c3959327b579169ef97750c",
+    "default": "off",
+    "scope": "Terminal hero background",
+    "policyAssertions": 640,
+    "lifecycleAssertions": 44,
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
   }
 }
