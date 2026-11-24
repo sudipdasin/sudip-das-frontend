@@ -5,7 +5,7 @@ body.ws-parity .hero .hero-text {position:relative;z-index:35}
 body.ws-parity .hero .actions .gh-hero-shell{
   --gh-surface:#0b2631;--gh-bg:#0e3040;--gh-ink:#e9fcfe;
   --gh-muted:#b9dbe0;--gh-edge:#6dbdbd;--gh-accent:#7cf0da;
-  --gh-accent-ink:#0b292d;--gh-radius:13px;
+  --gh-accent-ink:#0b292d;--gh-radius:13px;--gh-inner-radius:9px;
   --gh-focus:#b6ffca;--gh-gloss:#60e8e43c;
   position:relative;flex:0 1 auto;min-width:min(215px,100%);max-width:100%;
   z-index:80;isolation:isolate;
@@ -37,7 +37,7 @@ body.ws-parity .hero .actions .gh-hero-shell[data-open="true"] .gh-hero-trigger:
 body.ws-parity .gh-hero-icon{
   flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;
   color:var(--gh-accent);border:1px solid var(--gh-edge);
-  background:var(--gh-surface);border-radius:calc(var(--gh-radius) - 3px);
+  background:var(--gh-surface);border-radius:var(--gh-inner-radius,8px);
   font:700 1.4rem/1 var(--mono,monospace);
   transition:transform .4s ease,border-color .25s,box-shadow .3s;
 }
@@ -110,7 +110,7 @@ body.ws-parity .gh-hero-stats{
 body.ws-parity .gh-hero-stats>div{
   display:flex;flex-direction:column-reverse;gap:4px;min-width:0;
   background:var(--gh-bg);border:1px solid var(--gh-edge);
-  padding:9px;border-radius:calc(var(--gh-radius) - 4px);
+  padding:9px;border-radius:var(--gh-inner-radius,8px);
 }
 body.ws-parity .gh-hero-stats dt{
   color:var(--gh-muted);font:600 .65rem/1.3 var(--sans,system-ui);
@@ -125,7 +125,7 @@ body.ws-parity .gh-repos-heading h4{
 }
 body.ws-parity .gh-refresh{
   flex:none;min-height:34px;padding:5px 9px;
-  border:1px solid var(--gh-edge);border-radius:calc(var(--gh-radius) - 4px);
+  border:1px solid var(--gh-edge);border-radius:var(--gh-inner-radius,8px);
   color:var(--gh-ink);background:var(--gh-bg);cursor:pointer;
   font:650 .73rem/1.2 var(--sans,system-ui);
 }
@@ -134,7 +134,7 @@ body.ws-parity .gh-hero-repos{list-style:none;display:grid;gap:7px;margin:10px 0
 body.ws-parity .gh-repo-row{margin:0;padding:0;min-width:0}
 body.ws-parity .gh-repo-link{
   display:block;min-width:0;padding:11px 12px;border:1px solid var(--gh-edge);
-  background:var(--gh-bg);border-radius:calc(var(--gh-radius) - 4px);
+  background:var(--gh-bg);border-radius:var(--gh-inner-radius,8px);
   text-decoration:none!important;color:var(--gh-ink)!important;
   transition:border-color .2s,background .2s,transform .2s;
 }
@@ -182,6 +182,8 @@ body.ws-parity[data-theme="editorial"] .gh-hero-shell{
   --gh-bg:#f8f0e2;--gh-surface:#fffaf1;--gh-ink:#282d28;--gh-muted:#555a50;
   --gh-edge:#a69074;--gh-accent:#794d32;--gh-focus:#805233;
   --gh-radius:2px;--gh-gloss:#9e75532b;
+
+  --gh-inner-radius:1px;
 }
 body.ws-parity[data-theme="editorial"] .gh-hero-shell :is(.gh-hero-words strong,.gh-hero-panel h3,.gh-repo-top strong){
   font-family:Georgia,serif!important;letter-spacing:-.025em;
@@ -192,6 +194,8 @@ body.ws-parity[data-theme="terminal"] .gh-hero-shell{
   --gh-bg:#0b2117;--gh-surface:#061b12;--gh-ink:#e9fff0;--gh-muted:#b0e7c3;
   --gh-edge:#4da771;--gh-accent:#70f9a6;--gh-focus:#b2ffcf;
   --gh-radius:0px;--gh-gloss:#46fb9a2b;
+
+  --gh-inner-radius:0px;
 }
 body.ws-parity[data-theme="terminal"] .gh-hero-shell :is(button,a,strong,small,p,h3,h4,dt,dd,span){
   font-family:var(--mono,ui-monospace,monospace)!important;
@@ -204,6 +208,8 @@ body.ws-parity[data-theme="aurora-peak"] .gh-hero-shell{
   --gh-bg:#143a36;--gh-surface:#102f32;--gh-ink:#f0f8e8;--gh-muted:#cee4d5;
   --gh-edge:#a2c8b0;--gh-accent:#e2edb5;--gh-focus:#f5c699;
   --gh-radius:8px 22px 8px 22px;--gh-gloss:#dbeab445;
+
+  --gh-inner-radius:6px 14px 6px 14px;
 }
 body.ws-parity[data-theme="aurora-peak"] .gh-hero-icon{border-radius:45% 45% 5px 5px}
 /* Neon Studio — glow and photon stripe. */
@@ -220,6 +226,8 @@ body.ws-parity[data-theme="design-2"] .gh-hero-shell{
   --gh-bg:#1a2043;--gh-surface:#1c1740;--gh-ink:#f4efff;--gh-muted:#d5c7ed;
   --gh-edge:#9878ca;--gh-accent:#dbc2ff;--gh-focus:#e8d2ff;
   --gh-radius:25px;--gh-gloss:#ae6fff70;
+
+  --gh-inner-radius:17px;
 }
 body.ws-parity[data-theme="design-2"] .gh-hero-icon{border-radius:40%;transform:rotate(-5deg)}
 @media(max-width:720px){
