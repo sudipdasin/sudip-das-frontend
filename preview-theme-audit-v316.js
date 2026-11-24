@@ -31,7 +31,7 @@
       .tip{font-size:12px}
     </style>
     <details>
-      <summary>◈ Theme audit · v3.27</summary>
+      <summary>◈ Theme audit · v3.28</summary>
       <article>
         <p>Tests active CSS and layout in this browser, one theme at a time. No screenshots or data are uploaded.</p>
         <p class="tip">Repeat at desktop, tablet and mobile widths. Automated checks do not replace your visual review.</p>
@@ -132,6 +132,22 @@
       checks.push(['Reduced motion forbids animated renderer',
         Boolean(atmosphere&&['eco','off'].includes(atmosphere.effective))]);
     }
+    // Five-engine sync, portfolio and opt-in audio. No sound or API call is triggered.
+    const mesh=window.__wsEngineMesh328?.getStatus?.();
+    const themeSurface=getComputedStyle(document.body);
+    const projectEngine=window.__wsPortfolio328?.getStatus?.();
+    const sound=window.__wsAtmosphereAudio328?.getStatus?.();
+    checks.push(['Engine mesh owns six-theme identity',
+      Boolean(mesh?.theme===id&&mesh.themeCount===6&&document.body.dataset.wsxTheme===id)]);
+    checks.push(['Theme material is available across engine surfaces',
+      Boolean(themeSurface.getPropertyValue('--wsx-accent').trim()&&
+        document.querySelector('#projects')?.dataset.wsxTheme===id)]);
+    checks.push(['Portfolio search and sort controls are available',
+      Boolean(projectEngine?.total>0&&document.querySelector('#portfolio-project-search')&&
+        document.querySelector('.project-discovery select.project-sort'))]);
+    checks.push(['Atmosphere optional audio controls mounted',
+      Boolean(sound&&document.querySelector('#ws-audio-ui-sounds')&&
+        document.querySelector('#ws-audio-soundscape')&&document.querySelector('#ws-audio-volume'))]);
     // Hero Display v3.27 is checked without triggering animations or video playback.
     const heroDisplay=window.__wsHeroDisplay327?.getStatus?.();
     const heroLayout=document.querySelector('main>.hero.hd-hero');
@@ -205,7 +221,7 @@
       checks.push(['Human CI launcher remains compact',
         Boolean(launcher&&launcher.getBoundingClientRect().width<=250)]);
       checks.push(['Human CI badge stays short',
-        Boolean(badge&&badge.textContent.trim().split('/').length===2&&badge.textContent.trim().endsWith('/32'))]);
+        Boolean(badge&&badge.textContent.trim().split('/').length===2&&badge.textContent.trim().endsWith('/42'))]);
     }
     if(id==='aurora-peak') {
       const connectLink=document.querySelector('.topbar .navlinks a.nav-cta');
@@ -274,7 +290,7 @@
     }
     const passed=results.reduce((a,r)=>a+r.pass,0);
     resultData={
-      release:'v3.27-theme-audit',source:'real-browser-computed-styles',
+      release:'v3.28-theme-audit',source:'real-browser-computed-styles',
       generatedAt:new Date().toISOString(),url:location.origin+location.pathname,
       viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
       userAgent:navigator.userAgent,originalTheme:previous,
@@ -284,7 +300,7 @@
     const total=results.reduce((a,r)=>a+r.total,0);
     const horizontalOverflow=document.documentElement.scrollWidth>document.documentElement.clientWidth+2;
     reportText=[
-      'WebStudio theme audit v3.27',
+      'WebStudio theme audit v3.28',
       'Viewport: '+innerWidth+' × '+innerHeight,
       'Checked '+results.length+'/6 themes; static probes '+passed+'/'+total+' passed.',
       'Horizontal overflow present: '+(horizontalOverflow?'yes - visually inspect':'not detected'),
@@ -305,7 +321,7 @@
     const file=new Blob([JSON.stringify(resultData,null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(file);
     const link=document.createElement('a');
-    link.download='webstudio-theme-audit-v3.27.json';link.href=url;
+    link.download='webstudio-theme-audit-v3.28.json';link.href=url;
     document.body.append(link);link.click();link.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
     status.textContent='Local theme audit JSON exported. Attach it to your Human CI feedback.';
