@@ -30,7 +30,7 @@
    let cards=[],initialHidden=new Map(),parent=null,originalOrder=[],filter='all',sort='original',query='';
    const panel=doc.createElement('section');panel.className='wsp-plugin-panel wsp-portfolio-search';
    panel.setAttribute('data-wsp-ui','portfolio');panel.setAttribute('role','search');
-   const label=doc.createElement('label');label.htmlFor='wsp-portfolio-query';
+   const label=doc.createElement('label');label.htmlFor=ctx.uid+'-search';
    const input=doc.createElement('input');input.type='search';input.id=label.htmlFor;
    input.autocomplete='off';
    const focus=doc.createElement('select');focus.setAttribute('aria-label','Project filter');
