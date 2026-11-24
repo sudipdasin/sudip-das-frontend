@@ -125,7 +125,7 @@
    }))),
    ...group('engines',[
     {id:'engine-atmosphere',title:tr('atmo'),detail:tr('performance'),icon:'✧',execute:openAtmosphere},
-    {id:'engine-quick',title:tr('quick'),detail:tr('engines'),icon:'⌘',execute:()=>document.getElementById('ws-visitor-quick-open')?.click()},
+    {id:'engine-quick',title:tr('quick'),detail:tr('engines'),icon:'⌘',execute:()=>{if(!window.__wsQuickMenu330?.openTab?.('navigate'))document.getElementById('ws-visitor-quick-open')?.click();}},
     {id:'engine-themes',title:tr('library'),detail:tr('themes'),icon:'◇',execute:()=>document.getElementById('pv-theme-launch')?.click()},
     {id:'engine-portfolio',title:tr('find'),detail:tr('gallery'),icon:'⌕',execute:focusProjects},
     {id:'engine-audit',title:tr('audit'),detail:tr('noCI'),icon:'✓',execute:()=>window.__wsFiveEngines329?.audit?.()}
@@ -169,6 +169,7 @@
   const l=window.profileI18n?.locale;locale=LANGS.includes(l)?l:'en';
   document.body.dataset.ws30Theme=current();
   document.body.dataset.ws30Direction=locale==='ar'?'rtl':'ltr';
+  dialog.dir=locale==='ar'?'rtl':'ltr';
   launcherText.textContent=tr('launch');launcher.title=tr('shortcut');
   launcher.setAttribute('aria-label',tr('launch')+' · '+tr('shortcut'));
   title.textContent=tr('portfolio');
@@ -203,7 +204,7 @@
  dialog.addEventListener('keydown',e=>{
   if(e.key==='Escape'){e.stopPropagation();e.preventDefault();closePalette();return;}
   if(e.key!=='Tab')return;
-  const focusable=[input,close,...resultBox.querySelectorAll('button:not(:disabled)')];
+  const focusable=[close,input,...resultBox.querySelectorAll('button:not(:disabled)')];
   const first=focusable[0],last=focusable.at(-1);
   if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
   else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
@@ -216,8 +217,10 @@
  });
  facetButtons.forEach(b=>b.addEventListener('click',()=>{
   if(!focusSelect)return;
-  focusSelect.value=b.dataset.focus;
-  focusSelect.dispatchEvent(new Event('change',{bubbles:true}));
+  if(!window.__wsPortfolio328?.setFocus?.(b.dataset.focus)){
+   focusSelect.value=b.dataset.focus;
+   focusSelect.dispatchEvent(new Event('change',{bubbles:true}));
+  }
   schedule();
  }));
  focusSelect?.addEventListener('change',schedule);
