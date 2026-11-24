@@ -22,6 +22,8 @@ test('Desktop grid regions',css.includes('grid-template-areas:"hd-copy hd-art"')
 test('Tablet and mobile breakpoints',css.includes('max-width:1040px')&&css.includes('max-width:620px'));
 test('Mobile portrait safeguards',css.includes('max-width:390px'));
 test('Neon legacy portrait and spacing preserved',css.includes('locked Neon mobile reference')&&css.includes('not([data-theme="neon-studio"]) main>.hero.hd-hero>.hero-art'));
+test('Neon mobile grid areas synchronize with original one-column lock',css.includes('data-theme="neon-studio"] main>.hero.hd-hero')&&css.includes('grid-template-areas:"hd-copy" "hd-art"!important'));
+test('Atmosphere Off hides introduced glows while preserving layout',css.includes('data-atmosphere-tier="off"] main>.hero.hd-hero :is(')&&css.includes('display:none!important;opacity:0!important'));
 test('Aurora landscape retained',html.includes('aurora-peak-scene-v318.js')&&css.includes('Preserve the existing mountains'));
 test('Decor is non-interactive',css.includes('pointer-events:none!important')&&js.includes("stage.setAttribute('aria-hidden','true')"));
 test('No canvas/network/storage',[js,css].every(s=>!s.includes('fetch(')&&!s.includes('localStorage')&&!s.includes('getContext(')));
