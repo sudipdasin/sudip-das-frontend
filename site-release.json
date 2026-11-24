@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.15.0-human-ci-theme-captions",
+  "release": "personal-preview-v3.16.0-theme-identity-repair",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -119,7 +119,17 @@
     "english-captions-default-enabled",
     "on-demand-transcript-from-verified-webvtt",
     "expanded-fifteen-point-human-ci",
-    "mobile-status-explicitly-unverified"
+    "mobile-status-explicitly-unverified",
+    "editorial-paper-media-tile-without-neon-poster",
+    "editorial-three-column-typographic-skill-notes",
+    "editorial-terminal-no-neon-hover-teaser",
+    "orbit-teal-media-treatment",
+    "aurora-frosted-media-treatment",
+    "cosmic-violet-media-treatment",
+    "terminal-console-media-treatment",
+    "opt-in-six-theme-browser-style-audit",
+    "preserved-neon-studio-geometry",
+    "preview-theme-qa-no-iframe"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -465,7 +475,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "awaiting-human-browser-retest",
+    "stage": "awaiting-v3.16-human-visual-qa",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -482,10 +492,34 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "15/15 static source checks plus JS parsing passed; WebVTT 13 cues parsed",
-    "liveBrowserVerification": "not independently available in environment",
+    "sourceVerification": "24/24 source checks passed with 4 JavaScript parse validations",
+    "liveBrowserVerification": "NOT RUN; browser computed-style test is available only at ?theme-audit=1",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Original feedback upload not checked into public repository",
+    "productionPromotionApproved": false,
+    "reportedScreenshot": "Editorial theme contains mismatched Neon video tile and detached floating skill badges; CSS/JS preview repair committed"
+  },
+  "themeIdentityRepair": {
+    "version": "v3.16.0",
+    "stage": "preview-only",
+    "humanFeedback": "Screenshot showed Editorial paper layout with Neon media tile and misplaced floating skill chips",
+    "rootCause": "Legacy video-poster and controls kept hard-coded Neon colors; generic badge positioning leaked into Editorial",
+    "fixedInSource": [
+      "personal-theme-identity-v316.css",
+      "personal-smart-navigation-v1.js",
+      "index.html"
+    ],
+    "themeAudit": "Add ?theme-audit=1 to designated preview URL to open real-browser computed-style probes",
+    "sourceVerification": "24/24 static assertions passed, including syntax validation of four JS sources",
+    "screenshotRegression": "NOT RUN: real browser preview URL cannot be accessed from this environment",
+    "realMobileTesting": "PENDING: human CI",
+    "userApproval": "PENDING: compare unique visual compositions and confirm on the preview",
+    "precautions": [
+      "Do not modify public production main",
+      "Do not enable the private request API",
+      "Retain preview noindex",
+      "Preserve X-Frame-Options DENY"
+    ],
     "productionPromotionApproved": false
   }
 }
