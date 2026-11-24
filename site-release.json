@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.51.0-aurora-arctic-radiance-manual-qa-pending",
+  "release": "personal-preview-v3.52.0-shape-engine-foundation",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -373,7 +373,10 @@
     "v350-aurora-medallions-thirty-percent-smaller",
     "v351-arctic-radiance-far-right-geometry",
     "v351-stronger-emerald-violet-shader",
-    "v351-balanced-aurora-lighting"
+    "v351-balanced-aurora-lighting",
+    "v352-seven-shape-geometry-registry",
+    "v352-shape-aware-atmosphere-contracts",
+    "v352-approval-gated-visuals"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1739,6 +1742,14 @@
     "sourceModeledCanvasAssertions": 40,
     "realBrowser": "NOT_RUN",
     "shaderCompilation": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "heroShapeEngineV352": {
+    "sourceCommit": "ffc2767fda6685b82a2582b1b5fff4d72c6fac3f",
+    "mathAndPolicyAssertions": 2511,
+    "visualActivation": "not enabled; owner approval required",
+    "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
   }
