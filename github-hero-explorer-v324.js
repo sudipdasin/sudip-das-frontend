@@ -212,13 +212,19 @@
     refresh.disabled=true;
     status.textContent='Checking live public repositories…';
     const controller=typeof AbortController==='function'?new AbortController():null;
-    const timeout=setTimeout(()=>controller?.abort(),6500);
+    let timeout;
+    const deadline=new Promise((_,reject)=>{
+      timeout=setTimeout(()=>{
+        controller?.abort();
+        reject(new Error('Public GitHub request timed out'));
+      },6500);
+    });
     loading=(async()=>{
       try{
-        const results=await Promise.allSettled([
+        const results=await Promise.race([Promise.allSettled([
           apiGet(API+'/repos?type=owner&sort=pushed&per_page=100',controller?.signal),
           apiGet(API,controller?.signal)
-        ]);
+        ]),deadline]);
         const repoData=results[0].status==='fulfilled'?results[0].value:null;
         const profileData=results[1].status==='fulfilled'?results[1].value:null;
         if(!Array.isArray(repoData))throw new Error('Repository feed unavailable');
