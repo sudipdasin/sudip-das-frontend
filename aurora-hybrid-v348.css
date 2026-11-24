@@ -222,3 +222,41 @@ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art .ap-hybrid
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{--ap-medallion:21px}
  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art .ap-hybrid-label{max-width:70px;font-size:.625rem;padding:2px 4px}
 }
+
+/* v3.51 Arctic Radiance — approved option 4. Geometry stays intact.
+   Center the right-side label below its medallion to recover edge clearance. */
+@media(min-width:1041px){
+ @supports (width:1cqw) and (container-type:inline-size){
+  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{
+   --ap-shift:clamp(0px,calc((100cqw - min(58cqw,calc((var(--ap-stage-h) - 108px) / 1.38)) - 68px) / 2 - 46px),200px);
+  }
+  body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art .ap-hybrid-badge:is([data-slot="1"],[data-slot="3"]) .ap-hybrid-label{
+   left:50%;right:auto;transform:translateX(-50%);box-sizing:border-box;max-width:79px;
+  }
+ }
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-atmosphere-fx{
+ mask-image:radial-gradient(ellipse at calc(50% + var(--ap-shift)) 42%,#000 27%,transparent 84%);
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-atmosphere-fx .ap-fx-curtain{filter:blur(9px);opacity:.42}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-atmosphere-fx .ap-fx-curtain-1{
+ background:linear-gradient(95deg,transparent,#74f8c68c,#9cbaff9c,#d0a6ec80,transparent);
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-atmosphere-fx .ap-fx-curtain-2{
+ background:linear-gradient(90deg,transparent,#c7ffbda0,#5be9c78c,transparent);
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-atmosphere-fx[data-quality="eco"] .ap-fx-curtain{filter:none;opacity:.25}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art .ap-hybrid-star::after{
+ background:radial-gradient(circle,#fff9d9c0 0%,#bdf8cb62 24%,transparent 72%);
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero::before{
+ background:linear-gradient(90deg,#081e2be8 0%,#102a38c4 32%,#173d4925 64%,#102d3918 100%),
+ radial-gradient(ellipse at 75% 28%,#b9f8ce18,transparent 58%),
+ url("aurora-reference-horizon.svg?v=3.51.0") center bottom / cover no-repeat,#102e39!important;
+}
+@media(max-width:900px){
+ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero::before{
+ background:linear-gradient(180deg,#081e2be8,#102e3bcb 38%,#12374635 80%,#0a263970),
+ url("aurora-reference-horizon.svg?v=3.51.0") 65% bottom / cover no-repeat,#123746!important;
+ }
+}
