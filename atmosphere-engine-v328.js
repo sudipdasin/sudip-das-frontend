@@ -426,8 +426,12 @@
     getStatus:()=>Object.freeze({mode,effective,renderer,theme:document.body.dataset.theme,
       section:sectionId,scope:'sitewide',progress:scrollProgress,
       interactive:true,dailySeed,
-      degraded,lowPower:slowDevice,saveData:power().saveData,reducedMotion:power().reduced}),
+      degraded,lowPower:slowDevice,saveData:power().saveData,reducedMotion:power().reduced,
+      activeCanvas:Boolean(canvas),regionCount:regions.length,frameBudgetMs:Math.round(frameBudget),
+      expectedFrameRate:renderer==='gpu'||renderer==='canvas2d'?Math.round(1000/frameBudget):0,
+      capabilities:Object.freeze(['auto','cinematic','balanced','eco','off','adaptive-fallback','reduced-motion','sitewide'])}),
     setMode:choose,
+    refresh:synchronize,
     stop:()=>choose('off')
   });
   // Compatibility alias for existing preview audit and diagnostics clients.
