@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.24.0-dynamic-github-hero-explorer",
+  "release": "personal-preview-v3.27.0-modular-six-theme-hero-display",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -230,7 +230,24 @@
     "hero-github-viewport-collision-positioning",
     "hero-github-reduced-motion-and-atmosphere-off",
     "hero-github-human-ci-v324-28-item-review",
-    "hero-github-regression-36-source-and-mock-checks"
+    "hero-github-regression-36-source-and-mock-checks",
+    "hero-display-engine-six-unique-compositions",
+    "hero-display-portrait-and-copy-preservation",
+    "hero-display-neon-reference-layout-lock",
+    "hero-display-editorial-magazine-layout",
+    "hero-display-terminal-console-workstation",
+    "hero-display-orbit-mission-control",
+    "hero-display-aurora-peak-landscape-continuity",
+    "hero-display-cosmic-observatory",
+    "hero-display-responsive-wide-stacked-compact",
+    "hero-display-reduced-motion-low-power-safeguards",
+    "hero-display-atmosphere-off-no-extras",
+    "hero-display-single-decorative-aria-hidden-stage",
+    "hero-display-public-action-and-video-compatibility",
+    "hero-display-six-theme-audit-and-diagnostics",
+    "hero-display-human-ci-v327-32-checks",
+    "hero-display-52-point-offline-regression",
+    "hero-explorer-popup-unlinked-poc-removed"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -576,7 +593,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "v3.24-github-hero-dynamic-human-review",
+    "stage": "v3.27-six-theme-hero-display-visual-acceptance",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -593,8 +610,8 @@
       "same-origin WebVTT transcript on user request",
       "15-item manual review checklist with separate mobile/captions/theme checks"
     ],
-    "sourceVerification": "38/38 GitHub hero source and simulated interactions; 10/10 integration checks",
-    "liveBrowserVerification": "UNVERIFIED",
+    "sourceVerification": "52/52 Hero Display source+mock DOM checks",
+    "liveBrowserVerification": "UNVERIFIED; browser screenshots required",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
     "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
@@ -602,7 +619,7 @@
     "previousRelease": "personal-preview-v3.16.0-theme-identity-repair",
     "reviewStatus": "source committed; Cloudflare deployment and true browser UX still need human verification",
     "reviewSchemaVersion": 2,
-    "reviewChecks": 28,
+    "reviewChecks": 32,
     "unverifiedResultsAreNeverInherited": true,
     "previousHumanFeedback": "Editorial screenshot showed Neon video overlay and disconnected skill labels; v3.16 theme identity fix remains in place",
     "enhancements": [
@@ -613,7 +630,7 @@
       "v3.17 responsive six-theme reviewer and shortlist interface"
     ],
     "verification": "Source/runtime mock verified; deployed site and actual responsive rendering not independently verified",
-    "currentHumanFeedbackFile": "webstudio-human-ci-v3.24.json",
+    "currentHumanFeedbackFile": "webstudio-human-ci-v3.27.json",
     "primaryVisualReview": "Aurora Peak alpine composition and cross-theme isolation",
     "visualIssues": [
       "Terminal footer promotional card retained blue-violet neon visual style",
@@ -645,13 +662,13 @@
     "productionPromotionApproved": false
   },
   "previewReleaseEngineering": {
-    "version": "3.24.0",
+    "version": "3.27.0",
     "sourceBranch": "preview-personalweb",
     "productionBranchModified": false,
     "automatedTestingCost": "no CircleCI jobs triggered",
     "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
     "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
-    "buildFingerprint": "preview-github-hero-explorer-v3.24.0",
+    "buildFingerprint": "preview-six-theme-hero-display-v3.27.0",
     "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   },
   "auroraPeakAlpineEdition": {
@@ -960,6 +977,70 @@
       "ciStatus": "No passing CI claimed"
     },
     "buildFingerprint": "preview-github-hero-explorer-v3.24.0",
+    "productionPromotionApproved": false
+  },
+  "heroDisplayV327": {
+    "version": "3.27.0",
+    "scope": "Whole top hero composition; not a new explorer popup",
+    "branch": "preview-personalweb",
+    "previousRelease": "personal-preview-v3.24.0-dynamic-github-hero-explorer",
+    "profiles": {
+      "orbit": "Mission-control split, technical teal linework, orbit aperture and coordinates",
+      "editorial": "Warm printed magazine lead, serif text and rectangular photographic folio",
+      "terminal": "CLI workstation frame, phosphor grid, sharp portrait geometry",
+      "aurora-peak": "Alpine landscape, sunrise, arched portrait and cartographic notes",
+      "neon-studio": "Approved Neon reference preserved with measured decorative glass accents",
+      "design-2": "Cosmic observatory, violet nebula and orbital portrait"
+    },
+    "modularity": {
+      "controller": "hero-display-engine-v327.js",
+      "stylesheet": "hero-display-layout-v327.css",
+      "modules": [
+        "headline",
+        "introduction",
+        "actions",
+        "portrait",
+        "theme-scene",
+        "decorative-frame"
+      ],
+      "existingFeaturesPreserved": [
+        "intro video",
+        "GitHub hover explorer",
+        "portrait source",
+        "name",
+        "role",
+        "biography",
+        "theme selector",
+        "Atmosphere",
+        "navigation"
+      ],
+      "designIntegration": "Theme-aware via picker and body data-theme; ResizeObserver, MutationObserver and media preference listeners",
+      "progressiveEnhancement": "No JavaScript preserves original hero",
+      "security": "Preview only; no network requests or new data access; ornamental DOM aria-hidden, click-through"
+    },
+    "safety": {
+      "responsive": "Wide, stacked and compact composition; breakpoints at 1040, 620 and 390 pixels",
+      "themeIsolation": "Six distinct CSS materials and spatial layouts; avoid leaking styling between theme IDs",
+      "neonReference": "Original approved portrait geometry and mobile spacing protected",
+      "atmosphere": "Decorative animation paused in Eco/Off/reduced-motion/low-power/offscreen; Off hides added glow/trace",
+      "accessibility": "Focus outlines retained, pointer-transparent ornaments, reduced motion, forced colors, high contrast, print styles",
+      "actionCompatibility": "Interactive video, GitHub, links and buttons remain unmodified"
+    },
+    "verification": {
+      "reproducibleOffline": "52/52 source and simulated browser checks passed",
+      "testScript": "scripts/verify-hero-display-v327.mjs",
+      "browserVisualStatus": "NOT VERIFIED — Cloudflare preview inaccessible to current verification source",
+      "responsiveScreenshots": "NOT RUN; human CI requested",
+      "cloudflareDeployment": "UNVERIFIED",
+      "realKeyboardInteraction": "NOT VERIFIED",
+      "realGPUPerf": "NOT TESTED; Hero module uses CSS decorations, no canvas",
+      "ownerApproval": "PENDING"
+    },
+    "buildFingerprint": "preview-six-theme-hero-display-v3.27.0",
+    "humanCIFile": "webstudio-human-ci-v3.27.json",
+    "auditFile": "webstudio-theme-audit-v3.27.json",
+    "diagnosticsFile": "webstudio-preview-diagnostics-v3.27.json",
+    "spec": "PREVIEW-HERO-DISPLAY-V3.27-HUMAN-CI.md",
     "productionPromotionApproved": false
   }
 }
