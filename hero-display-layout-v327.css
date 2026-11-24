@@ -227,7 +227,7 @@ body.ws-parity[data-theme="terminal"] main>.hero.hd-hero .hd-marker{
   border-radius:0;box-shadow:none;background:repeating-linear-gradient(90deg,#78fbc0 0 4px,transparent 4px 8px);
 }
 body.ws-parity[data-theme="terminal"] main>.hero.hd-hero>.hero-art>.core{
-  border-radius:6px!important;border:2px solid #64f7aa!important;
+  border-radius:50%!important;aspect-ratio:1!important;overflow:hidden!important;clip-path:circle(50%);border:2px solid #64f7aa!important;
   box-shadow:0 0 0 6px #6dffba13,0 0 36px #4cea9d2b!important;
 }
 body.ws-parity[data-theme="terminal"] main>.hero.hd-hero .hd-edition{
@@ -257,23 +257,16 @@ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-grain{
   background:repeating-linear-gradient(174deg,transparent 0 49px,#d8e6ca19 50px,transparent 51px);
   opacity:.4;
 }
-body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-trace{
-  width:min(39%,410px);height:68%;right:5%;top:50%;
-  border-radius:51% 51% 9% 9%;border:1px solid #ffedc286;
-  opacity:.36;
-}
-body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-art-frame{
-  width:min(36%,390px);height:60%;right:7%;top:53%;
-  border-radius:50% 50% 9% 9%;border:1px solid #dce1be75;opacity:.4;
-}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-trace{display:none!important;}
+
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-art-frame{display:none!important;}
+
 body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-ticks{
   left:2%;top:auto;bottom:14%;width:21%;height:1px;
   background:linear-gradient(90deg,#f4d1aa,transparent);
 }
-body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-marker{
-  width:68px;height:1px;right:5%;top:10%;border-radius:0;box-shadow:none;
-  background:linear-gradient(90deg,transparent,#f6dfa9);
-}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-marker{display:none!important;}
+
 /* Preserve the existing mountains and arched picture; never substitute its art. */
 /* ── NEON STUDIO: the approved glass/portrait reference, elegantly restrained ── */
 body.ws-parity[data-theme="neon-studio"] main>.hero.hd-hero{
@@ -383,9 +376,8 @@ body.ws-parity[data-theme="design-2"] main>.hero.hd-hero[data-hd-motion="ambient
   right:18%;top:74%;width:min(55%,420px);
  }
  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hd-trace,
- body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-trace{
-  height:30%;top:76%;
- }
+ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero .hd-trace{display:none!important;}
+
  body.ws-parity main>.hero.hd-hero .hd-edition{top:8px}
 }
 @media(max-width:620px){
