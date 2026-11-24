@@ -31,7 +31,7 @@
       .tip{font-size:12px}
     </style>
     <details>
-      <summary>◈ Theme audit · v3.28</summary>
+      <summary>◈ Theme audit · v3.28.1</summary>
       <article>
         <p>Tests active CSS and layout in this browser, one theme at a time. No screenshots or data are uploaded.</p>
         <p class="tip">Repeat at desktop, tablet and mobile widths. Automated checks do not replace your visual review.</p>
@@ -71,8 +71,15 @@
     const bg=style.getPropertyValue('--ci-bg').trim();
     const ink=style.getPropertyValue('--ci-ink').trim();
     const art=document.querySelector('.hero-art');
-    const portrait=document.querySelector('.hero-art .core');
+    // Neon hides the legacy .core and uses its own visible precision portrait.
+    const portraitSelector=id==='neon-studio'?'.hero-art > .ws-neon-precision-portrait':'.hero-art > .core';
+    const portrait=document.querySelector(portraitSelector);
     const title=document.querySelector('.hero h1');
+    const portraitRect=portrait?.getBoundingClientRect(),titleRect=title?.getBoundingClientRect();
+    const portraitStyle=portrait?getComputedStyle(portrait):null;
+    const activePortraitGeometry=Boolean(portraitRect?.width>100&&portraitRect?.height>100&&
+      titleRect?.width>150&&titleRect?.height>20&&portraitStyle?.display!=='none'&&
+      portraitStyle?.visibility!=='hidden');
     const tile=document.querySelector('.pv-intro-tile .pv-intro-hero-cta');
     const video=document.querySelector('.pv-intro-tile .pv-intro-cta-motion');
     const expand=document.getElementById('pv-intro-expand');
@@ -83,7 +90,9 @@
       ['video expand control remains operable',Boolean(expand && !expand.disabled && expand.getAttribute('aria-controls'))],
       ['approved theme repair sheet linked',Boolean(document.querySelector('link[href*="personal-theme-identity-v316.css"]'))],
       ['theme has readable surface contrast',contrast(bg,ink)>=4.5],
-      ['portrait and title have real geometry',Boolean(portrait?.getBoundingClientRect().width>100&&title?.getBoundingClientRect().width>150)],
+      ['portrait and title have real geometry',activePortraitGeometry],
+      ['theme-active portrait visible and sized',Boolean(portraitRect?.width>100&&portraitRect?.height>100&&
+        portraitStyle?.display!=='none'&&portraitStyle?.visibility!=='hidden')],
       ['no document horizontal overflow',document.documentElement.scrollWidth<=document.documentElement.clientWidth+3],
       ['no duplicate/missing orbital skills',chipsCount(id)===document.querySelectorAll('.hero-art .ws-orbit-chip').length]
     ];
@@ -93,7 +102,9 @@
       if(id==='editorial'||id==='terminal') {
         checks.push(['no Neon hover video in static theme',videoStyle.display==='none']);
         checks.push(['no Neon poster in static theme',tileStyle.backgroundImage==='none'||id==='terminal'&&tileStyle.backgroundImage.includes('repeating-linear-gradient')]);
-        checks.push(['no dark video overlay',Number.parseFloat(getComputedStyle(tile,'::after').opacity)===0]);
+        const overlay=getComputedStyle(tile,'::after');
+        checks.push(['no dark video overlay',overlay.display==='none'||overlay.visibility==='hidden'||
+          overlay.content==='none'||Number.parseFloat(overlay.opacity)<=.01]);
       } else if(id!=='neon-studio') {
         checks.push(['distinct visual background available',tileStyle.backgroundImage!=='none']);
       }
@@ -268,7 +279,14 @@
         checks.push(['notes form ordered footnote rail',rects[0].left<rects[1].left && rects[1].left<rects[2].left]);
       }
     }
-    const result={id,label,accent:chosen,contrastRatio:Number(contrast(bg,ink).toFixed(2)),checks,pass:checks.filter(c=>Boolean(c[1])).length,total:checks.length};
+    const overlayStyle=(id==='editorial'||id==='terminal')&&tile?getComputedStyle(tile,'::after'):null;
+    const measurements={portraitSelector,portraitWidth:Math.round(portraitRect?.width||0),
+      portraitHeight:Math.round(portraitRect?.height||0),portraitDisplay:portraitStyle?.display||'missing',
+      titleWidth:Math.round(titleRect?.width||0),titleHeight:Math.round(titleRect?.height||0),
+      overlayOpacity:overlayStyle?.opacity??null,overlayDisplay:overlayStyle?.display??null,
+      overlayVisibility:overlayStyle?.visibility??null,overlayContent:overlayStyle?.content??null};
+    const result={id,label,accent:chosen,contrastRatio:Number(contrast(bg,ink).toFixed(2)),
+      checks,measurements,pass:checks.filter(c=>Boolean(c[1])).length,total:checks.length};
     return result;
   }
   run.addEventListener('click',async()=>{
@@ -290,7 +308,7 @@
     }
     const passed=results.reduce((a,r)=>a+r.pass,0);
     resultData={
-      release:'v3.28-theme-audit',source:'real-browser-computed-styles',
+      release:'v3.28.1-theme-audit',source:'real-browser-computed-styles',
       generatedAt:new Date().toISOString(),url:location.origin+location.pathname,
       viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
       userAgent:navigator.userAgent,originalTheme:previous,
@@ -300,11 +318,21 @@
     const total=results.reduce((a,r)=>a+r.total,0);
     const horizontalOverflow=document.documentElement.scrollWidth>document.documentElement.clientWidth+2;
     reportText=[
-      'WebStudio theme audit v3.28',
+      'WebStudio theme audit v3.28.1',
+      'Page build: '+(document.querySelector('meta[name="portfolio-visual-build"]')?.content||'unknown'),
+      'Human CI repair: '+(document.querySelector('meta[name="portfolio-human-ci-repair"]')?.content||'not loaded'),
       'Viewport: '+innerWidth+' × '+innerHeight,
       'Checked '+results.length+'/6 themes; static probes '+passed+'/'+total+' passed.',
       'Horizontal overflow present: '+(horizontalOverflow?'yes - visually inspect':'not detected'),
-      ...results.flatMap(r=>['',r.label+': '+r.pass+'/'+r.total+' · contrast '+r.contrastRatio+':1',...r.checks.map(([name,ok])=>(ok?'PASS':'FAIL')+' — '+name)]),
+      ...results.flatMap(r=>['',r.label+': '+r.pass+'/'+r.total+' · contrast '+r.contrastRatio+':1',
+        ...r.checks.map(([name,ok])=>(ok?'PASS':'FAIL')+' — '+name),
+        'Measurements: portrait '+r.measurements.portraitWidth+'×'+r.measurements.portraitHeight+
+          ' ('+r.measurements.portraitSelector+', '+r.measurements.portraitDisplay+')'+
+          '; title '+r.measurements.titleWidth+'×'+r.measurements.titleHeight+
+          '; overlay opacity '+r.measurements.overlayOpacity+
+          ', display '+r.measurements.overlayDisplay+
+          ', visibility '+r.measurements.overlayVisibility+
+          ', content '+r.measurements.overlayContent]),
       '',
       'Manual checks still required: placement, screenshots, responsive touch, video captions and visual identity.'
     ].join('\n');
@@ -321,7 +349,7 @@
     const file=new Blob([JSON.stringify(resultData,null,2)+'\n'],{type:'application/json'});
     const url=URL.createObjectURL(file);
     const link=document.createElement('a');
-    link.download='webstudio-theme-audit-v3.28.json';link.href=url;
+    link.download='webstudio-theme-audit-v3.28.1.json';link.href=url;
     document.body.append(link);link.click();link.remove();
     setTimeout(()=>URL.revokeObjectURL(url),1500);
     status.textContent='Local theme audit JSON exported. Attach it to your Human CI feedback.';
