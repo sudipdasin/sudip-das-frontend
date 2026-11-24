@@ -4,12 +4,12 @@
 <linearGradient id="wave" x1="0" y1="0" x2=".6" y2="1"><stop stop-color="#00e8cf" stop-opacity=".03"/><stop offset=".35" stop-color="#00d5b9" stop-opacity=".54"/><stop offset=".7" stop-color="#16aff5" stop-opacity=".2"/><stop offset="1" stop-color="#0d7ebb" stop-opacity="0"/></linearGradient>
 <linearGradient id="ridge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#38628e"/><stop offset=".45" stop-color="#17345c"/><stop offset="1" stop-color="#060d20"/></linearGradient>
 <radialGradient id="sun"><stop stop-color="#fff3d2" stop-opacity=".82"/><stop offset=".3" stop-color="#dfa5c5" stop-opacity=".37"/><stop offset="1" stop-color="#782d85" stop-opacity="0"/></radialGradient>
-<filter id="blur"><feGaussianBlur stdDeviation="21"/></filter>
+<filter id="blur" filterUnits="userSpaceOnUse" x="-240" y="-240" width="2257" height="1020"><feGaussianBlur stdDeviation="21"/></filter>
 <linearGradient id="apFar" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#719fa6"/><stop offset=".6" stop-color="#315c6a"/><stop offset="1" stop-color="#173b47"/></linearGradient>
 <linearGradient id="apNear" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#315c61"/><stop offset="1" stop-color="#081f2b"/></linearGradient>
 <linearGradient id="apRibbon" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#a4ffd0" stop-opacity="0"/><stop offset=".53" stop-color="#84f1c1" stop-opacity=".7"/><stop offset="1" stop-color="#99d4d9" stop-opacity="0"/></linearGradient>
-<filter id="apSoft"><feGaussianBlur stdDeviation="7"/></filter>
-<filter id="apMist"><feGaussianBlur stdDeviation="12"/></filter>
+<filter id="apSoft" filterUnits="userSpaceOnUse" x="-240" y="-240" width="2257" height="1020"><feGaussianBlur stdDeviation="7"/></filter>
+<filter id="apMist" filterUnits="userSpaceOnUse" x="-240" y="-240" width="2257" height="1020"><feGaussianBlur stdDeviation="12"/></filter>
 </defs>
 <rect width="1777" height="540" fill="url(#sky)"/>
 <ellipse cx="1130" cy="460" rx="365" ry="135" fill="url(#sun)"/>
