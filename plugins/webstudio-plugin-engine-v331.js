@@ -19,11 +19,13 @@
  const MODES=Object.freeze(['auto','cinematic','balanced','eco','off']);
  const NAME=/^[a-z][a-z0-9-]{1,63}$/;
  const now=()=>global.performance?.now?.()??Date.now();
+ let hostSequence=0;
  function create(options={}){
   const doc=options.document||global.document;
   const root=options.root||doc?.body;
   if(!root||typeof root.querySelector!=='function')
    throw new TypeError('WebStudio host requires a DOM root with querySelector');
+  const hostId='wsp-host-'+(++hostSequence);
   const registry=new Map(),instances=new Map(),state=new Map(),events=new Map();
   const resourceCleanups=new Map(),errors=[];
   const profileKeys=Object.keys(THEME_PROFILES);
@@ -107,7 +109,7 @@
   function makeContext(plugin){
    const cleanups=resourceCleanups.get(plugin.id);
    const ctx={
-    id:plugin.id,host:api,root,document:doc,
+    id:plugin.id,uid:hostId+'-'+plugin.id,host:api,root,document:doc,
     options:Object.freeze({...options,root:undefined,document:undefined}),
     slots:options.slots||{},
     bridge:Boolean(options.bridge),
@@ -234,7 +236,7 @@
   }
   function status(){
    return Object.freeze({
-    version:VERSION,phase,theme,locale,quality,bridge:Boolean(options.bridge),
+    version:VERSION,hostId,phase,theme,locale,quality,bridge:Boolean(options.bridge),
     installed:registry.size,mounted:[...state.values()].filter(x=>x==='mounted').length,
     modules:Object.freeze(Object.fromEntries(state)),
     metrics:Object.freeze({...metrics}),
