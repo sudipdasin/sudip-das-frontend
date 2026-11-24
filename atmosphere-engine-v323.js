@@ -87,6 +87,7 @@
   const regions=REGION_SPECS.map(([id,selector])=>({id,node:document.querySelector(selector)}))
     .filter(item=>item.node);
   for(const region of regions){
+    region.node.setAttribute('data-atmo-zone',region.id);
     const glow=create('span','ws-atmo-zone-glow');
     glow.setAttribute('aria-hidden','true');
     region.node.prepend(glow);
