@@ -94,6 +94,19 @@
    add('GitHub hero has accessible disclosure',Boolean(ghButton?.getAttribute('aria-controls')==='gh-hero-panel'&&ghPanel?.getAttribute('role')==='region'));
    add('GitHub preview open state synchronized',Boolean(github&&String(github.open)===ghButton?.getAttribute('aria-expanded')),
      github?(github.loaded?'Public summaries loaded':'Public summaries not yet requested'):'No widget');
+   const mesh=window.__wsEngineMesh328?.getStatus?.();
+   const portfolio=window.__wsPortfolio328?.getStatus?.();
+   const audio=window.__wsAtmosphereAudio328?.getStatus?.();
+   add('Five-engine theme mesh running',Boolean(mesh&&mesh.theme===theme&&mesh.themeCount===6));
+   add('Hero and atmosphere agree on selected theme',
+     Boolean(mesh?.hero?.theme===theme&&mesh?.atmosphere?.theme===theme));
+   add('Quick menu shares current theme',Boolean(document.getElementById('ws-visitor-quick-panel')?.dataset.wsxTheme===theme));
+   add('Portfolio filter and sorting initialized',
+     Boolean(portfolio?.total>0&&document.querySelector('.project-discovery .project-sort')));
+   add('Audio consent controls mounted',
+     Boolean(audio&&document.getElementById('ws-audio-ui-sounds')&&document.getElementById('ws-audio-soundscape')));
+   add('Document language matches visitor preference',
+     Boolean(document.documentElement.lang===document.getElementById('language-select')?.value));
    const missing=elements('img').filter(img=>img.complete&&img.naturalWidth===0&&img.loading!=='lazy');
    add('Loaded non-lazy image elements are valid',missing.length===0,
        missing.length?missing.length+' images could not be decoded':'');
@@ -125,12 +138,12 @@
    const imageErrors=missing.length;
    const passed=checks.filter(x=>x.pass).length;
    last={
-     schemaVersion:1,release:'preview-v3.27',time:new Date().toISOString(),
+     schemaVersion:1,release:'preview-v3.28',time:new Date().toISOString(),
      site:location.origin+location.pathname,
      theme,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio||1},
      userAgent:navigator.userAgent,
      checks,passed,total:checks.length,failed:checks.length-passed,imageErrors,
-     atmosphere:atmosphere||null, githubHero:github||null, heroDisplay:heroLayout||null,
+     atmosphere:atmosphere||null, githubHero:github||null, heroDisplay:heroLayout||null, engineMesh:mesh||null, portfolio:portfolio||null, audio:audio||null,
      note:'Browser structural diagnostics, not a pixel or end-to-end verification.'
    };
    text.textContent=checks.map(x=>(x.pass?'PASS ':'FAIL ')+x.name+(x.details?' — '+x.details:'')).join('\n');
@@ -141,7 +154,7 @@
    const blob=new Blob([JSON.stringify(last,null,2)+'\n'],{type:'application/json'});
    const url=URL.createObjectURL(blob);
    const anchor=document.createElement('a');
-   anchor.href=url;anchor.download='webstudio-preview-diagnostics-v3.27.json';
+   anchor.href=url;anchor.download='webstudio-preview-diagnostics-v3.28.json';
    document.body.append(anchor);anchor.click();anchor.remove();
    setTimeout(()=>URL.revokeObjectURL(url),1500);
    status.textContent='Local diagnostic report saved. Attach it with screenshots.';
