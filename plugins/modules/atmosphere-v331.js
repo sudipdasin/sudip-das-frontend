@@ -17,7 +17,7 @@
   ja:['雰囲気','自動','シネマ','バランス','省電力','オフ','軽量CSSライティング']
  };
  const plugin={
-  id:'atmosphere',version:'3.52.0',priority:0,
+  id:'atmosphere',version:'3.53.0',priority:0,
   mount(ctx){
    const native=Boolean(ctx.bridge&&global.__wsAtmosphere328?.getStatus);
    const root=ctx.root,doc=ctx.document;
@@ -48,13 +48,13 @@
     };
     ctx.listen(global,'ws-atmosphere-change',sync);
    }
-   const shapeProfile=()=>global.WebStudioHeroShapes352?.profileFor(ctx.host.getStatus().theme)||null;
+   const shapeProfile=()=>native?global.__wsAtmosphere328?.getShapeProfile?.()||null:global.WebStudioHeroShapes352?.profileFor(ctx.host.getStatus().theme)||null;
    function shapeMotion(){const nativePolicy=global.__wsAtmosphere328?.getShapeMotionPolicy?.();if(native&&nativePolicy)return nativePolicy;return global.WebStudioHeroShapes352?.motionPolicy({quality:status().effective,visible:doc.visibilityState!=='hidden',reduced:global.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches,saveData:Boolean(global.navigator?.connection?.saveData),forced:global.matchMedia?.('(forced-colors: active)')?.matches})||null}
    function status(){
     if(native){
      const info=global.__wsAtmosphere328?.getStatus?.()||{};
      return {bridge:true,quality:info.mode||'auto',effective:info.effective||'off',
-      renderer:info.renderer||'off',regionCount:info.regionCount||0,shapeProfile:shapeProfile(),shapeVisualActivation:'approval-required'};
+      renderer:info.renderer||'off',regionCount:info.regionCount||0,shapeProfile:shapeProfile(),shapeVisualActivation:shapeProfile()?.visualActivation||'native'};
     }
     const mode=ctx.host.getStatus().quality;
     const reduced=global.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -62,7 +62,7 @@
     const effective=mode==='off'?'off':reduced||saveData?'eco':mode==='auto'?'balanced':
       mode==='cinematic'?'balanced':mode;
     return {bridge:false,quality:mode,effective,
-     renderer:effective==='off'?'off':'css',fallback:mode==='cinematic',shapeProfile:shapeProfile(),shapeVisualActivation:'approval-required'};
+     renderer:effective==='off'?'off':'css',fallback:mode==='cinematic',shapeProfile:shapeProfile(),shapeVisualActivation:shapeProfile()?.visualActivation||'native'};
    }
    function render(){
     const info=status();
