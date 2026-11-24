@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.16.0-theme-identity-repair",
+  "release": "personal-preview-v3.17.0-recruiter-human-ci-breakthrough",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -129,7 +129,19 @@
     "terminal-console-media-treatment",
     "opt-in-six-theme-browser-style-audit",
     "preserved-neon-studio-geometry",
-    "preview-theme-qa-no-iframe"
+    "preview-theme-qa-no-iframe",
+    "theme-native-recruiter-shortlist-three-public-projects",
+    "no-account-public-project-briefing-clipboard",
+    "twenty-item-human-ci-matrix",
+    "human-ci-legacy-passes-reset",
+    "human-ci-issue-ledger-with-severity",
+    "human-ci-theme-reproduction-viewports",
+    "human-ci-structured-issues-json-export",
+    "real-browser-theme-contrast-probes",
+    "real-browser-geometry-overflow-probes",
+    "real-browser-editorial-note-photo-intersection-check",
+    "theme-audit-json-download",
+    "responsive-six-theme-review-surfaces"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -475,7 +487,7 @@
   },
   "humanCI": {
     "branch": "preview-personalweb",
-    "stage": "awaiting-v3.16-human-visual-qa",
+    "stage": "v3.17-human-ci-review-ready-source",
     "incomingReport": {
       "release": "v3.14-human-ci",
       "capturedTheme": "design-2",
@@ -495,9 +507,31 @@
     "sourceVerification": "24/24 source checks passed with 4 JavaScript parse validations",
     "liveBrowserVerification": "NOT RUN; browser computed-style test is available only at ?theme-audit=1",
     "deploymentVerification": "Cloudflare preview URL not independently accessible from environment",
-    "privacy": "Original feedback upload not checked into public repository",
+    "privacy": "Report, notes and issue details remain in the browser until the user manually exports or copies them.",
     "productionPromotionApproved": false,
-    "reportedScreenshot": "Editorial theme contains mismatched Neon video tile and detached floating skill badges; CSS/JS preview repair committed"
+    "reportedScreenshot": "Editorial theme contains mismatched Neon video tile and detached floating skill badges; CSS/JS preview repair committed",
+    "previousRelease": "personal-preview-v3.16.0-theme-identity-repair",
+    "reviewStatus": "source committed; Cloudflare deployment and true browser UX still need human verification",
+    "reviewSchemaVersion": 2,
+    "reviewChecks": 20,
+    "unverifiedResultsAreNeverInherited": true,
+    "previousHumanFeedback": "Editorial screenshot showed Neon video overlay and disconnected skill labels; v3.16 theme identity fix remains in place",
+    "enhancements": [
+      "v3.17 three-project hiring shortlist with clipboard brief",
+      "v3.17 local defect ledger (theme, severity, viewport, steps, actual/expected)",
+      "v3.17 twenty-point user-test checklist with no automatic pass",
+      "v3.17 computed theme contrast/overflow/geometry checks plus JSON export",
+      "v3.17 responsive six-theme reviewer and shortlist interface"
+    ],
+    "verification": {
+      "sourceStatic": "25/25 invariants passed against committed preview branch",
+      "simulatedRuntime": "10/10 project shortlist interaction tests passed in minimal DOM mock",
+      "jsParsing": "All three new or changed preview scripts parsed",
+      "browserChromium": "NOT RUN against deployed site",
+      "cloudflareDeployment": "NOT VERIFIED",
+      "circleci": "Intentionally suppressed for preview-personalweb; policy preserved",
+      "visualReview": "Human CI required across all six themes"
+    }
   },
   "themeIdentityRepair": {
     "version": "v3.16.0",
@@ -521,5 +555,15 @@
       "Preserve X-Frame-Options DENY"
     ],
     "productionPromotionApproved": false
+  },
+  "previewReleaseEngineering": {
+    "version": "3.17.0",
+    "sourceBranch": "preview-personalweb",
+    "productionBranchModified": false,
+    "automatedTestingCost": "no CircleCI jobs triggered",
+    "humanPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/",
+    "auditPreviewUrl": "https://preview-personalweb.sudip-das-frontend.pages.dev/?theme-audit=1",
+    "buildFingerprint": "preview-six-theme-hiring-human-ci-v3.17.0",
+    "rollback": "Revert preview-personalweb changes; production main is not part of this upgrade."
   }
 }
