@@ -2,12 +2,13 @@
  * Public DOM only. Owns docking attributes/variables, never the portrait source.
  * Native circular crop corrections remain baseline theme styles. */
 ((global)=>{'use strict';if(!global)return;
+ const shapeLibrary=()=>global.WebStudioHeroShapes352;
  const circular=new Set(['orbit','terminal','neon-studio','design-2']);
  const angleSets={orbit:{a:-48,b:180,c:48},terminal:{a:-48,b:180,c:48},'neon-studio':{a:-50,b:-148,c:0,d:148,e:50},'design-2':{a:-68,b:9,c:145,d:57}};
  const names={en:'Hero Orbit Geometry',hi:'मुख्य कक्षा ज्यामिति',bn:'প্রধান কক্ষপথ জ্যামিতি',es:'Geometría orbital principal',fr:'Géométrie orbitale principale',de:'Orbitgeometrie der Hauptansicht',pt:'Geometria orbital principal',ar:'هندسة المدار الرئيسي','zh-CN':'主视觉轨道几何',ja:'メイン軌道ジオメトリ'};
  const keys=['--orbit-dock-x','--orbit-dock-y','--orbit-dock-space','--orbit-glyph-size'];
- function point(cx,cy,r,angle){const t=angle*Math.PI/180;return {x:cx+r*Math.cos(t),y:cy+r*Math.sin(t)}}
- const plugin={id:'hero-orbit-geometry',version:'3.42.0',priority:10,dependsOn:['hero'],
+ function point(cx,cy,r,angle){const lib=shapeLibrary();if(lib)return lib.circlePoint(cx,cy,r,angle);const t=angle*Math.PI/180;return {x:cx+r*Math.cos(t),y:cy+r*Math.sin(t)}}
+ const plugin={id:'hero-orbit-geometry',version:'3.52.0',priority:10,dependsOn:['hero'],
  supports:({root})=>Boolean(root.querySelector('main>.hero .hero-art')),
  mount(ctx){
   const doc=ctx.document,art=ctx.select('main>.hero .hero-art'),root=ctx.root;
@@ -63,7 +64,8 @@
   ctx.listen(global,'resize',schedule,{passive:true});ctx.listen(global,'ws-engine-theme-change',schedule);
   ctx.listen(doc.getElementById('theme-select'),'change',schedule);ctx.listen(doc,'profile-language-change',schedule);
   if(doc.fonts?.ready)doc.fonts.ready.then(schedule,()=>{});
-  const api=Object.freeze({refresh:schedule,measure:()=>{layout();return Object.freeze({...last})},getStatus:()=>Object.freeze({...last,active,name:names[ctx.locale]||names.en,version:'3.42.0'})});
+  function shapeStatus(){const theme=ctx.bridge?root.dataset.theme||ctx.theme:ctx.theme,lib=shapeLibrary();return {shapeProfile:lib?.profileFor(theme)||null,availableShapes:Object.keys(lib?.profiles||{}),visualActivation:'approval-required'}}
+  const api=Object.freeze({refresh:schedule,shapeStatus,geometry:(...args)=>shapeLibrary()?.geometry(...args),contours:(...args)=>shapeLibrary()?.contours(...args),motionPolicy:(args)=>shapeLibrary()?.motionPolicy(args),measure:()=>{layout();return Object.freeze({...last})},getStatus:()=>Object.freeze({...last,active,...shapeStatus(),name:names[ctx.locale]||names.en,version:'3.52.0'})});
   // Preserve the diagnostic entry point without retaining a second layout engine.
   const prior=global.__wsOrbit340;
   const adapter=Object.freeze({refresh:schedule,get last(){return api.getStatus()}});
