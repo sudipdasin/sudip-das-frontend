@@ -447,3 +447,22 @@ body.ws-parity[data-theme="aurora-peak"] :is(a,button,input,select,textarea,summ
   body.ws-parity[data-theme="aurora-peak"] :is(.ap-halo,.ap-mist,.ap-ridge){animation:none!important}
   body.ws-parity[data-theme="aurora-peak"] :is(.project,.actions .button){transition:none!important}
 }
+
+/* Human comfort: reversible local ambience; system reduced-motion still wins. */
+body.ws-parity[data-theme="aurora-peak"] .ap-motion-control{
+  appearance:none;display:inline-flex;align-items:center;justify-content:center;
+  min-height:36px;padding:7px 12px;margin-left:auto;
+  background:#e1eab21b;color:#f0f4d9;border:1px solid #dfebbaa6;
+  border-radius:7px 16px 7px 16px;font:700 .68rem/1.2 var(--sans,system-ui);
+  cursor:pointer;letter-spacing:.01em;white-space:nowrap;
+  transition:background .2s ease,color .2s ease;
+}
+body.ws-parity[data-theme="aurora-peak"] .ap-motion-control:hover:not(:disabled){background:#dce9b336;color:#fff}
+body.ws-parity[data-theme="aurora-peak"] .ap-motion-control:disabled{opacity:.72;cursor:default}
+body.ws-parity[data-theme="aurora-peak"] .hero-art[data-aurora-peak-motion="paused"] .ap-landscape :is(.ap-halo,.ap-mist,.ap-ridge){animation:none!important}
+@media(max-width:600px){
+ body.ws-parity[data-theme="aurora-peak"] .ap-motion-control{margin-left:0;font-size:.64rem;min-height:34px}
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity[data-theme="aurora-peak"] .ap-motion-control{transition:none!important}
+}
