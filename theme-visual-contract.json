@@ -43,6 +43,10 @@
         },
         "status": "source-implemented; live browser visually pending",
         "version": "3.21.0"
+      },
+      "atmosphereV322": {
+        "effect": "teal orbital arcs, satellites, ray-lit sphere and rotating highlights",
+        "rayScene": true
       }
     },
     {
@@ -65,6 +69,10 @@
         },
         "status": "source-implemented; live browser visually pending",
         "version": "3.21.0"
+      },
+      "atmosphereV322": {
+        "effect": "warm paper grain, grazing editorial sunlight and subtle diagonal highlights",
+        "rayScene": false
       }
     },
     {
@@ -86,6 +94,10 @@
         },
         "status": "source-implemented; live browser visually pending",
         "version": "3.21.0"
+      },
+      "atmosphereV322": {
+        "effect": "green phosphor scanlines, lattice and terminal sweep",
+        "rayScene": false
       }
     },
     {
@@ -107,6 +119,10 @@
         },
         "status": "source-implemented; live browser visually pending",
         "version": "3.21.0"
+      },
+      "atmosphereV322": {
+        "effect": "sunrise halo, aurora curtains, alpine silhouettes and mountain haze",
+        "rayScene": false
       }
     },
     {
@@ -128,6 +144,10 @@
         "palette": null,
         "status": "source-implemented; live browser visually pending",
         "version": "3.21.0"
+      },
+      "atmosphereV322": {
+        "effect": "cyan/violet photonic scan lanes, procedural glass glows and lit spheres",
+        "rayScene": true
       }
     },
     {
@@ -149,6 +169,10 @@
         },
         "status": "source-implemented; live browser visually pending",
         "version": "3.21.0"
+      },
+      "atmosphereV322": {
+        "effect": "violet nebula, gravitational-lens distortion, starfield and ray-lit sphere",
+        "rayScene": true
       }
     }
   ],
@@ -303,5 +327,27 @@
     "behavior": "Every existing footer/demo control retains its functionality and uses selected-theme styling; locked Neon Studio preserved",
     "sourceTests": "36/36 passed; real-device browser testing pending",
     "productionPromotionApproved": false
+  },
+  "adaptiveAtmosphereV322": {
+    "version": "3.22.0",
+    "enabledOnPreviewOnly": true,
+    "modes": {
+      "auto": "Device-aware quality with conservative unknown-hardware fallback",
+      "cinematic": "WebGL2 shader animation, analytic ray intersections, direct lighting and occlusion shadows",
+      "balanced": "Canvas 2D animated gradients and theme-specific details",
+      "eco": "Static CSS composition with no ongoing drawing, blending or keyframed motion",
+      "off": "Atmosphere layer removed; decorative ambient loops paused"
+    },
+    "sourceFiles": [
+      "atmosphere-shaders-v322.js",
+      "atmosphere-engine-v322.js",
+      "atmosphere-system-v322.css"
+    ],
+    "engine": "WebGL2 decorative fragment shaders > Canvas2D fallback > static CSS > Off",
+    "technicalBoundary": "Analytic ray intersections and direct occlusion shadows on procedural decorative geometry, not full DOM ray tracing or hardware RTX",
+    "resourceSafety": "Conservative hardware heuristics, data saver, forced colors, reduced motion, battery hint where supported, FPS/resolution caps, stopped when out of view/hidden, failure fallback",
+    "localStorage": "One mode preference only. No analytics or external requests",
+    "visualReview": "Required on real browsers and devices",
+    "productionApproved": false
   }
 }
