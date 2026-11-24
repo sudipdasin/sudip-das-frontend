@@ -50,7 +50,7 @@ class N {
   return null;
  }
  matches(q){return q===':hover'?this.hover:false}
- focus(){this.doc.activeElement=this}
+ focus(){this.doc.activeElement=this;this.fire('focus')}
 }
 const repoData=[
 {name:'LinWin',owner:{login:'sudipdasin'},private:false,fork:false,archived:false,description:'Linux shell',language:'C++',stargazers_count:12,pushed_at:'2026-11-21T00:00:00Z'},
@@ -100,6 +100,7 @@ check('Repository links remain GitHub owner-scoped',links.every(x=>x.startsWith(
 live.trigger.fire('click');check('Click pins preview',live.win.__wsGithubHero324.getStatus().pinned);
 live.shell.fire('keydown',{key:'Escape'});check('Escape closes preview',live.panel.hidden);
 check('Escape returns focus to trigger',live.doc.activeElement===live.trigger);
+check('Escape focus event does not reopen disclosure',live.panel.hidden&&live.trigger.attrs['aria-expanded']==='false');
 live.trigger.fire('click');
 live.doc.events.pointerdown?.[0]({target:new N()});
 check('Outside click dismisses preview',live.panel.hidden);
