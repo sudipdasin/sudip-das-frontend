@@ -1,0 +1,24 @@
+/* Editorial disclosure layering v3.31 — the marquee is a SIBLING of the
+ * hero's isolation context. The popup's own z-index cannot escape its parent.
+ * Only raise the hero while GitHub disclosure is open; preserve sticky header,
+ * intentional paper layout, and all six native theme palettes.
+ */
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero.gh-disclosure-visible {
+  position:relative!important;
+  z-index:2400!important;
+  overflow:visible!important;
+}
+body.ws-parity[data-theme="editorial"] main>.ticker {
+  position:relative;
+  z-index:0!important;
+}
+body.ws-parity[data-theme="editorial"]>.topbar,
+body.ws-parity[data-theme="editorial"] header.topbar {
+  z-index:2800!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero.gh-disclosure-visible
+  .gh-hero-shell[data-open="true"] .gh-hero-panel {
+  position:absolute;
+  z-index:2450!important;
+  visibility:visible;
+}
