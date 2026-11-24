@@ -115,29 +115,33 @@ void main(){
     float sweep=exp(-12.0*abs(p.y-.24*sin(time*.27)));
     color=vec3(.025,.45,.20)*(scan*.13+matrix*.45+bars*.28+sweep*.20);
     opacity=.17+sweep*.1;
-  }else if(u_theme==4){ /* Aurora Peak: layered northern lights, starfield and alpine haze */
-    float wave=fbm(vec2(p.x*2.5+time*.019,1.7));
-    float curve=.19+.10*sin(p.x*5.2+time*.14)+.06*sin(p.x*11.0-time*.09)+wave*.07;
+  }else if(u_theme==4){ /* Approved hybrid: faint layered aurora, soft light and twinkle */
+    float wave=fbm(vec2(p.x*2.5+time*.012,1.7));
+    float curve=.19+.10*sin(p.x*5.2+time*.095)+.06*sin(p.x*11.0-time*.055)+wave*.07;
     float d=p.y-curve;
-    float folds=.36+.64*pow(.5+.5*sin(p.x*57.0+wave*9.0+time*.16),2.0);
-    float curtain=exp(-abs(d)*16.0)*folds*smoothstep(-.17,.02,d);
-    float edge=exp(-abs(d)*75.0);
-    float violet=exp(-abs(d-.075)*13.0)*(.35+.65*wave);
-    float sun=exp(-9.0*length(p-vec2(.36,.13)));
+    float folds=.40+.60*pow(.5+.5*sin(p.x*52.0+wave*9.0+time*.10),2.0);
+    float curtain=exp(-abs(d)*12.0)*folds*smoothstep(-.19,.025,d);
+    float edge=exp(-abs(d)*53.0);
+    float second=exp(-abs(d-.105-.035*sin(p.x*7.0-time*.07))*17.0);
+    float violet=exp(-abs(d-.075)*11.0)*(.35+.65*wave);
+    float sun=exp(-7.0*length(p-vec2(.36,.13)));
     vec2 cell=(uv+vec2(.7,.5))*vec2(105.,78.);
     vec2 cellId=floor(cell);
     float seed=hash(cellId);
     vec2 center=vec2(.25+.5*hash(cellId+7.0),.25+.5*hash(cellId+13.0));
-    float star=step(.982,seed)*exp(-length(fract(cell)-center)*24.0);
-    star*=.68+.32*sin(time*.65+seed*73.0);
+    vec2 delta=abs(fract(cell)-center);
+    float star=step(.982,seed)*exp(-length(delta)*24.0);
+    float glint=step(.996,seed)*(exp(-delta.x*95.0-delta.y*13.0)+exp(-delta.y*95.0-delta.x*13.0))*.25;
+    star=(star+glint)*(.72+.28*sin(time*.52+seed*73.0));
     float sky=smoothstep(-.13,.25,uv.y);
     float haze=exp(-abs(p.y+.30)*8.0);
-    color=vec3(.10,.76,.49)*(curtain*.52+edge*.18)
-      +vec3(.38,.27,.76)*violet*.24
-      +vec3(.91,.65,.34)*sun*.21
-      +vec3(.72,.94,.89)*star*sky*.82
-      +vec3(.11,.29,.29)*haze*.15;
-    opacity=.11+min(.29,curtain*.15+edge*.12+star*.28+sun*.06);
+    color=vec3(.32,.78,.60)*(curtain*.40+edge*.09)
+      +vec3(.32,.65,.75)*second*.12
+      +vec3(.55,.45,.77)*violet*.14
+      +vec3(.91,.80,.52)*sun*.16
+      +vec3(.84,.96,.87)*star*sky*.68
+      +vec3(.25,.39,.39)*haze*.12;
+    opacity=.075+min(.21,curtain*.11+edge*.065+star*.22+sun*.045);
   }else{ /* Cosmic: gravitational lens simulation, stars and nebula */
     float dist=length(p-vec2(.16,.02));
     vec2 warped=p+(p-vec2(.16,.02))*(.06/(dist*dist+.13));
