@@ -59,7 +59,7 @@ const repoData=[
 {name:'foreign',owner:{login:'someoneelse'},private:false,fork:false,archived:false,description:'Wrong owner',language:'C',stargazers_count:800,pushed_at:'2026-11-22T00:00:00Z'}
 ];
 class SafeURL{constructor(url){const m=String(url).match(/^https:\/\/([^/]+)(\/[^?#]*)/);if(!m)throw new Error('bad URL');this.hostname=m[1];this.pathname=m[2]}}
-function setup({offline=false,cache=null,hover=true}={}){
+function setup({offline=false,hang=false,cache=null,hover=true}={}){
  const anchor=new N('a'),projects=[
   {name:'LinWin',description:'Local Linux shell'},{name:'ivivid',description:'Creative tools'},
   {name:'tux-steward',description:'Linux system manager'}
@@ -76,11 +76,11 @@ function setup({offline=false,cache=null,hover=true}={}){
  const store=cache||new Map();
  const sessionStorage={getItem:k=>store.get(k)||null,setItem:(k,v)=>store.set(k,v)};
  const calls=[];
- const fetch=async url=>{calls.push(url);return offline?{ok:false,status:403}:
+ const fetch=async url=>{calls.push(url);if(hang)return new Promise(()=>{});return offline?{ok:false,status:403}:
    {ok:true,json:async()=>url.endsWith('/repos?type=owner&sort=pushed&per_page=100')?
      repoData:{public_repos:15,bio:'Technology builder'}}};
  runInNewContext(js,{window:win,document:doc,sessionStorage,fetch,URL:SafeURL,
-   setTimeout:()=>1,clearTimeout:()=>{},AbortController:class{constructor(){this.signal={}}abort(){}}},{timeout:1800});
+   setTimeout:hang?(fn=>{Promise.resolve().then(fn);return 1}):(()=>1),clearTimeout:()=>{},AbortController:class{constructor(){this.signal={}}abort(){}}},{timeout:1800});
  const shell=anchor.replacement;
  return{shell,trigger:shell.children[0],panel:shell.children[1],store,doc,win,calls};
 }
@@ -113,4 +113,7 @@ const offline=setup({offline:true,hover:false});offline.trigger.fire('click');aw
 check('Rate limit shows portfolio fallback',offline.panel.children[4].children.length===3);
 check('Rate limit does not invent metrics',offline.panel.children[2].children[0].children[1].textContent==='—');
 check('Fallback status explains data unavailable',offline.panel.children[5].textContent.includes('rate-limited'));
+const hung=setup({hang:true,hover:false});hung.trigger.fire('click');await settle();
+check('Hung public API request falls back without cancellation support',
+  hung.panel.children[4].children.length===3&&hung.panel.children[5].textContent.includes('rate-limited'));
 console.log('PASS '+pass.length+'/'+pass.length+' GitHub hero source and simulated browser checks; live review pending.');
