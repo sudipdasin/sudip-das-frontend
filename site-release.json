@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.45.0-aurora-background-refinement-manual-qa-pending",
+  "release": "personal-preview-v3.46.0-aurora-seamless-horizon-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -358,7 +358,9 @@
     "v344-aligned-aurora-scenic-arches",
     "v344-atmosphere-managed-northern-lights",
     "v344-aurora-sparkles-and-gpu-canvas-effects",
-    "v345-aurora-existing-horizon-background-refinement"
+    "v345-aurora-existing-horizon-background-refinement",
+    "v346-aurora-soft-horizon-ribbons",
+    "v346-aurora-background-seam-repair"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1672,6 +1674,14 @@
     "sourceCommit": "ca19fd34bff260dc6f84df4d66e7337788d0f40a",
     "scope": "background-only CSS; existing artwork reused; approved geometry unchanged",
     "sourceChecks": "append-only, existing asset identity, no layout declarations, matching preview blob",
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only"
+  },
+  "auroraBackgroundV346": {
+    "sourceCommit": "de7beef0af67589cd0ad379de8e2932429060475",
+    "sourceAssertions": 8,
+    "scope": "existing SVG artwork and decorative background CSS only; no layout declarations",
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
