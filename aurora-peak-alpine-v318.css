@@ -785,3 +785,48 @@ body.ws-parity[data-theme="aurora-peak"] .ap-atmosphere-fx[data-quality="eco"] .
  url("aurora-reference-horizon.svg?v=3.46.0") 65% bottom / cover no-repeat,#123746!important;
  }
 }
+
+/* v3.47 — owner-directed larger arch and portrait; one continuous hero panorama.
+ * The page's hero::before is the only scenic image. The arch is an outline,
+ * not a second cropped copy of the panorama. Keep the fit tiers and caption flow. */
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{
+ --ap-stage-h:clamp(380px,62svh,590px);
+ --ap-photo-w:min(62%,calc((var(--ap-stage-h) - 88px) / 1.22));
+ max-width:760px!important;
+ background:transparent!important;
+}
+body.ws-parity[data-theme="aurora-peak"][data-wsp-smart-landing="active"][data-wsp-landing-fit="compact"] main>.hero.hd-hero>.hero-art{
+ --ap-stage-h:clamp(350px,54svh,510px);
+}
+body.ws-parity[data-theme="aurora-peak"][data-wsp-smart-landing="active"][data-wsp-landing-fit="tight"] main>.hero.hd-hero>.hero-art{
+ --ap-stage-h:clamp(310px,48svh,450px);
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-landscape{
+ background:transparent!important;
+ backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+ box-shadow:0 0 0 5px #c5e1c90a,0 0 0 11px #d4e2b510!important;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-landscape :is(.ap-sky,.ap-halo,.ap-ridge,.ap-mist){
+ display:none!important;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-atmosphere-fx{
+ border-radius:0!important;overflow:visible!important;contain:none!important;
+ mask-image:radial-gradient(ellipse at 50% 48%,#000 25%,transparent 74%);
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ap-atmosphere-fx .ap-fx-curtain{
+ opacity:.28;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.core{
+ z-index:4!important;
+}
+body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art>.ws-orbit-chip{
+ max-width:calc((100% - var(--ap-photo-w)) / 2 - 6px)!important;
+}
+@media(max-width:600px){
+ body.ws-parity[data-theme="aurora-peak"] main>.hero.hd-hero>.hero-art{
+  --ap-stage-h:clamp(310px,49svh,420px);
+  --ap-photo-w:min(56%,calc((var(--ap-stage-h) - 88px) / 1.22));
+ }
+ body.ws-parity[data-theme="aurora-peak"][data-wsp-smart-landing="active"][data-wsp-landing-fit="compact"] main>.hero.hd-hero>.hero-art{--ap-stage-h:clamp(290px,43svh,365px)}
+ body.ws-parity[data-theme="aurora-peak"][data-wsp-smart-landing="active"][data-wsp-landing-fit="tight"] main>.hero.hd-hero>.hero-art{--ap-stage-h:clamp(275px,38svh,335px)}
+}
