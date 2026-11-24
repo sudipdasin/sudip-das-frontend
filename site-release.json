@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.54.0-terminal-technical-blueprint",
+  "release": "personal-preview-v3.55.0-terminal-blueprint-xxl",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -383,7 +383,9 @@
     "v353-prismatic-glass-squircle",
     "v353-selectable-hero-profiles",
     "v354-terminal-technical-blueprint-default",
-    "v354-enlarged-terminal-hexagonal-portrait"
+    "v354-enlarged-terminal-hexagonal-portrait",
+    "v355-terminal-blueprint-xxl",
+    "v355-terminal-hero-no-auto-shrink"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1789,5 +1791,13 @@
     "realBrowser": "NOT_RUN",
     "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
     "stage": "preview-only"
+  },
+  "terminalBlueprintXXLV355": {
+    "sourceCommit": "818018c09e6f73322538df472bfe6155cfd5cc62",
+    "modeledAssertions": 33,
+    "realBrowser": "NOT_RUN",
+    "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED",
+    "stage": "preview-only",
+    "tradeoff": "larger hero may increase vertical scrolling"
   }
 }
