@@ -266,6 +266,7 @@
     if(!open){
       open=true;panel.hidden=false;
       shell.closest('main > .hero')?.classList.add('gh-disclosure-visible');
+      document.body?.classList.add('gh-disclosure-active');
       shell.dataset.open='true';
       trigger.setAttribute('aria-expanded','true');
       positionPanel();
@@ -279,6 +280,7 @@
     if(!open)return;
     open=false;panel.hidden=true;
     shell.closest('main > .hero')?.classList.remove('gh-disclosure-visible');
+    document.body?.classList.remove('gh-disclosure-active');
     delete shell.dataset.open;
     shell.classList.remove('gh-open-up');
     trigger.setAttribute('aria-expanded','false');
