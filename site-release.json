@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-preview-v3.29.0-five-engines-six-theme-visual-identity-manual-qa-pending",
+  "release": "personal-preview-v3.30.0-five-engine-experience-six-theme-native-design-manual-qa-pending",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "features": [
@@ -282,7 +282,19 @@
     "v329-ten-locale-complete-new-control-translations",
     "v329-portfolio-empty-recovery-and-search-shortcut",
     "v329-cross-theme-atmosphere-quality-controller",
-    "v329-owner-triggered-six-theme-54-probe-browser-audit-json"
+    "v329-owner-triggered-six-theme-54-probe-browser-audit-json",
+    "v330-17-command-accessible-palette",
+    "v330-ten-locale-42-strings-each",
+    "v330-six-theme-native-project-surfaces",
+    "v330-project-pathway-filter-chips",
+    "v330-keyboard-alt-shift-p-and-dialog-focus-trap",
+    "v330-hero-geometry-diagnostics",
+    "v330-atmosphere-performance-budget-status",
+    "v330-theme-health-five-engine-readiness",
+    "v330-quick-menu-public-tab-api",
+    "v330-portfolio-optimized-search-sort-and-api",
+    "v330-css-theme-contrast-verified-base-palette",
+    "v330-manual-local-source-verifier"
   ],
   "source": "approved-private-source-public-only",
   "privateBackendBundled": false,
@@ -1183,10 +1195,11 @@
     "automaticHostedTestResult": "NOT_RUN",
     "previewDeploymentIndependentOfCI": true,
     "policyDocument": "docs/MANUAL_CI_MODE_2026-11-24.md",
-    "lastKnownChange": "v3.29.0 five-engine integration, theme design, localization and manual browser audit",
+    "lastKnownChange": "v3.30.0 cross-theme experience, 5 engine API improvements, 10-language palette, project facets and source guard",
     "lastFeedback": "Owner screenshot 2026-11-24: 2x2 geometry visible; refined theme consistency, CTA priority and video affordance",
-    "manualBrowserVerification": "NOT_RUN after v3.29.0",
-    "lastEvidence": "18 static source contract checks passed in GitHub connector; not a browser run"
+    "manualBrowserVerification": "NOT_RUN after v3.30.0",
+    "lastEvidence": "23/23 synthetic DOM interaction checks; source syntax and base palette calculations; browser acceptance not performed",
+    "deploymentStatus": "Cloudflare Pages Git-based preview not independently confirmed"
   },
   "fiveEngineV329": {
     "version": "3.29.0",
@@ -1232,5 +1245,64 @@
       "Neon geometry previous audit failure not claimed fixed"
     ],
     "protection": "Preview-only. No private APIs, credentials, editor privileges or production release. Existing Neon geometry is unchanged."
+  },
+  "experienceV330": {
+    "version": "3.30.0",
+    "stage": "preview-only",
+    "url": "https://preview-personalweb.sudip-das-frontend.pages.dev/?v=3.30.0",
+    "files": [
+      "webstudio-experience-v330.js",
+      "webstudio-experience-v330.css",
+      "hero-display-engine-v327.js",
+      "atmosphere-engine-v328.js",
+      "webstudio-engine-mesh-v328.js",
+      "personal-quick-hub-v2.js",
+      "portfolio-discovery-v328.js"
+    ],
+    "features": [
+      "17-command-search",
+      "6-theme-visual-surfaces",
+      "theme-aware-project-facets",
+      "42-localized-strings-per-language",
+      "hero-geometry-diagnostics",
+      "atmosphere-renderer-budget",
+      "theme-readiness",
+      "accessible-quick-menu-api",
+      "optimized-portfolio-sort"
+    ],
+    "translation": {
+      "locales": [
+        "en",
+        "hi",
+        "bn",
+        "es",
+        "fr",
+        "de",
+        "pt",
+        "ar",
+        "zh-CN",
+        "ja"
+      ],
+      "newStringKeysPerLocale": 42,
+      "allNewUICopyTranslated": true,
+      "properNamesUnchanged": true
+    },
+    "manualSourceVerifier": "scripts/verify-webstudio-v330.mjs",
+    "manualQA": "docs/WEBSTUDIO_V330_RELEASE_MANUAL_QA.md",
+    "releaseGate": "MANUAL_QA_PENDING",
+    "verification": {
+      "newJsSyntaxAndSourceContracts": "checked via GitHub connector and JS compilation",
+      "interactionSimulation": "23/23 checks; synthetic DOM, not Chromium",
+      "themeSurfaceContrast": "calculated tokens; not full WCAG certification",
+      "hostedCI": "NOT_RUN",
+      "browserQA": "NOT_RUN",
+      "cloudflareDeployment": "NOT_INDEPENDENTLY_CONFIRMED"
+    },
+    "protections": [
+      "Approved Neon portrait and source assets unchanged",
+      "Editorial overlay and four-card layout retained",
+      "No new network calls or private API access",
+      "No production deployment"
+    ]
   }
 }
