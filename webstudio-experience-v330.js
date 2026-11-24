@@ -63,8 +63,8 @@
  const launcherSymbol=el('span','ws30-launcher-symbol','⌕');launcherSymbol.setAttribute('aria-hidden','true');
  const launcherText=el('span','ws30-launcher-text');const launcherKey=el('kbd','ws30-key','Alt+Shift+P');
  launcher.append(launcherSymbol,launcherText,launcherKey);
- if(quickTools)quickTools.append(launcher);
- else document.querySelector('.topbar .nav')?.append(launcher);
+ const launcherMount=quickTools||document.querySelector('.topbar .nav')||document.body;
+ launcherMount.append(launcher);
  const facets=el('div','ws30-project-pathways');facets.id='ws30-project-pathways';
  facets.setAttribute('role','group');
  const facetTitle=el('strong','ws30-facet-title');
