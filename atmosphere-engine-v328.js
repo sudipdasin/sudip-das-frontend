@@ -5,7 +5,7 @@
  */
 (() => {
   'use strict';
-  if(window.PORTFOLIO_PREVIEW_MODE!==true||window.__wsAtmosphere328)return;
+  if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true)||window.__wsAtmosphere328)return;
   const picker=document.getElementById('theme-select');
   const header=document.querySelector('.topbar .theme-control');
   const hero=document.querySelector('main > .hero')||document.querySelector('main .hero');

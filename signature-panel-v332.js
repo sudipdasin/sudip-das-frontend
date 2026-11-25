@@ -4,7 +4,7 @@
  */
 (() => {
  'use strict';
- if(window.PORTFOLIO_PREVIEW_MODE!==true || window.__wsSignaturePanel332)return;
+ if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true) || window.__wsSignaturePanel332)return;
  const hero=document.querySelector('main > .hero .hero-text');
  const actions=hero?.querySelector(':scope > .actions');
  if(!hero||!actions)return;

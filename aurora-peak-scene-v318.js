@@ -3,7 +3,7 @@
  * Dynamically mount only in Aurora Peak, restoring original DOM for other themes. */
 (() => {
   'use strict';
-  if(window.PORTFOLIO_PREVIEW_MODE!==true)return;
+  if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true))return;
   const picker=document.getElementById('theme-select');
   const hero=document.querySelector('main .hero');
   const art=hero?.querySelector('.hero-art');

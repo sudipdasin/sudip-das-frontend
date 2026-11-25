@@ -5,7 +5,7 @@
  */
 (() => {
  'use strict';
- if(window.PORTFOLIO_PREVIEW_MODE!==true||window.__wsEngineMesh328)return;
+ if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true)||window.__wsEngineMesh328)return;
  const body=document.body,select=document.getElementById('theme-select');
  if(!body||!select)return;
  const THEMES=Object.freeze({

@@ -5,7 +5,7 @@
  */
 (()=>{
 'use strict';
-if(window.PORTFOLIO_PREVIEW_MODE!==true)return;
+if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true))return;
 const picker=document.getElementById('theme-select');
 const quick=document.getElementById('ws-visitor-quick-panel');
 const quickButton=document.getElementById('ws-visitor-quick-open');

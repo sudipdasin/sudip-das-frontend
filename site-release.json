@@ -1,14 +1,16 @@
 {
   "schemaVersion": 1,
   "site": "personal-professional-portfolio",
-  "release": "personal-live-v3.62.0",
+  "release": "personal-live-v3.62.1",
   "stage": "production",
   "publicOrigin": "https://sudipdas.is-a.dev",
   "alternateOrigin": "https://sudip-das-frontend.pages.dev",
   "sourcePreviewCommit": "afbc63bf051acca31f362f9466b643782680df00",
-  "previousProductionCommit": "7ea967ca93fb1c812a6556095c8149c19634caf8",
+  "previousProductionCommit": "0a879d993974d2833bed4a5e0b51bf589c059593",
   "rollbackBranch": "backup/production-before-preview-promotion-20261125",
   "ownerManualApproval": true,
   "hostedCI": "NOT_RUN",
-  "privateBackendBundled": false
+  "privateBackendBundled": false,
+  "fix": "Enable public visitor presentation engines separately from private request preview mode",
+  "verification": "Source-level guard and asset checks; real browser parity not verified"
 }

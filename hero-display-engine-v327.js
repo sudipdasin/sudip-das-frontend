@@ -6,7 +6,7 @@
  */
 (() => {
  'use strict';
- if(window.PORTFOLIO_PREVIEW_MODE!==true||window.__wsHeroDisplay327)return;
+ if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true)||window.__wsHeroDisplay327)return;
  const hero=document.querySelector('main > .hero');
  const text=hero?.querySelector('.hero-text');
  const art=hero?.querySelector('.hero-art');

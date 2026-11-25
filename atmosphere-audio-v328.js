@@ -3,7 +3,7 @@
  * No external tracks, copyrighted melodies, microphones, recording or network.
  */
 (()=>{'use strict';
-if(window.PORTFOLIO_PREVIEW_MODE!==true||window.__wsAtmosphereAudio328)return;
+if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true)||window.__wsAtmosphereAudio328)return;
 const host=document.querySelector('#ws-atmosphere-control .ws-atmo-menu');
 if(!host)return;
 const THEMES=Object.freeze({

@@ -1,7 +1,7 @@
 /* Obsidian Bento: additive freelancer composition. Original portrait, actions,
    projects and contact routes remain authoritative. No new network requests. */
 (()=>{'use strict';
- if(window.PORTFOLIO_PREVIEW_MODE!==true||window.__wsBento359)return;
+ if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true)||window.__wsBento359)return;
  const doc=document,body=doc.body,hero=doc.querySelector('main>.hero'),art=hero?.querySelector('.hero-art');
  if(!hero||!art)return;
  const make=(tag,cls,txt)=>{const e=doc.createElement(tag);if(cls)e.className=cls;if(txt)e.textContent=txt;return e};

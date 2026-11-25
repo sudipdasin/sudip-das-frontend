@@ -4,7 +4,7 @@
  */
 ((global)=>{
  'use strict';
- if(!global||global.PORTFOLIO_PREVIEW_MODE!==true||global.WebStudioSitePlugins331)return;
+ if(!global||(global.PORTFOLIO_PREVIEW_MODE!==true&&global.PORTFOLIO_VISITOR_FEATURES!==true)||global.WebStudioSitePlugins331)return;
  const factory=global.WebStudioPluginEngine331,modules=global.WebStudioPlugins331;
  if(!factory||!modules||!global.document?.body)return;
  const doc=global.document,body=doc.body;

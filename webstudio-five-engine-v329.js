@@ -5,7 +5,7 @@
  */
 (() => {
  'use strict';
- if(window.PORTFOLIO_PREVIEW_MODE!==true || window.__wsFiveEngines329)return;
+ if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true) || window.__wsFiveEngines329)return;
  const body=document.body;
  const picker=document.getElementById('theme-select');
  const hero=document.querySelector('main>.hero');

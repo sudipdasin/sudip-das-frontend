@@ -3,7 +3,7 @@
    NOT a full ray-traced webpage, BVH engine or hardware RTX pipeline. No assets/network. */
 (() => {
   'use strict';
-  if (!window.PORTFOLIO_PREVIEW_MODE) return;
+  if ((!window.PORTFOLIO_PREVIEW_MODE&&window.PORTFOLIO_VISITOR_FEATURES!==true)) return;
   const vertex = `#version 300 es
 precision highp float;
 layout(location=0) in vec2 a_position;

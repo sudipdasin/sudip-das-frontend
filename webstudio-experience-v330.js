@@ -5,7 +5,7 @@
  */
 (() => {
  'use strict';
- if(window.PORTFOLIO_PREVIEW_MODE!==true||window.__wsExperience330)return;
+ if((window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_VISITOR_FEATURES!==true)||window.__wsExperience330)return;
  const q=s=>document.querySelector(s);
  const picker=document.getElementById('theme-select');
  const projectSearch=document.getElementById('portfolio-project-search');

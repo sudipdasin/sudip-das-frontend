@@ -20,7 +20,7 @@
   banner.setAttribute('aria-label', 'Personal portfolio information');
   banner.append(
     node('strong', '', 'SUDIP DAS / INTERACTIVE PORTFOLIO'),
-    node('span', 'ws-utility-right', 'CURRENT PERSONAL PREVIEW · Private requests disabled')
+    node('span', 'ws-utility-right', (window.PORTFOLIO_PREVIEW_MODE ? 'CURRENT PERSONAL PREVIEW · Private requests disabled' : 'LIVE PORTFOLIO · Verified requests available'))
   );
   document.querySelector('.topbar')?.before(banner);
   // Visitor Quick Actions: local theme choice and read-only section navigation ONLY.
