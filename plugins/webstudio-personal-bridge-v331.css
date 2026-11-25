@@ -1,0 +1,28 @@
+/* v3.31 bridge status controls, scoped to Quick Menu tools only. */
+body.ws-parity #pv-hub-panel-tools .wsp-plugin-status-button,
+body.ws-parity #pv-hub-panel-tools .wsp-plugin-demo-link{
+ display:flex;align-items:center;justify-content:center;min-height:44px;
+ width:100%;padding:9px 12px;margin:7px 0 0;
+ border:1px solid var(--ws29-edge,var(--ws30-edge,#879));
+ border-radius:var(--ws29-radius,8px);
+ background:var(--ws29-soft,var(--ws30-panel,#182939));
+ color:var(--ws29-ink,var(--ws30-ink,#fff));
+ font:700 .78rem/1.4 var(--ws29-body,system-ui);
+ text-decoration:none;cursor:pointer;
+}
+body.ws-parity #pv-hub-panel-tools #wsp-plugin-status-content{
+ margin:7px 0;max-height:160px;overflow:auto;
+ padding:9px 11px;border:1px solid var(--ws29-edge,#789);
+ border-radius:var(--ws29-radius,8px);
+ color:var(--ws29-ink,#fff);
+ background:var(--ws29-panel,#172839);
+ font:500 .72rem/1.5 var(--ws29-body,system-ui);
+ overflow-wrap:anywhere;
+}
+body.ws-parity #pv-hub-panel-tools #wsp-plugin-status-content[hidden]{display:none!important}
+body.ws-parity #pv-hub-panel-tools :is(.wsp-plugin-status-button,.wsp-plugin-demo-link):focus-visible{
+ outline:3px solid var(--ws29-accent,#75efdb)!important;outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity #pv-hub-panel-tools :is(.wsp-plugin-status-button,.wsp-plugin-demo-link){transition:none!important}
+}

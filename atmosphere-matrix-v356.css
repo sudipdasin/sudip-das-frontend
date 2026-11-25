@@ -1,0 +1,40 @@
+/* Terminal-only decorative background. Not an overlay on the portrait or copy. */
+.ws-matrix-control{display:grid;gap:5px;margin-top:12px;padding-top:10px;border-top:1px solid var(--atmo-edge);font-size:.78rem}
+.ws-matrix-control[hidden]{display:none!important}
+.ws-matrix-control select{width:100%;min-height:44px;padding:6px 8px;background:var(--atmo-panel);color:var(--atmo-ink);border:1px solid var(--atmo-edge);font:inherit}
+body.ws-parity[data-theme="terminal"] main>.hero>.ws-matrix-rain{position:absolute!important;inset:0!important;z-index:2!important;pointer-events:none!important;overflow:hidden;contain:paint;isolation:isolate;opacity:.56;mask-image:linear-gradient(90deg,transparent 0%,#000 19%,#000 86%,transparent 100%);--mx-color:#61f8a4;--mx-size:13px;--mx-alpha:.62}
+body.ws-parity[data-theme="terminal"] main>.hero>.ws-matrix-rain[data-matrix-style="subtle"]{opacity:.24;--mx-size:12px;--mx-alpha:.48}
+body.ws-parity[data-theme="terminal"] main>.hero>.ws-matrix-rain[data-matrix-style="cascade"]{opacity:.72;--mx-color:#83ffd1;--mx-size:15px;--mx-alpha:.82}
+body.ws-parity[data-theme="terminal"] main>.hero>.ws-matrix-rain[data-matrix-style="data"]{opacity:.46;--mx-color:#80e2c9;--mx-size:12px;--mx-alpha:.58}
+body.ws-parity[data-theme="terminal"] .ws-matrix-column{position:absolute;left:var(--mx-x);top:var(--mx-y);white-space:pre;display:block;font:600 var(--mx-size)/1.24 ui-monospace,monospace;text-align:center;letter-spacing:0;color:var(--mx-color);opacity:var(--mx-alpha);transform:translate(-50%,-50%);mask-image:linear-gradient(to bottom,transparent,#0008 44%,#000 93%);text-shadow:0 0 7px currentColor}
+body.ws-parity[data-theme="terminal"] .ws-matrix-rain[data-running="true"] .ws-matrix-column{top:0;animation:ws-matrix-fall var(--mx-period) linear var(--mx-delay) infinite}
+@keyframes ws-matrix-fall{from{transform:translate(-50%,-110%)}to{transform:translate(-50%,max(100vh,100dvh))}}
+body.ws-parity[data-theme="terminal"][data-atmosphere-tier="eco"] .ws-matrix-column{animation:none!important;text-shadow:none;opacity:.24}
+body.ws-parity:not([data-theme="terminal"]) .ws-matrix-rain,body[data-atmosphere-tier="off"] .ws-matrix-rain{display:none!important}
+@media(prefers-reduced-motion:reduce){.ws-matrix-column{animation:none!important;top:var(--mx-y)!important;transform:translate(-50%,-50%)!important;text-shadow:none!important}}
+@media(forced-colors:active){.ws-matrix-rain{display:none!important}}
+@media(max-width:600px){body.ws-parity[data-theme="terminal"] main>.hero>.ws-matrix-rain{opacity:.32;--mx-size:11px}}
+
+/* v3.58: reference-like high-contrast rain behind the console, not over the face. */
+body.ws-parity[data-theme="terminal"] main>.hero:has(>.hero-art[data-hero-profile="console"])>.ws-matrix-rain[data-matrix-style="classic"]{
+ opacity:.43;--mx-color:#20ad5b;--mx-size:13px;--mx-alpha:.75;
+ mask-image:linear-gradient(90deg,#0008 0%,#000 26%,#000 100%);
+}
+body.ws-parity[data-theme="terminal"] main>.hero:has(>.hero-art[data-hero-profile="console"])>.ws-matrix-rain[data-matrix-style="classic"] .ws-matrix-column{
+ opacity:calc(var(--mx-stream-alpha,.8) * .60);text-shadow:0 0 3px #1bff6440;
+ mask-image:linear-gradient(to bottom,transparent 0%,#0007 26%,#000c 60%,#000 100%);
+}
+body.ws-parity[data-theme="terminal"][data-atmosphere-tier="eco"] main>.hero>.ws-matrix-rain[data-matrix-style="classic"] .ws-matrix-column{opacity:.24!important;text-shadow:none!important}
+body.ws-parity[data-theme="terminal"]:has(main>.hero>.hero-art[data-hero-profile="console"])>.ws-atmo-layer.ws-atmo-sitewide{opacity:.10!important}
+@media(max-width:600px){body.ws-parity[data-theme="terminal"] main>.hero:has(>.hero-art[data-hero-profile="console"])>.ws-matrix-rain[data-matrix-style="classic"]{--mx-size:11px;opacity:.30}}
+@media(prefers-reduced-motion:reduce){body.ws-parity[data-theme="terminal"] main>.hero>.ws-matrix-rain[data-matrix-style="classic"] .ws-matrix-column{text-shadow:none!important}}
+
+body.ws-parity[data-theme="terminal"]:has(main>.hero>.hero-art[data-hero-profile="console"])>.ws-atmo-layer.ws-atmo-sitewide{opacity:.04!important}
+
+/* v3.62: visible digital rain, controlled glow and protected content. */
+body.ws-parity[data-theme="terminal"] main>.hero:has(>.hero-art[data-hero-profile="console"])>.ws-matrix-rain[data-matrix-style="classic"]{opacity:.77;--mx-color:#38ed7d;--mx-size:14px;mask-image:linear-gradient(90deg,#000a 0%,#000 16%,#000 100%)}
+body.ws-parity[data-theme="terminal"] main>.hero:has(>.hero-art[data-hero-profile="console"])>.ws-matrix-rain[data-matrix-style="classic"] .ws-matrix-column{opacity:calc(var(--mx-stream-alpha,.8) * .90);text-shadow:0 0 3px #2cff6b80;mask-image:linear-gradient(to bottom,transparent 0%,#0006 22%,#000b 48%,#000 90%)}
+body.ws-parity[data-theme="terminal"] main>.hero:has(>.hero-art[data-hero-profile="console"])>.ws-matrix-rain[data-matrix-style="classic"][data-running="false"] .ws-matrix-column{animation:none!important}
+body.ws-parity[data-theme="terminal"][data-atmosphere-tier="eco"] main>.hero>.ws-matrix-rain[data-matrix-style="classic"] .ws-matrix-column{opacity:.24!important;text-shadow:none!important}
+@media(max-width:600px){body.ws-parity[data-theme="terminal"] main>.hero:has(>.hero-art[data-hero-profile="console"])>.ws-matrix-rain[data-matrix-style="classic"]{opacity:.46;--mx-size:11px}}
+@media(prefers-reduced-motion:reduce){body.ws-parity[data-theme="terminal"] main>.hero:has(>.hero-art[data-hero-profile="console"])>.ws-matrix-rain[data-matrix-style="classic"] .ws-matrix-column{text-shadow:none!important;animation:none!important}}

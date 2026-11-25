@@ -1,0 +1,28 @@
+/* v3.28.1 Human CI repair: Editorial video overlay only.
+ * The approved Neon precision-portrait geometry is NOT modified.
+ * Late, narrow rule intentionally wins against legacy shared video tile CSS.
+ */
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text .actions
+  .pv-intro-tile > .pv-intro-hero-cta{
+  background-color:#fbf7ee!important;
+  background-image:none!important;
+  color:#302d29!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text .actions
+  .pv-intro-tile > .pv-intro-hero-cta::after{
+  content:none!important;
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  background:none!important;
+  box-shadow:none!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text .actions
+  .pv-intro-tile .pv-intro-cta-motion{
+  display:none!important;
+}
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .pv-intro-tile *{
+    animation:none!important;
+  }
+}

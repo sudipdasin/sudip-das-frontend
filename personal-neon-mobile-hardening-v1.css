@@ -1,0 +1,102 @@
+/*
+ * Personal Neon Studio mobile hardening — v3.9.9 (2026-11-24).
+ * A source-level mobile audit identified undersized touch targets in the
+ * video expand control, Quick Hub tabs and its close button. The mobile
+ * footer also needs room for the fixed Quick Hub orb.
+ * Scope: PREVIEW branch, Neon Studio ONLY, phone widths <=600px.
+ *
+ * These changes do NOT alter desktop-approved orbit, two-line header,
+ * portrait, name capsule, user data, other theme rules, or backend.
+ */
+@media (max-width:600px) {
+  /* The menu and theme launcher remain genuinely touchable at 44px. */
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .menu {
+    min-width:44px!important;
+    min-height:44px!important;
+    box-sizing:border-box!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .pv-theme-launch {
+    flex:0 0 44px!important;
+    width:44px!important;
+    min-width:44px!important;
+    max-width:44px!important;
+    height:44px!important;
+    min-height:44px!important;
+    box-sizing:border-box!important;
+  }
+  /* On touchscreens the video teaser does not autoplay on hover. Give its
+     REAL expand button a visible 44px target instead of a 29px glyph. */
+  body.ws-parity[data-theme="neon-studio"] .hero .actions .pv-intro-tile .pv-intro-expand {
+    width:44px!important;
+    min-width:44px!important;
+    height:44px!important;
+    min-height:44px!important;
+    right:6px!important;
+    border-radius:11px!important;
+    font-size:1.18rem!important;
+    padding:0!important;
+    display:grid!important;
+    place-items:center!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .hero .actions .pv-intro-tile > .pv-intro-hero-cta {
+    padding-right:55px!important;
+  }
+  /* The four tabs were visually one row, but only 41px high; improve tap
+     targets without altering the four-equal-column layout or overflow. */
+  body.ws-parity[data-theme="neon-studio"] > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-tab {
+    min-height:44px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-close {
+    flex:0 0 44px!important;
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+    min-height:44px!important;
+    box-sizing:border-box!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] > .pv-hub-v2 .pv-hub-tool {
+    min-height:44px!important;
+  }
+  /* The floating Quick Hub is pinned to bottom-right. Protect the final
+     footer row and links from being obscured by its 52px orb plus gap. */
+  body.ws-parity[data-theme="neon-studio"] .site-footer-wrap .footer {
+    padding-bottom:calc(86px + env(safe-area-inset-bottom,0px))!important;
+  }
+}
+/* Very narrow phones, browser zoom and split-view: keep all three header
+   launch surfaces in the first row without hiding Menu or Explore Themes. */
+@media (max-width:350px) {
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav {
+    column-gap:6px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .brand {
+    gap:8px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .brand .brand-mark {
+    flex:0 0 44px!important;
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+    min-height:44px!important;
+    max-width:44px!important;
+    font-size:18px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .brand .brand-name {
+    font-size:16.5px!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .brand .brand-subtitle {
+    font-size:7.5px!important;
+    letter-spacing:.17em!important;
+  }
+  body.ws-parity[data-theme="neon-studio"] .topbar .nav > .menu {
+    padding:8px 6px!important;
+    font-size:.78rem!important;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  body.ws-parity[data-theme="neon-studio"] .hero .actions .pv-intro-tile .pv-intro-expand,
+  body.ws-parity[data-theme="neon-studio"] > .pv-hub-v2 .ws-visitor-quick-panel .pv-hub-close {
+    animation:none!important;
+    transition:none!important;
+  }
+}

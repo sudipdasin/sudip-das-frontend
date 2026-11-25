@@ -1,0 +1,175 @@
+/* Engine Mesh 3.28: consistent controls and interaction rules within each theme,
+   genuinely different material, geometry, texture and motion BETWEEN themes.
+   Do not restructure the approved Neon hero or the frozen Editorial hero.
+   Scope all modifications to reusable engine surfaces. */
+body.ws-parity{
+ --wsx-accent:#61f5e4;--wsx-surface:#0d283c;--wsx-ink:#edfaff;
+ --wsx-edge:#56b8d4;--wsx-muted:#b7d9e7;--wsx-r:16px;
+ --wsx-shadow:0 18px 38px #04162a8a;
+ --wsx-highlight:linear-gradient(118deg,#53ecf512,transparent 68%);
+ --wsx-stroke:solid;--wsx-btn-r:12px;
+}
+body.ws-parity[data-theme="orbit"]{
+ --wsx-accent:#75efdb;--wsx-surface:#092a37;--wsx-ink:#effffc;
+ --wsx-edge:#64c9c7;--wsx-muted:#bce1de;--wsx-r:26px;
+ --wsx-shadow:0 14px 41px #001923a3;
+ --wsx-highlight:repeating-radial-gradient(circle at 95% 12%,transparent 0 25px,#48dec612 26px,transparent 27px);
+ --wsx-btn-r:20px;
+}
+body.ws-parity[data-theme="editorial"]{
+ --wsx-accent:#805337;--wsx-surface:#fff9f0;--wsx-ink:#292e29;
+ --wsx-edge:#9a866b;--wsx-muted:#535e53;--wsx-r:2px;
+ --wsx-shadow:8px 12px 0 #8e72521b;
+ --wsx-highlight:repeating-linear-gradient(0deg,transparent 0 41px,#bdad9321 42px,transparent 43px);
+ --wsx-btn-r:2px;
+}
+body.ws-parity[data-theme="terminal"]{
+ --wsx-accent:#73ffa9;--wsx-surface:#061b13;--wsx-ink:#e9ffef;
+ --wsx-edge:#46b87e;--wsx-muted:#b4e5c4;--wsx-r:0px;
+ --wsx-shadow:0 0 0 1px #62f5a72d;
+ --wsx-highlight:repeating-linear-gradient(0deg,transparent 0 12px,#55ffab0b 13px,transparent 14px);
+ --wsx-stroke:dashed;--wsx-btn-r:0px;
+}
+body.ws-parity[data-theme="aurora-peak"]{
+ --wsx-accent:#e1edb7;--wsx-surface:#123b39;--wsx-ink:#f6f8ed;
+ --wsx-edge:#aacdb3;--wsx-muted:#d2e3d6;--wsx-r:9px 26px 9px 26px;
+ --wsx-shadow:0 21px 54px #061f2591;
+ --wsx-highlight:radial-gradient(ellipse at 81% 4%,#e7ca9e3f,transparent 56%);
+ --wsx-btn-r:7px 16px 7px 16px;
+}
+body.ws-parity[data-theme="neon-studio"]{
+ --wsx-accent:#61f5e4;--wsx-surface:#0c2338;--wsx-ink:#f0faff;
+ --wsx-edge:#58c7d9;--wsx-muted:#bedce8;--wsx-r:17px;
+ --wsx-shadow:0 14px 44px #001434ba,0 0 0 1px #763dd021;
+ --wsx-highlight:linear-gradient(115deg,#20d7e326,#7938c217 72%,transparent);
+ --wsx-btn-r:12px;
+}
+body.ws-parity[data-theme="design-2"]{
+ --wsx-accent:#d2c0ff;--wsx-surface:#1b1e43;--wsx-ink:#f4f0ff;
+ --wsx-edge:#a391de;--wsx-muted:#d3c9e9;--wsx-r:25px;
+ --wsx-shadow:0 18px 48px #040926be,0 0 0 1px #9068d629;
+ --wsx-highlight:radial-gradient(circle at 87% 11%,#9167df3d,transparent 55%);
+ --wsx-btn-r:23px;
+}
+/* Shared chrome for five existing engines; theme surfaces stay independent. */
+body.ws-parity .project-discovery,
+body.ws-parity .project-shortlist,
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2{
+ background:var(--wsx-highlight),var(--wsx-surface)!important;
+ border:1px var(--wsx-stroke) var(--wsx-edge)!important;
+ color:var(--wsx-ink)!important;
+ border-radius:var(--wsx-r)!important;
+ box-shadow:var(--wsx-shadow)!important;
+}
+body.ws-parity .project-discovery :is(label,.project-discovery-status),
+body.ws-parity .project-shortlist :is(p,.project-shortlist-subtitle),
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2 :is(.pv-hub-description,.pv-hub-group-title){
+ color:var(--wsx-muted)!important;
+}
+body.ws-parity .project-discovery :is(input,select,button),
+body.ws-parity .project-shortlist :is(button,input),
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2 :is(.pv-hub-tab,.pv-hub-tool,.pv-hub-close){
+ border-color:var(--wsx-edge)!important;
+ border-radius:var(--wsx-btn-r)!important;
+ font-family:var(--sans,system-ui);
+}
+body.ws-parity .project-discovery :is(input,select){
+ color:var(--wsx-ink)!important;background:var(--wsx-surface)!important;
+ min-height:43px;min-width:0;max-width:100%;
+}
+body.ws-parity .project-discovery :is(input,select)::placeholder{
+ color:var(--wsx-muted)!important;opacity:.82;
+}
+body.ws-parity .project-discovery .project-filter-reset{
+ color:var(--wsx-ink)!important;background:var(--wsx-surface)!important;
+ min-height:43px;cursor:pointer;
+}
+body.ws-parity .project-discovery .project-filter-reset:not(:disabled):hover{
+ color:var(--wsx-accent)!important;border-color:var(--wsx-accent)!important;
+}
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2 .pv-hub-tab[aria-selected="true"]{
+ background:var(--wsx-accent)!important;
+ color:var(--wsx-surface)!important;
+ border-color:var(--wsx-accent)!important;
+}
+body.ws-parity[data-theme="editorial"] > .pv-hub-v2 .pv-hub-panel-v2 :is(.pv-hub-titles strong,.pv-hub-tool-copy strong){
+ font-family:Georgia,serif!important;
+}
+body.ws-parity[data-theme="terminal"] > .pv-hub-v2 .pv-hub-panel-v2 :is(button,p,strong,small,span){
+ font-family:var(--mono,ui-monospace,monospace)!important;
+}
+body.ws-parity[data-theme="aurora-peak"] > .pv-hub-v2 .pv-hub-panel-v2 .pv-hub-mark{
+ border-radius:52% 52% 5% 5%;
+}
+body.ws-parity[data-theme="design-2"] > .pv-hub-v2 .pv-hub-panel-v2 .pv-hub-mark{
+ border-radius:50%;box-shadow:0 0 14px #a175e19c;
+}
+/* Reuse engine identity in portfolio cards without replacing custom card layouts. */
+body.ws-parity #projects .project{
+ position:relative;border-color:var(--wsx-edge);
+}
+body.ws-parity #projects .project:focus-within{
+ outline:2px solid var(--wsx-accent);outline-offset:3px;
+}
+body.ws-parity #projects .project a.project-link:focus-visible,
+body.ws-parity .project-discovery :is(input,button,select):focus-visible,
+body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2 :is(button,a):focus-visible{
+ outline:3px solid var(--wsx-accent)!important;outline-offset:3px!important;
+}
+body.ws-parity[data-theme="orbit"] #projects .project{
+ border-radius:26px!important;border-left:3px solid #68d7cb!important;
+}
+body.ws-parity[data-theme="editorial"] #projects .project{
+ border-radius:2px!important;border-top:2px solid #997b59!important;
+}
+body.ws-parity[data-theme="terminal"] #projects .project{
+ border-radius:0!important;border-left:2px dashed #74fba9!important;
+}
+body.ws-parity[data-theme="aurora-peak"] #projects .project{
+ border-radius:8px 24px 8px 24px!important;border-top:2px solid #dfe6b5!important;
+}
+body.ws-parity[data-theme="neon-studio"] #projects .project{
+ border-radius:17px!important;border-top:2px solid #48e9e6!important;
+}
+body.ws-parity[data-theme="design-2"] #projects .project{
+ border-radius:24px!important;border-left:3px solid #a983f6!important;
+}
+/* Atmosphere control and hero buttons: share a theme palette but retain
+   their own approved dimensions and geometry. */
+body.ws-parity .topbar .ws-atmo-control .ws-atmo-menu{
+ border-color:var(--wsx-edge)!important;
+}
+body.ws-parity .topbar .ws-atmo-control :is(.ws-atmo-trigger,.ws-atmo-choice:has(input:checked)){
+ outline-color:var(--wsx-accent);
+}
+body.ws-parity main>.hero.hd-hero .hd-edition-index{
+ border-color:var(--wsx-accent)!important;
+}
+body.ws-parity[data-wsx-motion="still"] :is(.project-shortlist,.project-discovery,.pv-hub-panel-v2) *,
+body.ws-parity[data-wsx-motion="still"] main>.hero.hd-hero .hd-stage *{
+ animation:none!important;transition:none!important;
+}
+@media(max-width:700px){
+ body.ws-parity .project-discovery{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  gap:9px!important;padding:12px!important;
+ }
+ body.ws-parity .project-discovery :is(input,select,button,label){
+  width:100%!important;max-width:100%!important;
+ }
+ body.ws-parity .project-shortlist{max-width:100%;overflow-wrap:anywhere}
+ body.ws-parity > .pv-hub-v2 .pv-hub-panel-v2{
+  width:min(390px,calc(100vw - 24px))!important;
+  max-height:min(77dvh,710px)!important;
+  overflow-y:auto;
+ }
+}
+@media(forced-colors:active){
+ body.ws-parity :is(.project-discovery,.project-shortlist,.pv-hub-panel-v2){
+  background:Canvas!important;color:CanvasText!important;border-color:CanvasText!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity :is(.project-discovery,.project-shortlist,.pv-hub-panel-v2) *,
+ body.ws-parity #projects .project{animation:none!important;transition:none!important}
+}

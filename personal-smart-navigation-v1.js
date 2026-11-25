@@ -176,8 +176,33 @@
   mediaBox.append(status);
   const foot=document.createElement('p');
   foot.className='pv-intro-inline-foot';
-  foot.textContent='60 sec · 720p · Player controls include captions, sound and fullscreen.';
-  panel.append(header,mediaBox,foot);
+  foot.textContent='60 sec · 720p · English captions enabled by default · transcript below.';
+  const transcript=document.createElement('details');
+  transcript.className='pv-intro-transcript';
+  const transcriptSummary=document.createElement('summary');
+  transcriptSummary.textContent='Read the introduction transcript';
+  const transcriptText=document.createElement('pre');
+  transcriptText.textContent='Open this section to load the caption transcript.';
+  const transcriptLink=document.createElement('a');
+  transcriptLink.href='media/sudip-das-professional-introduction.en.vtt';
+  transcriptLink.textContent='Open the original caption file';
+  transcript.append(transcriptSummary,transcriptText,transcriptLink);
+  let transcriptLoaded=false;
+  transcript.addEventListener('toggle',async()=>{
+    if(!transcript.open||transcriptLoaded)return;
+    transcriptLoaded=true;
+    try{
+      const r=await fetch('media/sudip-das-professional-introduction.en.vtt',{cache:'force-cache'});
+      if(!r.ok)throw new Error('No captions');
+      const raw=(await r.text()).replace(/\r/g,'');
+      const cues=raw.trim().split(/\n\n+/).slice(1).map(block=>
+        block.split('\n').filter(line=>line.trim()&&!line.includes('-->')&&!/^\d+$/.test(line.trim())).join(' ')
+      ).filter(Boolean);
+      if(!raw.startsWith('WEBVTT')||cues.length<2)throw new Error('Invalid captions');
+      transcriptText.textContent=cues.join('\n\n');
+    }catch{transcriptText.textContent='Transcript unavailable; use the original caption file below.';}
+  });
+  panel.append(header,mediaBox,foot,transcript);
   tile.append(button,panel);
   heroActions.append(tile);
 
@@ -204,6 +229,8 @@
    teaser.load();
   };
   const startTeaser=()=>{
+   // Editorial is a print composition and Terminal a console. Neither should show Neon moving artwork.
+   if(['editorial','terminal'].includes(document.body.dataset.theme))return;
    if(open||hoverPlaying||!isHovered||!hoverAllowed.matches||!previewVisible||document.hidden||reduced.matches||saveData)return;
    hoverPlaying=true;
    teaser.dataset.ready='false';
@@ -237,6 +264,10 @@
   }else{previewVisible=true;}
   reduced.addEventListener?.('change',()=>{if(reduced.matches)stopTeaser();else if(isHovered)startTeaser();});
   hoverAllowed.addEventListener?.('change',()=>{if(!hoverAllowed.matches)stopTeaser();else if(isHovered)startTeaser();});
+  document.getElementById('theme-select')?.addEventListener('change',()=>{
+   stopTeaser();
+   if(isHovered)startTeaser();
+  });
   const clearMedia=()=>{
    for(const video of mediaBox.querySelectorAll('video')){
     video.pause();
@@ -285,9 +316,11 @@
     captions.label='English captions';
     captions.srclang='en';
     captions.src='media/sudip-das-professional-introduction.en.vtt';
+    captions.default=true;
     video.append(captions);
     video.addEventListener('loadedmetadata',()=>{
      if(!open)return;
+     try{if(video.textTracks.length)video.textTracks[0].mode='showing';}catch{}
      status.hidden=true;
      video.play().catch(()=>{});
     },{once:true});

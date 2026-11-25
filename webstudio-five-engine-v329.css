@@ -1,0 +1,258 @@
+/* WebStudio Five-Engine Visual Contracts v3.29.0
+ * Unique, light-weight per-theme presentation for the five-engine UI.
+ * Additive only: protected Neon portrait geometry, Hero scene, original video,
+ * existing Theme Library and footer styles remain controlled by their owners.
+ */
+body.ws-parity{
+ --ws29-accent:#61f5e4;--ws29-panel:#0d283c;--ws29-ink:#edfaff;
+ --ws29-soft:#152c3b;--ws29-edge:#57b6b7;--ws29-radius:12px;
+ --ws29-body:var(--sans,system-ui);--ws29-shadow:0 8px 24px #0002;
+}
+body.ws-parity[data-theme="orbit"]{
+ --ws29-accent:#75efdb;--ws29-panel:#0c2b39;--ws29-ink:#e9fbfb;
+ --ws29-soft:#123c47;--ws29-edge:#4aabae;--ws29-radius:22px;
+ --ws29-body:var(--sans,system-ui);--ws29-shadow:0 14px 42px #001c3075;
+}
+body.ws-parity[data-theme="editorial"]{
+ --ws29-accent:#805337;--ws29-panel:#fbf4e8;--ws29-ink:#302b26;
+ --ws29-soft:#f2e8d9;--ws29-edge:#a78b71;--ws29-radius:4px;
+ --ws29-body:Georgia,serif;--ws29-shadow:0 7px 20px #5d473015;
+}
+body.ws-parity[data-theme="terminal"]{
+ --ws29-accent:#73ffa9;--ws29-panel:#071e13;--ws29-ink:#e4ffee;
+ --ws29-soft:#0b291c;--ws29-edge:#3eae79;--ws29-radius:0px;
+ --ws29-body:var(--mono,monospace);--ws29-shadow:0 0 0 1px #73ffa930;
+}
+body.ws-parity[data-theme="aurora-peak"]{
+ --ws29-accent:#dce8ad;--ws29-panel:#193c33;--ws29-ink:#f4f7e8;
+ --ws29-soft:#305447;--ws29-edge:#a2c6aa;--ws29-radius:18px;
+ --ws29-body:var(--sans,system-ui);--ws29-shadow:0 15px 30px #0e292548;
+}
+body.ws-parity[data-theme="neon-studio"]{
+ --ws29-accent:#61f5e4;--ws29-panel:#0d283c;--ws29-ink:#edfaff;
+ --ws29-soft:#123a4a;--ws29-edge:#57b6b7;--ws29-radius:14px;
+ --ws29-body:var(--sans,system-ui);--ws29-shadow:0 12px 32px #00121e8c;
+}
+body.ws-parity[data-theme="design-2"]{
+ --ws29-accent:#d2c0ff;--ws29-panel:#171938;--ws29-ink:#f6f2ff;
+ --ws29-soft:#2b2655;--ws29-edge:#8875cc;--ws29-radius:16px;
+ --ws29-body:var(--sans,system-ui);--ws29-shadow:0 12px 36px #08062678;
+}
+/* Small, calm identity caption: no absolute layout, no portrait movement. */
+body.ws-parity main>.hero.hd-hero .hero-text .ws29-hero-dossier{
+ position:relative;display:inline-flex;align-items:center;gap:11px;
+ margin:15px 0 0;padding:9px 13px;max-width:100%;min-width:0;
+ background:var(--ws29-panel);color:var(--ws29-ink);
+ border:1px solid var(--ws29-edge);border-radius:var(--ws29-radius);
+ box-shadow:var(--ws29-shadow);font-family:var(--ws29-body);
+ isolation:isolate;overflow:hidden;
+}
+body.ws-parity main>.hero.hd-hero .ws29-hero-symbol{
+ flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;
+ color:var(--ws29-accent);border:1px solid var(--ws29-edge);
+ border-radius:inherit;font:800 1.3rem/1 var(--ws29-body);position:relative;z-index:2;
+}
+body.ws-parity main>.hero.hd-hero .ws29-dossier-copy{
+ display:flex;flex-direction:column;gap:2px;min-width:0;position:relative;z-index:2;
+}
+body.ws-parity main>.hero.hd-hero .ws29-dossier-kicker{
+ display:block;font:700 .63rem/1.4 var(--mono,ui-monospace,monospace);
+ letter-spacing:.065em;text-transform:uppercase;color:var(--ws29-accent);
+}
+body.ws-parity main>.hero.hd-hero .ws29-dossier-descriptor{
+ color:var(--ws29-ink);font:700 .82rem/1.35 var(--ws29-body);
+ overflow-wrap:anywhere;
+}
+body.ws-parity[data-theme="orbit"] .ws29-hero-dossier{
+ background:radial-gradient(circle at 3% 44%,#3ddfca20,transparent 44%),var(--ws29-panel)!important;
+ border-radius:26px!important;
+}
+body.ws-parity[data-theme="orbit"] .ws29-hero-symbol{border-radius:50%!important;border-style:dashed!important;}
+body.ws-parity[data-theme="editorial"] .ws29-hero-dossier{
+ box-shadow:none!important;border-width:0 0 1px 3px!important;
+ border-color:var(--ws29-accent)!important;background:transparent!important;
+ border-radius:0!important;padding-left:12px!important;
+}
+body.ws-parity[data-theme="editorial"] .ws29-hero-symbol{
+ background:#f5e8d8;color:#805337;border-radius:0!important;transform:rotate(-3deg);
+}
+body.ws-parity[data-theme="terminal"] .ws29-hero-dossier{
+ border-radius:0!important;border-style:dashed!important;
+ background:repeating-linear-gradient(0deg,#0b291c 0 24px,#102b20 25px),var(--ws29-panel)!important;
+ text-transform:uppercase!important;
+}
+body.ws-parity[data-theme="terminal"] .ws29-hero-symbol{border-radius:0!important;}
+body.ws-parity[data-theme="aurora-peak"] .ws29-hero-dossier{
+ background:linear-gradient(145deg,#23473b,#193c33 62%,#31534b)!important;
+ border-radius:20px 20px 6px 6px!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ws29-hero-symbol{
+ border-radius:50% 50% 8px 8px!important;background:#dce8ad16;
+}
+body.ws-parity[data-theme="neon-studio"] .ws29-hero-dossier{
+ background:linear-gradient(125deg,#0e293c,#193c51 64%,#1a294a)!important;
+ border-color:#61f5e4a6!important;box-shadow:0 0 18px #59eae624!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws29-hero-symbol{
+ border-radius:12px!important;background:#28d9d215;
+}
+body.ws-parity[data-theme="design-2"] .ws29-hero-dossier{
+ background:radial-gradient(circle at 90% 0%,#d2c0ff24,transparent 51%),var(--ws29-panel)!important;
+ border-radius:22px 4px 22px 4px!important;
+}
+body.ws-parity[data-theme="design-2"] .ws29-hero-symbol{
+ background:#8c69dc22;border-radius:50%!important;
+}
+/* Five-engine panel is inside the existing Quick Tools tab: not a new popup. */
+body.ws-parity .ws29-engine-rack{
+ margin:13px 0 0;padding:15px;min-width:0;
+ border:1px solid var(--ws29-edge);border-radius:var(--ws29-radius);
+ background:var(--ws29-panel);color:var(--ws29-ink);
+ box-shadow:var(--ws29-shadow);font-family:var(--ws29-body);
+}
+body.ws-parity .ws29-engine-rack .ws29-engine-heading{
+ color:var(--ws29-ink);font:750 1rem/1.3 var(--ws29-body);
+ margin:0 0 5px;letter-spacing:-.015em;
+}
+body.ws-parity .ws29-engine-rack .ws29-engine-sub{
+ margin:0 0 13px;color:var(--ws29-ink);opacity:.8;font-size:.75rem;line-height:1.5;
+}
+body.ws-parity .ws29-engine-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+body.ws-parity .ws29-engine-action{
+ text-align:start;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+ min-width:0;min-height:52px;padding:9px 12px;margin:0;
+ background:var(--ws29-soft);color:var(--ws29-ink);
+ border:1px solid var(--ws29-edge);border-radius:calc(var(--ws29-radius) * .68);
+ font-family:var(--ws29-body);cursor:pointer;
+ transition:box-shadow .2s ease,transform .2s ease,border-color .2s ease;
+}
+body.ws-parity .ws29-engine-action:hover:not(:disabled),
+body.ws-parity .ws29-engine-action:focus-visible{
+ border-color:var(--ws29-accent);box-shadow:0 0 0 2px var(--ws29-accent);
+ transform:translateY(-1px);
+}
+body.ws-parity .ws29-engine-action:disabled{opacity:.65;cursor:not-allowed;}
+body.ws-parity .ws29-engine-action strong{font:700 .82rem/1.35 var(--ws29-body);color:var(--ws29-ink);}
+body.ws-parity .ws29-engine-action small{font:600 .68rem/1.4 var(--ws29-body);color:var(--ws29-accent);padding-top:3px;}
+body.ws-parity .ws29-atmo-meter{display:flex;align-items:center;justify-content:space-between;gap:11px;margin:13px 0 0;}
+body.ws-parity .ws29-meter-label{color:var(--ws29-ink);font:700 .79rem/1.3 var(--ws29-body);}
+body.ws-parity .ws29-atmo-quality{
+ min-width:0;max-width:65%;height:44px;padding:7px 27px 7px 9px;
+ color:var(--ws29-ink);background:var(--ws29-soft);border:1px solid var(--ws29-edge);
+ border-radius:calc(var(--ws29-radius) * .5);font:700 .76rem/1.3 var(--ws29-body);
+}
+body.ws-parity .ws29-audit-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px;}
+body.ws-parity .ws29-audit-actions button{
+ min-width:0;min-height:44px;padding:8px 9px;background:var(--ws29-soft);
+ color:var(--ws29-ink);font:700 .73rem/1.4 var(--ws29-body);
+ border:1px solid var(--ws29-edge);border-radius:calc(var(--ws29-radius) * .6);
+ cursor:pointer;white-space:normal;
+}
+body.ws-parity .ws29-audit-actions button:disabled{opacity:.58;cursor:not-allowed}
+body.ws-parity .ws29-engine-rack :is(button,select):focus-visible,
+body.ws-parity .ws29-project-summary button:focus-visible{
+ outline:3px solid var(--ws29-accent)!important;outline-offset:2px;
+}
+body.ws-parity .ws29-audit-output{color:var(--ws29-ink);font:.75rem/1.5 var(--ws29-body);margin:9px 0 0;}
+body.ws-parity .ws29-audit-disclaimer{font:.69rem/1.4 var(--ws29-body);margin:6px 0 0;color:var(--ws29-ink);opacity:.74;}
+/* The Portfolio Engine now has a readable, live filter status for every theme. */
+body.ws-parity #projects .ws29-project-summary{
+ display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+ gap:8px;margin:4px 0 0;min-width:0;flex:1 1 100%;
+ padding:10px 12px;color:var(--ws29-ink);background:var(--ws29-panel);
+ border:1px solid var(--ws29-edge);border-radius:var(--ws29-radius);
+ font:700 .78rem/1.4 var(--ws29-body);
+}
+body.ws-parity #projects .ws29-clear-empty{
+ color:var(--ws29-ink);background:var(--ws29-soft);
+ border:1px solid var(--ws29-accent);border-radius:inherit;
+ min-height:44px;padding:7px 12px;font:700 .78rem var(--ws29-body);cursor:pointer;
+}
+body.ws-parity #projects .ws29-clear-empty[hidden]{display:none!important;}
+/* Bring native theme/menu and atmosphere controls into the shared palette. */
+body.ws-parity .ws-atmo-trigger{
+ border-color:var(--ws29-edge)!important;
+ border-radius:var(--ws29-radius)!important;
+}
+body.ws-parity .ws-atmo-trigger:focus-visible,
+body.ws-parity .pv-theme-launch:focus-visible{
+ outline:3px solid var(--ws29-accent)!important;outline-offset:3px;
+}
+body.ws-parity[data-theme="terminal"] .ws29-engine-action,
+body.ws-parity[data-theme="terminal"] .ws29-audit-actions button{
+ border-style:dashed!important;text-transform:uppercase;
+}
+body.ws-parity[data-theme="editorial"] .ws29-engine-action,
+body.ws-parity[data-theme="editorial"] .ws29-project-summary{
+ box-shadow:none!important;
+ border-radius:0!important;
+}
+body.ws-parity[data-theme="aurora-peak"] .ws29-engine-rack{
+ background:linear-gradient(145deg,#23473b,#193c33)!important;
+}
+body.ws-parity[data-theme="neon-studio"] .ws29-engine-action:hover{
+ box-shadow:0 0 15px #61f5e430!important;
+}
+body.ws-parity[data-theme="design-2"] .ws29-engine-action{
+ border-radius:11px 3px 11px 3px!important;
+}
+@media(max-width:680px){
+ body.ws-parity main>.hero.hd-hero .hero-text .ws29-hero-dossier{
+  max-width:100%;margin-top:11px;
+ }
+ body.ws-parity .ws29-engine-rack{padding:12px;}
+ body.ws-parity .ws29-engine-grid{gap:6px;}
+ body.ws-parity .ws29-engine-action{min-height:48px;padding:8px;}
+}
+@media(max-width:360px){
+ body.ws-parity .ws29-engine-grid,body.ws-parity .ws29-audit-actions{grid-template-columns:minmax(0,1fr);}
+ body.ws-parity .ws29-atmo-meter{flex-wrap:wrap;}
+ body.ws-parity .ws29-atmo-quality{max-width:100%;width:100%;}
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity .ws29-engine-rack *,
+ body.ws-parity main>.hero.hd-hero .ws29-hero-dossier *{
+  animation:none!important;transition:none!important;
+ }
+}
+@media(forced-colors:active){
+ body.ws-parity .ws29-engine-rack,
+ body.ws-parity .ws29-hero-dossier,
+ body.ws-parity .ws29-engine-action,
+ body.ws-parity #projects .ws29-project-summary{
+  background:Canvas!important;color:CanvasText!important;border:1px solid CanvasText!important;
+ }
+ body.ws-parity .ws29-engine-action small{color:LinkText!important;}
+}
+/* Theme-specific motion grammar: CSS-only, GPU-light, and opt-in via engine state.
+ * Editorial intentionally stays static like a printed folio. Motion never moves
+ * text/portrait geometry and stops in Off/Eco, data saver, or reduced motion.
+ */
+@keyframes ws29-orbit-indicator{to{transform:rotate(360deg)}}
+@keyframes ws29-terminal-blink{0%,48%{opacity:1}50%,100%{opacity:.3}}
+@keyframes ws29-alpine-glow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15)}}
+@keyframes ws29-neon-breathe{0%,100%{box-shadow:0 0 8px #61f5e428}50%{box-shadow:0 0 23px #61f5e465}}
+@keyframes ws29-stellar-glint{0%,100%{opacity:.62}50%{opacity:1}}
+body.ws-parity[data-theme="orbit"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-orbit-indicator 22s linear infinite;
+}
+body.ws-parity[data-theme="terminal"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-terminal-blink 2.2s steps(2,end) infinite;
+}
+body.ws-parity[data-theme="aurora-peak"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-alpine-glow 9s ease-in-out infinite;
+}
+body.ws-parity[data-theme="neon-studio"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-neon-breathe 6s ease-in-out infinite;
+}
+body.ws-parity[data-theme="design-2"][data-wsx-motion="ambient"] .ws29-hero-symbol{
+ animation:ws29-stellar-glint 8s ease-in-out infinite;
+}
+body.ws-parity[data-atmosphere-tier="off"] .ws29-hero-symbol,
+body.ws-parity[data-atmosphere-tier="eco"] .ws29-hero-symbol,
+body.ws-parity[data-theme="editorial"] .ws29-hero-symbol{
+ animation:none!important;
+}
+@media(prefers-reduced-motion:reduce),(prefers-contrast:more){
+ body.ws-parity .ws29-hero-symbol{animation:none!important;}
+}

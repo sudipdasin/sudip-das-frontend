@@ -1,0 +1,264 @@
+/* GitHub hero explorer v3.24 — a single button with an animated,
+   responsive repository detail disclosure. All six themes have native skins.
+   No heavy animation when Atmosphere Off or the OS requests reduced motion. */
+body.ws-parity .hero .hero-text {position:relative;z-index:35}
+body.ws-parity .hero .actions .gh-hero-shell{
+  --gh-surface:#0b2631;--gh-bg:#0e3040;--gh-ink:#e9fcfe;
+  --gh-muted:#b9dbe0;--gh-edge:#6dbdbd;--gh-accent:#7cf0da;
+  --gh-accent-ink:#0b292d;--gh-radius:13px;--gh-inner-radius:9px;
+  --gh-focus:#b6ffca;--gh-gloss:#60e8e43c;
+  position:relative;flex:0 1 auto;min-width:min(215px,100%);max-width:100%;
+  z-index:80;isolation:isolate;
+}
+body.ws-parity .hero .actions .gh-hero-trigger{
+  position:relative;display:flex!important;align-items:center!important;justify-content:space-between!important;
+  gap:10px;min-height:53px;min-width:215px;max-width:100%;width:100%;overflow:hidden;
+  padding:10px 13px!important;color:var(--gh-ink)!important;
+  background:var(--gh-bg)!important;
+  border:1px solid var(--gh-edge)!important;border-radius:var(--gh-radius)!important;
+  box-shadow:0 7px 24px #00192226!important;text-align:left!important;
+  font:600 .88rem/1.3 var(--sans,system-ui)!important;cursor:pointer;
+  transition:transform .25s ease,border-color .25s,box-shadow .25s,background .25s;
+}
+body.ws-parity .hero .actions .gh-hero-trigger::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(116deg,transparent 10%,var(--gh-gloss) 49%,transparent 72%);
+  opacity:0;transform:translateX(-105%);transition:transform .52s ease,opacity .25s;
+}
+body.ws-parity .hero .actions .gh-hero-trigger:is(:hover,:focus-visible),
+body.ws-parity .hero .actions .gh-hero-shell[data-open="true"] .gh-hero-trigger{
+  transform:translateY(-3px)!important;border-color:var(--gh-accent)!important;
+  box-shadow:0 12px 31px #071e3359,0 0 0 1px var(--gh-accent)!important;
+}
+body.ws-parity .hero .actions .gh-hero-trigger:is(:hover,:focus-visible)::before,
+body.ws-parity .hero .actions .gh-hero-shell[data-open="true"] .gh-hero-trigger::before{
+  opacity:1;transform:translateX(105%);
+}
+body.ws-parity .gh-hero-icon{
+  flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;
+  color:var(--gh-accent);border:1px solid var(--gh-edge);
+  background:var(--gh-surface);border-radius:var(--gh-inner-radius,8px);
+  font:700 1.4rem/1 var(--mono,monospace);
+  transition:transform .4s ease,border-color .25s,box-shadow .3s;
+}
+body.ws-parity .gh-hero-icon svg{
+  display:block;width:21px;height:21px;stroke:currentColor;fill:none;
+  vector-effect:non-scaling-stroke;pointer-events:none;
+}
+body.ws-parity .gh-hero-trigger:hover .gh-hero-icon,
+body.ws-parity .gh-hero-shell[data-open="true"] .gh-hero-icon{
+  transform:rotate(-13deg) scale(1.12);
+  border-color:var(--gh-accent);box-shadow:0 0 12px var(--gh-gloss);
+}
+body.ws-parity .gh-hero-words{display:grid;flex:1 1 auto;gap:2px;min-width:0}
+body.ws-parity .gh-hero-words strong{
+  font:800 .87rem/1.25 var(--sans,system-ui);color:var(--gh-ink);
+}
+body.ws-parity .gh-hero-words small{
+  display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+  font:600 .69rem/1.4 var(--sans,system-ui);color:var(--gh-muted);
+}
+body.ws-parity .gh-hero-chevron{
+  flex:none;font-size:1.1rem;color:var(--gh-accent);
+  transition:transform .27s ease;
+}
+body.ws-parity .gh-hero-shell[data-open="true"] .gh-hero-chevron{transform:rotate(42deg)}
+/* An attached disclosure, not a giant hero expansion; preserves document layout. */
+body.ws-parity .gh-hero-panel{
+  position:absolute;z-index:2000;left:0;top:calc(100% + 10px);
+  width:min(455px,calc(100vw - 24px));min-width:min(320px,calc(100vw - 24px));
+  max-width:calc(100vw - 24px);max-height:min(69dvh,520px);
+  overflow:auto;overscroll-behavior:contain;
+  border:1px solid var(--gh-edge);border-radius:var(--gh-radius);
+  padding:18px;background:var(--gh-surface);color:var(--gh-ink);
+  box-shadow:0 22px 65px #000a,0 0 0 1px var(--gh-gloss);
+  transform:translate(var(--gh-panel-shift-x,0px),0) scale(.985);
+  transform-origin:top left;
+  animation:gh-panel-in .24s cubic-bezier(.2,.72,.2,1) both;
+  isolation:isolate;
+}
+body.ws-parity .gh-hero-panel[hidden]{display:none!important}
+body.ws-parity .gh-hero-shell.gh-open-up .gh-hero-panel{
+  top:auto;bottom:calc(100% + 10px);transform-origin:bottom left;
+}
+body.ws-parity .gh-hero-panel::before{
+  content:"";position:absolute;inset:0 0 auto;height:3px;
+  background:linear-gradient(90deg,transparent,var(--gh-accent),transparent);
+  pointer-events:none;
+}
+body.ws-parity .gh-hero-panel-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+}
+body.ws-parity .gh-hero-panel-heading{min-width:0}
+body.ws-parity .gh-kicker{
+  display:block;color:var(--gh-accent);
+  font:700 .63rem/1.6 var(--mono,monospace);letter-spacing:.13em;
+}
+body.ws-parity .gh-hero-panel h3{
+  margin:4px 0 0;color:var(--gh-ink);
+  font:750 1.1rem/1.2 var(--sans,system-ui);
+}
+body.ws-parity .gh-profile-link,body.ws-parity .gh-browse{
+  flex:none;color:var(--gh-accent);font:750 .75rem/1.5 var(--sans,system-ui);
+  text-decoration:underline;text-underline-offset:3px;
+}
+body.ws-parity .gh-hero-description{
+  margin:11px 0;color:var(--gh-muted);
+  font:500 .81rem/1.55 var(--sans,system-ui);
+  overflow-wrap:anywhere;
+}
+body.ws-parity .gh-hero-stats{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;margin:14px 0;padding:0;
+}
+body.ws-parity .gh-hero-stats>div{
+  display:flex;flex-direction:column-reverse;gap:4px;min-width:0;
+  background:var(--gh-bg);border:1px solid var(--gh-edge);
+  padding:9px;border-radius:var(--gh-inner-radius,8px);
+}
+body.ws-parity .gh-hero-stats dt{
+  color:var(--gh-muted);font:600 .65rem/1.3 var(--sans,system-ui);
+}
+body.ws-parity .gh-hero-stats dd{
+  margin:0;color:var(--gh-accent);overflow:hidden;text-overflow:ellipsis;
+  font:800 clamp(.82rem,1vw,1.13rem)/1.1 var(--sans,system-ui);
+}
+body.ws-parity .gh-repos-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}
+body.ws-parity .gh-repos-heading h4{
+  margin:0;color:var(--gh-ink);font:750 .8rem/1.4 var(--sans,system-ui);
+}
+body.ws-parity .gh-refresh{
+  flex:none;min-height:34px;padding:5px 9px;
+  border:1px solid var(--gh-edge);border-radius:var(--gh-inner-radius,8px);
+  color:var(--gh-ink);background:var(--gh-bg);cursor:pointer;
+  font:650 .73rem/1.2 var(--sans,system-ui);
+}
+body.ws-parity .gh-refresh:disabled{opacity:.65;cursor:progress}
+body.ws-parity .gh-hero-repos{list-style:none;display:grid;gap:7px;margin:10px 0;padding:0}
+body.ws-parity .gh-repo-row{margin:0;padding:0;min-width:0}
+body.ws-parity .gh-repo-link{
+  display:block;min-width:0;padding:11px 12px;border:1px solid var(--gh-edge);
+  background:var(--gh-bg);border-radius:var(--gh-inner-radius,8px);
+  text-decoration:none!important;color:var(--gh-ink)!important;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+body.ws-parity .gh-repo-link:is(:hover,:focus-visible){
+  transform:translateX(3px);border-color:var(--gh-accent);
+}
+body.ws-parity .gh-repo-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+body.ws-parity .gh-repo-top strong{font:750 .86rem/1.3 var(--sans,system-ui);overflow-wrap:anywhere}
+body.ws-parity .gh-repo-arrow{color:var(--gh-accent)}
+body.ws-parity .gh-repo-description{
+  margin:6px 0 0!important;color:var(--gh-muted)!important;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  font:500 .72rem/1.45 var(--sans,system-ui)!important;
+}
+body.ws-parity .gh-repo-meta{
+  display:block;margin-top:6px;color:var(--gh-accent);
+  font:600 .67rem/1.4 var(--mono,monospace);
+}
+body.ws-parity .gh-hero-status{
+  margin:8px 0;color:var(--gh-muted);font:550 .68rem/1.45 var(--sans,system-ui);
+}
+body.ws-parity .gh-hero-panel-footer{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding-top:10px;border-top:1px solid var(--gh-edge);
+}
+body.ws-parity .gh-hero-panel-footer span{
+  color:var(--gh-muted);font:500 .65rem/1.4 var(--sans,system-ui);
+}
+body.ws-parity .gh-hero-shell :is(button,a):focus-visible{
+  outline:3px solid var(--gh-focus)!important;outline-offset:3px;
+}
+@keyframes gh-panel-in{
+  from{opacity:0;transform:translate(var(--gh-panel-shift-x,0px),9px) scale(.985)}
+  to{opacity:1;transform:translate(var(--gh-panel-shift-x,0px),0) scale(1)}
+}
+/* Orbit — orbital instrument styling. */
+body.ws-parity[data-theme="orbit"] .gh-hero-shell{
+  --gh-bg:#102e41;--gh-surface:#0c2c3d;--gh-ink:#e7fcfa;--gh-muted:#b9e7df;
+  --gh-edge:#5da9ae;--gh-accent:#7cf8de;--gh-focus:#9ff7e7;
+  --gh-radius:19px;--gh-gloss:#58ead849;
+}
+body.ws-parity[data-theme="orbit"] .gh-hero-icon{border-radius:50%}
+/* Editorial — textured ivory paper, thin rules and typography. */
+body.ws-parity[data-theme="editorial"] .gh-hero-shell{
+  --gh-bg:#f8f0e2;--gh-surface:#fffaf1;--gh-ink:#282d28;--gh-muted:#555a50;
+  --gh-edge:#a69074;--gh-accent:#794d32;--gh-focus:#805233;
+  --gh-radius:2px;--gh-gloss:#9e75532b;
+
+  --gh-inner-radius:1px;
+}
+body.ws-parity[data-theme="editorial"] .gh-hero-shell :is(.gh-hero-words strong,.gh-hero-panel h3,.gh-repo-top strong){
+  font-family:Georgia,serif!important;letter-spacing:-.025em;
+}
+body.ws-parity[data-theme="editorial"] .gh-hero-icon{transform:none!important;font-family:Georgia,serif}
+/* Terminal — square green command prompt. */
+body.ws-parity[data-theme="terminal"] .gh-hero-shell{
+  --gh-bg:#0b2117;--gh-surface:#061b12;--gh-ink:#e9fff0;--gh-muted:#b0e7c3;
+  --gh-edge:#4da771;--gh-accent:#70f9a6;--gh-focus:#b2ffcf;
+  --gh-radius:0px;--gh-gloss:#46fb9a2b;
+
+  --gh-inner-radius:0px;
+}
+body.ws-parity[data-theme="terminal"] .gh-hero-shell :is(button,a,strong,small,p,h3,h4,dt,dd,span){
+  font-family:var(--mono,ui-monospace,monospace)!important;
+}
+body.ws-parity[data-theme="terminal"] .gh-hero-trigger::before{
+  background:repeating-linear-gradient(0deg,transparent 0 6px,#77ffb019 7px,transparent 8px)!important;
+}
+/* Aurora Peak — forest-green/lichen alpine light with an arch. */
+body.ws-parity[data-theme="aurora-peak"] .gh-hero-shell{
+  --gh-bg:#143a36;--gh-surface:#102f32;--gh-ink:#f0f8e8;--gh-muted:#cee4d5;
+  --gh-edge:#a2c8b0;--gh-accent:#e2edb5;--gh-focus:#f5c699;
+  --gh-radius:8px 22px 8px 22px;--gh-gloss:#dbeab445;
+
+  --gh-inner-radius:6px 14px 6px 14px;
+}
+body.ws-parity[data-theme="aurora-peak"] .gh-hero-icon{border-radius:45% 45% 5px 5px}
+/* Neon Studio — glow and photon stripe. */
+body.ws-parity[data-theme="neon-studio"] .gh-hero-shell{
+  --gh-bg:#102e3b;--gh-surface:#101e36;--gh-ink:#eafcff;--gh-muted:#b9dce4;
+  --gh-edge:#4ebac9;--gh-accent:#7cf5ed;--gh-focus:#c0faff;
+  --gh-radius:16px;--gh-gloss:#9c5ced59;
+}
+body.ws-parity[data-theme="neon-studio"] .gh-hero-trigger:hover{
+  box-shadow:0 0 28px #36eff174,0 0 0 1px #a66fed!important;
+}
+/* Cosmic — violet prism/nebula. */
+body.ws-parity[data-theme="design-2"] .gh-hero-shell{
+  --gh-bg:#1a2043;--gh-surface:#1c1740;--gh-ink:#f4efff;--gh-muted:#d5c7ed;
+  --gh-edge:#9878ca;--gh-accent:#dbc2ff;--gh-focus:#e8d2ff;
+  --gh-radius:25px;--gh-gloss:#ae6fff70;
+
+  --gh-inner-radius:17px;
+}
+body.ws-parity[data-theme="design-2"] .gh-hero-icon{border-radius:40%;transform:rotate(-5deg)}
+@media(max-width:720px){
+  body.ws-parity .hero .actions .gh-hero-shell{min-width:0;flex:1 1 210px}
+  body.ws-parity .hero .actions .gh-hero-trigger{min-width:0;min-height:48px}
+  body.ws-parity .gh-hero-panel{padding:13px}
+  body.ws-parity .gh-hero-stats{gap:5px}
+  body.ws-parity .gh-hero-stats>div{padding:7px}
+}
+@media(max-width:420px){
+  body.ws-parity .hero .actions .gh-hero-shell{flex:1 1 100%;width:100%}
+  body.ws-parity .gh-hero-panel{width:min(455px,calc(100vw - 24px))}
+  body.ws-parity .gh-hero-panel-footer{align-items:flex-start;flex-wrap:wrap}
+  body.ws-parity .gh-hero-stats dt{font-size:.60rem}
+}
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity .gh-hero-shell *{
+    animation:none!important;transition:none!important;transform:none!important;
+  }
+  body.ws-parity .gh-hero-panel{transform:translateX(var(--gh-panel-shift-x,0px))!important}
+}
+body.ws-parity[data-atmosphere-tier="off"] .gh-hero-trigger::before{display:none!important}
+body.ws-parity[data-atmosphere-tier="off"] .gh-hero-shell *{
+  animation:none!important;transition:none!important;
+}
+@media(forced-colors:active){
+  body.ws-parity .gh-hero-shell :is(.gh-hero-trigger,.gh-hero-panel,.gh-repo-link){
+    forced-color-adjust:auto;border:1px solid CanvasText;background:Canvas;color:CanvasText;
+  }
+}

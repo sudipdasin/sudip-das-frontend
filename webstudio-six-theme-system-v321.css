@@ -1,0 +1,121 @@
+/* v3.21 Theme-native WebStudio modules. Neon Studio reference skin is not overridden. */
+body.ws-parity[data-theme="orbit"] .ws-powered-band{
+--xf-ink:#efffff;--xf-muted:#c5e7e8;--xf-panel:#123d4c;--xf-border:#51b4b5;--xf-accent:#76f1df;--xf-on:#0b2834;--xf-radius:17px;--xf-font:var(--sans,system-ui);--xf-title:var(--display,system-ui);
+--xf-surface:radial-gradient(circle at 14% 26%,#2c89a054,transparent 44%),linear-gradient(130deg,#09283b,#0e3647 76%,#182d4b)}
+body.ws-parity[data-theme="editorial"] .ws-powered-band{
+--xf-ink:#2c302b;--xf-muted:#586056;--xf-panel:#efe5d7;--xf-border:#b19c81;--xf-accent:#805137;--xf-on:#fffaf2;--xf-radius:2px;--xf-font:Georgia,serif;--xf-title:Georgia,serif;
+--xf-surface:linear-gradient(113deg,#f4ecdf,#fffaf4 52%,#ece0cc)}
+body.ws-parity[data-theme="terminal"] .ws-powered-band{
+--xf-ink:#e9fff0;--xf-muted:#c0e8cd;--xf-panel:#183927;--xf-border:#4db67b;--xf-accent:#75ffaf;--xf-on:#0a2a1a;--xf-radius:0px;--xf-font:var(--mono,monospace);--xf-title:var(--mono,monospace);
+--xf-surface:repeating-linear-gradient(0deg,#5affac09 0px,#5affac09 1px,transparent 1px,transparent 27px),linear-gradient(135deg,#061b14,#0c2e1e)}
+body.ws-parity[data-theme="aurora-peak"] .ws-powered-band{
+--xf-ink:#f5f8e9;--xf-muted:#cde1d2;--xf-panel:#235248;--xf-border:#a6c4ab;--xf-accent:#dce9af;--xf-on:#163528;--xf-radius:20px;--xf-font:var(--sans,system-ui);--xf-title:Georgia,serif;
+--xf-surface:radial-gradient(ellipse at 72% 0%,#e9c39c4d,transparent 44%),linear-gradient(141deg,#14313e,#306b5c 72%,#103733)}
+body.ws-parity[data-theme="design-2"] .ws-powered-band{
+--xf-ink:#f5f2ff;--xf-muted:#d7cbed;--xf-panel:#302657;--xf-border:#947ed7;--xf-accent:#cbb2ff;--xf-on:#1a1640;--xf-radius:27px;--xf-font:var(--sans,system-ui);--xf-title:var(--display,system-ui);
+--xf-surface:radial-gradient(circle at 16% 35%,#774dcc73,transparent 46%),radial-gradient(circle at 88% 13%,#7b5ac047,transparent 40%),linear-gradient(130deg,#111738,#2a1d52)}
+/* Bridge the legacy footer's hard-coded cyan controls to each theme's actual palette. */
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band{
+--wsf-ink:var(--xf-ink);--wsf-muted:var(--xf-muted);--wsf-border:var(--xf-border);--wsf-accent:var(--xf-accent);
+color:var(--xf-ink)!important;background:var(--xf-surface)!important;border:1px solid var(--xf-border)!important;
+border-radius:var(--xf-radius)!important;box-shadow:0 18px 48px #0005!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band::before{
+background:linear-gradient(115deg,transparent,#ffffff09,transparent)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-powered-content h2,
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-heading h3{
+color:var(--xf-ink)!important;font-family:var(--xf-title)!important;text-shadow:none!important;overflow-wrap:anywhere}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band :is(.ws-powered-eyebrow,.ws-demo-overline,.ws-demo-topbar){
+color:var(--xf-accent)!important;font-family:var(--xf-font)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band :is(.ws-powered-content>p:not(.ws-powered-eyebrow),.ws-demo-heading>p,.ws-demo-description,.ws-demo-disclaimer){
+color:var(--xf-muted)!important;font-family:var(--xf-font)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-powered-features span{
+color:var(--xf-ink)!important;background:var(--xf-panel)!important;border:1px solid var(--xf-border)!important;
+border-radius:var(--xf-radius)!important;font-family:var(--xf-font)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band :is(.ws-powered-demo,.ws-interest-input-row button){
+background:var(--xf-accent)!important;color:var(--xf-on)!important;border:1px solid var(--xf-accent)!important;
+border-radius:var(--xf-radius)!important;box-shadow:none!important;font-family:var(--xf-font)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band :is(.ws-powered-interest-toggle,.ws-demo-close,.ws-demo-controls button){
+background:var(--xf-panel)!important;color:var(--xf-ink)!important;border:1px solid var(--xf-border)!important;
+border-radius:var(--xf-radius)!important;box-shadow:none!important;font-family:var(--xf-font)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band :is(.ws-demo-sidebar,.ws-interest-form){
+background:var(--xf-panel)!important;color:var(--xf-ink)!important;border:1px solid var(--xf-border)!important;
+border-radius:var(--xf-radius)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-tabs button{
+background:var(--xf-panel)!important;color:var(--xf-ink)!important;border:1px solid var(--xf-border)!important;
+border-radius:var(--xf-radius)!important;box-shadow:none!important;font-family:var(--xf-font)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-tabs button[aria-selected="true"]{
+border-color:var(--xf-accent)!important;box-shadow:inset 3px 0 0 var(--xf-accent)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band :is(.ws-demo-num,.ws-demo-count){
+color:var(--xf-accent)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-panel figcaption{
+background:var(--xf-panel)!important;color:var(--xf-ink)!important;font-family:var(--xf-font)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-interest-input-row input{
+background:var(--xf-ink)!important;color:var(--xf-panel)!important;border:1px solid var(--xf-border)!important;
+border-radius:var(--xf-radius)!important;font-family:var(--xf-font)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band :is(button,input,a):focus-visible{
+outline:3px solid var(--xf-accent)!important;outline-offset:3px!important}
+/* Deliberately distinct compositions, not only a palette swap. */
+body.ws-parity[data-theme="orbit"] .ws-powered-band{grid-template-columns:minmax(130px,.30fr) minmax(0,1fr)!important}
+body.ws-parity[data-theme="orbit"] .ws-powered-glyph{
+transform:rotate(-12deg)!important;border-radius:24px!important;border-color:#70f2db!important;
+background:radial-gradient(circle,#235970,#0a273c)!important;color:#97ffe9!important}
+body.ws-parity[data-theme="orbit"] .ws-powered-orbit{display:block!important;border-style:dashed!important;border-color:#8ae9da80!important}
+body.ws-parity[data-theme="editorial"] .ws-powered-band{
+grid-template-columns:minmax(100px,.19fr) minmax(0,1fr)!important;overflow:hidden!important}
+body.ws-parity[data-theme="editorial"] .ws-powered-visual{border-right:1px solid #a7896a45;align-self:stretch}
+body.ws-parity[data-theme="editorial"] .ws-powered-glyph{
+transform:none!important;border-radius:0!important;aspect-ratio:.8!important;background:linear-gradient(145deg,#fffdf8,#e6d8c3)!important;
+border-color:#a78869!important;color:#85533d!important;box-shadow:0 8px 27px #40302023!important}
+body.ws-parity[data-theme="editorial"] .ws-powered-orbit{display:none!important}
+body.ws-parity[data-theme="editorial"] .ws-powered-content h2{font-weight:500!important}
+body.ws-parity[data-theme="terminal"] .ws-powered-band{
+grid-template-columns:minmax(125px,.25fr) minmax(0,1fr)!important;border-radius:0!important}
+body.ws-parity[data-theme="terminal"] .ws-powered-orbit{display:none!important}
+body.ws-parity[data-theme="terminal"] .ws-powered-glyph{
+border-radius:0!important;transform:none!important;background:linear-gradient(135deg,#051c12,#17422b)!important}
+body.ws-parity[data-theme="terminal"] .ws-powered-content h2{
+font-family:var(--mono,ui-monospace,monospace)!important}
+body.ws-parity[data-theme="aurora-peak"] .ws-powered-band{
+grid-template-columns:minmax(145px,.36fr) minmax(0,1fr)!important;border-radius:16px 36px 16px 36px!important}
+body.ws-parity[data-theme="aurora-peak"] .ws-powered-glyph{
+transform:none!important;border-radius:48% 48% 12px 12px!important;border:4px solid #e6ebbc!important;
+background:linear-gradient(165deg,#9ac7a85c,#17463f)!important;color:#f0f5d5!important;box-shadow:0 15px 38px #092527a5!important}
+body.ws-parity[data-theme="aurora-peak"] .ws-powered-orbit{display:none!important}
+body.ws-parity[data-theme="aurora-peak"] .ws-powered-content h2{font-style:italic;font-weight:500!important}
+body.ws-parity[data-theme="design-2"] .ws-powered-band{
+grid-template-columns:minmax(140px,.34fr) minmax(0,1fr)!important;border-radius:27px!important}
+body.ws-parity[data-theme="design-2"] .ws-powered-glyph{
+border-radius:35%!important;transform:rotate(-8deg)!important;border-color:#cab5ff!important;
+background:radial-gradient(circle at 25% 12%,#8068d388,#1b1648)!important;color:#d8c3ff!important;
+box-shadow:0 0 28px #a272ff52!important}
+body.ws-parity[data-theme="design-2"] .ws-powered-orbit{display:block!important;border-color:#c5abff91!important}
+@media(max-width:940px){
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band{
+grid-template-columns:minmax(95px,.23fr) minmax(0,1fr)!important;gap:clamp(16px,2vw,30px)}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-visual{height:clamp(115px,17vw,175px)!important}}
+@media(max-width:720px){
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band{grid-template-columns:minmax(0,1fr)!important;gap:13px!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-visual{height:110px!important;justify-content:start!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-glyph{width:80px!important;height:90px!important;font-size:2.7rem!important}
+body.ws-parity[data-theme="editorial"] .ws-powered-visual{border-right:0;border-bottom:1px solid #a7896a45}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-actions button{max-width:100%;overflow-wrap:anywhere}}
+@media(max-width:410px){
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-actions{display:grid;grid-template-columns:minmax(0,1fr)!important}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-actions button{width:100%!important}}
+@media(prefers-reduced-motion:reduce){
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band *{transition:none!important;animation:none!important}}
+
+/* Nested walkthrough text and disclosure controls must never inherit the old cyan theme. */
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-tabs :is(strong,small){
+ color:var(--xf-ink)!important;font-family:var(--xf-font)!important;
+}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-tabs small{opacity:.84}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-interest-form :is(label,.ws-interest-helper,.ws-interest-status){
+ color:var(--xf-ink)!important;font-family:var(--xf-font)!important;
+}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-tabs button:hover{
+ border-color:var(--xf-accent)!important;
+}
+body.ws-parity:not([data-theme="neon-studio"]) .ws-powered-band .ws-demo-panel img{
+ background:var(--xf-panel)!important;
+}

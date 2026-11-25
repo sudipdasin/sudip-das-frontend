@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "id": "webstudio-five-engine-plugin-platform",
+  "version": "3.31.0",
+  "releaseChannel": "manual-qa-preview",
+  "entrypoint": "plugins/webstudio-plugin-engine-v331.js",
+  "stylesheet": "plugins/webstudio-plugin-engine-v331.css",
+  "bridge": "plugins/webstudio-personal-bridge-v331.js",
+  "bridgeStylesheet": "plugins/webstudio-personal-bridge-v331.css",
+  "modules": [
+    {
+      "id": "theme",
+      "path": "plugins/modules/theme-v331.js",
+      "standalone": true,
+      "nativeBridge": true,
+      "dependsOn": []
+    },
+    {
+      "id": "hero",
+      "path": "plugins/modules/hero-v331.js",
+      "standalone": true,
+      "nativeBridge": true,
+      "dependsOn": []
+    },
+    {
+      "id": "atmosphere",
+      "path": "plugins/modules/atmosphere-v331.js",
+      "standalone": true,
+      "nativeBridge": true,
+      "dependsOn": []
+    },
+    {
+      "id": "quick-menu",
+      "path": "plugins/modules/quick-menu-v331.js",
+      "standalone": true,
+      "nativeBridge": true,
+      "dependsOn": []
+    },
+    {
+      "id": "portfolio",
+      "path": "plugins/modules/portfolio-v331.js",
+      "standalone": true,
+      "nativeBridge": true,
+      "dependsOn": []
+    }
+  ],
+  "themes": [
+    "orbit",
+    "editorial",
+    "terminal",
+    "aurora-peak",
+    "neon-studio",
+    "design-2"
+  ],
+  "locales": [
+    "en",
+    "hi",
+    "bn",
+    "es",
+    "fr",
+    "de",
+    "pt",
+    "ar",
+    "zh-CN",
+    "ja"
+  ],
+  "atmosphereModes": [
+    "auto",
+    "cinematic",
+    "balanced",
+    "eco",
+    "off"
+  ],
+  "automaticNetworkRequests": false,
+  "autoMount": false,
+  "autoMountOnPersonalPreviewThroughExplicitAdapter": true,
+  "requiresFramework": false,
+  "requiresBackend": false,
+  "generatedWebsiteExample": "examples/webstudio-plugin-starter/index.html",
+  "sourceVerifier": "scripts/verify-webstudio-plugins-v331.mjs",
+  "caveats": [
+    "JavaScript plugins are trusted first-party code, not an untrusted code sandbox.",
+    "The standalone Atmosphere plugin uses CSS rendering, not GPU ray tracing.",
+    "The personal site retains its existing native WebStudio engines, with plugins mounted as nonintrusive adapters.",
+    "Host-mounted widgets must be verified manually for compatibility with each destination website."
+  ]
+}

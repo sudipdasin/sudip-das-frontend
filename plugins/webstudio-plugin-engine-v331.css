@@ -1,0 +1,118 @@
+/* WebStudio Plugin Engine v3.31 — fully scoped, standalone CSS.
+ * No existing WebStudio selectors modified: safe to include on any website.
+ * Legacy portfolio mounts the host in bridge mode without duplicate UI.
+ */
+[data-wsp-host] {
+ --wsp-accent:#75efdb;--wsp-surface:#092938;--wsp-ink:#edfffb;
+ --wsp-soft:color-mix(in srgb,var(--wsp-surface) 82%,var(--wsp-ink));
+ --wsp-border:color-mix(in srgb,var(--wsp-accent) 58%,transparent);
+ --wsp-radius:16px;--wsp-font:system-ui,-apple-system,sans-serif;
+}
+[data-wsp-theme="orbit"] {--wsp-radius:28px;--wsp-font:system-ui,-apple-system,sans-serif}
+[data-wsp-theme="editorial"] {--wsp-radius:3px;--wsp-font:Georgia,serif}
+[data-wsp-theme="terminal"] {--wsp-radius:0px;--wsp-font:ui-monospace,SFMono-Regular,monospace}
+[data-wsp-theme="aurora-peak"] {--wsp-radius:18px 18px 7px 7px;--wsp-font:system-ui,-apple-system,sans-serif}
+[data-wsp-theme="neon-studio"] {--wsp-radius:15px;--wsp-font:system-ui,-apple-system,sans-serif}
+[data-wsp-theme="design-2"] {--wsp-radius:22px 6px 22px 6px;--wsp-font:system-ui,-apple-system,sans-serif}
+[data-wsp-host] .wsp-plugin-panel {
+ display:grid;gap:9px;min-width:0;max-width:100%;
+ margin-block:12px;padding:15px;
+ background:var(--wsp-surface);color:var(--wsp-ink);
+ border:1px solid var(--wsp-border);border-radius:var(--wsp-radius);
+ font-family:var(--wsp-font);font-size:14px;line-height:1.5;
+ box-shadow:0 7px 28px #0002;isolation:isolate;
+}
+[data-wsp-host] .wsp-plugin-panel label,
+[data-wsp-host] .wsp-plugin-panel strong {
+ display:block;font-family:inherit;font-weight:750;color:var(--wsp-ink);
+}
+[data-wsp-host] .wsp-plugin-panel :is(select,input,button) {
+ box-sizing:border-box;min-width:0;max-width:100%;min-height:44px;
+ padding:10px 12px;font-family:var(--wsp-font);font-size:14px;
+ background:var(--wsp-soft);color:var(--wsp-ink);
+ border:1px solid var(--wsp-border);border-radius:calc(var(--wsp-radius) * .55);
+}
+[data-wsp-host] .wsp-plugin-panel :is(button,select,input):focus-visible,
+[data-wsp-host] .wsp-plugin-panel a:focus-visible {
+ outline:3px solid var(--wsp-accent)!important;outline-offset:3px;
+}
+[data-wsp-host] .wsp-plugin-panel :is(button,select){cursor:pointer}
+[data-wsp-host] .wsp-plugin-panel button:disabled{opacity:.58;cursor:not-allowed}
+[data-wsp-host] .wsp-plugin-panel .wsp-help {
+ color:var(--wsp-ink);opacity:.8;margin:0;
+ font:500 .79rem/1.5 var(--wsp-font);
+}
+[data-wsp-host] .wsp-hero-stage {
+ position:relative;min-width:0;
+}
+[data-wsp-host] .wsp-hero-badge{
+ display:inline-flex;flex-direction:column;gap:2px;
+ margin-bottom:14px;padding:9px 13px;max-width:100%;
+ border:1px solid var(--wsp-border);border-radius:var(--wsp-radius);
+ color:var(--wsp-ink);background:var(--wsp-surface);
+ font:700 .8rem/1.4 var(--wsp-font);
+}
+[data-wsp-host] .wsp-hero-badge :is(strong,small){color:var(--wsp-ink);font:inherit}
+[data-wsp-host] .wsp-hero-badge small{opacity:.72;font-weight:500}
+[data-wsp-theme="orbit"] .wsp-hero-badge{border-radius:99px}
+[data-wsp-theme="editorial"] .wsp-hero-badge{border-width:0 0 2px 2px;border-radius:0;box-shadow:none}
+[data-wsp-theme="terminal"] .wsp-hero-badge{border-style:dashed;text-transform:uppercase}
+[data-wsp-theme="aurora-peak"] .wsp-hero-badge{border-radius:22px 22px 3px 3px}
+[data-wsp-theme="neon-studio"] .wsp-hero-badge{box-shadow:0 0 18px #61f5e420}
+[data-wsp-theme="design-2"] .wsp-hero-badge{border-radius:22px 3px 22px 3px}
+[data-wsp-host] .wsp-atmosphere-layer{
+ position:fixed;inset:0;z-index:0;pointer-events:none;
+ background:radial-gradient(ellipse at 82% 13%,var(--wsp-accent),transparent 49%);
+ opacity:.09;contain:strict;
+}
+[data-wsp-host][data-wsp-atmo-effect="off"] .wsp-atmosphere-layer{display:none!important}
+[data-wsp-host][data-wsp-atmo-effect="eco"] .wsp-atmosphere-layer{opacity:.035;animation:none!important}
+[data-wsp-theme="editorial"] .wsp-atmosphere-layer{
+ background:radial-gradient(ellipse at 17% 14%,#bf9465,transparent 54%);mix-blend-mode:multiply;
+}
+[data-wsp-theme="terminal"] .wsp-atmosphere-layer{
+ background:repeating-linear-gradient(0deg,transparent 0 33px,#73ffa935 34px,transparent 35px);
+}
+[data-wsp-theme="aurora-peak"] .wsp-atmosphere-layer{
+ background:radial-gradient(ellipse at 67% 17%,#cfedb9,transparent 52%);
+}
+[data-wsp-theme="neon-studio"] .wsp-atmosphere-layer{
+ background:radial-gradient(ellipse at 82% 13%,#61f5e4,transparent 49%),radial-gradient(ellipse at 6% 90%,#498de9,transparent 38%);
+}
+[data-wsp-theme="design-2"] .wsp-atmosphere-layer{
+ background:radial-gradient(ellipse at 27% 13%,#c6a8ff,transparent 48%),radial-gradient(ellipse at 90% 85%,#606eea,transparent 55%);
+}
+[data-wsp-host] .wsp-quick-menu{position:relative;}
+[data-wsp-host] .wsp-quick-popup[hidden]{display:none!important}
+[data-wsp-host] .wsp-quick-popup{display:grid;gap:10px;max-height:70vh;overflow:auto;}
+[data-wsp-host] .wsp-quick-links,
+[data-wsp-host] .wsp-quick-themes{display:flex;flex-wrap:wrap;gap:7px;}
+[data-wsp-host] .wsp-quick-links a{
+ display:inline-flex;align-items:center;min-height:44px;
+ padding:9px 12px;color:var(--wsp-ink);background:var(--wsp-soft);
+ border:1px solid var(--wsp-border);border-radius:calc(var(--wsp-radius) * .55);
+ font:700 .8rem/1.4 var(--wsp-font);text-decoration:none;
+}
+[data-wsp-host] .wsp-quick-themes button[aria-pressed="true"]{
+ background:var(--wsp-accent);color:var(--wsp-surface);font-weight:800;
+}
+[data-wsp-host] .wsp-portfolio-search{grid-template-columns:minmax(0,1fr)}
+[data-wsp-host] .wsp-portfolio-search input{width:100%}
+[data-wsp-host] .wsp-portfolio-search [role="status"]{margin:0;color:var(--wsp-ink);font-size:.8rem}
+[data-wsp-host][data-wsp-locale="ar"] .wsp-plugin-panel,
+[data-wsp-host][data-wsp-locale="ar"] .wsp-hero-badge{direction:rtl;text-align:right}
+@media(max-width:560px){
+ [data-wsp-host] .wsp-plugin-panel{padding:12px}
+ [data-wsp-host] .wsp-quick-links,[data-wsp-host] .wsp-quick-themes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce),(forced-colors:active){
+ [data-wsp-host] .wsp-atmosphere-layer{animation:none!important;opacity:0!important}
+ [data-wsp-host] .wsp-plugin-panel *{animation:none!important;transition:none!important}
+}
+@media(forced-colors:active){
+ [data-wsp-host] .wsp-plugin-panel,
+ [data-wsp-host] .wsp-hero-badge,
+ [data-wsp-host] .wsp-plugin-panel :is(button,select,input){
+  background:Canvas!important;color:CanvasText!important;border:1px solid CanvasText!important;
+ }
+}

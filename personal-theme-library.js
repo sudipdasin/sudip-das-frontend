@@ -1,21 +1,21 @@
-/* Visitor-only WebStudio-inspired Theme Library for the public personal portfolio.
+/* Visitor-only WebStudio-inspired Theme Library for the REAL personal preview.
  * Only uses already approved theme IDs, CSS and public page sections.
  * No Studio/editor APIs, private requests, analytics, imports, exports,
  * user-auth controls or external JavaScript. Does not alter initial layout.
  */
 (()=>{
 'use strict';
-if(window.PORTFOLIO_PREVIEW_MODE!==true&&window.PORTFOLIO_PUBLIC_READ_ONLY!==true)return;
+if(window.PORTFOLIO_PREVIEW_MODE!==true)return;
 const picker=document.getElementById('theme-select');
 const quick=document.getElementById('ws-visitor-quick-panel');
 const quickButton=document.getElementById('ws-visitor-quick-open');
 if(!picker||!quick||!quickButton||document.getElementById('pv-theme-library'))return;
-const IDS=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2'];
+const IDS=['orbit','editorial','terminal','aurora-peak','neon-studio','design-2','bento'];
 const EXPECTED_SOURCE='c5383df1ebda7a0e5f05d9f59048a136dc99dac5';
 const PALETTES={
  orbit:['#092431','#51d6cb'],editorial:['#efece4','#8d583d'],
- terminal:['#081b17','#42d98e'],'aurora-peak':['#092037','#74d8c2'],
- 'neon-studio':['#071933','#25f1e6'],'design-2':['#121e47','#b970ff']
+ terminal:['#081b17','#42d98e'],'aurora-peak':['#081b20','#d8e5ae'],
+ 'neon-studio':['#071933','#25f1e6'],'design-2':['#121e47','#b970ff'],bento:['#24282d','#91b5ff']
 };
 // PREVIEW-LOCAL bundled theme list. This avoids a network fetch that would
 // lose the Cloudflare Access session when credentials were omitted.
@@ -29,9 +29,10 @@ const BUNDLED_CONTRACT=Object.freeze({
   {id:'orbit',personalLabel:'Orbit · Portfolio',personalPreviewAvailable:true,distinctive:'Ocean teal, circular portrait and read-only portfolio.'},
   {id:'editorial',personalLabel:'Editorial · Profile',personalPreviewAvailable:true,distinctive:'Warm paper surfaces, serif typography and refined framing. The preserved favorite.'},
   {id:'terminal',personalLabel:'Terminal · Explorer',personalPreviewAvailable:true,distinctive:'Monospaced Linux-inspired design with sharp corners and high contrast.'},
-  {id:'aurora-peak',personalLabel:'Aurora Peak',personalPreviewAvailable:true,distinctive:'Atmospheric mountain and emerald accents with layered depth.'},
+  {id:'aurora-peak',personalLabel:'Aurora Peak',personalPreviewAvailable:true,distinctive:'Alpine sunrise, lichen accents, arched portrait, mountain layers and field notes.'},
   {id:'neon-studio',personalLabel:'Neon Studio',personalPreviewAvailable:true,distinctive:'Turquoise aurora ribbon, five medallions and six compact feature tiles.'},
-  {id:'design-2',personalLabel:'Cosmic',personalPreviewAvailable:true,distinctive:'Deep cosmic blues, four satellites and four glass information cards.'}
+  {id:'design-2',personalLabel:'Cosmic',personalPreviewAvailable:true,distinctive:'Deep cosmic blues, four satellites and four glass information cards.'},
+  {id:'bento',personalLabel:'Obsidian Bento',personalPreviewAvailable:true,distinctive:'Freelancer-focused charcoal, cobalt and ivory modular cards.'}
  ]
 });
 const safeLabel=t=>typeof t==='string'&&t.length<=100&&!/[<>]/.test(t);
@@ -45,7 +46,7 @@ const status={loaded:false,items:[],error:null,original:null};
 function safeManifest(data){
  if(!data||data.schemaVersion!==1||data.previewOnly!==true||
    data.editorialFreeze?.immutableCommit!==EXPECTED_SOURCE||
-   !Array.isArray(data.themes)||data.themes.length!==6||
+   !Array.isArray(data.themes)||data.themes.length!==7||
    data.currentPreview!=='https://preview-personalweb.sudip-das-frontend.pages.dev/')
   throw Error('Unexpected canonical personal theme manifest');
  return data.themes.map((t,i)=>{
@@ -78,7 +79,7 @@ root.setAttribute('aria-describedby','pv-theme-description');
 const panel=el('section','pv-theme-panel');
 const head=el('div','pv-theme-head');
 const intro=el('div');
-const title=el('h2','', 'Explore six portfolio themes');
+const title=el('h2','', 'Explore seven portfolio themes');
 title.id='pv-theme-heading';
 const desc=el('p','','Switch the presentation of this portfolio. Personal information and website settings stay unchanged.');
 desc.id='pv-theme-description';
@@ -111,9 +112,9 @@ const openButton=el('button','pv-theme-launch');
 openButton.append(
  el('span','pv-theme-launch-glyph','◈'),
  el('span','pv-theme-launch-label','Explore themes'),
- el('span','pv-theme-launch-counter','6')
+ el('span','pv-theme-launch-counter','7')
 );
-openButton.setAttribute('aria-label','Explore six portfolio themes');
+openButton.setAttribute('aria-label','Explore seven portfolio themes');
 openButton.type='button';openButton.id='pv-theme-launch';
 openButton.setAttribute('aria-haspopup','dialog');
 openButton.setAttribute('aria-controls',root.id);

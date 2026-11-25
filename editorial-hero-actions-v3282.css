@@ -1,0 +1,170 @@
+/* WebStudio Editorial CTA composition v3.28.2
+ * Scoped: Editorial hero only. Other themes, navigation and JS untouched.
+ * Keeps GitHub preview and video controls interactive.
+ */
+@media (min-width: 701px) {
+  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px!important;
+    align-items:stretch;
+    width:100%;
+    max-width:610px;
+  }
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > * {
+  min-width:0!important;
+  width:100%!important;
+  max-width:100%;
+  margin:0!important;
+  box-sizing:border-box;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > :is(a,button,.gh-hero-shell,.pv-intro-tile) {
+  border-radius:5px;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > a.button {
+  justify-content:center;
+  min-height:60px;
+  text-align:center;
+  background:#fbf7ee;
+  border:1px solid #a88b70;
+  color:#352f2b;
+  box-shadow:none;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > a.button.primary {
+  background:#865e49;
+  color:#fffaf3;
+  border-color:#865e49;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > a.button:is(:hover,:focus-visible) {
+  border-color:#6f452f;
+  box-shadow:0 4px 14px #67452b24;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .gh-hero-trigger {
+  min-height:60px;
+  width:100%;
+  border-color:#a88b70;
+  border-radius:5px;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-tile {
+  align-self:stretch;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-hero-cta {
+  min-height:60px;
+  border:1px solid #a88b70;
+  border-radius:5px;
+}
+@media(max-width:700px){
+  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr);
+    gap:10px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+ body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions *{
+   transition-duration:0.01ms!important;
+ }
+}
+
+/* v3.28.3 manual visual feedback — restrained Editorial action hierarchy.
+ * The four hero controls share one composition; preserve the existing
+ * GitHub disclosure, real intro-video expand action and no-dark-overlay fix.
+ */
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions{
+  grid-auto-rows:minmax(82px,auto);
+  gap:11px!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > a.button.primary{
+  order:1!important;
+  min-height:82px!important;
+  font:700 .95rem/1.4 var(--sans,Arial,sans-serif)!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > .gh-hero-shell{
+  order:2!important;
+  --gh-bg:#fbf7ef;
+  --gh-surface:#fffaf2;
+  --gh-ink:#3a2d26;
+  --gh-muted:#635248;
+  --gh-edge:#a78972;
+  --gh-accent:#89583f;
+  --gh-focus:#89583f;
+  --gh-gloss:#bd9a7d26;
+  --gh-radius:6px;
+  --gh-inner-radius:5px;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .gh-hero-trigger{
+  min-height:82px!important;
+  background:#fbf7ef!important;
+  color:#3a2d26!important;
+  border:1px solid #a78972!important;
+  box-shadow:0 2px 7px #5d473012!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .gh-hero-icon{
+  background:#f4ebe0!important;
+  color:#89583f!important;
+  border-color:#ae8971!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .gh-hero-words strong{
+  color:#392d27!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .gh-hero-words small{
+  color:#64574d!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > .portfolio-gallery-hero-launch{
+  order:3!important;
+  min-height:82px!important;
+  border:1px solid #ad9078!important;
+  background:#fffaf3!important;
+  color:#302d29!important;
+  box-shadow:0 2px 7px #5d473010!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > .pv-intro-tile{
+  order:4!important;
+  min-height:82px!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-tile > .pv-intro-hero-cta{
+  min-height:82px!important;
+  background:#fbf7ef!important;
+  background-image:none!important;
+  color:#392e27!important;
+  border:1px solid #ad9078!important;
+  box-shadow:0 2px 7px #5d473014!important;
+  border-radius:6px!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-launch-copy{
+  color:#392e27!important;
+  text-shadow:none!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-launch-copy :is(strong,small){
+  color:#392e27!important;
+  text-shadow:none!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-launch-copy small{
+  color:#735c4b!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-expand{
+  background:#865e49!important;
+  color:#fff9f0!important;
+  border:1px solid #865e49!important;
+  box-shadow:none!important;
+  border-radius:5px!important;
+  min-width:36px!important;
+  min-height:36px!important;
+  width:36px!important;
+  height:36px!important;
+}
+body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions :is(a,button):focus-visible{
+  outline:3px solid #9f6548!important;
+  outline-offset:3px!important;
+}
+@media(max-width:700px){
+  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions{
+    grid-auto-rows:minmax(72px,auto);
+  }
+  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions > :is(a.button.primary,.portfolio-gallery-hero-launch,.pv-intro-tile),
+  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .gh-hero-trigger,
+  body.ws-parity[data-theme="editorial"] main>.hero.hd-hero .hero-text>.actions .pv-intro-tile > .pv-intro-hero-cta{
+    min-height:72px!important;
+  }
+}

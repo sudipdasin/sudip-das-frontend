@@ -1,0 +1,30 @@
+/* WebStudio GitHub hero disclosure v3.31.1
+ * Cross-theme stacking repair: popup lives inside an isolated hero.
+ * The marquee/ticker is a sibling, so a child z-index alone cannot win.
+ * Activate elevation ONLY while the GitHub disclosure is expanded.
+ * This preserves original theme geometry, backgrounds and motion.
+ */
+body.ws-parity main > .hero.hd-hero.gh-disclosure-visible {
+  position: relative !important;
+  z-index: 2400 !important;
+  overflow: visible !important;
+}
+body.ws-parity main > .hero.hd-hero.gh-disclosure-visible > .hero-text,
+body.ws-parity main > .hero.hd-hero.gh-disclosure-visible .hero-text .actions,
+body.ws-parity main > .hero.hd-hero.gh-disclosure-visible .gh-hero-shell[data-open="true"] {
+  overflow: visible !important;
+}
+body.ws-parity main > .hero.hd-hero.gh-disclosure-visible .gh-hero-panel:not([hidden]) {
+  z-index: 2450 !important;
+}
+body.ws-parity main > .hero.hd-hero.gh-disclosure-visible + .ticker {
+  position: relative;
+  z-index: 0 !important;
+}
+/* While disclosure is expanded, sticky navigation remains above hero. */
+body.ws-parity.gh-disclosure-active .topbar {
+  position: sticky;
+  z-index: 2800 !important;
+}
+/* No forced transforms, geometry or animation changes. Existing
+   reduced-motion and theme-specific visuals remain authoritative. */

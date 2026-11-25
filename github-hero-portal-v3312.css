@@ -1,0 +1,84 @@
+/* GitHub disclosure viewport portal v3.31.2.
+ * Hero stays in its approved theme composition. The dropdown is temporarily
+ * attached directly to body, avoiding every theme's isolated hero/marquee
+ * stacking context. Its skin follows data-gh-theme (the chosen theme), not
+ * stale ancestor-specific CSS variables or previous theme transitions.
+ */
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal {
+  position:fixed!important;
+  z-index:2500!important;
+  inset:auto;
+  min-width:min(320px,calc(100vw - 24px));
+  max-width:calc(100vw - 24px);
+  max-height:min(69dvh,520px);
+  overflow:auto;
+  overscroll-behavior:contain;
+  pointer-events:auto;
+  isolation:isolate;
+  color:var(--gh-ink);
+  background:var(--gh-surface);
+  border:1px solid var(--gh-edge);
+  border-radius:var(--gh-radius);
+  box-shadow:0 22px 65px #000a,0 0 0 1px var(--gh-gloss);
+}
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal.gh-open-up {
+  transform-origin:bottom left;
+}
+body.ws-parity.gh-panel-portaled > header.topbar {
+  z-index:2600!important;
+}
+/* Every theme receives its exact native GitHub Explorer palette and shape. */
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal[data-gh-theme="orbit"] {
+  --gh-bg:#102e41;--gh-surface:#0c2c3d;--gh-ink:#e7fcfa;
+  --gh-muted:#b9e7df;--gh-edge:#5da9ae;--gh-accent:#7cf8de;
+  --gh-focus:#9ff7e7;--gh-radius:19px;--gh-inner-radius:9px;
+  --gh-gloss:#58ead849;
+}
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal[data-gh-theme="editorial"] {
+  --gh-bg:#f8f0e2;--gh-surface:#fffaf1;--gh-ink:#282d28;
+  --gh-muted:#555a50;--gh-edge:#a69074;--gh-accent:#794d32;
+  --gh-focus:#805233;--gh-radius:2px;--gh-inner-radius:1px;
+  --gh-gloss:#9e75532b;
+}
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal[data-gh-theme="terminal"] {
+  --gh-bg:#0b2117;--gh-surface:#061b12;--gh-ink:#e9fff0;
+  --gh-muted:#b0e7c3;--gh-edge:#4da771;--gh-accent:#70f9a6;
+  --gh-focus:#b2ffcf;--gh-radius:0px;--gh-inner-radius:0px;
+  --gh-gloss:#46fb9a2b;
+}
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal[data-gh-theme="aurora-peak"] {
+  --gh-bg:#143a36;--gh-surface:#102f32;--gh-ink:#f0f8e8;
+  --gh-muted:#cee4d5;--gh-edge:#a2c8b0;--gh-accent:#e2edb5;
+  --gh-focus:#f5c699;--gh-radius:8px 22px 8px 22px;
+  --gh-inner-radius:6px 14px 6px 14px;--gh-gloss:#dbeab445;
+}
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal[data-gh-theme="neon-studio"] {
+  --gh-bg:#102e3b;--gh-surface:#101e36;--gh-ink:#eafcff;
+  --gh-muted:#b9dce4;--gh-edge:#4ebac9;--gh-accent:#7cf5ed;
+  --gh-focus:#c0faff;--gh-radius:16px;--gh-inner-radius:9px;
+  --gh-gloss:#9c5ced59;
+}
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal[data-gh-theme="design-2"] {
+  --gh-bg:#1a2043;--gh-surface:#1c1740;--gh-ink:#f4efff;
+  --gh-muted:#d5c7ed;--gh-edge:#9878ca;--gh-accent:#dbc2ff;
+  --gh-focus:#e8d2ff;--gh-radius:25px;--gh-inner-radius:17px;
+  --gh-gloss:#ae6fff70;
+}
+/* Preserve the Editorial serif and Terminal console typographic grammar. */
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal[data-gh-theme="editorial"]
+  :is(h3,h4,.gh-repo-top strong) {
+  font-family:Georgia,serif!important;
+}
+body.ws-parity > .gh-hero-panel.gh-hero-panel-portal[data-gh-theme="terminal"]
+  :is(button,a,strong,small,p,h3,h4,dt,dd,span) {
+  font-family:var(--mono,ui-monospace,monospace)!important;
+}
+/* Reduced-motion behavior stays consistent with the native disclosure. */
+@media(prefers-reduced-motion:reduce){
+  body.ws-parity > .gh-hero-panel.gh-hero-panel-portal {animation:none!important;transition:none!important;}
+}
+@media(forced-colors:active){
+  body.ws-parity > .gh-hero-panel.gh-hero-panel-portal {
+    background:Canvas!important;color:CanvasText!important;border:1px solid CanvasText!important;
+  }
+}
